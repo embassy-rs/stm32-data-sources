@@ -1,0 +1,1694 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?><IP xmlns="http://mcd.rou.st.com/modules.php?name=mcu" xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance" DBVersion="V3.0" IPType="peripheral" Name="RCC" Version="STM32F303_rcc_v1_0" ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../../../doc/V4/Development/Specifications/db/IP_Modes.xsd">
+    <About>RCC: Reset and Clock Control</About>
+    <RefParameter Comment="Oscillator Type" DefaultValue="+OscillatorTypeHSI+|OscillatorTypeLSI+|OscillatorTypeHSE+|OscillatorTypeLSE" Name="OscillatorType" Type="list" Visible="false"/>
+      <RefParameter Name="HSE_Timout"   Comment="HSE Startup Timout Value (ms)" Type="integer" DefaultValue="100" Min="1"  Max="4294967295" Group="RCC Parameters"/>
+	 <RefParameter Name="LSE_Timout"   Comment="LSE Startup Timout Value (ms)" Type="integer" DefaultValue="5000" Min="1" Max="4294967295"  Group="RCC Parameters"/>
+    <!--Les multiplicateurs-->
+    <!--PLL MUL-->
+    <RefParameter Comment="PLL Mul" DefaultValue="RCC_PLL_MUL2" Name="PLLMUL" Type="list" Visible="false">
+        <PossibleValue Comment="2" Value="RCC_PLL_MUL2"/>
+        <PossibleValue Comment="3" Value="RCC_PLL_MUL3"/>
+        <PossibleValue Comment="4" Value="RCC_PLL_MUL4"/>
+        <PossibleValue Comment="5" Value="RCC_PLL_MUL5"/>
+        <PossibleValue Comment="6" Value="RCC_PLL_MUL6"/>
+        <PossibleValue Comment="7" Value="RCC_PLL_MUL7"/>
+        <PossibleValue Comment="8" Value="RCC_PLL_MUL8"/>
+        <PossibleValue Comment="9" Value="RCC_PLL_MUL9"/>
+        <PossibleValue Comment="10" Value="RCC_PLL_MUL10"/>
+        <PossibleValue Comment="11" Value="RCC_PLL_MUL11"/>
+        <PossibleValue Comment="12" Value="RCC_PLL_MUL12"/>
+        <PossibleValue Comment="13" Value="RCC_PLL_MUL13"/>
+        <PossibleValue Comment="14" Value="RCC_PLL_MUL14"/>
+        <PossibleValue Comment="15" Value="RCC_PLL_MUL15"/>
+        <PossibleValue Comment="16" Value="RCC_PLL_MUL16"/>
+    </RefParameter>
+    <!--APB1 MUL for TIM-->
+    <RefParameter Comment="APB1 Timer Clock Divider" DefaultValue="1" Max="1" Min="1" Name="APB1TimCLKDivider" Type="integer" Visible="false">
+        <Condition Diagnostic="APB1 timer clock" Expression="APB1CLKDivider=RCC_HCLK_DIV1"/>
+    </RefParameter>
+    <RefParameter Comment="APB1 Timer Clock Divider" DefaultValue="2" Max="2" Min="2" Name="APB1TimCLKDivider" Type="integer" Visible="false"/>
+    <!--APB2 MUL for TIM-->
+    <RefParameter Comment="APB2 Timer Clock Divider" DefaultValue="1" Max="1" Min="1" Name="APB2TimCLKDivider" Type="integer" Visible="false">
+        <Condition Diagnostic="APB1 timer clock" Expression="APB2CLKDivider=RCC_HCLK_DIV1"/>
+    </RefParameter>
+    <RefParameter Comment="APB2 Timer Clock Divider" DefaultValue="2" Max="2" Min="2" Name="APB2TimCLKDivider" Type="integer" Visible="false"/>
+    <!--TIM8/1 MUL -->
+    <RefParameter Comment="HSI RC Diviseur for PLL" DefaultValue="2" Max="2" Min="2" Name="TIMMUL" Type="integer" Visible="false"/>
+
+    <!--les diviseurs-->
+    <!--diviseur HSI pour PLL source-->
+    <RefParameter Comment="HSIRC Divider for PLL" DefaultValue="2" Max="2" Min="2" Name="HSIRCDiv" Type="integer" Visible="false"/>
+
+    <!--diviseur HSE pour PLL source-->
+    <RefParameter Comment="HSE Prediv Value" DefaultValue="RCC_HSE_PREDIV_DIV1" Name="RCC_PLLsource_Clock_Source_FROM_HSE" Type="list" Visible="false">
+        <PossibleValue Comment="1" Value="RCC_HSE_PREDIV_DIV1" Semaphore="HSEDiv1"/>
+        <PossibleValue Comment="2" Value="RCC_HSE_PREDIV_DIV2" Semaphore="HSEDiv2"/>
+        <PossibleValue Comment="3" Value="RCC_HSE_PREDIV_DIV3" Semaphore="HSEDiv3"/>
+        <PossibleValue Comment="4" Value="RCC_HSE_PREDIV_DIV4" Semaphore="HSEDiv4"/>
+        <PossibleValue Comment="5" Value="RCC_HSE_PREDIV_DIV5" Semaphore="HSEDiv5"/>
+        <PossibleValue Comment="6" Value="RCC_HSE_PREDIV_DIV6" Semaphore="HSEDiv6"/>
+        <PossibleValue Comment="7" Value="RCC_HSE_PREDIV_DIV7" Semaphore="HSEDiv7"/>
+        <PossibleValue Comment="8" Value="RCC_HSE_PREDIV_DIV8" Semaphore="HSEDiv8"/>
+        <PossibleValue Comment="9" Value="RCC_HSE_PREDIV_DIV9" Semaphore="HSEDiv9"/>
+        <PossibleValue Comment="10" Value="RCC_HSE_PREDIV_DIV10" Semaphore="HSEDiv10"/>
+        <PossibleValue Comment="11" Value="RCC_HSE_PREDIV_DIV11" Semaphore="HSEDiv11"/>
+        <PossibleValue Comment="12" Value="RCC_HSE_PREDIV_DIV12" Semaphore="HSEDiv12"/>
+        <PossibleValue Comment="13" Value="RCC_HSE_PREDIV_DIV13" Semaphore="HSEDiv13"/>
+        <PossibleValue Comment="14" Value="RCC_HSE_PREDIV_DIV14" Semaphore="HSEDiv14"/>
+        <PossibleValue Comment="15" Value="RCC_HSE_PREDIV_DIV15" Semaphore="HSEDiv15"/>
+        <PossibleValue Comment="16" Value="RCC_HSE_PREDIV_DIV16" Semaphore="HSEDiv16"/>
+    </RefParameter>
+    <!--diviseur HSE pour RTC-->
+    <RefParameter Comment="HSE RTC Divider" DefaultValue="32" Max="32" Min="32" Name="RCC_RTC_Clock_Source_FROM_HSE" Type="integer" Visible="false"/>
+    <!--diviseur USB prescaler 1 et 1.5-->
+    <RefParameter Comment="USB clock Divider" DefaultValue="RCC_USBCLKSOURCE_PLL" Name="PRESCALERUSB" Type="list" Visible="false">
+        <PossibleValue Comment="1" Value="RCC_USBCLKSOURCE_PLL"/>
+        <PossibleValue Comment="1.5" Value="RCC_USBCLKSOURCE_PLL_DIV1_5"/>
+    </RefParameter>
+    <!--diviseur de PLL output vers MCO-->
+    <RefParameter Comment="PLL Divider for MCO" DefaultValue="RCC_MCO1SOURCE_PLLCLK" Name="RCC_MCOMult_Clock_Source_FROM_PLLMUL" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="DIE439|DIE438"/>
+        <PossibleValue Comment="1" Value="RCC_MCO1SOURCE_PLLCLK"/>   
+        <PossibleValue Comment="2" Value="RCC_MCO1SOURCE_PLLCLK_DIV2"/>   
+    </RefParameter>
+    <RefParameter Comment="PLL Divider for MCO" DefaultValue="2" Max="2" Min="2" Name="RCC_MCOMult_Clock_Source_FROM_PLLMUL" Type="integer" Visible="false"/>    <!--diviseur AHB 1..512-->
+   
+   
+    <RefParameter Comment="AHBCLK Divider" DefaultValue="RCC_SYSCLK_DIV1" Name="AHBCLKDivider" Type="list" Visible="false">
+        <PossibleValue Comment="1" Semaphore="AHBCLKDivider1" Value="RCC_SYSCLK_DIV1"/>
+        <PossibleValue Comment="2" Value="RCC_SYSCLK_DIV2"/>
+        <PossibleValue Comment="4" Value="RCC_SYSCLK_DIV4"/>
+        <PossibleValue Comment="8" Value="RCC_SYSCLK_DIV8"/>
+        <PossibleValue Comment="16" Value="RCC_SYSCLK_DIV16"/>
+        <PossibleValue Comment="64" Value="RCC_SYSCLK_DIV64"/>
+        <PossibleValue Comment="128" Value="RCC_SYSCLK_DIV128"/>
+        <PossibleValue Comment="256" Value="RCC_SYSCLK_DIV256"/>
+        <PossibleValue Comment="512" Value="RCC_SYSCLK_DIV512"/>
+    </RefParameter>
+    <!--diviseur de AHB /8 pour cortex-->
+
+	<RefParameter Comment="Cortex Div" DefaultValue="SYSTICK_CLKSOURCE_HCLK" Name="Cortex_Div" Type="list" Visible="false">
+         <PossibleValue Comment="1" Semaphore="HCLKDiv1" Value="SYSTICK_CLKSOURCE_HCLK"/>
+		 <PossibleValue Comment="8" Value="SYSTICK_CLKSOURCE_HCLK_DIV8"/>
+   </RefParameter>
+      <RefParameter Comment="Cortex_DivARG" DefaultValue="HAL_RCC_GetHCLKFreq()/1000" Name="Cortex_DivARG" Type="String" Visible="false">
+        <Condition Diagnostic="" Expression="HCLKDiv1"/>
+    </RefParameter>	
+    <RefParameter Comment="Cortex_DivARG" DefaultValue="HAL_RCC_GetHCLKFreq()/8000" Name="Cortex_DivARG" Type="String" Visible="false"/>
+    <!--diviseur APB1 1..16-->
+    <RefParameter Comment="APB1 Clock Divider" DefaultValue="RCC_HCLK_DIV1" Name="APB1CLKDivider" Type="list" Visible="false">
+        <PossibleValue Comment="1" Value="RCC_HCLK_DIV1"/>
+        <PossibleValue Comment="2" Value="RCC_HCLK_DIV2"/>
+        <PossibleValue Comment="4" Value="RCC_HCLK_DIV4"/>
+        <PossibleValue Comment="8" Value="RCC_HCLK_DIV8"/>
+        <PossibleValue Comment="16" Value="RCC_HCLK_DIV16"/>
+    </RefParameter>
+    <!--diviseur APB2 1..16-->
+    <RefParameter Comment="APB2 Clock Divider" DefaultValue="RCC_HCLK_DIV1" Name="APB2CLKDivider" Type="list" Visible="false">
+        <PossibleValue Comment="1" Semaphore="APB2DIV1" Value="RCC_HCLK_DIV1"/>
+        <PossibleValue Comment="2" Value="RCC_HCLK_DIV2"/>
+        <PossibleValue Comment="4" Value="RCC_HCLK_DIV4"/>
+        <PossibleValue Comment="8" Value="RCC_HCLK_DIV8"/>
+        <PossibleValue Comment="16" Value="RCC_HCLK_DIV16"/>
+    </RefParameter>
+    <!--diviseur de PLL verc ADC34-->
+    
+    <RefParameter Comment="ADC3,4 Clock Divider" DefaultValue="RCC_ADC34PLLCLK_DIV1" Name="ADC34PRES" Type="list" Visible="false">
+        <PossibleValue Comment="1" Value="RCC_ADC34PLLCLK_DIV1"/>
+        <PossibleValue Comment="2" Value="RCC_ADC34PLLCLK_DIV2"/>
+        <PossibleValue Comment="4" Value="RCC_ADC34PLLCLK_DIV4"/>
+        <PossibleValue Comment="6" Value="RCC_ADC34PLLCLK_DIV6"/>
+        <PossibleValue Comment="8" Value="RCC_ADC34PLLCLK_DIV8"/>
+        <PossibleValue Comment="10" Value="RCC_ADC34PLLCLK_DIV10"/>
+        <PossibleValue Comment="12" Value="RCC_ADC34PLLCLK_DIV12"/>
+        <PossibleValue Comment="16" Value="RCC_ADC34PLLCLK_DIV16"/>
+        <PossibleValue Comment="32" Value="RCC_ADC34PLLCLK_DIV32"/>
+        <PossibleValue Comment="64" Value="RCC_ADC34PLLCLK_DIV64"/>
+        <PossibleValue Comment="128" Value="RCC_ADC34PLLCLK_DIV128"/>
+        <PossibleValue Comment="256" Value="RCC_ADC34PLLCLK_DIV256"/>
+        
+    </RefParameter>
+    <!--diviseur de PLL verc ADC12-->
+    <RefParameter Comment="ADC1,2 Clock Divider" DefaultValue="RCC_ADC12PLLCLK_DIV1" Name="ADC12PRES" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="!DIE439"/>
+        <PossibleValue Comment="1" Value="RCC_ADC12PLLCLK_DIV1"/>
+        <PossibleValue Comment="2" Value="RCC_ADC12PLLCLK_DIV2"/>
+        <PossibleValue Comment="4" Value="RCC_ADC12PLLCLK_DIV4"/>
+        <PossibleValue Comment="6" Value="RCC_ADC12PLLCLK_DIV6"/>
+        <PossibleValue Comment="8" Value="RCC_ADC12PLLCLK_DIV8"/>
+        <PossibleValue Comment="10" Value="RCC_ADC12PLLCLK_DIV10"/>
+        <PossibleValue Comment="12" Value="RCC_ADC12PLLCLK_DIV12"/>
+        <PossibleValue Comment="16" Value="RCC_ADC12PLLCLK_DIV16"/>
+        <PossibleValue Comment="32" Value="RCC_ADC12PLLCLK_DIV32"/>
+        <PossibleValue Comment="64" Value="RCC_ADC12PLLCLK_DIV64"/>
+        <PossibleValue Comment="128" Value="RCC_ADC12PLLCLK_DIV128"/>
+        <PossibleValue Comment="256" Value="RCC_ADC12PLLCLK_DIV256"/>
+        
+    </RefParameter>
+    <RefParameter Comment="ADC1 Clock Divider" DefaultValue="RCC_ADC1PLLCLK_DIV1" Name="ADC12PRES" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="DIE439"/>
+        <PossibleValue Comment="1" Value="RCC_ADC1PLLCLK_DIV1"/>
+        <PossibleValue Comment="2" Value="RCC_ADC1PLLCLK_DIV2"/>
+        <PossibleValue Comment="4" Value="RCC_ADC1PLLCLK_DIV4"/>
+        <PossibleValue Comment="6" Value="RCC_ADC1PLLCLK_DIV6"/>
+        <PossibleValue Comment="8" Value="RCC_ADC1PLLCLK_DIV8"/>
+        <PossibleValue Comment="10" Value="RCC_ADC1PLLCLK_DIV10"/>
+        <PossibleValue Comment="12" Value="RCC_ADC1PLLCLK_DIV12"/>
+        <PossibleValue Comment="16" Value="RCC_ADC1PLLCLK_DIV16"/>
+        <PossibleValue Comment="32" Value="RCC_ADC1PLLCLK_DIV32"/>
+        <PossibleValue Comment="64" Value="RCC_ADC1PLLCLK_DIV64"/>
+        <PossibleValue Comment="128" Value="RCC_ADC1PLLCLK_DIV128"/>
+        <PossibleValue Comment="256" Value="RCC_ADC1PLLCLK_DIV256"/>
+        
+    </RefParameter>
+    <RefParameter Comment="ADC1 Clock Divider" DefaultValue="null" Name="ADC12PRES" Type="list" Visible="false"/>
+
+    <!--Les multiplexeurs-->
+    <!-- PLL source MUX-->
+    	
+    <RefParameter Comment="PLL Source" DefaultValue="RCC_PLLSOURCE_HSE" Name="PLLSourceVirtual" Type="list" Visible="false">
+        <Condition Diagnostic="PLL Mux should have HSE as input" Expression="(USBUsed_ForRCC) "/>
+        <PossibleValue Comment="Pllsource Hse" Value="RCC_PLLSOURCE_HSE"/>
+    </RefParameter>
+    <RefParameter Comment="PLL Source" DefaultValue="RCC_PLLSOURCE_HSI" Name="PLLSourceVirtual" Type="list" Visible="false">
+        <PossibleValue Comment="Pllsource Hsi" Value="RCC_PLLSOURCE_HSI"/>
+        <PossibleValue Comment="Pllsource Hse" Value="RCC_PLLSOURCE_HSE"/>
+    </RefParameter>
+    <RefParameter Comment="PLL Source" DefaultValue="+PLLSourceVirtual" Name="PLLSourceVirtualString" Type="string" Visible="false"/>
+ 
+    <RefParameter Comment="PLL Source" DefaultValue="+PLLSourceVirtualString" Name="PLLSource" Type="list" Visible="false">
+        <PossibleValue Comment="Pllsource Hsi" Value="RCC_PLLSOURCE_HSI" Semaphore="PLLSourceHSI"/>
+        <PossibleValue Comment="Pllsource Hse" Value="RCC_PLLSOURCE_HSE" Semaphore="PLLSourceHSE"/>
+    </RefParameter>
+	 <RefParameter Comment="PLL Source" DefaultValue="RCC_PLLSOURCE_HSI" Name="PLLSourceLL" Type="list" Visible="false">
+                <Condition Diagnostic="" Expression="PLLSourceHSI "/>
+		<PossibleValue Comment="Pllsource Hsi" Value="RCC_PLLSOURCE_HSI"/>
+    </RefParameter>   
+	
+	<RefParameter Comment="PLL Source" DefaultValue="RCC_HSE_PREDIV_DIV1" Name="PLLSourceLL" Type="list" Visible="false">
+                <Condition Diagnostic="" Expression="PLLSourceHSE &amp; HSEDiv1 "/>
+		<PossibleValue Comment="Pllsource Hsi" Value="RCC_HSE_PREDIV_DIV1"/>
+    </RefParameter>
+	<RefParameter Comment="PLL Source" DefaultValue="RCC_HSE_PREDIV_DIV2" Name="PLLSourceLL" Type="list" Visible="false">
+                <Condition Diagnostic="" Expression="PLLSourceHSE &amp; HSEDiv2 "/>
+		<PossibleValue Comment="Pllsource Hsi" Value="RCC_HSE_PREDIV_DIV2"/>
+    </RefParameter>
+	<RefParameter Comment="PLL Source" DefaultValue="RCC_HSE_PREDIV_DIV3" Name="PLLSourceLL" Type="list" Visible="false">
+                <Condition Diagnostic="" Expression="PLLSourceHSE &amp; HSEDiv3 "/>
+		<PossibleValue Comment="Pllsource Hsi" Value="RCC_HSE_PREDIV_DIV3"/>
+    </RefParameter>
+	<RefParameter Comment="PLL Source" DefaultValue="RCC_HSE_PREDIV_DIV4" Name="PLLSourceLL" Type="list" Visible="false">
+                <Condition Diagnostic="" Expression="PLLSourceHSE &amp; HSEDiv4 "/>
+		<PossibleValue Comment="Pllsource Hsi" Value="RCC_HSE_PREDIV_DIV4"/>
+    </RefParameter>
+	<RefParameter Comment="PLL Source" DefaultValue="RCC_HSE_PREDIV_DIV5" Name="PLLSourceLL" Type="list" Visible="false">
+                <Condition Diagnostic="" Expression="PLLSourceHSE &amp; HSEDiv5 "/>
+		<PossibleValue Comment="Pllsource Hsi" Value="RCC_HSE_PREDIV_DIV5"/>
+    </RefParameter>
+	<RefParameter Comment="PLL Source" DefaultValue="RCC_HSE_PREDIV_DIV6" Name="PLLSourceLL" Type="list" Visible="false">
+                <Condition Diagnostic="" Expression="PLLSourceHSE &amp; HSEDiv6 "/>
+		<PossibleValue Comment="Pllsource Hsi" Value="RCC_HSE_PREDIV_DIV6"/>
+    </RefParameter>
+	<RefParameter Comment="PLL Source" DefaultValue="RCC_HSE_PREDIV_DIV7" Name="PLLSourceLL" Type="list" Visible="false">
+                <Condition Diagnostic="" Expression="PLLSourceHSE &amp; HSEDiv7 "/>
+		<PossibleValue Comment="Pllsource Hsi" Value="RCC_HSE_PREDIV_DIV7"/>
+    </RefParameter>
+	<RefParameter Comment="PLL Source" DefaultValue="RCC_HSE_PREDIV_DIV7" Name="PLLSourceLL" Type="list" Visible="false">
+                <Condition Diagnostic="" Expression="PLLSourceHSE &amp; HSEDiv7 "/>
+		<PossibleValue Comment="Pllsource Hsi" Value="RCC_HSE_PREDIV_DIV7"/>
+    </RefParameter>
+	<RefParameter Comment="PLL Source" DefaultValue="RCC_HSE_PREDIV_DIV8" Name="PLLSourceLL" Type="list" Visible="false">
+                <Condition Diagnostic="" Expression="PLLSourceHSE &amp; HSEDiv8 "/>
+		<PossibleValue Comment="Pllsource Hsi" Value="RCC_HSE_PREDIV_DIV8"/>
+    </RefParameter>
+	<RefParameter Comment="PLL Source" DefaultValue="RCC_HSE_PREDIV_DIV9" Name="PLLSourceLL" Type="list" Visible="false">
+                <Condition Diagnostic="" Expression="PLLSourceHSE &amp; HSEDiv9 "/>
+		<PossibleValue Comment="Pllsource Hsi" Value="RCC_HSE_PREDIV_DIV9"/>
+    </RefParameter>
+	<RefParameter Comment="PLL Source" DefaultValue="RCC_HSE_PREDIV_DIV10" Name="PLLSourceLL" Type="list" Visible="false">
+                <Condition Diagnostic="" Expression="PLLSourceHSE &amp; HSEDiv10"/>
+		<PossibleValue Comment="Pllsource Hsi" Value="RCC_HSE_PREDIV_DIV10"/>
+    </RefParameter>
+	<RefParameter Comment="PLL Source" DefaultValue="RCC_HSE_PREDIV_DIV11" Name="PLLSourceLL" Type="list" Visible="false">
+                <Condition Diagnostic="" Expression="PLLSourceHSE &amp; HSEDiv11 "/>
+		<PossibleValue Comment="Pllsource Hsi" Value="RCC_HSE_PREDIV_DIV11"/>
+    </RefParameter>
+	<RefParameter Comment="PLL Source" DefaultValue="RCC_HSE_PREDIV_DIV12" Name="PLLSourceLL" Type="list" Visible="false">
+                <Condition Diagnostic="" Expression="PLLSourceHSE &amp; HSEDiv12 "/>
+		<PossibleValue Comment="Pllsource Hsi" Value="RCC_HSE_PREDIV_DIV12"/>
+    </RefParameter>
+	<RefParameter Comment="PLL Source" DefaultValue="RCC_HSE_PREDIV_DIV13" Name="PLLSourceLL" Type="list" Visible="false">
+                <Condition Diagnostic="" Expression="PLLSourceHSE &amp; HSEDiv13 "/>
+		<PossibleValue Comment="Pllsource Hsi" Value="RCC_HSE_PREDIV_DIV13"/>
+    </RefParameter>
+	<RefParameter Comment="PLL Source" DefaultValue="RCC_HSE_PREDIV_DIV14" Name="PLLSourceLL" Type="list" Visible="false">
+                <Condition Diagnostic="" Expression="PLLSourceHSE &amp; HSEDiv14 "/>
+		<PossibleValue Comment="Pllsource Hsi" Value="RCC_HSE_PREDIV_DIV14"/>
+    </RefParameter>
+	<RefParameter Comment="PLL Source" DefaultValue="RCC_HSE_PREDIV_DIV15" Name="PLLSourceLL" Type="list" Visible="false">
+                <Condition Diagnostic="" Expression="PLLSourceHSE &amp; HSEDiv15 "/>
+		<PossibleValue Comment="Pllsource Hsi" Value="RCC_HSE_PREDIV_DIV15"/>
+    </RefParameter>
+	<RefParameter Comment="PLL Source" DefaultValue="RCC_HSE_PREDIV_DIV16" Name="PLLSourceLL" Type="list" Visible="false">
+                <Condition Diagnostic="" Expression="PLLSourceHSE &amp; HSEDiv16 "/>
+		<PossibleValue Comment="Pllsource Hsi" Value="RCC_HSE_PREDIV_DIV16"/>
+    </RefParameter>
+   
+    <!-- SYS clock MUX-->
+    <RefParameter Comment="SYSCLK Source" DefaultValue="RCC_SYSCLKSOURCE_PLLCLK" Name="SYSCLKSourceVirtual" Type="list" Visible="false">
+        <Condition Diagnostic="PLL Clock must be selected" Expression="(HRTIM1SourcePLL &amp;HRTIM1Used_ForRCC)|(TIM1SourcePLL &amp;TIM1)|(TIM8SourcePLL &amp;TIM8)|(TIM15SourcePLL &amp;TIM15)|(TIM16SourcePLL &amp;TIM16)|(TIM17SourcePLL &amp;TIM17)"/>
+        <PossibleValue Comment="Sysclksource Pllclk" Value="RCC_SYSCLKSOURCE_PLLCLK" Semaphore="SysSourcePLL"/>
+    </RefParameter>
+    <RefParameter Comment="SYSCLK Source" DefaultValue="RCC_SYSCLKSOURCE_HSI" Name="SYSCLKSourceVirtual" Type="list" Visible="false">
+        <PossibleValue Comment="Sysclksource Hsi" Value="RCC_SYSCLKSOURCE_HSI" Semaphore="SysSourceHSI"/>
+        <PossibleValue Comment="Sysclksource Hse" Value="RCC_SYSCLKSOURCE_HSE" Semaphore="SysSourceHSE"/>
+        <PossibleValue Comment="Sysclksource Pllclk" Value="RCC_SYSCLKSOURCE_PLLCLK" Semaphore="SysSourcePLL"/>
+    </RefParameter>
+    <RefParameter Comment="SYSCLK Source" DefaultValue="+SYSCLKSourceVirtual" Name="SYSCLKSourceVirtualString" Type="string" Visible="false"/>
+ 
+    <RefParameter Comment="SYSCLK Source" DefaultValue="+SYSCLKSourceVirtualString" Name="SYSCLKSource" Type="list" Visible="false">
+        <PossibleValue Comment="Sysclksource Hsi" Value="RCC_SYSCLKSOURCE_HSI"/>
+        <PossibleValue Comment="Sysclksource Hse" Value="RCC_SYSCLKSOURCE_HSE"/>
+        <PossibleValue Comment="Sysclksource Pllclk" Semaphore="SysclkPLL" Value="RCC_SYSCLKSOURCE_PLLCLK"/>
+    </RefParameter>
+	
+    <!-- RTC  MUX-->
+    <RefParameter Comment="RTC Clock Selection" DefaultValue="RCC_RTCCLKSOURCE_LSI" IP="RTC,LCD" Name="RTCClockSelection" Type="list" Visible="false">
+        <PossibleValue Comment="Rtcclksource Lse" Value="RCC_RTCCLKSOURCE_LSE"/>
+        <PossibleValue Comment="Rtcclksource Lsi" Value="RCC_RTCCLKSOURCE_LSI"/>
+        <PossibleValue Comment="Rtcclksource Hse Div32" Value="RCC_RTCCLKSOURCE_HSE_DIV32"/>
+       
+    </RefParameter>
+    <!-- MCO MUX-->
+    <RefParameter Comment="MCO Clock Source" DefaultValue="RCC_MCO1SOURCE_SYSCLK" Name="RCC_MCOSource" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="DIE439|DIE438"/>
+
+        <PossibleValue Comment="MCO1SRC SYSCLK" Value="RCC_MCO1SOURCE_SYSCLK"/>
+        <PossibleValue Comment="MCO1SRC HSI" Value="RCC_MCO1SOURCE_HSI"/>
+        <PossibleValue Comment="MCO1SRC HSE" Value="RCC_MCO1SOURCE_HSE"/>
+        <PossibleValue Comment="MCO1SRC PLLCLK" Value="RCC_MCO1SOURCE_PLLCLK"/>
+        <PossibleValue Comment="MCO1SRC PLLCLK" Value="RCC_MCO1SOURCE_PLLCLK_DIV2"/>
+        <PossibleValue Comment="MCO1SRC LSI" Value="RCC_MCO1SOURCE_LSI"/>
+        <PossibleValue Comment="MCO1SRC LSE" Value="RCC_MCO1SOURCE_LSE"/>
+       
+
+    </RefParameter>
+    <RefParameter Comment="MCO Clock Source" DefaultValue="RCC_MCO1SOURCE_SYSCLK" Name="RCC_MCOSource" Type="list" Visible="false">
+        <PossibleValue Comment="MCO1SRC SYSCLK" Value="RCC_MCO1SOURCE_SYSCLK"/>
+        <PossibleValue Comment="MCO1SRC HSI" Value="RCC_MCO1SOURCE_HSI"/>
+        <PossibleValue Comment="MCO1SRC HSE" Value="RCC_MCO1SOURCE_HSE"/>
+        <PossibleValue Comment="MCO1SRC PLLCLK" Value="RCC_MCO1SOURCE_PLLCLK_DIV2"/>
+        <PossibleValue Comment="MCO1SRC LSI" Value="RCC_MCO1SOURCE_LSI"/>
+        <PossibleValue Comment="MCO1SRC LSE" Value="RCC_MCO1SOURCE_LSE"/>
+       
+
+    </RefParameter>
+    <!-- CSS HSE enable****************-->
+    <RefParameter Comment="Clock Security System: available only when HSE is used directly or undirectly as System Clock" DefaultValue="false" Name="EnbaleCSS" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="(((PLLSource=RCC_PLLSOURCE_HSE) &amp;SYSCLKSource=RCC_SYSCLKSOURCE_PLLCLK )|(SYSCLKSource=RCC_SYSCLKSOURCE_HSE)) &amp; (HSEOscillator | HSEByPass)"/>
+        <PossibleValue Comment="Enabled" Semaphore="CSSEnabled" Value="true"/>
+        <PossibleValue Comment="Disabled" Value="false"/>
+    </RefParameter>
+
+    <RefParameter Comment="Clock Security System: available only when HSE is used directly or undirectly as System Clock" DefaultValue="false" Name="EnbaleCSS" Type="list" Visible="false">
+        <PossibleValue Comment="Disabled" Value="false"/>
+    </RefParameter>
+    <!-- TIMER1/8 MUX****************-->
+    <RefParameter Comment="TIMER 1 Selection" DefaultValue="RCC_TIM1CLK_HCLK" IP="TIM1" Name="TIM1Selection" Type="list" Visible="false">
+        <PossibleValue Comment="TIMER1 Clksource HCLK" Value="RCC_TIM1CLK_HCLK"/>
+        <PossibleValue Comment="TIMER1 Clksource PLL" Semaphore="TIM1SourcePLL" Value="RCC_TIM1CLK_PLLCLK"/>
+    </RefParameter>
+    <RefParameter Comment="TIMER 8 Selection" DefaultValue="RCC_TIM8CLK_HCLK" IP="TIM8" Name="TIM8Selection" Type="list" Visible="false">
+        <PossibleValue Comment="TIMER8 Clksource HCLK" Value="RCC_TIM8CLK_HCLK"/>
+        <PossibleValue Comment="TIMER8 Clksource PLL" Semaphore="TIM8SourcePLL" Value="RCC_TIM8CLK_PLLCLK"/>
+    </RefParameter>
+    <RefParameter Comment="TIMER 17 Selection" DefaultValue="RCC_TIM17CLK_HCLK" IP="TIM17" Name="TIM17Selection" Type="list" Visible="false">
+        <PossibleValue Comment="TIMER17 Clksource HCLK" Value="RCC_TIM17CLK_HCLK"/>
+        <PossibleValue Comment="TIMER17 Clksource PLL" Semaphore="TIM17SourcePLL" Value="RCC_TIM17CLK_PLLCLK"/>
+    </RefParameter>
+    <RefParameter Comment="TIMER 15 Selection" DefaultValue="RCC_TIM15CLK_HCLK" IP="TIM15" Name="TIM15Selection" Type="list" Visible="false">
+        <PossibleValue Comment="TIMER15 Clksource HCLK" Value="RCC_TIM15CLK_HCLK"/>
+        <PossibleValue Comment="TIMER15 Clksource PLL" Semaphore="TIM15SourcePLL" Value="RCC_TIM15CLK_PLLCLK"/>
+    </RefParameter>
+    <RefParameter Comment="TIMER 16 Selection" DefaultValue="RCC_TIM16CLK_HCLK" IP="TIM16" Name="TIM16Selection" Type="list" Visible="false">
+        <PossibleValue Comment="TIMER16 Clksource HCLK" Value="RCC_TIM16CLK_HCLK"/>
+        <PossibleValue Comment="TIMER16 Clksource PLL" Semaphore="TIM16SourcePLL" Value="RCC_TIM16CLK_PLLCLK"/>
+    </RefParameter>
+    <!-- HRTIM MUX****************-->
+
+    <RefParameter Comment="HRTIM1 Selection" DefaultValue="RCC_HRTIM1CLK_HCLK" IP="HRTIM1" Name="HRTIMSelection" Type="list" Visible="false">
+        <PossibleValue Comment="HRTIM1 Clksource HCLK" Value="RCC_HRTIM1CLK_HCLK"/>
+        <PossibleValue Comment="HRTIM1 Clksource PLL" Semaphore="HRTIM1SourcePLL" Value="RCC_HRTIM1CLK_PLLCLK"/>
+    </RefParameter>	
+    <!-- I2C1 MUX-->
+    <RefParameter Comment="I2C1 Clock Selection" DefaultValue="RCC_I2C1CLKSOURCE_HSI" IP="I2C1" Name="I2c1ClockSelection" Type="list" Visible="false">
+        <PossibleValue Comment="I2C1 Clksource Sysclk" Value="RCC_I2C1CLKSOURCE_SYSCLK"/>
+        <PossibleValue Comment="I2C1 Clksource Hsi" Semaphore="I2C1SourceHSI" Value="RCC_I2C1CLKSOURCE_HSI"/>
+    </RefParameter>
+    <!-- I2C2 MUX-->
+    <RefParameter Comment="I2C2 Clock Selection" DefaultValue="RCC_I2C2CLKSOURCE_HSI" IP="I2C2" Name="I2c2ClockSelection" Type="list" Visible="false">
+        <PossibleValue Comment="I2C2 Clksource Sysclk" Value="RCC_I2C2CLKSOURCE_SYSCLK"/>
+        <PossibleValue Comment="I2C2 Clksource Hsi" Semaphore="I2C2SourceHSI" Value="RCC_I2C2CLKSOURCE_HSI"/>
+    </RefParameter>
+    <!-- I2C3 MUX-->
+    <RefParameter Comment="I2C3 Clock Selection" DefaultValue="RCC_I2C3CLKSOURCE_HSI" IP="I2C3" Name="I2c3ClockSelection" Type="list" Visible="false">
+        <PossibleValue Comment="I2C3 Clksource Sysclk" Value="RCC_I2C3CLKSOURCE_SYSCLK"/>
+        <PossibleValue Comment="I2C3 Clksource Hsi" Semaphore="I2C3SourceHSI" Value="RCC_I2C3CLKSOURCE_HSI"/>
+    </RefParameter>
+    
+    <!--I2S  MUX-->
+    <RefParameter Comment="Clock Source for I2S" DefaultValue="RCC_I2SCLKSOURCE_SYSCLK" IP="I2S1,I2S2" Name="I2SClockSource" Type="list" Visible="false">
+        <PossibleValue Comment="Clk Source SYS" Semaphore="I2SSourceIsSys" Value="RCC_I2SCLKSOURCE_SYSCLK"/>
+        <PossibleValue Comment="Clk Source  Ext" Semaphore="I2SSourceIsExt" Value="RCC_I2SCLKSOURCE_EXT"/>
+    </RefParameter>
+    <!--USART1  MUX-->
+    <RefParameter Comment="USART1 Clock Selection" DefaultValue="RCC_USART1CLKSOURCE_PCLK2" IP="USART1" Name="Usart1ClockSelection" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="DIE439|DIE438"/>
+        <PossibleValue Comment="Usart1 Clksource Pclk1" Value="RCC_USART1CLKSOURCE_PCLK1"/>
+        <PossibleValue Comment="Usart1 Clksource Sysclk" Value="RCC_USART1CLKSOURCE_SYSCLK"/>
+        <PossibleValue Comment="Usart1 Clksource Hsi" Value="RCC_USART1CLKSOURCE_HSI"/>
+        <PossibleValue Comment="Usart1 Clksource Lse" Value="RCC_USART1CLKSOURCE_LSE"/>
+    </RefParameter>
+    <RefParameter Comment="USART1 Clock Selection" DefaultValue="RCC_USART1CLKSOURCE_PCLK2" IP="USART1" Name="Usart1ClockSelection" Type="list" Visible="false">
+        <PossibleValue Comment="Usart1 Clksource Pclk2" Value="RCC_USART1CLKSOURCE_PCLK2"/>
+        <PossibleValue Comment="Usart1 Clksource Sysclk" Value="RCC_USART1CLKSOURCE_SYSCLK"/>
+        <PossibleValue Comment="Usart1 Clksource Hsi" Value="RCC_USART1CLKSOURCE_HSI"/>
+        <PossibleValue Comment="Usart1 Clksource Lse" Value="RCC_USART1CLKSOURCE_LSE"/>
+    </RefParameter>
+    <!-- USART2 MUX-->
+    <RefParameter Comment="USART2 Clock Selection" DefaultValue="RCC_USART2CLKSOURCE_PCLK1" IP="USART2" Name="Usart2ClockSelection" Type="list" Visible="false">
+        <PossibleValue Comment="Usart2 Clksource Pclk1" Value="RCC_USART2CLKSOURCE_PCLK1"/>
+        <PossibleValue Comment="Usart2 Clksource Sysclk" Value="RCC_USART2CLKSOURCE_SYSCLK"/>
+        <PossibleValue Comment="Usart2 Clksource Hsi" Value="RCC_USART2CLKSOURCE_HSI"/>
+        <PossibleValue Comment="Usart2 Clksource Lse" Value="RCC_USART2CLKSOURCE_LSE"/>
+    </RefParameter>
+    <!-- USART3 MUX-->
+    <RefParameter Comment="USART3 Clock Selection" DefaultValue="RCC_USART3CLKSOURCE_PCLK1" IP="USART3" Name="Usart3ClockSelection" Type="list" Visible="false">
+        <PossibleValue Comment="Usart3 Clksource Pclk2" Value="RCC_USART3CLKSOURCE_PCLK1"/>
+        <PossibleValue Comment="Usart3 Clksource Sysclk" Value="RCC_USART3CLKSOURCE_SYSCLK"/>
+        <PossibleValue Comment="Usart3 Clksource Hsi" Value="RCC_USART3CLKSOURCE_HSI"/>
+        <PossibleValue Comment="Usart3 Clksource Lse" Value="RCC_USART3CLKSOURCE_LSE"/>
+    </RefParameter>
+    <!-- UART4 MUX-->
+    <RefParameter Comment="UART4 Clock Selection" DefaultValue="RCC_UART4CLKSOURCE_PCLK1" IP="UART4" Name="Uart4ClockSelection" Type="list" Visible="false">
+        <PossibleValue Comment="UART4 Clksource Pclk1" Value="RCC_UART4CLKSOURCE_PCLK1"/>
+        <PossibleValue Comment="UART4 Clksource Sysclk" Value="RCC_UART4CLKSOURCE_SYSCLK"/>
+        <PossibleValue Comment="UART4 Clksource Hsi" Value="RCC_UART4CLKSOURCE_HSI"/>
+        <PossibleValue Comment="UART4 Clksource Lse" Value="RCC_UART4CLKSOURCE_LSE"/>
+    </RefParameter>
+    <!-- UART5 MUX-->
+    <RefParameter Comment="UART5 Clock Selection" DefaultValue="RCC_UART5CLKSOURCE_PCLK1" IP="UART5" Name="Uart5ClockSelection" Type="list" Visible="false">
+        <PossibleValue Comment="UART5 Clksource Pclk1" Value="RCC_UART5CLKSOURCE_PCLK1"/>
+        <PossibleValue Comment="UART5 Clksource Sysclk" Value="RCC_UART5CLKSOURCE_SYSCLK"/>
+        <PossibleValue Comment="UART5 Clksource Hsi" Value="RCC_UART5CLKSOURCE_HSI"/>
+        <PossibleValue Comment="UART5 Clksource Lse" Value="RCC_UART5CLKSOURCE_LSE"/>
+    </RefParameter>
+	
+    <!--LES frequence Values --> 
+    <!--Les frequences des sources --> 
+    <RefParameter Comment="HSI Source" DefaultValue="8000000" Display="value/1000000" Name="HSI_VALUE" Type="double" Unit="MHz" Visible="false"/>
+    <RefParameter Comment="LSI Source" DefaultValue="40000" Display="value/1000" Max="40000" Min="40000" Name="LSI_VALUE" Type="double" Unit="KHz" Visible="false"/>
+    <RefParameter Comment="HSE OSC" DefaultValue="8000000" Display="value/1000000" Max="32000000" Min="1000000" Name="HSE_VALUE" Type="double" Unit="MHz" Visible="false">
+        <Condition Diagnostic="HSE in bypass Mode" Expression="HSEByPass"/>
+    </RefParameter>    
+    <RefParameter Comment="HSE OSC" DefaultValue="8000000" Display="value/1000000" Max="32000000" Min="4000000" Name="HSE_VALUE" Type="double" Unit="MHz" Visible="false"/>
+    <RefParameter Comment="LSE OSC" DefaultValue="32768" Display="value/1000" Max="32768" Min="32768" Name="LSE_VALUE" Type="double" Unit="KHz" Visible="false">
+        <Condition Diagnostic="LSE In crystal Mode" Expression="LSEOscillator"/>
+    </RefParameter>
+    <RefParameter Comment="LSE OSC" DefaultValue="32768" Display="value/1000" Max="1000000" Min="0" Name="LSE_VALUE" Type="double" Unit="KHz" Visible="false"/>
+    <!--frequence de mux PLL --> 
+    <!--frequence de mux PLL out put --> 
+    <RefParameter Comment="VCOInput" DefaultValue="4000000" Display="value/1000000" Max="24000000" Min="1000000" Name="VCOOutput2Freq_Value" Type="double" Unit="MHz" Visible="false">
+        <Condition Diagnostic="PLL not used" Expression="PLLUsed=1"/>
+    </RefParameter>
+    <RefParameter Comment="VCOInput" DefaultValue="4000000" Display="value/1000000" Name="VCOOutput2Freq_Value" Type="double" Unit="MHz" Visible="false"/>
+    <!--frequence de mux PLL input de HSE div et HSI div -->
+    <RefParameter Comment="HSI diviseur output to PLL" DefaultValue="4000000" Display="value/1000000" Name="HSIPLLFreq_Value" Type="double" Unit="MHz" Visible="false"/>
+    <RefParameter Comment="HSE diviseur output to PLL" DefaultValue="8000000" Display="value/1000000" Name="HSEPLLFreq_Value" Type="double" Unit="MHz" Visible="false"/>
+    <!--frequence de la sortie de MUL PLL min 16 max 72--> 
+    <RefParameter Comment="PLL clock" DefaultValue="8000000" Display="value/1000000" Max="72000000" Min="16000000" Name="PLLCLKFreq_Value" Type="double" Unit="MHz" Visible="false">
+        <Condition Diagnostic="PLL not used" Expression="PLLUsed=1"/>
+    </RefParameter>
+    <RefParameter Comment="PLL clock" DefaultValue="8000000" Display="value/1000000" Name="PLLCLKFreq_Value" Type="double" Unit="MHz" Visible="false"/>
+
+    <!--Les frequences des signaux-->
+		
+	<!--I2C Freq-->
+    <RefParameter Comment="I2C1 clock" DefaultValue="8000000" Display="value/1000000" IP="I2C1" Name="I2C1Freq_Value" Type="double" Unit="MHz" Visible="false"/>
+    <RefParameter Comment="I2C2 clock" DefaultValue="8000000" Display="value/1000000" IP="I2C2" Name="I2C2Freq_Value" Type="double" Unit="MHz" Visible="false"/>
+    <RefParameter Comment="I2C3 clock" DefaultValue="8000000" Display="value/1000000" IP="I2C3" Name="I2C3Freq_Value" Type="double" Unit="MHz" Visible="false"/>
+    <!--SYS freq de l'output	-->
+  
+    <RefParameter Comment="System clock" DefaultValue="8000000" Display="value/1000000" Max="72000000" Name="SYSCLKFreq_VALUE" Type="double" Unit="MHz" Visible="false"/>
+
+    <!--USB freq de l'output-->
+    <RefParameter Comment="USB" DefaultValue="8000000" Display="value/1000000" Max="48120000" Min="47880000" Name="USBFreq_Value" Type="double" Unit="MHz" Visible="false"/>
+    <!--AHB out freq-->
+    <RefParameter Comment="HCLK" DefaultValue="8000000" Display="value/1000000" Name="AHBFreq_Value" Type="double" Unit="MHz" Visible="false"/>
+    <RefParameter Comment="HCLK" DefaultValue="8000000" Display="value/1000000" IP="DMA-2D,CAMERAITF,ADC2,ADC3,ADC4" Max="72000000" Name="HCLKFreq_Value" Type="double" Unit="MHz" Visible="false"/>
+    <!--RTC freq de la sortie-->
+	<RefParameter Visible="false" Comment="RTC" Name="RTCFreq_Value" Type="double" DefaultValue="40000" IP="RTC" Max="1000000" Display="value/1000" Unit="KHz">
+		<Condition Diagnostic="RTC Has HSE as source" Expression="(!(RCC_RTC_Clock_Source=RCC_RTCCLKSOURCE_LSE)&amp;!(RCC_RTC_Clock_Source=RCC_RTCCLKSOURCE_LSI))"/>
+	</RefParameter>
+	<RefParameter Visible="false" Comment="RTC" Name="RTCFreq_Value" Type="double" IP="RTC" DefaultValue="40000" Display="value/1000" Unit="KHz"/>
+    <RefParameter Comment="RTC HSE DIV" DefaultValue="250000" Display="value/1000000" Name="RTCHSEDivFreq_Value" Type="double" Unit="MHz" Visible="false"/>
+    <!--Divers output freq-->
+    <RefParameter Comment="IWDG clock" DefaultValue="40000" Display="value/1000" IP="IWATCHDOG" Name="WatchDogFreq_Value" Type="double" Unit="KHz" Visible="false"/>
+    <RefParameter Comment="FLITF clock" DefaultValue="8000000" Display="value/1000000" IP="FLITF" Name="FLITFCLKFreq_Value" Type="double" Unit="MHz" Visible="false"/>
+    <RefParameter Comment="Cortex System Timer" DefaultValue="1000000" Display="value/1000000" Name="CortexFreq_Value" Type="double" Unit="MHz" Visible="false"/>
+    <RefParameter Comment="FCLK Cortex clock" DefaultValue="8000000" Display="value/1000000" Name="FCLKCortexFreq_Value" Type="double" Unit="MHz" Visible="false"/>
+   
+    <RefParameter Comment="APB1 timers clocks" DefaultValue="8000000" Display="value/1000000" IP="TIMER6,TIMER2,TIMER3,TIMER4,TIMER5,TIMER12,TIMER13,TIMER14,TIMER18,TIMER7" Name="APB1TimFreq_Value" Type="double" Unit="MHz" Visible="false"/>
+    <RefParameter Comment="APB2 timers clocks" DefaultValue="8000000" Display="value/1000000" IP="TIMER1,TIMER8,TIMER17,TIMER16,TIMER15,TIMER20,TIMER19,HRTIMER1" Name="APB2TimFreq_Value" Type="double" Unit="MHz" Visible="false"/>
+    <RefParameter Comment="PLL MCO DIV output" DefaultValue="4000000" Display="value/1000000" Name="PLLMCOFreq_Value" Type="double" Unit="MHz" Visible="false"/>
+    <!--ADC Freq-->
+    <RefParameter Comment="ADC3,4 Output" DefaultValue="8000000" Display="value/1000000" Name="ADC34outputFreq_Value" Type="double" Unit="MHz" Visible="false">
+        <Condition Diagnostic="Disabled if RTC is used and HSE ON" Expression="((channelSelectedADC3&amp;ADC3UsedAsynchronousCLK_ForRCC)|(channelSelectedADC4&amp;ADC4UsedAsynchronousCLK_ForRCC))"/>
+    </RefParameter>
+    <RefParameter Comment="ADC3,4 Output" DefaultValue="8000000" Display="value/1000000" Name="ADC34outputFreq_Value" Type="double" Unit="MHz" Visible="false"/>
+        
+    <RefParameter Comment="ADC1,2 output" DefaultValue="8000000" Display="value/1000000" Name="ADC12outputFreq_Value" Type="double" Unit="MHz" Visible="false">
+        <Condition Diagnostic="Disabled if RTC is used and HSE ON" Expression="(channelSelectedADC1&amp;ADC1UsedAsynchronousCLK_ForRCC)|(channelSelectedADC2&amp;ADC2UsedAsynchronousCLK_ForRCC)"/>
+    </RefParameter>
+    <RefParameter Comment="ADC1,2 output" DefaultValue="8000000" Display="value/1000000" Name="ADC12outputFreq_Value" Type="double" Unit="MHz" Visible="false"/>
+     <!--ADC frequency  --> 
+    <RefParameter Comment="ADC synchr" DefaultValue="=HCLKFreq_Value" Display="value/1000000" IP="ADC1,ADC2,ADC3,ADC4" Name="synchADCFreq_Value" Type="double" Unit="MHz" Visible="false"/>
+    <RefParameter Comment="ADC asynchr" DefaultValue="=ADC12outputFreq_Value" Display="value/1000000" IP="ADC1,ADC2" Name="asynchADC12Freq_Value" Type="double" Unit="MHz" Visible="false"/>
+    <RefParameter Comment="ADC asynchr" DefaultValue="=ADC34outputFreq_Value" Display="value/1000000" IP="ADC3,ADC4" Name="asynchADC34Freq_Value" Type="double" Unit="MHz" Visible="false"/>
+
+
+
+    <!--I2S Freq-->
+    <RefParameter Comment="Audio Clock Input" DefaultValue="8000000" Display="value/1000000" Name="EXTERNAL_CLOCK_VALUE" Type="double" Unit="MHz" Visible="false"/>
+    <RefParameter Comment="I2S Clock" DefaultValue="8000000" Display="value/1000000" IP="I2S1,I2S2,I2S3" Name="I2SClocksFreq_Value" Type="double" Unit="MHz" Visible="false"/>
+    <!--USART Freq-->
+    <RefParameter Comment="USART1 Clock" DefaultValue="8000000" Display="value/1000000" IP="USART1" Name="USART1Freq_Value" Type="double" Unit="MHz" Visible="false"/>
+    <RefParameter Comment="USART2 Clock" DefaultValue="8000000" Display="value/1000000" IP="USART2" Name="USART2Freq_Value" Type="double" Unit="MHz" Visible="false">
+        <Condition Diagnostic="" Expression="!(DIE438 |DIE439)"/>
+    </RefParameter>
+    <RefParameter Comment="USART2 Clock" DefaultValue="+APB1Freq_Value" Display="value/1000000" IP="USART2" Name="USART2Freq_Value" Max="36000000" Min="10000000"  Type="double" Unit="MHz" Visible="false"/>
+    <RefParameter Comment="USART3 Clock" DefaultValue="8000000" Display="value/1000000" IP="USART3" Name="USART3Freq_Value" Type="double" Unit="MHz" Visible="false">
+            <Condition Diagnostic="" Expression="!(DIE438 |DIE439)"/>
+    </RefParameter>
+    <RefParameter Comment="USART2 Clock" DefaultValue="+APB1Freq_Value" Display="value/1000000" IP="USART2" Name="USART3Freq_Value" Max="36000000" Min="10000000"  Type="double" Unit="MHz" Visible="false"/>
+    <RefParameter Comment="UART4 Clock" DefaultValue="8000000" Display="value/1000000" IP="UART4" Name="UART4Freq_Value" Type="double" Unit="MHz" Visible="false"/>
+    <RefParameter Comment="UART5 Clock" DefaultValue="8000000" Display="value/1000000" IP="UART5" Name="UART5Freq_Value" Type="double" Unit="MHz" Visible="false"/>
+    <!--TIMER 1/8 Freq output-->
+    <RefParameter Comment="Timer1 Clock" DefaultValue="8000000" Display="value/1000000" IP="TIM1,TIM15, TIM8,TIM16,TIM17" Name="TIM1Freq_Value" Type="double" Unit="MHz" Visible="false"/>
+    <RefParameter Comment="Timer8 Clock" DefaultValue="8000000" Display="value/1000000" IP="TIM1,TIM15, TIM8,TIM16,TIM17" Name="TIM8Freq_Value" Type="double" Unit="MHz" Visible="false"/>
+    <RefParameter Comment="Timer15 Clock" DefaultValue="8000000" Display="value/1000000" IP="TIM1,TIM15, TIM8,TIM16,TIM17" Name="TIM15Freq_Value" Type="double" Unit="MHz" Visible="false"/>
+    <RefParameter Comment="Timer16 Clock" DefaultValue="8000000" Display="value/1000000" IP="TIM1,TIM15, TIM8,TIM16,TIM17" Name="TIM16Freq_Value" Type="double" Unit="MHz" Visible="false"/>
+    <RefParameter Comment="Timer17 Clock" DefaultValue="8000000" Display="value/1000000" IP="TIM1,TIM15, TIM8,TIM16,TIM17" Name="TIM17Freq_Value" Type="double" Unit="MHz" Visible="false"/>
+
+    <!--input timer from div-->
+    <RefParameter Comment="Timer1/8 Multiplicator" DefaultValue="16000000" Display="value/1000000" IP="TIMER1,TIMER8, TIMER15, TIMER16, TIMER17" Name="TimMulFreq_Value" Type="double" Unit="MHz" Visible="false"/>
+    <!---HRTIMER-->
+    <RefParameter Comment="HRTIMER1 Clock " DefaultValue="8000000" Display="value/1000000" IP="HRTIM1" Name="HRTIM1Freq_Value" Type="double" Unit="MHz" Visible="false"/>
+
+    <!--MCO freq va  --> 
+    <RefParameter Comment="MCO Output" DefaultValue="8000000" Display="value/1000000" Name="MCOFreq_Value" Type="double" Unit="MHz" Visible="false"/>    <!--device Freq-->
+    
+	
+	 <RefParameter Comment="APB1 peripheral clocks" DefaultValue="8000000" Display="value/1000000" IP="WWDG,USART2,USART3,I2C1,PWR,DAC1,SPI2,I2S2,SPI3,I2S3,I2C2,I2C3,UART4,UART5,DAC2,CEC, USB ,CAN" Max="36000000" Min="10000000" Name="APB1Freq_Value" Type="double" Unit="MHz" Visible="false">
+        <Condition Diagnostic="USB" Expression="USBUsed_ForRCC"/>
+    </RefParameter>
+    <RefParameter Comment="APB1 peripheral clocks" DefaultValue="8000000" Display="value/1000000" IP="WWDG,USART2,USART3,I2C1,PWR,DAC1,SPI2,I2S2,SPI3,I2S3,I2C2,I2C3,UART4,UART5,DAC2,CEC, USB ,CAN" Max="36000000" Min="=RTCFreq_Value" Name="APB1Freq_Value" Type="double" Unit="MHz" Visible="false">
+        <Condition Diagnostic="LSE In crystal Mode" Expression="RTCUsed_ForRCC &amp; !USBUsed_ForRCC"/>
+    </RefParameter>
+    <RefParameter Comment="APB1 peripheral clocks" DefaultValue="8000000" Display="value/1000000" IP="WWDG,USART2,USART3,I2C1,PWR,DAC1,SPI2,I2S2,SPI3,I2S3,I2C2,I2C3,UART4,UART5,DAC2,CEC, USB ,CAN" Max="36000000" Name="APB1Freq_Value" Type="double" Unit="MHz" Visible="false"/>
+   
+
+    <RefParameter Comment="APB2 peripheral clocks" DefaultValue="8000000" Display="value/1000000" IP="SPI1" Max="=SYSCLKFreq_VALUE" Min="=SYSCLKFreq_VALUE" Name="APB2Freq_Value" Type="double" Unit="MHz" Visible="false">
+        <Condition Diagnostic="APB2 Divider or AHB Divider must be /2" Expression="(HRTIM1SourcePLL &amp;HRTIM1Used_ForRCC)&amp;((TIM1SourcePLL &amp;TIM1)|(TIM8SourcePLL &amp;TIM8)|(TIM15SourcePLL &amp;TIM15)|(TIM16SourcePLL &amp;TIM16)|(TIM17SourcePLL &amp;TIM17))"/>
+    </RefParameter>
+    <RefParameter Comment="" DefaultValue="AHB and APB2 prescaler must be divided by 1" Display="value/1000000" Name="APB2Freq_ValueConstraintsText" Type="string" Unit="MHz" Visible="false">
+
+        <Condition Diagnostic="AHB and APB2 clocks are not divided " Expression="((TIM1SourcePLL &amp;TIM1)|(TIM8SourcePLL &amp;TIM8)|(TIM15SourcePLL &amp;TIM15)|(TIM16SourcePLL &amp;TIM16)|(TIM17SourcePLL &amp;TIM17))"/>
+
+    </RefParameter>
+    <RefParameter Comment="" DefaultValue="" Display="value/1000000" Name="APB2Freq_ValueConstraintsText" Type="string" Unit="MHz" Visible="false"/>
+	
+	
+    <RefParameter Comment="APB2 peripheral clocks" DefaultValue="8000000" Display="value/1000000" IP="SPI1" Max="=SYSCLKFreq_VALUE" Min="=SYSCLKFreq_VALUE/2" Name="APB2Freq_Value" Type="double" Unit="MHz" Visible="false">
+
+        <Condition Diagnostic="APB2 Divider or AHB Divider must be /2" Expression="(HRTIM1SourcePLL &amp;HRTIM1Used_ForRCC)|((DIE438 &amp; !STM32F3x4)|DIE439)  &amp;((TIM1SourcePLL &amp;TIM1)|(TIM8SourcePLL &amp;TIM8)|(TIM15SourcePLL &amp;TIM15)|(TIM16SourcePLL &amp;TIM16)|(TIM17SourcePLL &amp;TIM17))"/>
+
+    </RefParameter>
+    <RefParameter Comment="" DefaultValue="AHB or APB2 prescaler must be divided by 1 or 2 cumulatively" Display="value/1000000" Name="APB2Freq_ValueConstraintsText" Type="string" Unit="MHz" Visible="false">
+
+        <Condition Diagnostic="APB2 Divider or AHB Divider must be /2" Expression="(HRTIM1SourcePLL &amp;HRTIM1Used_ForRCC)|((DIE438 &amp; !STM32F3x4)|DIE439)  &amp;((TIM1SourcePLL &amp;TIM1)|(TIM8SourcePLL &amp;TIM8)|(TIM15SourcePLL &amp;TIM15)|(TIM16SourcePLL &amp;TIM16)|(TIM17SourcePLL &amp;TIM17))"/>
+    </RefParameter>
+   
+   
+   
+   
+	
+	
+    <RefParameter Comment="APB2 peripheral clocks" DefaultValue="8000000" Display="value/1000000" IP="SPI1" Max="=SYSCLKFreq_VALUE" Min="=SYSCLKFreq_VALUE" Name="APB2Freq_Value" Type="double" Unit="MHz" Visible="false">
+        <Condition Diagnostic="APB2 Divider or AHB Divider must be /2" Expression="((TIM1SourcePLL &amp;TIM1)|(TIM8SourcePLL &amp;TIM8)|(TIM15SourcePLL &amp;TIM15)|(TIM16SourcePLL &amp;TIM16)|(TIM17SourcePLL &amp;TIM17))"/>
+    </RefParameter>
+    <RefParameter Comment="" DefaultValue="AHB and APB2 prescaler must be divided by 1" Display="value/1000000" Name="APB2Freq_ValueConstraintsText" Type="string" Unit="MHz" Visible="false">
+
+        <Condition Diagnostic="AHB and APB2 clocks are not divided " Expression="((TIM1SourcePLL &amp;TIM1)|(TIM8SourcePLL &amp;TIM8)|(TIM15SourcePLL &amp;TIM15)|(TIM16SourcePLL &amp;TIM16)|(TIM17SourcePLL &amp;TIM17))"/>
+
+    </RefParameter>
+    <RefParameter Comment="" DefaultValue="" Display="value/1000000" Name="APB2Freq_ValueConstraintsText" Type="string" Unit="MHz" Visible="false"/>
+	
+  
+    <RefParameter Comment="APB2 peripheral clocks" DefaultValue="8000000" Display="value/1000000" IP="SPI1" Max="72000000" Name="APB2Freq_Value" Type="double" Unit="MHz" Visible="false"/>
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    <!--Enable Param-->
+    <!--HSE Enable -->
+    <RefParameter Comment="HSE OSC" DefaultValue="true" IP="HSE-External-Clock-Source,HSE-External-Oscillator" Name="EnableHSE" Type="list" Visible="false">
+        <Condition Diagnostic="Disabled if RTC is used and HSE ON" Expression="(HSEOscillator|HSEByPass)"/>
+        <PossibleValue Comment="true" Value="true"/>
+    </RefParameter>
+    <RefParameter Comment="HSE OSC" DefaultValue="false" IP="HSE-External-Clock-Source,HSE-External-Oscillator" Name="EnableHSE" Type="list" Visible="false">
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <!--HSE div for RTC Enable -->
+    <RefParameter Comment="RTC and HSE Oscillator" DefaultValue="true" IP="RTC" Name="EnableHSERTCDevisor" Type="list" Visible="false">
+        <Condition Diagnostic="Disabled if RTC is used" Expression="(RTCUsed_ForRCC &amp; (HSEOscillator|HSEByPass))"/>
+        <PossibleValue Comment="true" Value="true"/>
+    </RefParameter>
+    <RefParameter Comment="RTC and HSE Oscillator" DefaultValue="false" IP="RTC" Name="EnableHSERTCDevisor" Type="list" Visible="false">
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <!--HSI div for RTC Enable -->
+    <RefParameter Comment="RTC and HSI" DefaultValue="true" IP="RTC" Name="EnableHSIRTCDevisor" Type="list" Visible="false">
+        <Condition Diagnostic="Disabled if RTC is used" Expression="RTCUsed_ForRCC "/>
+        <PossibleValue Comment="true" Value="true"/>
+    </RefParameter>
+    <RefParameter Comment="RTC and HSI" DefaultValue="false" IP="RTC" Name="EnableHSIRTCDevisor" Type="list" Visible="false">
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <!--PLL div for MCO Enable -->
+    <RefParameter Comment="PLL and MCO" DefaultValue="true" Name="EnableMCOMultDivisor" Type="list" Visible="false">
+        <Condition Diagnostic="Disabled if RTC is used" Expression="MCOUsed_ForRCC "/>
+        <PossibleValue Comment="true" Value="true"/>
+    </RefParameter>
+    <RefParameter Comment="PLL and MCO" DefaultValue="false" Name="EnableMCOMultDivisor" Type="list" Visible="false">
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <!--RTC Enable -->
+    <RefParameter Comment="RTC" DefaultValue="true" IP="RTC" Name="RTCEnable" Type="list" Visible="false">
+        <Condition Diagnostic="Disabled if RTC is used" Expression="RTCUsed_ForRCC"/>
+        <PossibleValue Comment="true" Value="true"/>
+    </RefParameter>
+    <RefParameter Comment="RTC" DefaultValue="false" IP="RTC" Name="RTCEnable" Type="list" Visible="false">
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <RefParameter Comment="RTC and HSE Oscillator" DefaultValue="true" IP="RTC" Name="EnableHSERTCDevisor" Type="list" Visible="false">
+        <Condition Diagnostic="Disabled if RTC is used" Expression="(RTCUsed_ForRCC &amp; (HSEOscillator|HSEByPass))"/>
+        <PossibleValue Comment="true" Value="true"/>
+    </RefParameter>
+    <RefParameter Comment="RTC and HSE Oscillator" DefaultValue="false" IP="RTC" Name="EnableHSERTCDevisor" Type="list" Visible="false">
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <!--LSE Enable -->
+    <RefParameter Comment="EnableLSERTC" DefaultValue="true" IP="RTC" Name="EnableLSERTC" Type="list" Visible="false">
+        <Condition Diagnostic="Disabled if RTC is used and LSE ON" Expression="RTCUsed_ForRCC &amp; (LSEOscillator | LSEByPass)"/>
+        <PossibleValue Comment="true" Value="true"/>
+    </RefParameter>
+    <RefParameter Comment="EnableLSERTC" DefaultValue="false" IP="RTC" Name="EnableLSERTC" Type="list" Visible="false">
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <!-- LSE Enable -->
+    <RefParameter Comment="LSE OSC" DefaultValue="true" Name="EnableLSE" Type="list" Visible="false">
+        <Condition Diagnostic="Disabled if RTC is used and LSE ON" Expression="(LSEOscillator|LSEByPass)"/>
+        <PossibleValue Comment="true" Value="true"/>
+    </RefParameter>
+   
+    <RefParameter Comment="LSE OSC" DefaultValue="false" Name="EnableLSE" Type="list" Visible="false">
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <!-- IWDG Enable -->
+
+    <RefParameter Comment="IWDG" DefaultValue="true" IP="IWDG" Name="IWDGEnable" Type="list" Visible="false">
+        <Condition Diagnostic="IWDG is activated" Expression="IWDGUsed_ForRCC"/>
+        <PossibleValue Comment="true" Value="true"/>
+    </RefParameter>
+    <RefParameter Comment="IWDG" DefaultValue="false" IP="IWDG" Name="IWDGEnable" Type="list" Visible="false">
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+	
+    <!-- FLITF Enable -->
+
+    <RefParameter Comment="FLITF" DefaultValue="true" IP="FLITF" Name="FLITFCLKFEnable" Type="list" Visible="false">
+        <Condition Diagnostic="FLITF is activated" Expression="FLITFUsed_ForRCC"/>
+        <PossibleValue Comment="true" Value="true"/>
+    </RefParameter>
+    <RefParameter Comment="FLITF" DefaultValue="false" IP="FLITF" Name="FLITFCLKFEnable" Type="list" Visible="false">
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <!--I2S Enable-->
+    <RefParameter Comment="I2S instance" DefaultValue="false" IP="I2S2,I2S3" Name="I2SEnable" Type="list" Visible="false">
+        <Condition Diagnostic="I2S ip not used" Expression="!I2S2Used_ForRCC &amp; !I2S3Used_ForRCC"/>
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <RefParameter Comment="I2S instance" DefaultValue="true" IP="I2S2,I2S3" Name="I2SEnable" Type="list" Visible="false">
+        <Condition Diagnostic="I2S ip used" Expression="I2S2Used_ForRCC | I2S3Used_ForRCC"/>
+        <PossibleValue Comment="true" Value="true"/>
+    </RefParameter>
+    <RefParameter Comment="I2S instance" DefaultValue="true" IP="I2S2,I2S3" Name="I2SEnable" Type="list" Visible="false">
+        <PossibleValue Comment="true" Value="true"/>
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <RefParameter Comment="EnableExtClockForI2S" DefaultValue="true" IP="Audio_ClockIn" Name="EnableExtClockForI2S" Type="list" Visible="false">
+        <Condition Diagnostic="Disabled if RTC is used" Expression="I2SUsed_ForRCC&amp;AudioClockConfig"/>
+        <PossibleValue Comment="true" Value="true"/>
+    </RefParameter>
+    <RefParameter Comment="EnableExtClockForI2S" DefaultValue="false" IP="Audio_ClockIn" Name="EnableExtClockForI2S" Type="list" Visible="false">
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <!-- Ext Clock  Enable-->
+    <RefParameter Comment="Audio Clock Input(I2S_CKIN)" DefaultValue="true" IP="Audio_ClockIn" Name="ExtClockEnable" Type="list" Visible="false">
+        <Condition Diagnostic="Ext clock is activated" Expression="AudioClockConfig"/>
+        <PossibleValue Comment="true" Value="true"/>
+    </RefParameter>
+    <RefParameter Comment="Audio Clock Input(I2S_CKIN)" DefaultValue="false" IP="Audio_ClockIn" Name="ExtClockEnable" Type="list" Visible="false">
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+   
+    <!-- USART1 Enable -->
+
+    <RefParameter Comment="USART1" DefaultValue="true" IP="USART1" Name="USART1Enable" Type="list" Visible="false">
+        <Condition Diagnostic="USART1 is activated" Expression="USART1Used_ForRCC"/>
+        <PossibleValue Comment="true" Value="true"/>
+    </RefParameter>
+    <RefParameter Comment="USART1" DefaultValue="false" IP="USART1" Name="USART1Enable" Type="list" Visible="false">
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <!-- USART2 Enable -->
+
+    <RefParameter Comment="USART2" DefaultValue="true" IP="USART2" Name="USART2Enable" Type="list" Visible="false">
+        <Condition Diagnostic="USART2 is activated" Expression="USART2Used_ForRCC"/>
+        <PossibleValue Comment="true" Value="true"/>
+    </RefParameter>
+    <RefParameter Comment="USART2" DefaultValue="false" IP="USART2" Name="USART2Enable" Type="list" Visible="false">
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <!-- USART3 Enable -->
+
+    <RefParameter Comment="USART3" DefaultValue="true" IP="USART3" Name="USART3Enable" Type="list" Visible="false">
+        <Condition Diagnostic="USART3 is activated" Expression="USART3Used_ForRCC"/>
+        <PossibleValue Comment="true" Value="true"/>
+    </RefParameter>
+    <RefParameter Comment="USART3" DefaultValue="false" IP="USART3" Name="USART3Enable" Type="list" Visible="false">
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <!-- UART4 Enable -->
+
+    <RefParameter Comment="UART4" DefaultValue="true" IP="UART4" Name="UART4Enable" Type="list" Visible="false">
+        <Condition Diagnostic="UART4 is activated" Expression="UART4Used_ForRCC"/>
+        <PossibleValue Comment="true" Value="true"/>
+    </RefParameter>
+    <RefParameter Comment="UART4" DefaultValue="false" IP="UART4" Name="UART4Enable" Type="list" Visible="false">
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <!-- UART5 Enable -->
+
+    <RefParameter Comment="UART5" DefaultValue="true" IP="UART5" Name="UART5Enable" Type="list" Visible="false">
+        <Condition Diagnostic="UART5 is activated" Expression="UART5Used_ForRCC"/>
+        <PossibleValue Comment="true" Value="true"/>
+    </RefParameter>
+    <RefParameter Comment="UART5" DefaultValue="false" IP="UART5" Name="UART5Enable" Type="list" Visible="false">
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <!-- I2C1 Enable -->
+
+    <RefParameter Comment="I2C1" DefaultValue="true" IP="I2C1" Name="I2C1Enable" Type="list" Visible="false">
+        <Condition Diagnostic="I2C1 is activated" Expression="I2C1Used_ForRCC"/>
+        <PossibleValue Comment="true" Value="true"/>
+    </RefParameter>
+    <RefParameter Comment="I2C1" DefaultValue="false" IP="I2C1" Name="I2C1Enable" Type="list" Visible="false">
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <!-- I2C2 Enable -->
+
+    <RefParameter Comment="I2C2" DefaultValue="true" IP="I2C2" Name="I2C2Enable" Type="list" Visible="false">
+        <Condition Diagnostic="I2C2 is activated" Expression="I2C2Used_ForRCC"/>
+        <PossibleValue Comment="true" Value="true"/>
+    </RefParameter>
+    <RefParameter Comment="I2C2" DefaultValue="false" IP="I2C2" Name="I2C2Enable" Type="list" Visible="false">
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <!-- I2C3 Enable -->
+
+    <RefParameter Comment="I2C3" DefaultValue="true" IP="I2C3" Name="I2C3Enable" Type="list" Visible="false">
+        <Condition Diagnostic="I2C3 is activated" Expression="I2C3Used_ForRCC"/>
+        <PossibleValue Comment="true" Value="true"/>
+    </RefParameter>
+    <RefParameter Comment="I2C2" DefaultValue="false" IP="I2C3" Name="I2C3Enable" Type="list" Visible="false">
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <!-- ADC12 Output Enable -->
+
+    <RefParameter Comment="Set asynchronous mode in ADC1" DefaultValue="true" IP="ADC1" Name="ADC1Enable" Type="list" Visible="false">
+        <Condition Diagnostic="ADC is activated" Expression="channelSelectedADC1&amp;ADC1UsedAsynchronousCLK_ForRCC"/>
+        <PossibleValue Comment="true" Value="true"/>
+    </RefParameter>
+    <RefParameter Comment="Set asynchronous mode in ADC1" DefaultValue="false" IP="ADC1" Name="ADC1Enable" Type="list" Visible="false">
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <RefParameter Comment="Set asynchronous mode in ADC" DefaultValue="true" IP="ADC" Name="ADCEnable" Type="list" Visible="false">
+        <Condition Diagnostic="ADC is activated" Expression="channelSelectedADC&amp;ADCUsedAsynchronousCLK_ForRCC"/>
+        <PossibleValue Comment="true" Value="true"/>
+    </RefParameter>
+    <RefParameter Comment="Set asynchronous mode in ADC" DefaultValue="false" IP="ADC" Name="ADCEnable" Type="list" Visible="false">
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <RefParameter Comment="Set asynchronous mode in ADC2 " DefaultValue="true" IP="ADC2" Name="ADC2Enable" Type="list" Visible="false">
+        <Condition Diagnostic="ADC is activated" Expression="channelSelectedADC2&amp;ADC2UsedAsynchronousCLK_ForRCC"/>
+        <PossibleValue Comment="true" Value="true"/>
+    </RefParameter>
+    <RefParameter Comment="Set asynchronous mode in ADC2" DefaultValue="false" IP="ADC2" Name="ADC2Enable" Type="list" Visible="false">
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <!-- ADC34 Output Enable -->
+
+    <RefParameter Comment="Set asynchronous mode in ADC3" DefaultValue="true" IP="ADC3" Name="ADC3Enable" Type="list" Visible="false">
+        <Condition Diagnostic="ADC is activated" Expression="(channelSelectedADC3&amp;ADC3UsedAsynchronousCLK_ForRCC)"/>
+        <PossibleValue Comment="true" Value="true"/>
+    </RefParameter>
+    <RefParameter Comment="Set asynchronous mode in ADC3" DefaultValue="false" IP="ADC3" Name="ADC3Enable" Type="list" Visible="false">
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+	
+    <RefParameter Comment="Set asynchronous mode in ADC4" DefaultValue="true" IP="ADC4" Name="ADC4Enable" Type="list" Visible="false">
+        <Condition Diagnostic="ADC is activated" Expression="channelSelectedADC4&amp;ADC4UsedAsynchronousCLK_ForRCC"/>
+        <PossibleValue Comment="true" Value="true"/>
+    </RefParameter>
+    <RefParameter Comment="Set asynchronous mode in ADC4" DefaultValue="false" IP="ADC4" Name="ADC4Enable" Type="list" Visible="false">
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <!-- TIM1 Enable -->
+
+    <RefParameter Comment="TIMER 1" DefaultValue="true" IP="TIM1" Name="Tim1Enable" Type="list" Visible="false">
+        <Condition Diagnostic="TIMER1 is activated" Expression="TIM1"/>
+        <PossibleValue Comment="true" Value="true"/>
+    </RefParameter>
+    <RefParameter Comment="TIMER 1" DefaultValue="false" IP="TIM1" Name="Tim1Enable" Type="list" Visible="false">
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <!-- TIM15 Enable -->
+
+    <RefParameter Comment="TIMER 15" DefaultValue="true" IP="TIM15" Name="Tim15Enable" Type="list" Visible="false">
+        <Condition Diagnostic="TIMER15 is activated" Expression="TIM15 &amp; DIE439"/>
+        <PossibleValue Comment="true" Value="true"/>
+    </RefParameter>
+    <RefParameter Comment="TIMER 15" DefaultValue="false" IP="TIM15" Name="Tim15Enable" Type="list" Visible="false">
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <!-- TIM16 Enable -->
+
+    <RefParameter Comment="TIMER 16" DefaultValue="true" IP="TIM16" Name="Tim16Enable" Type="list" Visible="false">
+        <Condition Diagnostic="TIMER16 is activated" Expression="TIM16 &amp; DIE439"/>
+        <PossibleValue Comment="true" Value="true"/>
+    </RefParameter>
+    <RefParameter Comment="TIMER 16" DefaultValue="false" IP="TIM16" Name="Tim16Enable" Type="list" Visible="false">
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <!-- TIM17 Enable -->
+
+    <RefParameter Comment="TIMER 17" DefaultValue="true" IP="TIM17" Name="Tim17Enable" Type="list" Visible="false">
+        <Condition Diagnostic="TIMER17 is activated" Expression="TIM17 &amp; DIE439 "/>
+        <PossibleValue Comment="true" Value="true"/>
+    </RefParameter>
+    <RefParameter Comment="TIMER 17" DefaultValue="false" IP="TIM17" Name="Tim17Enable" Type="list" Visible="false">
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <!-- TIM8 Enable -->
+
+    <RefParameter Comment="TIMER 8" DefaultValue="true" IP="TIM8" Name="Tim8Enable" Type="list" Visible="false">
+        <Condition Diagnostic="TIMER8 is activated" Expression="TIM8"/>
+        <PossibleValue Comment="true" Value="true"/>
+    </RefParameter>
+    <RefParameter Comment="TIMER 8" DefaultValue="false" IP="TIM8" Name="Tim8Enable" Type="list" Visible="false">
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <!-- HRTIMER Enable -->
+
+    <RefParameter Comment="HRTIMER1" DefaultValue="true" IP="HRTIM1" Name="HRTIMEnable" Type="list" Visible="false">
+        <Condition Diagnostic="TIMER8 is activated" Expression="HRTIM1Used_ForRCC"/>
+        <PossibleValue Comment="true" Value="true"/>
+    </RefParameter>
+    <RefParameter Comment="HRTIMER1" DefaultValue="false" IP="HRTIM1" Name="HRTIMEnable" Type="list" Visible="false">
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <!-- USB Enable -->
+
+    <RefParameter Comment="USB" DefaultValue="true" IP="USB" Name="USBEnable" Type="list" Visible="false">
+        <Condition Diagnostic="USB is activated" Expression="USBUsed_ForRCC"/>
+        <PossibleValue Comment="true" Value="true"/>
+    </RefParameter>
+    <RefParameter Comment="USB" DefaultValue="false" IP="USB" Name="USBEnable" Type="list" Visible="false">
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <!-- MCO Enable -->
+    <RefParameter Comment="Master Clock Output" DefaultValue="true" IP="Clock-out" Name="MCOEnable" Type="list" Visible="false">
+        <Condition Diagnostic="MCO mode is activated" Expression="(SEM2RCC_MCO_REQUIRED_TIM16 &amp; TIM16 &amp; Semaphore_input_Channel1TIM16)|MCOConfig"/>
+        <PossibleValue Comment="true" Value="true"/>
+    </RefParameter>
+    <RefParameter Comment="Master Clock Output" DefaultValue="false" IP="Clock-out" Name="MCOEnable" Type="list" Visible="false">
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+	
+	
+	
+    <!-- HSE state control -->
+    <RefParameter Comment="Clock Type HSE" DefaultValue="" Name="OscillatorTypeHSE" Type="list" Visible="false">
+        <Condition Diagnostic="if HSE source not used" Expression="HSEUsed=0"/>
+        <PossibleValue Comment="" Value=""/>
+    </RefParameter>
+    <RefParameter Comment="Clock Type HSE" DefaultValue="RCC_OSCILLATORTYPE_HSE" Name="OscillatorTypeHSE" Type="list" Visible="false">
+        <PossibleValue Comment="HSE" Value="RCC_OSCILLATORTYPE_HSE"/>
+    </RefParameter>
+    <!-- HSE Used -->
+    <RefParameter Comment="HSE used flag" DefaultValue="1" Max="1" Min="1" Name="HSEUsed" Type="integer" Visible="false">
+        <Condition Diagnostic="SYSCLK source OR PLL source OR RTC source OR MCO1 source OR MCO2 source" Expression="(SEM2RCC_HSE_REQUIRED_TIM16 &amp; TIM16 &amp; Semaphore_input_Channel1TIM16)|((RTCUsed_ForRCC)&amp;!((RTCClockSelection=RCC_RTCCLKSOURCE_LSE)|(RTCClockSelection=RCC_RTCCLKSOURCE_LSI)))|((PLLSource=RCC_PLLSOURCE_HSE) &amp; (PLLUsed=1))|(SYSCLKSource=RCC_SYSCLKSOURCE_HSE)|((RCC_MCOSource=RCC_MCO1SOURCE_HSE)&amp;((SEM2RCC_MCO_REQUIRED_TIM16 &amp; TIM16 &amp; Semaphore_input_Channel1TIM16)|MCOConfig))"/>
+    </RefParameter>
+    <RefParameter Comment="HSE Is Used" DefaultValue="0" Max="1" Min="0" Name="HSEUsed" Type="integer" Visible="false"/>
+	
+	
+    <!-- HSE state -->
+    <RefParameter Comment="Hse State" DefaultValue="RCC_HSE_BYPASS" Name="HSEState" Type="list" Visible="false">
+        <Condition Diagnostic="HSE BYPass" Expression="HSEByPass"/>
+        <PossibleValue Comment="Hse Bypass" Semaphore="HSEEnabled" Value="RCC_HSE_BYPASS"/>
+    </RefParameter>
+    <RefParameter Comment="Hse State" DefaultValue="RCC_HSE_ON" Name="HSEState" Type="list" Visible="false">
+        <Condition Diagnostic="HSE ON" Expression="HSEOscillator"/>
+        <PossibleValue Comment="Hse ON" Semaphore="HSEEnabled" Value="RCC_HSE_ON"/>
+    </RefParameter>
+    <RefParameter Comment="Hse State" DefaultValue="RCC_HSE_OFF" Name="HSEState" Type="list" Visible="false">
+        <PossibleValue Comment="Hse Off" Value="RCC_HSE_OFF"/>
+    </RefParameter>
+	
+	
+	
+	
+    <!-- LSE state control -->
+    <RefParameter Comment="Clock Type LSE" DefaultValue="" Name="OscillatorTypeLSE" Type="list" Visible="false">
+        <Condition Diagnostic="LSE Is OFF" Expression="LSEUsed=0"/>
+    </RefParameter>
+    <RefParameter Comment="Clock Type LSE" DefaultValue="RCC_OSCILLATORTYPE_LSE" Name="OscillatorTypeLSE" Type="list" Visible="false">
+        <PossibleValue Comment="LSE" Value="RCC_OSCILLATORTYPE_LSE"/>
+    </RefParameter>
+	
+    <!-- LSE Used -->
+    <RefParameter Comment="LSE Is Used" DefaultValue="1" Min="1" Name="LSEUsed" Type="integer" Visible="false">
+        <Condition Diagnostic="LSE is used if " Expression="((USART1Used_ForRCC &amp;(Usart1ClockSelection=RCC_USART1CLKSOURCE_LSE))|(USART2Used_ForRCC &amp;(Usart2ClockSelection=RCC_USART2CLKSOURCE_LSE))|(USART3Used_ForRCC &amp;(Usart3ClockSelection=RCC_USART3CLKSOURCE_LSE) )|(UART4Used_ForRCC &amp;(Uart4ClockSelection=RCC_UART4CLKSOURCE_LSE))                          |                             (UART5Used_ForRCC &amp;(Uart5ClockSelection=RCC_UART5CLKSOURCE_LSE))                |       ((RCC_MCOSource=RCC_MCO1SOURCE_LSE) &amp; ((SEM2RCC_MCO_REQUIRED_TIM16 &amp; TIM16 &amp; Semaphore_input_Channel1TIM16)|MCOConfig))             |          (RTCClockSelection=RCC_RTCCLKSOURCE_LSE &amp;RTCUsed_ForRCC ))"/>
+    </RefParameter>
+    <RefParameter Comment="LSE Is Used" DefaultValue="0" Min="0" Name="LSEUsed" Type="integer" Visible="false"/>
+	
+	
+    <!-- LSE state  -->
+    <RefParameter Comment="Lse State" DefaultValue="RCC_LSE_BYPASS" Name="LSEState" Type="list" Visible="false">
+        <Condition Diagnostic="LSE BYPass" Expression="LSEByPass"/>
+        <PossibleValue Comment="Lse Bypass" Value="RCC_LSE_BYPASS"/>
+    </RefParameter>
+    <RefParameter Comment="Lse State" DefaultValue="RCC_LSE_ON" Name="LSEState" Type="list" Visible="false">
+        <Condition Diagnostic="LSE ON" Expression="LSEOscillator"/>
+        <PossibleValue Comment="Lse ON" Value="RCC_LSE_ON"/>
+    </RefParameter>
+    <RefParameter Comment="Lse State" DefaultValue="RCC_LSE_OFF" Name="LSEState" Type="list" Visible="false">
+        <PossibleValue Comment="Lse Off" Value="RCC_LSE_OFF"/>
+        <PossibleValue Comment="Lse On" Value="RCC_LSE_ON"/>
+        <PossibleValue Comment="Lse Bypass" Value="RCC_LSE_BYPASS"/>
+    </RefParameter>
+	
+	
+    <!-- LSI state control -->
+    <RefParameter Comment="Clock Type LSI" DefaultValue="" Name="OscillatorTypeLSI" Type="list" Visible="false">
+        <Condition Diagnostic="WDOG is activated Or RTC source = LSI " Expression="LSIUsed=0"/>
+        <PossibleValue Comment="" Value=""/>
+    </RefParameter>
+    <RefParameter Comment="Clock Type LSI" DefaultValue="RCC_OSCILLATORTYPE_LSI" Name="OscillatorTypeLSI" Type="list" Visible="false">
+        <PossibleValue Comment="LSI" Value="RCC_OSCILLATORTYPE_LSI"/>
+    </RefParameter>
+    <!-- LSI Used-->
+    <RefParameter Comment="LSI used flag" DefaultValue="1" Max="1" Min="1" Name="LSIUsed" Type="integer" Visible="false">
+        <Condition Diagnostic="" Expression="(IWDGUsed_ForRCC|((RTCClockSelection=RCC_RTCCLKSOURCE_LSI)&amp;(RTCUsed_ForRCC))|((RCC_MCOSource=RCC_MCO1SOURCE_LSI)&amp;((SEM2RCC_MCO_REQUIRED_TIM16 &amp; TIM16 &amp; Semaphore_input_Channel1TIM16)|MCOConfig)))"/>
+    </RefParameter>
+    <RefParameter Comment="LSI used flag" DefaultValue="0" Max="0" Min="0" Name="LSIUsed" Type="integer" Visible="false"/>
+	
+    <!-- LSI state  -->
+    <RefParameter Comment="Lsi State" DefaultValue="RCC_LSI_OFF" Name="LSIState" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="LSIUsed=0"/>
+        <PossibleValue Comment="Lsi Off" Value="RCC_LSI_OFF"/>
+    </RefParameter>
+    <RefParameter Comment="Lsi State" DefaultValue="RCC_LSI_ON" Name="LSIState" Type="list" Visible="false">
+        <PossibleValue Comment="Lsi ON" Value="RCC_LSI_ON"/>
+    </RefParameter>
+	
+	
+	
+	
+    <!-- HSI state control -->
+    <RefParameter Comment="Clock Type HSI" DefaultValue="" Name="OscillatorTypeHSI" Type="list" Visible="false">
+        <Condition Diagnostic="HSI Is OFF" Expression="HSIUsed=0"/>
+    </RefParameter>
+    <RefParameter Comment="Clock Type HSI" DefaultValue="RCC_OSCILLATORTYPE_HSI" Name="OscillatorTypeHSI" Type="list" Visible="false">
+        <PossibleValue Comment="HSI" Value="RCC_OSCILLATORTYPE_HSI"/>
+    </RefParameter>
+    <RefParameter Comment="HSI Is Used" DefaultValue="1" Min="1" Name="HSIUsed" Type="integer" Visible="false">
+        <Condition Diagnostic="LSE is used if " Expression="(((PLLSource=RCC_PLLSOURCE_HSI)&amp; (PLLUsed=1))|(SYSCLKSource=RCC_SYSCLKSOURCE_HSI)|((RCC_MCOSource=RCC_MCO1SOURCE_HSI)&amp;((SEM2RCC_MCO_REQUIRED_TIM16 &amp; TIM16 &amp; Semaphore_input_Channel1TIM16)|MCOConfig))|(USART1Used_ForRCC &amp;(Usart1ClockSelection=RCC_USART1CLKSOURCE_HSI))|(USART2Used_ForRCC &amp;(Usart2ClockSelection=RCC_USART2CLKSOURCE_HSI))|(USART3Used_ForRCC &amp;(Usart3ClockSelection=RCC_USART3CLKSOURCE_HSI))|(UART4Used_ForRCC &amp;(Uart4ClockSelection=RCC_UART4CLKSOURCE_HSI))|(UART5Used_ForRCC &amp;(Uart5ClockSelection=RCC_UART5CLKSOURCE_HSI))|(I2C1Used_ForRCC &amp;(I2C1SourceHSI))|(I2C2Used_ForRCC &amp;(I2C2SourceHSI))|(I2C3Used_ForRCC &amp;(I2C3SourceHSI)))"/>
+    </RefParameter>
+    <RefParameter Comment="HSI is Used" DefaultValue="0" Min="0" Name="HSIUsed" Type="integer" Visible="false"/>
+    <RefParameter Comment="Hsi State" DefaultValue="RCC_HSI_OFF" Name="HSIState" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="HSIUsed=0"/>
+    </RefParameter>
+    <RefParameter Comment="Hsi State" DefaultValue="RCC_HSI_ON" Name="HSIState" Type="list" Visible="false">
+        <PossibleValue Comment="Hsi On" Value="RCC_HSI_ON"/>
+    </RefParameter>
+	
+    <!--  PLL state control-->
+    <RefParameter Comment="MainPLL Is Used" DefaultValue="1" Min="1" Name="PLLUsed" Type="integer" Visible="false">
+        <Condition Diagnostic=" " Expression="((TIM1 &amp;TIM1Selection=RCC_TIM1CLK_PLLCLK)|(TIM8 &amp;TIM8Selection=RCC_TIM8CLK_PLLCLK)|(TIM15 &amp;TIM15Selection=RCC_TIM15CLK_PLLCLK)|(TIM16 &amp; TIM16SourcePLL)|(TIM17 &amp;TIM17Selection=RCC_TIM17CLK_PLLCLK)|(HRTIM1Used_ForRCC &amp;HRTIMSelection=RCC_HRTIM1CLK_PLLCLK)|(SYSCLKSource=RCC_SYSCLKSOURCE_PLLCLK)|((RCC_MCOSource=RCC_MCO1SOURCE_PLLCLK_DIV2|RCC_MCOSource=RCC_MCO1SOURCE_PLLCLK)&amp; ((SEM2RCC_MCO_REQUIRED_TIM16 &amp; TIM16 &amp; Semaphore_input_Channel1TIM16)|MCOConfig))| USBUsed_ForRCC| (channelSelectedADC1&amp;ADC1UsedAsynchronousCLK_ForRCC) | (channelSelectedADC2&amp;ADC2UsedAsynchronousCLK_ForRCC)| (channelSelectedADC3&amp;ADC3UsedAsynchronousCLK_ForRCC) | (channelSelectedADC4&amp;ADC4UsedAsynchronousCLK_ForRCC) )"/>
+    </RefParameter>
+    <RefParameter Comment="Main PLL is Used" DefaultValue="0" Min="0" Name="PLLUsed" Type="integer" Visible="false"/>
+	
+    <RefParameter Comment="Pll State" DefaultValue="RCC_PLL_OFF" Name="PLLState" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="PLLUsed=0"/>
+        <PossibleValue Comment="Pll Off" Value="RCC_PLL_OFF"/>
+    </RefParameter>
+    <RefParameter Comment="Pll State" DefaultValue="RCC_PLL_ON" Name="PLLState" Type="list" Visible="false"> 
+        <PossibleValue Comment="Pll ON" Value="RCC_PLL_ON"/>
+    </RefParameter>
+   
+    <!--params for code generation-->
+    <RefParameter Comment="Periph Clock Selection" DefaultValue="+PeriphClockSelection" Name="PeriphClockSelectionARG" Type="list" Visible="false">
+        <Condition Diagnostic="clock used by RCC" Expression="HRTIM1Used_ForRCC|I2SUsed_ForRCC|USART1Used_ForRCC|USART2Used_ForRCC|USART3Used_ForRCC|UART4Used_ForRCC|UART5Used_ForRCC|I2C1Used_ForRCC|I2C2Used_ForRCC|I2C3Used_ForRCC|RTCUsed_ForRCC|USBUsed_ForRCC|TIM1|TIM15|TIM16|TIM17|TIM8|(channelSelectedADC4&amp;ADC4UsedAsynchronousCLK_ForRCC)|(channelSelectedADC3&amp;ADC3UsedAsynchronousCLK_ForRCC)|(channelSelectedADC1&amp;ADC1UsedAsynchronousCLK_ForRCC)|(channelSelectedADC2&amp;ADC2UsedAsynchronousCLK_ForRCC)"/>
+    </RefParameter>
+    <RefParameter Comment="Periph Clock Selection" DefaultValue="null" Name="PeriphClockSelectionARG" Type="list" Visible="false"/>
+    <RefParameter Comment="Periph Clock Selection" DefaultValue="+RCC_PERIPHCLK_HRTIMVar+|RCC_PERIPHCLK_USBVar+|RCC_PERIPHCLK_I2SVar+|RCC_PERIPHCLK_USART1Var+|RCC_PERIPHCLK_USART2Var+|RCC_PERIPHCLK_USART3Var+|RCC_PERIPHCLK_UART4Var+|RCC_PERIPHCLK_UART5Var+|RCC_PERIPHCLK_I2C1Var+|RCC_PERIPHCLK_I2C2Var+|RCC_PERIPHCLK_I2C3Var+|RCC_PERIPHCLK_RTCVar+|RCC_PERIPHCLK_TIM1Var+|RCC_PERIPHCLK_TIM15Var+|RCC_PERIPHCLK_TIM16Var+|RCC_PERIPHCLK_TIM17Var+|RCC_PERIPHCLK_TIM8Var+|RCC_PERIPHCLK_AD12Var+|RCC_PERIPHCLK_AD34Var+|RCC_PERIPHCLK_AD1Var" Name="PeriphClockSelection" Type="list" Visible="false"/>
+    
+    <RefParameter Comment="RCC_PERIPHCLK_I2SVar" DefaultValue="RCC_PERIPHCLK_I2S" Name="RCC_PERIPHCLK_I2SVar" Type="list" Visible="false">
+        <Condition Diagnostic="I2S Activated and source is Sys" Expression="(I2SSourceIsSys &amp; I2SUsed_ForRCC)"/>
+        <PossibleValue Comment="RCC_PERIPHCLK_I2S" Value="RCC_PERIPHCLK_I2S"/>
+    </RefParameter>
+    <RefParameter Comment="RCC_PERIPHCLK_I2SVar" DefaultValue="" Name="RCC_PERIPHCLK_I2SVar" Type="list" Visible="false"/>
+	
+    <RefParameter Comment="RCC_PERIPHCLK_USART1Var" DefaultValue="RCC_PERIPHCLK_USART1" Name="RCC_PERIPHCLK_USART1Var" Type="list" Visible="false">
+        <Condition Diagnostic="USART1 Activated" Expression="USART1Used_ForRCC"/>
+        <PossibleValue Comment="Periphclk Usart1" Value="RCC_PERIPHCLK_USART1"/>
+    </RefParameter>
+    <RefParameter Comment="RCC_PERIPHCLK_USART1Var" DefaultValue="" Name="RCC_PERIPHCLK_USART1Var" Type="list" Visible="false"/>
+	
+	
+	
+    <RefParameter Comment="RCC_PERIPHCLK_USART2Var" DefaultValue="RCC_PERIPHCLK_USART2" Name="RCC_PERIPHCLK_USART2Var" Type="list" Visible="false">
+        <Condition Diagnostic="USART2 Activated" Expression="USART2Used_ForRCC &amp; !(DIE438 |DIE439)"/>
+        <PossibleValue Comment="Periphclk Usart2" Value="RCC_PERIPHCLK_USART2"/>
+    </RefParameter>
+    <RefParameter Comment="RCC_PERIPHCLK_USART2Var" DefaultValue="" Name="RCC_PERIPHCLK_USART2Var" Type="list" Visible="false"/>
+	
+	
+    <RefParameter Comment="RCC_PERIPHCLK_USART3Var" DefaultValue="RCC_PERIPHCLK_USART3" Name="RCC_PERIPHCLK_USART3Var" Type="list" Visible="false">
+        <Condition Diagnostic="USART3 Activated" Expression="USART3Used_ForRCC &amp; !(DIE438 |DIE439)"/>
+        <PossibleValue Comment="Periphclk Usart3" Value="RCC_PERIPHCLK_USART3"/>
+    </RefParameter>
+    <RefParameter Comment="RCC_PERIPHCLK_USART3Var" DefaultValue="" Name="RCC_PERIPHCLK_USART3Var" Type="list" Visible="false"/>
+	
+	
+    <RefParameter Comment="RCC_PERIPHCLK_UART4Var" DefaultValue="RCC_PERIPHCLK_UART4" Name="RCC_PERIPHCLK_UART4Var" Type="list" Visible="false">
+        <Condition Diagnostic="UART4 Activated" Expression="UART4Used_ForRCC"/>
+        <PossibleValue Comment="Periphclk Uart4" Value="RCC_PERIPHCLK_UART4"/>
+    </RefParameter>
+    <RefParameter Comment="RCC_PERIPHCLK_UART4Var" DefaultValue="" Name="RCC_PERIPHCLK_UART4Var" Type="list" Visible="false"/>
+	
+    <RefParameter Comment="RCC_PERIPHCLK_UART5Var" DefaultValue="RCC_PERIPHCLK_UART5" Name="RCC_PERIPHCLK_UART5Var" Type="list" Visible="false">
+        <Condition Diagnostic="UART5 Activated" Expression="UART5Used_ForRCC"/>
+        <PossibleValue Comment="Periphclk Usart5" Value="RCC_PERIPHCLK_UART5"/>
+    </RefParameter>
+    <RefParameter Comment="RCC_PERIPHCLK_UART5Var" DefaultValue="" Name="RCC_PERIPHCLK_UART5Var" Type="list" Visible="false"/>
+	
+    <RefParameter Comment="RCC_PERIPHCLK_I2C1Var" DefaultValue="RCC_PERIPHCLK_I2C1" Name="RCC_PERIPHCLK_I2C1Var" Type="list" Visible="false">
+        <Condition Diagnostic="USART2 Activated" Expression="I2C1Used_ForRCC"/>
+        <PossibleValue Comment="Periphclk I2 C1" Value="RCC_PERIPHCLK_I2C1"/>
+    </RefParameter>
+    <RefParameter Comment="RCC_PERIPHCLK_I2C1Var" DefaultValue="" Name="RCC_PERIPHCLK_I2C1Var" Type="list" Visible="false"/>
+	
+    <RefParameter Comment="RCC_PERIPHCLK_I2C2Var" DefaultValue="RCC_PERIPHCLK_I2C2" Name="RCC_PERIPHCLK_I2C2Var" Type="list" Visible="false">
+        <Condition Diagnostic="USART2 Activated" Expression="I2C2Used_ForRCC"/>
+        <PossibleValue Comment="Periphclk I2 C2" Value="RCC_PERIPHCLK_I2C2"/>
+    </RefParameter>
+    <RefParameter Comment="RCC_PERIPHCLK_I2C2Var" DefaultValue="" Name="RCC_PERIPHCLK_I2C2Var" Type="list" Visible="false"/>
+	
+    <RefParameter Comment="RCC_PERIPHCLK_I2C3Var" DefaultValue="RCC_PERIPHCLK_I2C3" Name="RCC_PERIPHCLK_I2C3Var" Type="list" Visible="false">
+        <Condition Diagnostic="I2C3 Activated" Expression="I2C3Used_ForRCC"/>
+        <PossibleValue Comment="Periphclk I2 C3" Value="RCC_PERIPHCLK_I2C3"/>
+    </RefParameter>
+    <RefParameter Comment="RCC_PERIPHCLK_I2C3Var" DefaultValue="" Name="RCC_PERIPHCLK_I2C3Var" Type="list" Visible="false"/>
+
+    <RefParameter Comment="RCC_PERIPHCLK_RTCVar" DefaultValue="RCC_PERIPHCLK_RTC" Name="RCC_PERIPHCLK_RTCVar" Type="list" Visible="false">
+        <Condition Diagnostic="RTC Activated" Expression="RTCUsed_ForRCC"/>
+        <PossibleValue Comment="Periphclk RTC" Value="RCC_PERIPHCLK_RTC"/>
+    </RefParameter>
+    <RefParameter Comment="RCC_PERIPHCLK_RTCVar" DefaultValue="" Name="RCC_PERIPHCLK_RTCVar" Type="list" Visible="false"/>
+	
+    <RefParameter Comment="RCC_PERIPHCLK_TIM1Var" DefaultValue="RCC_PERIPHCLK_TIM1" Name="RCC_PERIPHCLK_TIM1Var" Type="list" Visible="false">
+        <Condition Diagnostic="TIM1 Activated" Expression="TIM1"/>
+        <PossibleValue Comment="Periphclk tim1" Value="RCC_PERIPHCLK_TIM1"/>
+    </RefParameter>
+    <RefParameter Comment="RCC_PERIPHCLK_TIM1Var" DefaultValue="" Name="RCC_PERIPHCLK_TIM1Var" Type="list" Visible="false"/> 
+	
+	
+    <RefParameter Comment="RCC_PERIPHCLK_HRTIMVar" DefaultValue="RCC_PERIPHCLK_HRTIM1" Name="RCC_PERIPHCLK_HRTIMVar" Type="list" Visible="false">
+        <Condition Diagnostic="HRTIM Activated" Expression="HRTIM1Used_ForRCC"/>
+        <PossibleValue Comment="Periphclk tim1" Value="RCC_PERIPHCLK_HRTIM1"/>
+    </RefParameter>
+    <RefParameter Comment="RCC_PERIPHCLK_HRTIMVar" DefaultValue="" Name="RCC_PERIPHCLK_HRTIMVar" Type="list" Visible="false"/>
+	
+    <RefParameter Comment="RCC_PERIPHCLK_TIM15Var" DefaultValue="RCC_PERIPHCLK_TIM15" Name="RCC_PERIPHCLK_TIM15Var" Type="list" Visible="false">
+        <Condition Diagnostic="TIM15 Activated" Expression="TIM15 &amp; DIE439"/>
+        <PossibleValue Comment="Periphclk tim1" Value="RCC_PERIPHCLK_TIM15"/>
+    </RefParameter>
+    <RefParameter Comment="RCC_PERIPHCLK_TIM15Var" DefaultValue="" Name="RCC_PERIPHCLK_TIM15Var" Type="list" Visible="false"/>
+	
+    <RefParameter Comment="RCC_PERIPHCLK_TIM16Var" DefaultValue="RCC_PERIPHCLK_TIM16" Name="RCC_PERIPHCLK_TIM16Var" Type="list" Visible="false">
+        <Condition Diagnostic="TIM16 Activated" Expression="TIM16 &amp; DIE439"/>
+        <PossibleValue Comment="Periphclk tim1" Value="RCC_PERIPHCLK_TIM16"/>
+    </RefParameter>
+    <RefParameter Comment="RCC_PERIPHCLK_TIM16Var" DefaultValue="" Name="RCC_PERIPHCLK_TIM16Var" Type="list" Visible="false"/>
+	
+    <RefParameter Comment="RCC_PERIPHCLK_TIM17Var" DefaultValue="RCC_PERIPHCLK_TIM17" Name="RCC_PERIPHCLK_TIM17Var" Type="list" Visible="false">
+        <Condition Diagnostic="TIM17 Activated" Expression="TIM17 &amp; DIE439"/>
+        <PossibleValue Comment="Periphclk tim17" Value="RCC_PERIPHCLK_TIM17"/>
+    </RefParameter>
+    <RefParameter Comment="RCC_PERIPHCLK_TIM17Var" DefaultValue="" Name="RCC_PERIPHCLK_TIM17Var" Type="list" Visible="false"/>
+	
+	
+	
+	
+	
+	
+    <RefParameter Comment="RCC_PERIPHCLK_TIM8Var" DefaultValue="RCC_PERIPHCLK_TIM8" Name="RCC_PERIPHCLK_TIM8Var" Type="list" Visible="false">
+        <Condition Diagnostic="TIM8 Activated" Expression="TIM8 &amp; TIM8_Exist"/>
+        <PossibleValue Comment="Periphclk tim8" Value="RCC_PERIPHCLK_TIM8"/>
+    </RefParameter>
+    <RefParameter Comment="RCC_PERIPHCLK_TIM8Var" DefaultValue="" Name="RCC_PERIPHCLK_TIM8Var" Type="list" Visible="false"/>
+	
+    <RefParameter Comment="RCC_PERIPHCLK_USBVar" DefaultValue="RCC_PERIPHCLK_USB" Name="RCC_PERIPHCLK_USBVar" Type="list" Visible="false">
+        <Condition Diagnostic="USB Activated" Expression="USBUsed_ForRCC"/>
+        <PossibleValue Comment="Periphclk USB" Value="RCC_PERIPHCLK_USB"/>
+    </RefParameter>
+    <RefParameter Comment="RCC_PERIPHCLK_USBVar" DefaultValue="" Name="RCC_PERIPHCLK_USBVar" Type="list" Visible="false"/>
+	
+    <RefParameter Comment="RCC_PERIPHCLK_AD12Var" DefaultValue="RCC_PERIPHCLK_ADC12" Name="RCC_PERIPHCLK_AD12Var" Type="list" Visible="false">
+        <Condition Diagnostic="ADC12 Activated" Expression="((channelSelectedADC1&amp;ADC1UsedAsynchronousCLK_ForRCC)|(channelSelectedADC2&amp;ADC2UsedAsynchronousCLK_ForRCC))&amp;!DIE439"/>
+        <PossibleValue Comment="Periphclk ADC12" Value="RCC_PERIPHCLK_ADC12"/>
+    </RefParameter>
+    <RefParameter Comment="RCC_PERIPHCLK_AD12Var" DefaultValue="" Name="RCC_PERIPHCLK_AD12Var" Type="list" Visible="false"/>
+	
+	
+    <RefParameter Comment="RCC_PERIPHCLK_AD1Var" DefaultValue="RCC_PERIPHCLK_ADC1" Name="RCC_PERIPHCLK_AD1Var" Type="list" Visible="false">
+        <Condition Diagnostic="ADC12 Activated" Expression="(channelSelectedADC1&amp;ADC1UsedAsynchronousCLK_ForRCC) &amp; DIE439"/>
+        <PossibleValue Comment="Periphclk ADC12" Value="RCC_PERIPHCLK_ADC1"/>
+    </RefParameter>
+    <RefParameter Comment="RCC_PERIPHCLK_AD1Var" DefaultValue="" Name="RCC_PERIPHCLK_AD1Var" Type="list" Visible="false"/>
+	
+    <RefParameter Comment="RCC_PERIPHCLK_AD34Var" DefaultValue="RCC_PERIPHCLK_ADC34" Name="RCC_PERIPHCLK_AD34Var" Type="list" Visible="false">
+        <Condition Diagnostic="ADC34 Activated" Expression="(channelSelectedADC3&amp;ADC3UsedAsynchronousCLK_ForRCC)| (channelSelectedADC4&amp;ADC4UsedAsynchronousCLK_ForRCC)"/>
+        <PossibleValue Comment="Periphclk ADC34" Value="RCC_PERIPHCLK_ADC34"/>
+    </RefParameter>
+    <RefParameter Comment="RCC_PERIPHCLK_AD34Var" DefaultValue="" Name="RCC_PERIPHCLK_AD34Var" Type="list" Visible="false"/>
+	
+    <RefParameter Comment="HSEPredivValueARG" DefaultValue="+RCC_PLLsource_Clock_Source_FROM_HSE" Name="HSEPredivValueARG" Type="list" Visible="false">
+        <Condition Diagnostic="USART1 Activated" Expression="((PLLSource=RCC_PLLSOURCE_HSE) &amp; (PLLUsed=1)) "/>
+        
+    </RefParameter>
+    <RefParameter Comment="HSEPredivValueARG" DefaultValue="null" Name="HSEPredivValueARG" Type="list" Visible="false"/>
+    
+	
+	
+    <RefParameter Comment="Usart1ClockSelectionARG" DefaultValue="+Usart1ClockSelection" Name="Usart1ClockSelectionARG" Type="list" Visible="false">
+        <Condition Diagnostic="USART1 Activated" Expression="USART1Used_ForRCC"/>
+        
+    </RefParameter>
+    <RefParameter Comment="Usart1ClockSelectionARG" DefaultValue="null" Name="Usart1ClockSelectionARG" Type="list" Visible="false"/>
+    
+    <RefParameter Comment="Usart2ClockSelectionARG" DefaultValue="+Usart2ClockSelection" Name="Usart2ClockSelectionARG" Type="list" Visible="false">
+        <Condition Diagnostic="USART2 Activated" Expression="USART2Used_ForRCC &amp; !(DIE438 |DIE439)"/>
+    </RefParameter>
+    <RefParameter Comment="Usart2ClockSelectionARG" DefaultValue="null" Name="Usart2ClockSelectionARG" Type="list" Visible="false"/>
+	
+    <RefParameter Comment="Usart3ClockSelectionARG" DefaultValue="+Usart3ClockSelection" Name="Usart3ClockSelectionARG" Type="list" Visible="false">
+        <Condition Diagnostic="USART3 Activated" Expression="USART3Used_ForRCC &amp; !(DIE438 |DIE439)"/>
+    </RefParameter>
+    <RefParameter Comment="Usart3ClockSelectionARG" DefaultValue="null" Name="Usart3ClockSelectionARG" Type="list" Visible="false"/>
+    <RefParameter Comment="Uart4ClockSelectionARG" DefaultValue="+Uart4ClockSelection" Name="Uart4ClockSelectionARG" Type="list" Visible="false">
+        <Condition Diagnostic="UART4 Activated" Expression="UART4Used_ForRCC"/>
+    </RefParameter>
+    <RefParameter Comment="Uart4ClockSelectionARG" DefaultValue="null" Name="Uart4ClockSelectionARG" Type="list" Visible="false"/>
+	
+    <RefParameter Comment="Uart5ClockSelectionARG" DefaultValue="+Uart5ClockSelection" Name="Uart5ClockSelectionARG" Type="list" Visible="false">
+        <Condition Diagnostic="UART5 Activated" Expression="UART5Used_ForRCC"/>
+    </RefParameter>
+    <RefParameter Comment="Uart5ClockSelectionARG" DefaultValue="null" Name="Uart5ClockSelectionARG" Type="list" Visible="false"/>
+	
+    <RefParameter Comment="I2c1ClockSelectionARG" DefaultValue="+I2c1ClockSelection" Name="I2c1ClockSelectionARG" Type="list" Visible="false">
+        <Condition Diagnostic="USART2 Activated" Expression="I2C1Used_ForRCC"/>
+    </RefParameter>
+    <RefParameter Comment="I2c1ClockSelectionARG" DefaultValue="null" Name="I2c1ClockSelectionARG" Type="list" Visible="false"/>
+	
+    <RefParameter Comment="I2c2ClockSelectionARG" DefaultValue="+I2c2ClockSelection" Name="I2c2ClockSelectionARG" Type="list" Visible="false">
+        <Condition Diagnostic="USART2 Activated" Expression="I2C2Used_ForRCC"/>
+    </RefParameter>
+    <RefParameter Comment="I2c2ClockSelectionARG" DefaultValue="null" Name="I2c2ClockSelectionARG" Type="list" Visible="false"/>
+	
+    <RefParameter Comment="I2c3ClockSelectionARG" DefaultValue="+I2c3ClockSelection" Name="I2c3ClockSelectionARG" Type="list" Visible="false">
+        <Condition Diagnostic="USART2 Activated" Expression="I2C3Used_ForRCC"/>
+    </RefParameter>
+    <RefParameter Comment="I2c3ClockSelectionARG" DefaultValue="null" Name="I2c3ClockSelectionARG" Type="list" Visible="false"/>
+
+    <RefParameter Comment="RTCClockSelectionARG" DefaultValue="+RTCClockSelection" Name="RTCClockSelectionARG" Type="list" Visible="false">
+        <Condition Diagnostic="RTC Activated" Expression="RTCUsed_ForRCC"/>
+    </RefParameter>
+    <RefParameter Comment="RTCClockSelectionARG" DefaultValue="null" Name="RTCClockSelectionARG" Type="list" Visible="false"/>
+	
+    <RefParameter Comment="I2SClockSelectionARG" DefaultValue="+I2SClockSource" Name="I2SClockSelectionARG" Type="list" Visible="false">
+        <Condition Diagnostic="I2S Activated" Expression="I2SUsed_ForRCC"/>
+    </RefParameter>
+    <RefParameter Comment="I2SClockSelectionARG" DefaultValue="null" Name="I2SClockSelectionARG" Type="list" Visible="false"/>
+	
+	
+	
+    <RefParameter Comment="Tim1ClockSelectionARG" DefaultValue="+TIM1Selection" Name="Tim1ClockSelectionARG" Type="list" Visible="false">
+        <Condition Diagnostic="Tim1 Activated" Expression="TIM1"/>
+    </RefParameter>
+    <RefParameter Comment="Tim1ClockSelectionARG" DefaultValue="null" Name="Tim1ClockSelectionARG" Type="list" Visible="false"/>
+	
+    <RefParameter Comment="Tim8ClockSelectionARG" DefaultValue="+TIM8Selection" Name="Tim8ClockSelectionARG" Type="list" Visible="false">
+        <Condition Diagnostic="Tim1 Activated" Expression="TIM8 &amp; TIM8_Exist"/>
+    </RefParameter>
+	
+    <RefParameter Comment="Tim8ClockSelectionARG" DefaultValue="null" Name="Tim8ClockSelectionARG" Type="list" Visible="false"/>
+	
+    <RefParameter Comment="Tim15ClockSelectionARG" DefaultValue="+TIM15Selection" Name="Tim15ClockSelectionARG" Type="list" Visible="false">
+        <Condition Diagnostic="Tim15 Activated" Expression="TIM15 &amp; DIE439"/>
+    </RefParameter>
+    <RefParameter Comment="Tim15ClockSelectionARG" DefaultValue="null" Name="Tim15ClockSelectionARG" Type="list" Visible="false"/>
+	
+    <RefParameter Comment="Tim16ClockSelectionARG" DefaultValue="+TIM16Selection" Name="Tim16ClockSelectionARG" Type="list" Visible="false">
+        <Condition Diagnostic="Tim17 Activated" Expression="TIM16 &amp; DIE439"/>
+    </RefParameter>
+    <RefParameter Comment="Tim16ClockSelectionARG" DefaultValue="null" Name="Tim16ClockSelectionARG" Type="list" Visible="false"/>
+	
+    <RefParameter Comment="Tim17ClockSelectionARG" DefaultValue="+TIM17Selection" Name="Tim17ClockSelectionARG" Type="list" Visible="false">
+        <Condition Diagnostic="Tim1 Activated" Expression="TIM17 &amp; DIE439"/>
+    </RefParameter>
+    <RefParameter Comment="Tim17ClockSelectionARG" DefaultValue="null" Name="Tim17ClockSelectionARG" Type="list" Visible="false"/>
+	
+	
+	
+	
+    <RefParameter Comment="HRTIMClockSelectionARG" DefaultValue="+HRTIMSelection" Name="HRTIMClockSelectionARG" Type="list" Visible="false">
+        <Condition Diagnostic="HRTIM Activated" Expression="HRTIM1Used_ForRCC"/>
+    </RefParameter>
+    <RefParameter Comment="HRTIMClockSelectionARG" DefaultValue="null" Name="HRTIMClockSelectionARG" Type="list" Visible="false"/>
+	
+    <RefParameter Comment="Adc12ClockSelectionARG" DefaultValue="+ADC12PRES" Name="Adc12ClockSelectionARG" Type="list" Visible="false">
+        <Condition Diagnostic="Tim1 Activated" Expression="((channelSelectedADC1&amp;ADC1UsedAsynchronousCLK_ForRCC)|(channelSelectedADC2&amp;ADC2UsedAsynchronousCLK_ForRCC)) &amp; !DIE439"/>
+    </RefParameter>
+    <RefParameter Comment="Adc12ClockSelectionARG" DefaultValue="null" Name="Adc12ClockSelectionARG" Type="list" Visible="false"/>
+	
+	
+    <RefParameter Comment="ADCClockSelectionARG" DefaultValue="+ADC12PRES" Name="ADCClockSelectionARG" Type="list" Visible="false">
+        <Condition Diagnostic="adc1 Activated" Expression="(channelSelectedADC1&amp;ADC1UsedAsynchronousCLK_ForRCC) &amp; DIE439"/>
+    </RefParameter>
+    <RefParameter Comment="ADCClockSelectionARG" DefaultValue="null" Name="ADCClockSelectionARG" Type="list" Visible="false"/>
+	
+	
+    <RefParameter Comment="Adc34ClockSelectionARG" DefaultValue="+ADC34PRES" Name="Adc34ClockSelectionARG" Type="list" Visible="false">
+        <Condition Diagnostic="Tim1 Activated" Expression="(channelSelectedADC3&amp;ADC3UsedAsynchronousCLK_ForRCC)|(channelSelectedADC4&amp;ADC4UsedAsynchronousCLK_ForRCC)"/>
+    </RefParameter>
+    <RefParameter Comment="Adc34ClockSelectionARG" DefaultValue="null" Name="Adc34ClockSelectionARG" Type="list" Visible="false"/>
+	
+	
+    <RefParameter Comment="USBClockSelectionARG" DefaultValue="+PRESCALERUSB" Name="USBClockSelectionARG" Type="list" Visible="false">
+        <Condition Diagnostic="Tim1 Activated" Expression="USBUsed_ForRCC"/>
+    </RefParameter>
+    <RefParameter Comment="USBClockSelectionARG" DefaultValue="null" Name="USBClockSelectionARG" Type="list" Visible="false"/>
+	
+	
+	
+    <RefParameter Comment="Lse StateARG" DefaultValue="+HSEState" Name="HSEStateARG" Type="list" Visible="false">
+        <Condition Diagnostic="HSE used" Expression="HSEUsed=1"/>
+    </RefParameter>
+    <RefParameter Comment="Hse StateARG" DefaultValue="null" Name="HSEStateARG" Type="list" Visible="false"/>
+	
+	
+    <RefParameter Comment="Lse StateARG" DefaultValue="+LSEState" Name="LSEStateARG" Type="list" Visible="false">
+        <Condition Diagnostic="LSE used" Expression="LSEUsed=1"/>
+    </RefParameter>
+    <RefParameter Comment="Lse StateARG" DefaultValue="null" Name="LSEStateARG" Type="list" Visible="false"/>
+	
+	
+	
+    <RefParameter Comment="HSI StateARG" DefaultValue="+HSIState" Name="HSIStateARG" Type="list" Visible="false">
+        <Condition Diagnostic="HSI used" Expression="HSIUsed=1"/>
+    </RefParameter>
+    <RefParameter Comment="HSI StateARG" DefaultValue="null" Name="HSIStateARG" Type="list" Visible="false"/>
+	
+    <RefParameter Visible="false" Comment="HSICalibrationValueARG" DefaultValue="RCC_HSICALIBRATION_DEFAULT" Name="HSICalibrationValueARG" Type="list">
+        <Condition Diagnostic="HSI used" Expression="HSIUsed=1 &amp; HSICalibrationValue=16"/>
+    </RefParameter>
+    <RefParameter Comment="HSICalibrationValueARG" DefaultValue="+HSICalibrationValue" Name="HSICalibrationValueARG" Type="list" Visible="false">
+        <Condition Diagnostic="HSI used" Expression="HSIUsed=1"/>
+    </RefParameter>
+    <RefParameter Comment="HSICalibrationValueARG" DefaultValue="null" Name="HSICalibrationValueARG" Type="list" Visible="false"/>
+    <RefParameter Comment="HSI Calibration Value" DefaultValue="16" Group="RCC Parameters" Max="31" Min="0" Name="HSICalibrationValue" Type="integer"/>
+
+   
+    <RefParameter Comment="LSI StateARG" DefaultValue="+LSIState" Name="LSIStateARG" Type="list" Visible="false">
+        <Condition Diagnostic="LSI used" Expression="LSIUsed=1"/>
+    </RefParameter>
+    <RefParameter Comment="LSI StateARG" DefaultValue="null" Name="LSIStateARG" Type="list" Visible="false"/>
+        
+    
+  
+        
+    <RefParameter Comment="PLLStateARG" DefaultValue="+PLLState" Name="PLLStateARG" Type="list" Visible="false">
+        <Condition Diagnostic="PLL used" Expression="PLLUsed=1"/>
+    </RefParameter>
+    <RefParameter Comment="PLLStateARG" DefaultValue="RCC_PLL_NONE" Name="PLLStateARG" Type="list" Visible="false"/>
+    <RefParameter Comment="PLLSourceARG" DefaultValue="+PLLSource" Name="PLLSourceARG" Type="list" Visible="false">
+        <Condition Diagnostic="PLL used" Expression="PLLUsed=1"/>
+    </RefParameter>
+    <RefParameter Comment="PLLSourceARG" DefaultValue="null" Name="PLLSourceARG" Type="list" Visible="false"/>
+    <RefParameter Comment="PLLMULARG" DefaultValue="+PLLMUL" Name="PLLMULARG" Type="list" Visible="false">
+        <Condition Diagnostic="PLL used" Expression="PLLUsed=1"/>
+    </RefParameter>
+    <RefParameter Comment="PLLMULARG" DefaultValue="null" Name="PLLMULARG" Type="list" Visible="false"/>
+	
+	
+	
+    <RefParameter Comment="Clock TypeARG" DefaultValue="+ClockType" Name="ClockTypeARG" Type="list" Visible="false">
+        <Condition Diagnostic="at least one clock to configure" Expression="SysClkToConfigure|HCLKtoConfigure|PCLK1toConfigure|PCLK2toConfigure|FLASH_LATENCY0"/>
+    </RefParameter>
+    <RefParameter Comment="Clock TypeARG" DefaultValue="null" Name="ClockTypeARG" Type="list" Visible="false"/>
+    <RefParameter Comment="SysClock SourceARG" DefaultValue="+SYSCLKSource" Name="SYSCLKSourceARG" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="SysClkToConfigure"/>
+    </RefParameter>
+    <RefParameter Comment="SysClock SourceARG" DefaultValue="null" Name="SYSCLKSourceARG" Type="list" Visible="false"/>
+    <RefParameter Comment="AHBCLKDividerARG" DefaultValue="+AHBCLKDivider" Name="AHBCLKDividerARG" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="HCLKtoConfigure"/>
+    </RefParameter>	
+    <RefParameter Comment="AHBCLKDividerARG" DefaultValue="null" Name="AHBCLKDividerARG" Type="list" Visible="false"/>
+    <RefParameter Comment="APB1CLKDividerARG" DefaultValue="+APB1CLKDivider" Name="APB1CLKDividerARG" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="PCLK1toConfigure"/>
+    </RefParameter>
+    <RefParameter Comment="APB1CLKDividerARG" DefaultValue="null" Name="APB1CLKDividerARG" Type="list" Visible="false"/>
+    <RefParameter Comment="APB2CLKDividerARG" DefaultValue="+APB2CLKDivider" Name="APB2CLKDividerARG" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="PCLK2toConfigure"/>
+    </RefParameter>
+    <RefParameter Comment="APB2CLKDividerARG" DefaultValue="null" Name="APB2CLKDividerARG" Type="list" Visible="false"/>
+	
+    <!--Clock Type-->
+    <RefParameter Comment="Clock Type" DefaultValue="+ClockTypeHCLK+|ClockTypeSysClk+|ClockTypePCLK1+|ClockTypePCLK2" Name="ClockType" Type="list" Visible="false"/>
+
+    <RefParameter Comment="Clock Type SysClk" DefaultValue="RCC_CLOCKTYPE_SYSCLK" Name="ClockTypeSysClk" Type="list" Visible="false">
+        <PossibleValue Comment="Sysclk" Semaphore="SysClkToConfigure" Value="RCC_CLOCKTYPE_SYSCLK"/>
+    </RefParameter>
+    <RefParameter Comment="Clock Type AHB" DefaultValue="RCC_CLOCKTYPE_HCLK" Name="ClockTypeHCLK" Type="list" Visible="false">
+        <PossibleValue Comment="RCC_CLOCKTYPE_HCLK" Semaphore="HCLKtoConfigure" Value="RCC_CLOCKTYPE_HCLK"/>
+    </RefParameter>
+    <RefParameter Comment="Clock Type HCLK1" DefaultValue="RCC_CLOCKTYPE_PCLK1" Name="ClockTypePCLK1" Type="list" Visible="false">
+        <PossibleValue Comment="PCLK1" Semaphore="PCLK1toConfigure" Value="RCC_CLOCKTYPE_PCLK1"/>
+    </RefParameter>
+    <RefParameter Comment="Clock Type HCLK2" DefaultValue="RCC_CLOCKTYPE_PCLK2" Name="ClockTypePCLK2" Type="list" Visible="false">
+        <PossibleValue Comment="PCLK2" Semaphore="PCLK2toConfigure" Value="RCC_CLOCKTYPE_PCLK2"/>
+    </RefParameter>
+	
+	
+	
+    <!--Advanced Param -->
+    <RefParameter Comment="VDD voltage (V)" DefaultValue="3.3" Group="System Parameters" Max="3.6" Min="2" Name="VDD_VALUE" Type="double" Unit="V">
+        <Condition Diagnostic="HCLK2 not changed" Expression="!STM32F3x8"/>
+    </RefParameter>
+    <RefParameter Comment="VDD voltage (V)" DefaultValue="1.8" Group="System Parameters" Max="1.95" Min="1.65" Name="VDD_VALUE" Type="double" Unit="V"/>
+
+
+	
+	
+    	
+	
+    <RefParameter Comment="Flash Latency(WS)" DefaultValue="FLASH_LATENCY_0" Group="System Parameters" Name="FLatency" Type="uniqueElementList">
+        <Condition Diagnostic="" Expression="((HCLKFreq_Value &gt; 0) &amp; ((HCLKFreq_Value &lt; 24000000)|((HCLKFreq_Value =24000000))))"/>
+        <PossibleValue Comment="0 WS (1 CPU cycle)" Semaphore="FLASH_LATENCY0" Value="FLASH_LATENCY_0"/>
+    </RefParameter>
+    <RefParameter Comment="Flash Latency(WS)" DefaultValue="FLASH_LATENCY_1" Group="System Parameters" Name="FLatency" Type="uniqueElementList">
+        <Condition Diagnostic="" Expression="((HCLKFreq_Value &gt; 24000000) &amp; ((HCLKFreq_Value &lt; 48000000)|((HCLKFreq_Value =48000000))))"/>
+        <PossibleValue Comment="1 WS (2 CPU cycle)" Value="FLASH_LATENCY_1"/>
+    </RefParameter>
+
+    <RefParameter Comment="Flash Latency(WS)" DefaultValue="FLASH_LATENCY_2" Group="System Parameters" Name="FLatency" Type="uniqueElementList">
+        <PossibleValue Comment="2 WS (3 CPU cycle)" Value="FLASH_LATENCY_2"/>
+    </RefParameter>
+    <RefParameter Comment="Prefetch Buffer" DefaultValue="1" Group="System Parameters" Name="PREFETCH_ENABLE" Type="list">
+        <Condition Diagnostic="" Expression="!AHBCLKDivider1"/>
+        <PossibleValue Comment="Enabled" Value="1"/>
+    </RefParameter>
+    <RefParameter Comment="Prefetch Buffer" DefaultValue="1" Group="System Parameters" Name="PREFETCH_ENABLE" Type="list">
+        <PossibleValue Comment="Enabled" Value="1"/>
+        <PossibleValue Comment="Disabled" Value="0"/>
+    </RefParameter>
+    <RefParameter Comment="Clock Output" DefaultValue="RCC_MCO" Name="RCC_MCO" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="(SEM2RCC_MCO_REQUIRED_TIM16 &amp; TIM16 &amp; Semaphore_input_Channel1TIM16)|MCOConfig"/>
+
+        <PossibleValue Comment="Clock Output" Value="RCC_MCO"/>
+    </RefParameter>
+   
+  
+    <RefParameter Comment="Clock Output" DefaultValue="null" Name="RCC_MCO" Type="list" Visible="false"/>
+    
+    <RefParameter Comment="MCO Prescaler" DefaultValue="RCC_MCODIV_1" Name="RCC_MCODiv" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="DIE439|DIE438"/>
+        <PossibleValue Comment="1" Value="RCC_MCODIV_1"/>
+        <PossibleValue Comment="2" Value="RCC_MCODIV_2"/>
+        <PossibleValue Comment="4" Value="RCC_MCODIV_4"/>
+        <PossibleValue Comment="8" Value="RCC_MCODIV_8"/>
+        <PossibleValue Comment="16" Value="RCC_MCODIV_16"/>
+        <PossibleValue Comment="32" Value="RCC_MCODIV_32"/>
+        <PossibleValue Comment="64" Value="RCC_MCODIV_64"/>
+        <PossibleValue Comment="128" Value="RCC_MCODIV_128"/>
+    </RefParameter>
+    <RefParameter Comment="MCO Prescaler" DefaultValue="RCC_MCODIV_1" Name="RCC_MCODiv" Type="list" Visible="false">
+        <PossibleValue Comment="1" Value="RCC_MCODIV_1"/><!-- -->
+    </RefParameter>
+    <RefParameter Comment="PWR_SDADC_ANALOG1" DefaultValue="PWR_SDADC_ANALOG1" Name="PWR_SDADC_ANALOG1" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="USE_SDADC1"/>
+        <PossibleValue Comment="PWR_SDADC_ANALOG1" Value="PWR_SDADC_ANALOG1"/>       
+    </RefParameter>
+    <RefParameter Comment="PWR_SDADC_ANALOG2" DefaultValue="PWR_SDADC_ANALOG2" Name="PWR_SDADC_ANALOG2" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="USE_SDADC2"/>
+        <PossibleValue Comment="PWR_SDADC_ANALOG2" Value="PWR_SDADC_ANALOG2"/>       
+    </RefParameter>
+    <RefParameter Comment="PWR_SDADC_ANALOG3" DefaultValue="PWR_SDADC_ANALOG3" Name="PWR_SDADC_ANALOG3" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="USE_SDADC3"/>
+        <PossibleValue Comment="PWR_SDADC_ANALOG3" Value="PWR_SDADC_ANALOG3"/>       
+    </RefParameter>
+    <RefParameter Comment="PWR_SDADC_ANALOG3" DefaultValue="null" Name="PWR_SDADC_ANALOG3" Type="list" Visible="false">
+           
+    </RefParameter>
+	 <RefParameter Comment="PCLK2" Name="HRTIMPCLK2Label" Type="string" Visible="false">
+        <Condition Diagnostic="pwd drive activated" Expression="APB2DIV1"/>
+    </RefParameter>
+    <RefParameter Comment="PCLK2*2" Name="HRTIMPCLK2Label" Type="string" Visible="false"/>
+	 <RefParameter Comment="PCLK2" Name="TIM15PCLK2Label" Type="string" Visible="false">
+        <Condition Diagnostic="pwd drive activated" Expression="APB2DIV1"/>
+    </RefParameter>
+    <RefParameter Comment="PCLK2*2" Name="TIM15PCLK2Label" Type="string" Visible="false"/>
+	 <RefParameter Comment="PCLK2" Name="TIM1PCLK2Label" Type="string" Visible="false">
+        <Condition Diagnostic="pwd drive activated" Expression="APB2DIV1"/>
+    </RefParameter>
+    <RefParameter Comment="PCLK2*2" Name="TIM1PCLK2Label" Type="string" Visible="false"/>
+	 <RefParameter Comment="PCLK2" Name="TIM8PCLK2Label" Type="string" Visible="false">
+        <Condition Diagnostic="pwd drive activated" Expression="APB2DIV1"/>
+    </RefParameter>
+    <RefParameter Comment="PCLK2*2" Name="TIM8PCLK2Label" Type="string" Visible="false"/>
+	 <RefParameter Comment="PCLK2" Name="TIM16PCLK2Label" Type="string" Visible="false">
+        <Condition Diagnostic="pwd drive activated" Expression="APB2DIV1"/>
+    </RefParameter>
+    <RefParameter Comment="PCLK2*2" Name="TIM16PCLK2Label" Type="string" Visible="false"/>
+	 <RefParameter Comment="PCLK2" Name="TIM17PCLK2Label" Type="string" Visible="false">
+        <Condition Diagnostic="pwd drive activated" Expression="APB2DIV1"/>
+    </RefParameter>
+    <RefParameter Comment="PCLK2*2" Name="TIM17PCLK2Label" Type="string" Visible="false"/>
+<RefParameter  Name="LSE_Drive_Capability" Comment="LSE Drive Capability" Type="list" DefaultValue="false" Group="RCC Parameters">
+        <Condition Diagnostic="" Expression="LSEOscillator &amp; (LSEUsed=1)"/>
+        <PossibleValue Value="RCC_LSEDRIVE_LOW"        Comment="LSE oscillator low drive capability"  />
+        <PossibleValue Value="RCC_LSEDRIVE_MEDIUMLOW"  Comment="LSE oscillator medium low drive capability"/>
+        <PossibleValue Value="RCC_LSEDRIVE_MEDIUMHIGH" Comment="LSE oscillator medium high drive capability"/>
+        <PossibleValue Value="RCC_LSEDRIVE_HIGH"       Comment="LSE oscillator high drive capability"/>
+    </RefParameter>
+	<RefParameter Visible="false" Name="LSE_Drive_Capability" Comment="LSE Drive Capability" Type="list" DefaultValue="null" Group="RCC Parameters">
+    
+    </RefParameter>
+    
+    <RefMode Name="ClockTree">
+	    <ConfigForMode>RCC_LSEDRIVE_CONFIG</ConfigForMode>	
+        <ConfigForMode>RCC_OSCConfig</ConfigForMode>        
+        <ConfigForMode>RCC_ClockConfig</ConfigForMode>    
+			
+        <ConfigForMode>PWR_EnableSDADCAnalog1</ConfigForMode>    
+        <ConfigForMode>PWR_EnableSDADCAnalog2</ConfigForMode>    
+        <ConfigForMode>PWR_EnableSDADCAnalog3</ConfigForMode>    
+        <ConfigForMode>RCC_MCOConfig</ConfigForMode> 
+        <ConfigForMode>RCC_CSS_Enable</ConfigForMode>
+         
+        <!--ConfigForMode>SYSCFG_CLK_ENABLE</ConfigForMode-->   <!-- added as a workAround to enable the SYSCFG clock : it should be managed internally by the HAL-->
+         <ConfigForMode>RCC_interrupt_Time_SYSTICK_Config</ConfigForMode>
+		 <ConfigForMode>RCC_SYSTICK_CONFIG</ConfigForMode>
+        <Parameter Name="PLLMUL"/>
+        <Parameter Name="APB1TimCLKDivider"/>
+        <Parameter Name="APB2TimCLKDivider"/>
+        <Parameter Name="TIMMUL"/>
+        <Parameter Name="HSIRCDiv"/>
+        <Parameter Name="RCC_PLLsource_Clock_Source_FROM_HSE"/>
+        <Parameter Name="RCC_RTC_Clock_Source_FROM_HSE"/>
+        <Parameter Name="PRESCALERUSB"/>
+        <Parameter Name="RCC_MCOMult_Clock_Source_FROM_PLLMUL"/>
+        <Parameter Name="AHBCLKDivider"/>
+        <Parameter Name="Cortex_Div"/>
+        <Parameter Name="APB1CLKDivider"/>
+        <Parameter Name="APB2CLKDivider"/>
+        <Parameter Name="ADC12PRES"/>
+        <Parameter Name="ADC34PRES"/>
+        <Parameter Name="PLLSource"/>
+        <Parameter Name="SYSCLKSource"/>
+        <Parameter Name="RTCClockSelection"/>
+        <Parameter Name="RCC_MCOSource"/>
+        <Parameter Name="I2c1ClockSelection"/>
+        <Parameter Name="I2c2ClockSelection"/>
+        <Parameter Name="I2c3ClockSelection"/>
+        <Parameter Name="I2SClockSource"/>
+        <Parameter Name="Usart1ClockSelection"/>
+        <Parameter Name="Usart2ClockSelection"/>
+        <Parameter Name="Usart3ClockSelection"/>
+        <Parameter Name="Uart4ClockSelection"/>
+        <Parameter Name="Uart5ClockSelection"/>
+        <Parameter Name="HSI_VALUE"/>
+        <Parameter Name="LSE_VALUE"/>
+        <Parameter Name="LSI_VALUE"/>
+        <Parameter Name="HSE_VALUE"/>
+        <Parameter Name="VCOOutput2Freq_Value"/>
+        <Parameter Name="HSIPLLFreq_Value"/>
+        <Parameter Name="HSEPLLFreq_Value"/>
+        <Parameter Name="PLLCLKFreq_Value"/>
+        <Parameter Name="SYSCLKFreq_VALUE"/>
+        <Parameter Name="USBFreq_Value"/>
+        <Parameter Name="AHBFreq_Value"/>
+        <Parameter Name="HCLKFreq_Value"/>
+        <Parameter Name="RTCFreq_Value"/>
+        <Parameter Name="RTCHSEDivFreq_Value"/>
+        <Parameter Name="WatchDogFreq_Value"/>
+        <Parameter Name="CortexFreq_Value"/>
+        <Parameter Name="FCLKCortexFreq_Value"/>
+        <Parameter Name="APB1Freq_Value"/>
+        <Parameter Name="APB2Freq_Value"/>
+        <Parameter Name="APB1TimFreq_Value"/>
+        <Parameter Name="APB2TimFreq_Value"/>
+        <Parameter Name="MCOFreq_Value"/>
+        <Parameter Name="ADC12outputFreq_Value"/>
+        <Parameter Name="ADC34outputFreq_Value"/>
+        <Parameter Name="I2C1Freq_Value"/>
+        <Parameter Name="I2C2Freq_Value"/>
+        <Parameter Name="I2C3Freq_Value"/>
+        <Parameter Name="EXTERNAL_CLOCK_VALUE"/>
+        <Parameter Name="I2SClocksFreq_Value"/>
+        <Parameter Name="USART1Freq_Value"/>
+        <Parameter Name="USART2Freq_Value"/>
+        <Parameter Name="USART3Freq_Value"/>
+        <Parameter Name="UART4Freq_Value"/>
+        <Parameter Name="UART5Freq_Value"/>
+        <Parameter Name="TIM1Freq_Value"/>
+        <Parameter Name="TIM8Freq_Value"/>
+        <Parameter Name="TIM15Freq_Value"/>
+        <Parameter Name="TIM16Freq_Value"/>
+        <Parameter Name="TIM17Freq_Value"/>
+        <Parameter Name="HRTIM1Freq_Value"/>
+        <Parameter Name="TimMulFreq_Value"/>
+        <Parameter Name="EnableHSE"/>
+        <Parameter Name="EnableHSERTCDevisor"/>
+        <Parameter Name="EnableHSIRTCDevisor"/>
+        <Parameter Name="EnableMCOMultDivisor"/>
+        <Parameter Name="RTCEnable"/>
+        <Parameter Name="EnableHSERTCDevisor"/>
+        <Parameter Name="EnableLSERTC"/>
+        <Parameter Name="EnableLSE"/>
+        <Parameter Name="IWDGEnable"/>
+        <Parameter Name="FLITFCLKFEnable"/>
+        <Parameter Name="I2SEnable"/>
+        <Parameter Name="USART1Enable"/>
+        <Parameter Name="USART2Enable"/>
+        <Parameter Name="USART3Enable"/>
+        <Parameter Name="UART4Enable"/>
+        <Parameter Name="UART5Enable"/>
+        <Parameter Name="I2C1Enable"/>
+        <Parameter Name="I2C2Enable"/>
+        <Parameter Name="I2C3Enable"/>
+        <Parameter Name="ADC1Enable"/>
+        <Parameter Name="ADC2Enable"/>
+        <Parameter Name="ADC3Enable"/>
+        <Parameter Name="ADC4Enable"/>
+        <Parameter Name="Tim1Enable"/>
+        <Parameter Name="Tim15Enable"/>
+        <Parameter Name="Tim16Enable"/>
+        <Parameter Name="Tim17Enable"/>
+        <Parameter Name="Tim8Enable"/>
+        <Parameter Name="HRTIMEnable"/>
+        <Parameter Name="USBEnable"/>
+        <Parameter Name="MCOEnable"/>
+        <Parameter Name="OscillatorTypeHSE"/>
+        <Parameter Name="HSEUsed"/>
+        <Parameter Name="HSEState"/>
+        <Parameter Name="OscillatorTypeLSE"/>
+        <Parameter Name="LSEUsed"/>
+        <Parameter Name="LSEState"/>
+        <Parameter Name="OscillatorTypeLSI"/>
+        <Parameter Name="LSIUsed"/>
+        <Parameter Name="LSIState"/>
+        <Parameter Name="OscillatorTypeHSI"/>
+        <Parameter Name="HSIUsed"/>
+        <Parameter Name="HSIState"/>
+        <Parameter Name="PLLUsed"/>
+        <Parameter Name="PLLState"/>
+        <Parameter Name="PeriphClockSelectionARG"/>
+        <Parameter Name="ClockTypeARG"/>
+        <Parameter Name="ClockTypeARG"/>
+        <Parameter Name="ClockType"/>
+        <Parameter Name="ClockTypeHCLK"/>
+        <Parameter Name="ClockTypePCLK1"/>
+        <Parameter Name="ClockTypePCLK2"/>
+        <Parameter Name="PeriphClockSelection"/>
+        <Parameter Name="RCC_PERIPHCLK_I2SVar"/>
+        <Parameter Name="RCC_PERIPHCLK_USART1Var"/>
+        <Parameter Name="RCC_PERIPHCLK_USART2Var"/>
+        <Parameter Name="RCC_PERIPHCLK_USART3Var"/>
+        <Parameter Name="RCC_PERIPHCLK_UART4Var"/>
+        <Parameter Name="RCC_PERIPHCLK_UART5Var"/>
+        <Parameter Name="RCC_PERIPHCLK_I2C1Var"/>
+        <Parameter Name="RCC_PERIPHCLK_I2C2Var"/>
+        <Parameter Name="RCC_PERIPHCLK_I2C3Var"/>
+        <Parameter Name="RCC_PERIPHCLK_RTCVar"/>
+        <Parameter Name="RCC_PERIPHCLK_TIM1Var"/>
+        <Parameter Name="RCC_PERIPHCLK_TIM15Var"/>
+        <Parameter Name="RCC_PERIPHCLK_TIM16Var"/>
+        <Parameter Name="RCC_PERIPHCLK_TIM17Var"/>
+        <Parameter Name="RCC_PERIPHCLK_TIM8Var"/>
+        <Parameter Name="I2SClockSelectionARG"/>
+        <Parameter Name="Usart1ClockSelectionARG"/>
+        <Parameter Name="Usart2ClockSelectionARG"/>
+        <Parameter Name="Usart3ClockSelectionARG"/>
+        <Parameter Name="Uart4ClockSelectionARG"/>
+        <Parameter Name="Uart5ClockSelectionARG"/>
+        <Parameter Name="I2c1ClockSelectionARG"/>
+        <Parameter Name="I2c2ClockSelectionARG"/>
+        <Parameter Name="I2c3ClockSelectionARG"/>
+        <Parameter Name="RTCClockSelectionARG"/>
+        <Parameter Name="Tim1ClockSelectionARG"/>
+        <Parameter Name="Tim15ClockSelectionARG"/>
+        <Parameter Name="Tim16ClockSelectionARG"/>
+        <Parameter Name="Tim17ClockSelectionARG"/>
+        <Parameter Name="Tim8ClockSelectionARG"/>
+        <Parameter Name="HRTIMClockSelectionARG"/>
+        <Parameter Name="HSEStateARG"/>
+        <Parameter Name="LSEStateARG"/>
+        <Parameter Name="HSIStateARG"/>
+        <Parameter Name="LSIStateARG"/>
+        <Parameter Name="PLLStateARG"/>
+        <Parameter Name="PLLSourceARG"/>
+        <Parameter Name="PLLMULARG"/>
+        <Parameter Name="PLLSourceVirtual"/>
+    </RefMode>
+    <RefMode Name="AdvancedSettings">
+        <Parameter Name="VDD_VALUE"/>
+        <Parameter Name="PREFETCH_ENABLE"/>
+        <Parameter Name="FLatency"/>
+        <Parameter Name="HSICalibrationValue"/>
+		<Parameter Name="HSE_Timout"/>
+        <Parameter Name="LSE_Timout"/>
+		 <Parameter Name="LSE_Drive_Capability"/>
+    </RefMode>
+    <ModeLogicOperator Name="OR">
+        <!-- Modes for Oscillators & Clocks -->
+        <Mode Name="OSC" UserName="High Speed Clock (HSE)">
+            <ModeLogicOperator Name="XOR">
+                <Mode Name="HSE-External-Clock-Source" UserName="BYPASS Clock Source">
+                    <SignalLogicalOp Name="AND">
+                        <Signal Name="OSC_IN"/>
+                        <!--Signal Name="OSC_OUT"/-->
+                    </SignalLogicalOp>
+                    <Semaphore>HSEByPass</Semaphore>
+                </Mode>
+                <Mode Name="HSE-External-Oscillator" UserName="Crystal/Ceramic Resonator">
+                    <SignalLogicalOp Name="AND">
+                        <Signal Name="OSC_IN"/>
+                        <Signal Name="OSC_OUT"/>
+                    </SignalLogicalOp>
+                    <Semaphore>HSEOscillator</Semaphore>
+                </Mode>
+            </ModeLogicOperator>
+        </Mode>
+        <Mode Name="OSC32" UserName="Low Speed Clock (LSE) ">
+            <ModeLogicOperator Name="XOR">
+                <Mode Name="LSE-External-Clock-Source" UserName="BYPASS Clock Source">
+                    <SignalLogicalOp Name="AND">
+                        <Signal Name="OSC32_IN"/>
+                        <!--Signal Name="OSC32_OUT"/-->
+                    </SignalLogicalOp>
+                    <Semaphore>LSEByPass</Semaphore>
+                </Mode>
+                <Mode Name="LSE-External-Oscillator" UserName="Crystal/Ceramic Resonator">
+                    <SignalLogicalOp Name="AND">
+                        <Signal Name="OSC32_IN"/>
+                        <Signal Name="OSC32_OUT"/>
+                    </SignalLogicalOp>
+                    <Semaphore>LSEOscillator</Semaphore>
+                </Mode>
+            </ModeLogicOperator>
+        </Mode>
+        <Mode Name="Clock-out" UserName="Master Clock Output ">
+            <ModeLogicOperator Name="OR">
+                <Mode Name="Clock-out">
+                    <SignalLogicalOp Name="AND">
+                        <Signal Name="MCO"/>
+                    </SignalLogicalOp>
+                    <Semaphore>MCOConfig</Semaphore>
+                </Mode>
+            </ModeLogicOperator>
+        </Mode>
+        <Mode Name="Audio_ClockIn" UserName="Audio Clock Input (I2S_CKIN)">
+            <ModeLogicOperator Name="OR">
+                <Mode Name="Audio_ClockIn">
+                    <SignalLogicalOp Name="AND">
+                        <Signal Name="$SingleInstanceI2S_CKIN"/>
+                    </SignalLogicalOp>
+                    <Semaphore>AudioClockConfig</Semaphore>
+                </Mode>
+            </ModeLogicOperator>
+        </Mode>
+     
+       
+    </ModeLogicOperator>
+    <RefSignal IOMode="AlternateFunctionPushPull" Name="MCO"/>
+    <RefSignal IOMode="System" Name="OSC32_IN"/>
+    <RefSignal IOMode="System" Name="OSC32_OUT"/>
+    <RefSignal IOMode="System" Name="OSC_IN"/>
+    <RefSignal IOMode="System" Name="OSC_OUT"/>
+    <RefSignal IOMode="AlternateFunctionPushPull" Name="$SingleInstanceI2S_CKIN"/>
+</IP>
