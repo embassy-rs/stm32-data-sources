@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<IP DBVersion="V4.0" IPType="service" Name="ICACHE" Version="Icache_v1_0_0_Cube"
+	xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance"
+	ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../../../doc/V4/Development/Specifications/db/IP_Modes.xsd"
+	xmlns="http://mcd.rou.st.com/modules.php?name=mcu">
+	<About>ICACHE: ICACHE</About>
+
+<!-- Generic RefParameters for CRC --> 
+	<RefParameter Name="Instance" DefaultValue="ICACHE" Comment="Instance" Type="" Visible="false"/>
+         <RefParameter Comment="ICACHE 1WAY" DefaultValue="ICACHE_1WAY" Name="ICACHE_1WAY" Type="list" Visible="false"/>
+        <RefMode BaseMode="icacheBasic" Name="DefaultMode">
+        <ConfigForMode>ICACHE_Init</ConfigForMode>		
+    </RefMode>
+     <RefMode BaseMode="icache1way" Name="DirectMappedCache">
+        <ConfigForMode>ICACHE_Config</ConfigForMode> 
+        <!--ConfigForMode>ICACHE_Init</ConfigForMode-->		
+    </RefMode>
+    
+    <!-- ModeLogicOperator for Icache -->
+    <ModeLogicOperator Name="OR">
+      <!--Mode Name="ICACHE_State" UserName="Activated">
+        <ModeLogicOperator Name="XOR">
+          <Mode Name="ICACHE_Activate" UserName="Activated">
+            <SignalLogicalOp Name="AND">
+              <Signal Name="VS_ICACHE" />
+            </SignalLogicalOp>
+          </Mode>
+        </ModeLogicOperator>
+
+      </Mode-->
+       <Mode Name="Mode" UserName="Mode">
+			<ModeLogicOperator Name="XOR">
+				<Mode Name="DefaultMode"
+					UserName="2-ways set associative cache">
+					<SignalLogicalOp Name="AND">
+						<Signal Name="VS_ICACHE" />
+					</SignalLogicalOp>
+					
+				</Mode>
+				<Mode Name="DirectMappedCache"
+					UserName="1-way (direct mapped cache)">
+					<SignalLogicalOp Name="AND">
+						<Signal Name="VS_ICACHE" />
+					</SignalLogicalOp>
+				</Mode>
+                                </ModeLogicOperator>
+		</Mode>
+
+        <Mode Name="ICACHE_REG_Secure_Attribute" UserName="Secure Attribute" RemoveDisable="true" RemoveCondition="!S_SECURE">
+            <ModeLogicOperator Name="XOR">
+                <Mode Name="ICACHE_REG_Not_Secured" UserName="not secured">
+                    <SignalLogicalOp Name="AND">
+                        <Signal Name="VS_SECURE_ICACHE_REG"/>
+                    </SignalLogicalOp>
+                </Mode>
+                <Mode Name="ICACHE_REG_Secured" UserName="secured">
+                    <SignalLogicalOp Name="AND">
+                        <Signal Name="VS_SECURE_ICACHE_REG"/>
+                    </SignalLogicalOp>
+                    <Semaphore>S_ICACHE_REG_Secure</Semaphore>
+                </Mode>
+            </ModeLogicOperator>
+        </Mode>
+
+    </ModeLogicOperator>
+
+    <!-- RefSignal for ICACHE -->
+    <RefSignal Name="VS_ICACHE" Virtual="true"/>
+    <RefSignal Name="VS_SECURE_ICACHE_REG" Virtual="true"/>
+
+</IP>
