@@ -21,66 +21,42 @@ case "$CMD" in
         ./d download-cubeprogdb
     ;;
     download-mcufinder)
-        mkdir -p sources/mcufinder
-        wget http://stmcufinder.com/API/getFiles.php -O sources/mcufinder/files.json
-        wget http://stmcufinder.com/API/getMCUsForMCUFinderPC.php -O sources/mcufinder/mcus.json	
+        mkdir -p mcufinder
+        wget http://stmcufinder.com/API/getFiles.php -O mcufinder/files.json
+        wget http://stmcufinder.com/API/getMCUsForMCUFinderPC.php -O mcufinder/mcus.json	
     ;;
     download-pdf)
-	    jq -r .Files[].URL < sources/mcufinder/files.json  | wget -P sources/pdf/ -N -i -
+	    jq -r .Files[].URL < mcufinder/files.json  | wget -P pdf/ -N -i -
     ;;
     download-svd)
-    	rm -rf ./sources/git/stm32-rs
-        git clone --depth 1 https://github.com/stm32-rs/stm32-rs.git ./sources/git/stm32-rs
-        (cd ./sources/git/stm32-rs; make svdformat)
-        mkdir -p sources/svd
-        for f in ./sources/git/stm32-rs/svd/*.formatted; do
+    	rm -rf ./git/stm32-rs
+        git clone --depth 1 https://github.com/stm32-rs/stm32-rs.git ./git/stm32-rs
+        (cd ./git/stm32-rs; make svdformat)
+        mkdir -p svd
+        for f in ./git/stm32-rs/svd/*.formatted; do
             base=$(basename $f | cut -f 1 -d .)
-            cp $f sources/svd/$base.svd
+            cp $f svd/$base.svd
         done
     ;;
     download-headers)
         for f in F0 F1 F2 F3 F4 F7 H7 L0 L1 L4 L5 G0 G4 WB WL; do
-            rm -rf ./sources/git/STM32Cube$f
-            git clone --depth 1 https://github.com/STMicroelectronics/STM32Cube$f sources/git/STM32Cube$f
+            rm -rf ./git/STM32Cube$f
+            git clone --depth 1 https://github.com/STMicroelectronics/STM32Cube$f git/STM32Cube$f
         done
-        rm -rf sources/headers
-        mkdir -p sources/headers
-        cp sources/git/STM32Cube*/Drivers/CMSIS/Device/ST/STM32*/Include/*.h sources/headers
-        rm sources/headers/stm32??xx.h
-        rm sources/headers/system_*.h
-        rm sources/headers/partition_*.h
+        rm -rf headers
+        mkdir -p headers
+        cp git/STM32Cube*/Drivers/CMSIS/Device/ST/STM32*/Include/*.h headers
+        rm headers/stm32??xx.h
+        rm headers/system_*.h
+        rm headers/partition_*.h
     ;;
     download-cubedb)
-        rm -rf sources/cubedb
-        git clone --depth 1 https://github.com/embassy-rs/stm32cube-database.git sources/cubedb
+        rm -rf cubedb
+        git clone --depth 1 https://github.com/embassy-rs/stm32cube-database.git cubedb
     ;;
     download-cubeprogdb)
-        rm -rf sources/cubeprogdb
-        git clone --depth 1 https://github.com/embassy-rs/stm32cubeprog-database.git sources/cubeprogdb
-    ;;
-    install-chiptool)
-        cargo install --git https://github.com/embassy-rs/chiptool
-    ;;
-    extract-all)
-        peri=$1
-        shift
-        echo $@
-
-        rm -rf tmp/$peri
-        mkdir -p tmp/$peri
-
-        for f in `ls sources/svd`; do
-            f=${f#"stm32"}
-            f=${f%".svd"}
-            echo -n processing $f ...
-            if chiptool extract-peripheral --svd sources/svd/stm32$f.svd --peripheral $peri $@ > tmp/$peri/$f.yaml 2> tmp/$peri/$f.err; then 
-                rm tmp/$peri/$f.err
-                echo OK
-            else
-                rm tmp/$peri/$f.yaml
-                echo FAIL
-            fi
-        done
+        rm -rf cubeprogdb
+        git clone --depth 1 https://github.com/embassy-rs/stm32cubeprog-database.git cubeprogdb
     ;;
     *)
         echo "unknown command"

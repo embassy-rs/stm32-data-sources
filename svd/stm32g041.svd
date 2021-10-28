@@ -10051,6 +10051,50 @@ Copyright (c) 2020 STMicroelectronics.
               <description>Output Compare 1 mode</description>
               <bitOffset>4</bitOffset>
               <bitWidth>3</bitWidth>
+              <enumeratedValues>
+                <name>OC1M</name>
+                <usage>read-write</usage>
+                <enumeratedValue>
+                  <name>Frozen</name>
+                  <description>The comparison between the output compare register TIMx_CCRy and the counter TIMx_CNT has no effect on the outputs</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>ActiveOnMatch</name>
+                  <description>Set channel to active level on match. OCyREF signal is forced high when the counter matches the capture/compare register</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>InactiveOnMatch</name>
+                  <description>Set channel to inactive level on match. OCyREF signal is forced low when the counter matches the capture/compare register</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Toggle</name>
+                  <description>OCyREF toggles when TIMx_CNT=TIMx_CCRy</description>
+                  <value>3</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>ForceInactive</name>
+                  <description>OCyREF is forced low</description>
+                  <value>4</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>ForceActive</name>
+                  <description>OCyREF is forced high</description>
+                  <value>5</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>PwmMode1</name>
+                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT&gt;TIMx_CCRy else active</description>
+                  <value>6</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>PwmMode2</name>
+                  <description>Inversely to PwmMode1</description>
+                  <value>7</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
             <field>
               <name>OC1PE</name>
@@ -12445,6 +12489,50 @@ Copyright (c) 2020 STMicroelectronics.
               <description>Output Compare 1 mode</description>
               <bitOffset>4</bitOffset>
               <bitWidth>3</bitWidth>
+              <enumeratedValues>
+                <name>OC1M</name>
+                <usage>read-write</usage>
+                <enumeratedValue>
+                  <name>Frozen</name>
+                  <description>The comparison between the output compare register TIMx_CCRy and the counter TIMx_CNT has no effect on the outputs / OpmMode1: Retriggerable OPM mode 1 - In up-counting mode, the channel is active until a trigger event is detected (on TRGI signal). In down-counting mode, the channel is inactive</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>ActiveOnMatch</name>
+                  <description>Set channel to active level on match. OCyREF signal is forced high when the counter matches the capture/compare register / OpmMode2: Inversely to OpmMode1</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>InactiveOnMatch</name>
+                  <description>Set channel to inactive level on match. OCyREF signal is forced low when the counter matches the capture/compare register / Reserved</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Toggle</name>
+                  <description>OCyREF toggles when TIMx_CNT=TIMx_CCRy / Reserved</description>
+                  <value>3</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>ForceInactive</name>
+                  <description>OCyREF is forced low / CombinedPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC is the logical OR between OC1REF and OC2REF</description>
+                  <value>4</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>ForceActive</name>
+                  <description>OCyREF is forced high / CombinedPwmMode2: OCyREF has the same behavior as in PWM mode 2. OCyREFC is the logical AND between OC1REF and OC2REF</description>
+                  <value>5</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>PwmMode1</name>
+                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT&gt;TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
+                  <value>6</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>PwmMode2</name>
+                  <description>Inversely to PwmMode1 / AsymmetricPwmMode2: Inversely to AsymmetricPwmMode1</description>
+                  <value>7</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
             <field>
               <name>OC1CE</name>
@@ -12479,6 +12567,7 @@ Copyright (c) 2020 STMicroelectronics.
               <description>Output Compare 2 mode</description>
               <bitOffset>12</bitOffset>
               <bitWidth>3</bitWidth>
+              <enumeratedValues derivedFrom="OC1M"/>
             </field>
             <field>
               <name>OC2CE</name>
@@ -12493,6 +12582,20 @@ Copyright (c) 2020 STMicroelectronics.
               3</description>
               <bitOffset>16</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>OC1M_3</name>
+                <usage>read-write</usage>
+                <enumeratedValue>
+                  <name>Normal</name>
+                  <description>Normal output compare mode (modes 0-7)</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Extended</name>
+                  <description>Extended output compare mode (modes 7-15)</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
             <field>
               <name>OC2M_3</name>
@@ -12500,6 +12603,7 @@ Copyright (c) 2020 STMicroelectronics.
               3</description>
               <bitOffset>24</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="OC1M_3"/>
             </field>
           </fields>
         </register>
@@ -12620,6 +12724,50 @@ Copyright (c) 2020 STMicroelectronics.
               <description>Output compare 3 mode</description>
               <bitOffset>4</bitOffset>
               <bitWidth>3</bitWidth>
+              <enumeratedValues>
+                <name>OC3M</name>
+                <usage>read-write</usage>
+                <enumeratedValue>
+                  <name>Frozen</name>
+                  <description>The comparison between the output compare register TIMx_CCRy and the counter TIMx_CNT has no effect on the outputs / OpmMode1: Retriggerable OPM mode 1 - In up-counting mode, the channel is active until a trigger event is detected (on TRGI signal). In down-counting mode, the channel is inactive</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>ActiveOnMatch</name>
+                  <description>Set channel to active level on match. OCyREF signal is forced high when the counter matches the capture/compare register / OpmMode2: Inversely to OpmMode1</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>InactiveOnMatch</name>
+                  <description>Set channel to inactive level on match. OCyREF signal is forced low when the counter matches the capture/compare register / Reserved</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Toggle</name>
+                  <description>OCyREF toggles when TIMx_CNT=TIMx_CCRy / Reserved</description>
+                  <value>3</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>ForceInactive</name>
+                  <description>OCyREF is forced low / CombinedPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC is the logical OR between OC1REF and OC2REF</description>
+                  <value>4</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>ForceActive</name>
+                  <description>OCyREF is forced high / CombinedPwmMode2: OCyREF has the same behavior as in PWM mode 2. OCyREFC is the logical AND between OC1REF and OC2REF</description>
+                  <value>5</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>PwmMode1</name>
+                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT&gt;TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
+                  <value>6</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>PwmMode2</name>
+                  <description>Inversely to PwmMode1 / AsymmetricPwmMode2: Inversely to AsymmetricPwmMode1</description>
+                  <value>7</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
             <field>
               <name>OC3CE</name>
@@ -12654,6 +12802,7 @@ Copyright (c) 2020 STMicroelectronics.
               <description>Output compare 4 mode</description>
               <bitOffset>12</bitOffset>
               <bitWidth>3</bitWidth>
+              <enumeratedValues derivedFrom="OC3M"/>
             </field>
             <field>
               <name>OC4CE</name>
@@ -12668,6 +12817,20 @@ Copyright (c) 2020 STMicroelectronics.
               3</description>
               <bitOffset>16</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>OC3M_3</name>
+                <usage>read-write</usage>
+                <enumeratedValue>
+                  <name>Normal</name>
+                  <description>Normal output compare mode (modes 0-7)</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Extended</name>
+                  <description>Extended output compare mode (modes 7-15)</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
             <field>
               <name>OC4M_3</name>
@@ -12675,6 +12838,7 @@ Copyright (c) 2020 STMicroelectronics.
               3</description>
               <bitOffset>24</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="OC3M_3"/>
             </field>
           </fields>
         </register>
@@ -13225,18 +13389,33 @@ Copyright (c) 2020 STMicroelectronics.
           <resetValue>0x00000000</resetValue>
           <fields>
             <field>
-              <name>OC6M_bit3</name>
+              <name>OC6M_3</name>
               <description>Output Compare 6 mode bit
               3</description>
               <bitOffset>24</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="OC5M_3"/>
             </field>
             <field>
-              <name>OC5M_bit3</name>
+              <name>OC5M_3</name>
               <description>Output Compare 5 mode bit
               3</description>
               <bitOffset>16</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>OC5M_3</name>
+                <usage>read-write</usage>
+                <enumeratedValue>
+                  <name>Normal</name>
+                  <description>Normal output compare mode (modes 0-7)</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Extended</name>
+                  <description>Extended output compare mode (modes 7-15)</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
             <field>
               <name>OC6CE</name>
@@ -13250,6 +13429,7 @@ Copyright (c) 2020 STMicroelectronics.
               <description>Output compare 6 mode</description>
               <bitOffset>12</bitOffset>
               <bitWidth>3</bitWidth>
+              <enumeratedValues derivedFrom="OC5M"/>
             </field>
             <field>
               <name>OC6PE</name>
@@ -13277,6 +13457,50 @@ Copyright (c) 2020 STMicroelectronics.
               <description>Output compare 5 mode</description>
               <bitOffset>4</bitOffset>
               <bitWidth>3</bitWidth>
+              <enumeratedValues>
+                <name>OC5M</name>
+                <usage>read-write</usage>
+                <enumeratedValue>
+                  <name>Frozen</name>
+                  <description>The comparison between the output compare register TIMx_CCRy and the counter TIMx_CNT has no effect on the outputs / OpmMode1: Retriggerable OPM mode 1 - In up-counting mode, the channel is active until a trigger event is detected (on TRGI signal). In down-counting mode, the channel is inactive</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>ActiveOnMatch</name>
+                  <description>Set channel to active level on match. OCyREF signal is forced high when the counter matches the capture/compare register / OpmMode2: Inversely to OpmMode1</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>InactiveOnMatch</name>
+                  <description>Set channel to inactive level on match. OCyREF signal is forced low when the counter matches the capture/compare register / Reserved</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Toggle</name>
+                  <description>OCyREF toggles when TIMx_CNT=TIMx_CCRy / Reserved</description>
+                  <value>3</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>ForceInactive</name>
+                  <description>OCyREF is forced low / CombinedPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC is the logical OR between OC1REF and OC2REF</description>
+                  <value>4</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>ForceActive</name>
+                  <description>OCyREF is forced high / CombinedPwmMode2: OCyREF has the same behavior as in PWM mode 2. OCyREFC is the logical AND between OC1REF and OC2REF</description>
+                  <value>5</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>PwmMode1</name>
+                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT&gt;TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
+                  <value>6</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>PwmMode2</name>
+                  <description>Inversely to PwmMode1 / AsymmetricPwmMode2: Inversely to AsymmetricPwmMode1</description>
+                  <value>7</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
             <field>
               <name>OC5PE</name>
@@ -17729,6 +17953,50 @@ Copyright (c) 2020 STMicroelectronics.
               <description>OC1M</description>
               <bitOffset>4</bitOffset>
               <bitWidth>3</bitWidth>
+              <enumeratedValues>
+                <name>OC1M</name>
+                <usage>read-write</usage>
+                <enumeratedValue>
+                  <name>Frozen</name>
+                  <description>The comparison between the output compare register TIMx_CCRy and the counter TIMx_CNT has no effect on the outputs</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>ActiveOnMatch</name>
+                  <description>Set channel to active level on match. OCyREF signal is forced high when the counter matches the capture/compare register</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>InactiveOnMatch</name>
+                  <description>Set channel to inactive level on match. OCyREF signal is forced low when the counter matches the capture/compare register</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Toggle</name>
+                  <description>OCyREF toggles when TIMx_CNT=TIMx_CCRy</description>
+                  <value>3</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>ForceInactive</name>
+                  <description>OCyREF is forced low</description>
+                  <value>4</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>ForceActive</name>
+                  <description>OCyREF is forced high</description>
+                  <value>5</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>PwmMode1</name>
+                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT&gt;TIMx_CCRy else active</description>
+                  <value>6</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>PwmMode2</name>
+                  <description>Inversely to PwmMode1</description>
+                  <value>7</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
             <field>
               <name>OC1CE</name>
@@ -18332,6 +18600,7 @@ Copyright (c) 2020 STMicroelectronics.
               3</description>
               <bitOffset>24</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="OC1M_3"/>
             </field>
             <field>
               <name>OC1M_3</name>
@@ -18339,6 +18608,20 @@ Copyright (c) 2020 STMicroelectronics.
               3</description>
               <bitOffset>16</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>OC1M_3</name>
+                <usage>read-write</usage>
+                <enumeratedValue>
+                  <name>Normal</name>
+                  <description>Normal output compare mode (modes 0-7)</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Extended</name>
+                  <description>Extended output compare mode (modes 7-15)</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
             <field>
               <name>OC2CE</name>
@@ -18352,6 +18635,7 @@ Copyright (c) 2020 STMicroelectronics.
               <description>Output compare 2 mode</description>
               <bitOffset>12</bitOffset>
               <bitWidth>3</bitWidth>
+              <enumeratedValues derivedFrom="OC1M"/>
             </field>
             <field>
               <name>OC2PE</name>
@@ -18386,6 +18670,50 @@ Copyright (c) 2020 STMicroelectronics.
               <description>Output compare 1 mode</description>
               <bitOffset>4</bitOffset>
               <bitWidth>3</bitWidth>
+              <enumeratedValues>
+                <name>OC1M</name>
+                <usage>read-write</usage>
+                <enumeratedValue>
+                  <name>Frozen</name>
+                  <description>The comparison between the output compare register TIMx_CCRy and the counter TIMx_CNT has no effect on the outputs / OpmMode1: Retriggerable OPM mode 1 - In up-counting mode, the channel is active until a trigger event is detected (on TRGI signal). In down-counting mode, the channel is inactive</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>ActiveOnMatch</name>
+                  <description>Set channel to active level on match. OCyREF signal is forced high when the counter matches the capture/compare register / OpmMode2: Inversely to OpmMode1</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>InactiveOnMatch</name>
+                  <description>Set channel to inactive level on match. OCyREF signal is forced low when the counter matches the capture/compare register / Reserved</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Toggle</name>
+                  <description>OCyREF toggles when TIMx_CNT=TIMx_CCRy / Reserved</description>
+                  <value>3</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>ForceInactive</name>
+                  <description>OCyREF is forced low / CombinedPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC is the logical OR between OC1REF and OC2REF</description>
+                  <value>4</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>ForceActive</name>
+                  <description>OCyREF is forced high / CombinedPwmMode2: OCyREF has the same behavior as in PWM mode 2. OCyREFC is the logical AND between OC1REF and OC2REF</description>
+                  <value>5</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>PwmMode1</name>
+                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT&gt;TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
+                  <value>6</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>PwmMode2</name>
+                  <description>Inversely to PwmMode1 / AsymmetricPwmMode2: Inversely to AsymmetricPwmMode1</description>
+                  <value>7</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
             <field>
               <name>OC1PE</name>
@@ -18477,6 +18805,7 @@ Copyright (c) 2020 STMicroelectronics.
               3</description>
               <bitOffset>24</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="OC3M_3"/>
             </field>
             <field>
               <name>OC3M_3</name>
@@ -18484,6 +18813,20 @@ Copyright (c) 2020 STMicroelectronics.
               3</description>
               <bitOffset>16</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>OC3M_3</name>
+                <usage>read-write</usage>
+                <enumeratedValue>
+                  <name>Normal</name>
+                  <description>Normal output compare mode (modes 0-7)</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Extended</name>
+                  <description>Extended output compare mode (modes 7-15)</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
             <field>
               <name>OC4CE</name>
@@ -18497,6 +18840,7 @@ Copyright (c) 2020 STMicroelectronics.
               <description>Output compare 4 mode</description>
               <bitOffset>12</bitOffset>
               <bitWidth>3</bitWidth>
+              <enumeratedValues derivedFrom="OC3M"/>
             </field>
             <field>
               <name>OC4PE</name>
@@ -18531,6 +18875,50 @@ Copyright (c) 2020 STMicroelectronics.
               <description>Output compare 3 mode</description>
               <bitOffset>4</bitOffset>
               <bitWidth>3</bitWidth>
+              <enumeratedValues>
+                <name>OC3M</name>
+                <usage>read-write</usage>
+                <enumeratedValue>
+                  <name>Frozen</name>
+                  <description>The comparison between the output compare register TIMx_CCRy and the counter TIMx_CNT has no effect on the outputs / OpmMode1: Retriggerable OPM mode 1 - In up-counting mode, the channel is active until a trigger event is detected (on TRGI signal). In down-counting mode, the channel is inactive</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>ActiveOnMatch</name>
+                  <description>Set channel to active level on match. OCyREF signal is forced high when the counter matches the capture/compare register / OpmMode2: Inversely to OpmMode1</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>InactiveOnMatch</name>
+                  <description>Set channel to inactive level on match. OCyREF signal is forced low when the counter matches the capture/compare register / Reserved</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Toggle</name>
+                  <description>OCyREF toggles when TIMx_CNT=TIMx_CCRy / Reserved</description>
+                  <value>3</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>ForceInactive</name>
+                  <description>OCyREF is forced low / CombinedPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC is the logical OR between OC1REF and OC2REF</description>
+                  <value>4</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>ForceActive</name>
+                  <description>OCyREF is forced high / CombinedPwmMode2: OCyREF has the same behavior as in PWM mode 2. OCyREFC is the logical AND between OC1REF and OC2REF</description>
+                  <value>5</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>PwmMode1</name>
+                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT&gt;TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
+                  <value>6</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>PwmMode2</name>
+                  <description>Inversely to PwmMode1 / AsymmetricPwmMode2: Inversely to AsymmetricPwmMode1</description>
+                  <value>7</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
             <field>
               <name>OC3PE</name>
