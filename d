@@ -39,7 +39,7 @@ case "$CMD" in
         done
     ;;
     download-headers)
-        for f in F0 F1 F2 F3 F4 F7 H7 L0 L1 L4 L5 G0 G4 WB WL; do
+        for f in F0 F1 F2 F3 F4 F7 H7 L0 L1 L4 L5 G0 G4 U5 WB WL; do
             rm -rf ./git/STM32Cube$f
             git clone --depth 1 https://github.com/STMicroelectronics/STM32Cube$f git/STM32Cube$f
         done
