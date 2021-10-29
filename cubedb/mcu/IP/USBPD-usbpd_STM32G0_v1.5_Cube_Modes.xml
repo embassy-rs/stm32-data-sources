@@ -6,15 +6,15 @@
     IPType="middleware"
     IpGroup="Middleware"
     Name="USBPD"
-    Version="usbpd_STM32G0_v1.4_Cube">
+    Version="usbpd_STM32G0_v1.5_Cube">
 
     <About>USBPD : Universal Serial Bus Power Delivery</About>
 
     <!-- Generic RefParameters for USBPD -->
     <RefParameter Name="Instance" Comment="Instance" Type="" DefaultValue="USBPD" Visible="false"/>
 
-    <RefParameter Name="Core_Version" DefaultValue="3.2.0" Comment="Core" Group="USBPD Versions" Type="String" />
-    <RefParameter Name="Device_Version" DefaultValue="3.1.0" Comment="Device" Group="USBPD Versions" Type="String" />
+    <RefParameter Name="Core_Version" DefaultValue="4.0.0" Comment="Core" Group="USBPD Versions" Type="String" />
+    <RefParameter Name="Device_Version" DefaultValue="3.3.0" Comment="Device" Group="USBPD Versions" Type="String" />
 
     <RefParameter Name="USBPD_NVIC_Request" Comment="USBPD request UCPD1 and UCPD2 NVIC" Group="USBPD needs" Type="list" DefaultValue="USBPD request IT for UCPD1 and UCPD2" >
         <Condition Expression="(USBPD_P1U1 | USBPD_P1U2) &amp; !(UCPD1_2_IRQn | USB_UCPD1_2_IRQn)" Diagnostic="USBPD request IT for UCPD1 and UCPD2"/>
@@ -1248,12 +1248,6 @@
         <PossibleValue Value="USBPDCORE_LIB_PD3_FULL" Comment="USBPDCORE_LIB_PD3_FULL"/>
     </RefParameter>
 
-    <RefParameter Name="USBPD_StateMachine" DefaultValue="true" Type="bool" Comment="USBPD_StateMachine" Visible="false">
-        <Condition Expression="USBPD_STATEMACHINE" Diagnostic="USBPD_StateMachine"/>
-    </RefParameter>
-    <RefParameter Name="USBPD_StateMachine" DefaultValue="false" Type="bool" Comment="USBPD_StateMachine" Visible="false">
-    </RefParameter>
-
     <!-- RefModes for USBPD -->
     <RefMode Name="USBPD_Common">
         <ConfigForMode>USBPD_Init</ConfigForMode>
@@ -1277,7 +1271,6 @@
         <Parameter Name="SNK"/>
 
         <Parameter Name="USBPD_CoreLib"/>
-        <Parameter Name="USBPD_StateMachine"/>
 
         <Parameter Name="USBPDenableClock"/>
 
@@ -1493,16 +1486,8 @@
                     </SignalLogicalOp>
                     <Semaphore>USBPD_PD3MINSNK</Semaphore>
                 </Mode>
-                <Mode Name="PD3_TypeC_StateMachine" UserName="Type C with State Machine">
-                    <Condition Expression="(!DualRoleUCPD1 &amp; !DualRoleUCPD2)" Diagnostic="UCPD1 &amp; UCPD2 should be Source or Sink"/>
-                    <SignalLogicalOp Name="AND">
-                        <Signal Name="VS_PD3TYPEC_STATEMACHINE"/>
-                    </SignalLogicalOp>
-                    <Semaphore>USBPD_PD3TYPEC</Semaphore>
-                    <Semaphore>USBPD_STATEMACHINE</Semaphore>
-                </Mode>
                 <Mode Name="PD3_TypeC" UserName="Type C only">
-                    <Condition Expression="(!DualRoleUCPD1 &amp; !DualRoleUCPD2)" Diagnostic="UCPD1 &amp; UCPD2 should be Source or Sink"/>
+                    <Condition Expression="!(DualRoleUCPD1 | DualRoleUCPD2 | (SourceUCPD1 &amp; SinkUCPD2) | (SourceUCPD2 &amp; SinkUCPD1))" Diagnostic="UCPD1 &amp; UCPD2 should be Source or Sink"/>
                     <SignalLogicalOp Name="AND">
                         <Signal Name="VS_PD3TYPEC_ONLY"/>
                     </SignalLogicalOp>
@@ -1711,8 +1696,20 @@
             </ModeLogicOperator>
         </Mode>
 
+        <Mode Name="USBPD_USB_Cohabitation" UserName="Enable USB Support">
+            <Condition Expression="USBPD_P0U1 | USBPD_P0U2" Diagnostic="please select a USBPD Port Configuration"/>
+            <ModeLogicOperator Name="XOR">
+                <Mode Name="Enable USB Support">
+                    <SignalLogicalOp Name="AND">
+                        <Signal Name="VS_usbpd_usb_cohabitation"/>
+                    </SignalLogicalOp>
+                    <Semaphore>USBPD_USB_SUPPORT</Semaphore>
+                </Mode>
+            </ModeLogicOperator>
+        </Mode>
+
     </ModeLogicOperator>
-    <Condition Expression="(!S_UCPD_ModeUCPD1 &amp; S_UCPD_ModeUCPD2) | (S_UCPD_ModeUCPD1 &amp; !S_UCPD_ModeUCPD2) | (S_UCPD_ModeUCPD1 &amp; S_UCPD_ModeUCPD2 &amp; S_FREERTOS)" Diagnostic="Needs UCPD must be activated; with 2 UCPD, FREERTOS must be activated"/>
+    <Condition Expression="UCPD_Used" Diagnostic="instance of UCPD must be activated"/>
 
     <!-- RefSignal for USBPD -->
     <RefSignal Name="VS_USBPD1" Virtual="true"/>
@@ -1724,7 +1721,6 @@
     <RefSignal Name="VS_PD3CFG1" Virtual="true"/>
     <RefSignal Name="VS_PD3MINSRC" Virtual="true"/>
     <RefSignal Name="VS_PD3MINSNK" Virtual="true"/>
-    <RefSignal Name="VS_PD3TYPEC_STATEMACHINE" Virtual="true"/>
     <RefSignal Name="VS_PD3TYPEC_ONLY" Virtual="true"/>
 
     <RefSignal Name="VS_usbpd_tim1" Virtual="true"/>
@@ -1752,6 +1748,8 @@
     <RefSignal Name="VS_usbpd_tim23" Virtual="true"/>
 
     <RefSignal Name="VS_usbpd_traceremb" Virtual="true"/>
+
+    <RefSignal Name="VS_usbpd_usb_cohabitation" Virtual="true"/>
 
     <!-- Clock Semaphore for this IP. -->
     <Semaphore>USBPDUsed_ForRCC</Semaphore>
