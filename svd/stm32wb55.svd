@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <device xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="1.1" xs:noNamespaceSchemaLocation="CMSIS-SVD_Schema_1_1.xsd">
   <name>STM32WB55</name>
   <version>1.6</version>
@@ -15,7 +15,7 @@
   <addressUnitBits>8</addressUnitBits>
   <width>32</width>
   <size>0x20</size>
-  <resetValue>0x0</resetValue>
+  <resetValue>0x00000000</resetValue>
   <resetMask>0xFFFFFFFF</resetMask>
   <peripherals>
     <peripheral>
@@ -10842,7 +10842,7 @@
           <addressOffset>0x7C</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x000000021</resetValue>
+          <resetValue>0x00000021</resetValue>
           <fields>
             <field>
               <name>LPTIM2SMEN</name>
@@ -11836,7 +11836,7 @@
           <addressOffset>0x17C</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x000000021</resetValue>
+          <resetValue>0x00000021</resetValue>
           <fields>
             <field>
               <name>LPTIM2SMEN</name>
@@ -11906,7 +11906,7 @@
           <addressOffset>0x184</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000003</resetValue>
+          <resetValue>0x00000003</resetValue>
           <fields>
             <field>
               <name>SMEN802</name>
@@ -13487,7 +13487,7 @@
           <addressOffset>0x84</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0X00008000</resetValue>
+          <resetValue>0x00008000</resetValue>
           <fields>
             <field>
               <name>EIWUL</name>
@@ -13634,7 +13634,7 @@
       <baseAddress>0x40010000</baseAddress>
       <addressBlock>
         <offset>0x0</offset>
-        <size>512</size>
+        <size>0x200</size>
         <usage>registers</usage>
       </addressBlock>
       <registers>
@@ -14357,7 +14357,7 @@
           <name>IMR1</name>
           <displayName>IMR1</displayName>
           <description>CPU1 interrupt mask register 1</description>
-          <addressOffset>256</addressOffset>
+          <addressOffset>0x100</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
           <resetValue>0x00000000</resetValue>
@@ -14452,7 +14452,7 @@
           <name>IMR2</name>
           <displayName>IMR2</displayName>
           <description>CPU1 interrupt mask register 2</description>
-          <addressOffset>260</addressOffset>
+          <addressOffset>0x104</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
           <resetValue>0x00000000</resetValue>
@@ -14481,7 +14481,7 @@
           <name>C2IMR1</name>
           <displayName>C2IMR1</displayName>
           <description>CPU2 interrupt mask register 1</description>
-          <addressOffset>264</addressOffset>
+          <addressOffset>0x108</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
           <resetValue>0x00000000</resetValue>
@@ -14552,7 +14552,7 @@
           <name>C2IMR2</name>
           <displayName>C2IMR2</displayName>
           <description>CPU2 interrupt mask register 1</description>
-          <addressOffset>268</addressOffset>
+          <addressOffset>0x10C</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
           <resetValue>0x00000000</resetValue>
@@ -14683,7 +14683,7 @@
           <name>SIPCR</name>
           <displayName>SIPCR</displayName>
           <description>secure IP control register</description>
-          <addressOffset>272</addressOffset>
+          <addressOffset>0x110</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
           <resetValue>0x00000000</resetValue>
@@ -16071,9 +16071,12 @@
       </interrupt>
       <registers>
         <register>
-          <name>R0</name>
+          <dim>32</dim>
+          <dimIncrement>0x4</dimIncrement>
+          <dimIndex>0-31</dimIndex>
+          <name>R%s</name>
           <displayName>R0</displayName>
-          <description>Semaphore 0 register</description>
+          <description>Semaphore %s register</description>
           <addressOffset>0x0</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
@@ -16100,1808 +16103,13 @@
           </fields>
         </register>
         <register>
-          <name>R1</name>
-          <displayName>R1</displayName>
-          <description>Semaphore 1 register</description>
-          <addressOffset>0x4</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>R2</name>
-          <displayName>R2</displayName>
-          <description>Semaphore 2 register</description>
-          <addressOffset>0x8</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>R3</name>
-          <displayName>R3</displayName>
-          <description>Semaphore 3 register</description>
-          <addressOffset>0xC</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>R4</name>
-          <displayName>R4</displayName>
-          <description>Semaphore 4 register</description>
-          <addressOffset>0x10</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>R5</name>
-          <displayName>R5</displayName>
-          <description>Semaphore 5 register</description>
-          <addressOffset>0x14</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>R6</name>
-          <displayName>R6</displayName>
-          <description>Semaphore 6 register</description>
-          <addressOffset>0x18</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>R7</name>
-          <displayName>R7</displayName>
-          <description>Semaphore 7 register</description>
-          <addressOffset>0x1C</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>R8</name>
-          <displayName>R8</displayName>
-          <description>Semaphore 8 register</description>
-          <addressOffset>0x20</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>R9</name>
-          <displayName>R9</displayName>
-          <description>Semaphore 9 register</description>
-          <addressOffset>0x24</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>R10</name>
-          <displayName>R10</displayName>
-          <description>Semaphore 10 register</description>
-          <addressOffset>0x28</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>R11</name>
-          <displayName>R11</displayName>
-          <description>Semaphore 11 register</description>
-          <addressOffset>0x2C</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>R12</name>
-          <displayName>R12</displayName>
-          <description>Semaphore 12 register</description>
-          <addressOffset>0x30</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>R13</name>
-          <displayName>R13</displayName>
-          <description>Semaphore 13 register</description>
-          <addressOffset>0x34</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>R14</name>
-          <displayName>R14</displayName>
-          <description>Semaphore 14 register</description>
-          <addressOffset>0x38</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>R15</name>
-          <displayName>R15</displayName>
-          <description>Semaphore 15 register</description>
-          <addressOffset>0x3C</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>R16</name>
-          <displayName>R16</displayName>
-          <description>Semaphore 16 register</description>
-          <addressOffset>0x40</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>R17</name>
-          <displayName>R17</displayName>
-          <description>Semaphore 17 register</description>
-          <addressOffset>0x44</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>R18</name>
-          <displayName>R18</displayName>
-          <description>Semaphore 18 register</description>
-          <addressOffset>0x48</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>R19</name>
-          <displayName>R19</displayName>
-          <description>Semaphore 19 register</description>
-          <addressOffset>0x4C</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>R20</name>
-          <displayName>R20</displayName>
-          <description>Semaphore 20 register</description>
-          <addressOffset>0x50</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>R21</name>
-          <displayName>R21</displayName>
-          <description>Semaphore 21 register</description>
-          <addressOffset>0x54</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>R22</name>
-          <displayName>R22</displayName>
-          <description>Semaphore 22 register</description>
-          <addressOffset>0x58</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>R23</name>
-          <displayName>R23</displayName>
-          <description>Semaphore 23 register</description>
-          <addressOffset>0x5C</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>R24</name>
-          <displayName>R24</displayName>
-          <description>Semaphore 24 register</description>
-          <addressOffset>0x60</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>R25</name>
-          <displayName>R25</displayName>
-          <description>Semaphore 25 register</description>
-          <addressOffset>0x64</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>R26</name>
-          <displayName>R26</displayName>
-          <description>Semaphore 26 register</description>
-          <addressOffset>0x68</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>R27</name>
-          <displayName>R27</displayName>
-          <description>Semaphore 27 register</description>
-          <addressOffset>0x6C</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>R28</name>
-          <displayName>R28</displayName>
-          <description>Semaphore 28 register</description>
-          <addressOffset>0x70</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>R29</name>
-          <displayName>R29</displayName>
-          <description>Semaphore 29 register</description>
-          <addressOffset>0x74</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>R30</name>
-          <displayName>R30</displayName>
-          <description>Semaphore 30 register</description>
-          <addressOffset>0x78</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>R31</name>
-          <displayName>R31</displayName>
-          <description>Semaphore 31 register</description>
-          <addressOffset>0x7C</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RLR0</name>
+          <dim>32</dim>
+          <dimIncrement>0x4</dimIncrement>
+          <dimIndex>0-31</dimIndex>
+          <name>RLR%s</name>
           <displayName>RLR0</displayName>
-          <description>Semaphore 0 read lock register</description>
+          <description>Semaphore %s read lock register</description>
           <addressOffset>0x80</addressOffset>
-          <size>0x20</size>
-          <access>read-only</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RLR1</name>
-          <displayName>RLR1</displayName>
-          <description>Semaphore 1 read lock register</description>
-          <addressOffset>0x84</addressOffset>
-          <size>0x20</size>
-          <access>read-only</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RLR2</name>
-          <displayName>RLR2</displayName>
-          <description>Semaphore 2 read lock register</description>
-          <addressOffset>0x88</addressOffset>
-          <size>0x20</size>
-          <access>read-only</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RLR3</name>
-          <displayName>RLR3</displayName>
-          <description>Semaphore 3 read lock register</description>
-          <addressOffset>0x8C</addressOffset>
-          <size>0x20</size>
-          <access>read-only</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RLR4</name>
-          <displayName>RLR4</displayName>
-          <description>Semaphore 4 read lock read lock           register</description>
-          <addressOffset>0x90</addressOffset>
-          <size>0x20</size>
-          <access>read-only</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RLR5</name>
-          <displayName>RLR5</displayName>
-          <description>Semaphore 5 read lock register</description>
-          <addressOffset>0x94</addressOffset>
-          <size>0x20</size>
-          <access>read-only</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RLR6</name>
-          <displayName>RLR6</displayName>
-          <description>Semaphore 6 read lock register</description>
-          <addressOffset>0x98</addressOffset>
-          <size>0x20</size>
-          <access>read-only</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RLR7</name>
-          <displayName>RLR7</displayName>
-          <description>Semaphore 7 read lock register</description>
-          <addressOffset>0x9C</addressOffset>
-          <size>0x20</size>
-          <access>read-only</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RLR8</name>
-          <displayName>RLR8</displayName>
-          <description>Semaphore 8 read lock register</description>
-          <addressOffset>0xA0</addressOffset>
-          <size>0x20</size>
-          <access>read-only</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RLR9</name>
-          <displayName>RLR9</displayName>
-          <description>Semaphore 9 read lock register</description>
-          <addressOffset>0xA4</addressOffset>
-          <size>0x20</size>
-          <access>read-only</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RLR10</name>
-          <displayName>RLR10</displayName>
-          <description>Semaphore 10 read lock           register</description>
-          <addressOffset>0xA8</addressOffset>
-          <size>0x20</size>
-          <access>read-only</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RLR11</name>
-          <displayName>RLR11</displayName>
-          <description>Semaphore 11 read lock           register</description>
-          <addressOffset>0xAC</addressOffset>
-          <size>0x20</size>
-          <access>read-only</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RLR12</name>
-          <displayName>RLR12</displayName>
-          <description>Semaphore 12 read lock           register</description>
-          <addressOffset>0xB0</addressOffset>
-          <size>0x20</size>
-          <access>read-only</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RLR13</name>
-          <displayName>RLR13</displayName>
-          <description>Semaphore 13 read lock           register</description>
-          <addressOffset>0xB4</addressOffset>
-          <size>0x20</size>
-          <access>read-only</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RLR14</name>
-          <displayName>RLR14</displayName>
-          <description>Semaphore 14 read lock           register</description>
-          <addressOffset>0xB8</addressOffset>
-          <size>0x20</size>
-          <access>read-only</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RLR15</name>
-          <displayName>RLR15</displayName>
-          <description>Semaphore 15 read lock           register</description>
-          <addressOffset>0xBC</addressOffset>
-          <size>0x20</size>
-          <access>read-only</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RLR16</name>
-          <displayName>RLR16</displayName>
-          <description>Semaphore 16 read lock           register</description>
-          <addressOffset>0xC0</addressOffset>
-          <size>0x20</size>
-          <access>read-only</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RLR17</name>
-          <displayName>RLR17</displayName>
-          <description>Semaphore 17 read lock           register</description>
-          <addressOffset>0xC4</addressOffset>
-          <size>0x20</size>
-          <access>read-only</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RLR18</name>
-          <displayName>RLR18</displayName>
-          <description>Semaphore 18 read lock           register</description>
-          <addressOffset>0xC8</addressOffset>
-          <size>0x20</size>
-          <access>read-only</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RLR19</name>
-          <displayName>RLR19</displayName>
-          <description>Semaphore 19 read lock           register</description>
-          <addressOffset>0xCC</addressOffset>
-          <size>0x20</size>
-          <access>read-only</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RLR20</name>
-          <displayName>RLR20</displayName>
-          <description>Semaphore 20 read lock           register</description>
-          <addressOffset>0xD0</addressOffset>
-          <size>0x20</size>
-          <access>read-only</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RLR21</name>
-          <displayName>RLR21</displayName>
-          <description>Semaphore 21 read lock           register</description>
-          <addressOffset>0xD4</addressOffset>
-          <size>0x20</size>
-          <access>read-only</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RLR22</name>
-          <displayName>RLR22</displayName>
-          <description>Semaphore 22 read lock           register</description>
-          <addressOffset>0xD8</addressOffset>
-          <size>0x20</size>
-          <access>read-only</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RLR23</name>
-          <displayName>RLR23</displayName>
-          <description>Semaphore 23 read lock           register</description>
-          <addressOffset>0xDC</addressOffset>
-          <size>0x20</size>
-          <access>read-only</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RLR24</name>
-          <displayName>RLR24</displayName>
-          <description>Semaphore 24 read lock           register</description>
-          <addressOffset>0xE0</addressOffset>
-          <size>0x20</size>
-          <access>read-only</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RLR25</name>
-          <displayName>RLR25</displayName>
-          <description>Semaphore 25 read lock           register</description>
-          <addressOffset>0xE4</addressOffset>
-          <size>0x20</size>
-          <access>read-only</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RLR26</name>
-          <displayName>RLR26</displayName>
-          <description>Semaphore 26 read lock           register</description>
-          <addressOffset>0xE8</addressOffset>
-          <size>0x20</size>
-          <access>read-only</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RLR27</name>
-          <displayName>RLR27</displayName>
-          <description>Semaphore 27 read lock           register</description>
-          <addressOffset>0xEC</addressOffset>
-          <size>0x20</size>
-          <access>read-only</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RLR28</name>
-          <displayName>RLR28</displayName>
-          <description>Semaphore 28 read lock           register</description>
-          <addressOffset>0xF0</addressOffset>
-          <size>0x20</size>
-          <access>read-only</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RLR29</name>
-          <displayName>RLR29</displayName>
-          <description>Semaphore 29 read lock           register</description>
-          <addressOffset>0xF4</addressOffset>
-          <size>0x20</size>
-          <access>read-only</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RLR30</name>
-          <displayName>RLR30</displayName>
-          <description>Semaphore 30 read lock           register</description>
-          <addressOffset>0xF8</addressOffset>
-          <size>0x20</size>
-          <access>read-only</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>LOCK</name>
-              <description>lock indication</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>COREID</name>
-              <description>Semaphore CoreID</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>PROCID</name>
-              <description>Semaphore ProcessID</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RLR31</name>
-          <displayName>RLR31</displayName>
-          <description>Semaphore 31 read lock           register</description>
-          <addressOffset>0xFC</addressOffset>
           <size>0x20</size>
           <access>read-only</access>
           <resetValue>0x00000000</resetValue>
@@ -23885,66 +22093,260 @@
                 <description>No divider</description>
                 <bitOffset>19</bitOffset>
                 <bitWidth>1</bitWidth>
+                <enumeratedValues>
+                  <name>NODIV</name>
+                  <usage>read-write</usage>
+                  <enumeratedValue>
+                    <name>MasterClock</name>
+                    <description>MCLK output is enabled. Forces the ratio between FS and MCLK to 256 or 512 according to the OSR value</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>NoDiv</name>
+                    <description>MCLK output enable set by the MCKEN bit (where present, else 0). Ratio between FS and MCLK depends on FRL.</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>DMAEN</name>
                 <description>DMA enable</description>
                 <bitOffset>17</bitOffset>
                 <bitWidth>1</bitWidth>
+                <enumeratedValues>
+                  <name>DMAEN</name>
+                  <usage>read-write</usage>
+                  <enumeratedValue>
+                    <name>Disabled</name>
+                    <description>DMA disabled</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>Enabled</name>
+                    <description>DMA enabled</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>SAIEN</name>
                 <description>Audio block B enable</description>
                 <bitOffset>16</bitOffset>
                 <bitWidth>1</bitWidth>
+                <enumeratedValues>
+                  <name>SAIEN</name>
+                  <usage>read-write</usage>
+                  <enumeratedValue>
+                    <name>Disabled</name>
+                    <description>SAI audio block disabled</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>Enabled</name>
+                    <description>SAI audio block enabled</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>OUTDRIV</name>
                 <description>Output drive</description>
                 <bitOffset>13</bitOffset>
                 <bitWidth>1</bitWidth>
+                <enumeratedValues>
+                  <name>OUTDRIV</name>
+                  <usage>read-write</usage>
+                  <enumeratedValue>
+                    <name>OnStart</name>
+                    <description>Audio block output driven when SAIEN is set</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>Immediately</name>
+                    <description>Audio block output driven immediately after the setting of this bit</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>MONO</name>
                 <description>Mono mode</description>
                 <bitOffset>12</bitOffset>
                 <bitWidth>1</bitWidth>
+                <enumeratedValues>
+                  <name>MONO</name>
+                  <usage>read-write</usage>
+                  <enumeratedValue>
+                    <name>Stereo</name>
+                    <description>Stereo mode</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>Mono</name>
+                    <description>Mono mode</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>SYNCEN</name>
                 <description>Synchronization enable</description>
                 <bitOffset>10</bitOffset>
                 <bitWidth>2</bitWidth>
+                <enumeratedValues>
+                  <name>SYNCEN</name>
+                  <usage>read-write</usage>
+                  <enumeratedValue>
+                    <name>Asynchronous</name>
+                    <description>audio sub-block in asynchronous mode</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>Internal</name>
+                    <description>audio sub-block is synchronous with the other internal audio sub-block. In this case, the audio sub-block must be configured in slave mode</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>External</name>
+                    <description>audio sub-block is synchronous with an external SAI embedded peripheral. In this case the audio sub-block should be configured in Slave mode</description>
+                    <value>2</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>CKSTR</name>
                 <description>Clock strobing edge</description>
                 <bitOffset>9</bitOffset>
                 <bitWidth>1</bitWidth>
+                <enumeratedValues>
+                  <name>CKSTR</name>
+                  <usage>read-write</usage>
+                  <enumeratedValue>
+                    <name>FallingEdge</name>
+                    <description>Data strobing edge is falling edge of SCK</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>RisingEdge</name>
+                    <description>Data strobing edge is rising edge of SCK</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>LSBFIRST</name>
                 <description>Least significant bit               first</description>
                 <bitOffset>8</bitOffset>
                 <bitWidth>1</bitWidth>
+                <enumeratedValues>
+                  <name>LSBFIRST</name>
+                  <usage>read-write</usage>
+                  <enumeratedValue>
+                    <name>MsbFirst</name>
+                    <description>Data are transferred with MSB first</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>LsbFirst</name>
+                    <description>Data are transferred with LSB first</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>DS</name>
                 <description>Data size</description>
                 <bitOffset>5</bitOffset>
                 <bitWidth>3</bitWidth>
+                <enumeratedValues>
+                  <name>DS</name>
+                  <usage>read-write</usage>
+                  <enumeratedValue>
+                    <name>Bit8</name>
+                    <description>8 bits</description>
+                    <value>2</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>Bit10</name>
+                    <description>10 bits</description>
+                    <value>3</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>Bit16</name>
+                    <description>16 bits</description>
+                    <value>4</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>Bit20</name>
+                    <description>20 bits</description>
+                    <value>5</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>Bit24</name>
+                    <description>24 bits</description>
+                    <value>6</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>Bit32</name>
+                    <description>32 bits</description>
+                    <value>7</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>PRTCFG</name>
                 <description>Protocol configuration</description>
                 <bitOffset>2</bitOffset>
                 <bitWidth>2</bitWidth>
+                <enumeratedValues>
+                  <name>PRTCFG</name>
+                  <usage>read-write</usage>
+                  <enumeratedValue>
+                    <name>Free</name>
+                    <description>Free protocol. Free protocol allows to use the powerful configuration of the audio block to address a specific audio protocol</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>Spdif</name>
+                    <description>SPDIF protocol</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>Ac97</name>
+                    <description>AC’97 protocol</description>
+                    <value>2</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>MODE</name>
                 <description>Audio block mode</description>
                 <bitOffset>0</bitOffset>
                 <bitWidth>2</bitWidth>
+                <enumeratedValues>
+                  <name>MODE</name>
+                  <usage>read-write</usage>
+                  <enumeratedValue>
+                    <name>MasterTx</name>
+                    <description>Master transmitter</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>MasterRx</name>
+                    <description>Master receiver</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>SlaveTx</name>
+                    <description>Slave transmitter</description>
+                    <value>2</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>SlaveRx</name>
+                    <description>Slave receiver</description>
+                    <value>3</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
             </fields>
           </register>
@@ -23962,48 +22364,159 @@
                 <description>Companding mode</description>
                 <bitOffset>14</bitOffset>
                 <bitWidth>2</bitWidth>
+                <access>read-write</access>
+                <enumeratedValues>
+                  <name>COMP</name>
+                  <usage>read-write</usage>
+                  <enumeratedValue>
+                    <name>NoCompanding</name>
+                    <description>No companding algorithm</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>MuLaw</name>
+                    <description>μ-Law algorithm</description>
+                    <value>2</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>ALaw</name>
+                    <description>A-Law algorithm</description>
+                    <value>3</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>CPL</name>
                 <description>Complement bit</description>
                 <bitOffset>13</bitOffset>
                 <bitWidth>1</bitWidth>
+                <access>read-write</access>
+                <enumeratedValues>
+                  <name>CPL</name>
+                  <usage>read-write</usage>
+                  <enumeratedValue>
+                    <name>OnesComplement</name>
+                    <description>1’s complement representation</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>TwosComplement</name>
+                    <description>2’s complement representation</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
-                <name>MUTECN</name>
+                <name>MUTECNT</name>
                 <description>Mute counter</description>
                 <bitOffset>7</bitOffset>
                 <bitWidth>6</bitWidth>
+                <access>read-write</access>
               </field>
               <field>
                 <name>MUTEVAL</name>
                 <description>Mute value</description>
                 <bitOffset>6</bitOffset>
                 <bitWidth>1</bitWidth>
+                <access>read-write</access>
+                <enumeratedValues>
+                  <name>MUTEVAL</name>
+                  <usage>read-write</usage>
+                  <enumeratedValue>
+                    <name>SendZero</name>
+                    <description>Bit value 0 is sent during the mute mode</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>SendLast</name>
+                    <description>Last values are sent during the mute mode</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>MUTE</name>
                 <description>Mute</description>
                 <bitOffset>5</bitOffset>
                 <bitWidth>1</bitWidth>
+                <access>read-write</access>
+                <enumeratedValues>
+                  <name>MUTE</name>
+                  <usage>read-write</usage>
+                  <enumeratedValue>
+                    <name>Disabled</name>
+                    <description>No mute mode</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>Enabled</name>
+                    <description>Mute mode enabled</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>TRIS</name>
                 <description>Tristate management on data               line</description>
                 <bitOffset>4</bitOffset>
                 <bitWidth>1</bitWidth>
+                <access>read-write</access>
               </field>
               <field>
                 <name>FFLUSH</name>
                 <description>FIFO flush</description>
                 <bitOffset>3</bitOffset>
                 <bitWidth>1</bitWidth>
+                <enumeratedValues>
+                  <name>FFLUSH</name>
+                  <usage>read-write</usage>
+                  <enumeratedValue>
+                    <name>NoFlush</name>
+                    <description>No FIFO flush</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>Flush</name>
+                    <description>FIFO flush. Programming this bit to 1 triggers the FIFO Flush. All the internal FIFO pointers (read and write) are cleared</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>FTH</name>
                 <description>FIFO threshold</description>
                 <bitOffset>0</bitOffset>
                 <bitWidth>3</bitWidth>
+                <access>read-write</access>
+                <enumeratedValues>
+                  <name>FTH</name>
+                  <usage>read-write</usage>
+                  <enumeratedValue>
+                    <name>Empty</name>
+                    <description>FIFO empty</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>Quarter1</name>
+                    <description>1⁄4 FIFO</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>Quarter2</name>
+                    <description>1⁄2 FIFO</description>
+                    <value>2</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>Quarter3</name>
+                    <description>3⁄4 FIFO</description>
+                    <value>3</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>Full</name>
+                    <description>FIFO full</description>
+                    <value>4</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
             </fields>
           </register>
@@ -24021,30 +22534,63 @@
                 <description>Frame synchronization               offset</description>
                 <bitOffset>18</bitOffset>
                 <bitWidth>1</bitWidth>
+                <access>read-write</access>
+                <enumeratedValues>
+                  <name>FSOFF</name>
+                  <usage>read-write</usage>
+                  <enumeratedValue>
+                    <name>OnFirst</name>
+                    <description>FS is asserted on the first bit of the slot 0</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>BeforeFirst</name>
+                    <description>FS is asserted one bit before the first bit of the slot 0</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>FSPOL</name>
                 <description>Frame synchronization               polarity</description>
                 <bitOffset>17</bitOffset>
                 <bitWidth>1</bitWidth>
+                <access>read-write</access>
+                <enumeratedValues>
+                  <name>FSPOL</name>
+                  <usage>read-write</usage>
+                  <enumeratedValue>
+                    <name>FallingEdge</name>
+                    <description>FS is active low (falling edge)</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>RisingEdge</name>
+                    <description>FS is active high (rising edge)</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>FSDEF</name>
                 <description>Frame synchronization               definition</description>
                 <bitOffset>16</bitOffset>
                 <bitWidth>1</bitWidth>
+                <access>read-write</access>
               </field>
               <field>
                 <name>FSALL</name>
                 <description>Frame synchronization active level               length</description>
                 <bitOffset>8</bitOffset>
                 <bitWidth>7</bitWidth>
+                <access>read-write</access>
               </field>
               <field>
                 <name>FRL</name>
                 <description>Frame length</description>
                 <bitOffset>0</bitOffset>
                 <bitWidth>8</bitWidth>
+                <access>read-write</access>
               </field>
             </fields>
           </register>
@@ -24052,7 +22598,7 @@
             <name>SLOTR</name>
             <displayName>ASLOTR</displayName>
             <description>ASlot register</description>
-            <addressOffset>0xc</addressOffset>
+            <addressOffset>0xC</addressOffset>
             <size>0x20</size>
             <access>read-write</access>
             <resetValue>0x00000000</resetValue>
@@ -24062,6 +22608,20 @@
                 <description>Slot enable</description>
                 <bitOffset>16</bitOffset>
                 <bitWidth>16</bitWidth>
+                <enumeratedValues>
+                  <name>SLOTEN</name>
+                  <usage>read-write</usage>
+                  <enumeratedValue>
+                    <name>Inactive</name>
+                    <description>Inactive slot</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>Active</name>
+                    <description>Active slot</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>NBSLOT</name>
@@ -24074,6 +22634,25 @@
                 <description>Slot size</description>
                 <bitOffset>6</bitOffset>
                 <bitWidth>2</bitWidth>
+                <enumeratedValues>
+                  <name>SLOTSZ</name>
+                  <usage>read-write</usage>
+                  <enumeratedValue>
+                    <name>DataSize</name>
+                    <description>The slot size is equivalent to the data size (specified in DS[3:0] in the SAI_xCR1 register)</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>Bit16</name>
+                    <description>16-bit</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>Bit32</name>
+                    <description>32-bit</description>
+                    <value>2</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>FBOFF</name>
@@ -24097,42 +22676,140 @@
                 <description>Late frame synchronization detection               interrupt enable</description>
                 <bitOffset>6</bitOffset>
                 <bitWidth>1</bitWidth>
+                <enumeratedValues>
+                  <name>LFSDETIE</name>
+                  <usage>read-write</usage>
+                  <enumeratedValue>
+                    <name>Disabled</name>
+                    <description>Interrupt is disabled</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>Enabled</name>
+                    <description>Interrupt is enabled</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>AFSDETIE</name>
                 <description>Anticipated frame synchronization               detection interrupt enable</description>
                 <bitOffset>5</bitOffset>
                 <bitWidth>1</bitWidth>
+                <enumeratedValues>
+                  <name>AFSDETIE</name>
+                  <usage>read-write</usage>
+                  <enumeratedValue>
+                    <name>Disabled</name>
+                    <description>Interrupt is disabled</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>Enabled</name>
+                    <description>Interrupt is enabled</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>CNRDYIE</name>
                 <description>Codec not ready interrupt               enable</description>
                 <bitOffset>4</bitOffset>
                 <bitWidth>1</bitWidth>
+                <enumeratedValues>
+                  <name>CNRDYIE</name>
+                  <usage>read-write</usage>
+                  <enumeratedValue>
+                    <name>Disabled</name>
+                    <description>Interrupt is disabled</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>Enabled</name>
+                    <description>Interrupt is enabled</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>FREQIE</name>
                 <description>FIFO request interrupt               enable</description>
                 <bitOffset>3</bitOffset>
                 <bitWidth>1</bitWidth>
+                <enumeratedValues>
+                  <name>FREQIE</name>
+                  <usage>read-write</usage>
+                  <enumeratedValue>
+                    <name>Disabled</name>
+                    <description>Interrupt is disabled</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>Enabled</name>
+                    <description>Interrupt is enabled</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>WCKCFGIE</name>
                 <description>Wrong clock configuration interrupt               enable</description>
                 <bitOffset>2</bitOffset>
                 <bitWidth>1</bitWidth>
+                <enumeratedValues>
+                  <name>WCKCFGIE</name>
+                  <usage>read-write</usage>
+                  <enumeratedValue>
+                    <name>Disabled</name>
+                    <description>Interrupt is disabled</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>Enabled</name>
+                    <description>Interrupt is enabled</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>MUTEDETIE</name>
                 <description>Mute detection interrupt               enable</description>
                 <bitOffset>1</bitOffset>
                 <bitWidth>1</bitWidth>
+                <enumeratedValues>
+                  <name>MUTEDETIE</name>
+                  <usage>read-write</usage>
+                  <enumeratedValue>
+                    <name>Disabled</name>
+                    <description>Interrupt is disabled</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>Enabled</name>
+                    <description>Interrupt is enabled</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>OVRUDRIE</name>
                 <description>Overrun/underrun interrupt               enable</description>
                 <bitOffset>0</bitOffset>
                 <bitWidth>1</bitWidth>
+                <enumeratedValues>
+                  <name>OVRUDRIE</name>
+                  <usage>read-write</usage>
+                  <enumeratedValue>
+                    <name>Disabled</name>
+                    <description>Interrupt is disabled</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>Enabled</name>
+                    <description>Interrupt is enabled</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
             </fields>
           </register>
@@ -24150,48 +22827,180 @@
                 <description>FIFO level threshold</description>
                 <bitOffset>16</bitOffset>
                 <bitWidth>3</bitWidth>
+                <enumeratedValues>
+                  <name>FLVLR</name>
+                  <usage>read</usage>
+                  <enumeratedValue>
+                    <name>Empty</name>
+                    <description>FIFO empty</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>Quarter1</name>
+                    <description>FIFO &lt;= 1⁄4 but not empty</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>Quarter2</name>
+                    <description>1⁄4 &lt; FIFO &lt;= 1⁄2</description>
+                    <value>2</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>Quarter3</name>
+                    <description>1⁄2 &lt; FIFO &lt;= 3⁄4</description>
+                    <value>3</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>Quarter4</name>
+                    <description>3⁄4 &lt; FIFO but not full</description>
+                    <value>4</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>Full</name>
+                    <description>FIFO full</description>
+                    <value>5</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>LFSDET</name>
                 <description>Late frame synchronization               detection</description>
                 <bitOffset>6</bitOffset>
                 <bitWidth>1</bitWidth>
+                <enumeratedValues>
+                  <name>LFSDETR</name>
+                  <usage>read</usage>
+                  <enumeratedValue>
+                    <name>NoError</name>
+                    <description>No error</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>NoSync</name>
+                    <description>Frame synchronization signal is not present at the right time</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>AFSDET</name>
                 <description>Anticipated frame synchronization               detection</description>
                 <bitOffset>5</bitOffset>
                 <bitWidth>1</bitWidth>
+                <enumeratedValues>
+                  <name>AFSDETR</name>
+                  <usage>read</usage>
+                  <enumeratedValue>
+                    <name>NoError</name>
+                    <description>No error</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>EarlySync</name>
+                    <description>Frame synchronization signal is detected earlier than expected</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>CNRDY</name>
                 <description>Codec not ready</description>
                 <bitOffset>4</bitOffset>
                 <bitWidth>1</bitWidth>
+                <enumeratedValues>
+                  <name>CNRDYR</name>
+                  <usage>read</usage>
+                  <enumeratedValue>
+                    <name>Ready</name>
+                    <description>External AC’97 Codec is ready</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>NotReady</name>
+                    <description>External AC’97 Codec is not ready</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>FREQ</name>
                 <description>FIFO request</description>
                 <bitOffset>3</bitOffset>
                 <bitWidth>1</bitWidth>
+                <enumeratedValues>
+                  <name>FREQR</name>
+                  <usage>read</usage>
+                  <enumeratedValue>
+                    <name>NoRequest</name>
+                    <description>No FIFO request</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>Request</name>
+                    <description>FIFO request to read or to write the SAI_xDR</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>WCKCFG</name>
                 <description>Wrong clock configuration flag. This bit               is read only</description>
                 <bitOffset>2</bitOffset>
                 <bitWidth>1</bitWidth>
+                <enumeratedValues>
+                  <name>WCKCFGR</name>
+                  <usage>read</usage>
+                  <enumeratedValue>
+                    <name>Correct</name>
+                    <description>Clock configuration is correct</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>Wrong</name>
+                    <description>Clock configuration does not respect the rule concerning the frame length specification</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>MUTEDET</name>
                 <description>Mute detection</description>
                 <bitOffset>1</bitOffset>
                 <bitWidth>1</bitWidth>
+                <enumeratedValues>
+                  <name>MUTEDETR</name>
+                  <usage>read</usage>
+                  <enumeratedValue>
+                    <name>NoMute</name>
+                    <description>No MUTE detection on the SD input line</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>Mute</name>
+                    <description>MUTE value detected on the SD input line (0 value) for a specified number of consecutive audio frame</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>OVRUDR</name>
                 <description>Overrun / underrun</description>
                 <bitOffset>0</bitOffset>
                 <bitWidth>1</bitWidth>
+                <enumeratedValues>
+                  <name>OVRUDRR</name>
+                  <usage>read</usage>
+                  <enumeratedValue>
+                    <name>NoError</name>
+                    <description>No overrun/underrun error</description>
+                    <value>0</value>
+                  </enumeratedValue>
+                  <enumeratedValue>
+                    <name>Overrun</name>
+                    <description>Overrun/underrun error detection</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
             </fields>
           </register>
@@ -24209,36 +23018,90 @@
                 <description>Clear late frame synchronization               detection flag</description>
                 <bitOffset>6</bitOffset>
                 <bitWidth>1</bitWidth>
+                <enumeratedValues>
+                  <name>CLFSDETW</name>
+                  <usage>write</usage>
+                  <enumeratedValue>
+                    <name>Clear</name>
+                    <description>Clears the LFSDET flag</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>CAFSDET</name>
                 <description>Clear anticipated frame synchronization               detection flag</description>
                 <bitOffset>5</bitOffset>
                 <bitWidth>1</bitWidth>
+                <enumeratedValues>
+                  <name>CAFSDETW</name>
+                  <usage>write</usage>
+                  <enumeratedValue>
+                    <name>Clear</name>
+                    <description>Clears the AFSDET flag</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>CCNRDY</name>
                 <description>Clear codec not ready flag</description>
                 <bitOffset>4</bitOffset>
                 <bitWidth>1</bitWidth>
+                <enumeratedValues>
+                  <name>CCNRDYW</name>
+                  <usage>write</usage>
+                  <enumeratedValue>
+                    <name>Clear</name>
+                    <description>Clears the CNRDY flag</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>CWCKCFG</name>
                 <description>Clear wrong clock configuration               flag</description>
                 <bitOffset>2</bitOffset>
                 <bitWidth>1</bitWidth>
+                <enumeratedValues>
+                  <name>CWCKCFGW</name>
+                  <usage>write</usage>
+                  <enumeratedValue>
+                    <name>Clear</name>
+                    <description>Clears the WCKCFG flag</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>CMUTEDET</name>
                 <description>Mute detection flag</description>
                 <bitOffset>1</bitOffset>
                 <bitWidth>1</bitWidth>
+                <enumeratedValues>
+                  <name>CMUTEDETW</name>
+                  <usage>write</usage>
+                  <enumeratedValue>
+                    <name>Clear</name>
+                    <description>Clears the MUTEDET flag</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
               <field>
                 <name>COVRUDR</name>
                 <description>Clear overrun / underrun</description>
                 <bitOffset>0</bitOffset>
                 <bitWidth>1</bitWidth>
+                <enumeratedValues>
+                  <name>COVRUDRW</name>
+                  <usage>write</usage>
+                  <enumeratedValue>
+                    <name>Clear</name>
+                    <description>Clears the OVRUDR flag</description>
+                    <value>1</value>
+                  </enumeratedValue>
+                </enumeratedValues>
               </field>
             </fields>
           </register>
@@ -24246,7 +23109,7 @@
             <name>DR</name>
             <displayName>ADR</displayName>
             <description>AData register</description>
-            <addressOffset>0x1c</addressOffset>
+            <addressOffset>0x1C</addressOffset>
             <size>0x20</size>
             <access>read-write</access>
             <resetValue>0x00000000</resetValue>
@@ -24260,29 +23123,6 @@
             </fields>
           </register>
         </cluster>
-        <register>
-          <name>GCR</name>
-          <displayName>GCR</displayName>
-          <description>Global configuration register</description>
-          <addressOffset>0x0</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>SYNCOUT</name>
-              <description>Synchronization outputs</description>
-              <bitOffset>4</bitOffset>
-              <bitWidth>2</bitWidth>
-            </field>
-            <field>
-              <name>SYNCIN</name>
-              <description>Synchronization inputs</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>2</bitWidth>
-            </field>
-          </fields>
-        </register>
         <register>
           <name>PDMCR</name>
           <displayName>PDMCR</displayName>
@@ -24414,7 +23254,7 @@
           <addressOffset>0x0</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>UIFREMAP</name>
@@ -24479,7 +23319,7 @@
           <addressOffset>0x4</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>TI1S</name>
@@ -24508,7 +23348,7 @@
           <addressOffset>0x8</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>SMS_3</name>
@@ -24573,7 +23413,7 @@
           <addressOffset>0xC</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CC4DE</name>
@@ -24650,7 +23490,7 @@
           <addressOffset>0x10</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CC4OF</name>
@@ -24721,7 +23561,7 @@
           <addressOffset>0x14</addressOffset>
           <size>0x20</size>
           <access>write-only</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>TG</name>
@@ -25150,7 +23990,7 @@
           <addressOffset>0x20</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CC4NP</name>
@@ -25257,7 +24097,7 @@
           <addressOffset>0x28</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>PSC</name>
@@ -25389,7 +24229,7 @@
           <addressOffset>0x48</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>DBL</name>
@@ -25412,7 +24252,7 @@
           <addressOffset>0x4C</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>DMAB</name>
@@ -25429,7 +24269,7 @@
           <addressOffset>0x50</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>TI4_RMP</name>
@@ -25458,7 +24298,7 @@
           <addressOffset>0x60</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>ETRSEL</name>
@@ -25488,7 +24328,7 @@
           <addressOffset>0x0</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CEN</name>
@@ -25541,7 +24381,7 @@
           <addressOffset>0x4</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>OIS1N</name>
@@ -25582,7 +24422,7 @@
           <addressOffset>0xC</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>UIE</name>
@@ -25629,7 +24469,7 @@
           <addressOffset>0x10</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CC1OF</name>
@@ -25670,7 +24510,7 @@
           <addressOffset>0x14</addressOffset>
           <size>0x20</size>
           <access>write-only</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>BG</name>
@@ -25820,7 +24660,7 @@
           <addressOffset>0x20</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CC1NP</name>
@@ -25879,7 +24719,7 @@
           <addressOffset>0x28</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>PSC</name>
@@ -25913,7 +24753,7 @@
           <addressOffset>0x30</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>REP</name>
@@ -25947,7 +24787,7 @@
           <addressOffset>0x44</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>DTG</name>
@@ -26018,7 +24858,7 @@
           <addressOffset>0x48</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>DBL</name>
@@ -26041,7 +24881,7 @@
           <addressOffset>0x4C</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>DMAB</name>
@@ -26058,7 +24898,7 @@
           <addressOffset>0x50</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>TI1_RMP</name>
@@ -26075,7 +24915,7 @@
           <addressOffset>0x60</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>BKINE</name>
@@ -26118,7 +24958,7 @@
         <register>
           <name>TISEL</name>
           <description>Input Selection</description>
-          <addressOffset>104</addressOffset>
+          <addressOffset>0x68</addressOffset>
           <fields>
             <field>
               <name>TI1SEL</name>
@@ -26148,7 +24988,7 @@
           <addressOffset>0x0</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CEN</name>
@@ -26201,7 +25041,7 @@
           <addressOffset>0x4</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>OIS1N</name>
@@ -26239,10 +25079,10 @@
           <name>DIER</name>
           <displayName>DIER</displayName>
           <description>DMA/Interrupt enable register</description>
-          <addressOffset>12</addressOffset>
+          <addressOffset>0xC</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>UIE</name>
@@ -26286,10 +25126,10 @@
           <name>SR</name>
           <displayName>SR</displayName>
           <description>status register</description>
-          <addressOffset>16</addressOffset>
+          <addressOffset>0x10</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CC1OF</name>
@@ -26327,10 +25167,10 @@
           <name>EGR</name>
           <displayName>EGR</displayName>
           <description>event generation register</description>
-          <addressOffset>20</addressOffset>
+          <addressOffset>0x14</addressOffset>
           <size>0x20</size>
           <access>write-only</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>BG</name>
@@ -26362,7 +25202,7 @@
           <name>CCMR1_Output</name>
           <displayName>CCMR1_Output</displayName>
           <description>capture/compare mode register (output           mode)</description>
-          <addressOffset>24</addressOffset>
+          <addressOffset>0x18</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
           <resetValue>0x00000000</resetValue>
@@ -26476,10 +25316,10 @@
           <name>CCER</name>
           <displayName>CCER</displayName>
           <description>capture/compare enable           register</description>
-          <addressOffset>32</addressOffset>
+          <addressOffset>0x20</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CC1NP</name>
@@ -26511,7 +25351,7 @@
           <name>CNT</name>
           <displayName>CNT</displayName>
           <description>counter</description>
-          <addressOffset>36</addressOffset>
+          <addressOffset>0x24</addressOffset>
           <size>0x20</size>
           <resetValue>0x00000000</resetValue>
           <fields>
@@ -26535,10 +25375,10 @@
           <name>PSC</name>
           <displayName>PSC</displayName>
           <description>prescaler</description>
-          <addressOffset>40</addressOffset>
+          <addressOffset>0x28</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>PSC</name>
@@ -26552,7 +25392,7 @@
           <name>ARR</name>
           <displayName>ARR</displayName>
           <description>auto-reload register</description>
-          <addressOffset>44</addressOffset>
+          <addressOffset>0x2C</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
           <resetValue>0x00000000</resetValue>
@@ -26569,10 +25409,10 @@
           <name>RCR</name>
           <displayName>RCR</displayName>
           <description>repetition counter register</description>
-          <addressOffset>48</addressOffset>
+          <addressOffset>0x30</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>REP</name>
@@ -26586,7 +25426,7 @@
           <name>CCR1</name>
           <displayName>CCR1</displayName>
           <description>capture/compare register 1</description>
-          <addressOffset>52</addressOffset>
+          <addressOffset>0x34</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
           <resetValue>0x00000000</resetValue>
@@ -26603,10 +25443,10 @@
           <name>BDTR</name>
           <displayName>BDTR</displayName>
           <description>break and dead-time register</description>
-          <addressOffset>68</addressOffset>
+          <addressOffset>0x44</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>DTG</name>
@@ -26674,10 +25514,10 @@
           <name>DCR</name>
           <displayName>DCR</displayName>
           <description>DMA control register</description>
-          <addressOffset>72</addressOffset>
+          <addressOffset>0x48</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>DBL</name>
@@ -26697,10 +25537,10 @@
           <name>DMAR</name>
           <displayName>DMAR</displayName>
           <description>DMA address for full transfer</description>
-          <addressOffset>76</addressOffset>
+          <addressOffset>0x4C</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>DMAB</name>
@@ -26717,7 +25557,7 @@
           <addressOffset>0x40</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>TI1_RMP</name>
@@ -26731,10 +25571,10 @@
           <name>AF1</name>
           <displayName>AF1</displayName>
           <description>TIM17 Alternate function</description>
-          <addressOffset>96</addressOffset>
+          <addressOffset>0x60</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>BKINE</name>
@@ -26777,7 +25617,7 @@
         <register>
           <name>TISEL</name>
           <description>Input Selection</description>
-          <addressOffset>104</addressOffset>
+          <addressOffset>0x68</addressOffset>
           <fields>
             <field>
               <name>TI1SEL</name>
@@ -26828,7 +25668,7 @@
           <addressOffset>0x0</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CEN</name>
@@ -26893,7 +25733,7 @@
           <addressOffset>0x4</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>MMS2</name>
@@ -26994,7 +25834,7 @@
           <addressOffset>0x8</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>SMS</name>
@@ -27059,7 +25899,7 @@
           <addressOffset>0xC</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>UIE</name>
@@ -27160,7 +26000,7 @@
           <addressOffset>0x10</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>UIF</name>
@@ -27267,7 +26107,7 @@
           <addressOffset>0x14</addressOffset>
           <size>0x20</size>
           <access>write-only</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>UG</name>
@@ -27714,7 +26554,7 @@
           <addressOffset>0x20</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CC1E</name>
@@ -27863,7 +26703,7 @@
           <addressOffset>0x28</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>PSC</name>
@@ -27897,7 +26737,7 @@
           <addressOffset>0x30</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>REP</name>
@@ -27982,7 +26822,7 @@
           <addressOffset>0x44</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>DTG</name>
@@ -28065,7 +26905,7 @@
           <addressOffset>0x48</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>DBL</name>
@@ -28088,7 +26928,7 @@
           <addressOffset>0x4C</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>DMAB</name>
@@ -28105,7 +26945,7 @@
           <addressOffset>0x50</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>TIM1_ETR_ADC1_RMP</name>
@@ -28825,7 +27665,7 @@
           <addressOffset>0x0</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>RXFFIE</name>
@@ -29028,7 +27868,7 @@
           <addressOffset>0x4</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>ADD4_7</name>
@@ -29171,7 +28011,7 @@
           <addressOffset>0x8</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>TXFTCFG</name>
@@ -29326,7 +28166,7 @@
           <addressOffset>0xC</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>BRR</name>
@@ -29343,7 +28183,7 @@
           <addressOffset>0x10</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>GT</name>
@@ -29366,7 +28206,7 @@
           <addressOffset>0x14</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>BLEN</name>
@@ -29389,7 +28229,7 @@
           <addressOffset>0x18</addressOffset>
           <size>0x20</size>
           <access>write-only</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>TXFRQ</name>
@@ -29430,7 +28270,7 @@
           <addressOffset>0x1C</addressOffset>
           <size>0x20</size>
           <access>read-only</access>
-          <resetValue>0x00C0</resetValue>
+          <resetValue>0x000000C0</resetValue>
           <fields>
             <field>
               <name>TXFT</name>
@@ -29609,7 +28449,7 @@
           <addressOffset>0x20</addressOffset>
           <size>0x20</size>
           <access>write-only</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>WUCF</name>
@@ -29710,7 +28550,7 @@
           <addressOffset>0x24</addressOffset>
           <size>0x20</size>
           <access>read-only</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>RDR</name>
@@ -29727,7 +28567,7 @@
           <addressOffset>0x28</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>TDR</name>
@@ -29744,7 +28584,7 @@
           <addressOffset>0x2C</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>PRESCALER</name>
@@ -30626,9 +29466,12 @@
           </fields>
         </register>
         <register>
-          <name>ALRMAR</name>
+          <dim>2</dim>
+          <dimIncrement>0x4</dimIncrement>
+          <dimIndex>A,B</dimIndex>
+          <name>ALRM%sR</name>
           <displayName>ALRMAR</displayName>
-          <description>alarm A register</description>
+          <description>Alarm register</description>
           <addressOffset>0x1C</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
@@ -30636,7 +29479,7 @@
           <fields>
             <field>
               <name>MSK4</name>
-              <description>Alarm A date mask</description>
+              <description>Alarm date mask</description>
               <bitOffset>31</bitOffset>
               <bitWidth>1</bitWidth>
             </field>
@@ -30654,13 +29497,13 @@
             </field>
             <field>
               <name>DU</name>
-              <description>Date units or day in BCD               format</description>
+              <description>Date units or day in BCD format</description>
               <bitOffset>24</bitOffset>
               <bitWidth>4</bitWidth>
             </field>
             <field>
               <name>MSK3</name>
-              <description>Alarm A hours mask</description>
+              <description>Alarm hours mask</description>
               <bitOffset>23</bitOffset>
               <bitWidth>1</bitWidth>
             </field>
@@ -30684,7 +29527,7 @@
             </field>
             <field>
               <name>MSK2</name>
-              <description>Alarm A minutes mask</description>
+              <description>Alarm minutes mask</description>
               <bitOffset>15</bitOffset>
               <bitWidth>1</bitWidth>
             </field>
@@ -30702,102 +29545,7 @@
             </field>
             <field>
               <name>MSK1</name>
-              <description>Alarm A seconds mask</description>
-              <bitOffset>7</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>ST</name>
-              <description>Second tens in BCD format</description>
-              <bitOffset>4</bitOffset>
-              <bitWidth>3</bitWidth>
-            </field>
-            <field>
-              <name>SU</name>
-              <description>Second units in BCD format</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>ALRMBR</name>
-          <displayName>ALRMBR</displayName>
-          <description>alarm B register</description>
-          <addressOffset>0x20</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>MSK4</name>
-              <description>Alarm B date mask</description>
-              <bitOffset>31</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>WDSEL</name>
-              <description>Week day selection</description>
-              <bitOffset>30</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>DT</name>
-              <description>Date tens in BCD format</description>
-              <bitOffset>28</bitOffset>
-              <bitWidth>2</bitWidth>
-            </field>
-            <field>
-              <name>DU</name>
-              <description>Date units or day in BCD               format</description>
-              <bitOffset>24</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>MSK3</name>
-              <description>Alarm B hours mask</description>
-              <bitOffset>23</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>PM</name>
-              <description>AM/PM notation</description>
-              <bitOffset>22</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>HT</name>
-              <description>Hour tens in BCD format</description>
-              <bitOffset>20</bitOffset>
-              <bitWidth>2</bitWidth>
-            </field>
-            <field>
-              <name>HU</name>
-              <description>Hour units in BCD format</description>
-              <bitOffset>16</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>MSK2</name>
-              <description>Alarm B minutes mask</description>
-              <bitOffset>15</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>MNT</name>
-              <description>Minute tens in BCD format</description>
-              <bitOffset>12</bitOffset>
-              <bitWidth>3</bitWidth>
-            </field>
-            <field>
-              <name>MNU</name>
-              <description>Minute units in BCD format</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>MSK1</name>
-              <description>Alarm B seconds mask</description>
+              <description>Alarm seconds mask</description>
               <bitOffset>7</bitOffset>
               <bitWidth>1</bitWidth>
             </field>
@@ -30872,116 +29620,23 @@
             </field>
           </fields>
         </register>
-        <register>
+        <register derivedFrom="TR">
           <name>TSTR</name>
           <displayName>TSTR</displayName>
           <description>time stamp time register</description>
           <addressOffset>0x30</addressOffset>
-          <size>0x20</size>
-          <access>read-only</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>SU</name>
-              <description>Second units in BCD format</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>ST</name>
-              <description>Second tens in BCD format</description>
-              <bitOffset>4</bitOffset>
-              <bitWidth>3</bitWidth>
-            </field>
-            <field>
-              <name>MNU</name>
-              <description>Minute units in BCD format</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>MNT</name>
-              <description>Minute tens in BCD format</description>
-              <bitOffset>12</bitOffset>
-              <bitWidth>3</bitWidth>
-            </field>
-            <field>
-              <name>HU</name>
-              <description>Hour units in BCD format</description>
-              <bitOffset>16</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>HT</name>
-              <description>Hour tens in BCD format</description>
-              <bitOffset>20</bitOffset>
-              <bitWidth>2</bitWidth>
-            </field>
-            <field>
-              <name>PM</name>
-              <description>AM/PM notation</description>
-              <bitOffset>22</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-          </fields>
         </register>
-        <register>
+        <register derivedFrom="DR">
           <name>TSDR</name>
           <displayName>TSDR</displayName>
           <description>time stamp date register</description>
           <addressOffset>0x34</addressOffset>
-          <size>0x20</size>
-          <access>read-only</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>WDU</name>
-              <description>Week day units</description>
-              <bitOffset>13</bitOffset>
-              <bitWidth>3</bitWidth>
-            </field>
-            <field>
-              <name>MT</name>
-              <description>Month tens in BCD format</description>
-              <bitOffset>12</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>MU</name>
-              <description>Month units in BCD format</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>DT</name>
-              <description>Date tens in BCD format</description>
-              <bitOffset>4</bitOffset>
-              <bitWidth>2</bitWidth>
-            </field>
-            <field>
-              <name>DU</name>
-              <description>Date units in BCD format</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-          </fields>
         </register>
-        <register>
+        <register derivedFrom="SSR">
           <name>TSSSR</name>
           <displayName>TSSSR</displayName>
           <description>timestamp sub second register</description>
           <addressOffset>0x38</addressOffset>
-          <size>0x20</size>
-          <access>read-only</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>SS</name>
-              <description>Sub second value</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>16</bitWidth>
-            </field>
-          </fields>
         </register>
         <register>
           <name>CALR</name>
@@ -31156,33 +29811,13 @@
           </fields>
         </register>
         <register>
-          <name>ALRMASSR</name>
+          <dim>2</dim>
+          <dimIncrement>0x4</dimIncrement>
+          <dimIndex>A,B</dimIndex>
+          <name>ALRM%sSSR</name>
           <displayName>ALRMASSR</displayName>
-          <description>alarm A sub second register</description>
+          <description>Alarm sub-second register</description>
           <addressOffset>0x44</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>MASKSS</name>
-              <description>Mask the most-significant bits starting               at this bit</description>
-              <bitOffset>24</bitOffset>
-              <bitWidth>4</bitWidth>
-            </field>
-            <field>
-              <name>SS</name>
-              <description>Sub seconds value</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>15</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>ALRMBSSR</name>
-          <displayName>ALRMBSSR</displayName>
-          <description>alarm B sub second register</description>
-          <addressOffset>0x48</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
           <resetValue>0x00000000</resetValue>
@@ -31225,333 +29860,13 @@
           </fields>
         </register>
         <register>
-          <name>BKP0R</name>
+          <dim>20</dim>
+          <dimIncrement>0x4</dimIncrement>
+          <dimIndex>0-19</dimIndex>
+          <name>BKP%sR</name>
           <displayName>BKP0R</displayName>
           <description>backup register</description>
           <addressOffset>0x50</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>BKP</name>
-              <description>BKP</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>BKP1R</name>
-          <displayName>BKP1R</displayName>
-          <description>backup register</description>
-          <addressOffset>0x54</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>BKP</name>
-              <description>BKP</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>BKP2R</name>
-          <displayName>BKP2R</displayName>
-          <description>backup register</description>
-          <addressOffset>0x58</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>BKP</name>
-              <description>BKP</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>BKP3R</name>
-          <displayName>BKP3R</displayName>
-          <description>backup register</description>
-          <addressOffset>0x5C</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>BKP</name>
-              <description>BKP</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>BKP4R</name>
-          <displayName>BKP4R</displayName>
-          <description>backup register</description>
-          <addressOffset>0x60</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>BKP</name>
-              <description>BKP</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>BKP5R</name>
-          <displayName>BKP5R</displayName>
-          <description>backup register</description>
-          <addressOffset>0x64</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>BKP</name>
-              <description>BKP</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>BKP6R</name>
-          <displayName>BKP6R</displayName>
-          <description>backup register</description>
-          <addressOffset>0x68</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>BKP</name>
-              <description>BKP</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>BKP7R</name>
-          <displayName>BKP7R</displayName>
-          <description>backup register</description>
-          <addressOffset>0x6C</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>BKP</name>
-              <description>BKP</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>BKP8R</name>
-          <displayName>BKP8R</displayName>
-          <description>backup register</description>
-          <addressOffset>0x70</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>BKP</name>
-              <description>BKP</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>BKP9R</name>
-          <displayName>BKP9R</displayName>
-          <description>backup register</description>
-          <addressOffset>0x74</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>BKP</name>
-              <description>BKP</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>BKP10R</name>
-          <displayName>BKP10R</displayName>
-          <description>backup register</description>
-          <addressOffset>0x78</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>BKP</name>
-              <description>BKP</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>BKP11R</name>
-          <displayName>BKP11R</displayName>
-          <description>backup register</description>
-          <addressOffset>0x7C</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>BKP</name>
-              <description>BKP</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>BKP12R</name>
-          <displayName>BKP12R</displayName>
-          <description>backup register</description>
-          <addressOffset>0x80</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>BKP</name>
-              <description>BKP</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>BKP13R</name>
-          <displayName>BKP13R</displayName>
-          <description>backup register</description>
-          <addressOffset>0x84</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>BKP</name>
-              <description>BKP</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>BKP14R</name>
-          <displayName>BKP14R</displayName>
-          <description>backup register</description>
-          <addressOffset>0x88</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>BKP</name>
-              <description>BKP</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>BKP15R</name>
-          <displayName>BKP15R</displayName>
-          <description>backup register</description>
-          <addressOffset>0x8C</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>BKP</name>
-              <description>BKP</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>BKP16R</name>
-          <displayName>BKP16R</displayName>
-          <description>backup register</description>
-          <addressOffset>0x90</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>BKP</name>
-              <description>BKP</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>BKP17R</name>
-          <displayName>BKP17R</displayName>
-          <description>backup register</description>
-          <addressOffset>0x94</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>BKP</name>
-              <description>BKP</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>BKP18R</name>
-          <displayName>BKP18R</displayName>
-          <description>backup register</description>
-          <addressOffset>0x98</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>BKP</name>
-              <description>BKP</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>32</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>BKP19R</name>
-          <displayName>BKP19R</displayName>
-          <description>backup register</description>
-          <addressOffset>0x9C</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
           <resetValue>0x00000000</resetValue>
@@ -31584,7 +29899,7 @@
           <addressOffset>0x0</addressOffset>
           <size>0x20</size>
           <access>read-only</access>
-          <resetValue>0x0</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>DEV_ID</name>
@@ -31607,7 +29922,7 @@
           <addressOffset>0x4</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>DBG_SLEEP</name>
@@ -31648,7 +29963,7 @@
           <addressOffset>0x3C</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>DBG_TIMER2_STOP</name>
@@ -31701,7 +30016,7 @@
           <addressOffset>0x40</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>DBG_LPTIM2_STOP</name>
@@ -31748,7 +30063,7 @@
           <addressOffset>0x44</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>DBG_LPTIM2_STOP</name>
@@ -31765,7 +30080,7 @@
           <addressOffset>0x48</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>DBG_LPTIM2_STOP</name>
@@ -31782,7 +30097,7 @@
           <addressOffset>0x4C</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>DBG_TIM1_STOP</name>
@@ -31812,7 +30127,7 @@
           <addressOffset>0x48</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>DBG_TIM1_STOP</name>
@@ -34199,7 +32514,7 @@
           <addressOffset>0x3F4</addressOffset>
           <size>0x20</size>
           <access>read-only</access>
-          <resetValue>0X00000020</resetValue>
+          <resetValue>0x00000020</resetValue>
           <fields>
             <field>
               <name>MINREV</name>
@@ -35254,7 +33569,7 @@
           <addressOffset>0x48</addressOffset>
           <size>0x10</size>
           <access>read-only</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>FN</name>
@@ -35295,7 +33610,7 @@
           <addressOffset>0x4C</addressOffset>
           <size>0x10</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>ADD</name>
@@ -35318,7 +33633,7 @@
           <addressOffset>0x50</addressOffset>
           <size>0x10</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>BTABLE</name>
@@ -35335,7 +33650,7 @@
           <addressOffset>0x52</addressOffset>
           <size>0x10</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>COUNT0_TX</name>
@@ -35352,7 +33667,7 @@
           <addressOffset>0x5A</addressOffset>
           <size>0x10</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>COUNT1_TX</name>
@@ -35369,7 +33684,7 @@
           <addressOffset>0x62</addressOffset>
           <size>0x10</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>COUNT2_TX</name>
@@ -35386,7 +33701,7 @@
           <addressOffset>0x6A</addressOffset>
           <size>0x10</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>COUNT3_TX</name>
@@ -35403,7 +33718,7 @@
           <addressOffset>0x72</addressOffset>
           <size>0x10</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>COUNT4_TX</name>
@@ -35420,7 +33735,7 @@
           <addressOffset>0x7A</addressOffset>
           <size>0x10</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>COUNT5_TX</name>
@@ -35437,7 +33752,7 @@
           <addressOffset>0x82</addressOffset>
           <size>0x10</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>COUNT6_TX</name>
@@ -35454,7 +33769,7 @@
           <addressOffset>0x8A</addressOffset>
           <size>0x10</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>COUNT7_TX</name>
@@ -35471,7 +33786,7 @@
           <addressOffset>0x54</addressOffset>
           <size>0x10</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>ADDR0_RX</name>
@@ -35488,7 +33803,7 @@
           <addressOffset>0x5C</addressOffset>
           <size>0x10</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>ADDR1_RX</name>
@@ -35505,7 +33820,7 @@
           <addressOffset>0x64</addressOffset>
           <size>0x10</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>ADDR2_RX</name>
@@ -35522,7 +33837,7 @@
           <addressOffset>0x6C</addressOffset>
           <size>0x10</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>ADDR3_RX</name>
@@ -35539,7 +33854,7 @@
           <addressOffset>0x74</addressOffset>
           <size>0x10</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>ADDR4_RX</name>
@@ -35556,7 +33871,7 @@
           <addressOffset>0x7C</addressOffset>
           <size>0x10</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>ADDR5_RX</name>
@@ -35573,7 +33888,7 @@
           <addressOffset>0x84</addressOffset>
           <size>0x10</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>ADDR6_RX</name>
@@ -35590,7 +33905,7 @@
           <addressOffset>0x8C</addressOffset>
           <size>0x10</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>ADDR7_RX</name>
@@ -35606,7 +33921,7 @@
           <description>Reception byte count 0</description>
           <addressOffset>0x56</addressOffset>
           <size>0x10</size>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>COUNT0_RX</name>
@@ -35637,7 +33952,7 @@
           <description>Reception byte count 0</description>
           <addressOffset>0x5E</addressOffset>
           <size>0x10</size>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>COUNT1_RX</name>
@@ -35668,7 +33983,7 @@
           <description>Reception byte count 0</description>
           <addressOffset>0x66</addressOffset>
           <size>0x10</size>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>COUNT2_RX</name>
@@ -35699,7 +34014,7 @@
           <description>Reception byte count 0</description>
           <addressOffset>0x6E</addressOffset>
           <size>0x10</size>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>COUNT3_RX</name>
@@ -35730,7 +34045,7 @@
           <description>Reception byte count 0</description>
           <addressOffset>0x76</addressOffset>
           <size>0x10</size>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>COUNT4_RX</name>
@@ -35761,7 +34076,7 @@
           <description>Reception byte count 0</description>
           <addressOffset>0x7E</addressOffset>
           <size>0x10</size>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>COUNT5_RX</name>
@@ -35792,7 +34107,7 @@
           <description>Reception byte count 0</description>
           <addressOffset>0x86</addressOffset>
           <size>0x10</size>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>COUNT6_RX</name>
@@ -35823,7 +34138,7 @@
           <description>Reception byte count 0</description>
           <addressOffset>0x8E</addressOffset>
           <size>0x10</size>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>COUNT7_RX</name>
@@ -35855,7 +34170,7 @@
           <alternateRegister>ADDR0_RX</alternateRegister>
           <addressOffset>0x54</addressOffset>
           <size>0x10</size>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>LPMEN</name>
@@ -35893,7 +34208,7 @@
           <description>Battery charging detector(</description>
           <addressOffset>0x58</addressOffset>
           <size>0x10</size>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>BCDEN</name>
@@ -36602,7 +34917,7 @@
           <addressOffset>0x0</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0X00000000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>ENABLE</name>
@@ -36637,7 +34952,7 @@
           <addressOffset>0x4</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0X00000000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>RELOAD</name>
@@ -36654,7 +34969,7 @@
           <addressOffset>0x8</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0X00000000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CURRENT</name>
@@ -36671,7 +34986,7 @@
           <addressOffset>0xC</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0X00000000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>TENMS</name>
@@ -36707,13 +35022,13 @@
       </addressBlock>
       <registers>
         <register>
-          <name>MPU_TYPER</name>
-          <displayName>MPU_TYPER</displayName>
+          <name>TYPER</name>
+          <displayName>TYPER</displayName>
           <description>MPU type register</description>
           <addressOffset>0x0</addressOffset>
           <size>0x20</size>
           <access>read-only</access>
-          <resetValue>0X00000800</resetValue>
+          <resetValue>0x00000800</resetValue>
           <fields>
             <field>
               <name>SEPARATE</name>
@@ -36736,13 +35051,13 @@
           </fields>
         </register>
         <register>
-          <name>MPU_CTRL</name>
-          <displayName>MPU_CTRL</displayName>
+          <name>CTRL</name>
+          <displayName>CTRL</displayName>
           <description>MPU control register</description>
           <addressOffset>0x4</addressOffset>
           <size>0x20</size>
           <access>read-only</access>
-          <resetValue>0X00000000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>ENABLE</name>
@@ -36765,13 +35080,13 @@
           </fields>
         </register>
         <register>
-          <name>MPU_RNR</name>
-          <displayName>MPU_RNR</displayName>
+          <name>RNR</name>
+          <displayName>RNR</displayName>
           <description>MPU region number register</description>
           <addressOffset>0x8</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0X00000000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>REGION</name>
@@ -36782,13 +35097,13 @@
           </fields>
         </register>
         <register>
-          <name>MPU_RBAR</name>
-          <displayName>MPU_RBAR</displayName>
+          <name>RBAR</name>
+          <displayName>RBAR</displayName>
           <description>MPU region base address           register</description>
           <addressOffset>0xC</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0X00000000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>REGION</name>
@@ -36811,13 +35126,13 @@
           </fields>
         </register>
         <register>
-          <name>MPU_RASR</name>
-          <displayName>MPU_RASR</displayName>
+          <name>RASR</name>
+          <displayName>RASR</displayName>
           <description>MPU region attribute and size           register</description>
           <addressOffset>0x10</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0X00000000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>ENABLE</name>
@@ -37987,7 +36302,7 @@
           <addressOffset>0x0</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CP</name>
@@ -38002,20 +36317,20 @@
     <peripheral>
       <name>ADC_Common</name>
       <description>ADC common registers</description>
-      <groupName>ADC</groupName>
-      <baseAddress>1342440192</baseAddress>
+      <groupName>ADC_Common</groupName>
+      <baseAddress>0x50040300</baseAddress>
       <addressBlock>
-        <offset>0</offset>
-        <size>12</size>
+        <offset>0x0</offset>
+        <size>0xC</size>
         <usage>registers</usage>
       </addressBlock>
       <registers>
         <register>
           <name>CSR</name>
           <description>ADC common status register</description>
-          <addressOffset>0</addressOffset>
+          <addressOffset>0x0</addressOffset>
           <access>read-only</access>
-          <resetValue>0</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>JQOVF_MST</name>
@@ -38088,9 +36403,9 @@
         <register>
           <name>CCR</name>
           <description>ADC common control register</description>
-          <addressOffset>8</addressOffset>
+          <addressOffset>0x8</addressOffset>
           <access>read-write</access>
-          <resetValue>0</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CH18SEL</name>

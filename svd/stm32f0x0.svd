@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <device xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="1.1" xs:noNamespaceSchemaLocation="CMSIS-SVD_Schema_1_1.xsd">
   <name>STM32F0x0</name>
   <version>1.2</version>
@@ -15,7 +15,7 @@
   <addressUnitBits>8</addressUnitBits>
   <width>32</width>
   <size>0x20</size>
-  <resetValue>0x0</resetValue>
+  <resetValue>0x00000000</resetValue>
   <resetMask>0xFFFFFFFF</resetMask>
   <peripherals>
     <peripheral>
@@ -106,30 +106,6 @@
               <description>Polynomial size</description>
               <bitOffset>3</bitOffset>
               <bitWidth>2</bitWidth>
-              <enumeratedValues>
-                <name>POLYSIZE</name>
-                <usage>read-write</usage>
-                <enumeratedValue>
-                  <name>Polysize32</name>
-                  <description>32-bit polynomial</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>Polysize16</name>
-                  <description>16-bit polynomial</description>
-                  <value>1</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>Polysize8</name>
-                  <description>8-bit polynomial</description>
-                  <value>2</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>Polysize7</name>
-                  <description>7-bit polynomial</description>
-                  <value>3</value>
-                </enumeratedValue>
-              </enumeratedValues>
             </field>
             <field>
               <name>REV_IN</name>
@@ -211,10 +187,10 @@
           <name>DR8</name>
           <description>Data register - byte sized</description>
           <alternateRegister>DR</alternateRegister>
-          <addressOffset>0</addressOffset>
-          <size>8</size>
+          <addressOffset>0x0</addressOffset>
+          <size>0x8</size>
           <access>read-write</access>
-          <resetValue>255</resetValue>
+          <resetValue>0x000000FF</resetValue>
           <fields>
             <field>
               <name>DR8</name>
@@ -234,10 +210,10 @@
           <name>DR16</name>
           <description>Data register - half-word sized</description>
           <alternateRegister>DR</alternateRegister>
-          <addressOffset>0</addressOffset>
-          <size>16</size>
+          <addressOffset>0x0</addressOffset>
+          <size>0x10</size>
           <access>read-write</access>
-          <resetValue>65535</resetValue>
+          <resetValue>0x0000FFFF</resetValue>
           <fields>
             <field>
               <name>DR16</name>
@@ -1028,16 +1004,16 @@
               <bitWidth>1</bitWidth>
               <enumeratedValues>
                 <name>IDR0</name>
-                <usage>read-write</usage>
-                <enumeratedValue>
-                  <name>High</name>
-                  <description>Input is logic high</description>
-                  <value>1</value>
-                </enumeratedValue>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Low</name>
                   <description>Input is logic low</description>
                   <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>High</name>
+                  <description>Input is logic high</description>
+                  <value>1</value>
                 </enumeratedValue>
               </enumeratedValues>
             </field>
@@ -1182,14 +1158,14 @@
                 <name>ODR0</name>
                 <usage>read-write</usage>
                 <enumeratedValue>
-                  <name>High</name>
-                  <description>Set output to logic high</description>
-                  <value>1</value>
-                </enumeratedValue>
-                <enumeratedValue>
                   <name>Low</name>
                   <description>Set output to logic low</description>
                   <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>High</name>
+                  <description>Set output to logic high</description>
+                  <value>1</value>
                 </enumeratedValue>
               </enumeratedValues>
             </field>
@@ -1515,7 +1491,7 @@
               0..15)</description>
               <bitOffset>15</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="LCK10"/>
+              <enumeratedValues derivedFrom="LCK0"/>
             </field>
             <field>
               <name>LCK14</name>
@@ -1523,7 +1499,7 @@
               0..15)</description>
               <bitOffset>14</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="LCK10"/>
+              <enumeratedValues derivedFrom="LCK0"/>
             </field>
             <field>
               <name>LCK13</name>
@@ -1531,7 +1507,7 @@
               0..15)</description>
               <bitOffset>13</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="LCK10"/>
+              <enumeratedValues derivedFrom="LCK0"/>
             </field>
             <field>
               <name>LCK12</name>
@@ -1539,7 +1515,7 @@
               0..15)</description>
               <bitOffset>12</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="LCK10"/>
+              <enumeratedValues derivedFrom="LCK0"/>
             </field>
             <field>
               <name>LCK11</name>
@@ -1547,7 +1523,7 @@
               0..15)</description>
               <bitOffset>11</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="LCK10"/>
+              <enumeratedValues derivedFrom="LCK0"/>
             </field>
             <field>
               <name>LCK10</name>
@@ -1555,20 +1531,7 @@
               0..15)</description>
               <bitOffset>10</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues>
-                <name>LCK10</name>
-                <usage>read-write</usage>
-                <enumeratedValue>
-                  <name>Unlocked</name>
-                  <description>Port configuration not locked</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>Locked</name>
-                  <description>Port configuration locked</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
+              <enumeratedValues derivedFrom="LCK0"/>
             </field>
             <field>
               <name>LCK9</name>
@@ -2080,55 +2043,42 @@
               <description>Port x Reset bit y</description>
               <bitOffset>10</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues>
-                <name>BR10W</name>
-                <usage>write</usage>
-                <enumeratedValue>
-                  <name>NoAction</name>
-                  <description>No action on the corresponding ODx bit</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>Reset</name>
-                  <description>Reset the ODx bit</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
+              <enumeratedValues derivedFrom="BR0W"/>
             </field>
             <field>
               <name>BR11</name>
               <description>Port x Reset bit y</description>
               <bitOffset>11</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="BR10W"/>
+              <enumeratedValues derivedFrom="BR0W"/>
             </field>
             <field>
               <name>BR12</name>
               <description>Port x Reset bit y</description>
               <bitOffset>12</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="BR10W"/>
+              <enumeratedValues derivedFrom="BR0W"/>
             </field>
             <field>
               <name>BR13</name>
               <description>Port x Reset bit y</description>
               <bitOffset>13</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="BR10W"/>
+              <enumeratedValues derivedFrom="BR0W"/>
             </field>
             <field>
               <name>BR14</name>
               <description>Port x Reset bit y</description>
               <bitOffset>14</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="BR10W"/>
+              <enumeratedValues derivedFrom="BR0W"/>
             </field>
             <field>
               <name>BR15</name>
               <description>Port x Reset bit y</description>
               <bitOffset>15</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="BR10W"/>
+              <enumeratedValues derivedFrom="BR0W"/>
             </field>
           </fields>
         </register>
@@ -2929,16 +2879,16 @@
               <bitWidth>1</bitWidth>
               <enumeratedValues>
                 <name>IDR0</name>
-                <usage>read-write</usage>
-                <enumeratedValue>
-                  <name>High</name>
-                  <description>Input is logic high</description>
-                  <value>1</value>
-                </enumeratedValue>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Low</name>
                   <description>Input is logic low</description>
                   <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>High</name>
+                  <description>Input is logic high</description>
+                  <value>1</value>
                 </enumeratedValue>
               </enumeratedValues>
             </field>
@@ -3083,14 +3033,14 @@
                 <name>ODR0</name>
                 <usage>read-write</usage>
                 <enumeratedValue>
-                  <name>High</name>
-                  <description>Set output to logic high</description>
-                  <value>1</value>
-                </enumeratedValue>
-                <enumeratedValue>
                   <name>Low</name>
                   <description>Set output to logic low</description>
                   <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>High</name>
+                  <description>Set output to logic high</description>
+                  <value>1</value>
                 </enumeratedValue>
               </enumeratedValues>
             </field>
@@ -3417,7 +3367,7 @@
               0..15)</description>
               <bitOffset>15</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="LCK10"/>
+              <enumeratedValues derivedFrom="LCK0"/>
             </field>
             <field>
               <name>LCK14</name>
@@ -3425,7 +3375,7 @@
               0..15)</description>
               <bitOffset>14</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="LCK10"/>
+              <enumeratedValues derivedFrom="LCK0"/>
             </field>
             <field>
               <name>LCK13</name>
@@ -3433,7 +3383,7 @@
               0..15)</description>
               <bitOffset>13</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="LCK10"/>
+              <enumeratedValues derivedFrom="LCK0"/>
             </field>
             <field>
               <name>LCK12</name>
@@ -3441,7 +3391,7 @@
               0..15)</description>
               <bitOffset>12</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="LCK10"/>
+              <enumeratedValues derivedFrom="LCK0"/>
             </field>
             <field>
               <name>LCK11</name>
@@ -3449,7 +3399,7 @@
               0..15)</description>
               <bitOffset>11</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="LCK10"/>
+              <enumeratedValues derivedFrom="LCK0"/>
             </field>
             <field>
               <name>LCK10</name>
@@ -3457,20 +3407,7 @@
               0..15)</description>
               <bitOffset>10</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues>
-                <name>LCK10</name>
-                <usage>read-write</usage>
-                <enumeratedValue>
-                  <name>Unlocked</name>
-                  <description>Port configuration not locked</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>Locked</name>
-                  <description>Port configuration locked</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
+              <enumeratedValues derivedFrom="LCK0"/>
             </field>
             <field>
               <name>LCK9</name>
@@ -3982,55 +3919,42 @@
               <description>Port x Reset bit y</description>
               <bitOffset>10</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues>
-                <name>BR10W</name>
-                <usage>write</usage>
-                <enumeratedValue>
-                  <name>NoAction</name>
-                  <description>No action on the corresponding ODx bit</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>Reset</name>
-                  <description>Reset the ODx bit</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
+              <enumeratedValues derivedFrom="BR0W"/>
             </field>
             <field>
               <name>BR11</name>
               <description>Port x Reset bit y</description>
               <bitOffset>11</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="BR10W"/>
+              <enumeratedValues derivedFrom="BR0W"/>
             </field>
             <field>
               <name>BR12</name>
               <description>Port x Reset bit y</description>
               <bitOffset>12</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="BR10W"/>
+              <enumeratedValues derivedFrom="BR0W"/>
             </field>
             <field>
               <name>BR13</name>
               <description>Port x Reset bit y</description>
               <bitOffset>13</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="BR10W"/>
+              <enumeratedValues derivedFrom="BR0W"/>
             </field>
             <field>
               <name>BR14</name>
               <description>Port x Reset bit y</description>
               <bitOffset>14</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="BR10W"/>
+              <enumeratedValues derivedFrom="BR0W"/>
             </field>
             <field>
               <name>BR15</name>
               <description>Port x Reset bit y</description>
               <bitOffset>15</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="BR10W"/>
+              <enumeratedValues derivedFrom="BR0W"/>
             </field>
           </fields>
         </register>
@@ -4059,7 +3983,7 @@
           <addressOffset>0x0</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>BIDIMODE</name>
@@ -4383,7 +4307,7 @@
           <addressOffset>0x4</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>RXDMAEN</name>
@@ -4692,7 +4616,7 @@
           <description>status register</description>
           <addressOffset>0x8</addressOffset>
           <size>0x20</size>
-          <resetValue>0x0002</resetValue>
+          <resetValue>0x00000002</resetValue>
           <fields>
             <field>
               <name>RXNE</name>
@@ -4702,7 +4626,7 @@
               <access>read-only</access>
               <enumeratedValues>
                 <name>RXNE</name>
-                <usage>read-write</usage>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Empty</name>
                   <description>Rx buffer empty</description>
@@ -4723,7 +4647,7 @@
               <access>read-only</access>
               <enumeratedValues>
                 <name>TXE</name>
-                <usage>read-write</usage>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>NotEmpty</name>
                   <description>Tx buffer not empty</description>
@@ -4912,7 +4836,7 @@
           <addressOffset>0xC</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>DR</name>
@@ -4935,7 +4859,7 @@
           <addressOffset>0x10</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0007</resetValue>
+          <resetValue>0x00000007</resetValue>
           <fields>
             <field>
               <name>CRCPOLY</name>
@@ -4958,7 +4882,7 @@
           <addressOffset>0x14</addressOffset>
           <size>0x20</size>
           <access>read-only</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>RxCRC</name>
@@ -4981,7 +4905,7 @@
           <addressOffset>0x18</addressOffset>
           <size>0x20</size>
           <access>read-only</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>TxCRC</name>
@@ -5004,7 +4928,7 @@
           <addressOffset>0x1C</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>I2SMOD</name>
@@ -6257,37 +6181,37 @@
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>Mask1</name>
-                  <description>OA2[1] is masked and don&#x2019;t care. Only OA2[7:2] are compared</description>
+                  <description>OA2[1] is masked and don’t care. Only OA2[7:2] are compared</description>
                   <value>1</value>
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>Mask2</name>
-                  <description>OA2[2:1] are masked and don&#x2019;t care. Only OA2[7:3] are compared</description>
+                  <description>OA2[2:1] are masked and don’t care. Only OA2[7:3] are compared</description>
                   <value>2</value>
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>Mask3</name>
-                  <description>OA2[3:1] are masked and don&#x2019;t care. Only OA2[7:4] are compared</description>
+                  <description>OA2[3:1] are masked and don’t care. Only OA2[7:4] are compared</description>
                   <value>3</value>
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>Mask4</name>
-                  <description>OA2[4:1] are masked and don&#x2019;t care. Only OA2[7:5] are compared</description>
+                  <description>OA2[4:1] are masked and don’t care. Only OA2[7:5] are compared</description>
                   <value>4</value>
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>Mask5</name>
-                  <description>OA2[5:1] are masked and don&#x2019;t care. Only OA2[7:6] are compared</description>
+                  <description>OA2[5:1] are masked and don’t care. Only OA2[7:6] are compared</description>
                   <value>5</value>
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>Mask6</name>
-                  <description>OA2[6:1] are masked and don&#x2019;t care. Only OA2[7] is compared.</description>
+                  <description>OA2[6:1] are masked and don’t care. Only OA2[7] is compared.</description>
                   <value>6</value>
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>Mask7</name>
-                  <description>OA2[7:1] are masked and don&#x2019;t care. No comparison is done, and all (except reserved) 7-bit received addresses are acknowledged</description>
+                  <description>OA2[7:1] are masked and don’t care. No comparison is done, and all (except reserved) 7-bit received addresses are acknowledged</description>
                   <value>7</value>
                 </enumeratedValue>
               </enumeratedValues>
@@ -6515,7 +6439,7 @@
               <access>read-only</access>
               <enumeratedValues>
                 <name>DIR</name>
-                <usage>read-write</usage>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Write</name>
                   <description>Write transfer, slave enters receiver mode</description>
@@ -6536,7 +6460,7 @@
               <access>read-only</access>
               <enumeratedValues>
                 <name>BUSY</name>
-                <usage>read-write</usage>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>NotBusy</name>
                   <description>No communication is in progress on the bus</description>
@@ -6557,7 +6481,7 @@
               <access>read-only</access>
               <enumeratedValues>
                 <name>ALERT</name>
-                <usage>read-write</usage>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>NoAlert</name>
                   <description>SMBA alert is not detected</description>
@@ -6579,7 +6503,7 @@
               <access>read-only</access>
               <enumeratedValues>
                 <name>TIMEOUT</name>
-                <usage>read-write</usage>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>NoTimeout</name>
                   <description>No timeout occured</description>
@@ -6600,7 +6524,7 @@
               <access>read-only</access>
               <enumeratedValues>
                 <name>PECERR</name>
-                <usage>read-write</usage>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Match</name>
                   <description>Received PEC does match with PEC register</description>
@@ -6622,7 +6546,7 @@
               <access>read-only</access>
               <enumeratedValues>
                 <name>OVR</name>
-                <usage>read-write</usage>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>NoOverrun</name>
                   <description>No overrun/underrun error occurs</description>
@@ -6643,7 +6567,7 @@
               <access>read-only</access>
               <enumeratedValues>
                 <name>ARLO</name>
-                <usage>read-write</usage>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>NotLost</name>
                   <description>No arbitration lost</description>
@@ -6664,7 +6588,7 @@
               <access>read-only</access>
               <enumeratedValues>
                 <name>BERR</name>
-                <usage>read-write</usage>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>NoError</name>
                   <description>No bus error</description>
@@ -6685,7 +6609,7 @@
               <access>read-only</access>
               <enumeratedValues>
                 <name>TCR</name>
-                <usage>read-write</usage>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>NotComplete</name>
                   <description>Transfer is not complete</description>
@@ -6707,7 +6631,7 @@
               <access>read-only</access>
               <enumeratedValues>
                 <name>TC</name>
-                <usage>read-write</usage>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>NotComplete</name>
                   <description>Transfer is not complete</description>
@@ -6728,7 +6652,7 @@
               <access>read-only</access>
               <enumeratedValues>
                 <name>STOPF</name>
-                <usage>read-write</usage>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>NoStop</name>
                   <description>No Stop condition detected</description>
@@ -6750,7 +6674,7 @@
               <access>read-only</access>
               <enumeratedValues>
                 <name>NACKF</name>
-                <usage>read-write</usage>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>NoNack</name>
                   <description>No NACK has been received</description>
@@ -6772,7 +6696,7 @@
               <access>read-only</access>
               <enumeratedValues>
                 <name>ADDR</name>
-                <usage>read-write</usage>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>NotMatch</name>
                   <description>Adress mismatched or not received</description>
@@ -6794,7 +6718,7 @@
               <access>read-only</access>
               <enumeratedValues>
                 <name>RXNE</name>
-                <usage>read-write</usage>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Empty</name>
                   <description>The RXDR register is empty</description>
@@ -6869,7 +6793,7 @@
               <bitWidth>1</bitWidth>
               <enumeratedValues>
                 <name>ALERTCF</name>
-                <usage>read-write</usage>
+                <usage>write</usage>
                 <enumeratedValue>
                   <name>Clear</name>
                   <description>Clears the ALERT flag in ISR register</description>
@@ -6885,7 +6809,7 @@
               <bitWidth>1</bitWidth>
               <enumeratedValues>
                 <name>TIMOUTCF</name>
-                <usage>read-write</usage>
+                <usage>write</usage>
                 <enumeratedValue>
                   <name>Clear</name>
                   <description>Clears the TIMOUT flag in ISR register</description>
@@ -6900,7 +6824,7 @@
               <bitWidth>1</bitWidth>
               <enumeratedValues>
                 <name>PECCF</name>
-                <usage>read-write</usage>
+                <usage>write</usage>
                 <enumeratedValue>
                   <name>Clear</name>
                   <description>Clears the PEC flag in ISR register</description>
@@ -6916,7 +6840,7 @@
               <bitWidth>1</bitWidth>
               <enumeratedValues>
                 <name>OVRCF</name>
-                <usage>read-write</usage>
+                <usage>write</usage>
                 <enumeratedValue>
                   <name>Clear</name>
                   <description>Clears the OVR flag in ISR register</description>
@@ -6932,7 +6856,7 @@
               <bitWidth>1</bitWidth>
               <enumeratedValues>
                 <name>ARLOCF</name>
-                <usage>read-write</usage>
+                <usage>write</usage>
                 <enumeratedValue>
                   <name>Clear</name>
                   <description>Clears the ARLO flag in ISR register</description>
@@ -6947,7 +6871,7 @@
               <bitWidth>1</bitWidth>
               <enumeratedValues>
                 <name>BERRCF</name>
-                <usage>read-write</usage>
+                <usage>write</usage>
                 <enumeratedValue>
                   <name>Clear</name>
                   <description>Clears the BERR flag in ISR register</description>
@@ -6962,7 +6886,7 @@
               <bitWidth>1</bitWidth>
               <enumeratedValues>
                 <name>STOPCF</name>
-                <usage>read-write</usage>
+                <usage>write</usage>
                 <enumeratedValue>
                   <name>Clear</name>
                   <description>Clears the STOP flag in ISR register</description>
@@ -6977,7 +6901,7 @@
               <bitWidth>1</bitWidth>
               <enumeratedValues>
                 <name>NACKCF</name>
-                <usage>read-write</usage>
+                <usage>write</usage>
                 <enumeratedValue>
                   <name>Clear</name>
                   <description>Clears the NACK flag in ISR register</description>
@@ -6992,7 +6916,7 @@
               <bitWidth>1</bitWidth>
               <enumeratedValues>
                 <name>ADDRCF</name>
-                <usage>read-write</usage>
+                <usage>write</usage>
                 <enumeratedValue>
                   <name>Clear</name>
                   <description>Clears the ADDR flag in ISR register</description>
@@ -7110,7 +7034,7 @@
               <bitWidth>16</bitWidth>
               <enumeratedValues>
                 <name>KEY</name>
-                <usage>read-write</usage>
+                <usage>write</usage>
                 <enumeratedValue>
                   <name>Enable</name>
                   <description>Enable access to PR, RLR and WINR registers (0x5555)</description>
@@ -7419,14 +7343,14 @@
                 <name>EWIFR</name>
                 <usage>read</usage>
                 <enumeratedValue>
-                  <name>Pending</name>
-                  <description>The EWI Interrupt Service Routine has been triggered</description>
-                  <value>1</value>
-                </enumeratedValue>
-                <enumeratedValue>
                   <name>Finished</name>
                   <description>The EWI Interrupt Service Routine has been serviced</description>
                   <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Pending</name>
+                  <description>The EWI Interrupt Service Routine has been triggered</description>
+                  <value>1</value>
                 </enumeratedValue>
               </enumeratedValues>
               <enumeratedValues>
@@ -7472,7 +7396,7 @@
           <addressOffset>0x0</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CKD</name>
@@ -7489,12 +7413,12 @@
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>Div2</name>
-                  <description>t_DTS = 2 &#xD7; t_CK_INT</description>
+                  <description>t_DTS = 2 × t_CK_INT</description>
                   <value>1</value>
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>Div4</name>
-                  <description>t_DTS = 4 &#xD7; t_CK_INT</description>
+                  <description>t_DTS = 4 × t_CK_INT</description>
                   <value>2</value>
                 </enumeratedValue>
               </enumeratedValues>
@@ -7659,7 +7583,7 @@
           <addressOffset>0x4</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>OIS4</name>
@@ -7817,7 +7741,7 @@
           <addressOffset>0x8</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>ETP</name>
@@ -8054,7 +7978,7 @@
                 <usage>read-write</usage>
                 <enumeratedValue>
                   <name>Disabled</name>
-                  <description>Slave mode disabled - if CEN = &#x2018;1 then the prescaler is clocked directly by the internal clock.</description>
+                  <description>Slave mode disabled - if CEN = ‘1 then the prescaler is clocked directly by the internal clock.</description>
                   <value>0</value>
                 </enumeratedValue>
                 <enumeratedValue>
@@ -8103,7 +8027,7 @@
           <addressOffset>0xC</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>TDE</name>
@@ -8302,7 +8226,7 @@
           <addressOffset>0x10</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CC4OF</name>
@@ -8310,8 +8234,12 @@
               flag</description>
               <bitOffset>12</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="CC1OFR"/>
-              <enumeratedValues derivedFrom="CC1OFW"/>
+              <enumeratedValues derivedFrom="CC1OFR">
+                <usage>read</usage>
+              </enumeratedValues>
+              <enumeratedValues derivedFrom="CC1OFW">
+                <usage>write</usage>
+              </enumeratedValues>
             </field>
             <field>
               <name>CC3OF</name>
@@ -8319,8 +8247,12 @@
               flag</description>
               <bitOffset>11</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="CC1OFR"/>
-              <enumeratedValues derivedFrom="CC1OFW"/>
+              <enumeratedValues derivedFrom="CC1OFR">
+                <usage>read</usage>
+              </enumeratedValues>
+              <enumeratedValues derivedFrom="CC1OFW">
+                <usage>write</usage>
+              </enumeratedValues>
             </field>
             <field>
               <name>CC2OF</name>
@@ -8328,8 +8260,12 @@
               flag</description>
               <bitOffset>10</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="CC1OFR"/>
-              <enumeratedValues derivedFrom="CC1OFW"/>
+              <enumeratedValues derivedFrom="CC1OFR">
+                <usage>read</usage>
+              </enumeratedValues>
+              <enumeratedValues derivedFrom="CC1OFW">
+                <usage>write</usage>
+              </enumeratedValues>
             </field>
             <field>
               <name>CC1OF</name>
@@ -8403,8 +8339,12 @@
               flag</description>
               <bitOffset>4</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="CC1IFR"/>
-              <enumeratedValues derivedFrom="CC1IFW"/>
+              <enumeratedValues derivedFrom="CC1IFR">
+                <usage>read</usage>
+              </enumeratedValues>
+              <enumeratedValues derivedFrom="CC1IFW">
+                <usage>write</usage>
+              </enumeratedValues>
             </field>
             <field>
               <name>CC3IF</name>
@@ -8412,8 +8352,12 @@
               flag</description>
               <bitOffset>3</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="CC1IFR"/>
-              <enumeratedValues derivedFrom="CC1IFW"/>
+              <enumeratedValues derivedFrom="CC1IFR">
+                <usage>read</usage>
+              </enumeratedValues>
+              <enumeratedValues derivedFrom="CC1IFW">
+                <usage>write</usage>
+              </enumeratedValues>
             </field>
             <field>
               <name>CC2IF</name>
@@ -8421,8 +8365,12 @@
               flag</description>
               <bitOffset>2</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="CC1IFR"/>
-              <enumeratedValues derivedFrom="CC1IFW"/>
+              <enumeratedValues derivedFrom="CC1IFR">
+                <usage>read</usage>
+              </enumeratedValues>
+              <enumeratedValues derivedFrom="CC1IFW">
+                <usage>write</usage>
+              </enumeratedValues>
             </field>
             <field>
               <name>CC1IF</name>
@@ -8478,7 +8426,7 @@
           <addressOffset>0x14</addressOffset>
           <size>0x20</size>
           <access>write-only</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>BG</name>
@@ -8555,7 +8503,7 @@
               <bitWidth>1</bitWidth>
               <enumeratedValues>
                 <name>UG</name>
-                <usage>read-write</usage>
+                <usage>write</usage>
                 <enumeratedValue>
                   <name>Update</name>
                   <description>Re-initializes the timer counter and generates an update of the registers.</description>
@@ -9207,7 +9155,7 @@
           <addressOffset>0x20</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CC4P</name>
@@ -9339,7 +9287,7 @@
           <addressOffset>0x28</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>PSC</name>
@@ -9385,7 +9333,7 @@
           <addressOffset>0x30</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>REP</name>
@@ -9398,7 +9346,7 @@
         <register>
           <dim>4</dim>
           <dimIncrement>0x4</dimIncrement>
-          <dimIndex>1,2,3,4</dimIndex>
+          <dimIndex>1-4</dimIndex>
           <name>CCR%s</name>
           <displayName>CCR1</displayName>
           <description>capture/compare register</description>
@@ -9428,7 +9376,7 @@
           <addressOffset>0x44</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>MOE</name>
@@ -9489,7 +9437,7 @@
           <addressOffset>0x48</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>DBL</name>
@@ -9524,7 +9472,7 @@
           <addressOffset>0x4C</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>DMAB</name>
@@ -9560,7 +9508,7 @@
           <addressOffset>0x0</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CKD</name>
@@ -9577,12 +9525,12 @@
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>Div2</name>
-                  <description>t_DTS = 2 &#xD7; t_CK_INT</description>
+                  <description>t_DTS = 2 × t_CK_INT</description>
                   <value>1</value>
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>Div4</name>
-                  <description>t_DTS = 4 &#xD7; t_CK_INT</description>
+                  <description>t_DTS = 4 × t_CK_INT</description>
                   <value>2</value>
                 </enumeratedValue>
               </enumeratedValues>
@@ -9747,7 +9695,7 @@
           <addressOffset>0x4</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>TI1S</name>
@@ -9849,7 +9797,7 @@
           <addressOffset>0x8</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>ETP</name>
@@ -10086,7 +10034,7 @@
                 <usage>read-write</usage>
                 <enumeratedValue>
                   <name>Disabled</name>
-                  <description>Slave mode disabled - if CEN = &#x2018;1 then the prescaler is clocked directly by the internal clock.</description>
+                  <description>Slave mode disabled - if CEN = ‘1 then the prescaler is clocked directly by the internal clock.</description>
                   <value>0</value>
                 </enumeratedValue>
                 <enumeratedValue>
@@ -10135,7 +10083,7 @@
           <addressOffset>0xC</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>TDE</name>
@@ -10322,7 +10270,7 @@
           <addressOffset>0x10</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CC4OF</name>
@@ -10330,8 +10278,12 @@
               flag</description>
               <bitOffset>12</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="CC1OFR"/>
-              <enumeratedValues derivedFrom="CC1OFW"/>
+              <enumeratedValues derivedFrom="CC1OFR">
+                <usage>read</usage>
+              </enumeratedValues>
+              <enumeratedValues derivedFrom="CC1OFW">
+                <usage>write</usage>
+              </enumeratedValues>
             </field>
             <field>
               <name>CC3OF</name>
@@ -10339,8 +10291,12 @@
               flag</description>
               <bitOffset>11</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="CC1OFR"/>
-              <enumeratedValues derivedFrom="CC1OFW"/>
+              <enumeratedValues derivedFrom="CC1OFR">
+                <usage>read</usage>
+              </enumeratedValues>
+              <enumeratedValues derivedFrom="CC1OFW">
+                <usage>write</usage>
+              </enumeratedValues>
             </field>
             <field>
               <name>CC2OF</name>
@@ -10348,8 +10304,12 @@
               flag</description>
               <bitOffset>10</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="CC1OFR"/>
-              <enumeratedValues derivedFrom="CC1OFW"/>
+              <enumeratedValues derivedFrom="CC1OFR">
+                <usage>read</usage>
+              </enumeratedValues>
+              <enumeratedValues derivedFrom="CC1OFW">
+                <usage>write</usage>
+              </enumeratedValues>
             </field>
             <field>
               <name>CC1OF</name>
@@ -10411,8 +10371,12 @@
               flag</description>
               <bitOffset>4</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="CC1IFR"/>
-              <enumeratedValues derivedFrom="CC1IFW"/>
+              <enumeratedValues derivedFrom="CC1IFR">
+                <usage>read</usage>
+              </enumeratedValues>
+              <enumeratedValues derivedFrom="CC1IFW">
+                <usage>write</usage>
+              </enumeratedValues>
             </field>
             <field>
               <name>CC3IF</name>
@@ -10420,8 +10384,12 @@
               flag</description>
               <bitOffset>3</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="CC1IFR"/>
-              <enumeratedValues derivedFrom="CC1IFW"/>
+              <enumeratedValues derivedFrom="CC1IFR">
+                <usage>read</usage>
+              </enumeratedValues>
+              <enumeratedValues derivedFrom="CC1IFW">
+                <usage>write</usage>
+              </enumeratedValues>
             </field>
             <field>
               <name>CC2IF</name>
@@ -10429,8 +10397,12 @@
               flag</description>
               <bitOffset>2</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="CC1IFR"/>
-              <enumeratedValues derivedFrom="CC1IFW"/>
+              <enumeratedValues derivedFrom="CC1IFR">
+                <usage>read</usage>
+              </enumeratedValues>
+              <enumeratedValues derivedFrom="CC1IFW">
+                <usage>write</usage>
+              </enumeratedValues>
             </field>
             <field>
               <name>CC1IF</name>
@@ -10486,7 +10458,7 @@
           <addressOffset>0x14</addressOffset>
           <size>0x20</size>
           <access>write-only</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>TG</name>
@@ -10550,7 +10522,7 @@
               <bitWidth>1</bitWidth>
               <enumeratedValues>
                 <name>UG</name>
-                <usage>read-write</usage>
+                <usage>write</usage>
                 <enumeratedValue>
                   <name>Update</name>
                   <description>Re-initializes the timer counter and generates an update of the registers.</description>
@@ -11202,7 +11174,7 @@
           <addressOffset>0x20</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CC4NP</name>
@@ -11300,13 +11272,6 @@
           <resetValue>0x00000000</resetValue>
           <fields>
             <field>
-              <name>CNT_H</name>
-              <description>High counter value (TIM2
-              only)</description>
-              <bitOffset>16</bitOffset>
-              <bitWidth>16</bitWidth>
-            </field>
-            <field>
               <name>CNT</name>
               <description>Counter value</description>
               <bitOffset>0</bitOffset>
@@ -11327,7 +11292,7 @@
           <addressOffset>0x28</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>PSC</name>
@@ -11353,13 +11318,6 @@
           <resetValue>0x00000000</resetValue>
           <fields>
             <field>
-              <name>ARR_H</name>
-              <description>High Auto-reload value (TIM2
-              only)</description>
-              <bitOffset>16</bitOffset>
-              <bitWidth>16</bitWidth>
-            </field>
-            <field>
               <name>ARR</name>
               <description>Auto-reload value</description>
               <bitOffset>0</bitOffset>
@@ -11376,7 +11334,7 @@
         <register>
           <dim>4</dim>
           <dimIncrement>0x4</dimIncrement>
-          <dimIndex>1,2,3,4</dimIndex>
+          <dimIndex>1-4</dimIndex>
           <name>CCR%s</name>
           <displayName>CCR1</displayName>
           <description>capture/compare register</description>
@@ -11385,13 +11343,6 @@
           <access>read-write</access>
           <resetValue>0x00000000</resetValue>
           <fields>
-            <field>
-              <name>CCR1_H</name>
-              <description>High Capture/Compare 1 value (TIM2
-              only)</description>
-              <bitOffset>16</bitOffset>
-              <bitWidth>16</bitWidth>
-            </field>
             <field>
               <name>CCR</name>
               <description>Capture/Compare value</description>
@@ -11413,7 +11364,7 @@
           <addressOffset>0x48</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>DBL</name>
@@ -11448,7 +11399,7 @@
           <addressOffset>0x4C</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>DMAR</name>
@@ -11484,7 +11435,7 @@
           <addressOffset>0x0</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CKD</name>
@@ -11501,12 +11452,12 @@
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>Div2</name>
-                  <description>t_DTS = 2 &#xD7; t_CK_INT</description>
+                  <description>t_DTS = 2 × t_CK_INT</description>
                   <value>1</value>
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>Div4</name>
-                  <description>t_DTS = 4 &#xD7; t_CK_INT</description>
+                  <description>t_DTS = 4 × t_CK_INT</description>
                   <value>2</value>
                 </enumeratedValue>
               </enumeratedValues>
@@ -11600,7 +11551,7 @@
           <addressOffset>0xC</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CC1IE</name>
@@ -11638,7 +11589,7 @@
           <addressOffset>0x10</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CC1OF</name>
@@ -11683,7 +11634,7 @@
           <addressOffset>0x14</addressOffset>
           <size>0x20</size>
           <access>write-only</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CC1G</name>
@@ -11699,7 +11650,7 @@
               <bitWidth>1</bitWidth>
               <enumeratedValues>
                 <name>UG</name>
-                <usage>read-write</usage>
+                <usage>write</usage>
                 <enumeratedValue>
                   <name>Update</name>
                   <description>Re-initializes the timer counter and generates an update of the registers.</description>
@@ -11832,7 +11783,7 @@
           <addressOffset>0x20</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CC1NP</name>
@@ -11887,7 +11838,7 @@
           <addressOffset>0x28</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>PSC</name>
@@ -11994,7 +11945,7 @@
           <addressOffset>0x0</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>ARPE</name>
@@ -12105,7 +12056,7 @@
           <addressOffset>0x4</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>MMS</name>
@@ -12141,7 +12092,7 @@
           <addressOffset>0xC</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>UDE</name>
@@ -12192,7 +12143,7 @@
           <addressOffset>0x10</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>UIF</name>
@@ -12223,7 +12174,7 @@
           <addressOffset>0x14</addressOffset>
           <size>0x20</size>
           <access>write-only</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>UG</name>
@@ -12232,7 +12183,7 @@
               <bitWidth>1</bitWidth>
               <enumeratedValues>
                 <name>UG</name>
-                <usage>read-write</usage>
+                <usage>write</usage>
                 <enumeratedValue>
                   <name>Update</name>
                   <description>Re-initializes the timer counter and generates an update of the registers.</description>
@@ -12272,7 +12223,7 @@
           <addressOffset>0x28</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>PSC</name>
@@ -12315,6 +12266,7 @@
     </peripheral>
     <peripheral derivedFrom="TIM6">
       <name>TIM7</name>
+      <groupName>TIM</groupName>
       <baseAddress>0x40001400</baseAddress>
     </peripheral>
     <peripheral>
@@ -13360,144 +13312,216 @@
               <description>Pending bit 1</description>
               <bitOffset>1</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="PR0R"/>
-              <enumeratedValues derivedFrom="PR0W"/>
+              <enumeratedValues derivedFrom="PR0R">
+                <usage>read</usage>
+              </enumeratedValues>
+              <enumeratedValues derivedFrom="PR0W">
+                <usage>write</usage>
+              </enumeratedValues>
             </field>
             <field>
               <name>PR2</name>
               <description>Pending bit 2</description>
               <bitOffset>2</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="PR0R"/>
-              <enumeratedValues derivedFrom="PR0W"/>
+              <enumeratedValues derivedFrom="PR0R">
+                <usage>read</usage>
+              </enumeratedValues>
+              <enumeratedValues derivedFrom="PR0W">
+                <usage>write</usage>
+              </enumeratedValues>
             </field>
             <field>
               <name>PR3</name>
               <description>Pending bit 3</description>
               <bitOffset>3</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="PR0R"/>
-              <enumeratedValues derivedFrom="PR0W"/>
+              <enumeratedValues derivedFrom="PR0R">
+                <usage>read</usage>
+              </enumeratedValues>
+              <enumeratedValues derivedFrom="PR0W">
+                <usage>write</usage>
+              </enumeratedValues>
             </field>
             <field>
               <name>PR4</name>
               <description>Pending bit 4</description>
               <bitOffset>4</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="PR0R"/>
-              <enumeratedValues derivedFrom="PR0W"/>
+              <enumeratedValues derivedFrom="PR0R">
+                <usage>read</usage>
+              </enumeratedValues>
+              <enumeratedValues derivedFrom="PR0W">
+                <usage>write</usage>
+              </enumeratedValues>
             </field>
             <field>
               <name>PR5</name>
               <description>Pending bit 5</description>
               <bitOffset>5</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="PR0R"/>
-              <enumeratedValues derivedFrom="PR0W"/>
+              <enumeratedValues derivedFrom="PR0R">
+                <usage>read</usage>
+              </enumeratedValues>
+              <enumeratedValues derivedFrom="PR0W">
+                <usage>write</usage>
+              </enumeratedValues>
             </field>
             <field>
               <name>PR6</name>
               <description>Pending bit 6</description>
               <bitOffset>6</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="PR0R"/>
-              <enumeratedValues derivedFrom="PR0W"/>
+              <enumeratedValues derivedFrom="PR0R">
+                <usage>read</usage>
+              </enumeratedValues>
+              <enumeratedValues derivedFrom="PR0W">
+                <usage>write</usage>
+              </enumeratedValues>
             </field>
             <field>
               <name>PR7</name>
               <description>Pending bit 7</description>
               <bitOffset>7</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="PR0R"/>
-              <enumeratedValues derivedFrom="PR0W"/>
+              <enumeratedValues derivedFrom="PR0R">
+                <usage>read</usage>
+              </enumeratedValues>
+              <enumeratedValues derivedFrom="PR0W">
+                <usage>write</usage>
+              </enumeratedValues>
             </field>
             <field>
               <name>PR8</name>
               <description>Pending bit 8</description>
               <bitOffset>8</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="PR0R"/>
-              <enumeratedValues derivedFrom="PR0W"/>
+              <enumeratedValues derivedFrom="PR0R">
+                <usage>read</usage>
+              </enumeratedValues>
+              <enumeratedValues derivedFrom="PR0W">
+                <usage>write</usage>
+              </enumeratedValues>
             </field>
             <field>
               <name>PR9</name>
               <description>Pending bit 9</description>
               <bitOffset>9</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="PR0R"/>
-              <enumeratedValues derivedFrom="PR0W"/>
+              <enumeratedValues derivedFrom="PR0R">
+                <usage>read</usage>
+              </enumeratedValues>
+              <enumeratedValues derivedFrom="PR0W">
+                <usage>write</usage>
+              </enumeratedValues>
             </field>
             <field>
               <name>PR10</name>
               <description>Pending bit 10</description>
               <bitOffset>10</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="PR0R"/>
-              <enumeratedValues derivedFrom="PR0W"/>
+              <enumeratedValues derivedFrom="PR0R">
+                <usage>read</usage>
+              </enumeratedValues>
+              <enumeratedValues derivedFrom="PR0W">
+                <usage>write</usage>
+              </enumeratedValues>
             </field>
             <field>
               <name>PR11</name>
               <description>Pending bit 11</description>
               <bitOffset>11</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="PR0R"/>
-              <enumeratedValues derivedFrom="PR0W"/>
+              <enumeratedValues derivedFrom="PR0R">
+                <usage>read</usage>
+              </enumeratedValues>
+              <enumeratedValues derivedFrom="PR0W">
+                <usage>write</usage>
+              </enumeratedValues>
             </field>
             <field>
               <name>PR12</name>
               <description>Pending bit 12</description>
               <bitOffset>12</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="PR0R"/>
-              <enumeratedValues derivedFrom="PR0W"/>
+              <enumeratedValues derivedFrom="PR0R">
+                <usage>read</usage>
+              </enumeratedValues>
+              <enumeratedValues derivedFrom="PR0W">
+                <usage>write</usage>
+              </enumeratedValues>
             </field>
             <field>
               <name>PR13</name>
               <description>Pending bit 13</description>
               <bitOffset>13</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="PR0R"/>
-              <enumeratedValues derivedFrom="PR0W"/>
+              <enumeratedValues derivedFrom="PR0R">
+                <usage>read</usage>
+              </enumeratedValues>
+              <enumeratedValues derivedFrom="PR0W">
+                <usage>write</usage>
+              </enumeratedValues>
             </field>
             <field>
               <name>PR14</name>
               <description>Pending bit 14</description>
               <bitOffset>14</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="PR0R"/>
-              <enumeratedValues derivedFrom="PR0W"/>
+              <enumeratedValues derivedFrom="PR0R">
+                <usage>read</usage>
+              </enumeratedValues>
+              <enumeratedValues derivedFrom="PR0W">
+                <usage>write</usage>
+              </enumeratedValues>
             </field>
             <field>
               <name>PR15</name>
               <description>Pending bit 15</description>
               <bitOffset>15</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="PR0R"/>
-              <enumeratedValues derivedFrom="PR0W"/>
+              <enumeratedValues derivedFrom="PR0R">
+                <usage>read</usage>
+              </enumeratedValues>
+              <enumeratedValues derivedFrom="PR0W">
+                <usage>write</usage>
+              </enumeratedValues>
             </field>
             <field>
               <name>PR16</name>
               <description>Pending bit 16</description>
               <bitOffset>16</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="PR0R"/>
-              <enumeratedValues derivedFrom="PR0W"/>
+              <enumeratedValues derivedFrom="PR0R">
+                <usage>read</usage>
+              </enumeratedValues>
+              <enumeratedValues derivedFrom="PR0W">
+                <usage>write</usage>
+              </enumeratedValues>
             </field>
             <field>
               <name>PR17</name>
               <description>Pending bit 17</description>
               <bitOffset>17</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="PR0R"/>
-              <enumeratedValues derivedFrom="PR0W"/>
+              <enumeratedValues derivedFrom="PR0R">
+                <usage>read</usage>
+              </enumeratedValues>
+              <enumeratedValues derivedFrom="PR0W">
+                <usage>write</usage>
+              </enumeratedValues>
             </field>
             <field>
               <name>PR19</name>
               <description>Pending bit 19</description>
               <bitOffset>19</bitOffset>
               <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="PR0R"/>
-              <enumeratedValues derivedFrom="PR0W"/>
+              <enumeratedValues derivedFrom="PR0R">
+                <usage>read</usage>
+              </enumeratedValues>
+              <enumeratedValues derivedFrom="PR0W">
+                <usage>write</usage>
+              </enumeratedValues>
             </field>
           </fields>
         </register>
@@ -13893,10 +13917,566 @@
         <value>11</value>
       </interrupt>
       <registers>
+        <register>
+          <name>ISR</name>
+          <displayName>ISR</displayName>
+          <description>DMA interrupt status register
+          (DMA_ISR)</description>
+          <addressOffset>0x0</addressOffset>
+          <size>0x20</size>
+          <access>read-only</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>GIF1</name>
+              <description>Channel 1 Global interrupt
+              flag</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>GIF1</name>
+                <usage>read</usage>
+                <enumeratedValue>
+                  <name>NoEvent</name>
+                  <description>No transfer error, half event, complete event</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Event</name>
+                  <description>A transfer error, half event or complete event has occured</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>TCIF1</name>
+              <description>Channel 1 Transfer Complete
+              flag</description>
+              <bitOffset>1</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>TCIF1</name>
+                <usage>read</usage>
+                <enumeratedValue>
+                  <name>NotComplete</name>
+                  <description>No transfer complete event</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Complete</name>
+                  <description>A transfer complete event has occured</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>HTIF1</name>
+              <description>Channel 1 Half Transfer Complete
+              flag</description>
+              <bitOffset>2</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>HTIF1</name>
+                <usage>read</usage>
+                <enumeratedValue>
+                  <name>NotHalf</name>
+                  <description>No half transfer event</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Half</name>
+                  <description>A half transfer event has occured</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>TEIF1</name>
+              <description>Channel 1 Transfer Error
+              flag</description>
+              <bitOffset>3</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>TEIF1</name>
+                <usage>read</usage>
+                <enumeratedValue>
+                  <name>NoError</name>
+                  <description>No transfer error</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Error</name>
+                  <description>A transfer error has occured</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>GIF2</name>
+              <description>Channel 2 Global interrupt
+              flag</description>
+              <bitOffset>4</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="GIF1"/>
+            </field>
+            <field>
+              <name>TCIF2</name>
+              <description>Channel 2 Transfer Complete
+              flag</description>
+              <bitOffset>5</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="TCIF1"/>
+            </field>
+            <field>
+              <name>HTIF2</name>
+              <description>Channel 2 Half Transfer Complete
+              flag</description>
+              <bitOffset>6</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="HTIF1"/>
+            </field>
+            <field>
+              <name>TEIF2</name>
+              <description>Channel 2 Transfer Error
+              flag</description>
+              <bitOffset>7</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="TEIF1"/>
+            </field>
+            <field>
+              <name>GIF3</name>
+              <description>Channel 3 Global interrupt
+              flag</description>
+              <bitOffset>8</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="GIF1"/>
+            </field>
+            <field>
+              <name>TCIF3</name>
+              <description>Channel 3 Transfer Complete
+              flag</description>
+              <bitOffset>9</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="TCIF1"/>
+            </field>
+            <field>
+              <name>HTIF3</name>
+              <description>Channel 3 Half Transfer Complete
+              flag</description>
+              <bitOffset>10</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="HTIF1"/>
+            </field>
+            <field>
+              <name>TEIF3</name>
+              <description>Channel 3 Transfer Error
+              flag</description>
+              <bitOffset>11</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="TEIF1"/>
+            </field>
+            <field>
+              <name>GIF4</name>
+              <description>Channel 4 Global interrupt
+              flag</description>
+              <bitOffset>12</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="GIF1"/>
+            </field>
+            <field>
+              <name>TCIF4</name>
+              <description>Channel 4 Transfer Complete
+              flag</description>
+              <bitOffset>13</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="TCIF1"/>
+            </field>
+            <field>
+              <name>HTIF4</name>
+              <description>Channel 4 Half Transfer Complete
+              flag</description>
+              <bitOffset>14</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="HTIF1"/>
+            </field>
+            <field>
+              <name>TEIF4</name>
+              <description>Channel 4 Transfer Error
+              flag</description>
+              <bitOffset>15</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="TEIF1"/>
+            </field>
+            <field>
+              <name>GIF5</name>
+              <description>Channel 5 Global interrupt
+              flag</description>
+              <bitOffset>16</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="GIF1"/>
+            </field>
+            <field>
+              <name>TCIF5</name>
+              <description>Channel 5 Transfer Complete
+              flag</description>
+              <bitOffset>17</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="TCIF1"/>
+            </field>
+            <field>
+              <name>HTIF5</name>
+              <description>Channel 5 Half Transfer Complete
+              flag</description>
+              <bitOffset>18</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="HTIF1"/>
+            </field>
+            <field>
+              <name>TEIF5</name>
+              <description>Channel 5 Transfer Error
+              flag</description>
+              <bitOffset>19</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="TEIF1"/>
+            </field>
+            <field>
+              <name>GIF6</name>
+              <description>Channel 6 Global interrupt
+              flag</description>
+              <bitOffset>20</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="GIF1"/>
+            </field>
+            <field>
+              <name>TCIF6</name>
+              <description>Channel 6 Transfer Complete
+              flag</description>
+              <bitOffset>21</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="TCIF1"/>
+            </field>
+            <field>
+              <name>HTIF6</name>
+              <description>Channel 6 Half Transfer Complete
+              flag</description>
+              <bitOffset>22</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="HTIF1"/>
+            </field>
+            <field>
+              <name>TEIF6</name>
+              <description>Channel 6 Transfer Error
+              flag</description>
+              <bitOffset>23</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="TEIF1"/>
+            </field>
+            <field>
+              <name>GIF7</name>
+              <description>Channel 7 Global interrupt
+              flag</description>
+              <bitOffset>24</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="GIF1"/>
+            </field>
+            <field>
+              <name>TCIF7</name>
+              <description>Channel 7 Transfer Complete
+              flag</description>
+              <bitOffset>25</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="TCIF1"/>
+            </field>
+            <field>
+              <name>HTIF7</name>
+              <description>Channel 7 Half Transfer Complete
+              flag</description>
+              <bitOffset>26</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="HTIF1"/>
+            </field>
+            <field>
+              <name>TEIF7</name>
+              <description>Channel 7 Transfer Error
+              flag</description>
+              <bitOffset>27</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="TEIF1"/>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>IFCR</name>
+          <displayName>IFCR</displayName>
+          <description>DMA interrupt flag clear register
+          (DMA_IFCR)</description>
+          <addressOffset>0x4</addressOffset>
+          <size>0x20</size>
+          <access>write-only</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>CGIF1</name>
+              <description>Channel 1 Global interrupt
+              clear</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>CGIF1</name>
+                <usage>write</usage>
+                <enumeratedValue>
+                  <name>Clear</name>
+                  <description>Clears the GIF, TEIF, HTIF, TCIF flags in the ISR register</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>CTCIF1</name>
+              <description>Channel 1 Transfer Complete
+              clear</description>
+              <bitOffset>1</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>CTCIF1</name>
+                <usage>write</usage>
+                <enumeratedValue>
+                  <name>Clear</name>
+                  <description>Clears the TCIF flag in the ISR register</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>CHTIF1</name>
+              <description>Channel 1 Half Transfer
+              clear</description>
+              <bitOffset>2</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>CHTIF1</name>
+                <usage>write</usage>
+                <enumeratedValue>
+                  <name>Clear</name>
+                  <description>Clears the HTIF flag in the ISR register</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>CTEIF1</name>
+              <description>Channel 1 Transfer Error
+              clear</description>
+              <bitOffset>3</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>CTEIF1</name>
+                <usage>write</usage>
+                <enumeratedValue>
+                  <name>Clear</name>
+                  <description>Clears the TEIF flag in the ISR register</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>CGIF2</name>
+              <description>Channel 2 Global interrupt
+              clear</description>
+              <bitOffset>4</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="CGIF1"/>
+            </field>
+            <field>
+              <name>CTCIF2</name>
+              <description>Channel 2 Transfer Complete
+              clear</description>
+              <bitOffset>5</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="CTCIF1"/>
+            </field>
+            <field>
+              <name>CHTIF2</name>
+              <description>Channel 2 Half Transfer
+              clear</description>
+              <bitOffset>6</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="CHTIF1"/>
+            </field>
+            <field>
+              <name>CTEIF2</name>
+              <description>Channel 2 Transfer Error
+              clear</description>
+              <bitOffset>7</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="CTEIF1"/>
+            </field>
+            <field>
+              <name>CGIF3</name>
+              <description>Channel 3 Global interrupt
+              clear</description>
+              <bitOffset>8</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="CGIF1"/>
+            </field>
+            <field>
+              <name>CTCIF3</name>
+              <description>Channel 3 Transfer Complete
+              clear</description>
+              <bitOffset>9</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="CTCIF1"/>
+            </field>
+            <field>
+              <name>CHTIF3</name>
+              <description>Channel 3 Half Transfer
+              clear</description>
+              <bitOffset>10</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="CHTIF1"/>
+            </field>
+            <field>
+              <name>CTEIF3</name>
+              <description>Channel 3 Transfer Error
+              clear</description>
+              <bitOffset>11</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="CTEIF1"/>
+            </field>
+            <field>
+              <name>CGIF4</name>
+              <description>Channel 4 Global interrupt
+              clear</description>
+              <bitOffset>12</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="CGIF1"/>
+            </field>
+            <field>
+              <name>CTCIF4</name>
+              <description>Channel 4 Transfer Complete
+              clear</description>
+              <bitOffset>13</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="CTCIF1"/>
+            </field>
+            <field>
+              <name>CHTIF4</name>
+              <description>Channel 4 Half Transfer
+              clear</description>
+              <bitOffset>14</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="CHTIF1"/>
+            </field>
+            <field>
+              <name>CTEIF4</name>
+              <description>Channel 4 Transfer Error
+              clear</description>
+              <bitOffset>15</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="CTEIF1"/>
+            </field>
+            <field>
+              <name>CGIF5</name>
+              <description>Channel 5 Global interrupt
+              clear</description>
+              <bitOffset>16</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="CGIF1"/>
+            </field>
+            <field>
+              <name>CTCIF5</name>
+              <description>Channel 5 Transfer Complete
+              clear</description>
+              <bitOffset>17</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="CTCIF1"/>
+            </field>
+            <field>
+              <name>CHTIF5</name>
+              <description>Channel 5 Half Transfer
+              clear</description>
+              <bitOffset>18</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="CHTIF1"/>
+            </field>
+            <field>
+              <name>CTEIF5</name>
+              <description>Channel 5 Transfer Error
+              clear</description>
+              <bitOffset>19</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="CTEIF1"/>
+            </field>
+            <field>
+              <name>CGIF6</name>
+              <description>Channel 6 Global interrupt
+              clear</description>
+              <bitOffset>20</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="CGIF1"/>
+            </field>
+            <field>
+              <name>CTCIF6</name>
+              <description>Channel 6 Transfer Complete
+              clear</description>
+              <bitOffset>21</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="CTCIF1"/>
+            </field>
+            <field>
+              <name>CHTIF6</name>
+              <description>Channel 6 Half Transfer
+              clear</description>
+              <bitOffset>22</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="CHTIF1"/>
+            </field>
+            <field>
+              <name>CTEIF6</name>
+              <description>Channel 6 Transfer Error
+              clear</description>
+              <bitOffset>23</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="CTEIF1"/>
+            </field>
+            <field>
+              <name>CGIF7</name>
+              <description>Channel 7 Global interrupt
+              clear</description>
+              <bitOffset>24</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="CGIF1"/>
+            </field>
+            <field>
+              <name>CTCIF7</name>
+              <description>Channel 7 Transfer Complete
+              clear</description>
+              <bitOffset>25</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="CTCIF1"/>
+            </field>
+            <field>
+              <name>CHTIF7</name>
+              <description>Channel 7 Half Transfer
+              clear</description>
+              <bitOffset>26</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="CHTIF1"/>
+            </field>
+            <field>
+              <name>CTEIF7</name>
+              <description>Channel 7 Transfer Error
+              clear</description>
+              <bitOffset>27</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="CTEIF1"/>
+            </field>
+          </fields>
+        </register>
         <cluster>
           <dim>7</dim>
           <dimIncrement>0x14</dimIncrement>
-          <dimIndex>1,2,3,4,5,6,7</dimIndex>
+          <dimIndex>1-7</dimIndex>
           <name>CH%s</name>
           <description>Channel cluster: CCR?, CNDTR?, CPAR?, and CMAR? registers</description>
           <addressOffset>0x8</addressOffset>
@@ -14191,7 +14771,7 @@
             <displayName>CMAR1</displayName>
             <description>DMA channel 1 memory address
           register</description>
-            <addressOffset>0xc</addressOffset>
+            <addressOffset>0xC</addressOffset>
             <size>0x20</size>
             <access>read-write</access>
             <resetValue>0x00000000</resetValue>
@@ -14205,562 +14785,6 @@
             </fields>
           </register>
         </cluster>
-        <register>
-          <name>ISR</name>
-          <displayName>ISR</displayName>
-          <description>DMA interrupt status register
-          (DMA_ISR)</description>
-          <addressOffset>0x0</addressOffset>
-          <size>0x20</size>
-          <access>read-only</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>GIF1</name>
-              <description>Channel 1 Global interrupt
-              flag</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues>
-                <name>GIF1</name>
-                <usage>read-write</usage>
-                <enumeratedValue>
-                  <name>NoEvent</name>
-                  <description>No transfer error, half event, complete event</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>Event</name>
-                  <description>A transfer error, half event or complete event has occured</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>TCIF1</name>
-              <description>Channel 1 Transfer Complete
-              flag</description>
-              <bitOffset>1</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues>
-                <name>TCIF1</name>
-                <usage>read-write</usage>
-                <enumeratedValue>
-                  <name>NotComplete</name>
-                  <description>No transfer complete event</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>Complete</name>
-                  <description>A transfer complete event has occured</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>HTIF1</name>
-              <description>Channel 1 Half Transfer Complete
-              flag</description>
-              <bitOffset>2</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues>
-                <name>HTIF1</name>
-                <usage>read-write</usage>
-                <enumeratedValue>
-                  <name>NotHalf</name>
-                  <description>No half transfer event</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>Half</name>
-                  <description>A half transfer event has occured</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>TEIF1</name>
-              <description>Channel 1 Transfer Error
-              flag</description>
-              <bitOffset>3</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues>
-                <name>TEIF1</name>
-                <usage>read-write</usage>
-                <enumeratedValue>
-                  <name>NoError</name>
-                  <description>No transfer error</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>Error</name>
-                  <description>A transfer error has occured</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>GIF2</name>
-              <description>Channel 2 Global interrupt
-              flag</description>
-              <bitOffset>4</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="GIF1"/>
-            </field>
-            <field>
-              <name>TCIF2</name>
-              <description>Channel 2 Transfer Complete
-              flag</description>
-              <bitOffset>5</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="TCIF1"/>
-            </field>
-            <field>
-              <name>HTIF2</name>
-              <description>Channel 2 Half Transfer Complete
-              flag</description>
-              <bitOffset>6</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="HTIF1"/>
-            </field>
-            <field>
-              <name>TEIF2</name>
-              <description>Channel 2 Transfer Error
-              flag</description>
-              <bitOffset>7</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="TEIF1"/>
-            </field>
-            <field>
-              <name>GIF3</name>
-              <description>Channel 3 Global interrupt
-              flag</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="GIF1"/>
-            </field>
-            <field>
-              <name>TCIF3</name>
-              <description>Channel 3 Transfer Complete
-              flag</description>
-              <bitOffset>9</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="TCIF1"/>
-            </field>
-            <field>
-              <name>HTIF3</name>
-              <description>Channel 3 Half Transfer Complete
-              flag</description>
-              <bitOffset>10</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="HTIF1"/>
-            </field>
-            <field>
-              <name>TEIF3</name>
-              <description>Channel 3 Transfer Error
-              flag</description>
-              <bitOffset>11</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="TEIF1"/>
-            </field>
-            <field>
-              <name>GIF4</name>
-              <description>Channel 4 Global interrupt
-              flag</description>
-              <bitOffset>12</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="GIF1"/>
-            </field>
-            <field>
-              <name>TCIF4</name>
-              <description>Channel 4 Transfer Complete
-              flag</description>
-              <bitOffset>13</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="TCIF1"/>
-            </field>
-            <field>
-              <name>HTIF4</name>
-              <description>Channel 4 Half Transfer Complete
-              flag</description>
-              <bitOffset>14</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="HTIF1"/>
-            </field>
-            <field>
-              <name>TEIF4</name>
-              <description>Channel 4 Transfer Error
-              flag</description>
-              <bitOffset>15</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="TEIF1"/>
-            </field>
-            <field>
-              <name>GIF5</name>
-              <description>Channel 5 Global interrupt
-              flag</description>
-              <bitOffset>16</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="GIF1"/>
-            </field>
-            <field>
-              <name>TCIF5</name>
-              <description>Channel 5 Transfer Complete
-              flag</description>
-              <bitOffset>17</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="TCIF1"/>
-            </field>
-            <field>
-              <name>HTIF5</name>
-              <description>Channel 5 Half Transfer Complete
-              flag</description>
-              <bitOffset>18</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="HTIF1"/>
-            </field>
-            <field>
-              <name>TEIF5</name>
-              <description>Channel 5 Transfer Error
-              flag</description>
-              <bitOffset>19</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="TEIF1"/>
-            </field>
-            <field>
-              <name>GIF6</name>
-              <description>Channel 6 Global interrupt
-              flag</description>
-              <bitOffset>20</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="GIF1"/>
-            </field>
-            <field>
-              <name>TCIF6</name>
-              <description>Channel 6 Transfer Complete
-              flag</description>
-              <bitOffset>21</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="TCIF1"/>
-            </field>
-            <field>
-              <name>HTIF6</name>
-              <description>Channel 6 Half Transfer Complete
-              flag</description>
-              <bitOffset>22</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="HTIF1"/>
-            </field>
-            <field>
-              <name>TEIF6</name>
-              <description>Channel 6 Transfer Error
-              flag</description>
-              <bitOffset>23</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="TEIF1"/>
-            </field>
-            <field>
-              <name>GIF7</name>
-              <description>Channel 7 Global interrupt
-              flag</description>
-              <bitOffset>24</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="GIF1"/>
-            </field>
-            <field>
-              <name>TCIF7</name>
-              <description>Channel 7 Transfer Complete
-              flag</description>
-              <bitOffset>25</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="TCIF1"/>
-            </field>
-            <field>
-              <name>HTIF7</name>
-              <description>Channel 7 Half Transfer Complete
-              flag</description>
-              <bitOffset>26</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="HTIF1"/>
-            </field>
-            <field>
-              <name>TEIF7</name>
-              <description>Channel 7 Transfer Error
-              flag</description>
-              <bitOffset>27</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="TEIF1"/>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>IFCR</name>
-          <displayName>IFCR</displayName>
-          <description>DMA interrupt flag clear register
-          (DMA_IFCR)</description>
-          <addressOffset>0x4</addressOffset>
-          <size>0x20</size>
-          <access>write-only</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>CGIF1</name>
-              <description>Channel 1 Global interrupt
-              clear</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues>
-                <name>CGIF1</name>
-                <usage>read-write</usage>
-                <enumeratedValue>
-                  <name>Clear</name>
-                  <description>Clears the GIF, TEIF, HTIF, TCIF flags in the ISR register</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>CTCIF1</name>
-              <description>Channel 1 Transfer Complete
-              clear</description>
-              <bitOffset>1</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues>
-                <name>CTCIF1</name>
-                <usage>read-write</usage>
-                <enumeratedValue>
-                  <name>Clear</name>
-                  <description>Clears the TCIF flag in the ISR register</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>CHTIF1</name>
-              <description>Channel 1 Half Transfer
-              clear</description>
-              <bitOffset>2</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues>
-                <name>CHTIF1</name>
-                <usage>read-write</usage>
-                <enumeratedValue>
-                  <name>Clear</name>
-                  <description>Clears the HTIF flag in the ISR register</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>CTEIF1</name>
-              <description>Channel 1 Transfer Error
-              clear</description>
-              <bitOffset>3</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues>
-                <name>CTEIF1</name>
-                <usage>read-write</usage>
-                <enumeratedValue>
-                  <name>Clear</name>
-                  <description>Clears the TEIF flag in the ISR register</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>CGIF2</name>
-              <description>Channel 2 Global interrupt
-              clear</description>
-              <bitOffset>4</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="CGIF1"/>
-            </field>
-            <field>
-              <name>CTCIF2</name>
-              <description>Channel 2 Transfer Complete
-              clear</description>
-              <bitOffset>5</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="CTCIF1"/>
-            </field>
-            <field>
-              <name>CHTIF2</name>
-              <description>Channel 2 Half Transfer
-              clear</description>
-              <bitOffset>6</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="CHTIF1"/>
-            </field>
-            <field>
-              <name>CTEIF2</name>
-              <description>Channel 2 Transfer Error
-              clear</description>
-              <bitOffset>7</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="CTEIF1"/>
-            </field>
-            <field>
-              <name>CGIF3</name>
-              <description>Channel 3 Global interrupt
-              clear</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="CGIF1"/>
-            </field>
-            <field>
-              <name>CTCIF3</name>
-              <description>Channel 3 Transfer Complete
-              clear</description>
-              <bitOffset>9</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="CTCIF1"/>
-            </field>
-            <field>
-              <name>CHTIF3</name>
-              <description>Channel 3 Half Transfer
-              clear</description>
-              <bitOffset>10</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="CHTIF1"/>
-            </field>
-            <field>
-              <name>CTEIF3</name>
-              <description>Channel 3 Transfer Error
-              clear</description>
-              <bitOffset>11</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="CTEIF1"/>
-            </field>
-            <field>
-              <name>CGIF4</name>
-              <description>Channel 4 Global interrupt
-              clear</description>
-              <bitOffset>12</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="CGIF1"/>
-            </field>
-            <field>
-              <name>CTCIF4</name>
-              <description>Channel 4 Transfer Complete
-              clear</description>
-              <bitOffset>13</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="CTCIF1"/>
-            </field>
-            <field>
-              <name>CHTIF4</name>
-              <description>Channel 4 Half Transfer
-              clear</description>
-              <bitOffset>14</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="CHTIF1"/>
-            </field>
-            <field>
-              <name>CTEIF4</name>
-              <description>Channel 4 Transfer Error
-              clear</description>
-              <bitOffset>15</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="CTEIF1"/>
-            </field>
-            <field>
-              <name>CGIF5</name>
-              <description>Channel 5 Global interrupt
-              clear</description>
-              <bitOffset>16</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="CGIF1"/>
-            </field>
-            <field>
-              <name>CTCIF5</name>
-              <description>Channel 5 Transfer Complete
-              clear</description>
-              <bitOffset>17</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="CTCIF1"/>
-            </field>
-            <field>
-              <name>CHTIF5</name>
-              <description>Channel 5 Half Transfer
-              clear</description>
-              <bitOffset>18</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="CHTIF1"/>
-            </field>
-            <field>
-              <name>CTEIF5</name>
-              <description>Channel 5 Transfer Error
-              clear</description>
-              <bitOffset>19</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="CTEIF1"/>
-            </field>
-            <field>
-              <name>CGIF6</name>
-              <description>Channel 6 Global interrupt
-              clear</description>
-              <bitOffset>20</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="CGIF1"/>
-            </field>
-            <field>
-              <name>CTCIF6</name>
-              <description>Channel 6 Transfer Complete
-              clear</description>
-              <bitOffset>21</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="CTCIF1"/>
-            </field>
-            <field>
-              <name>CHTIF6</name>
-              <description>Channel 6 Half Transfer
-              clear</description>
-              <bitOffset>22</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="CHTIF1"/>
-            </field>
-            <field>
-              <name>CTEIF6</name>
-              <description>Channel 6 Transfer Error
-              clear</description>
-              <bitOffset>23</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="CTEIF1"/>
-            </field>
-            <field>
-              <name>CGIF7</name>
-              <description>Channel 7 Global interrupt
-              clear</description>
-              <bitOffset>24</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="CGIF1"/>
-            </field>
-            <field>
-              <name>CTCIF7</name>
-              <description>Channel 7 Transfer Complete
-              clear</description>
-              <bitOffset>25</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="CTCIF1"/>
-            </field>
-            <field>
-              <name>CHTIF7</name>
-              <description>Channel 7 Half Transfer
-              clear</description>
-              <bitOffset>26</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="CHTIF1"/>
-            </field>
-            <field>
-              <name>CTEIF7</name>
-              <description>Channel 7 Transfer Error
-              clear</description>
-              <bitOffset>27</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="CTEIF1"/>
-            </field>
-          </fields>
-        </register>
       </registers>
     </peripheral>
     <peripheral>
@@ -14958,11 +14982,6 @@
                 <name>SW</name>
                 <usage>read-write</usage>
                 <enumeratedValue>
-                  <name>HSI48</name>
-                  <description>HSI48 selected as system clock (when available)</description>
-                  <value>3</value>
-                </enumeratedValue>
-                <enumeratedValue>
                   <name>HSI</name>
                   <description>HSI selected as system clock</description>
                   <value>0</value>
@@ -14977,6 +14996,11 @@
                   <description>PLL selected as system clock</description>
                   <value>2</value>
                 </enumeratedValue>
+                <enumeratedValue>
+                  <name>HSI48</name>
+                  <description>HSI48 selected as system clock (when available)</description>
+                  <value>3</value>
+                </enumeratedValue>
               </enumeratedValues>
             </field>
             <field>
@@ -14988,11 +15012,6 @@
               <enumeratedValues>
                 <name>SWSR</name>
                 <usage>read</usage>
-                <enumeratedValue>
-                  <name>HSI48</name>
-                  <description>HSI48 used as system clock (when avaiable)</description>
-                  <value>3</value>
-                </enumeratedValue>
                 <enumeratedValue>
                   <name>HSI</name>
                   <description>HSI oscillator used as system clock</description>
@@ -15007,6 +15026,11 @@
                   <name>PLL</name>
                   <description>PLL used as system clock</description>
                   <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>HSI48</name>
+                  <description>HSI48 used as system clock (when avaiable)</description>
+                  <value>3</value>
                 </enumeratedValue>
               </enumeratedValues>
             </field>
@@ -15105,7 +15129,7 @@
             </field>
             <field>
               <name>ADCPRE</name>
-              <description>APCPRE is deprecated. See ADC field in CFGR2 register.</description>
+              <description>ADCPRE is deprecated. See ADC field in CFGR2 register.</description>
               <bitOffset>14</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
@@ -15254,19 +15278,14 @@
                 <name>MCO</name>
                 <usage>read-write</usage>
                 <enumeratedValue>
-                  <name>HSI14</name>
-                  <description>Internal RC 14 MHz (HSI14) oscillator clock selected</description>
-                  <value>1</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>HSI48</name>
-                  <description>Internal RC 48 MHz (HSI48) oscillator clock selected</description>
-                  <value>8</value>
-                </enumeratedValue>
-                <enumeratedValue>
                   <name>NoMCO</name>
                   <description>MCO output disabled, no clock on MCO</description>
                   <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>HSI14</name>
+                  <description>Internal RC 14 MHz (HSI14) oscillator clock selected</description>
+                  <value>1</value>
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>LSI</name>
@@ -15297,6 +15316,11 @@
                   <name>PLL</name>
                   <description>PLL clock selected (divided by 1 or 2, depending en PLLNODIV)</description>
                   <value>7</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>HSI48</name>
+                  <description>Internal RC 48 MHz (HSI48) oscillator clock selected</description>
+                  <value>8</value>
                 </enumeratedValue>
               </enumeratedValues>
             </field>
@@ -17252,7 +17276,7 @@
           <addressOffset>0x8</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>EXTI3</name>
@@ -17404,7 +17428,7 @@
           <addressOffset>0xC</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>EXTI7</name>
@@ -17556,7 +17580,7 @@
           <addressOffset>0x10</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>EXTI11</name>
@@ -17708,7 +17732,7 @@
           <addressOffset>0x14</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>EXTI15</name>
@@ -17859,7 +17883,7 @@
           <addressOffset>0x18</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>SRAM_PEF</name>
@@ -19154,7 +19178,7 @@
           <addressOffset>0x0</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>UE</name>
@@ -19575,7 +19599,7 @@
           <addressOffset>0x4</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>RTOEN</name>
@@ -19962,7 +19986,7 @@
           <addressOffset>0x8</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>WUFIE</name>
@@ -20355,7 +20379,7 @@
           <addressOffset>0xC</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>BRR</name>
@@ -20379,7 +20403,7 @@
           <addressOffset>0x10</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>GT</name>
@@ -20414,7 +20438,7 @@
           <addressOffset>0x14</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>BLEN</name>
@@ -20449,7 +20473,7 @@
           <addressOffset>0x18</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>TXFRQ</name>
@@ -20537,7 +20561,7 @@
           <addressOffset>0x1C</addressOffset>
           <size>0x20</size>
           <access>read-only</access>
-          <resetValue>0x00C0</resetValue>
+          <resetValue>0x000000C0</resetValue>
           <fields>
             <field>
               <name>REACK</name>
@@ -20685,7 +20709,7 @@
           <addressOffset>0x20</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>WUCF</name>
@@ -20881,7 +20905,7 @@
           <addressOffset>0x24</addressOffset>
           <size>0x20</size>
           <access>read-only</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>RDR</name>
@@ -20904,7 +20928,7 @@
           <addressOffset>0x28</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>TDR</name>
@@ -21767,7 +21791,7 @@
         <register>
           <dim>5</dim>
           <dimIncrement>0x4</dimIncrement>
-          <dimIndex>0,1,2,3,4</dimIndex>
+          <dimIndex>0-4</dimIndex>
           <name>BKP%sR</name>
           <displayName>BKP0R</displayName>
           <description>backup register</description>
@@ -21809,7 +21833,7 @@
           <addressOffset>0x0</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CKD</name>
@@ -21826,12 +21850,12 @@
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>Div2</name>
-                  <description>t_DTS = 2 &#xD7; t_CK_INT</description>
+                  <description>t_DTS = 2 × t_CK_INT</description>
                   <value>1</value>
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>Div4</name>
-                  <description>t_DTS = 4 &#xD7; t_CK_INT</description>
+                  <description>t_DTS = 4 × t_CK_INT</description>
                   <value>2</value>
                 </enumeratedValue>
               </enumeratedValues>
@@ -21861,6 +21885,20 @@
               <description>One-pulse mode</description>
               <bitOffset>3</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>OPM</name>
+                <usage>read-write</usage>
+                <enumeratedValue>
+                  <name>Disabled</name>
+                  <description>Counter is not stopped at update event</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Enabled</name>
+                  <description>Counter stops counting at the next update event (clearing the CEN bit)</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
             <field>
               <name>URS</name>
@@ -21931,7 +21969,7 @@
           <addressOffset>0x4</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>OIS2</name>
@@ -21987,7 +22025,7 @@
           <addressOffset>0x8</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>MSM</name>
@@ -22016,7 +22054,7 @@
           <addressOffset>0xC</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>TDE</name>
@@ -22105,7 +22143,7 @@
           <addressOffset>0x10</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CC2OF</name>
@@ -22182,7 +22220,7 @@
           <addressOffset>0x14</addressOffset>
           <size>0x20</size>
           <access>write-only</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>BG</name>
@@ -22224,7 +22262,7 @@
               <bitWidth>1</bitWidth>
               <enumeratedValues>
                 <name>UG</name>
-                <usage>read-write</usage>
+                <usage>write</usage>
                 <enumeratedValue>
                   <name>Update</name>
                   <description>Re-initializes the timer counter and generates an update of the registers.</description>
@@ -22404,7 +22442,7 @@
           <addressOffset>0x20</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CC2NP</name>
@@ -22487,7 +22525,7 @@
           <addressOffset>0x28</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>PSC</name>
@@ -22533,7 +22571,7 @@
           <addressOffset>0x30</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>REP</name>
@@ -22546,7 +22584,7 @@
         <register>
           <dim>2</dim>
           <dimIncrement>0x4</dimIncrement>
-          <dimIndex>1,2</dimIndex>
+          <dimIndex>1-2</dimIndex>
           <name>CCR%s</name>
           <displayName>CCR1</displayName>
           <description>capture/compare register</description>
@@ -22576,7 +22614,7 @@
           <addressOffset>0x44</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>MOE</name>
@@ -22637,7 +22675,7 @@
           <addressOffset>0x48</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>DBL</name>
@@ -22660,7 +22698,7 @@
           <addressOffset>0x4C</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>DMAB</name>
@@ -22696,7 +22734,7 @@
           <addressOffset>0x0</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CKD</name>
@@ -22713,12 +22751,12 @@
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>Div2</name>
-                  <description>t_DTS = 2 &#xD7; t_CK_INT</description>
+                  <description>t_DTS = 2 × t_CK_INT</description>
                   <value>1</value>
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>Div4</name>
-                  <description>t_DTS = 4 &#xD7; t_CK_INT</description>
+                  <description>t_DTS = 4 × t_CK_INT</description>
                   <value>2</value>
                 </enumeratedValue>
               </enumeratedValues>
@@ -22752,13 +22790,13 @@
                 <name>OPM</name>
                 <usage>read-write</usage>
                 <enumeratedValue>
-                  <name>NotStopped</name>
-                  <description>Not stopped at update event</description>
+                  <name>Disabled</name>
+                  <description>Counter is not stopped at update event</description>
                   <value>0</value>
                 </enumeratedValue>
                 <enumeratedValue>
-                  <name>Stopped</name>
-                  <description>Counter stops counting at next update event</description>
+                  <name>Enabled</name>
+                  <description>Counter stops counting at the next update event (clearing the CEN bit)</description>
                   <value>1</value>
                 </enumeratedValue>
               </enumeratedValues>
@@ -22832,7 +22870,7 @@
           <addressOffset>0x4</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>OIS1N</name>
@@ -22946,7 +22984,7 @@
           <addressOffset>0xC</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>TDE</name>
@@ -23077,7 +23115,7 @@
           <addressOffset>0x10</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CC1OF</name>
@@ -23140,7 +23178,7 @@
           <addressOffset>0x14</addressOffset>
           <size>0x20</size>
           <access>write-only</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>BG</name>
@@ -23175,7 +23213,7 @@
               <bitWidth>1</bitWidth>
               <enumeratedValues>
                 <name>UG</name>
-                <usage>read-write</usage>
+                <usage>write</usage>
                 <enumeratedValue>
                   <name>Update</name>
                   <description>Re-initializes the timer counter and generates an update of the registers.</description>
@@ -23308,7 +23346,7 @@
           <addressOffset>0x20</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CC1NP</name>
@@ -23370,7 +23408,7 @@
           <addressOffset>0x28</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>PSC</name>
@@ -23416,7 +23454,7 @@
           <addressOffset>0x30</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>REP</name>
@@ -23459,7 +23497,7 @@
           <addressOffset>0x44</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>MOE</name>
@@ -23520,7 +23558,7 @@
           <addressOffset>0x48</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>DBL</name>
@@ -23543,7 +23581,7 @@
           <addressOffset>0x4C</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>DMAB</name>
@@ -23558,6 +23596,7 @@
     </peripheral>
     <peripheral derivedFrom="TIM16">
       <name>TIM17</name>
+      <groupName>TIM</groupName>
       <baseAddress>0x40014800</baseAddress>
       <interrupt>
         <name>TIM17</name>
@@ -24035,7 +24074,7 @@
               <bitWidth>1</bitWidth>
               <enumeratedValues>
                 <name>OPTERR</name>
-                <usage>read-write</usage>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>OptionByteError</name>
                   <description>The loaded option byte and its complement do not match</description>
@@ -24051,7 +24090,7 @@
               <bitWidth>2</bitWidth>
               <enumeratedValues>
                 <name>RDPRT</name>
-                <usage>read-write</usage>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Level0</name>
                   <description>Level 0</description>
@@ -24076,7 +24115,7 @@
               <bitWidth>1</bitWidth>
               <enumeratedValues>
                 <name>WDG_SW</name>
-                <usage>read-write</usage>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Hardware</name>
                   <description>Hardware watchdog</description>
@@ -24096,7 +24135,7 @@
               <bitWidth>1</bitWidth>
               <enumeratedValues>
                 <name>nRST_STOP</name>
-                <usage>read-write</usage>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Reset</name>
                   <description>Reset generated when entering Stop mode</description>
@@ -24116,7 +24155,7 @@
               <bitWidth>1</bitWidth>
               <enumeratedValues>
                 <name>nRST_STDBY</name>
-                <usage>read-write</usage>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Reset</name>
                   <description>Reset generated when entering Standby mode</description>
@@ -24136,7 +24175,7 @@
               <bitWidth>1</bitWidth>
               <enumeratedValues>
                 <name>nBOOT1</name>
-                <usage>read-write</usage>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Disabled</name>
                   <description>Together with BOOT0, select the device boot mode</description>
@@ -24156,7 +24195,7 @@
               <bitWidth>1</bitWidth>
               <enumeratedValues>
                 <name>VDDA_MONITOR</name>
-                <usage>read-write</usage>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Disabled</name>
                   <description>VDDA power supply supervisor disabled</description>
@@ -24176,16 +24215,16 @@
               <bitWidth>1</bitWidth>
               <enumeratedValues>
                 <name>RAM_PARITY_CHECK</name>
-                <usage>read-write</usage>
-                <enumeratedValue>
-                  <name>Disabled</name>
-                  <description>RAM parity check disabled</description>
-                  <value>1</value>
-                </enumeratedValue>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Enabled</name>
                   <description>RAM parity check enabled</description>
                   <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Disabled</name>
+                  <description>RAM parity check disabled</description>
+                  <value>1</value>
                 </enumeratedValue>
               </enumeratedValues>
             </field>
@@ -24258,7 +24297,7 @@
           <addressOffset>0x0</addressOffset>
           <size>0x20</size>
           <access>read-only</access>
-          <resetValue>0x0</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>DEV_ID</name>
@@ -24288,7 +24327,7 @@
           <addressOffset>0x4</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>DBG_STOP</name>
@@ -24311,7 +24350,7 @@
           <addressOffset>0x8</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>DBG_TIM3_STOP</name>
@@ -24371,7 +24410,7 @@
           <addressOffset>0xC</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>DBG_TIM1_STOP</name>
@@ -26006,7 +26045,7 @@
               <access>read-only</access>
               <enumeratedValues>
                 <name>DIR</name>
-                <usage>read-write</usage>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>To</name>
                   <description>data transmitted by the USB peripheral to the host PC</description>
@@ -26156,7 +26195,7 @@
               <access>read-only</access>
               <enumeratedValues>
                 <name>CTR</name>
-                <usage>read-write</usage>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Completed</name>
                   <description>endpoint has successfully completed a transaction</description>
@@ -26173,7 +26212,7 @@
           <addressOffset>0x48</addressOffset>
           <size>0x20</size>
           <access>read-only</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>FN</name>
@@ -26206,7 +26245,7 @@
               <bitWidth>1</bitWidth>
               <enumeratedValues>
                 <name>LCK</name>
-                <usage>read-write</usage>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Locked</name>
                   <description>the frame timer remains in this state until an USB reset or USB suspend event occurs</description>
@@ -26221,7 +26260,7 @@
               <bitWidth>1</bitWidth>
               <enumeratedValues>
                 <name>RXDM</name>
-                <usage>read-write</usage>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Received</name>
                   <description>received data minus upstream port data line</description>
@@ -26236,7 +26275,7 @@
               <bitWidth>1</bitWidth>
               <enumeratedValues>
                 <name>RXDP</name>
-                <usage>read-write</usage>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Received</name>
                   <description>received data plus upstream port data line</description>
@@ -26253,7 +26292,7 @@
           <addressOffset>0x4C</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>ADD</name>
@@ -26296,7 +26335,7 @@
           <addressOffset>0x50</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>BTABLE</name>
@@ -26319,7 +26358,7 @@
           register</description>
           <addressOffset>0x54</addressOffset>
           <size>0x20</size>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>LPMEN</name>
@@ -26392,7 +26431,7 @@
           <description>Battery charging detector</description>
           <addressOffset>0x58</addressOffset>
           <size>0x20</size>
-          <resetValue>0x0000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>BCDEN</name>
@@ -26491,7 +26530,7 @@
               <access>read-only</access>
               <enumeratedValues>
                 <name>DCDET</name>
-                <usage>read-write</usage>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>NotDetected</name>
                   <description>data lines contact not detected</description>
@@ -26513,7 +26552,7 @@
               <access>read-only</access>
               <enumeratedValues>
                 <name>PDET</name>
-                <usage>read-write</usage>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>NoBCD</name>
                   <description>no BCD support detected</description>
@@ -26535,7 +26574,7 @@
               <access>read-only</access>
               <enumeratedValues>
                 <name>SDET</name>
-                <usage>read-write</usage>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>CDP</name>
                   <description>CDP detected</description>
@@ -26557,7 +26596,7 @@
               <access>read-only</access>
               <enumeratedValues>
                 <name>PS2DET</name>
-                <usage>read-write</usage>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Normal</name>
                   <description>Normal port detected</description>
@@ -26865,7 +26904,7 @@
           <addressOffset>0x0</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0X00000000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>ENABLE</name>
@@ -26901,7 +26940,7 @@
           <addressOffset>0x4</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0X00000000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>RELOAD</name>
@@ -26918,7 +26957,7 @@
           <addressOffset>0x8</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0X00000000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CURRENT</name>
@@ -26936,7 +26975,7 @@
           <addressOffset>0xC</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
-          <resetValue>0X00000000</resetValue>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>TENMS</name>
