@@ -1,40 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="SCHVerif.xsd">
 <Device>
-		<DeviceID>0x492</DeviceID>
+		<DeviceID>0x455</DeviceID>
 		<Vendor>STMicroelectronics</Vendor>
 		<Type>MCU</Type>
 		<CPU>Cortex-M33</CPU>
-		<Name>STM32WBA55/54</Name>
-		<Series>STM32WBA</Series>
+		<Name>STM32U535/STM32U545</Name>
+		<Series>STM32U5</Series>
 		<Description>ARM 32-bit Cortex-M33 based device</Description>
 		<Configurations>
 			<!-- JTAG_SWD Interface -->
 			<Interface name="JTAG_SWD">
-				<Configuration number="0x0">	<!-- 1M non secure TZEN=0x0 -->
+				<Configuration number="0x0">	<!-- Single Bank non secure -->
+					<DBANK reference="0x0"> <ReadRegister address="0x40022040" mask="0x00200000" value="0x0"/> </DBANK>
 					<TZEN reference="0x0"> <ReadRegister address="0x40022040" mask="0x80000000" value="0x0"/> </TZEN>
 				</Configuration>
-				<Configuration number="0x1">	<!-- 1M secure + RDP=0xAA + TZEN=0x1 -->
+				<Configuration number="0x1">	<!-- Dual Bank non secure -->
+					<DBANK reference="0x1"> <ReadRegister address="0x40022040" mask="0x00200000" value="0x00200000"/> </DBANK>
+					<TZEN reference="0x0"> <ReadRegister address="0x40022040" mask="0x80000000" value="0x0"/> </TZEN>
+				</Configuration>
+				<Configuration number="0x2">	<!-- Single Bank secure + RDP=0xAA -->
+					<DBANK reference="0x0"> <ReadRegister address="0x40022040" mask="0x00200000" value="0x0"/> </DBANK>
 					<TZEN reference="0x1"> <ReadRegister address="0x40022040" mask="0x80000000" value="0x80000000"/> </TZEN>
 					<RDP reference="0x1"> <ReadRegister address="0x40022040" mask="0x000000FF" value="0x000000AA"/> </RDP>
 				</Configuration>
-				<Configuration number="0x2">	<!-- 1M  + RDP=0x55 + TZEN=0x1 -->
+				<Configuration number="0x3">	<!-- Dual Bank secure + RDP=0xAA -->
+					<DBANK reference="0x1"> <ReadRegister address="0x40022040" mask="0x00200000" value="0x00200000"/> </DBANK>
+					<TZEN reference="0x1"> <ReadRegister address="0x40022040" mask="0x80000000" value="0x80000000"/> </TZEN>
+					<RDP reference="0x1"> <ReadRegister address="0x40022040" mask="0x000000FF" value="0x000000AA"/> </RDP>
+				</Configuration>
+				<Configuration number="0xA">	<!-- Single Bank  + RDP=0x55 -->
+					<DBANK reference="0x0"> <ReadRegister address="0x40022040" mask="0x00200000" value="0x0"/> </DBANK>
 					<RDP reference="0x1"> <ReadRegister address="0x40022040" mask="0x000000FF" value="0x00000055"/> </RDP>
 					<TZEN reference="0x1"> <ReadRegister address="0x40022040" mask="0x80000000" value="0x80000000"/> </TZEN>
 				</Configuration>
-				<Configuration number="0x3">	<!-- 1M secure + TZEN=0x1 -->
+				<Configuration number="0xB">	<!-- Dual Bank + RDP=0x55 -->
+					<DBANK reference="0x1"> <ReadRegister address="0x40022040" mask="0x00200000" value="0x00200000"/> </DBANK>
+					<RDP reference="0x1"> <ReadRegister address="0x40022040" mask="0x000000FF" value="0x00000055"/> </RDP>
+					<TZEN reference="0x1"> <ReadRegister address="0x40022040" mask="0x80000000" value="0x80000000"/> </TZEN>
+				</Configuration>
+				<Configuration number="0x4">	<!-- Single Bank secure -->
+					<DBANK reference="0x0"> <ReadRegister address="0x40022040" mask="0x00200000" value="0x0"/> </DBANK>
+					<TZEN reference="0x1"> <ReadRegister address="0x40022040" mask="0x80000000" value="0x80000000"/> </TZEN>
+				</Configuration>
+				<Configuration number="0x5">	<!-- Dual Bank secure -->
+					<DBANK reference="0x1"> <ReadRegister address="0x40022040" mask="0x00200000" value="0x00200000"/> </DBANK>
 					<TZEN reference="0x1"> <ReadRegister address="0x40022040" mask="0x80000000" value="0x80000000"/> </TZEN>
 				</Configuration>				
 			</Interface>
 			<!-- Bootloader Interface -->
 			<Interface name="Bootloader">
-				<Configuration number="0x4">	<!-- 1M  non Secure-->
+				<Configuration number="0x6">	<!-- Single Bank Secure-->
 					<DBANK reference="0x0"> <ReadRegister address="0x40022040" mask="0x400000" value="0x0"/> </DBANK>
-					<TZEN reference="0x1"> <ReadRegister address="0x40022040" mask="0x80000000" value="0x0"/> </TZEN>
+					<TZEN reference="0x1"> <ReadRegister address="0x40022040" mask="0x80000000" value="0x80000000"/> </TZEN>
 				</Configuration>
-				<Configuration number="0x5">	<!-- 1M Secure-->
+				<Configuration number="0x7">	<!-- Dual Bank Secure-->
+					<DBANK reference="0x0"> <ReadRegister address="0x40022040" mask="0x400000" value="0x400000"/> </DBANK>
+					<TZEN reference="0x1"> <ReadRegister address="0x40022040" mask="0x80000000" value="0x80000000"/> </TZEN>
+				</Configuration>
+				<Configuration number="0x8">	<!-- Single Bank non Secure-->
 					<DBANK reference="0x0"> <ReadRegister address="0x40022040" mask="0x400000" value="0x0"/> </DBANK>
-					<TZEN reference="0x0"> <ReadRegister address="0x40022040" mask="0x80000000" value="0x80000000"/> </TZEN>
+					<TZEN reference="0x0"> <ReadRegister address="0x40022040" mask="0x80000000" value="0x0"/> </TZEN>
+				</Configuration>
+				<Configuration number="0x9">	<!-- Dual Bank non Secure-->
+					<DBANK reference="0x0"> <ReadRegister address="0x40022040" mask="0x400000" value="0x400000"/> </DBANK>
+					<TZEN reference="0x0"> <ReadRegister address="0x40022040" mask="0x80000000" value="0x0"/> </TZEN>
 				</Configuration>
 			</Interface>
 		</Configurations>
@@ -48,7 +78,7 @@
 				<ErasedValue>0xFF</ErasedValue>
 				<Access>RWE</Access>
 				<!-- 96 KB -->
-				<Configuration config="0,4,5">
+				<Configuration config="0,1,6,7,8,9,10,11">
 					<Parameters address="0x20000000" name="SRAM" size="0x10000"/>
 					<Description/>
 					<Organization>Single</Organization>
@@ -58,7 +88,7 @@
 						</Field>
 					</Bank>
 				</Configuration>
-				<Configuration config="1,2,3">
+				<Configuration config="2,3,4,5">
 					<Parameters address="0x30000000" name="SRAM" size="0x10000"/>
 					<Description/>
 					<Organization>Single</Organization>
@@ -76,52 +106,74 @@
 				<Description>The Flash memory interface manages CPU AHB I-Code and D-Code accesses to the Flash memory. It implements the erase and program Flash memory operations and the read and write protection mechanisms</Description>
 				<ErasedValue>0xFF</ErasedValue>
 				<Access>RWE</Access>
-				<FlashSize address="0x0BF902A0" default="0x100000"/>
-				<!--BootloaderVersion address="0x0BF99EFE"-->
-				<ReconnectAfterOB value="1"/>
-				<Configuration>
-					<Parameters address="0x08000000" name=" 1024 Kbyte Embedded Flash" size="0x100000"/>
+				<FlashSize address="0x0BFA07A0" default="0x80000"/>
+				<BootloaderVersion address="0x0BF99EFE"/>
+				<DBGMCU_CR address="0xE0044004" mask="0x06"/>
+                <DBGMCU_APB1_FZ address="0xE0044008" mask="0x1800"/>
+				<Configuration config="0,8,10"> <!-- Single Bank -->
+					<Parameters address="0x08000000" name=" 512 Kbyte Embedded Flash" size="0x80000"/>
 					<Description/>
 					<Organization>Single</Organization>
-					<Allignement>0x20</Allignement>
+					<Allignement>0x10</Allignement>
 					<Bank name="Bank 1">
 						<Field>
-							<Parameters address="0x08000000" name="sector0" occurence="0x80" size="0x2000"/>
+							<Parameters address="0x08000000" name="sector0" occurence="0x20" size="0x4000"/>
 						</Field>
 					</Bank>
 				</Configuration>
-				<Configuration config="0,4"> <!-- 1 Mbyte non secure-->
-					<Parameters address="0x08000000" name=" 1 Mbyte Embedded Flash" size="0x200000"/>
+				<Configuration config="1,9,11"> <!-- dual Bank -->
+					<Parameters address="0x08000000" name=" 512 KByte Embedded Flash" size="0x80000"/>
 					<Description/>
 					<Organization>Dual</Organization>
 					<Allignement>0x10</Allignement>
 					<Bank name="Bank 1">
 						<Field>
-							<Parameters address="0x08000000" name="sector0" occurence="0x80" size="0x2000"/>
+							<Parameters address="0x08000000" name="sector0" occurence="0x20" size="0x2000"/>
+						</Field>
+					</Bank>
+					<Bank name="Bank 2">
+						<Field>
+							<Parameters address="0x08040000" name="sector32" occurence="0x20" size="0x2000"/>
 						</Field>
 					</Bank>
 				</Configuration>
-				<Configuration config="1,2,3,5"> <!-- 1 Mbyte secure -->
-					<Parameters address="0x0C000000" name=" 1 Mbyte Embedded Flash" size="0x100000"/>
+				<Configuration config="2,4,6"> <!-- Single Bank secure -->
+					<Parameters address="0x0C000000" name=" 512 KByte Embedded Flash" size="0x80000"/>
 					<Description/>
 					<Organization>Single</Organization>
 					<Allignement>0x10</Allignement>
 					<Bank name="Bank 1">
 						<Field>
-							<Parameters address="0x0c000000" name="sector0" occurence="0x80" size="0x4000"/>
+							<Parameters address="0x0c000000" name="sector0" occurence="0x20" size="0x4000"/>
+						</Field>
+					</Bank>
+				</Configuration>
+				<Configuration config="3,5,7"> <!-- dual Bank secure -->
+					<Parameters address="0x0c000000" name=" 512 KByte Embedded Flash" size="0x80000"/>
+					<Description/>
+					<Organization>Dual</Organization>
+					<Allignement>0x10</Allignement>
+					<Bank name="Bank 1">
+						<Field>
+							<Parameters address="0x0c000000" name="sector0" occurence="0x20" size="0x2000"/>
+						</Field>
+					</Bank>
+					<Bank name="Bank 2">
+						<Field>
+							<Parameters address="0x0c040000" name="sector32" occurence="0x20" size="0x2000"/>
 						</Field>
 					</Bank>
 				</Configuration>
 			</Peripheral>
-			<!-- Data EEPROM -->
+			<!-- Dummy - Data EEPROM -->
 			<Peripheral>
 				<Name>Data EEPROM</Name>
 				<Type>Storage</Type>
 				<Description>The Data EEPROM memory block. It contains user data.</Description>
 				<ErasedValue>0xFF</ErasedValue>
 				<Access>RWE</Access>
-				<Configuration config="2,3,4,5">
-					<Parameters address="0x08000000" name=" 1 Mbyte Data EEPROM" size="0x100000"/>
+				<Configuration config="2,4,7,9,10">
+					<Parameters address="0x08000000" name=" 512 KByte" size="0x80000"/>
 					<Description/>
 					<Organization>Single</Organization>
 					<Allignement>0x4</Allignement>
@@ -131,15 +183,36 @@
 						</Field>
 					</Bank>
 				</Configuration>
+				<Configuration config="3,5,6,8,11">
+					<Parameters address="0x08000000" name=" 512 KByte Data EEPROM" size="0x80000"/>
+					<Description/>
+					<Organization>Single</Organization>
+					<Allignement>0x4</Allignement>
+					<Bank name="Bank 1">
+						<Field>
+							<Parameters address="0x08000000" name="sector0" occurence="0x80" size="0x2000"/>
+						</Field>
+					</Bank>
+					<Bank name="Bank 2">
+						<Field>
+							<Parameters address="0x08100000" name="sector128" occurence="0x80" size="0x2000"/>
+						</Field>
+					</Bank>
+				</Configuration>
 				<!-- Dummy Config Just to avoid crash when TZEN=0 -->
-				<Configuration config="1,0">
-					<Parameters address="0x0C000000" name=" 1 Mbyte Data EEPROM" size="0x100000"/>
+				<Configuration config="1">
+					<Parameters address="0x0C000000" name="512 KByte" size="0x80000"/>
 					<Description/>
 					<Organization>Single</Organization>
 					<Allignement>0x4</Allignement>
 					<Bank name="Bank 1">
 						<Field>
 							<Parameters address="0x0C000000" name="sector0" occurence="0x80" size="0x2000"/>
+						</Field>
+					</Bank>
+					<Bank name="Bank 2">
+						<Field>
+							<Parameters address="0x0C100000" name="sector128" occurence="0x80" size="0x2000"/>
 						</Field>
 					</Bank>
 				</Configuration>
@@ -153,13 +226,13 @@
 				<Access>RW</Access>
 				<!-- 512 Bytes single bank -->
 				<Configuration>
-					<Parameters address="0x0BF90000" name=" 512 Bytes Data OTP" size="0x200"/>
+					<Parameters address="0x0BFA0000" name=" 512 Bytes Data OTP" size="0x200"/>
 					<Description/>
 					<Organization>Single</Organization>
 					<Allignement>0x4</Allignement>
 					<Bank name="OTP">
 						<Field>
-							<Parameters address="0x0BF90000" name="OTP" occurence="0x1" size="0x200"/>
+							<Parameters address="0x0BFA0000" name="OTP" occurence="0x1" size="0x200"/>
 						</Field>
 					</Bank>
 				</Configuration>
@@ -170,13 +243,13 @@
 				<Type>Configuration</Type>
 				<Description/>
 				<Access>RW</Access>
-				<Configuration config="0,2">
+				<Configuration config="0,1,10,11">
 				<Bank interface="JTAG_SWD">
-						<Parameters address="0x40022040" name="Bank 1" size="0xA0"/>
+						<Parameters address="0x40022040" name="Bank 1" size="0x24"/>
 					<Category>
 						<Name>Read Out Protection</Name>
 						<Field>
-						<Parameters address="0x40022040" name="FLASH_OPTR" size="0x4"/>
+								<Parameters address="0x40022040" name="FLASH_OPTR" size="0x4"/>
 							<AssignedBits>
 								<Bit>
 									<Name>RDP</Name>
@@ -220,6 +293,17 @@
 						<Field>
 								<Parameters address="0x40022040" name="FLASH_OPTR" size="0x4"/>
 							<AssignedBits>
+							<Bit>
+									<Name>TZEN</Name>
+									<Description>Global TrustZone security enable. disable this OB by Unchecking TZEN + RDP regression from level 1 to 0 simultaneously</Description>
+									<BitOffset>0x1F</BitOffset>
+									<BitWidth>0x1</BitWidth>
+									<Access>RW</Access>
+									<Values>
+										<Val value="0x0">Global TrustZone security disabled</Val>
+										<Val value="0x1">Global TrustZone security enabled</Val>
+									</Values>
+								</Bit>
 								<Bit>
 									<Name>nRST_STOP</Name>
 									<Description/>
@@ -243,8 +327,19 @@
 									</Values>
 								</Bit>
 								<Bit>
-									<Name>SRAM1_RST</Name>
-									<Description>SRAM1 erase upon system reset</Description>
+									<Name>nRST_SHDW</Name>
+									<Description/>
+									<BitOffset>0xE</BitOffset>
+									<BitWidth>0x1</BitWidth>
+									<Access>RW</Access>
+									<Values>
+										<Val value="0x0">Reset generated when entering the Shutdown mode</Val>
+										<Val value="0x1">No reset generated when entering the Shutdown mode</Val>
+									</Values>
+								</Bit>
+								<Bit>
+									<Name>SRAM134_RST</Name>
+									<Description>SRAM1, SRAM3 and SRAM4 erase upon system reset</Description>
 									<BitOffset>0xF</BitOffset>
 									<BitWidth>0x1</BitWidth>
 									<Access>RW</Access>
@@ -298,14 +393,58 @@
 									</Values>
 								</Bit>
 								<Bit>
-									<Name>SRAM2_PE</Name>
-									<Description>SRAM2 parity check enable </Description>
+									<Name>SWAP_BANK</Name>
+									<Description/>
+									<BitOffset>0x14</BitOffset>
+									<BitWidth>0x1</BitWidth>
+									<Access>RW</Access>
+									<Values>
+										<Val value="0x0">Bank 1 and bank 2 address are not swapped</Val>
+										<Val value="0x1">Bank 1 and bank 2 address are swapped</Val>
+									</Values>
+								</Bit>
+								<!--<Bit>
+									<Name>DBANK</Name>
+									<Description>Dual-bank on 1-Mbyte and 512-Kbyte Flash memory devices</Description>
+									<BitOffset>0x15</BitOffset>
+									<BitWidth>0x1</BitWidth>
+									<Access>RW</Access>
+									<Values>
+										<Val value="0x0">Single bank Flash with contiguous address in bank 1</Val>
+										<Val value="0x1">Dual-bank Flash with contiguous addresses</Val>
+									</Values>
+								</Bit>-->
+								<Bit>
+									<Name>BKPRAM_ECC</Name>
+									<Description>SRAM2 parity check enable</Description>
+									<BitOffset>0x16</BitOffset>
+									<BitWidth>0x1</BitWidth>
+									<Access>RW</Access>
+									<Values>
+										<Val value="0x0">Backup RAM ECC check enabled</Val>
+										<Val value="0x1">Backup RAM ECC check disabled</Val>
+									</Values>
+								</Bit>
+								<Bit>
+									<Name>SRAM3_ECC</Name>
+									<Description>SRAM3 ECC detection and correction enable</Description>
+									<BitOffset>0x17</BitOffset>
+									<BitWidth>0x1</BitWidth>
+									<Access>RW</Access>
+									<Values>
+										<Val value="0x0">SRAM3 ECC check enabled</Val>
+										<Val value="0x1">SRAM3 ECC check disabled</Val>
+									</Values>
+								</Bit>
+								<Bit>
+									<Name>SRAM2_ECC</Name>
+									<Description>SRAM2 ECC detection and correction enable</Description>
 									<BitOffset>0x18</BitOffset>
 									<BitWidth>0x1</BitWidth>
 									<Access>RW</Access>
 									<Values>
-										<Val value="0x0">SRAM2 PE check enabled</Val>
-										<Val value="0x1">SRAM2 PE check disabled</Val>
+										<Val value="0x0">SRAM2 ECC check enabled</Val>
+										<Val value="0x1">SRAM2 ECC check disabled</Val>
 									</Values>
 								</Bit>
 								<Bit>
@@ -342,14 +481,36 @@
 									</Values>
 								</Bit>
 								<Bit>
-									<Name>TZEN</Name>
-									<Description>Global TrustZone security enable</Description>
-									<BitOffset>0x1F</BitOffset>
+									<Name>PA15_PUPEN</Name>
+									<Description>PA15 pull-up enable</Description>
+									<BitOffset>0x1C</BitOffset>
 									<BitWidth>0x1</BitWidth>
 									<Access>RW</Access>
 									<Values>
-										<Val value="0x0">Global TrustZone security disabled</Val>
-										<Val value="0x1">Global TrustZone security enabled</Val>
+										<Val value="0x0">USB power delivery dead-battery enabled/ TDI pull-up deactivated</Val>
+										<Val value="0x1">USB power delivery dead-battery disabled/ TDI pull-up activated</Val>
+									</Values>
+								</Bit>
+								<Bit>
+									<Name>IO_VDD_HSLV</Name>
+									<Description>High-speed IO at low VDD voltage configuration bit</Description>
+									<BitOffset>0x1D</BitOffset>
+									<BitWidth>0x1</BitWidth>
+									<Access>RW</Access>
+									<Values>
+										<Val value="0x0">High-speed IO at low VDD voltage feature disabled (VDD can exceed 2.5 V)</Val>
+										<Val value="0x1">High-speed IO at low VDD voltage feature enabled (VDD remains below 2.5 V)</Val>
+									</Values>
+								</Bit>
+								<Bit>
+									<Name>IO_VDDIO2_HSLV</Name>
+									<Description>High-speed IO at low VDDIO2 voltage configuration bit</Description>
+									<BitOffset>0x1E</BitOffset>
+									<BitWidth>0x1</BitWidth>
+									<Access>RW</Access>
+									<Values>
+										<Val value="0x0">High-speed IO at low VDDIO2 voltage feature disabled (VDDIO2 can exceed 2.5 V)</Val>
+										<Val value="0x1">High-speed IO at low VDDIO2 voltage feature enabled (VDDIO2 remains below 2.5 V)</Val>
 									</Values>
 								</Bit>
 							</AssignedBits>
@@ -385,75 +546,209 @@
 							</Field>
 					</Category>
 					<Category>
-							<Name>Write Protection</Name>
+							<Name>Write Protection 1</Name>
 						<Field>
 								<Parameters address="0x40022058" name="FLASH_WRP1AR" size="0x4"/>
 							<AssignedBits>
-									<Bit config="0,2">
-										<Name>WRPA_PSTRT</Name>
-										<Description>WPR first area &quot;A&quot; start page</Description>
+									<Bit config="0,10">
+										<Name>WRP1A_PSTRT</Name>
+										<Description>Bank 1 WPR first area &quot;A&quot; start page</Description>
 									<BitOffset>0x0</BitOffset>
-									<BitWidth>0x7</BitWidth>
+									<BitWidth>0x5</BitWidth>
+									<Access>RW</Access>
+									<Equation multiplier="0x4000" offset="0x08000000"/>
+								</Bit>
+									<Bit config="1,11">
+										<Name>WRP1A_PSTRT</Name>
+										<Description>Bank 1 WPR first area &quot;A&quot; start page</Description>
+									<BitOffset>0x0</BitOffset>
+									<BitWidth>0x5</BitWidth>
 									<Access>RW</Access>
 									<Equation multiplier="0x2000" offset="0x08000000"/>
 								</Bit>
-									<Bit config="0,2">
-										<Name>WRPA_PEND</Name>
-										<Description>WPR first area &quot;A&quot; end page</Description>
+									<Bit config="0,10">
+										<Name>WRP1A_PEND</Name>
+										<Description>Bank 1 WPR first area &quot;A&quot; end page</Description>
 									<BitOffset>0x10</BitOffset>
-									<BitWidth>0x7</BitWidth>
+									<BitWidth>0x5</BitWidth>
 									<Access>RW</Access>
-									<Equation multiplier="0x2000" offset="0x08000000"/>
+									<Equation multiplier="0x4000" offset="0x08000000"/>
 								</Bit>
+									<Bit config="1,11">
+										<Name>WRP1A_PEND</Name>
+										<Description>Bank 1 WPR first area &quot;A&quot; end page</Description>
+										<BitOffset>0x10</BitOffset>
+										<BitWidth>0x5</BitWidth>
+										<Access>RW</Access>
+										<Equation multiplier="0x2000" offset="0x08000000"/>
+									</Bit>
 								<Bit>
-									<Name>UNLOCK_A</Name>
-									<Description>WPR first area A unlock</Description>
+									<Name>UNLOCK_1A</Name>
+									<Description>Bank 1 WPR first area A unlock</Description>
 									<BitOffset>0x1F</BitOffset>
 									<BitWidth>0x1</BitWidth>
 									<Access>RW</Access>
 									<Values>
-										<Val value="0x0">WRPA start and end pages locked</Val>
-										<Val value="0x1">WRPA start and end pages unlocked</Val>
+										<Val value="0x0">WRP1A start and end pages locked</Val>
+										<Val value="0x1">WRP1A start and end pages unlocked</Val>
 									</Values>
 								</Bit>
 								</AssignedBits>
 							</Field>
 							<Field>
-								<Parameters address="0x4002205C" name="FLASH_WRPBR" size="0x4"/>
+								<Parameters address="0x4002205C" name="FLASH_WRP1BR" size="0x4"/>
 								<AssignedBits>
-									<Bit config="0,2">
-										<Name>WRPB_PSTRT</Name>
-										<Description>WPR second area &quot;B&quot; start page</Description>
+									<Bit config="0,10">
+										<Name>WRP1B_PSTRT</Name>
+										<Description>Bank 1 WPR first area &quot;B&quot; start page</Description>
 										<BitOffset>0x0</BitOffset>
-										<BitWidth>0x7</BitWidth>
+										<BitWidth>0x5</BitWidth>
+										<Access>RW</Access>
+										<Equation multiplier="0x4000" offset="0x08000000"/>
+									</Bit>
+									<Bit config="1,11">
+										<Name>WRP1B_PSTRT</Name>
+										<Description>Bank 1 WPR first area &quot;B&quot; start page</Description>
+										<BitOffset>0x0</BitOffset>
+										<BitWidth>0x5</BitWidth>
 										<Access>RW</Access>
 										<Equation multiplier="0x2000" offset="0x08000000"/>
 									</Bit>
-									<Bit config="0,2">
-										<Name>WRPB_PEND</Name>
-										<Description>WPR second area &quot;B&quot; end page</Description>
+									<Bit config="0,10">
+										<Name>WRP1B_PEND</Name>
+										<Description>Bank 1 WPR first area &quot;B&quot; end page</Description>
 										<BitOffset>0x10</BitOffset>
-										<BitWidth>0x7</BitWidth>
+										<BitWidth>0x5</BitWidth>
 										<Access>RW</Access>
-										<Equation multiplier="0x2000" offset="0x08000000"/>
+										<Equation multiplier="0x4000" offset="0x08000000"/>
 									</Bit>
+									<Bit config="1,11">
+										<Name>WRP1B_PEND</Name>
+										<Description>Bank 1 WPR first area &quot;B&quot; end page</Description>
+									<BitOffset>0x10</BitOffset>
+									<BitWidth>0x5</BitWidth>
+									<Access>RW</Access>
+									<Equation multiplier="0x2000" offset="0x08000000"/>
+								</Bit>
 								<Bit>
-									<Name>UNLOCK_B</Name>
-									<Description>WPR second area B unlock</Description>
+									<Name>UNLOCK_1B</Name>
+									<Description>Bank 1 WPR first area B unlock</Description>
 									<BitOffset>0x1F</BitOffset>
 									<BitWidth>0x1</BitWidth>
 									<Access>RW</Access>
 									<Values>
-										<Val value="0x0">WRPB start and end pages locked</Val>
-										<Val value="0x1">WRPB start and end pages unlocked</Val>
+										<Val value="0x0">WRP1B start and end pages locked</Val>
+										<Val value="0x1">WRP1B start and end pages unlocked</Val>
 									</Values>
 								</Bit>
 							</AssignedBits>
 						</Field>
 					</Category>
 					</Bank>
+					<Bank interface="JTAG_SWD">
+							<Parameters address="0x40022068" name="Bank 2" size="0x8"/>
+							<Category>
+								<Name>Write Protection 2</Name>
+							<Field>
+									<Parameters address="0x40022068" name="FLASH_WRP2AR" size="0x4"/>
+									<AssignedBits>
+										<Bit config="0,10">
+											<Name>WRP2A_PSTRT</Name>
+											<Description>Bank 2 WPR first area &quot;A&quot; start page</Description>
+									<BitOffset>0x0</BitOffset>
+									<BitWidth>0x5</BitWidth>
+									<Access>RW</Access>
+											<Equation multiplier="0x4000" offset="0x08000000"/>
+								</Bit>
+									<Bit config="1,11">
+									<Name>WRP2A_PSTRT</Name>
+									<Description>Bank 2 WPR first area &quot;A&quot; start page</Description>
+									<BitOffset>0x0</BitOffset>
+									<BitWidth>0x5</BitWidth>
+									<Access>RW</Access>
+									<Equation multiplier="0x2000" offset="0x08100000"/>
+								</Bit>
+									<Bit config="0,10">
+									<Name>WRP2A_PEND</Name>
+									<Description>Bank 2 WPR first area &quot;A&quot; end page</Description>
+									<BitOffset>0x10</BitOffset>
+									<BitWidth>0x5</BitWidth>
+									<Access>RW</Access>
+											<Equation multiplier="0x4000" offset="0x08000000"/>
+								</Bit>
+										<Bit config="1,11">
+											<Name>WRP2A_PEND</Name>
+											<Description>Bank 2 WPR first area &quot;A&quot; end page</Description>
+											<BitOffset>0x10</BitOffset>
+											<BitWidth>0x5</BitWidth>
+											<Access>RW</Access>
+											<Equation multiplier="0x2000" offset="0x08100000"/>
+										</Bit>
+								<Bit>
+									<Name>UNLOCK_2A</Name>
+									<Description>Bank 2 WPR first area A unlock</Description>
+									<BitOffset>0x1F</BitOffset>
+									<BitWidth>0x1</BitWidth>
+									<Access>RW</Access>
+									<Values>
+										<Val value="0x0">WRP2A start and end pages locked</Val>
+										<Val value="0x1">WRP2A start and end pages unlocked</Val>
+									</Values>
+								</Bit>
+									</AssignedBits>
+								</Field>
+								<Field>
+									<Parameters address="0x4002206C" name="FLASH_WRP2BR" size="0x4"/>
+									<AssignedBits>
+										<Bit config="0,10">
+											<Name>WRP2B_PSTRT</Name>
+											<Description>Bank 2 WPR first area &quot;B&quot; start page</Description>
+											<BitOffset>0x0</BitOffset>
+											<BitWidth>0x5</BitWidth>
+											<Access>RW</Access>
+											<Equation multiplier="0x4000" offset="0x08000000"/>
+										</Bit>
+										<Bit config="1,11">
+											<Name>WRP2B_PSTRT</Name>
+											<Description>Bank 2 WPR first area &quot;B&quot; start page</Description>
+											<BitOffset>0x0</BitOffset>
+											<BitWidth>0x5</BitWidth>
+											<Access>RW</Access>
+											<Equation multiplier="0x2000" offset="0x08100000"/>
+										</Bit>
+										<Bit config="0,10">
+											<Name>WRP2B_PEND</Name>
+											<Description>Bank 2 WPR first area &quot;B&quot; end page</Description>
+									<BitOffset>0x10</BitOffset>
+									<BitWidth>0x5</BitWidth>
+									<Access>RW</Access>
+											<Equation multiplier="0x4000" offset="0x08000000"/>
+										</Bit>
+										<Bit config="1,11">
+											<Name>WRP2B_PEND</Name>
+											<Description>Bank 2 WPR first area &quot;B&quot; end page</Description>
+											<BitOffset>0x10</BitOffset>
+											<BitWidth>0x5</BitWidth>
+											<Access>RW</Access>
+											<Equation multiplier="0x2000" offset="0x08100000"/>
+										</Bit>
+									<Bit>
+									<Name>UNLOCK_2B</Name>
+									<Description>Bank 2 WPR first area B unlock</Description>
+									<BitOffset>0x1F</BitOffset>
+									<BitWidth>0x1</BitWidth>
+									<Access>RW</Access>
+									<Values>
+										<Val value="0x0">WRP2B start and end pages locked</Val>
+										<Val value="0x1">WRP2B start and end pages unlocked</Val>
+									</Values>
+								</Bit>
+									</AssignedBits>
+								</Field>
+							</Category>
+					</Bank>
 				</Configuration>
-				<Configuration config="1">
+				<Configuration config="2,3">
 					<Bank interface="JTAG_SWD">
 						<Parameters address="0x50022040" name="Bank 1" size="0x20"/>
 						<Category>
@@ -504,6 +799,17 @@
 							<Field>
 								<Parameters address="0x50022040" name="FLASH_OPTR" size="0x4"/>
 								<AssignedBits>
+								<Bit>
+									<Name>TZEN</Name>
+									<Description>Global TrustZone security enable. disable this OB by Unchecking TZEN + RDP regression from level 1 to 0 simultaneously</Description>
+									<BitOffset>0x1F</BitOffset>
+									<BitWidth>0x1</BitWidth>
+									<Access>RW</Access>
+									<Values>
+											<Val value="0x0">Global TrustZone security disabled</Val>
+											<Val value="0x1">Global TrustZone security enabled</Val>
+										</Values>
+									</Bit>
 									<Bit>
 										<Name>nRST_STOP</Name>
 										<Description/>
@@ -527,14 +833,25 @@
 										</Values>
 									</Bit>
 									<Bit>
-										<Name>SRAM1_RST</Name>
+										<Name>nRST_SHDW</Name>
+										<Description/>
+										<BitOffset>0xE</BitOffset>
+										<BitWidth>0x1</BitWidth>
+										<Access>RW</Access>
+										<Values>
+											<Val value="0x0">Reset generated when entering the Shutdown mode</Val>
+											<Val value="0x1">No reset generated when entering the Shutdown mode</Val>
+										</Values>
+									</Bit>
+									<Bit>
+										<Name>SRAM134_RST</Name>
 										<Description>SRAM1, SRAM3 and SRAM4 erase upon system reset</Description>
 										<BitOffset>0xF</BitOffset>
 										<BitWidth>0x1</BitWidth>
 										<Access>RW</Access>
 									<Values>
-										<Val value="0x0">SRAM1 erased when a system reset occurs</Val>
-										<Val value="0x1">SRAM1 not erased when a system reset occurs</Val>
+										<Val value="0x0">SRAM1, SRAM3 and SRAM4 erased when a system reset occurs</Val>
+										<Val value="0x1">SRAM1, SRAM3 and SRAM4 not erased when a system reset occurs</Val>
 									</Values>
 									</Bit>
 									<Bit>
@@ -582,16 +899,27 @@
 										</Values>
 									</Bit>
 									<Bit>
-										<Name>SRAM2_PE</Name>
-										<Description>SRAM2 parity check enable</Description>
-										<BitOffset>0x18</BitOffset>
+										<Name>SWAP_BANK</Name>
+										<Description/>
+										<BitOffset>0x14</BitOffset>
 										<BitWidth>0x1</BitWidth>
 										<Access>RW</Access>
 										<Values>
-											<Val value="0x0">SRAM2 parity check enable</Val>
-											<Val value="0x1">SRAM2 parity check disable</Val>
+											<Val value="0x0">Bank 1 and bank 2 address are not swapped</Val>
+											<Val value="0x1">Bank 1 and bank 2 address are swapped</Val>
 										</Values>
 									</Bit>
+									<!--<Bit>
+										<Name>DBANK</Name>
+										<Description>Dual-bank on 1-Mbyte and 512-Kbyte Flash memory devices</Description>
+										<BitOffset>0x15</BitOffset>
+										<BitWidth>0x1</BitWidth>
+										<Access>RW</Access>
+										<Values>
+											<Val value="0x0">Single bank mode with 128 bits data read width</Val>
+											<Val value="0x1">Dual bank mode with 64 bits data</Val>
+										</Values>
+									</Bit>-->
 									<Bit>
 										<Name>SRAM2_RST</Name>
 										<Description>SRAM2 Erase when system reset</Description>
@@ -625,17 +953,72 @@
 											<Val value="0x1">nBOOT0 = 1</Val>
 										</Values>
 									</Bit>
+									<Bit>
+										<Name>PA15_PUPEN</Name>
+										<Description>PA15 pull-up enable</Description>
+										<BitOffset>0x1C</BitOffset>
+										<BitWidth>0x1</BitWidth>
+										<Access>RW</Access>
+										<Values>
+											<Val value="0x0">USB power delivery dead-battery enabled/ TDI pull-up deactivated</Val>
+											<Val value="0x1">USB power delivery dead-battery disabled/ TDI pull-up activated</Val>
+									</Values>
+								</Bit>
 								<Bit>
-									<Name>TZEN</Name>
-									<Description>Global TrustZone security enable</Description>
-									<BitOffset>0x1F</BitOffset>
+										<Name>BKPRAM_ECC</Name>
+										<Description>SRAM2 parity check enable</Description>
+										<BitOffset>0x16</BitOffset>
+										<BitWidth>0x1</BitWidth>
+										<Access>RW</Access>
+										<Values>
+										<Val value="0x0">Backup RAM ECC check enabled</Val>
+										<Val value="0x1">Backup RAM ECC check disabled</Val>
+										</Values>
+								</Bit>
+								<Bit>
+									<Name>SRAM3_ECC</Name>
+									<Description>SRAM3 ECC detection and correction enable</Description>
+									<BitOffset>0x17</BitOffset>
 									<BitWidth>0x1</BitWidth>
 									<Access>RW</Access>
 									<Values>
-											<Val value="0x0">Global TrustZone security disabled</Val>
-											<Val value="0x1">Global TrustZone security enabled</Val>
-										</Values>
-									</Bit>
+										<Val value="0x0">SRAM3 ECC check enabled</Val>
+										<Val value="0x1">SRAM3 ECC check disabled</Val>
+									</Values>
+								</Bit>
+								<Bit>
+									<Name>SRAM2_ECC</Name>
+									<Description>SRAM2 ECC detection and correction enable</Description>
+									<BitOffset>0x18</BitOffset>
+									<BitWidth>0x1</BitWidth>
+									<Access>RW</Access>
+									<Values>
+										<Val value="0x0">SRAM2 ECC check enabled</Val>
+										<Val value="0x1">SRAM2 ECC check disabled</Val>
+									</Values>
+								</Bit>
+								<Bit>
+									<Name>IO_VDD_HSLV</Name>
+									<Description>High-speed IO at low VDD voltage configuration bit</Description>
+									<BitOffset>0x1D</BitOffset>
+									<BitWidth>0x1</BitWidth>
+									<Access>RW</Access>
+									<Values>
+										<Val value="0x0">High-speed IO at low VDD voltage feature disabled (VDD can exceed 2.5 V)</Val>
+										<Val value="0x1">High-speed IO at low VDD voltage feature enabled (VDD remains below 2.5 V)</Val>
+									</Values>
+								</Bit>
+								<Bit>
+									<Name>IO_VDDIO2_HSLV</Name>
+									<Description>High-speed IO at low VDDIO2 voltage configuration bit</Description>
+									<BitOffset>0x1E</BitOffset>
+									<BitWidth>0x1</BitWidth>
+									<Access>RW</Access>
+									<Values>
+										<Val value="0x0">High-speed IO at low VDDIO2 voltage feature disabled (VDDIO2 can exceed 2.5 V)</Val>
+										<Val value="0x1">High-speed IO at low VDDIO2 voltage feature enabled (VDDIO2 remains below 2.5 V)</Val>
+									</Values>
+								</Bit>
 								</AssignedBits>
 							</Field>
 					</Category>
@@ -700,45 +1083,69 @@
 					<Category>
 						<Name>Secure Area 1</Name>
 							<Field>
-								<Parameters address="0x50022050" name="FLASH_SECWMR1" size="0x4"/>
+								<Parameters address="0x50022050" name="FLASH_SECWM1R1" size="0x4"/>
 								<AssignedBits>
-									<Bit>
-										<Name>SECWM_PSTRT</Name>
-										<Description>Start page of secure area</Description>
+									<Bit config="2">
+										<Name>SECWM1_PSTRT</Name>
+										<Description>Start page of first secure area</Description>
 										<BitOffset>0x0</BitOffset>
-										<BitWidth>0x7</BitWidth>
+										<BitWidth>0x5</BitWidth>
+										<Access>RW</Access>
+										<Equation multiplier="0x4000" offset="0x08000000"/>
+									</Bit>
+									<Bit config="3">
+										<Name>SECWM1_PSTRT</Name>
+										<Description>Start page of first secure area</Description>
+										<BitOffset>0x0</BitOffset>
+										<BitWidth>0x5</BitWidth>
 										<Access>RW</Access>
 										<Equation multiplier="0x2000" offset="0x08000000"/>
 									</Bit>
-									<Bit >
+									<Bit config="2">
 										<Name>SECWM1_PEND</Name>
 										<Description>End page of first secure area</Description>
 										<BitOffset>0x10</BitOffset>
-										<BitWidth>0x7</BitWidth>
+										<BitWidth>0x5</BitWidth>
+										<Access>RW</Access>
+										<Equation multiplier="0x4000" offset="0x08000000"/>
+									</Bit>
+									<Bit config="3">
+										<Name>SECWM1_PEND</Name>
+										<Description>End page of first secure area</Description>
+										<BitOffset>0x10</BitOffset>
+										<BitWidth>0x5</BitWidth>
 										<Access>RW</Access>
 										<Equation multiplier="0x2000" offset="0x08000000"/>
 									</Bit>
 								</AssignedBits>
 							</Field>
 							<Field>
-									<Parameters address="0x50022054" name="FLASH_SECWMR2" size="0x4"/>
+									<Parameters address="0x50022054" name="FLASH_SECWM2R1" size="0x4"/>
 									<AssignedBits>
-										<Bit>
+										<Bit config="2">
 											<Name>HDP1_PEND</Name>
-											<Description>End page of secure hide protection area</Description>
+											<Description>End page of first hide protection area</Description>
 											<BitOffset>0x10</BitOffset>
-											<BitWidth>0x7</BitWidth>
+											<BitWidth>0x5</BitWidth>
 											<Access>RW</Access>
-											<Equation multiplier="0x2000" offset="0xC003fff"/>
+											<Equation multiplier="0x4000" offset="0xC003fff"/>
+										</Bit>
+										<Bit config="3">
+											<Name>HDP1_PEND</Name>
+											<Description>End page of first hide protection area</Description>
+											<BitOffset>0x10</BitOffset>
+											<BitWidth>0x5</BitWidth>
+											<Access>RW</Access>
+											<Equation multiplier="0x2000" offset="0xC001FFF"/>
 										</Bit>
 										<Bit>
 											<Name>HDP1EN</Name>
-											<Description>Secure Hide protection first area enable</Description>
+											<Description>Hide protection first area enable</Description>
 											<BitOffset>0x1F</BitOffset>
 											<BitWidth>0x1</BitWidth>
 											<Access>RW</Access>
 											<Values>
-												<Val value="0x0">No secHDP area</Val>
+												<Val value="0x0">No HDP area 1</Val>
 												<Val value="0x1">HDP first area is enabled</Val>
 											</Values>
 										</Bit>
@@ -748,65 +1155,274 @@
 						<Category>
 							<Name>Write Protection 1</Name>
 						<Field>
-								<Parameters address="0x50022058" name="FLASH_WRP1AR" size="0x4"/>
+							<Parameters address="0x50022058" name="FLASH_WRP1AR" size="0x4"/>
 							<AssignedBits>
-									<Bit config="0,2">
-										<Name>WRPA_PSTRT</Name>
-										<Description>WPR first area &quot;A&quot; start page</Description>
+								<Bit config="2">
+									<Name>WRP1A_PSTRT</Name>
+									<Description>Bank 1 WPR first area &quot;A&quot; start page</Description>
 									<BitOffset>0x0</BitOffset>
-									<BitWidth>0x7</BitWidth>
+									<BitWidth>0x5</BitWidth>
+									<Access>RW</Access>
+									<Equation multiplier="0x4000" offset="0x08000000"/>
+								</Bit>
+								<Bit config="3">
+									<Name>WRP1A_PSTRT</Name>
+									<Description>Bank 1 WPR first area &quot;A&quot; start page</Description>
+									<BitOffset>0x0</BitOffset>
+									<BitWidth>0x5</BitWidth>
 									<Access>RW</Access>
 									<Equation multiplier="0x2000" offset="0x08000000"/>
 								</Bit>
-									<Bit config="0,2">
-										<Name>WRPA_PEND</Name>
-										<Description>WPR first area &quot;A&quot; end page</Description>
+								<Bit config="2">
+									<Name>WRP1A_PEND</Name>
+									<Description>Bank 1 WPR first area &quot;A&quot; end page</Description>
 									<BitOffset>0x10</BitOffset>
-									<BitWidth>0x7</BitWidth>
+									<BitWidth>0x5</BitWidth>
+									<Access>RW</Access>
+									<Equation multiplier="0x4000" offset="0x08000000"/>
+								</Bit>
+								<Bit config="3">
+									<Name>WRP1A_PEND</Name>
+									<Description>Bank 1 WPR first area &quot;A&quot; end page</Description>
+									<BitOffset>0x10</BitOffset>
+									<BitWidth>0x5</BitWidth>
 									<Access>RW</Access>
 									<Equation multiplier="0x2000" offset="0x08000000"/>
 								</Bit>
 								<Bit>
-									<Name>UNLOCK_A</Name>
-									<Description>WPR first area A unlock</Description>
+									<Name>UNLOCK_1A</Name>
+									<Description>Bank 1 WPR first area A unlock</Description>
 									<BitOffset>0x1F</BitOffset>
 									<BitWidth>0x1</BitWidth>
 									<Access>RW</Access>
 									<Values>
-										<Val value="0x0">WRPA start and end pages locked</Val>
-										<Val value="0x1">WRPA start and end pages unlocked</Val>
+										<Val value="0x0">WRP1A start and end pages locked</Val>
+										<Val value="0x1">WRP1A start and end pages unlocked</Val>
 									</Values>
 								</Bit>
-								</AssignedBits>
-							</Field>
-							<Field>
-								<Parameters address="0x5002205C" name="FLASH_WRPBR" size="0x4"/>
-								<AssignedBits>
-									<Bit config="0,2">
-										<Name>WRPB_PSTRT</Name>
-										<Description>WPR second area &quot;B&quot; start page</Description>
-										<BitOffset>0x0</BitOffset>
-										<BitWidth>0x7</BitWidth>
-										<Access>RW</Access>
-										<Equation multiplier="0x2000" offset="0x08000000"/>
-									</Bit>
-									<Bit config="0,2">
-										<Name>WRPB_PEND</Name>
-										<Description>WPR second area &quot;B&quot; end page</Description>
-										<BitOffset>0x10</BitOffset>
-										<BitWidth>0x7</BitWidth>
-										<Access>RW</Access>
-										<Equation multiplier="0x2000" offset="0x08000000"/>
-									</Bit>
+							</AssignedBits>
+						</Field>
+						<Field>
+							<Parameters address="0x5002205C" name="FLASH_WRP1BR" size="0x4"/>
+							<AssignedBits>
+								<Bit config="2">
+									<Name>WRP1B_PSTRT</Name>
+									<Description>Bank 1 WPR first area &quot;B&quot; start page</Description>
+									<BitOffset>0x0</BitOffset>
+									<BitWidth>0x5</BitWidth>
+									<Access>RW</Access>
+									<Equation multiplier="0x4000" offset="0x08000000"/>
+								</Bit>
+								<Bit config="3">
+									<Name>WRP1B_PSTRT</Name>
+									<Description>Bank 1 WPR first area &quot;B&quot; start page</Description>
+									<BitOffset>0x0</BitOffset>
+									<BitWidth>0x5</BitWidth>
+									<Access>RW</Access>
+									<Equation multiplier="0x2000" offset="0x08000000"/>
+								</Bit>
+								<Bit config="2">
+									<Name>WRP1B_PEND</Name>
+									<Description>Bank 1 WPR first area &quot;B&quot; end page</Description>
+									<BitOffset>0x10</BitOffset>
+									<BitWidth>0x5</BitWidth>
+									<Access>RW</Access>
+									<Equation multiplier="0x4000" offset="0x08000000"/>
+								</Bit>
+								<Bit config="3">
+									<Name>WRP1B_PEND</Name>
+									<Description>Bank 1 WPR first area &quot;B&quot; end page</Description>
+									<BitOffset>0x10</BitOffset>
+									<BitWidth>0x5</BitWidth>
+									<Access>RW</Access>
+									<Equation multiplier="0x2000" offset="0x08000000"/>
+								</Bit>
 								<Bit>
-									<Name>UNLOCK_B</Name>
-									<Description>WPR second area B unlock</Description>
+									<Name>UNLOCK_1B</Name>
+									<Description>Bank 1 WPR first area B unlock</Description>
 									<BitOffset>0x1F</BitOffset>
 									<BitWidth>0x1</BitWidth>
 									<Access>RW</Access>
 									<Values>
-										<Val value="0x0">WRPB start and end pages locked</Val>
-										<Val value="0x1">WRPB start and end pages unlocked</Val>
+										<Val value="0x0">WRP1B start and end pages locked</Val>
+										<Val value="0x1">WRP1B start and end pages unlocked</Val>
+									</Values>
+								</Bit>
+							</AssignedBits>
+						</Field>
+					</Category>
+				</Bank>
+				<Bank interface="JTAG_SWD">
+					<Parameters address="0x50022060" name="Bank 2" size="0x8"/>
+					<Category>
+					<Name>Secure Area 2</Name>
+						<Field>
+							<Parameters address="0x50022060" name="FLASH_SECWM2R1" size="0x4"/>
+							<AssignedBits>
+								<Bit config="2">
+									<Name>SECWM2_PSTRT</Name>
+									<Description>Start page of second secure area</Description>
+									<BitOffset>0x0</BitOffset>
+									<BitWidth>0x5</BitWidth>
+									<Access>RW</Access>
+									<Equation multiplier="0x4000" offset="0x08000000"/>
+								</Bit>
+								<Bit config="3">
+									<Name>SECWM2_PSTRT</Name>
+									<Description>Start page of second secure area</Description>
+									<BitOffset>0x0</BitOffset>
+									<BitWidth>0x5</BitWidth>
+									<Access>RW</Access>
+									<Equation multiplier="0x2000" offset="0x08100000"/>
+								</Bit>
+								<Bit config="2">
+									<Name>SECWM2_PEND</Name>
+									<Description>End page of second secure area</Description>
+									<BitOffset>0x10</BitOffset>
+									<BitWidth>0x5</BitWidth>
+									<Access>RW</Access>
+									<Equation multiplier="0x4000" offset="0x08000000"/>
+								</Bit>
+								<Bit config="3">
+									<Name>SECWM2_PEND</Name>
+									<Description>End page of second secure area</Description>
+									<BitOffset>0x10</BitOffset>
+									<BitWidth>0x5</BitWidth>
+									<Access>RW</Access>
+									<Equation multiplier="0x2000" offset="0x08100000"/>
+								</Bit>
+							</AssignedBits>
+						</Field>
+						<Field>
+							<Parameters address="0x50022064" name="FLASH_SECWM2R2" size="0x4"/>
+							<AssignedBits>
+									<Bit config="2">
+										<Name>HDP2_PEND</Name>
+										<Description>End page of second hide protection area</Description>
+										<BitOffset>0x10</BitOffset>
+										<BitWidth>0x5</BitWidth>
+										<Access>RW</Access>
+										<Equation multiplier="0x4000" offset="0xC103FFF"/>
+									</Bit>
+									<Bit config="3">
+										<Name>HDP2_PEND</Name>
+										<Description>End page of second hide protection area</Description>
+										<BitOffset>0x10</BitOffset>
+										<BitWidth>0x5</BitWidth>
+										<Access>RW</Access>
+										<Equation multiplier="0x2000" offset="0xC101FFF"/>
+									</Bit>
+									<Bit>
+									<Name>HDP2EN</Name>
+									<Description>Hide protection second area enable</Description>
+									<BitOffset>0x1F</BitOffset>
+									<BitWidth>0x1</BitWidth>
+									<Access>RW</Access>
+									<Values>
+										<Val value="0x0">No HDP area 2</Val>
+										<Val value="0x1">HDP second area is enabled</Val>
+									</Values>
+								</Bit>
+									</AssignedBits>
+						</Field>
+					</Category>
+					</Bank>
+					<Bank interface="JTAG_SWD">
+					<Parameters address="0x50022068" name="Bank 3" size="0x8"/>
+					<Category>
+						<Name>Write Protection 2</Name>
+						<Field>
+							<Parameters address="0x50022068" name="FLASH_WRP2AR" size="0x4"/>
+							<AssignedBits>
+								<Bit config="2">
+									<Name>WRP2A_PSTRT</Name>
+									<Description>Bank 2 WPR first area &quot;A&quot; start page</Description>
+									<BitOffset>0x0</BitOffset>
+									<BitWidth>0x5</BitWidth>
+									<Access>RW</Access>
+									<Equation multiplier="0x4000" offset="0x08100000"/>
+								</Bit>
+								<Bit config="3">
+									<Name>WRP2A_PSTRT</Name>
+									<Description>Bank 2 WPR first area &quot;A&quot; start page</Description>
+									<BitOffset>0x0</BitOffset>
+									<BitWidth>0x5</BitWidth>
+									<Access>RW</Access>
+									<Equation multiplier="0x2000" offset="0x08100000"/>
+								</Bit>
+								<Bit config="2">
+									<Name>WRP2A_PEND</Name>
+									<Description>Bank 2 WPR first area &quot;A&quot; end page</Description>
+									<BitOffset>0x10</BitOffset>
+									<BitWidth>0x5</BitWidth>
+									<Access>RW</Access>
+									<Equation multiplier="0x4000" offset="0x08100000"/>
+								</Bit>
+								<Bit config="3">
+									<Name>WRP2A_PEND</Name>
+									<Description>Bank 2 WPR first area &quot;A&quot; end page</Description>
+									<BitOffset>0x10</BitOffset>
+									<BitWidth>0x5</BitWidth>
+									<Access>RW</Access>
+									<Equation multiplier="0x2000" offset="0x08100000"/>
+								</Bit>
+								<Bit>
+									<Name>UNLOCK_2A</Name>
+									<Description>Bank 2 WPR first area A unlock</Description>
+									<BitOffset>0x1F</BitOffset>
+									<BitWidth>0x1</BitWidth>
+									<Access>RW</Access>
+									<Values>
+										<Val value="0x0">WRP2A start and end pages locked</Val>
+										<Val value="0x1">WRP2A start and end pages unlocked</Val>
+									</Values>
+								</Bit>
+							</AssignedBits>
+						</Field>
+						<Field>
+							<Parameters address="0x5002206C" name="FLASH_WRP2BR" size="0x4"/>
+							<AssignedBits>
+								<Bit config="2">
+									<Name>WRP2B_PSTRT</Name>
+									<Description>Bank 2 WPR first area &quot;B&quot; start page</Description>
+									<BitOffset>0x0</BitOffset>
+									<BitWidth>0x5</BitWidth>
+									<Access>RW</Access>
+									<Equation multiplier="0x4000" offset="0x08100000"/>
+								</Bit>
+								<Bit config="3">
+									<Name>WRP2B_PSTRT</Name>
+									<Description>Bank 2 WPR first area &quot;B&quot; start page</Description>
+									<BitOffset>0x0</BitOffset>
+									<BitWidth>0x5</BitWidth>
+									<Access>RW</Access>
+									<Equation multiplier="0x2000" offset="0x08100000"/>
+								</Bit>
+								<Bit config="2">
+									<Name>WRP2B_PEND</Name>
+									<Description>Bank 2 WPR first area &quot;B&quot; end page</Description>
+									<BitOffset>0x10</BitOffset>
+									<BitWidth>0x5</BitWidth>
+									<Access>RW</Access>
+									<Equation multiplier="0x4000" offset="0x08100000"/>
+								</Bit>
+								<Bit config="3">
+									<Name>WRP2B_PEND</Name>
+									<Description>Bank 2 WPR first area &quot;B&quot; end page</Description>
+									<BitOffset>0x10</BitOffset>
+									<BitWidth>0x5</BitWidth>
+									<Access>RW</Access>
+									<Equation multiplier="0x2000" offset="0x08100000"/>
+								</Bit>
+								<Bit>
+									<Name>UNLOCK_2B</Name>
+									<Description>Bank 2 WPR first area B unlock</Description>
+									<BitOffset>0x1F</BitOffset>
+									<BitWidth>0x1</BitWidth>
+									<Access>RW</Access>
+									<Values>
+										<Val value="0x0">WRP2B start and end pages locked</Val>
+										<Val value="0x1">WRP2B start and end pages unlocked</Val>
 									</Values>
 								</Bit>
 							</AssignedBits>
@@ -814,7 +1430,7 @@
 					</Category>
 				</Bank>
 			</Configuration>
-			<Configuration config="3">
+			<Configuration config="4,5">
 					<Bank interface="JTAG_SWD">
 						<Parameters address="0x40022040" name="Bank 1" size="0x20"/>
 						<Category>
@@ -865,6 +1481,17 @@
 							<Field>
 								<Parameters address="0x40022040" name="FLASH_OPTR" size="0x4"/>
 								<AssignedBits>
+								<Bit>
+									<Name>TZEN</Name>
+									<Description>Global TrustZone security enable. disable this OB by Unchecking TZEN + RDP regression from level 1 to 0 simultaneously</Description>
+									<BitOffset>0x1F</BitOffset>
+									<BitWidth>0x1</BitWidth>
+									<Access>RW</Access>
+									<Values>
+											<Val value="0x0">Global TrustZone security disabled</Val>
+											<Val value="0x1">Global TrustZone security enabled</Val>
+										</Values>
+									</Bit>
 									<Bit>
 										<Name>nRST_STOP</Name>
 										<Description/>
@@ -899,8 +1526,8 @@
 										</Values>
 									</Bit>
 									<Bit>
-										<Name>SRAM1_RST</Name>
-										<Description>SRAM1 erase upon system reset</Description>
+										<Name>SRAM134_RST</Name>
+										<Description>SRAM1, SRAM3 and SRAM4 erase upon system reset</Description>
 										<BitOffset>0xF</BitOffset>
 										<BitWidth>0x1</BitWidth>
 										<Access>RW</Access>
@@ -954,14 +1581,58 @@
 										</Values>
 									</Bit>
 									<Bit>
-										<Name>SRAM2_PE</Name>
+										<Name>SWAP_BANK</Name>
+										<Description/>
+										<BitOffset>0x14</BitOffset>
+										<BitWidth>0x1</BitWidth>
+										<Access>RW</Access>
+										<Values>
+											<Val value="0x0">Bank 1 and bank 2 address are not swapped</Val>
+											<Val value="0x1">Bank 1 and bank 2 address are swapped</Val>
+										</Values>
+									</Bit>
+									<!--<Bit>
+										<Name>DBANK</Name>
+										<Description>Dual-bank on 1-Mbyte and 512-Kbyte Flash memory devices</Description>
+										<BitOffset>0x15</BitOffset>
+										<BitWidth>0x1</BitWidth>
+										<Access>RW</Access>
+										<Values>
+											<Val value="0x0">Single bank mode with 128 bits data read width</Val>
+											<Val value="0x1">Dual bank mode with 64 bits data</Val>
+										</Values>
+									</Bit>-->
+									<Bit>
+										<Name>BKPRAM_ECC</Name>
 										<Description>SRAM2 parity check enable</Description>
+										<BitOffset>0x16</BitOffset>
+										<BitWidth>0x1</BitWidth>
+										<Access>RW</Access>
+										<Values>
+											<Val value="0x0">Backup RAM ECC check enabled</Val>
+											<Val value="0x1">Backup RAM ECC check disabled</Val>
+										</Values>
+									</Bit>
+									<Bit>
+										<Name>SRAM3_ECC</Name>
+										<Description>SRAM3 ECC detection and correction enable</Description>
+										<BitOffset>0x17</BitOffset>
+										<BitWidth>0x1</BitWidth>
+										<Access>RW</Access>
+										<Values>
+											<Val value="0x0">SRAM3 ECC check enabled</Val>
+											<Val value="0x1">SRAM3 ECC check disabled</Val>
+										</Values>
+									</Bit>
+									<Bit>
+										<Name>SRAM2_ECC</Name>
+										<Description>SRAM2 ECC detection and correction enable</Description>
 										<BitOffset>0x18</BitOffset>
 										<BitWidth>0x1</BitWidth>
 										<Access>RW</Access>
 										<Values>
-											<Val value="0x0">SRAM2 parity check enable</Val>
-											<Val value="0x1">SRAM2 parity check disable</Val>
+											<Val value="0x0">SRAM2 ECC check enabled</Val>
+											<Val value="0x1">SRAM2 ECC check disabled</Val>
 										</Values>
 									</Bit>
 									<Bit>
@@ -995,19 +1666,74 @@
 									<Values>
 											<Val value="0x0">nBOOT0 = 0</Val>
 											<Val value="0x1">nBOOT0 = 1</Val>
-									</Values>
+										</Values>
 									</Bit>
+									<Bit>
+										<Name>PA15_PUPEN</Name>
+										<Description>PA15 pull-up enable</Description>
+										<BitOffset>0x1C</BitOffset>
+										<BitWidth>0x1</BitWidth>
+										<Access>RW</Access>
+										<Values>
+											<Val value="0x0">USB power delivery dead-battery enabled/ TDI pull-up deactivated</Val>
+											<Val value="0x1">USB power delivery dead-battery disabled/ TDI pull-up activated</Val>
+									</Values>
+								</Bit>
 								<Bit>
-									<Name>TZEN</Name>
-									<Description>Global TrustZone security enable</Description>
-									<BitOffset>0x1F</BitOffset>
+										<Name>BKPRAM_ECC</Name>
+										<Description>SRAM2 parity check enable</Description>
+										<BitOffset>0x16</BitOffset>
+										<BitWidth>0x1</BitWidth>
+										<Access>RW</Access>
+										<Values>
+										<Val value="0x0">Backup RAM ECC check enabled</Val>
+										<Val value="0x1">Backup RAM ECC check disabled</Val>
+										</Values>
+								</Bit>
+								<Bit>
+									<Name>SRAM3_ECC</Name>
+									<Description>SRAM3 ECC detection and correction enable</Description>
+									<BitOffset>0x17</BitOffset>
 									<BitWidth>0x1</BitWidth>
 									<Access>RW</Access>
 									<Values>
-											<Val value="0x0">Global TrustZone security disabled</Val>
-											<Val value="0x1">Global TrustZone security enabled</Val>
-										</Values>
-									</Bit>
+										<Val value="0x0">SRAM3 ECC check enabled</Val>
+										<Val value="0x1">SRAM3 ECC check disabled</Val>
+									</Values>
+								</Bit>
+								<Bit>
+									<Name>SRAM2_ECC</Name>
+									<Description>SRAM2 ECC detection and correction enable</Description>
+									<BitOffset>0x18</BitOffset>
+									<BitWidth>0x1</BitWidth>
+									<Access>RW</Access>
+									<Values>
+										<Val value="0x0">SRAM2 ECC check enabled</Val>
+										<Val value="0x1">SRAM2 ECC check disabled</Val>
+									</Values>
+								</Bit>
+								<Bit>
+									<Name>IO_VDD_HSLV</Name>
+									<Description>High-speed IO at low VDD voltage configuration bit</Description>
+									<BitOffset>0x1D</BitOffset>
+									<BitWidth>0x1</BitWidth>
+									<Access>RW</Access>
+									<Values>
+										<Val value="0x0">High-speed IO at low VDD voltage feature disabled (VDD can exceed 2.5 V)</Val>
+										<Val value="0x1">High-speed IO at low VDD voltage feature enabled (VDD remains below 2.5 V)</Val>
+									</Values>
+								</Bit>
+								<Bit>
+									<Name>IO_VDDIO2_HSLV</Name>
+									<Description>High-speed IO at low VDDIO2 voltage configuration bit</Description>
+									<BitOffset>0x1E</BitOffset>
+									<BitWidth>0x1</BitWidth>
+									<Access>RW</Access>
+									<Values>
+										<Val value="0x0">High-speed IO at low VDDIO2 voltage feature disabled (VDDIO2 can exceed 2.5 V)</Val>
+										<Val value="0x1">High-speed IO at low VDDIO2 voltage feature enabled (VDDIO2 remains below 2.5 V)</Val>
+									</Values>
+								</Bit>
 								</AssignedBits>
 							</Field>
 							</Category>
@@ -1070,42 +1796,66 @@
 						</Field>
 					</Category>
 					<Category>
-						<Name>Secure Area </Name>
+						<Name>Secure Area 1</Name>
 							<Field>
-								<Parameters address="0x40022050" name="FLASH_SECWMR1" size="0x4"/>
+								<Parameters address="0x40022050" name="FLASH_SECWM1R1" size="0x4"/>
 								<AssignedBits>
-									<Bit config="3">
+									<Bit config="4">
 										<Name>SECWM1_PSTRT</Name>
 										<Description>Start page of first secure area</Description>
 										<BitOffset>0x0</BitOffset>
-										<BitWidth>0x7</BitWidth>
+										<BitWidth>0x5</BitWidth>
+										<Access>RW</Access>
+										<Equation multiplier="0x4000" offset="0x08000000"/>
+									</Bit>
+									<Bit config="5">
+										<Name>SECWM1_PSTRT</Name>
+										<Description>Start page of first secure area</Description>
+										<BitOffset>0x0</BitOffset>
+										<BitWidth>0x5</BitWidth>
 										<Access>RW</Access>
 										<Equation multiplier="0x2000" offset="0x08000000"/>
 									</Bit>
-									<Bit config="3">
+									<Bit config="4">
 										<Name>SECWM1_PEND</Name>
 										<Description>End page of first secure area</Description>
 										<BitOffset>0x10</BitOffset>
-										<BitWidth>0x7</BitWidth>
+										<BitWidth>0x5</BitWidth>
+										<Access>RW</Access>
+										<Equation multiplier="0x4000" offset="0x08000000"/>
+									</Bit>
+									<Bit config="5">
+										<Name>SECWM1_PEND</Name>
+										<Description>End page of first secure area</Description>
+										<BitOffset>0x10</BitOffset>
+										<BitWidth>0x5</BitWidth>
 										<Access>RW</Access>
 										<Equation multiplier="0x2000" offset="0x08000000"/>
 									</Bit>
 								</AssignedBits>
 							</Field>
 							<Field>
-									<Parameters address="0x40022054" name="FLASH_SECWMR2" size="0x4"/>
+									<Parameters address="0x40022054" name="FLASH_SECWM2R1" size="0x4"/>
 									<AssignedBits>
 										<Bit config="4">
 											<Name>HDP1_PEND</Name>
-											<Description>End page of secure hide protection area</Description>
+											<Description>End page of first hide protection area</Description>
 											<BitOffset>0x10</BitOffset>
-											<BitWidth>0x7</BitWidth>
+											<BitWidth>0x5</BitWidth>
 											<Access>RW</Access>
-											<Equation multiplier="0x2000" offset="0xC003fff"/>
+											<Equation multiplier="0x4000" offset="0xC003fff"/>
+										</Bit>
+										<Bit config="5">
+											<Name>HDP1_PEND</Name>
+											<Description>End page of first hide protection area</Description>
+											<BitOffset>0x10</BitOffset>
+											<BitWidth>0x5</BitWidth>
+											<Access>RW</Access>
+											<Equation multiplier="0x2000" offset="0xC001fff"/>
 										</Bit>
 										<Bit>
 											<Name>HDP1EN</Name>
-											<Description>Secure Hide protection  area enable</Description>
+											<Description>Hide protection first area enable</Description>
 											<BitOffset>0x1F</BitOffset>
 											<BitWidth>0x1</BitWidth>
 											<Access>RW</Access>
@@ -1120,27 +1870,43 @@
 						<Category>
 							<Name>Write Protection 1</Name>
 						<Field>
-							<Parameters address="0x40022058" name="FLASH_WRPAR" size="0x4"/>
+							<Parameters address="0x40022058" name="FLASH_WRP1AR" size="0x4"/>
 							<AssignedBits>
-								<Bit config="3">
-									<Name>WRPA_PSTRT</Name>
-									<Description>WPR area A &quot;A&quot; start page</Description>
+								<Bit config="4">
+									<Name>WRP1A_PSTRT</Name>
+									<Description>Bank 1 WPR first area &quot;A&quot; start page</Description>
 									<BitOffset>0x0</BitOffset>
-									<BitWidth>0x7</BitWidth>
+									<BitWidth>0x5</BitWidth>
+									<Access>RW</Access>
+									<Equation multiplier="0x4000" offset="0x08000000"/>
+								</Bit>
+								<Bit config="5">
+									<Name>WRP1A_PSTRT</Name>
+									<Description>Bank 1 WPR first area &quot;A&quot; start page</Description>
+									<BitOffset>0x0</BitOffset>
+									<BitWidth>0x5</BitWidth>
 									<Access>RW</Access>
 									<Equation multiplier="0x2000" offset="0x08000000"/>
 								</Bit>
-								<Bit config="3">
-									<Name>WRPA_PEND</Name>
-									<Description>WPR area A &quot;A&quot; end page</Description>
+								<Bit config="4">
+									<Name>WRP1A_PEND</Name>
+									<Description>Bank 1 WPR first area &quot;A&quot; end page</Description>
 									<BitOffset>0x10</BitOffset>
-									<BitWidth>0x7</BitWidth>
+									<BitWidth>0x5</BitWidth>
+									<Access>RW</Access>
+									<Equation multiplier="0x4000" offset="0x08000000"/>
+								</Bit>
+								<Bit config="5">
+									<Name>WRP1A_PEND</Name>
+									<Description>Bank 1 WPR first area &quot;A&quot; end page</Description>
+									<BitOffset>0x10</BitOffset>
+									<BitWidth>0x5</BitWidth>
 									<Access>RW</Access>
 									<Equation multiplier="0x2000" offset="0x08000000"/>
 								</Bit>
 								<Bit>
-									<Name>UNLOCK_A</Name>
-									<Description>WPR area A unlock</Description>
+									<Name>UNLOCK_1A</Name>
+									<Description>Bank 1 WPR first area A unlock</Description>
 									<BitOffset>0x1F</BitOffset>
 									<BitWidth>0x1</BitWidth>
 									<Access>RW</Access>
@@ -1152,33 +1918,49 @@
 							</AssignedBits>
 						</Field>
 						<Field>
-							<Parameters address="0x4002205C" name="FLASH_WRPBR" size="0x4"/>
+							<Parameters address="0x4002205C" name="FLASH_WRP1BR" size="0x4"/>
 							<AssignedBits>
-								<Bit config="3">
-									<Name>WRPB_PSTRT</Name>
-									<Description>WPR area B &quot;B&quot; start page</Description>
+								<Bit config="4">
+									<Name>WRP1B_PSTRT</Name>
+									<Description>Bank 1 WPR first area &quot;B&quot; start page</Description>
 									<BitOffset>0x0</BitOffset>
-									<BitWidth>0x7</BitWidth>
+									<BitWidth>0x5</BitWidth>
 									<Access>RW</Access>
 									<Equation multiplier="0x4000" offset="0x08000000"/>
 								</Bit>
-								<Bit config="3">
-									<Name>WRPB_PEND</Name>
-									<Description>WPR area B &quot;B&quot; end page</Description>
+								<Bit config="5">
+									<Name>WRP1B_PSTRT</Name>
+									<Description>Bank 1 WPR first area &quot;B&quot; start page</Description>
+									<BitOffset>0x0</BitOffset>
+									<BitWidth>0x5</BitWidth>
+									<Access>RW</Access>
+									<Equation multiplier="0x2000" offset="0x08000000"/>
+								</Bit>
+								<Bit config="4">
+									<Name>WRP1B_PEND</Name>
+									<Description>Bank 1 WPR first area &quot;B&quot; end page</Description>
 									<BitOffset>0x10</BitOffset>
-									<BitWidth>0x7</BitWidth>
+									<BitWidth>0x5</BitWidth>
 									<Access>RW</Access>
 									<Equation multiplier="0x4000" offset="0x08000000"/>
+								</Bit>
+								<Bit config="5">
+									<Name>WRP1B_PEND</Name>
+									<Description>Bank 1 WPR first area &quot;B&quot; end page</Description>
+									<BitOffset>0x10</BitOffset>
+									<BitWidth>0x5</BitWidth>
+									<Access>RW</Access>
+									<Equation multiplier="0x2000" offset="0x08000000"/>
 								</Bit>
 								<Bit>
-									<Name>UNLOCK_B</Name>
-									<Description>WPR area B unlock</Description>
+									<Name>UNLOCK_1B</Name>
+									<Description>Bank 1 WPR first area B unlock</Description>
 									<BitOffset>0x1F</BitOffset>
 									<BitWidth>0x1</BitWidth>
 									<Access>RW</Access>
 									<Values>
-										<Val value="0x0">WRPB start and end pages locked</Val>
-										<Val value="0x1">WRPB start and end pages unlocked</Val>
+										<Val value="0x0">WRP1B start and end pages locked</Val>
+										<Val value="0x1">WRP1B start and end pages unlocked</Val>
 									</Values>
 								</Bit>
 							</AssignedBits>
@@ -1192,37 +1974,171 @@
 						<Field>
 							<Parameters address="0x40022060" name="FLASH_SECWM2R1" size="0x4"/>
 							<AssignedBits>
-								<Bit config="3">
+								<Bit config="4">
 									<Name>SECWM2_PSTRT</Name>
 									<Description>Start page of second secure area</Description>
 									<BitOffset>0x0</BitOffset>
-									<BitWidth>0x7</BitWidth>
+									<BitWidth>0x5</BitWidth>
 									<Access>RW</Access>
 									<Equation multiplier="0x4000" offset="0x08000000"/>
 								</Bit>
-								<Bit config="3">
+								<Bit config="5">
 									<Name>SECWM2_PSTRT</Name>
 									<Description>Start page of second secure area</Description>
 									<BitOffset>0x0</BitOffset>
-									<BitWidth>0x7</BitWidth>
+									<BitWidth>0x5</BitWidth>
 									<Access>RW</Access>
 									<Equation multiplier="0x2000" offset="0x08100000"/>
 								</Bit>
-								<Bit config="3">
+								<Bit config="4">
 									<Name>SECWM2_PEND</Name>
 									<Description>End page of second secure area</Description>
 									<BitOffset>0x10</BitOffset>
-									<BitWidth>0x7</BitWidth>
+									<BitWidth>0x5</BitWidth>
 									<Access>RW</Access>
 									<Equation multiplier="0x4000" offset="0x08000000"/>
 								</Bit>
-								<Bit config="3">
+								<Bit config="5">
 									<Name>SECWM2_PEND</Name>
 									<Description>End page of second secure area</Description>
 									<BitOffset>0x10</BitOffset>
-									<BitWidth>0x7</BitWidth>
+									<BitWidth>0x5</BitWidth>
 									<Access>RW</Access>
 									<Equation multiplier="0x2000" offset="0x08100000"/>
+								</Bit>
+							</AssignedBits>
+						</Field>
+						<Field>
+							<Parameters address="0x40022064" name="FLASH_SECWM2R2" size="0x4"/>
+							<AssignedBits>
+									<Bit config="4">
+										<Name>HDP2_PEND</Name>
+										<Description>End page of second hide protection area</Description>
+										<BitOffset>0x10</BitOffset>
+										<BitWidth>0x5</BitWidth>
+										<Access>RW</Access>
+										<Equation multiplier="0x4000" offset="0xC103FFF"/>
+									</Bit>
+									<Bit config="5">
+										<Name>HDP2_PEND</Name>
+										<Description>End page of second hide protection area</Description>
+										<BitOffset>0x10</BitOffset>
+										<BitWidth>0x5</BitWidth>
+										<Access>RW</Access>
+										<Equation multiplier="0x2000" offset="0xC101FFF"/>
+									</Bit>
+									<Bit>
+									<Name>HDP2EN</Name>
+									<Description>Hide protection second area enable</Description>
+									<BitOffset>0x1F</BitOffset>
+									<BitWidth>0x1</BitWidth>
+									<Access>RW</Access>
+									<Values>
+										<Val value="0x0">No HDP area 2</Val>
+										<Val value="0x1">HDP second area is enabled</Val>
+									</Values>
+								</Bit>
+									</AssignedBits>
+						</Field>
+					</Category>
+					</Bank>
+					<Bank interface="JTAG_SWD">
+					<Parameters address="0x40022068" name="Bank 3" size="0x8"/>
+					<Category>
+						<Name>Write Protection 2</Name>
+						<Field>
+							<Parameters address="0x40022068" name="FLASH_WRP2AR" size="0x4"/>
+							<AssignedBits>
+								<Bit config="4">
+									<Name>WRP2A_PSTRT</Name>
+									<Description>Bank 2 WPR first area &quot;A&quot; start page</Description>
+									<BitOffset>0x0</BitOffset>
+									<BitWidth>0x5</BitWidth>
+									<Access>RW</Access>
+									<Equation multiplier="0x4000" offset="0x08100000"/>
+								</Bit>
+								<Bit config="5">
+									<Name>WRP2A_PSTRT</Name>
+									<Description>Bank 2 WPR first area &quot;A&quot; start page</Description>
+									<BitOffset>0x0</BitOffset>
+									<BitWidth>0x5</BitWidth>
+									<Access>RW</Access>
+									<Equation multiplier="0x2000" offset="0x08100000"/>
+								</Bit>
+								<Bit config="4">
+									<Name>WRP2A_PEND</Name>
+									<Description>Bank 2 WPR first area &quot;A&quot; end page</Description>
+									<BitOffset>0x10</BitOffset>
+									<BitWidth>0x5</BitWidth>
+									<Access>RW</Access>
+									<Equation multiplier="0x4000" offset="0x08100000"/>
+								</Bit>
+								<Bit config="5">
+									<Name>WRP2A_PEND</Name>
+									<Description>Bank 2 WPR first area &quot;A&quot; end page</Description>
+									<BitOffset>0x10</BitOffset>
+									<BitWidth>0x5</BitWidth>
+									<Access>RW</Access>
+									<Equation multiplier="0x2000" offset="0x08100000"/>
+								</Bit>
+								<Bit>
+									<Name>UNLOCK_2A</Name>
+									<Description>Bank 2 WPR first area A unlock</Description>
+									<BitOffset>0x1F</BitOffset>
+									<BitWidth>0x1</BitWidth>
+									<Access>RW</Access>
+									<Values>
+										<Val value="0x0">WRP2A start and end pages locked</Val>
+										<Val value="0x1">WRP2A start and end pages unlocked</Val>
+									</Values>
+								</Bit>
+							</AssignedBits>
+						</Field>
+						<Field>
+							<Parameters address="0x4002206C" name="FLASH_WRP2BR" size="0x4"/>
+							<AssignedBits>
+								<Bit config="4">
+									<Name>WRP2B_PSTRT</Name>
+									<Description>Bank 2 WPR first area &quot;B&quot; start page</Description>
+									<BitOffset>0x0</BitOffset>
+									<BitWidth>0x5</BitWidth>
+									<Access>RW</Access>
+									<Equation multiplier="0x4000" offset="0x08100000"/>
+								</Bit>
+								<Bit config="5">
+									<Name>WRP2B_PSTRT</Name>
+									<Description>Bank 2 WPR first area &quot;B&quot; start page</Description>
+									<BitOffset>0x0</BitOffset>
+									<BitWidth>0x5</BitWidth>
+									<Access>RW</Access>
+									<Equation multiplier="0x2000" offset="0x08100000"/>
+								</Bit>
+								<Bit config="4">
+									<Name>WRP2B_PEND</Name>
+									<Description>Bank 2 WPR first area &quot;B&quot; end page</Description>
+									<BitOffset>0x10</BitOffset>
+									<BitWidth>0x5</BitWidth>
+									<Access>RW</Access>
+									<Equation multiplier="0x4000" offset="0x08100000"/>
+								</Bit>
+								<Bit config="5">
+									<Name>WRP2B_PEND</Name>
+									<Description>Bank 2 WPR first area &quot;B&quot; end page</Description>
+									<BitOffset>0x10</BitOffset>
+									<BitWidth>0x5</BitWidth>
+									<Access>RW</Access>
+									<Equation multiplier="0x2000" offset="0x08100000"/>
+								</Bit>
+								<Bit>
+									<Name>UNLOCK_2B</Name>
+									<Description>Bank 2 WPR first area B unlock</Description>
+									<BitOffset>0x1F</BitOffset>
+									<BitWidth>0x1</BitWidth>
+									<Access>RW</Access>
+									<Values>
+										<Val value="0x0">WRP2B start and end pages locked</Val>
+										<Val value="0x1">WRP2B start and end pages unlocked</Val>
+									</Values>
 								</Bit>
 							</AssignedBits>
 						</Field>
@@ -1279,6 +2195,17 @@
 						<Field>
 							<Parameters address="0x40022040" name="FLASH_OPTR" size="0x4"/>
 							<AssignedBits>
+							<Bit>
+									<Name>TZEN</Name>
+									<Description>Global TrustZone security enable. disable this OB by Unchecking TZEN + RDP regression from level 1 to 0 simultaneously</Description>
+									<BitOffset>0x1F</BitOffset>
+									<BitWidth>0x1</BitWidth>
+									<Access>RW</Access>
+									<Values>
+										<Val value="0x0">Global TrustZone security disabled</Val>
+										<Val value="0x1">Global TrustZone security enabled</Val>
+									</Values>
+								</Bit>
 								<Bit>
 									<Name>nRST_STOP</Name>
 									<Description/>
@@ -1378,9 +2305,9 @@
 										<Val value="0x1">256Kb dual-bank Flash with contiguous addresses</Val>
 									</Values>
 								</Bit>
-								<Bit>
+								<!---<Bit>
 									<Name>DBANK</Name>
-									<Description>Dual-bank on 1-Mbyte and 512-Kbyte Flash memory devices</Description>
+									<Description>Dual-bank on 256-Kbyte and 128-Kbyte Flash memory devices</Description>
 									<BitOffset>0x16</BitOffset>
 									<BitWidth>0x1</BitWidth>
 									<Access>RW</Access>
@@ -1388,16 +2315,38 @@
 										<Val value="0x0">Single bank mode with 128 bits data read width</Val>
 										<Val value="0x1">Dual bank mode with 64 bits data</Val>
 									</Values>
+								</Bit>-->
+								<Bit>
+									<Name>BKPRAM_ECC</Name>
+									<Description>SRAM2 parity check enable</Description>
+									<BitOffset>0x16</BitOffset>
+									<BitWidth>0x1</BitWidth>
+									<Access>RW</Access>
+									<Values>
+										<Val value="0x0">Backup RAM ECC check enabled</Val>
+										<Val value="0x1">Backup RAM ECC check disabled</Val>
+									</Values>
 								</Bit>
 								<Bit>
-									<Name>SRAM2_PE</Name>
-									<Description>SRAM2 parity check enable</Description>
+									<Name>SRAM3_ECC</Name>
+									<Description>SRAM3 ECC detection and correction enable</Description>
+									<BitOffset>0x17</BitOffset>
+									<BitWidth>0x1</BitWidth>
+									<Access>RW</Access>
+									<Values>
+										<Val value="0x0">SRAM3 ECC check enabled</Val>
+										<Val value="0x1">SRAM3 ECC check disabled</Val>
+									</Values>
+								</Bit>
+								<Bit>
+									<Name>SRAM2_ECC</Name>
+									<Description>SRAM2 ECC detection and correction enable</Description>
 									<BitOffset>0x18</BitOffset>
 									<BitWidth>0x1</BitWidth>
 									<Access>RW</Access>
 									<Values>
-										<Val value="0x0">SRAM2 parity check enable</Val>
-										<Val value="0x1">SRAM2 parity check disable</Val>
+										<Val value="0x0">SRAM2 ECC check enabled</Val>
+										<Val value="0x1">SRAM2 ECC check disabled</Val>
 									</Values>
 								</Bit>
 								<Bit>
@@ -1442,17 +2391,6 @@
 									<Values>
 										<Val value="0x0">USB power delivery dead-battery enabled/ TDI pull-up deactivated</Val>
 										<Val value="0x1">USB power delivery dead-battery disabled/ TDI pull-up activated</Val>
-									</Values>
-								</Bit>
-								<Bit>
-									<Name>TZEN</Name>
-									<Description>Global TrustZone security enable</Description>
-									<BitOffset>0x1F</BitOffset>
-									<BitWidth>0x1</BitWidth>
-									<Access>RW</Access>
-									<Values>
-										<Val value="0x0">Global TrustZone security disabled</Val>
-										<Val value="0x1">Global TrustZone security enabled</Val>
 									</Values>
 								</Bit>
 								</AssignedBits>
@@ -1525,7 +2463,7 @@
 									<Name>SECWM1_PSTRT</Name>
 									<Description>Start page of first secure area</Description>
 									<BitOffset>0x0</BitOffset>
-									<BitWidth>0x7</BitWidth>
+									<BitWidth>0x5</BitWidth>
 									<Access>RW</Access>
 										<Equation multiplier="0x4000" offset="0x08000000"/>
 								</Bit>
@@ -1533,7 +2471,7 @@
 									<Name>SECWM1_PSTRT</Name>
 									<Description>Start page of first secure area</Description>
 									<BitOffset>0x0</BitOffset>
-									 <BitWidth>0x7</BitWidth>
+									 <BitWidth>0x5</BitWidth>
 									<Access>RW</Access>
 										<Equation multiplier="0x2000" offset="0x08000000"/>
 								</Bit>
@@ -1541,7 +2479,7 @@
 									<Name>SECWM1_PEND</Name>
 									<Description>End page of first secure area</Description>
 									<BitOffset>0x10</BitOffset>
-									<BitWidth>0x7</BitWidth>
+									<BitWidth>0x5</BitWidth>
 									<Access>RW</Access>
 										<Equation multiplier="0x4000" offset="0x08000000"/>
 								</Bit>
@@ -1549,7 +2487,7 @@
 									<Name>SECWM1_PEND</Name>
 									<Description>End page of first secure area</Description>
 									<BitOffset>0x10</BitOffset>
-									<BitWidth>0x7</BitWidth>
+									<BitWidth>0x5</BitWidth>
 									<Access>RW</Access>
 										<Equation multiplier="0x2000" offset="0x08000000"/>
 								</Bit>
@@ -1562,7 +2500,7 @@
 									<Name>HDP1_PEND</Name>
 									<Description>End page of first hide protection area</Description>
 									<BitOffset>0x10</BitOffset>
-									<BitWidth>0x7</BitWidth>
+									<BitWidth>0x5</BitWidth>
 									<Access>RW</Access>
 										<Equation multiplier="0x400" offset="0x08000000"/>
 								</Bit>
@@ -1570,7 +2508,7 @@
 									<Name>HDP1_PEND</Name>
 									<Description>End page of first hide protection area</Description>
 									<BitOffset>0x10</BitOffset>
-									<BitWidth>0x7</BitWidth>
+									<BitWidth>0x5</BitWidth>
 									<Access>RW</Access>
 										<Equation multiplier="0x200" offset="0x08000000"/>
 								</Bit>
@@ -1597,7 +2535,7 @@
 									<Name>WRP1A_PSTRT</Name>
 									<Description>Bank 1 WPR first area &quot;A&quot; start page</Description>
 									<BitOffset>0x0</BitOffset>
-									<BitWidth>0x7</BitWidth>
+									<BitWidth>0x5</BitWidth>
 									<Access>RW</Access>
 										<Equation multiplier="0x4000" offset="0x08000000"/>
 								</Bit>
@@ -1605,7 +2543,7 @@
 									<Name>WRP1A_PSTRT</Name>
 									<Description>Bank 1 WPR first area &quot;A&quot; start page</Description>
 									<BitOffset>0x0</BitOffset>
-									<BitWidth>0x7</BitWidth>
+									<BitWidth>0x5</BitWidth>
 									<Access>RW</Access>
 										<Equation multiplier="0x2000" offset="0x08000000"/>
 								</Bit>
@@ -1613,7 +2551,7 @@
 									<Name>WRP1A_PEND</Name>
 									<Description>Bank 1 WPR first area &quot;A&quot; end page</Description>
 									<BitOffset>0x10</BitOffset>
-									<BitWidth>0x7</BitWidth>
+									<BitWidth>0x5</BitWidth>
 									<Access>RW</Access>
 										<Equation multiplier="0x4000" offset="0x08000000"/>
 								</Bit>
@@ -1621,7 +2559,7 @@
 									<Name>WRP1A_PEND</Name>
 									<Description>Bank 1 WPR first area &quot;A&quot; end page</Description>
 									<BitOffset>0x10</BitOffset>
-									<BitWidth>0x7</BitWidth>
+									<BitWidth>0x5</BitWidth>
 									<Access>RW</Access>
 										<Equation multiplier="0x2000" offset="0x08000000"/>
 								</Bit>
@@ -1645,7 +2583,7 @@
 									<Name>WRP1B_PSTRT</Name>
 									<Description>Bank 1 WPR first area &quot;B&quot; start page</Description>
 									<BitOffset>0x0</BitOffset>
-									<BitWidth>0x7</BitWidth>
+									<BitWidth>0x5</BitWidth>
 									<Access>RW</Access>
 										<Equation multiplier="0x4000" offset="0x08000000"/>
 								</Bit>
@@ -1653,7 +2591,7 @@
 									<Name>WRP1B_PSTRT</Name>
 									<Description>Bank 1 WPR first area &quot;B&quot; start page</Description>
 									<BitOffset>0x0</BitOffset>
-									<BitWidth>0x7</BitWidth>
+									<BitWidth>0x5</BitWidth>
 									<Access>RW</Access>
 										<Equation multiplier="0x2000" offset="0x08000000"/>
 								</Bit>
@@ -1661,7 +2599,7 @@
 									<Name>WRP1B_PEND</Name>
 									<Description>Bank 1 WPR first area &quot;B&quot; end page</Description>
 									<BitOffset>0x10</BitOffset>
-									<BitWidth>0x7</BitWidth>
+									<BitWidth>0x5</BitWidth>
 									<Access>RW</Access>
 										<Equation multiplier="0x4000" offset="0x08000000"/>
 								</Bit>
@@ -1669,7 +2607,7 @@
 									<Name>WRP1B_PEND</Name>
 									<Description>Bank 1 WPR first area &quot;B&quot; end page</Description>
 									<BitOffset>0x10</BitOffset>
-									<BitWidth>0x7</BitWidth>
+									<BitWidth>0x5</BitWidth>
 									<Access>RW</Access>
 										<Equation multiplier="0x2000" offset="0x08000000"/>
 								</Bit>
@@ -1696,7 +2634,7 @@
 									<Name>SECWM2_PSTRT</Name>
 									<Description>Start page of second secure area</Description>
 									<BitOffset>0x0</BitOffset>
-									<BitWidth>0x7</BitWidth>
+									<BitWidth>0x5</BitWidth>
 									<Access>RW</Access>
 									<Equation multiplier="0x4000" offset="0x08000000"/>
 								</Bit>
@@ -1704,7 +2642,7 @@
 									<Name>SECWM2_PSTRT</Name>
 									<Description>Start page of second secure area</Description>
 									<BitOffset>0x0</BitOffset>
-									<BitWidth>0x7</BitWidth>
+									<BitWidth>0x5</BitWidth>
 									<Access>RW</Access>
 										<Equation multiplier="0x2000" offset="0x08100000"/>
 								</Bit>
@@ -1712,7 +2650,7 @@
 									<Name>SECWM2_PEND</Name>
 									 <Description>End page of second secure area</Description>
 									<BitOffset>0x10</BitOffset>
-									<BitWidth>0x7</BitWidth>
+									<BitWidth>0x5</BitWidth>
 									<Access>RW</Access>
 										<Equation multiplier="0x4000" offset="0x08000000"/>
 								</Bit>
@@ -1720,7 +2658,7 @@
 									<Name>SECWM2_PEND</Name>
 									<Description>End page of second secure area</Description>
 									<BitOffset>0x10</BitOffset>
-									<BitWidth>0x7</BitWidth>
+									<BitWidth>0x5</BitWidth>
 									<Access>RW</Access>
 										<Equation multiplier="0x2000" offset="0x08100000"/>
 								</Bit>
@@ -1733,7 +2671,7 @@
 									<Name>HDP2_PEND</Name>
 									<Description>End page of second hide protection area</Description>
 									<BitOffset>0x10</BitOffset>
-									<BitWidth>0x7</BitWidth>
+									<BitWidth>0x5</BitWidth>
 									<Access>RW</Access>
 									<Equation multiplier="0x400" offset="0x08000000"/>
 								</Bit>
@@ -1741,7 +2679,7 @@
 									<Name>HDP2_PEND</Name>
 									<Description>End page of second hide protection area</Description>
 									<BitOffset>0x10</BitOffset>
-									<BitWidth>0x7</BitWidth>
+									<BitWidth>0x5</BitWidth>
 									<Access>RW</Access>
 										<Equation multiplier="0x200" offset="0x08000000"/>
 								</Bit>
@@ -1768,7 +2706,7 @@
 									<Name>WRP2A_PSTRT</Name>
 									<Description>Bank 2 WPR first area &quot;A&quot; start page</Description>
 									<BitOffset>0x0</BitOffset>
-									<BitWidth>0x7</BitWidth>
+									<BitWidth>0x5</BitWidth>
 									<Access>RW</Access>
 										<Equation multiplier="0x4000" offset="0x08000000"/>
 								</Bit>
@@ -1776,7 +2714,7 @@
 										<Name>WRP2A_PSTRT</Name>
 										<Description>Bank 2 WPR first area &quot;A&quot; start page</Description>
 										<BitOffset>0x0</BitOffset>
-										<BitWidth>0x7</BitWidth>
+										<BitWidth>0x5</BitWidth>
 										<Access>RW</Access>
 											<Equation multiplier="0x2000" offset="0x08100000"/>
 								</Bit>
@@ -1784,7 +2722,7 @@
 									<Name>WRP2A_PEND</Name>
 									<Description>Bank 2 WPR first area &quot;A&quot; end page</Description>
 									<BitOffset>0x10</BitOffset>
-									<BitWidth>0x7</BitWidth>
+									<BitWidth>0x5</BitWidth>
 									<Access>RW</Access>
 									<Equation multiplier="0x4000" offset="0x08000000"/>
 								</Bit>
@@ -1792,7 +2730,7 @@
 									<Name>WRP2A_PEND</Name>
 									<Description>Bank 2 WPR first area &quot;A&quot; end page</Description>
 									<BitOffset>0x10</BitOffset>
-									 <BitWidth>0x7</BitWidth>
+									 <BitWidth>0x5</BitWidth>
 									<Access>RW</Access>
 										<Equation multiplier="0x2000" offset="0x08100000"/>
 								</Bit>
@@ -1816,7 +2754,7 @@
 										<Name>WRP2B_PSTRT</Name>
 										<Description>Bank 2 WPR first area &quot;B&quot; start page</Description>
 										<BitOffset>0x0</BitOffset>
-										<BitWidth>0x7</BitWidth>
+										<BitWidth>0x5</BitWidth>
 										<Access>RW</Access>
 											<Equation multiplier="0x4000" offset="0x08000000"/>
 								</Bit>
@@ -1824,7 +2762,7 @@
 									<Name>WRP2B_PSTRT</Name>
 									<Description>Bank 2 WPR first area &quot;B&quot; start page</Description>
 									<BitOffset>0x0</BitOffset>
-									<BitWidth>0x7</BitWidth>
+									<BitWidth>0x5</BitWidth>
 									<Access>RW</Access>
 										<Equation multiplier="0x2000" offset="0x08100000"/>
 								</Bit>
@@ -1832,7 +2770,7 @@
 										<Name>WRP2B_PEND</Name>
 										<Description>Bank 2 WPR first area &quot;B&quot; end page</Description>
 										<BitOffset>0x10</BitOffset>
-										<BitWidth>0x7</BitWidth>
+										<BitWidth>0x5</BitWidth>
 										<Access>RW</Access>
 											<Equation multiplier="0x4000" offset="0x08000000"/>
 								</Bit>
@@ -1840,7 +2778,7 @@
 									<Name>WRP2B_PEND</Name>
 									<Description>Bank 2 WPR first area &quot;B&quot; end page</Description>
 									<BitOffset>0x10</BitOffset>
-									<BitWidth>0x7</BitWidth>
+									<BitWidth>0x5</BitWidth>
 									<Access>RW</Access>
 										<Equation multiplier="0x2000" offset="0x08100000"/>
 								</Bit>

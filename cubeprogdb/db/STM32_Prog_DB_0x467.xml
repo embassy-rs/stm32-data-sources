@@ -6,16 +6,16 @@
 		<Type>MCU</Type>
 		<!-- cortex written in word file +mpu should it be written?? -->
 		<CPU>Cortex-M0+</CPU>
-		<Name>STM32G0B1xx/C1xx</Name>
+		<Name>STM32G0B0xx/B1xx/C1xx</Name>
 		<Series>STM32G0</Series>
 		<Description>ARM 32-bit Cortex-M0+ based device</Description>
 		<Configurations>
 			<!-- JTAG_SWD Interface -->
-			<Interface name="JTAG_SWD"/>
-			<!-- 512B Single Bank-->
+			<Interface name="JTAG_SWD">
+				<!-- 512B Single Bank-->
 				<Configuration number="0x0"> 
 					<DualBank>
-						<ReadRegister address="0x40023C14" mask="0x20000000" value="0x20000000"/>
+						<ReadRegister address="0x40022020" mask="0x20000000" value="0x20000000"/>
 					</DualBank>
 					<FlashSize>
 						<ReadRegister address="0x1FFF75E0" mask="0x0000FFFF" value="200"/>
@@ -24,7 +24,7 @@
 				<!-- 256 Single Bank-->
 				<Configuration number="0x1"> 
 					<DualBank>
-						<ReadRegister address="0x40023C14" mask="0x20000000" value="0x20000000"/>
+						<ReadRegister address="0x40022020" mask="0x20000000" value="0x20000000"/>
 					</DualBank>
 					<FlashSize>
 						<ReadRegister address="0x1FFF75E0" mask="0x0000FFFF" value="100"/>
@@ -33,12 +33,13 @@
 				<!-- 128 Single Bank-->
 				<Configuration number="0x2"> 
 					<DualBank>
-						<ReadRegister address="0x40023C14" mask="0x20000000" value="0x20000000"/>
+						<ReadRegister address="0x40022020" mask="0x20000000" value="0x20000000"/>
 					</DualBank>
 					<FlashSize>
 						<ReadRegister address="0x1FFF75E0" mask="0x0000FFFF" value="80"/>
 					</FlashSize>
 				</Configuration>
+			</Interface>
 			<!-- Bootloader Interface -->
 			<Interface name="Bootloader"/>
 		</Configurations>
@@ -71,6 +72,7 @@
 				<ErasedValue>0xFF</ErasedValue>
 				<Access>RWE</Access>
 				<FlashSize address="0x1FFF75E0" default="0x80000"/>
+				<BootloaderVersion address="0x1FFF9FFE"/>
 					<!-- 512K dual Bank -->
 				<Configuration number="0x0">
 					<Parameters address="0x08000000" name=" 512 KB Embedded Flash" size="0x080000"/>
@@ -342,8 +344,8 @@
 									<BitWidth>0x1</BitWidth>
 									<Access>RW</Access>
 									<Values>
-										<Val value="0x0">SRAM2 parity check enable</Val>
-										<Val value="0x1">SRAM2 parity check disable</Val>
+										<Val value="0x0">SRAM parity check enable</Val>
+										<Val value="0x1">SRAM parity check disable</Val>
 									</Values>
 								</Bit>
 								<Bit>
@@ -827,8 +829,8 @@
 									<BitWidth>0x1</BitWidth>
 									<Access>RW</Access>
 									<Values>
-										<Val value="0x0">SRAM2 parity check enable</Val>
-										<Val value="0x1">SRAM2 parity check disable</Val>
+										<Val value="0x0">SRAM parity check enable</Val>
+										<Val value="0x1">SRAM parity check disable</Val>
 									</Values>
 								</Bit>
 								<Bit>
