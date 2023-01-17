@@ -23,7 +23,7 @@
         <Description>When this parameter is enabled, DHCP (Dynamic Host Configuration Protocol) module is enabled.&lt;br&gt;&lt;b&gt;Dependency&lt;/b&gt;: Use LWIP_DHCP requires both LWIP_UDP and LWIP_IPV4 enabled.</Description>
     </RefParameter>
     <RefParameter Name="ETH_RX_BUFFER_SIZE" Comment="ETH_RX_BUFFER_SIZE (ETH Rx Buffer Size)" Type="Integer" Group="ETH Options" DefaultValue="=ETH:RxBuffLen" TabName="General Settings" Visible="false">
-        <Condition Diagnostic="&lt;b&gt;Dependency&lt;/b&gt;: STM32H7." Expression="STM32H7"/>
+        <Condition Diagnostic="&lt;b&gt;Dependency&lt;/b&gt;: STM32H7, STM32F4 or STM32F7." Expression="STM32H7|STM32F4|STM32F7"/>
         <Description>Ethernet Rx buffer size</Description>
     </RefParameter>
     <RefParameter Name="ETH_RX_BUFFER_SIZE" Comment="ETH_RX_BUFFER_SIZE (ETH Rx Buffer Size)" Type="Integer" Group="ETH Options" DefaultValue="1524" TabName="General Settings" Visible="false">
@@ -69,9 +69,24 @@
         <PossibleValue Comment="CMSIS v1" Value="0"/>
         <Description>This parameter has been introduced by CubeMX and gives CMSIS version used.</Description>
     </RefParameter>
+    <RefParameter Name="RTOS_USE_NEWLIB_REENTRANT" Comment="RTOS_USE_NEWLIB_REENTRANT (RTOS used - 1)" Type="uniqueElementList" Group="RTOS Dependency" DefaultValue="=FREERTOS$context:configUSE_NEWLIB_REENTRANT" TabName="General Settings" Mode="Basic" Visible="true">
+        <Condition Diagnostic="&lt;b&gt;Dependency&lt;/b&gt;: This parameter is linked to FREERTOS API CMSIS version parameter." Expression="!NO_SYS"/>
+        <PossibleValue Comment="Disabled" Value="0"/>
+        <PossibleValue Comment="Enabled" Value="1"/>
+        <Description>This parameter is enabled as soon as FREERTOS is enabled in MiddleWares tree.&lt;br&gt;&lt;b&gt;Warning&lt;/b&gt;: This parameter has been introduced by CubeMX.</Description>
+    </RefParameter>
+    <RefParameter Name="RTOS_USE_NEWLIB_REENTRANT" Comment="RTOS_USE_NEWLIB_REENTRANT (No RTOS - 2)" Type="uniqueElementList" Group="RTOS Dependency" DefaultValue="0" TabName="General Settings" Mode="Basic" Visible="true">
+        <PossibleValue Comment="Disabled" Value="0"/>
+        <Description>This parameter is enabled as soon as FREERTOS is enabled in MiddleWares tree.&lt;br&gt;&lt;b&gt;Warning&lt;/b&gt;: This parameter has been introduced by CubeMX.</Description>
+    </RefParameter>
     <RefParameter Name="PHY Driver" Comment="PHY Driver" Type="string" Group="Platform Settings" DefaultValue="Choose/LAN8742" TabName="General Settings" Mode="Basic" Visible="true">
         <Condition Diagnostic="" Expression="STM32H7"/>
         <PossibleValue Comment="Choose/LAN8742" Value="Choose/LAN8742"/>
+        <Description>&lt;font color=&quot;red&quot;&gt;Platform Settings &lt;b&gt;PHY Driver&lt;/b&gt; must be configured from the LwIP '&lt;b&gt;Platform Settings&lt;/b&gt;' top right tab.&lt;/font&gt;&lt;br&gt;PHY Driver can be set either to Choose or to LAN8742:&lt;br&gt;- &lt;b&gt;Choose&lt;/b&gt;: BSP PHY Driver components provided by ST are not used and up to user to implement his own driver with same architecture and constraints than LAN8742 ; ST specification will be published soon to explain how user can develop his own BSP driver component.&lt;br&gt;- &lt;b&gt;LAN8742&lt;/b&gt;: LAN8742 BSP PHY Driver component is used and STM32CubeMX copies lan8742.c/.h files from ST Firmware Package to the user's project Drivers/BSP/Components directory.&lt;/ul&gt;&lt;br&gt;&lt;i&gt;Note&lt;/i&gt;: BSP components files cannot be updated or they will be overwritten at each project generation.</Description>
+    </RefParameter>
+    <RefParameter Name="PHY Driver" Comment="PHY Driver" Type="string" Group="Platform Settings" DefaultValue="Choose/LAN8742/DP83848" TabName="General Settings" Mode="Basic" Visible="true">
+        <Condition Diagnostic="" Expression="STM32F4|STM32F7"/>
+        <PossibleValue Comment="Choose/LAN8742/DP83848" Value="Choose/LAN8742/DP83848"/>
         <Description>&lt;font color=&quot;red&quot;&gt;Platform Settings &lt;b&gt;PHY Driver&lt;/b&gt; must be configured from the LwIP '&lt;b&gt;Platform Settings&lt;/b&gt;' top right tab.&lt;/font&gt;&lt;br&gt;PHY Driver can be set either to Choose or to LAN8742:&lt;br&gt;- &lt;b&gt;Choose&lt;/b&gt;: BSP PHY Driver components provided by ST are not used and up to user to implement his own driver with same architecture and constraints than LAN8742 ; ST specification will be published soon to explain how user can develop his own BSP driver component.&lt;br&gt;- &lt;b&gt;LAN8742&lt;/b&gt;: LAN8742 BSP PHY Driver component is used and STM32CubeMX copies lan8742.c/.h files from ST Firmware Package to the user's project Drivers/BSP/Components directory.&lt;/ul&gt;&lt;br&gt;&lt;i&gt;Note&lt;/i&gt;: BSP components files cannot be updated or they will be overwritten at each project generation.</Description>
     </RefParameter>
     <RefParameter Name="PHY Driver" Comment="PHY Driver" Type="string" Group="Platform Settings" DefaultValue="Choose/LAN8742" TabName="General Settings" Mode="Basic" Visible="false">
@@ -151,21 +166,21 @@
         <Description>PHY RMII parameter.</Description>
     </RefParameter>
     <RefParameter Name="TX_DESCRIPTOR_ADDRESS" Comment="TX_DESCRIPTOR_ADDRESS (First Tx Descriptor Address)" Type="string" Group="RTOS Settings" DefaultValue="+ETH:TxDescAddress" TabName="General Settings" Mode="Basic" Visible="false">
-        <Condition Diagnostic="&lt;b&gt;Dependency&lt;/b&gt;: STM32H7." Expression="STM32H7"/>
+        <Condition Diagnostic="&lt;b&gt;Dependency&lt;/b&gt;: STM32H7, STM32F4 or STM32F7." Expression="STM32H7|STM32F4|STM32F7"/>
         <Description>First Tx Descriptor Address.</Description>
     </RefParameter>
     <RefParameter Name="TX_DESCRIPTOR_ADDRESS" Comment="TX_DESCRIPTOR_ADDRESS (First Tx Descriptor Address)" Type="string" Group="RTOS Settings" DefaultValue="null" TabName="General Settings" Mode="Basic" Visible="false">
         <Description>First Tx Descriptor Address.</Description>
     </RefParameter>
     <RefParameter Name="RX_DESCRIPTOR_ADDRESS" Comment="RX_DESCRIPTOR_ADDRESS (First Rx Descriptor Address)" Type="string" Group="RTOS Settings" DefaultValue="+ETH:RxDescAddress" TabName="General Settings" Mode="Basic" Visible="false">
-        <Condition Diagnostic="&lt;b&gt;Dependency&lt;/b&gt;: STM32H7." Expression="STM32H7"/>
+        <Condition Diagnostic="&lt;b&gt;Dependency&lt;/b&gt;: STM32H7, STM32F4 or STM32F7." Expression="STM32H7|STM32F4|STM32F7"/>
         <Description>First Rx Descriptor Address.</Description>
     </RefParameter>
     <RefParameter Name="RX_DESCRIPTOR_ADDRESS" Comment="RX_DESCRIPTOR_ADDRESS (First Rx Descriptor Address)" Type="string" Group="RTOS Settings" DefaultValue="null" TabName="General Settings" Mode="Basic" Visible="false">
         <Description>First Rx Descriptor Address.</Description>
     </RefParameter>
     <RefParameter Name="RX_BUFFER_ADDRESS" Comment="RX_BUFFER_ADDRESS (Rx Buffer Address)" Type="string" Group="RTOS Settings" DefaultValue="+ETH:RxBuffAddress" TabName="General Settings" Mode="Basic" Visible="false">
-        <Condition Diagnostic="&lt;b&gt;Dependency&lt;/b&gt;: STM32H7." Expression="STM32H7"/>
+        <Condition Diagnostic="&lt;b&gt;Dependency&lt;/b&gt;: STM32H7, STM32F4 or STM32F7." Expression="STM32H7|STM32F4|STM32F7"/>
         <Description>Rx Buffer Address.</Description>
     </RefParameter>
     <RefParameter Name="RX_BUFFER_ADDRESS" Comment="RX_BUFFER_ADDRESS (Rx Buffer Address)" Type="string" Group="RTOS Settings" DefaultValue="null" TabName="General Settings" Mode="Basic" Visible="false">
@@ -368,7 +383,7 @@
         <Description>Number of concurrently active calls to netifapi functions.</Description>
     </RefParameter>
     <RefParameter Name="LWIP_SUPPORT_CUSTOM_PBUF" Comment="LWIP_SUPPORT_CUSTOM_PBUF (Custom Pbuf)" Type="list" Group="Pbuf Options" DefaultValue="0" TabName="Key Options" Mode="Advanced" Visible="true">
-        <Condition Diagnostic="&lt;b&gt;Dependency&lt;/b&gt;: STM32H7." Expression="STM32H7"/>
+        <Condition Diagnostic="&lt;b&gt;Dependency&lt;/b&gt;: STM32H7 or STM32F4 or STM32F7." Expression="STM32H7|STM32F4|STM32F7"/>
         <PossibleValue Comment="Enabled" Value="1"/>
         <Description>Custom Pbuf parameter.</Description>
     </RefParameter>
@@ -3083,6 +3098,7 @@
         <Parameter Name="WITH_RTOS"/>
         <Parameter Name="WITH_MBEDTLS"/>
         <Parameter Name="CMSIS_VERSION"/>
+        <Parameter Name="RTOS_USE_NEWLIB_REENTRANT"/>
         <Parameter Name="PHY Driver"/>
         <Parameter Name="LWIP_ICMP"/>
         <Parameter Name="LWIP_IGMP"/>
@@ -3570,10 +3586,11 @@
         <Parameter Name="TFTP_DEBUG"/>
         <Parameter Name="LWIP_PROVIDE_ERRNO"/>
         <Parameter Name="LWIP_TESTMODE"/>
-        <BspDependency Name="Driver_PHY" Comment="&lt;html&gt;PHY Driver can be set either to Choose or to LAN8742:&lt;br&gt;&lt;b&gt;Choose&lt;/b&gt;:&lt;br&gt;- BSP PHY Driver components provided by ST are not used and up to user to implement&lt;br&gt; his own driver with same architecture and constraints than LAN8742&lt;br&gt; - ST specification will be published soon to explain how user can develop his own&lt;br&gt; BSP driver component.&lt;br&gt;&lt;b&gt;LAN8742&lt;/b&gt;:&lt;br&gt;- LAN8742 BSP PHY Driver component is used and STM32CubeMX copies lan8742.c/.h files&lt;br&gt; from ST Firmware Package to the user's project Drivers/BSP/Components directory.&lt;/ul&gt;&lt;br&gt;&lt;i&gt;Note&lt;/i&gt;: BSP files cannot be updated or they will be overwritten at each project generation.&lt;/html&gt;" BspIpName="" BspModeName="" Api="BSP_COMPONENT_DRIVER" Component="LAN8742"/>
+        <BspDependency Name="Driver_PHY" Comment="LAN8742" BspIpName="" BspModeName="" Api="BSP_COMPONENT_DRIVER" Component="LAN8742" Semaphore="S_LAN8742"/>
+        <BspDependency Name="Driver_PHY" Comment="DP83848" BspIpName="" BspModeName="" Api="BSP_COMPONENT_DRIVER" Component="DP83848" Semaphore="S_DP83848"/>
     </RefMode>
     <ModeLogicOperator Name="OR">
-        <Mode Name="Enabled" RemoveCondition="STM32H7">
+        <Mode Name="Enabled" RemoveCondition="STM32H7"> <!-- section applicable to F4/F7 not applicable to STM32H7 -->
             <ModeLogicOperator Name="XOR">
                 <Mode Name="Enabled">
                     <SignalLogicalOp Name="AND">
@@ -3582,9 +3599,10 @@
                     <Semaphore>S_LWIP</Semaphore>
                 </Mode>
             </ModeLogicOperator>
+            <Condition Expression="(!S_AzureRTOS)" Diagnostic="Active only when the AzureRTOS (ThreadX,FileX,..) are deactivated."/>
             <Condition Expression="IF(MW_ETH_MW, IF(!S_MBEDTLS | (S_MBEDTLS &amp; S_FREERTOS),1,0),0)" Diagnostic="Active only if: ETH IP configured / FREERTOS is enabled when MBEDTLS is enabled."/>
         </Mode>
-        <Mode Name="Enabled" RemoveCondition="!(STM32H7 &amp; (STM32H745_755|STM32H747_757))">
+        <Mode Name="Enabled" RemoveCondition="!(STM32H7 &amp; (STM32H745_755|STM32H747_757))"> <!-- section applicable only to STM32H745_755|STM32H747_757 -->
             <ModeLogicOperator Name="XOR">
                 <Mode Name="Enabled">
                     <SignalLogicalOp Name="AND">
@@ -3593,9 +3611,10 @@
                     <Semaphore>S_LWIP</Semaphore>
                 </Mode>
             </ModeLogicOperator>
+            <Condition Expression="(!S_AzureRTOS$context)" Diagnostic="Active only when the AzureRTOS (ThreadX,FileX,..) are deactivated."/>
             <Condition Expression="(IF(MW_ETH_MW &amp; ((S_M7_DCACHE_ENABLED &amp; $IpInstance_Cortex_M7) | $IpInstance_Cortex_M4), IF(!S_MBEDTLS | (S_MBEDTLS &amp; S_FREERTOS$context),1,0),0)) &amp; (!S_AzureRTOS$context)" Diagnostic="Active only if: ETH IP configured / FREERTOS is enabled when MBEDTLS is enabled.&lt;br&gt;&lt;font color=&quot;red&quot;&gt;For STM32H7 using Cortex M7, CORTEX_M7 CPU DCache parameter must be Enabled (Configuration tab) to allow LwIP activation."/>
         </Mode>
-        <Mode Name="Enabled" RemoveCondition="!(STM32H7 &amp; !(STM32H745_755|STM32H747_757))">
+        <Mode Name="Enabled" RemoveCondition="!(STM32H7 &amp; !(STM32H745_755|STM32H747_757))"> <!-- section applicable only to H7 not STM32H745_755 or STM32H747_757 -->
             <ModeLogicOperator Name="XOR">
                 <Mode Name="Enabled">
                     <SignalLogicalOp Name="AND">
@@ -3604,6 +3623,7 @@
                     <Semaphore>S_LWIP</Semaphore>
                 </Mode>
             </ModeLogicOperator>
+            <Condition Expression="(!S_AzureRTOS$context)" Diagnostic="Active only when the AzureRTOS (ThreadX,FileX,..) are deactivated."/>
             <Condition Expression="(IF(MW_ETH_MW &amp; S_M7_DCACHE_ENABLED, IF(!S_MBEDTLS | (S_MBEDTLS &amp; S_FREERTOS$context),1,0),0)) &amp; (!S_AzureRTOS$context)" Diagnostic="Active only if: ETH IP configured / FREERTOS is enabled when MBEDTLS is enabled.&lt;br&gt;&lt;font color=&quot;red&quot;&gt;For STM32H7, CORTEX_M7 CPU DCache parameter must be Enabled (Configuration tab) to allow LwIP activation."/>
         </Mode>
     </ModeLogicOperator>

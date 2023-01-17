@@ -131,7 +131,7 @@
         <result>warning.png</result>
     </rule>
     <rule cache="true">
-        <match>STM32MP15.*</match>
+        <match>STM32MP13.*</match>
         <match>root.Direct MDMA Channels Allocation.*</match>
         <diagnostic>Non-secure chained MDMA channels = 16<br></br>Direct MDMA channels = 16 (assignable by the user between secure and non-secure)<br></br>Secure chained MDMA channels = 16</diagnostic>
     </rule>
@@ -185,6 +185,11 @@
     <rule cache="true">
         <match>STM32G4.*</match>
         <match>Mode.PGA Internally Connected</match>
+        <diagnostic>The non-inverting input VINP is connected externally on IO pin.<br></br>The inverting input VINM is connected to the OPAMP output with an internal feedback resistors.<br></br>The OPAMP output VOUT is internally connected to a dedicated ADC channel.<br></br>(ADC channel can be found in the 'Operational amplifier possible connection' table from reference manual).</diagnostic>
+    </rule>
+    <rule cache="true">
+        <match>STM32G4.*</match>
+        <match>Mode.PGA Internally connected_IO</match>
         <diagnostic>The non-inverting input VINP is connected externally on IO pin.<br></br>The inverting input VINM is connected to the OPAMP output with a feedback resistors and external IO on VINM0 for filtering.<br></br>The OPAMP output VOUT is internally connected to a dedicated ADC channel.<br></br>(ADC channel can be found in the 'Operational amplifier possible connection' table from reference manual).</diagnostic>
     </rule>
     <rule cache="true">
@@ -196,6 +201,11 @@
         <match>STM32G4.*</match>
         <match>Mode.PGA Internally connected_IO0_BIAS</match>
         <diagnostic>The non-inverting input VINP is connected externally on IO.<br></br>The inverting input VINM is connected to the OPAMP output with a feedback resistors with VINM0 pin for input or bias.<br></br>The OPAMP output VOUT is internally connected to a dedicated ADC channel.<br></br>(ADC channel can be found in the 'Operational amplifier possible connection' table from reference manual).</diagnostic>
+    </rule>
+    <rule cache="true">
+        <match>STM32G4.*</match>
+        <match>Mode.PGA Internally connected_IO0_IO1_BIAS</match>
+        <diagnostic>The non-inverting input VINP is connected externally on IO.<br></br>The inverting input VINM is connected to the OPAMP output with a feedback resistors, external IO on VINM0 for bias or signal and VINM1 for filtering.<br></br>The OPAMP output VOUT is internally connected to a dedicated ADC channel.<br></br>(ADC channel can be found in the 'Operational amplifier possible connection' table from reference manual).</diagnostic>
     </rule>
     <rule cache="true">
         <match>STM32G4.*</match>
@@ -379,6 +389,11 @@
         <match>Mode.Standalone</match>
         <diagnostic>The non-inverting input VINP is connected externally on IO pin.<br></br>The inverting input VINM is connected to dedicated IO pin.<br></br>The OPAMP output VOUT is connected to a dedicated IO pin.</diagnostic>
     </rule>
+	<rule cache="true">
+        <match>STM32H7.*</match>
+        <match>Mode.Standalone-OUT_HRTIM-INP</match>
+        <diagnostic>The non-inverting input VINP is connected externally on IO pin.<br></br>The inverting input VINM is connected to dedicated IO pin.<br></br>The OPAMP output VOUT is redirected to HRTIM event source (on dedicated IO pin, signal is no more analog but digital).</diagnostic>
+    </rule>
     <rule cache="true">
         <match>STM32H7.*</match>
         <match>Mode.Standalone-DAC_OUT1-INP</match>
@@ -388,6 +403,11 @@
         <match>STM32H7.*</match>
         <match>Mode.Follower</match>
         <diagnostic>The non-inverting input VINP is connected externally on IO pin.<br></br>The inverting input VINM is internally connected to the OPAMP output.<br></br>The OPAMP output VOUT is connected to a dedicated IO pin.</diagnostic>
+    </rule>
+	<rule cache="true">
+        <match>STM32H7.*</match>
+        <match>Mode.Follower-OUT_HRTIM-INP</match>
+        <diagnostic>The non-inverting input VINP is connected externally on IO pin.<br></br>The inverting input VINM is internally connected to the OPAMP output.<br></br>The OPAMP output VOUT is redirected to HRTIM event source (on dedicated IO pin, signal is no more analog but digital).</diagnostic>
     </rule>
     <rule cache="true">
         <match>STM32H7.*</match>
@@ -399,6 +419,11 @@
         <match>Mode.PGA Not Connected</match>
         <diagnostic>The non-inverting input VINP is connected externally on IO pin.<br></br>The inverting input VINM is connected to the OPAMP output with a feedback resistors.<br></br>The OPAMP output VOUT is connected to a dedicated IO pin.</diagnostic>
     </rule>
+	<rule cache="true">
+        <match>STM32H7.*</match>
+        <match>Mode.PGA Not Connected-OUT_HRTIM-INP</match>
+        <diagnostic>The non-inverting input VINP is connected externally on IO pin.<br></br>The inverting input VINM is connected to the OPAMP output with a feedback resistors.<br></br>The OPAMP output VOUT is redirected to HRTIM event source (on dedicated IO pin, signal is no more analog but digital).</diagnostic>
+    </rule>
     <rule cache="true">
         <match>STM32H7.*</match>
         <match>Mode.PGA Not Connected-DAC_OUT1-INP</match>
@@ -409,6 +434,11 @@
         <match>Mode.PGA Connected-INVERTINGINPUT_IO0</match>
         <diagnostic>The non-inverting input VINP is connected externally on IO pin.<br></br>The inverting input VINM is connected to the OPAMP output with a feedback resistors for input.<br></br>The OPAMP output VOUT is connected to a dedicated IO pin.</diagnostic>
     </rule>
+	<rule cache="true">
+        <match>STM32H7.*</match>
+        <match>Mode.PGA Connected-INVERTINGINPUT_IO0-OUT_HRTIM-INP</match>
+        <diagnostic>The non-inverting input VINP is connected externally on IO pin.<br></br>The inverting input VINM is connected to the OPAMP output with a feedback resistors for input.<br></br>The OPAMP output VOUT is redirected to HRTIM event source (on dedicated IO pin, signal is no more analog but digital).</diagnostic>
+    </rule>
     <rule cache="true">
         <match>STM32H7.*</match>
         <match>Mode.PGA Connected-INVERTINGINPUT_IO0-DAC_OUT1-INP</match>
@@ -418,6 +448,11 @@
         <match>STM32H7.*</match>
         <match>Mode.PGA Connected-INVERTINGINPUT_IO0_BIAS</match>
         <diagnostic>The non-inverting input VINP is connected externally on IO pin.<br></br>The inverting input VINM is connected to the OPAMP output with a feedback resistors for input or bias.<br></br>The OPAMP output VOUT is connected to a dedicated IO pin.</diagnostic>
+    </rule>
+	 <rule cache="true">
+        <match>STM32H7.*</match>
+        <match>Mode.PGA Connected-INVERTINGINPUT_IO0_BIAS-OUT_HRTIM-INP</match>
+        <diagnostic>The non-inverting input VINP is connected externally on IO pin.<br></br>The inverting input VINM is connected to the OPAMP output with a feedback resistors for input or bias.<br></br>The OPAMP output VOUT is redirected to HRTIM event source (on dedicated IO pin, signal is no more analog but digital).</diagnostic>
     </rule>
     <rule cache="true">
         <match>STM32H7.*</match>
@@ -474,7 +509,11 @@
         <match>Mode.PGA Connected-INVERTINGINPUT_IO0_IO1_BIAS</match>
         <diagnostic>The non-inverting input VINP is connected externally on IO pin.<br></br>The inverting input VINM is connected to the OPAMP output with a feedback resistors for input or bias for filtering.<br></br>The OPAMP output VOUT is connected to a dedicated IO pin.</diagnostic>
     </rule>
-    
+    <rule cache="true">
+        <match>STM32H7.*</match>
+        <match>Mode.PGA Connected-INVERTINGINPUT_IO0_IO1_BIAS-OUT_HRTIM-INP</match>
+        <diagnostic>The non-inverting input VINP is connected externally on IO pin.<br></br>The inverting input VINM is connected to the OPAMP output with a feedback resistors for input or bias for filtering.<br></br>The OPAMP output VOUT is redirected to HRTIM event source (on dedicated IO pin, signal is no more analog but digital).</diagnostic>
+    </rule>
     <!-- MDF modes BEGIN -->
     <rule cache="true">
         <match>STM32U5.*</match>
@@ -808,8 +847,17 @@
         <match>OUT2 connected to.both external pin and on chip analog peripherals</match>
         <diagnostic>Analog output available not only on OUT2 pin but also for other on-chip peripherals as ADC, OPAMP or COMP to use the DAC output for their needs</diagnostic>
     </rule>
-    
+
     <!-- DAC modes END -->
+
+    <!-- tracker 107772-->
+    <rule cache="false">
+		<condition>FMC_BOOTROM</condition>
+		<match>STM32MP1.*</match>
+		<match>Chip Select.NCE and NCE2</match>
+		<diagnostic>Warning: the ROM code only supports NCE</diagnostic>
+		<result>warning.png</result>
+	</rule>
 
 </rules>
 

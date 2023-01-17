@@ -34,9 +34,10 @@
 		<PossibleValue Comment="1 Line Bidirectionnal" Value="SPI_DIRECTION_1LINE"/>
 	</RefParameter>
 	
-	<RefParameter Comment="Frame Format" DefaultValue="SPI_TIMODE_DISABLE" Group="Basic Parameters" Name="TIMode" Type="list">
+	<!-- <RefParameter Comment="Frame Format" DefaultValue="null" Group="Basic Parameters" Name="TIMode" Type="list">
 		<PossibleValue Comment="Motorola" Value="SPI_TIMODE_DISABLE"/>
-	</RefParameter>
+	</RefParameter> -->
+	<RefParameter Comment="Frame Format" DefaultValue="null" Group="Basic Parameters" Max="1" Min="0" Name="TIMode" Type="integer" Visible="false"/>
 	
 	<RefParameter Comment="Data Size" DefaultValue="SPI_DATASIZE_8BIT" Group="Basic Parameters" Name="DataSize" Type="list">
 		<PossibleValue Comment="8 Bits" Semaphore="$IpInstance_DATASIZE_BYTE" Value="SPI_DATASIZE_8BIT"/>
@@ -67,7 +68,7 @@
 	</RefParameter>
 		
 	<RefParameter Comment="Clock Polarity (CPOL)" DefaultValue="SPI_POLARITY_LOW" Group="Clock Parameters" Name="CLKPolarity" Type="list">
-		<Condition Diagnostic="" Expression="TIMode = SPI_TIMODE_DISABLE"/>
+		<!--Condition Diagnostic="" Expression="TIMode = SPI_TIMODE_DISABLE"/-->
 		<PossibleValue Comment="Low" Value="SPI_POLARITY_LOW"/>
 		<PossibleValue Comment="High" Value="SPI_POLARITY_HIGH"/>
 	</RefParameter>
@@ -75,7 +76,7 @@
 	
 	<RefParameter Comment="Clock Phase (CPHA)" DefaultValue="SPI_PHASE_1EDGE" Group="Clock Parameters" Name="CLKPhase" Type="list">
 		<Description>1 Edge means the first clock transition is the first data capture edge (value 0) AND 2 Edge means the second clock transition is the first data capture edge (value 1)</Description>
-		<Condition Diagnostic="" Expression="TIMode = SPI_TIMODE_DISABLE"/>
+		<!--Condition Diagnostic="" Expression="TIMode = SPI_TIMODE_DISABLE"/-->
 		<PossibleValue Comment="1 Edge" Value="SPI_PHASE_1EDGE"/>
 		<PossibleValue Comment="2 Edge" Value="SPI_PHASE_2EDGE"/>
 	</RefParameter>
@@ -449,10 +450,11 @@
 						<Signal Name="NSS"/>
 					</SignalLogicalOp>
                     <Semaphore>$IpInstance_NSSHARD_Output</Semaphore>
-                    <Condition Diagnostic="$IpInstance must be in Master mode" Expression="$IpInstance_Master"/>
+                    <Condition Diagnostic="$IpInstance must have a master mode selected" Expression="$IpInstance_Master"/>
 				</Mode>
 			</ModeLogicOperator>
-			<Condition Diagnostic="$IpInstance must be have a valid Mode" Expression="$IpInstance"/>
+			<Condition Diagnostic="I2S$IpNumber must be disabled" Expression="!I2S$IpNumber"/>
+			<Condition Diagnostic="$IpInstance must have a mode selected" Expression="$IpInstance"/>
 		</Mode>
 	</ModeLogicOperator>
 	

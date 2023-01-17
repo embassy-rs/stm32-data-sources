@@ -4,6 +4,7 @@
     ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../../../doc/V4/Development/Specifications/db/IP_Modes.xsd"
     xmlns="http://mcd.rou.st.com/modules.php?name=mcu">
     <About>Multi-function Digital Filter</About>
+    <IPDependencies>ADC1,ADC2</IPDependencies>
     
     <!--############################################################################################################-->
     <!--############################################################################################################-->
@@ -28,7 +29,6 @@
     </RefParameter>
     <RefParameter Name="MDF_Instance0" DefaultValue="MDF1_Filter0" Comment="MDF_Instance0" Group="MDFgroup" Type="string" Visible="false"/>
      
-
     <RefParameter Name="MDF_Handle0" DefaultValue="AdfHandle0" Comment="MDF_Handle0" Group="MDFgroup" Type="string" Visible="false">
         <Condition Diagnostic="" Expression="$IpInstance=ADF1"/>
     </RefParameter>
@@ -216,13 +216,33 @@
     <RefParameter Name="MDF_DFLT0_StructureName" DefaultValue="MdfFilterConfig0" Comment="Structure" Type="string" Visible="false"/>
     
     <RefParameter Name="MDF_DFLT0_Data_Source" DefaultValue="" Comment="Data Source" Type="list">
+        <Condition Expression="!($IpInstance=ADF1)&amp;(ADC2_Exist)" Diagnostic=""/>
+        <PossibleValue Value="MDF_DATA_SOURCE_BSMX"     Comment="Data from bitstream matrix" Semaphore="S_MDF_$IpInstance_DFLT0_BSMX_DataSource"
+                       Condition="!(S_MDF_$IpInstance_SITF0)&amp;!(S_MDF_$IpInstance_SITF1)&amp;!(S_MDF_$IpInstance_SITF2)&amp;!(S_MDF_$IpInstance_SITF3)&amp;!(S_MDF_$IpInstance_SITF4)&amp;!(S_MDF_$IpInstance_SITF5)" 
+                       Diagnostic="Activate at least one Serial Interface in one instance"/>
+        <PossibleValue Value="MDF_DATA_SOURCE_ADCITF1"  Comment="Data from ADC interface 1"  
+                       Condition="!(S_ADC1_MDF1_ConversionDataManagement)" 
+                       Diagnostic="Activate MDF mode value in Conversion Data Management Parameter of ADC1 + Desactivate SCD0"/>
+        <PossibleValue Value="MDF_DATA_SOURCE_ADCITF2"  Comment="Data from ADC interface 2"  
+                       Condition="!(S_ADC2_MDF1_ConversionDataManagement)" 
+                       Diagnostic="Activate MDF mode value in Conversion Data Management Parameter of ADC2 + Desactivate SCD0"/>
+        <Description>
+            The source of the digital filter (DFLT) can be selected between the two following:&lt;br&gt;
+            • data coming from the Bitstream matrix (then select which SITF and the front used in the additionnal parameters)&lt;br&gt;
+            • data coming from the ADC interface 1 or 2&lt;br&gt;&lt;br&gt;
+            To use the data source coming from ADC interface 1 or 2, these 3 conditions have to be checked :&lt;br&gt;
+            - 1 : ADC1 (or ADC2) has to be activated with the Conversion Data Management Parameter set to "MDF mode" value  &lt;br&gt;
+            - 2 : the SCD (Short Circuit Detector) mode has to be desactivated &lt;br&gt;
+        </Description>
+    </RefParameter>
+    <RefParameter Name="MDF_DFLT0_Data_Source" DefaultValue="" Comment="Data Source" Type="list">
         <Condition Expression="!($IpInstance=ADF1)" Diagnostic=""/>
         <PossibleValue Value="MDF_DATA_SOURCE_BSMX"     Comment="Data from bitstream matrix" Semaphore="S_MDF_$IpInstance_DFLT0_BSMX_DataSource"
                        Condition="!(S_MDF_$IpInstance_SITF0)&amp;!(S_MDF_$IpInstance_SITF1)&amp;!(S_MDF_$IpInstance_SITF2)&amp;!(S_MDF_$IpInstance_SITF3)&amp;!(S_MDF_$IpInstance_SITF4)&amp;!(S_MDF_$IpInstance_SITF5)" 
                        Diagnostic="Activate at least one Serial Interface in one instance"/>
         <PossibleValue Value="MDF_DATA_SOURCE_ADCITF1"  Comment="Data from ADC interface 1"  
-                       Condition="!(S_ADC1_MDF1_ConversionDataManagement)|(!S_MDF_$IpInstance_CCK0&amp;!S_MDF_$IpInstance_CCK1)" 
-                       Diagnostic="Activate MDF mode value in Conversion Data Management Parameter of ADC1 + Desactivate SCD0 + Activate one Common Clock 1 or 2"/>
+                       Condition="!(S_ADC1_MDF1_ConversionDataManagement)" 
+                       Diagnostic="Activate MDF mode value in Conversion Data Management Parameter of ADC1 + Desactivate SCD0"/>
         <Description>
             The source of the digital filter (DFLT) can be selected between the two following:&lt;br&gt;
             • data coming from the Bitstream matrix (then select which SITF and the front used in the additionnal parameters)&lt;br&gt;
@@ -230,7 +250,6 @@
             To use the data source coming from ADC interface 1, these 3 conditions have to be checked :&lt;br&gt;
             - 1 : ADC1 has to be activated with the Conversion Data Management Parameter set to "MDF mode" value  &lt;br&gt;
             - 2 : the SCD (Short Circuit Detector) mode has to be desactivated &lt;br&gt;
-            - 3 : at least one of the Common Clocks (CCK0 or CCK1) has to be activated.
         </Description>
     </RefParameter>
     <RefParameter Name="MDF_DFLT0_Data_Source" DefaultValue="MDF_DATA_SOURCE_BSMX" Comment="Data Source" Type="list" Visible="false">
@@ -506,7 +525,7 @@
     </RefParameter>
     <RefParameter Name="MDF_DFLT0_TriggerSource" DefaultValue="null" Comment="Trigger Source" Type="string" Visible="false"/>
    
-    <RefParameter Name="MDF_DFLT0_TriggerEdge" DefaultValue="MDF_FILTER_TRIG_RISING_EDGE" Comment="Trigger edgeAA" Type="list">
+    <RefParameter Name="MDF_DFLT0_TriggerEdge" DefaultValue="MDF_FILTER_TRIG_RISING_EDGE" Comment="Trigger edge" Type="list">
         <Condition Expression="!(MDF_DFLT0_AcquisitionMode=MDF_MODE_ASYNC_CONT)&amp;!(MDF_DFLT0_AcquisitionMode=MDF_MODE_ASYNC_SINGLE)" Diagnostic=""/>
         <PossibleValue Value="MDF_FILTER_TRIG_RISING_EDGE" Comment="Rising Edge" Condition="MDF_DFLT0_TriggerSource=MDF_FILTER_TRIG_TRGO" Diagnostic="Rising not available forTRGO"/>
         <PossibleValue Value="MDF_FILTER_TRIG_FALLING_EDGE" Comment="Falling Edge"/>
@@ -804,11 +823,12 @@
     <!--#############################################################################################################-->
     <!--################################## RefParameters for DFLT1 Begin    #########################################-->
     <RefParameter Name="MDF_DFLT1_Data_Source" DefaultValue="" Comment="Data Source" Type="list">
+        <Condition Expression="!(ADC2_Exist)" Diagnostic=""/>
         <PossibleValue Value="MDF_DATA_SOURCE_BSMX"     Comment="Data from bitstream matrix"  Semaphore="S_MDF_$IpInstance_DFLT1_BSMX_DataSource"  Condition="!(S_MDF_$IpInstance_SITF0)&amp;!(S_MDF_$IpInstance_SITF1)&amp;!(S_MDF_$IpInstance_SITF2)&amp;!(S_MDF_$IpInstance_SITF3)&amp;!(S_MDF_$IpInstance_SITF4)&amp;!(S_MDF_$IpInstance_SITF5)" 
                        Diagnostic="Activate at least one Serial Interface in one instance"/>
         <PossibleValue Value="MDF_DATA_SOURCE_ADCITF1"  Comment="Data from ADC interface 1"  
-                       Condition="!(S_ADC1_MDF1_ConversionDataManagement)|(!S_MDF_$IpInstance_CCK0&amp;!S_MDF_$IpInstance_CCK1)" 
-                       Diagnostic="Activate MDF mode value in Conversion Data Management Parameter of ADC1 + Desactivate SCD1 + Activate one Common Clock 1 or 2"/>
+                       Condition="!(S_ADC1_MDF1_ConversionDataManagement)" 
+                       Diagnostic="Activate MDF mode value in Conversion Data Management Parameter of ADC1 + Desactivate SCD1"/>
         <Description>
             The source of the digital filter (DFLT) can be selected between the two following:&lt;br&gt;
             • data coming from the Bitstream matrix (then select which SITF and the front used in the additionnal parameters)&lt;br&gt;
@@ -816,7 +836,25 @@
             To use the data source coming from ADC interface 1, these 3 conditions have to be checked :&lt;br&gt;
             - 1 : ADC1 has to be activated with the Conversion Data Management Parameter set to "MDF mode" value  &lt;br&gt;
             - 2 : the SCD (Short Circuit Detector) mode has to be desactivated &lt;br&gt;
-            - 3 : at least one of the Common Clocks (CCK0 or CCK1) has to be activated.
+        </Description>
+        
+    </RefParameter>
+    <RefParameter Name="MDF_DFLT1_Data_Source" DefaultValue="" Comment="Data Source" Type="list">
+        <PossibleValue Value="MDF_DATA_SOURCE_BSMX"     Comment="Data from bitstream matrix"  Semaphore="S_MDF_$IpInstance_DFLT1_BSMX_DataSource"  Condition="!(S_MDF_$IpInstance_SITF0)&amp;!(S_MDF_$IpInstance_SITF1)&amp;!(S_MDF_$IpInstance_SITF2)&amp;!(S_MDF_$IpInstance_SITF3)&amp;!(S_MDF_$IpInstance_SITF4)&amp;!(S_MDF_$IpInstance_SITF5)" 
+                       Diagnostic="Activate at least one Serial Interface in one instance"/>
+        <PossibleValue Value="MDF_DATA_SOURCE_ADCITF1"  Comment="Data from ADC interface 1"  
+                       Condition="!(S_ADC1_MDF1_ConversionDataManagement)" 
+                       Diagnostic="Activate MDF mode value in Conversion Data Management Parameter of ADC1 + Desactivate SCD1"/>
+        <PossibleValue Value="MDF_DATA_SOURCE_ADCITF2"  Comment="Data from ADC interface 2"  
+                       Condition="!(S_ADC2_MDF1_ConversionDataManagement)" 
+                       Diagnostic="Activate MDF mode value in Conversion Data Management Parameter of ADC2 + Desactivate SCD1"/>
+        <Description>
+            The source of the digital filter (DFLT) can be selected between the two following:&lt;br&gt;
+            • data coming from the Bitstream matrix (then select which SITF and the front used in the additionnal parameters)&lt;br&gt;
+            • data coming from the ADC interface 1 or 2&lt;br&gt;&lt;br&gt;
+            To use the data source coming from ADC interface 1 or 2, these 3 conditions have to be checked :&lt;br&gt;
+            - 1 : ADC1 (or ADC2) has to be activated with the Conversion Data Management Parameter set to "MDF mode" value  &lt;br&gt;
+            - 2 : the SCD (Short Circuit Detector) mode has to be desactivated &lt;br&gt;
         </Description>
         
     </RefParameter>
@@ -1374,11 +1412,12 @@
     <!--#############################################################################################################-->
     <!--################################## RefParameters for DFLT2 Begin    #########################################-->
     <RefParameter Name="MDF_DFLT2_Data_Source" DefaultValue="" Comment="Data Source" Type="list">
+        <Condition Expression="!(ADC2_Exist)" Diagnostic=""/>
         <PossibleValue Value="MDF_DATA_SOURCE_BSMX"     Comment="Data from bitstream matrix" Semaphore="S_MDF_$IpInstance_DFLT2_BSMX_DataSource"   Condition="!(S_MDF_$IpInstance_SITF0)&amp;!(S_MDF_$IpInstance_SITF1)&amp;!(S_MDF_$IpInstance_SITF2)&amp;!(S_MDF_$IpInstance_SITF3)&amp;!(S_MDF_$IpInstance_SITF4)&amp;!(S_MDF_$IpInstance_SITF5)" 
                        Diagnostic="Activate at least one Serial Interface in one instance"/>
         <PossibleValue Value="MDF_DATA_SOURCE_ADCITF1"  Comment="Data from ADC interface 1"  
-                       Condition="!(S_ADC1_MDF1_ConversionDataManagement)|(!S_MDF_$IpInstance_CCK0&amp;!S_MDF_$IpInstance_CCK1)" 
-                       Diagnostic="Activate MDF mode value in Conversion Data Management Parameter of ADC1 + Desactivate SCD2 + Activate one Common Clock 1 or 2"/>
+                       Condition="!(S_ADC1_MDF1_ConversionDataManagement)" 
+                       Diagnostic="Activate MDF mode value in Conversion Data Management Parameter of ADC1 + Desactivate SCD2"/>
         <Description>
             The source of the digital filter (DFLT) can be selected between the two following:&lt;br&gt;
             • data coming from the Bitstream matrix (then select which SITF and the front used in the additionnal parameters)&lt;br&gt;
@@ -1386,7 +1425,24 @@
             To use the data source coming from ADC interface 1, these 3 conditions have to be checked :&lt;br&gt;
             - 1 : ADC1 has to be activated with the Conversion Data Management Parameter set to "MDF mode" value  &lt;br&gt;
             - 2 : the SCD (Short Circuit Detector) mode has to be desactivated &lt;br&gt;
-            - 3 : at least one of the Common Clocks (CCK0 or CCK1) has to be activated.
+        </Description>
+    </RefParameter>
+    <RefParameter Name="MDF_DFLT2_Data_Source" DefaultValue="" Comment="Data Source" Type="list">
+        <PossibleValue Value="MDF_DATA_SOURCE_BSMX"     Comment="Data from bitstream matrix" Semaphore="S_MDF_$IpInstance_DFLT2_BSMX_DataSource"   Condition="!(S_MDF_$IpInstance_SITF0)&amp;!(S_MDF_$IpInstance_SITF1)&amp;!(S_MDF_$IpInstance_SITF2)&amp;!(S_MDF_$IpInstance_SITF3)&amp;!(S_MDF_$IpInstance_SITF4)&amp;!(S_MDF_$IpInstance_SITF5)" 
+                       Diagnostic="Activate at least one Serial Interface in one instance"/>
+        <PossibleValue Value="MDF_DATA_SOURCE_ADCITF1"  Comment="Data from ADC interface 1"  
+                       Condition="!(S_ADC1_MDF1_ConversionDataManagement)" 
+                       Diagnostic="Activate MDF mode value in Conversion Data Management Parameter of ADC1 + Desactivate SCD2"/>
+        <PossibleValue Value="MDF_DATA_SOURCE_ADCITF2"  Comment="Data from ADC interface 2"  
+                       Condition="!(S_ADC2_MDF1_ConversionDataManagement)" 
+                       Diagnostic="Activate MDF mode value in Conversion Data Management Parameter of ADC2 + Desactivate SCD2"/>
+        <Description>
+            The source of the digital filter (DFLT) can be selected between the two following:&lt;br&gt;
+            • data coming from the Bitstream matrix (then select which SITF and the front used in the additionnal parameters)&lt;br&gt;
+            • data coming from the ADC interface 1 or 2&lt;br&gt;&lt;br&gt;
+            To use the data source coming from ADC interface 1 or 2, these 3 conditions have to be checked :&lt;br&gt;
+            - 1 : ADC1 (or ADC2) has to be activated with the Conversion Data Management Parameter set to "MDF mode" value  &lt;br&gt;
+            - 2 : the SCD (Short Circuit Detector) mode has to be desactivated &lt;br&gt;
         </Description>
     </RefParameter>
     <RefParameter Name="MDF_DFLT2_CIC_Mode" DefaultValue="MDF_TWO_FILTERS_MCIC_FASTSINC" Comment="CIC Mode" Type="list">
@@ -1640,6 +1696,17 @@
         <PossibleValue Value="MDF_CLOCK_TRIG_SAD_TRGO"   Comment="SAD TRGO"   Condition="!ADF1_Used"   Diagnostic="ADF1 has to be configured"   Action="Disable"/>
         <Description>
             Digital filter trigger signal selection, select which external signals trigger for the corresponding filter&lt;br&gt;
+            When the trigger source is TRGO, the sensitivity is forced to falling edge.
+        </Description>
+    </RefParameter>
+    <RefParameter Name="MDF_DFLT2_TriggerSource" DefaultValue="null" Comment="Trigger Source" Type="string" Visible="false"/>
+   
+    <RefParameter Name="MDF_DFLT2_TriggerEdge" DefaultValue="MDF_FILTER_TRIG_RISING_EDGE" Comment="Trigger edge" Type="list">
+        <Condition Expression="!(MDF_DFLT2_AcquisitionMode=MDF_MODE_ASYNC_CONT)&amp;!(MDF_DFLT2_AcquisitionMode=MDF_MODE_ASYNC_SINGLE)" Diagnostic=""/>
+        <PossibleValue Value="MDF_FILTER_TRIG_RISING_EDGE" Comment="Rising Edge" Condition="MDF_DFLT2_TriggerSource=MDF_FILTER_TRIG_TRGO" Diagnostic="Rising not available forTRGO"/>
+        <PossibleValue Value="MDF_FILTER_TRIG_FALLING_EDGE" Comment="Falling Edge"/>
+        <Description>
+            Edge to use on the trigger source.&lt;br&gt;
             When the trigger source is TRGO, the sensitivity is forced to falling edge.
         </Description>
     </RefParameter>
@@ -1911,11 +1978,12 @@
     <!--#############################################################################################################-->
     <!--################################## RefParameters for DFLT3 Begin    #########################################-->
     <RefParameter Name="MDF_DFLT3_Data_Source" DefaultValue="" Comment="Data Source" Type="list">
+        <Condition Expression="!(ADC2_Exist)" Diagnostic=""/>
         <PossibleValue Value="MDF_DATA_SOURCE_BSMX"     Comment="Data from bitstream matrix"  Semaphore="S_MDF_$IpInstance_DFLT3_BSMX_DataSource"  Condition="!(S_MDF_$IpInstance_SITF0)&amp;!(S_MDF_$IpInstance_SITF1)&amp;!(S_MDF_$IpInstance_SITF2)&amp;!(S_MDF_$IpInstance_SITF3)&amp;!(S_MDF_$IpInstance_SITF4)&amp;!(S_MDF_$IpInstance_SITF5)" 
                        Diagnostic="Activate at least one Serial Interface in one instance"/>
         <PossibleValue Value="MDF_DATA_SOURCE_ADCITF1"  Comment="Data from ADC interface 1"  
-                       Condition="!(S_ADC1_MDF1_ConversionDataManagement)|S_MDF_$IpInstance_SCD3|(!S_MDF_$IpInstance_CCK0&amp;!S_MDF_$IpInstance_CCK0)" 
-                       Diagnostic="Activate MDF mode value in Conversion Data Management Parameter of ADC1 + Desactivate SCD3 + Activate one Common Clock 1 or 2"/>
+                       Condition="!(S_ADC1_MDF1_ConversionDataManagement)" 
+                       Diagnostic="Activate MDF mode value in Conversion Data Management Parameter of ADC1 + Desactivate SCD3"/>
         <Description>
             The source of the digital filter (DFLT) can be selected between the two following:&lt;br&gt;
             • data coming from the Bitstream matrix (then select which SITF and the front used in the additionnal parameters)&lt;br&gt;
@@ -1923,7 +1991,24 @@
             To use the data source coming from ADC interface 1, these 3 conditions have to be checked :&lt;br&gt;
             - 1 : ADC1 has to be activated with the Conversion Data Management Parameter set to "MDF mode" value  &lt;br&gt;
             - 2 : the SCD (Short Circuit Detector) mode has to be desactivated &lt;br&gt;
-            - 3 : at least one of the Common Clocks (CCK0 or CCK1) has to be activated.
+        </Description>
+    </RefParameter>
+    <RefParameter Name="MDF_DFLT3_Data_Source" DefaultValue="" Comment="Data Source" Type="list">
+        <PossibleValue Value="MDF_DATA_SOURCE_BSMX"     Comment="Data from bitstream matrix"  Semaphore="S_MDF_$IpInstance_DFLT3_BSMX_DataSource"  Condition="!(S_MDF_$IpInstance_SITF0)&amp;!(S_MDF_$IpInstance_SITF1)&amp;!(S_MDF_$IpInstance_SITF2)&amp;!(S_MDF_$IpInstance_SITF3)&amp;!(S_MDF_$IpInstance_SITF4)&amp;!(S_MDF_$IpInstance_SITF5)" 
+                       Diagnostic="Activate at least one Serial Interface in one instance"/>
+        <PossibleValue Value="MDF_DATA_SOURCE_ADCITF1"  Comment="Data from ADC interface 1"  
+                       Condition="!(S_ADC1_MDF1_ConversionDataManagement)" 
+                       Diagnostic="Activate MDF mode value in Conversion Data Management Parameter of ADC1 + Desactivate SCD3"/>
+        <PossibleValue Value="MDF_DATA_SOURCE_ADCITF2"  Comment="Data from ADC interface 2"  
+                       Condition="!(S_ADC2_MDF1_ConversionDataManagement)|S_MDF_$IpInstance_SCD3|(!S_MDF_$IpInstance_CCK0&amp;!S_MDF_$IpInstance_CCK0)" 
+                       Diagnostic="Activate MDF mode value in Conversion Data Management Parameter of ADC2 + Desactivate SCD3"/>
+        <Description>
+            The source of the digital filter (DFLT) can be selected between the two following:&lt;br&gt;
+            • data coming from the Bitstream matrix (then select which SITF and the front used in the additionnal parameters)&lt;br&gt;
+            • data coming from the ADC interface 1 or 2&lt;br&gt;&lt;br&gt;
+            To use the data source coming from ADC interface 1 or 2, these 3 conditions have to be checked :&lt;br&gt;
+            - 1 : ADC1 (or ADC2) has to be activated with the Conversion Data Management Parameter set to "MDF mode" value  &lt;br&gt;
+            - 2 : the SCD (Short Circuit Detector) mode has to be desactivated &lt;br&gt;
         </Description>
     </RefParameter>
     <RefParameter Name="MDF_DFLT3_CIC_Mode" DefaultValue="MDF_TWO_FILTERS_MCIC_FASTSINC" Comment="CIC Mode" Type="list">
@@ -2459,11 +2544,12 @@
     <!--#############################################################################################################-->
     <!--################################## RefParameters for DFLT4 Begin    #########################################-->
     <RefParameter Name="MDF_DFLT4_Data_Source" DefaultValue="" Comment="Data Source" Type="list">
+        <Condition Expression="!(ADC2_Exist)" Diagnostic=""/>
         <PossibleValue Value="MDF_DATA_SOURCE_BSMX"     Comment="Data from bitstream matrix"   Semaphore="S_MDF_$IpInstance_DFLT4_BSMX_DataSource"  Condition="!(S_MDF_$IpInstance_SITF0)&amp;!(S_MDF_$IpInstance_SITF1)&amp;!(S_MDF_$IpInstance_SITF2)&amp;!(S_MDF_$IpInstance_SITF3)&amp;!(S_MDF_$IpInstance_SITF4)&amp;!(S_MDF_$IpInstance_SITF5)" 
                        Diagnostic="Activate at least one Serial Interface in one instance"/>
         <PossibleValue Value="MDF_DATA_SOURCE_ADCITF1"  Comment="Data from ADC interface 1" 
-                       Condition="!(S_ADC1_MDF1_ConversionDataManagement)|(!S_MDF_$IpInstance_CCK0&amp;!S_MDF_$IpInstance_CCK1)" 
-                       Diagnostic="Activate MDF mode value in Conversion Data Management Parameter of ADC1 + Desactivate SCD4 + Activate one Common Clock 1 or 2"/>
+                       Condition="!(S_ADC1_MDF1_ConversionDataManagement)" 
+                       Diagnostic="Activate MDF mode value in Conversion Data Management Parameter of ADC1 + Desactivate SCD4"/>
         <Description>
             The source of the digital filter (DFLT) can be selected between the two following:&lt;br&gt;
             • data coming from the Bitstream matrix (then select which SITF and the front used in the additionnal parameters)&lt;br&gt;
@@ -2471,7 +2557,24 @@
             To use the data source coming from ADC interface 1, these 3 conditions have to be checked :&lt;br&gt;
             - 1 : ADC1 has to be activated with the Conversion Data Management Parameter set to "MDF mode" value  &lt;br&gt;
             - 2 : the SCD (Short Circuit Detector) mode has to be desactivated &lt;br&gt;
-            - 3 : at least one of the Common Clocks (CCK0 or CCK1) has to be activated.
+        </Description>
+    </RefParameter>
+    <RefParameter Name="MDF_DFLT4_Data_Source" DefaultValue="" Comment="Data Source" Type="list">
+        <PossibleValue Value="MDF_DATA_SOURCE_BSMX"     Comment="Data from bitstream matrix"   Semaphore="S_MDF_$IpInstance_DFLT4_BSMX_DataSource"  Condition="!(S_MDF_$IpInstance_SITF0)&amp;!(S_MDF_$IpInstance_SITF1)&amp;!(S_MDF_$IpInstance_SITF2)&amp;!(S_MDF_$IpInstance_SITF3)&amp;!(S_MDF_$IpInstance_SITF4)&amp;!(S_MDF_$IpInstance_SITF5)" 
+                       Diagnostic="Activate at least one Serial Interface in one instance"/>
+        <PossibleValue Value="MDF_DATA_SOURCE_ADCITF1"  Comment="Data from ADC interface 1" 
+                       Condition="!(S_ADC1_MDF1_ConversionDataManagement)" 
+                       Diagnostic="Activate MDF mode value in Conversion Data Management Parameter of ADC1 + Desactivate SCD4"/>
+        <PossibleValue Value="MDF_DATA_SOURCE_ADCITF2"  Comment="Data from ADC interface 2" 
+                       Condition="!(S_ADC2_MDF1_ConversionDataManagement)" 
+                       Diagnostic="Activate MDF mode value in Conversion Data Management Parameter of ADC2 + Desactivate SCD4"/>
+        <Description>
+            The source of the digital filter (DFLT) can be selected between the two following:&lt;br&gt;
+            • data coming from the Bitstream matrix (then select which SITF and the front used in the additionnal parameters)&lt;br&gt;
+            • data coming from the ADC interface 1 or 2&lt;br&gt;&lt;br&gt;
+            To use the data source coming from ADC interface 1 or 2, these 3 conditions have to be checked :&lt;br&gt;
+            - 1 : ADC1 (or ADC2) has to be activated with the Conversion Data Management Parameter set to "MDF mode" value  &lt;br&gt;
+            - 2 : the SCD (Short Circuit Detector) mode has to be desactivated &lt;br&gt;
         </Description>
     </RefParameter>
     <RefParameter Name="MDF_DFLT4_CIC_Mode" DefaultValue="MDF_TWO_FILTERS_MCIC_FASTSINC" Comment="CIC Mode" Type="list">
@@ -3006,11 +3109,12 @@
     <!--#############################################################################################################-->
     <!--################################## RefParameters for DFLT5 Begin    #########################################-->
     <RefParameter Name="MDF_DFLT5_Data_Source" DefaultValue="" Comment="Data Source" Type="list">
+        <Condition Expression="!(ADC2_Exist)" Diagnostic=""/>
         <PossibleValue Value="MDF_DATA_SOURCE_BSMX"     Comment="Data from bitstream matrix"  Semaphore="S_MDF_$IpInstance_DFLT5_BSMX_DataSource"   Condition="!(S_MDF_$IpInstance_SITF0)&amp;!(S_MDF_$IpInstance_SITF1)&amp;!(S_MDF_$IpInstance_SITF2)&amp;!(S_MDF_$IpInstance_SITF3)&amp;!(S_MDF_$IpInstance_SITF4)&amp;!(S_MDF_$IpInstance_SITF5)" 
                        Diagnostic="Activate at least one Serial Interface in one instance"/>
         <PossibleValue Value="MDF_DATA_SOURCE_ADCITF1"  Comment="Data from ADC interface 1" 
-                       Condition="!(S_ADC1_MDF1_ConversionDataManagement)|(!S_MDF_$IpInstance_CCK0&amp;!S_MDF_$IpInstance_CCK1)" 
-                       Diagnostic="Activate MDF mode value in Conversion Data Management Parameter of ADC1 + Desactivate SCD5 + Activate one Common Clock 1 or 2"/>
+                       Condition="!(S_ADC1_MDF1_ConversionDataManagement)" 
+                       Diagnostic="Activate MDF mode value in Conversion Data Management Parameter of ADC1 + Desactivate SCD5"/>
         <Description>
             The source of the digital filter (DFLT) can be selected between the two following:&lt;br&gt;
             • data coming from the Bitstream matrix (then select which SITF and the front used in the additionnal parameters)&lt;br&gt;
@@ -3018,7 +3122,24 @@
             To use the data source coming from ADC interface 1, these 3 conditions have to be checked :&lt;br&gt;
             - 1 : ADC1 has to be activated with the Conversion Data Management Parameter set to "MDF mode" value  &lt;br&gt;
             - 2 : the SCD (Short Circuit Detector) mode has to be desactivated &lt;br&gt;
-            - 3 : at least one of the Common Clocks (CCK0 or CCK1) has to be activated.
+        </Description>
+    </RefParameter>
+    <RefParameter Name="MDF_DFLT5_Data_Source" DefaultValue="" Comment="Data Source" Type="list">
+        <PossibleValue Value="MDF_DATA_SOURCE_BSMX"     Comment="Data from bitstream matrix"  Semaphore="S_MDF_$IpInstance_DFLT5_BSMX_DataSource"   Condition="!(S_MDF_$IpInstance_SITF0)&amp;!(S_MDF_$IpInstance_SITF1)&amp;!(S_MDF_$IpInstance_SITF2)&amp;!(S_MDF_$IpInstance_SITF3)&amp;!(S_MDF_$IpInstance_SITF4)&amp;!(S_MDF_$IpInstance_SITF5)" 
+                       Diagnostic="Activate at least one Serial Interface in one instance"/>
+        <PossibleValue Value="MDF_DATA_SOURCE_ADCITF1"  Comment="Data from ADC interface 1" 
+                       Condition="!(S_ADC1_MDF1_ConversionDataManagement)" 
+                       Diagnostic="Activate MDF mode value in Conversion Data Management Parameter of ADC1 + Desactivate SCD5"/>
+        <PossibleValue Value="MDF_DATA_SOURCE_ADCITF2"  Comment="Data from ADC interface 2" 
+                       Condition="!(S_ADC2_MDF1_ConversionDataManagement)" 
+                       Diagnostic="Activate MDF mode value in Conversion Data Management Parameter of ADC2 + Desactivate SCD5"/>
+        <Description>
+            The source of the digital filter (DFLT) can be selected between the two following:&lt;br&gt;
+            • data coming from the Bitstream matrix (then select which SITF and the front used in the additionnal parameters)&lt;br&gt;
+            • data coming from the ADC interface 1 or 2&lt;br&gt;&lt;br&gt;
+            To use the data source coming from ADC interface 1 or 2, these 3 conditions have to be checked :&lt;br&gt;
+            - 1 : ADC1 (or ADC2) has to be activated with the Conversion Data Management Parameter set to "MDF mode" value  &lt;br&gt;
+            - 2 : the SCD (Short Circuit Detector) mode has to be desactivated &lt;br&gt;
         </Description>
     </RefParameter>
     <RefParameter Name="MDF_DFLT5_CIC_Mode" DefaultValue="MDF_TWO_FILTERS_MCIC_FASTSINC" Comment="CIC Mode" Type="list">
@@ -3493,7 +3614,7 @@
             Select which common clocks have to be defined as output clocks
         </Description>
     </RefParameter>
-    <RefParameter Name="MDF_COMPARAM_Pins" DefaultValue="__NULL" Comment="Output Clock Pin" Group="Output Clock" Type="string" Visible="false"/>
+    <RefParameter Name="MDF_COMPARAM_Pins" DefaultValue="null" Comment="Output Clock Pin" Group="Output Clock" Type="string" Visible="false"/>
      
     <RefParameter Name="MDF_COMPARAM_Divider" DefaultValue="1" Comment="Output clock divider" Group="Output Clock" Type="integer" Min="1" Max="16">
         <Condition Expression="MDF_COMPARAM_ActivationOutputClock=ENABLE" Diagnostic=""/>
@@ -3502,7 +3623,7 @@
             The input clock of this divider is the clock provided to the SITF (see Processing clock divider parameter)
         </Description>
     </RefParameter>
-    <RefParameter Name="MDF_COMPARAM_Divider" DefaultValue="__NULL" Comment="Output clock divider" Group="Output Clock" Type="string" Min="1" Max="16" Visible="false"/>
+    <RefParameter Name="MDF_COMPARAM_Divider" DefaultValue="null" Comment="Output clock divider" Group="Output Clock" Type="string" Min="1" Max="16" Visible="false"/>
     
     <RefParameter Name="MDF_COMPARAM_ActivationClockTrigger" DefaultValue="DISABLE" Comment="Output Clock trigger Activation" Type="list" >
         <Condition Expression="MDF_COMPARAM_ActivationOutputClock=ENABLE" Diagnostic=""/>
@@ -3513,7 +3634,7 @@
             This feature can be helpful to synchronize the clock generation to a timer event.
         </Description>
     </RefParameter>
-    <RefParameter Name="MDF_COMPARAM_ActivationClockTrigger" DefaultValue="__NULL" Comment="Output Clock Trigger Activation" Type="string" Visible="false"/>
+    <RefParameter Name="MDF_COMPARAM_ActivationClockTrigger" DefaultValue="null" Comment="Output Clock Trigger Activation" Type="string" Visible="false"/>
     
     <RefParameter Name="MDF_COMPARAM_Clock_Source" DefaultValue="MDF_CLOCK_TRIG_TRGO" Comment="Trigger Source" Type="list" >
         <Condition Expression="($IpInstance=ADF1)&amp;(MDF_COMPARAM_ActivationClockTrigger=ENABLE)" Diagnostic=""/>
@@ -3548,7 +3669,7 @@
             When the trigger source is TRGO, the sensitivity is forced to falling edge.
         </Description>
     </RefParameter>
-    <RefParameter Name="MDF_COMPARAM_Clock_Source" DefaultValue="__NULL" Comment="Trigger Source" Group="Clock Trigger" Type="string" Visible="false"/>
+    <RefParameter Name="MDF_COMPARAM_Clock_Source" DefaultValue="null" Comment="Trigger Source" Group="Clock Trigger" Type="string" Visible="false"/>
     
     <RefParameter Name="MDF_COMPARAM_Clock_Edge" DefaultValue="MDF_CLOCK_TRIG_RISING_EDGE" Comment="Trigger Edge" Type="list" >
         <Condition Expression="MDF_COMPARAM_ActivationClockTrigger=ENABLE" Diagnostic=""/>
@@ -3559,7 +3680,7 @@
             When the trigger source is TRGO, the sensitivity is forced to falling edge.
         </Description>
     </RefParameter>
-    <RefParameter Name="MDF_COMPARAM_Clock_Edge" DefaultValue="__NULL" Comment="Trigger Edge" Type="string" Visible="false"/>
+    <RefParameter Name="MDF_COMPARAM_Clock_Edge" DefaultValue="null" Comment="Trigger Edge" Type="string" Visible="false"/>
 
     <!--############################################################################################################-->
     <!--###################################### RefParameters control              ##################################-->

@@ -91,7 +91,7 @@
 
 	<RefParameter Comment="Baud Rate" DefaultValue="8000000" Group="Clock Parameters" Max="75000000" Min="0" Name="CalculateBaudRate" Type="string">
 		<Description>Calculated Baudrate value based on SPI Clock source and Prescaler</Description>
-		<Condition Diagnostic="" Expression="$IpInstance_Master &amp; (DIE468 | DIE469)"/>
+		<Condition Diagnostic="" Expression="$IpInstance_Master &amp; (DIE468 | DIE469 | DIE479)"/>
 	</RefParameter>
 
 	<RefParameter Comment="Baud Rate" DefaultValue="8000000" Group="Clock Parameters" Max="40000000" Min="0" Name="CalculateBaudRate" Type="string">
@@ -101,7 +101,7 @@
 
 	<RefParameter Comment="Baud Rate" DefaultValue="8000000" Group="Clock Parameters" Max="41000000" Min="0" Name="CalculateBaudRate" Type="string">
 		<Description>Calculated Baudrate value based on SPI Clock source and Prescaler</Description>
-		<Condition Diagnostic="" Expression="$IpInstance_Slave &amp; (DIE468 | DIE469)"/>
+		<Condition Diagnostic="" Expression="$IpInstance_Slave &amp; (DIE468 | DIE469 | DIE479) &amp; (TIMode = SPI_TIMODE_ENABLE)"/>
 	</RefParameter>
 
 	<RefParameter Comment="Baud Rate" DefaultValue="8000000" Group="Clock Parameters" Max="24000000" Min="0" Name="CalculateBaudRate" Type="string">
@@ -533,10 +533,11 @@
 						<Signal Name="NSS"/>
 					</SignalLogicalOp>
                     <Semaphore>$IpInstance_NSSHARD_Output</Semaphore>
-                    <Condition Diagnostic="$IpInstance must be in Master mode" Expression="$IpInstance_Master"/>
+                    <Condition Diagnostic="$IpInstance must have a master mode selected" Expression="$IpInstance_Master"/>
 				</Mode>
 			</ModeLogicOperator>
-			<Condition Diagnostic="" Expression="$IpInstance"/>
+			<Condition Diagnostic="I2S$IpNumber must be disabled" Expression="!I2S$IpNumber"/>
+			<Condition Diagnostic="$IpInstance must have a mode selected" Expression="$IpInstance"/>
 		</Mode>
 	</ModeLogicOperator>
         <Semaphore>$IpInstanceUsed_ForRCC</Semaphore>

@@ -9,7 +9,61 @@
     </RefConfig>
 
     <RefConfig Name="ADC_RegularConfig" Comment="Common config">
-        <IFCondition Expression="$Index=1 | $Index=3">
+        <IFCondition Expression="1=1">
+            <IFCondition Expression="(DIE483) &amp; $Index=3">
+
+                <CallLibMethod Name="LL_ADC_Init">
+                    <MethodArg Name="ADCx" ParameterName="Instance" />
+                    <MethodArg Name="Resolution" ParameterName="ResolutionADC3" />
+                    <MethodArg Name="LowPowerMode" ParameterName="LowPowerAutoWait" />
+                </CallLibMethod>
+            </IFCondition>
+
+            <IFCondition Expression="(DIE483) &amp; ($Index=1|$Index=2)">
+                <CallLibMethod Name="LL_ADC_Init">
+                    <MethodArg Name="ADCx" ParameterName="Instance" />
+                    <MethodArg Name="Resolution" ParameterName="Resolution" />
+                    <MethodArg Name="LowPowerMode" ParameterName="LowPowerAutoWait" />
+                </CallLibMethod>
+            </IFCondition>
+            <IFCondition Expression="(DIE480|DIE450)">
+                <CallLibMethod Name="LL_ADC_Init">
+                    <MethodArg Name="ADCx" ParameterName="Instance" />
+                    <MethodArg Name="Resolution" ParameterName="Resolution" />
+                    <MethodArg Name="LowPowerMode" ParameterName="LowPowerAutoWait" />
+                </CallLibMethod>
+            </IFCondition>
+        </IFCondition>
+           
+        <IFCondition Expression="1=1">
+           <CallLibMethod Name="LL_ADC_REG_Init">
+            <MethodArg Name="ADCx" ParameterName="Instance" />
+            <MethodArg Name="TriggerSource" ParameterName="ExternalTrigConv" />
+            <MethodArg Name="SequencerLength" ParameterName="NbrOfConversion" />
+            <MethodArg Name="SequencerDiscont" ParameterName="DiscontinuousConvMode" />
+            <MethodArg Name="ContinuousMode" ParameterName="ContinuousConvMode" />
+            <MethodArg Name="DMATransfer" ParameterName="DMAContinuousRequestsForConfigFile" />
+            <MethodArg Name="Overrun" ParameterName="Overrun" />
+        </CallLibMethod>
+           
+        </IFCondition>
+        
+        <IFCondition Expression="(DIE483) &amp; $Index=3">
+
+                <CallLibMethod Name="LL_ADC_CommonInit">
+                <MethodArg Name="ADCxy_COMMON">
+                    <CallLibMethod Name="__LL_ADC_COMMON_INSTANCE">
+                        <MethodArg Name="ADCx" ParameterName="Instance" />
+                    </CallLibMethod>
+                </MethodArg>
+                <MethodArg Name="CommonClock" ParameterName="ClockPrescalerADC3" />
+                <MethodArg Name="Multimode" ParameterName="Mode" />
+                <MethodArg Name="MultiDMATransfer" ParameterName="DMAContinuousRequests,DMAAccessMode" />
+                <MethodArg Name="MultiTwoSamplingDelay" ParameterName="TwoSamplingDelay" />
+            </CallLibMethod>
+            </IFCondition>
+         
+        <IFCondition Expression="  ($Index=1 | $Index=3 &amp; DIE450)|($Index=1 | $Index=3 &amp; DIE480)|((DIE483) &amp;($IpNumber=1))">
             <CallLibMethod Name="LL_ADC_CommonInit">
                 <MethodArg Name="ADCxy_COMMON">
                     <CallLibMethod Name="__LL_ADC_COMMON_INSTANCE">
@@ -33,20 +87,7 @@
                 <MethodArg Name="CommonClock" ParameterName="ClockPrescaler" />
             </CallLibMethod>
         </IFCondition>
-        <CallLibMethod Name="LL_ADC_Init">
-            <MethodArg Name="ADCx" ParameterName="Instance" />
-            <MethodArg Name="Resolution" ParameterName="Resolution" />
-            <MethodArg Name="LowPowerMode" ParameterName="LowPowerAutoWait" />
-        </CallLibMethod>
-        <CallLibMethod Name="LL_ADC_REG_Init">
-            <MethodArg Name="ADCx" ParameterName="Instance" />
-            <MethodArg Name="TriggerSource" ParameterName="ExternalTrigConv" />
-            <MethodArg Name="SequencerLength" ParameterName="NbrOfConversion" />
-            <MethodArg Name="SequencerDiscont" ParameterName="DiscontinuousConvMode" />
-            <MethodArg Name="ContinuousMode" ParameterName="ContinuousConvMode" />
-            <MethodArg Name="DMATransfer" ParameterName="DMAContinuousRequestsForConfigFile" />
-            <MethodArg Name="Overrun" ParameterName="Overrun" />
-        </CallLibMethod>
+
         <CallLibMethod Name="LL_ADC_SetGainCompensation">
             <MethodArg Name="ADCx" ParameterName="Instance" />
             <MethodArg Name="GainCompensation" ParameterName="GainCompensation" />
@@ -75,8 +116,7 @@
             
             <CallLibMethod Name="LL_ADC_SetOverSamplingScope">
                 <MethodArg Name="ADCx" ParameterName="Instance" />
-                <MethodArg Name="OvsScope"
-                           ParameterName="OversamplingMode,EnableInjectedOversampling,OversamplingStopReset" />
+                <MethodArg Name="OvsScope" ParameterName="OversamplingMode,EnableInjectedOversampling,OversamplingStopReset" />
             </CallLibMethod>
 
             <CallLibMethod Name="LL_ADC_ConfigOverSamplingRatioShift">
@@ -150,7 +190,7 @@
   #n#t/*       CPU processing cycles (depends on compilation optimization).     */
   #n#t/* Note: If system core clock frequency is below 200kHz, wait time        */
   #n#t/*       is only a few CPU processing cycles.                             */
-  #n#tuint32_t wait_loop_index;                  
+  #n#t__IO uint32_t wait_loop_index;                  
   #n#twait_loop_index = ((LL_ADC_DELAY_INTERNAL_REGUL_STAB_US * (SystemCoreClock / (100000 * 2))) / 10);
   #n#twhile(wait_loop_index != 0)
   #n#t{
@@ -174,7 +214,7 @@
   #n#t/*       CPU processing cycles (depends on compilation optimization).     */
   #n#t/* Note: If system core clock frequency is below 200kHz, wait time        */
   #n#t/*       is only a few CPU processing cycles.                             */
-  #n#tuint32_t wait_loop_index;                  
+  #n#t__IO uint32_t wait_loop_index;                  
   #n#twait_loop_index = ((LL_ADC_DELAY_INTERNAL_REGUL_STAB_US * (SystemCoreClock / (100000 * 2))) / 10);
   #n#twhile(wait_loop_index != 0)
   #n#t{
@@ -198,7 +238,7 @@
   #n#t/*       CPU processing cycles (depends on compilation optimization).     */
   #n#t/* Note: If system core clock frequency is below 200kHz, wait time        */
   #n#t/*       is only a few CPU processing cycles.                             */
-  #n#tuint32_t wait_loop_index;                  
+  #n#t__IO uint32_t wait_loop_index;                  
   #n#twait_loop_index = ((LL_ADC_DELAY_INTERNAL_REGUL_STAB_US * (SystemCoreClock / (100000 * 2))) / 10);
   #n#twhile(wait_loop_index != 0)
   #n#t{
@@ -262,19 +302,26 @@
                 <MethodArg Name="Offsety" ParameterName="OffsetNumber" />
                 <MethodArg Name="OffsetSaturation" ParameterName="OffsetSaturation" />
             </CallLibMethod>
+            <CallLibMethod Name="LL_ADC_SetOffsetSignedSaturation">
+                <MethodArg Name="ADCx" ParameterName="Instance" />
+                <MethodArg Name="Offsety" ParameterName="OffsetNumber" />
+                <MethodArg Name="OffsetSignedSaturation" ParameterName="OffsetSignedSaturation" />
+            </CallLibMethod>
+               <CallLibMethod Name="LL_ADC_SetDataRightShift">
+                <MethodArg Name="ADCx" ParameterName="Instance" />
+                <MethodArg Name="Offsety" ParameterName="OffsetNumber" />
+                <MethodArg Name="RigthShift" ParameterName="OffsetRightShift" />
+            </CallLibMethod>
         </IFCondition>
         <!-- PathInternal Depend on selected channel -->
-        <IFCondition
-            Expression="(Channel = ADC_CHANNEL_TEMPSENSOR) | (Channel = ADC_CHANNEL_VREFINT) | (Channel = ADC_CHANNEL_VBAT)">
             <CallLibMethod Name="LL_ADC_SetCommonPathInternalCh">
                 <MethodArg Name="ADCxy_COMMON">
                     <CallLibMethod Name="__LL_ADC_COMMON_INSTANCE">
                         <MethodArg Name="ADCx" ParameterName="Instance" />
                     </CallLibMethod>
                 </MethodArg>
-                <MethodArg Name="Channel" ParameterName="InjectedChannel" />
+                <MethodArg Name="PathInternal" ParameterName="ChannelVREF|ChannelTS|ChannelVBAT" />
             </CallLibMethod>
-        </IFCondition>
     </RefConfig>
 
     <RefConfig Name="ADC_InjectedChannelConfig" Comment="Configure Injected Channel">
@@ -329,19 +376,27 @@
                 <MethodArg Name="Offsety" ParameterName="InjectedOffsetNumber" />
                 <MethodArg Name="OffsetSaturation" ParameterName="InjectedOffsetSaturation" />
             </CallLibMethod>
+            <CallLibMethod Name="LL_ADC_SetOffsetSignedSaturation">
+                <MethodArg Name="ADCx" ParameterName="Instance" />
+                <MethodArg Name="Offsety" ParameterName="InjectedOffsetNumber" />
+                <MethodArg Name="OffsetSignedSaturation" ParameterName="InjectedOffsetSignedSaturation" />
+            </CallLibMethod>
+            <CallLibMethod Name="LL_ADC_SetDataRightShift">
+                <MethodArg Name="ADCx" ParameterName="Instance" />
+                <MethodArg Name="Offsety" ParameterName="InjectedOffsetNumber" />
+                <MethodArg Name="RigthShift" ParameterName="InjectedOffsetRightShift" />
+            </CallLibMethod>
         </IFCondition>
         <!-- PathInternal Depend on selected channel -->
-        <IFCondition
-            Expression="(InjectedChannel = ADC_CHANNEL_TEMPSENSOR) | (InjectedChannel = ADC_CHANNEL_VREFINT) | (InjectedChannel = ADC_CHANNEL_VBAT)">
+        
             <CallLibMethod Name="LL_ADC_SetCommonPathInternalCh">
                 <MethodArg Name="ADCxy_COMMON">
                     <CallLibMethod Name="__LL_ADC_COMMON_INSTANCE">
                         <MethodArg Name="ADCx" ParameterName="Instance" />
                     </CallLibMethod>
                 </MethodArg>
-                <MethodArg Name="Channel" ParameterName="InjectedChannel" />
+                <MethodArg Name="PathInternal" ParameterName="ChannelVREF|ChannelTS|ChannelVBAT" />
             </CallLibMethod>
-        </IFCondition>
     </RefConfig>
     
     <RefConfig Name="ADC_InjectedQueueEnable" Comment="Configure injected channel ADC_JSQR register">
@@ -525,10 +580,10 @@
         <Argument AddressOf="false" GenericType="baseaddress" Name="ADCxy_COMMON"
                   TypeName="ADC_Common_TypeDef" />
     </LibMethod>
-    <LibMethod Comment="" Name="LL_ADC_SetCommonPathInternalCh">
+    <LibMethod Comment="" Name="LL_ADC_SetCommonPathInternalCh" Optimizable="true" >
         <Argument AddressOf="false" GenericType="baseaddress" Name="ADCxy_COMMON"
                   TypeName="ADC_Common_TypeDef" />
-        <Argument AddressOf="false" GenericType="simple" Name="Channel"
+        <Argument AddressOf="false" GenericType="simple" Name="PathInternal"
                   OptimizationCondition="equal" />
     </LibMethod>
     <LibMethod Comment="" Name="LL_ADC_GetCommonPathInternalCh">
@@ -1045,6 +1100,14 @@
         <Argument AddressOf="false" GenericType="baseaddress" Name="ADCxy_COMMON"
                   TypeName="ADC_Common_TypeDef" />
     </LibMethod>
+    <LibMethod Comment="" Name="LL_ADC_SetDataRightShift">
+        <Argument AddressOf="false" GenericType="baseaddress" Name="ADCx"
+                  TypeName="ADC_TypeDef" />
+        <Argument AddressOf="false" GenericType="simple" Name="Offsety"
+                  OptimizationCondition="equal" />
+        <Argument AddressOf="false" GenericType="simple" Name="RigthShift"
+                  OptimizationCondition="equal" />
+    </LibMethod>
     <LibMethod Comment="" Name="LL_ADC_IsActiveFlag_MST_OVR">
         <Argument AddressOf="false" GenericType="baseaddress" Name="ADCxy_COMMON"
                   TypeName="ADC_Common_TypeDef" />
@@ -1336,6 +1399,22 @@
     <LibMethod Comment="" Name="LL_ADC_IsEnabledIT_EOS">
         <Argument AddressOf="false" GenericType="baseaddress" Name="ADCx"
                   TypeName="ADC_TypeDef" />
+    </LibMethod>
+    <LibMethod Comment="" Name="LL_ADC_SetDataRightShift">
+        <Argument AddressOf="false" GenericType="baseaddress" Name="ADCx"
+                  TypeName="ADC_TypeDef" />
+        <Argument AddressOf="false" GenericType="simple" Name="Offsety"
+                  OptimizationCondition="equal" />
+        <Argument AddressOf="false" GenericType="simple" Name="RigthShift"
+                  OptimizationCondition="equal" />
+    </LibMethod>
+     <LibMethod Comment="" Name="LL_ADC_SetOffsetSignedSaturation">
+        <Argument AddressOf="false" GenericType="baseaddress" Name="ADCx"
+                  TypeName="ADC_TypeDef" />
+        <Argument AddressOf="false" GenericType="simple" Name="Offsety"
+                  OptimizationCondition="equal" />
+        <Argument AddressOf="false" GenericType="simple" Name="OffsetSignedSaturation"
+                  OptimizationCondition="equal" />
     </LibMethod>
     <LibMethod Comment="" Name="LL_ADC_IsEnabledIT_OVR">
         <Argument AddressOf="false" GenericType="baseaddress" Name="ADCx"

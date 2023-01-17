@@ -197,10 +197,10 @@
         </RefParameter>
         
         <!-- Sample and hold settings-->
-        <RefParameter Comment="Sample And Hold" DefaultValue="DAC_SAMPLEANDHOLD_DISABLE" Name="DAC_SampleAndHold" Type="list">
+        <RefParameter Name="DAC_SampleAndHold" Comment="Mode selected" DefaultValue="DAC_SAMPLEANDHOLD_DISABLE" Type="list">
             <Description>Specifies whether the DAC mode.</Description>
-            <PossibleValue Comment="Sampleandhold Disable" Value="DAC_SAMPLEANDHOLD_DISABLE"/>
-            <PossibleValue Comment="Sampleandhold Enable" Value="DAC_SAMPLEANDHOLD_ENABLE" Semaphore="RCC_DAC_SAMPLEANDHOLD"/>
+            <PossibleValue Comment="Normal Mode" Value="DAC_SAMPLEANDHOLD_DISABLE"/>
+            <PossibleValue Comment="Sample and Hold Mode" Value="DAC_SAMPLEANDHOLD_ENABLE" Semaphore="RCC_DAC_SAMPLEANDHOLD"/>
         </RefParameter>
         <RefParameter Comment="Sample Time" DefaultValue="null" Name="DAC_SampleTime" Type="list" Visible="false">
             <Condition Expression="DAC_SampleAndHold=DAC_SAMPLEANDHOLD_DISABLE" Diagnostic=""/>
@@ -225,15 +225,22 @@
             <Description>Specifies the refresh time for the selected channel This parameter applies when DAC_SampleAndHold is DAC_SAMPLEANDHOLD_ENABLE.</Description>
         </RefParameter>	
 		
-	<RefParameter Name="DAC_HighFrequency" Comment="DAC High Frequency" Type="list" DefaultValue="DAC_HIGH_FREQUENCY_INTERFACE_MODE_DISABLE"  Visible="true">
-		<Condition Expression="DIE470" Diagnostic="DAC Trigger on OUT1 disabled"/>
-		<PossibleValue Value="DAC_HIGH_FREQUENCY_INTERFACE_MODE_DISABLE" Comment="Mode Disable"/>
-		<PossibleValue Value="DAC_HIGH_FREQUENCY_INTERFACE_MODE_ABOVE_80MHZ" Comment="Mode Above 80MHz" />
-		<PossibleValue Value="DAC_HIGH_FREQUENCY_INTERFACE_MODE_AUTOMATIC" Comment="Mode Automatic"/>
-	</RefParameter>
-		<RefParameter Name="DAC_HighFrequency" Comment="DAC High Frequency" Type="list" DefaultValue="null"  Visible="false">
+        <RefParameter Name="DAC_HighFrequency" Comment="DAC High Frequency" Type="list" DefaultValue="DAC_HIGH_FREQUENCY_INTERFACE_MODE_ABOVE_80MHZ"  Visible="true">
+            <Condition Expression="DIE470|DIE472" Diagnostic=""/>
+            <PossibleValue Value="DAC_HIGH_FREQUENCY_INTERFACE_MODE_DISABLE" Comment="Disable"/>
+            <PossibleValue Value="DAC_HIGH_FREQUENCY_INTERFACE_MODE_ABOVE_80MHZ" Comment="Above 80MHz mode" Condition="(RCC:APB1Freq_Value &lt; 80000000)"/>
+            <PossibleValue Value="DAC_HIGH_FREQUENCY_INTERFACE_MODE_AUTOMATIC" Comment="Automatic mode"/>
+            <Description>
+                Field which enables High Frequency Interface mode :&lt;br/&gt;&lt;br&gt;
+                if APB1 clock frequency is higher than 80 MHz then default value is Above 80MHz mode&lt;br&gt;
+                else the default value is Disable&lt;br&gt;
+                &lt;br&gt;
+                To let the management of this field to the driver, Automatic mode has to be selected.
+            </Description>
+        </RefParameter>
+        <RefParameter Name="DAC_HighFrequency" Comment="DAC High Frequency" Type="list" DefaultValue="null"  Visible="false">
 
-	</RefParameter>
+        </RefParameter>
 	
     
     <!-- These both parameters have been added to generate an error if the DAC OUT1 or OUT2 is not connected to a on-chip analog IP BZ35379-->
@@ -278,6 +285,10 @@
 		<ConfigForMode>DAC_Init</ConfigForMode>
                 <ConfigForMode>DAC_TriangleWaveGenerate1</ConfigForMode>
                 <ConfigForMode>DAC_NoiseWaveGenerate1</ConfigForMode>
+                <Parameter Name="DAC_SampleAndHold"/>
+                <Parameter Name="DAC_SampleTime"/>
+                <Parameter Name="DAC_HoldTime"/>
+                <Parameter Name="DAC_RefreshTime"/>
                 <Parameter Name="DAC_OutputBuffer" />
                <!-- <PossibleValue>DAC_OUTPUTBUFFER_ENABLE</PossibleValue>
             </Parameter> -->
@@ -291,10 +302,6 @@
                 <Parameter Name="NoiseAmplitude"/>
                 <Parameter Name="DAC_UserTrimming"/>
                 <Parameter Name="DAC_TrimmingValue"/>
-                <Parameter Name="DAC_SampleAndHold"/>
-                <Parameter Name="DAC_SampleTime"/>
-                <Parameter Name="DAC_HoldTime"/>
-                <Parameter Name="DAC_RefreshTime"/>
                 <Parameter Name="DAC_ConnectedPeripherals_OUT1"/>
     </RefMode>	
     <RefMode Name="DAC_OUT1_Int" Comment="DAC Out1 Mode" Group="DAC Out1 Settings" >
@@ -303,6 +310,10 @@
 		<ConfigForMode>DAC_Init</ConfigForMode>
                 <ConfigForMode>DAC_TriangleWaveGenerate1</ConfigForMode>
                 <ConfigForMode>DAC_NoiseWaveGenerate1</ConfigForMode>
+                <Parameter Name="DAC_SampleAndHold"/>
+                <Parameter Name="DAC_SampleTime"/>
+                <Parameter Name="DAC_HoldTime"/>
+                <Parameter Name="DAC_RefreshTime"/>
                 <Parameter Name="DAC_OutputBuffer" />
                <!-- <PossibleValue>DAC_OUTPUTBUFFER_DISABLE</PossibleValue>
                 </Parameter> -->
@@ -316,10 +327,6 @@
                 <Parameter Name="NoiseAmplitude"/>
                 <Parameter Name="DAC_UserTrimming"/>
                 <Parameter Name="DAC_TrimmingValue"/>
-                <Parameter Name="DAC_SampleAndHold"/>
-                <Parameter Name="DAC_SampleTime"/>
-                <Parameter Name="DAC_HoldTime"/>
-                <Parameter Name="DAC_RefreshTime"/>
                 <Parameter Name="DAC_ConnectedPeripherals_OUT1"/>
     </RefMode>	
 	<RefMode Name="DAC_OUT1" Comment="DAC Out1 Mode" Group="DAC Out1 Settings" >
@@ -328,6 +335,10 @@
 		<ConfigForMode>DAC_Init</ConfigForMode>
                 <ConfigForMode>DAC_TriangleWaveGenerate1</ConfigForMode>
                 <ConfigForMode>DAC_NoiseWaveGenerate1</ConfigForMode>
+                <Parameter Name="DAC_SampleAndHold"/>
+                <Parameter Name="DAC_SampleTime"/>
+                <Parameter Name="DAC_HoldTime"/>
+                <Parameter Name="DAC_RefreshTime"/>
                 <Parameter Name="DAC_OutputBuffer"/>
                 <Parameter Name="DAC_Trigger"/>
                 <Parameter Name="DAC_Channel">
@@ -339,10 +350,6 @@
                 <Parameter Name="NoiseAmplitude"/>
                 <Parameter Name="DAC_UserTrimming"/>
                 <Parameter Name="DAC_TrimmingValue"/>
-                <Parameter Name="DAC_SampleAndHold"/>
-                <Parameter Name="DAC_SampleTime"/>
-                <Parameter Name="DAC_HoldTime"/>
-                <Parameter Name="DAC_RefreshTime"/>
     </RefMode>
         
 <!--	<RefMode Name="DAC_OUT1_Internal" Comment="DAC Out1 Mode" Group="DAC Out1 Settings" BaseMode="DAC_OUT1">
@@ -366,6 +373,10 @@
         <ConfigForMode>DAC_Init</ConfigForMode>
         <ConfigForMode>DAC_TriangleWaveGenerate2</ConfigForMode>
         <ConfigForMode>DAC_NoiseWaveGenerate2</ConfigForMode>
+        <Parameter Name="DAC_SampleAndHold"/>
+        <Parameter Name="DAC_SampleTime"/>
+        <Parameter Name="DAC_HoldTime"/>
+        <Parameter Name="DAC_RefreshTime"/>
         <Parameter Name="DAC_OutputBuffer" />
         <!--  <PossibleValue>DAC_OUTPUTBUFFER_ENABLE</PossibleValue>
         </Parameter> -->
@@ -379,10 +390,6 @@
         <Parameter Name="NoiseAmplitude"/>
         <Parameter Name="DAC_UserTrimming"/>
         <Parameter Name="DAC_TrimmingValue"/>
-        <Parameter Name="DAC_SampleAndHold"/>
-        <Parameter Name="DAC_SampleTime"/>
-        <Parameter Name="DAC_HoldTime"/>
-        <Parameter Name="DAC_RefreshTime"/>
         <Parameter Name="DAC_ConnectedPeripherals_OUT2"/>
     </RefMode>
     <RefMode Name="DAC_OUT2_Int" Comment="DAC Out2 Mode" Group="DAC Out2 Settings">
@@ -391,6 +398,10 @@
         <ConfigForMode>DAC_Init</ConfigForMode>
         <ConfigForMode>DAC_TriangleWaveGenerate2</ConfigForMode>
         <ConfigForMode>DAC_NoiseWaveGenerate2</ConfigForMode>
+        <Parameter Name="DAC_SampleAndHold"/>
+        <Parameter Name="DAC_SampleTime"/>
+        <Parameter Name="DAC_HoldTime"/>
+        <Parameter Name="DAC_RefreshTime"/>
         <Parameter Name="DAC_OutputBuffer" />
         <!--  <PossibleValue>DAC_OUTPUTBUFFER_DISABLE</PossibleValue>
         </Parameter> -->
@@ -404,10 +415,6 @@
         <Parameter Name="NoiseAmplitude"/>
         <Parameter Name="DAC_UserTrimming"/>
         <Parameter Name="DAC_TrimmingValue"/>
-        <Parameter Name="DAC_SampleAndHold"/>
-        <Parameter Name="DAC_SampleTime"/>
-        <Parameter Name="DAC_HoldTime"/>
-        <Parameter Name="DAC_RefreshTime"/>
         <Parameter Name="DAC_ConnectedPeripherals_OUT2"/>
     </RefMode>
     <RefMode Name="DAC_OUT2" Comment="DAC Out2 Mode" Group="DAC Out2 Settings">
@@ -416,6 +423,10 @@
         <ConfigForMode>DAC_Init</ConfigForMode>
         <ConfigForMode>DAC_TriangleWaveGenerate2</ConfigForMode>
         <ConfigForMode>DAC_NoiseWaveGenerate2</ConfigForMode>
+        <Parameter Name="DAC_SampleAndHold"/>
+        <Parameter Name="DAC_SampleTime"/>
+        <Parameter Name="DAC_HoldTime"/>
+        <Parameter Name="DAC_RefreshTime"/>
         <Parameter Name="DAC_OutputBuffer"/>
         <Parameter Name="DAC_Trigger"/>
         <Parameter Name="DAC_Channel">
@@ -427,10 +438,6 @@
         <Parameter Name="NoiseAmplitude"/>
         <Parameter Name="DAC_UserTrimming"/>
         <Parameter Name="DAC_TrimmingValue"/>
-        <Parameter Name="DAC_SampleAndHold"/>
-        <Parameter Name="DAC_SampleTime"/>
-        <Parameter Name="DAC_HoldTime"/>
-        <Parameter Name="DAC_RefreshTime"/>
     </RefMode>
         
     <RefMode Name="DAC_Init" Comment="DAC Initialisation">
