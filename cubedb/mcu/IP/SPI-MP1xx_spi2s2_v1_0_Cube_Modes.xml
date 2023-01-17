@@ -1112,7 +1112,7 @@
 					<Semaphore>$IpInstance_Master</Semaphore>
 				</Mode>
 				<Mode Name="Full_Duplex_Slave" UserName="Full-Duplex Slave">
-					<ContextCondition Diagnostic="Not available in this context" Expression="$IpInstance_CUBE"/>
+					<ContextCondition Diagnostic="Not available in this context" Expression="$IpInstance_CUBE | $IpInstance_LINUX "/>
 					<SignalLogicalOp Name="AND">
 					<Signal IOMode="AlternateFunctionOpenDrainAndPushPullDefaultPPWildcat" Name="MISO"/>
 					<Signal Name="MOSI"/>
@@ -1132,7 +1132,7 @@
 					<Semaphore>$IpInstance_Master</Semaphore>
 				</Mode>
             	<Mode Name="Simplex_Bidirectional_Slave" UserName="Half-Duplex Slave">
-					<ContextCondition Diagnostic="Not available in this context" Expression="$IpInstance_CUBE"/>
+					<ContextCondition Diagnostic="Not available in this context" Expression="$IpInstance_CUBE | $IpInstance_LINUX"/>
 					<SignalLogicalOp Name="AND">
 					<Signal IOMode="AlternateFunctionOpenDrainAndPushPullDefaultPPWildcat" Name="MISO"/>
 					<Signal Name="SCK"/>
@@ -1152,7 +1152,7 @@
 		</Mode>
             	<Mode Name="RX_Only_Simplex_Unidirect_Slave" UserName="Receive Only Slave">
             		<!-- SPI is in 'Full-Duplex' Mode, but only 'Slave In' line is on pinout -->
-					<ContextCondition Diagnostic="Not available in this context" Expression="$IpInstance_CUBE"/>
+					<ContextCondition Diagnostic="Not available in this context" Expression="$IpInstance_CUBE | $IpInstance_LINUX"/>
 					<SignalLogicalOp Name="AND">
 					<Signal Name="MOSI"/>	
 					<Signal Name="SCK"/>
@@ -1171,7 +1171,7 @@
 		</Mode>
             	<Mode Name="TX_Only_Simplex_Unidirect_Slave" UserName="Transmit Only Slave">
             		<!-- SPI is in 'Full-Duplex' Mode, but only 'Slave Out' line is on pinout -->
-					<ContextCondition Diagnostic="Not available in this context" Expression="$IpInstance_CUBE"/>
+					<ContextCondition Diagnostic="Not available in this context" Expression="$IpInstance_CUBE | $IpInstance_LINUX"/>
 					<SignalLogicalOp Name="AND">
 					<Signal IOMode="AlternateFunctionOpenDrainAndPushPullDefaultPPWildcat" Name="MISO"/>
 					<Signal Name="SCK"/>
@@ -1182,33 +1182,33 @@
 				</Mode>
 			</ModeLogicOperator>
 			<Semaphore>$IpInstance$noContext</Semaphore>
-			
+		        <Condition Diagnostic="I2S$IpNumber must be disabled" Expression="!I2S$IpNumber"/>
 		</Mode>
 		
 		<Mode Name="NSS_Signal" UserName="Hardware NSS Signal">
 			<ModeLogicOperator Name="XOR">
 				<Mode Name="NSS_Signal_Hard_Input" UserName="Hardware NSS Input Signal">
-					<ContextCondition Diagnostic="Not available in this context" Expression="$IpInstance_CUBE"/>
+					<ContextCondition Diagnostic="Not available in this context" Expression="$IpInstance_CUBE | $IpInstance_LINUX"/>
 					<SignalLogicalOp Name="AND">
 					<Signal Name="NSS"/>
 					</SignalLogicalOp>
-                    <Semaphore>$IpInstance_NSSHARD_Input</Semaphore>
+                    			<Semaphore>$IpInstance_NSSHARD_Input</Semaphore>
 				</Mode>
 			
 				<Mode Name="NSS_Signal_Hard_Output" UserName="Hardware NSS Output Signal">
-					<ContextCondition Diagnostic="Not available in this context" Expression="$IpInstance_CUBE"/>
+					<ContextCondition Diagnostic="Not available in this context" Expression="$IpInstance_CUBE  | $IpInstance_LINUX"/>
 					<SignalLogicalOp Name="AND">
 					<Signal Name="NSS"/>
 					</SignalLogicalOp>
-                    <Semaphore>$IpInstance_NSSHARD_Output</Semaphore>
-                    <Condition Diagnostic="$IpInstance must be in Master mode" Expression="$IpInstance_Master"/>
+                    			<Semaphore>$IpInstance_NSSHARD_Output</Semaphore>
+                    			<Condition Diagnostic="$IpInstance must have a master mode selected" Expression="$IpInstance_Master"/>
 				</Mode>
 			</ModeLogicOperator>
-			<Condition Diagnostic="$IpInstance must be have a valid Mode" Expression="$IpInstance"/>
+			<Condition Diagnostic="I2S$IpNumber must be disabled" Expression="!I2S$IpNumber"/>
+			<Condition Diagnostic="$IpInstance must have a mode selected" Expression="$IpInstance"/>
 		</Mode>
 	</ModeLogicOperator>
 	
-	<Condition Diagnostic="I2S$IpNumber must be disabled" Expression="!I2S$IpNumber"/>
     <Semaphore>$IpInstanceUsed_ForRCC</Semaphore>
 	<!-- RefSignal for SPI -->
 	<RefSignal IOMode="AlternateFunctionPushPullMediumSpeedDefault" Name="MISO"/>

@@ -18,20 +18,20 @@
     <!-- RefParameters for MBEDTLS - RNG IP-->
 	<RefParameter Name="MBEDTLS_RNG_IP" Comment="RNG IP" DefaultValue="HW_RNG" Type="List" Group="RNG dependency" TabName="Version and modes" Mode="Basic">
 	    <Condition Diagnostic="" Expression="RNGUsed_ForRCC"/>
-        <PossibleValue Comment="HW RNG" Value="HW_RNG" Semaphore="MBEDTLS_RNG_IP_HW_RNG"/>
-        <PossibleValue Comment="SW RNG" Value="SW_RNG" Semaphore="MBEDTLS_RNG_IP_SW_RNG"/>
-        <PossibleValue Comment="Custom RNG" Value="CUSTOM_RNG" Semaphore="MBEDTLS_RNG_IP_CUSTOM_RNG"/>
+        <PossibleValue Comment="HW RNG(ST entropy)" Value="HW_RNG" Semaphore="MBEDTLS_RNG_IP_HW_RNG"/>
+        <PossibleValue Comment="SW RNG(no entropy)" Value="SW_RNG" Semaphore="MBEDTLS_RNG_IP_SW_RNG"/>
+        <PossibleValue Comment="Custom RNG (Custom entropy)" Value="CUSTOM_RNG" Semaphore="MBEDTLS_RNG_IP_CUSTOM_RNG"/>
         <Description>Using available RNG SW or your own implementation will impact perfomances &lt;br&gt;&lt;b&gt;Default value:&lt;/b&gt; HW RNG when RNG IP is available activated</Description>
 	</RefParameter>
 	<RefParameter Name="MBEDTLS_RNG_IP" Comment="RNG IP" DefaultValue="SW_RNG" Type="List" Group="RNG dependency" TabName="Version and modes" Mode="Basic">
 	    <Condition Diagnostic="" Expression="!RNGUsed_ForRCC"/>
-        <PossibleValue Comment="SW RNG" Value="SW_RNG" Semaphore="MBEDTLS_RNG_IP_SW_RNG"/>
-        <PossibleValue Comment="Custom RNG" Value="CUSTOM_RNG" Semaphore="MBEDTLS_RNG_IP_CUSTOM_RNG"/>
+        <PossibleValue Comment="SW RNG(no entropy)" Value="SW_RNG" Semaphore="MBEDTLS_RNG_IP_SW_RNG"/>
+        <PossibleValue Comment="Custom RNG(Custom entropy)" Value="CUSTOM_RNG" Semaphore="MBEDTLS_RNG_IP_CUSTOM_RNG"/>
         <Description>You can choose between available SW RNG or your own implementation. If available RNG IP should be activated to improve performances &lt;br&gt;&lt;b&gt;Default value:&lt;/b&gt; SW RNG</Description>
 	</RefParameter>
 	<RefParameter Name="MBEDTLS_RNG_IP" Comment="RNG IP" DefaultValue="SW_RNG" Type="List" Group="RNG dependency" TabName="Version and modes" Mode="Basic">
-        <PossibleValue Comment="SW RNG" Value="SW_RNG" Semaphore="MBEDTLS_RNG_IP_SW_RNG"/>
-        <PossibleValue Comment="Custom RNG" Value="CUSTOM_RNG" Semaphore="MBEDTLS_RNG_IP_CUSTOM_RNG"/>
+        <PossibleValue Comment="SW RNG(no entropy)" Value="SW_RNG" Semaphore="MBEDTLS_RNG_IP_SW_RNG"/>
+        <PossibleValue Comment="Custom RNG(Custom entropy)" Value="CUSTOM_RNG" Semaphore="MBEDTLS_RNG_IP_CUSTOM_RNG"/>
         <Description>You can choose between available SW RNG or your own implementation</Description>
 	</RefParameter>
 
@@ -2425,7 +2425,7 @@ Uncomment to enable validation of application-controlled parameters.
         <Description>Enable the MD5 hash algorithm&lt;br&gt;Module:&lt;br&gt;library/md5.c&lt;br&gt;Caller:&lt;br&gt;library/md.c&lt;br&gt;library/pem.c&lt;br&gt;library/ssl_tls.c&lt;br&gt;This module is required for SSL/TLS up to version 1.1, and for TLS 1.2 depending on the handshake parameters. Further, it is used for checking MD5-signed certificates, and for PBKDF1 when decrypting PEM-encoded encrypted keys.&lt;br&gt;&lt;br&gt; \warning   MD5 is considered a weak message digest and its use constitutes a security risk. If possible, we recommend avoiding dependencies on it, and considering stronger message digests instead.&lt;br&gt;&lt;b&gt;Default value:&lt;/b&gt; Defined(#define)</Description>
     </RefParameter>
     <RefParameter Name="MBEDTLS_MD5_C" Comment="MBEDTLS_MD5_C" DefaultValue="0" Type="list" Group="General" TabName="Modules" Mode="Advanced">
-        <PossibleValue Comment="Defined" Value="1"/>
+        <PossibleValue Comment="Defined" Value="1" Semaphore="S_MBEDTLS_MD5_C"/>
         <PossibleValue Comment="Not Defined" Value="0"/>
         <Description>Enable the MD5 hash algorithm&lt;br&gt;Module:&lt;br&gt;library/md5.c&lt;br&gt;Caller:&lt;br&gt;library/md.c&lt;br&gt;library/pem.c&lt;br&gt;library/ssl_tls.c&lt;br&gt;This module is required for SSL/TLS up to version 1.1, and for TLS 1.2 depending on the handshake parameters. Further, it is used for checking MD5-signed certificates, and for PBKDF1 when decrypting PEM-encoded encrypted keys.&lt;br&gt;&lt;br&gt; \warning   MD5 is considered a weak message digest and its use constitutes a security risk. If possible, we recommend avoiding dependencies on it, and considering stronger message digests instead.&lt;br&gt;&lt;b&gt;Default value:&lt;/b&gt; Defined(#define)</Description>
     </RefParameter>
@@ -4566,7 +4566,9 @@ gmtime() is not a thread-safe function as defined in the C standard. The library
 					<Semaphore>S_MBEDTLS</Semaphore>
 				</Mode>
 			</ModeLogicOperator>
-		    <Condition Diagnostic="Active only if: LwIP not enabled / FREERTOS is enabled when LwIP is enabled." Expression="(!S_LWIP | (S_LWIP &amp; (S_FREERTOS | S_FREERTOS$context))) &amp; (!S_AzureRTOS$context)"/>
+		    <Condition Expression="(!S_AzureRTOS$context)" Diagnostic="Active only when the AzureRTOS (ThreadX,FileX,..) are not enabled"/>
+		    <Condition Diagnostic="Active only if: LwIP not enabled / FREERTOS is enabled when LwIP is enabled." Expression="(!S_LWIP | (S_LWIP &amp; (S_FREERTOS | S_FREERTOS$context)))"/>
+		    <!--<Condition Diagnostic="Active only if: LwIP not enabled / FREERTOS is enabled when LwIP is enabled." Expression="(!S_LWIP | (S_LWIP &amp; (S_FREERTOS | S_FREERTOS$context))) &amp; (!S_AzureRTOS$context)"/>-->
 		</Mode>
 	</ModeLogicOperator>
 	

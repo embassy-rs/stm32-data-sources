@@ -24,7 +24,7 @@
     <RefParameter Comment="Enable Channel as Secured" DefaultValue="DMA_CHANNEL_NSEC" TabName="SECURITY"  Name="ChannelSEC_LPDMACH0"  Group="CH0" Type="list">
         <PossibleValue Comment="SECURE" Value="DMA_CHANNEL_SEC"/>
         <PossibleValue Comment="NON SECURE" Value="DMA_CHANNEL_NSEC"/>
-        <Condition Diagnostic="" Expression="(S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH0 &amp; (REQUEST_LPDMACH0=DMA_REQUEST_SW))|(S_SECURE &amp; SEM_LINKEDLIST_$IpInstanceCH0)"/>
+        <Condition Diagnostic="" Expression="(S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH0 &amp; (REQUEST_LPDMACH0=DMA_REQUEST_SW))|(S_SECURE &amp; SEM_LINKEDLIST_$IpInstanceCH0) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
     
 
@@ -38,75 +38,76 @@
             (SEM_IP_LPUART1_$IpInstanceCH0 &amp; LPUART1_SECURE)|
             (SEM_IP_ADF1_$IpInstanceCH0 &amp; ADF1_SECURE)|
             (SEM_IP_LPTIM1_$IpInstanceCH0 &amp; LPTIM1_SECURE)|
-            (SEM_IP_LPTIM3_$IpInstanceCH0 &amp; LPTIM3_SECURE))"/>
+            (SEM_IP_LPTIM3_$IpInstanceCH0 &amp; LPTIM3_SECURE)) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
 
     <RefParameter Comment="Enable Channel as Secured" DefaultValue="DMA_CHANNEL_NSEC" TabName="SECURITY"  Name="ChannelSEC_LPDMACH0"  Group="CH0" Type="list">
         <PossibleValue Comment="NON SECURE" Value="DMA_CHANNEL_NSEC"/>
-        <Condition Diagnostic="" Expression="S_SECURE"/>
+        <Condition Diagnostic="" Expression="S_SECURE &amp; !S_LPBAM_CONF"/>
     </RefParameter>
    
     <RefParameter Comment="Enable Channel as Secured" DefaultValue="null" Group="SECURITY" Name="ChannelSEC_LPDMACH0" Type="list" Visible="false">
-        <Condition Diagnostic="" Expression="!S_SECURE"/>
+        <Condition Diagnostic="" Expression="!S_SECURE &amp; !S_LPBAM_CONF"/>
     </RefParameter>
 
     <RefParameter Comment="Enable Channel as Privileged" DefaultValue="DMA_CHANNEL_NPRIV" TabName="SECURITY"  Name="ChannelPRIV_LPDMACH0"  Group="CH0" Type="list">
-        <PossibleValue Comment="PRIVILEDGED" Value="DMA_CHANNEL_PRIV"/>
-        <PossibleValue Comment="NON PRIVILEDGED" Value="DMA_CHANNEL_NPRIV"/>
+        <Condition Diagnostic="" Expression="!S_LPBAM_CONF"/>
+            <PossibleValue Comment="PRIVILEDGED" Value="DMA_CHANNEL_PRIV"/>
+            <PossibleValue Comment="NON PRIVILEDGED" Value="DMA_CHANNEL_NPRIV"/>
     </RefParameter>
 
     <RefParameter Comment="Enable Source as Secured" DefaultValue="DMA_CHANNEL_SRC_SEC" TabName="SECURITY"  Name="SrcSEC_LPDMACH0"  Group="CH0" Type="list">
         <PossibleValue Comment="SECURE" Value="DMA_CHANNEL_SRC_SEC"/>
         <PossibleValue Comment="NON SECURE" Value="DMA_CHANNEL_SRC_NSEC"/>
-        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH0 &amp; (ChannelSEC_LPDMACH0=DMA_CHANNEL_SEC) &amp; (REQUEST_LPDMACH0=DMA_REQUEST_SW)"/>
+        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH0 &amp; (ChannelSEC_LPDMACH0=DMA_CHANNEL_SEC) &amp; (REQUEST_LPDMACH0=DMA_REQUEST_SW) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
 
     <RefParameter Comment="Enable Source as Secured" DefaultValue="DMA_CHANNEL_SRC_NSEC" TabName="SECURITY"  Name="SrcSEC_LPDMACH0"  Group="CH0" Type="list">
         <PossibleValue Comment="NON SECURE" Value="DMA_CHANNEL_SRC_NSEC"/>
-        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH0 &amp; !(ChannelSEC_LPDMACH0=DMA_CHANNEL_SEC)"/>
+        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH0 &amp; !(ChannelSEC_LPDMACH0=DMA_CHANNEL_SEC) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
     <RefParameter Comment="Enable Source as Secured" DefaultValue="DMA_CHANNEL_SRC_SEC" TabName="SECURITY"  Name="SrcSEC_LPDMACH0"  Group="CH0" Type="list">
         <PossibleValue Comment="SECURE" Value="DMA_CHANNEL_SRC_SEC"/>
-        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH0 &amp; (ChannelSEC_LPDMACH0=DMA_CHANNEL_SEC) &amp; (DIRECTION_LPDMACH0=DMA_PERIPH_TO_MEMORY)"/>
+        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH0 &amp; (ChannelSEC_LPDMACH0=DMA_CHANNEL_SEC) &amp; (DIRECTION_LPDMACH0=DMA_PERIPH_TO_MEMORY) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
     <RefParameter Comment="Enable Source as Secured" DefaultValue="DMA_CHANNEL_SRC_SEC" TabName="SECURITY"  Name="SrcSEC_LPDMACH0"  Group="CH0" Type="list">
         <PossibleValue Comment="SECURE" Value="DMA_CHANNEL_SRC_SEC"/>
         <PossibleValue Comment="NON SECURE" Value="DMA_CHANNEL_SRC_NSEC"/>
-        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH0 &amp; (ChannelSEC_LPDMACH0=DMA_CHANNEL_SEC) &amp; !(DIRECTION_LPDMACH0=DMA_PERIPH_TO_MEMORY)"/>
+        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH0 &amp; (ChannelSEC_LPDMACH0=DMA_CHANNEL_SEC) &amp; !(DIRECTION_LPDMACH0=DMA_PERIPH_TO_MEMORY) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
     <RefParameter Comment="Enable Source as Secured" DefaultValue="null" Group="SECURITY" Name="SrcSEC_LPDMACH0" Type="list" Visible="false">
-        <Condition Diagnostic="" Expression="!S_SECURE | (S_SECURE &amp; SEM_LINKEDLIST_$IpInstanceCH0)"/>
+        <Condition Diagnostic="" Expression="!S_SECURE | (S_SECURE &amp; SEM_LINKEDLIST_$IpInstanceCH0) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
 
     <RefParameter Comment="Enable Destination as Secured" DefaultValue="DMA_CHANNEL_DEST_SEC" TabName="SECURITY"  Name="DestSEC_LPDMACH0"  Group="CH0" Type="list">
         <PossibleValue Comment="SECURE" Value="DMA_CHANNEL_DEST_SEC"/>
         <PossibleValue Comment="NON SECURE" Value="DMA_CHANNEL_DEST_NSEC"/>
-        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH0 &amp; (ChannelSEC_LPDMACH0=DMA_CHANNEL_SEC) &amp; !(DIRECTION_LPDMACH0=DMA_MEMORY_TO_PERIPH)"/>
+        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH0 &amp; (ChannelSEC_LPDMACH0=DMA_CHANNEL_SEC) &amp; !(DIRECTION_LPDMACH0=DMA_MEMORY_TO_PERIPH) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
     <RefParameter Comment="Enable Destination as Secured" DefaultValue="DMA_CHANNEL_DEST_NSEC" TabName="SECURITY"  Name="DestSEC_LPDMACH0"  Group="CH0" Type="list">
         <PossibleValue Comment="NON SECURE" Value="DMA_CHANNEL_DEST_NSEC"/>
-        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH0 &amp; !(ChannelSEC_LPDMACH0=DMA_CHANNEL_SEC)"/>
+        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH0 &amp; !(ChannelSEC_LPDMACH0=DMA_CHANNEL_SEC) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
     <RefParameter Comment="Enable Destination as Secured" DefaultValue="DMA_CHANNEL_DEST_SEC" TabName="SECURITY"  Name="DestSEC_LPDMACH0"  Group="CH0" Type="list">
         <PossibleValue Comment="SECURE" Value="DMA_CHANNEL_DEST_SEC"/>
-        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH0 &amp; (ChannelSEC_LPDMACH0=DMA_CHANNEL_SEC) &amp; (DIRECTION_LPDMACH0=DMA_MEMORY_TO_PERIPH)"/>
+        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH0 &amp; (ChannelSEC_LPDMACH0=DMA_CHANNEL_SEC) &amp; (DIRECTION_LPDMACH0=DMA_MEMORY_TO_PERIPH) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
     <RefParameter Comment="Enable Destination as Secured" DefaultValue="null" Group="SECURITY" Name="DestSEC_LPDMACH0" Type="list" Visible="false">
-        <Condition Diagnostic="" Expression="!S_SECURE | (S_SECURE &amp; SEM_LINKEDLIST_$IpInstanceCH0)"/>
+        <Condition Diagnostic="" Expression="!S_SECURE | (S_SECURE &amp; SEM_LINKEDLIST_$IpInstanceCH0) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
 
 
 
    <RefParameter Comment="Channel Attributes" DefaultValue="+ChannelPRIV_LPDMACH0+|ChannelSEC_LPDMACH0+|SrcSEC_LPDMACH0+|DestSEC_LPDMACH0"  Type="list" Name="ChannelAttributes_LPDMACH0"  Visible="false">
-    <Condition Diagnostic="" Expression="S_SECURE &amp; !SEM_CIRCULAR_$IpInstanceCH0 &amp; !SEM_LINKEDLIST_$IpInstanceCH0"/>
+    <Condition Diagnostic="" Expression="S_SECURE &amp; !SEM_CIRCULAR_$IpInstanceCH0 &amp; !SEM_LINKEDLIST_$IpInstanceCH0 &amp; !S_LPBAM_CONF"/>
     </RefParameter>
     <RefParameter Comment="Channel Attributes" DefaultValue="+ChannelPRIV_LPDMACH0+|ChannelSEC_LPDMACH0"  Type="list" Name="ChannelAttributes_LPDMACH0"  Visible="false">
-    <Condition Diagnostic="" Expression="S_SECURE &amp; (SEM_CIRCULAR_$IpInstanceCH0|SEM_LINKEDLIST_$IpInstanceCH0)"/>
+    <Condition Diagnostic="" Expression="S_SECURE &amp; (SEM_CIRCULAR_$IpInstanceCH0|SEM_LINKEDLIST_$IpInstanceCH0) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
 
 
     <RefParameter Comment="Channel Attributes" DefaultValue="+ChannelPRIV_LPDMACH0"  Name="ChannelAttributes_LPDMACH0"  Type="list"  Visible="false">
-    <Condition Diagnostic="" Expression="!S_SECURE"/>
+    <Condition Diagnostic="" Expression="!S_SECURE &amp; !S_LPBAM_CONF"/>
     </RefParameter>
 
 
@@ -115,7 +116,7 @@
     <RefParameter Comment="Enable Channel as Secured" DefaultValue="DMA_CHANNEL_NSEC" TabName="SECURITY"  Name="ChannelSEC_LPDMACH1"  Group="CH1" Type="list">
         <PossibleValue Comment="SECURE" Value="DMA_CHANNEL_SEC"/>
         <PossibleValue Comment="NON SECURE" Value="DMA_CHANNEL_NSEC"/>
-        <Condition Diagnostic="" Expression="(S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH1 &amp; (REQUEST_LPDMACH1=DMA_REQUEST_SW))|(S_SECURE &amp; SEM_LINKEDLIST_$IpInstanceCH1)"/>
+        <Condition Diagnostic="" Expression="(S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH1 &amp; (REQUEST_LPDMACH1=DMA_REQUEST_SW))|(S_SECURE &amp; SEM_LINKEDLIST_$IpInstanceCH1) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
 
     <RefParameter Comment="Enable Channel as Secured" DefaultValue="DMA_CHANNEL_SEC" TabName="SECURITY"  Name="ChannelSEC_LPDMACH1"  Group="CH1" Type="list">
@@ -128,75 +129,76 @@
             (SEM_IP_LPUART1_$IpInstanceCH1 &amp; LPUART1_SECURE)|
             (SEM_IP_ADF1_$IpInstanceCH1 &amp; ADF1_SECURE)|
             (SEM_IP_LPTIM1_$IpInstanceCH1 &amp; LPTIM1_SECURE)|
-            (SEM_IP_LPTIM3_$IpInstanceCH1 &amp; LPTIM3_SECURE))"/>  
+            (SEM_IP_LPTIM3_$IpInstanceCH1 &amp; LPTIM3_SECURE)) &amp; !S_LPBAM_CONF"/>  
     </RefParameter>
 
     <RefParameter Comment="Enable Channel as Secured" DefaultValue="DMA_CHANNEL_NSEC" TabName="SECURITY"  Name="ChannelSEC_LPDMACH1"  Group="CH1" Type="list">
         
         <PossibleValue Comment="NON SECURE" Value="DMA_CHANNEL_NSEC"/>
-        <Condition Diagnostic="" Expression="S_SECURE"/>
+        <Condition Diagnostic="" Expression="S_SECURE &amp; !S_LPBAM_CONF"/>
     </RefParameter>
    
     <RefParameter Comment="Enable Channel as Secured" DefaultValue="null" Group="SECURITY" Name="ChannelSEC_LPDMACH1" Type="list" Visible="false">
-        <Condition Diagnostic="" Expression="!S_SECURE"/>
+        <Condition Diagnostic="" Expression="!S_SECURE &amp; !S_LPBAM_CONF"/>
     </RefParameter>
 
     <RefParameter Comment="Enable Channel as Privileged" DefaultValue="DMA_CHANNEL_NPRIV" TabName="SECURITY"  Name="ChannelPRIV_LPDMACH1"  Group="CH1" Type="list">
-        <PossibleValue Comment="PRIVILEDGED" Value="DMA_CHANNEL_PRIV"/>
-        <PossibleValue Comment="NON PRIVILEDGED" Value="DMA_CHANNEL_NPRIV"/>
+        <Condition Diagnostic="" Expression="!S_LPBAM_CONF"/>
+            <PossibleValue Comment="PRIVILEDGED" Value="DMA_CHANNEL_PRIV"/>
+            <PossibleValue Comment="NON PRIVILEDGED" Value="DMA_CHANNEL_NPRIV"/>
     </RefParameter>
 
     <RefParameter Comment="Enable Source as Secured" DefaultValue="DMA_CHANNEL_SRC_SEC" TabName="SECURITY"  Name="SrcSEC_LPDMACH1"  Group="CH1" Type="list">
         <PossibleValue Comment="SECURE" Value="DMA_CHANNEL_SRC_SEC"/>
         <PossibleValue Comment="NON SECURE" Value="DMA_CHANNEL_SRC_NSEC"/>
-        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH1 &amp; (ChannelSEC_LPDMACH1=DMA_CHANNEL_SEC) &amp; (REQUEST_LPDMACH1=DMA_REQUEST_SW)"/>
+        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH1 &amp; (ChannelSEC_LPDMACH1=DMA_CHANNEL_SEC) &amp; (REQUEST_LPDMACH1=DMA_REQUEST_SW) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
 
     <RefParameter Comment="Enable Source as Secured" DefaultValue="DMA_CHANNEL_SRC_NSEC" TabName="SECURITY"  Name="SrcSEC_LPDMACH1"  Group="CH1" Type="list">
         <PossibleValue Comment="NON SECURE" Value="DMA_CHANNEL_SRC_NSEC"/>
-        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH1 &amp; !(ChannelSEC_LPDMACH1=DMA_CHANNEL_SEC)"/>
+        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH1 &amp; !(ChannelSEC_LPDMACH1=DMA_CHANNEL_SEC) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
     <RefParameter Comment="Enable Source as Secured" DefaultValue="DMA_CHANNEL_SRC_SEC" TabName="SECURITY"  Name="SrcSEC_LPDMACH1"  Group="CH1" Type="list">
         <PossibleValue Comment="SECURE" Value="DMA_CHANNEL_SRC_SEC"/>
-        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH1 &amp; (ChannelSEC_LPDMACH1=DMA_CHANNEL_SEC) &amp; (DIRECTION_LPDMACH1=DMA_PERIPH_TO_MEMORY)"/>
+        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH1 &amp; (ChannelSEC_LPDMACH1=DMA_CHANNEL_SEC) &amp; (DIRECTION_LPDMACH1=DMA_PERIPH_TO_MEMORY) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
     <RefParameter Comment="Enable Source as Secured" DefaultValue="DMA_CHANNEL_SRC_SEC" TabName="SECURITY"  Name="SrcSEC_LPDMACH1"  Group="CH1" Type="list">
         <PossibleValue Comment="SECURE" Value="DMA_CHANNEL_SRC_SEC"/>
         <PossibleValue Comment="NON SECURE" Value="DMA_CHANNEL_SRC_NSEC"/>
-        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH1 &amp; (ChannelSEC_LPDMACH1=DMA_CHANNEL_SEC) &amp; !(DIRECTION_LPDMACH1=DMA_PERIPH_TO_MEMORY)"/>
+        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH1 &amp; (ChannelSEC_LPDMACH1=DMA_CHANNEL_SEC) &amp; !(DIRECTION_LPDMACH1=DMA_PERIPH_TO_MEMORY) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
     <RefParameter Comment="Enable Source as Secured" DefaultValue="null" Group="SECURITY" Name="SrcSEC_LPDMACH1" Type="list" Visible="false">
-        <Condition Diagnostic="" Expression="!S_SECURE | (S_SECURE &amp; SEM_LINKEDLIST_$IpInstanceCH1)"/>
+        <Condition Diagnostic="" Expression="!S_SECURE | (S_SECURE &amp; SEM_LINKEDLIST_$IpInstanceCH1) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
 
     <RefParameter Comment="Enable Destination as Secured" DefaultValue="DMA_CHANNEL_DEST_SEC" TabName="SECURITY"  Name="DestSEC_LPDMACH1"  Group="CH1" Type="list">
         <PossibleValue Comment="SECURE" Value="DMA_CHANNEL_DEST_SEC"/>
         <PossibleValue Comment="NON SECURE" Value="DMA_CHANNEL_DEST_NSEC"/>
-        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH1 &amp; (ChannelSEC_LPDMACH1=DMA_CHANNEL_SEC) &amp; !(DIRECTION_LPDMACH1=DMA_MEMORY_TO_PERIPH)"/>
+        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH1 &amp; (ChannelSEC_LPDMACH1=DMA_CHANNEL_SEC) &amp; !(DIRECTION_LPDMACH1=DMA_MEMORY_TO_PERIPH) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
     <RefParameter Comment="Enable Destination as Secured" DefaultValue="DMA_CHANNEL_DEST_NSEC" TabName="SECURITY"  Name="DestSEC_LPDMACH1"  Group="CH1" Type="list">
         <PossibleValue Comment="NON SECURE" Value="DMA_CHANNEL_DEST_NSEC"/>
-        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH1 &amp; !(ChannelSEC_LPDMACH1=DMA_CHANNEL_SEC)"/>
+        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH1 &amp; !(ChannelSEC_LPDMACH1=DMA_CHANNEL_SEC) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
     <RefParameter Comment="Enable Destination as Secured" DefaultValue="DMA_CHANNEL_DEST_SEC" TabName="SECURITY"  Name="DestSEC_LPDMACH1"  Group="CH1" Type="list">
         <PossibleValue Comment="SECURE" Value="DMA_CHANNEL_DEST_SEC"/>
-        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH1 &amp; (ChannelSEC_LPDMACH1=DMA_CHANNEL_SEC) &amp; (DIRECTION_LPDMACH1=DMA_MEMORY_TO_PERIPH)"/>
+        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH1 &amp; (ChannelSEC_LPDMACH1=DMA_CHANNEL_SEC) &amp; (DIRECTION_LPDMACH1=DMA_MEMORY_TO_PERIPH) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
     <RefParameter Comment="Enable Destination as Secured" DefaultValue="null" Group="SECURITY" Name="DestSEC_LPDMACH1" Type="list" Visible="false">
-        <Condition Diagnostic="" Expression="!S_SECURE  | (S_SECURE &amp; SEM_LINKEDLIST_$IpInstanceCH1)"/>
+        <Condition Diagnostic="" Expression="!S_SECURE  | (S_SECURE &amp; SEM_LINKEDLIST_$IpInstanceCH1) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
     
 
     <RefParameter Comment="Channel Attributes" DefaultValue="+ChannelPRIV_LPDMACH1+|ChannelSEC_LPDMACH1+|SrcSEC_LPDMACH1+|DestSEC_LPDMACH1"  Type="list" Name="ChannelAttributes_LPDMACH1"  Visible="false">
-    <Condition Diagnostic="" Expression="S_SECURE &amp; !SEM_CIRCULAR_$IpInstanceCH1 &amp; !SEM_LINKEDLIST_$IpInstanceCH1"/>
+    <Condition Diagnostic="" Expression="S_SECURE &amp; !SEM_CIRCULAR_$IpInstanceCH1 &amp; !SEM_LINKEDLIST_$IpInstanceCH1 &amp; !S_LPBAM_CONF"/>
     </RefParameter>
     <RefParameter Comment="Channel Attributes" DefaultValue="+ChannelPRIV_LPDMACH1+|ChannelSEC_LPDMACH1"  Type="list" Name="ChannelAttributes_LPDMACH1"  Visible="false">
-    <Condition Diagnostic="" Expression="S_SECURE &amp; (SEM_CIRCULAR_$IpInstanceCH1|SEM_LINKEDLIST_$IpInstanceCH1)"/>
+    <Condition Diagnostic="" Expression="S_SECURE &amp; (SEM_CIRCULAR_$IpInstanceCH1|SEM_LINKEDLIST_$IpInstanceCH1) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
 
 
     <RefParameter Comment="Channel Attributes" DefaultValue="+ChannelPRIV_LPDMACH1"  Name="ChannelAttributes_LPDMACH1"  Type="list"  Visible="false">
-    <Condition Diagnostic="" Expression="!S_SECURE"/>
+    <Condition Diagnostic="" Expression="!S_SECURE &amp; !S_LPBAM_CONF"/>
     </RefParameter>
 
     
@@ -206,95 +208,96 @@
     <RefParameter Comment="Enable Channel as Secured" DefaultValue="DMA_CHANNEL_NSEC" TabName="SECURITY"  Name="ChannelSEC_LPDMACH2"  Group="CH2" Type="list">
         <PossibleValue Comment="SECURE" Value="DMA_CHANNEL_SEC"/>
         <PossibleValue Comment="NON SECURE" Value="DMA_CHANNEL_NSEC"/>
-    <Condition Diagnostic="" Expression="(S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH2 &amp; (REQUEST_LPDMACH2=DMA_REQUEST_SW))|(S_SECURE &amp; SEM_LINKEDLIST_$IpInstanceCH2)"/>
+    <Condition Diagnostic="" Expression="(S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH2 &amp; (REQUEST_LPDMACH2=DMA_REQUEST_SW))|(S_SECURE &amp; SEM_LINKEDLIST_$IpInstanceCH2) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
 
     <RefParameter Comment="Enable Channel as Secured" DefaultValue="DMA_CHANNEL_SEC" TabName="SECURITY"  Name="ChannelSEC_LPDMACH2"  Group="CH2" Type="list">
         <PossibleValue Comment="SECURE" Value="DMA_CHANNEL_SEC"/>
         <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH2 &amp; !(REQUEST_LPDMACH2=DMA_REQUEST_SW) &amp; (
-              (SEM_IP_ADC4_$IpInstanceCH4 &amp; ADC4_SECURE)|
-            (SEM_IP_DAC1_$IpInstanceCH4 &amp; DAC1_SECURE)|
-            (SEM_IP_I2C3_$IpInstanceCH4 &amp; I2C3_SECURE)|
-            (SEM_IP_SPI3_$IpInstanceCH4 &amp; SPI3_SECURE)|
-            (SEM_IP_LPUART1_$IpInstanceCH4 &amp; LPUART1_SECURE)|
-            (SEM_IP_ADF1_$IpInstanceCH4 &amp; ADF1_SECURE)|
-            (SEM_IP_LPTIM1_$IpInstanceCH4 &amp; LPTIM1_SECURE)|
-            (SEM_IP_LPTIM3_$IpInstanceCH4 &amp; LPTIM3_SECURE))"/>
+              (SEM_IP_ADC4_$IpInstanceCH2 &amp; ADC4_SECURE)|
+            (SEM_IP_DAC1_$IpInstanceCH2 &amp; DAC1_SECURE)|
+            (SEM_IP_I2C3_$IpInstanceCH2 &amp; I2C3_SECURE)|
+            (SEM_IP_SPI3_$IpInstanceCH2 &amp; SPI3_SECURE)|
+            (SEM_IP_LPUART1_$IpInstanceCH2 &amp; LPUART1_SECURE)|
+            (SEM_IP_ADF1_$IpInstanceCH2 &amp; ADF1_SECURE)|
+            (SEM_IP_LPTIM1_$IpInstanceCH2 &amp; LPTIM1_SECURE)|
+            (SEM_IP_LPTIM3_$IpInstanceCH2 &amp; LPTIM3_SECURE)) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
 
     <RefParameter Comment="Enable Channel as Secured" DefaultValue="DMA_CHANNEL_NSEC" TabName="SECURITY"  Name="ChannelSEC_LPDMACH2"  Group="CH2" Type="list">
         
         <PossibleValue Comment="NON SECURE" Value="DMA_CHANNEL_NSEC"/>
-        <Condition Diagnostic="" Expression="S_SECURE"/>
+        <Condition Diagnostic="" Expression="S_SECURE &amp; !S_LPBAM_CONF"/>
     </RefParameter>
    
     <RefParameter Comment="Enable Channel as Secured" DefaultValue="null" Group="SECURITY" Name="ChannelSEC_LPDMACH2" Type="list" Visible="false">
-        <Condition Diagnostic="" Expression="!S_SECURE"/>
+        <Condition Diagnostic="" Expression="!S_SECURE &amp; !S_LPBAM_CONF"/>
     </RefParameter>
 
     <RefParameter Comment="Enable Channel as Privileged" DefaultValue="DMA_CHANNEL_NPRIV" TabName="SECURITY"  Name="ChannelPRIV_LPDMACH2"  Group="CH2" Type="list">
-        <PossibleValue Comment="PRIVILEDGED" Value="DMA_CHANNEL_PRIV"/>
-        <PossibleValue Comment="NON PRIVILEDGED" Value="DMA_CHANNEL_NPRIV"/>
+        <Condition Diagnostic="" Expression="!S_LPBAM_CONF"/>
+            <PossibleValue Comment="PRIVILEDGED" Value="DMA_CHANNEL_PRIV"/>
+            <PossibleValue Comment="NON PRIVILEDGED" Value="DMA_CHANNEL_NPRIV"/>
     </RefParameter>
 
     <RefParameter Comment="Enable Source as Secured" DefaultValue="DMA_CHANNEL_SRC_SEC" TabName="SECURITY"  Name="SrcSEC_LPDMACH2"  Group="CH2" Type="list">
         <PossibleValue Comment="SECURE" Value="DMA_CHANNEL_SRC_SEC"/>
         <PossibleValue Comment="NON SECURE" Value="DMA_CHANNEL_SRC_NSEC"/>
-        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH2 &amp; (ChannelSEC_LPDMACH2=DMA_CHANNEL_SEC) &amp; (REQUEST_LPDMACH2=DMA_REQUEST_SW)"/>
+        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH2 &amp; (ChannelSEC_LPDMACH2=DMA_CHANNEL_SEC) &amp; (REQUEST_LPDMACH2=DMA_REQUEST_SW) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
 
     <RefParameter Comment="Enable Source as Secured" DefaultValue="DMA_CHANNEL_SRC_NSEC" TabName="SECURITY"  Name="SrcSEC_LPDMACH2"  Group="CH2" Type="list">
         <PossibleValue Comment="NON SECURE" Value="DMA_CHANNEL_SRC_NSEC"/>
-        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH2 &amp; !(ChannelSEC_LPDMACH2=DMA_CHANNEL_SEC)"/>
+        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH2 &amp; !(ChannelSEC_LPDMACH2=DMA_CHANNEL_SEC) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
     <RefParameter Comment="Enable Source as Secured" DefaultValue="DMA_CHANNEL_SRC_SEC" TabName="SECURITY"  Name="SrcSEC_LPDMACH2"  Group="CH2" Type="list">
         <PossibleValue Comment="SECURE" Value="DMA_CHANNEL_SRC_SEC"/>
-        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH2 &amp; (ChannelSEC_LPDMACH2=DMA_CHANNEL_SEC) &amp; (DIRECTION_LPDMACH2=DMA_PERIPH_TO_MEMORY)"/>
+        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH2 &amp; (ChannelSEC_LPDMACH2=DMA_CHANNEL_SEC) &amp; (DIRECTION_LPDMACH2=DMA_PERIPH_TO_MEMORY) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
     <RefParameter Comment="Enable Source as Secured" DefaultValue="DMA_CHANNEL_SRC_SEC" TabName="SECURITY"  Name="SrcSEC_LPDMACH2"  Group="CH2" Type="list">
         <PossibleValue Comment="SECURE" Value="DMA_CHANNEL_SRC_SEC"/>
         <PossibleValue Comment="NON SECURE" Value="DMA_CHANNEL_SRC_NSEC"/>
-        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH2 &amp; (ChannelSEC_LPDMACH2=DMA_CHANNEL_SEC) &amp; !(DIRECTION_LPDMACH2=DMA_PERIPH_TO_MEMORY)"/>
+        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH2 &amp; (ChannelSEC_LPDMACH2=DMA_CHANNEL_SEC) &amp; !(DIRECTION_LPDMACH2=DMA_PERIPH_TO_MEMORY) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
     <RefParameter Comment="Enable Source as Secured" DefaultValue="null" Group="SECURITY" Name="SrcSEC_LPDMACH2" Type="list" Visible="false">
-        <Condition Diagnostic="" Expression="!S_SECURE  | (S_SECURE &amp; SEM_LINKEDLIST_$IpInstanceCH2)"/>
+        <Condition Diagnostic="" Expression="!S_SECURE  | (S_SECURE &amp; SEM_LINKEDLIST_$IpInstanceCH2) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
 
     <RefParameter Comment="Enable Destination as Secured" DefaultValue="DMA_CHANNEL_DEST_SEC" TabName="SECURITY"  Name="DestSEC_LPDMACH2"  Group="CH2" Type="list">
         <PossibleValue Comment="SECURE" Value="DMA_CHANNEL_DEST_SEC"/>
         <PossibleValue Comment="NON SECURE" Value="DMA_CHANNEL_DEST_NSEC"/>
-        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH2 &amp; (ChannelSEC_LPDMACH2=DMA_CHANNEL_SEC) &amp; !(DIRECTION_LPDMACH2=DMA_MEMORY_TO_PERIPH)"/>
+        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH2 &amp; (ChannelSEC_LPDMACH2=DMA_CHANNEL_SEC) &amp; !(DIRECTION_LPDMACH2=DMA_MEMORY_TO_PERIPH) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
     <RefParameter Comment="Enable Destination as Secured" DefaultValue="DMA_CHANNEL_DEST_NSEC" TabName="SECURITY"  Name="DestSEC_LPDMACH2"  Group="CH2" Type="list">
         <PossibleValue Comment="NON SECURE" Value="DMA_CHANNEL_DEST_NSEC"/>
-        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH2 &amp; !(ChannelSEC_LPDMACH2=DMA_CHANNEL_SEC)"/>
+        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH2 &amp; !(ChannelSEC_LPDMACH2=DMA_CHANNEL_SEC) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
     <RefParameter Comment="Enable Destination as Secured" DefaultValue="DMA_CHANNEL_DEST_SEC" TabName="SECURITY"  Name="DestSEC_LPDMACH2"  Group="CH2" Type="list">
         <PossibleValue Comment="SECURE" Value="DMA_CHANNEL_DEST_SEC"/>
-        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH2 &amp; (ChannelSEC_LPDMACH2=DMA_CHANNEL_SEC) &amp; (DIRECTION_LPDMACH2=DMA_MEMORY_TO_PERIPH)"/>
+        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH2 &amp; (ChannelSEC_LPDMACH2=DMA_CHANNEL_SEC) &amp; (DIRECTION_LPDMACH2=DMA_MEMORY_TO_PERIPH) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
     <RefParameter Comment="Enable Destination as Secured" DefaultValue="null" Group="SECURITY" Name="DestSEC_LPDMACH2" Type="list" Visible="false">
-        <Condition Diagnostic="" Expression="!S_SECURE | (S_SECURE &amp; SEM_LINKEDLIST_$IpInstanceCH2)"/>
+        <Condition Diagnostic="" Expression="!S_SECURE | (S_SECURE &amp; SEM_LINKEDLIST_$IpInstanceCH2) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
 
 
     <RefParameter Comment="Channel Attributes" DefaultValue="+ChannelPRIV_LPDMACH2+|ChannelSEC_LPDMACH2+|SrcSEC_LPDMACH2+|DestSEC_LPDMACH2"  Type="list" Name="ChannelAttributes_LPDMACH2"  Visible="false">
-    <Condition Diagnostic="" Expression="S_SECURE &amp; !SEM_CIRCULAR_$IpInstanceCH2 &amp; !SEM_LINKEDLIST_$IpInstanceCH2"/>
+    <Condition Diagnostic="" Expression="S_SECURE &amp; !SEM_CIRCULAR_$IpInstanceCH2 &amp; !SEM_LINKEDLIST_$IpInstanceCH2 &amp; !S_LPBAM_CONF"/>
     </RefParameter>
     <RefParameter Comment="Channel Attributes" DefaultValue="+ChannelPRIV_LPDMACH2+|ChannelSEC_LPDMACH2"  Type="list" Name="ChannelAttributes_LPDMACH2"  Visible="false">
-    <Condition Diagnostic="" Expression="S_SECURE &amp; (SEM_CIRCULAR_$IpInstanceCH2|SEM_LINKEDLIST_$IpInstanceCH2)"/>
+    <Condition Diagnostic="" Expression="S_SECURE &amp; (SEM_CIRCULAR_$IpInstanceCH2|SEM_LINKEDLIST_$IpInstanceCH2) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
 
 
     <RefParameter Comment="Channel Attributes" DefaultValue="+ChannelPRIV_LPDMACH2"  Name="ChannelAttributes_LPDMACH2"  Type="list"  Visible="false">
-    <Condition Diagnostic="" Expression="!S_SECURE"/>
+    <Condition Diagnostic="" Expression="!S_SECURE &amp; !S_LPBAM_CONF"/>
     </RefParameter>
 
     
     <RefParameter Comment="Enable Channel as Secured" DefaultValue="DMA_CHANNEL_NSEC" TabName="SECURITY"  Name="ChannelSEC_LPDMACH3"  Group="CH3" Type="list">
         <PossibleValue Comment="SECURE" Value="DMA_CHANNEL_SEC"/>
         <PossibleValue Comment="NON SECURE" Value="DMA_CHANNEL_NSEC"/>
-        <Condition Diagnostic="" Expression="(S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH3 &amp; (REQUEST_LPDMACH3=DMA_REQUEST_SW))|(S_SECURE &amp; SEM_LINKEDLIST_$IpInstanceCH3)"/>
+        <Condition Diagnostic="" Expression="(S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH3 &amp; (REQUEST_LPDMACH3=DMA_REQUEST_SW))|(S_SECURE &amp; SEM_LINKEDLIST_$IpInstanceCH3) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
 
     <RefParameter Comment="Enable Channel as Secured" DefaultValue="DMA_CHANNEL_SEC" TabName="SECURITY"  Name="ChannelSEC_LPDMACH3"  Group="CH3" Type="list">
@@ -307,77 +310,78 @@
             (SEM_IP_LPUART1_$IpInstanceCH3 &amp; LPUART1_SECURE)|
             (SEM_IP_ADF1_$IpInstanceCH3 &amp; ADF1_SECURE)|
             (SEM_IP_LPTIM1_$IpInstanceCH3 &amp; LPTIM1_SECURE)|
-            (SEM_IP_LPTIM3_$IpInstanceCH3 &amp; LPTIM3_SECURE))"/>
+            (SEM_IP_LPTIM3_$IpInstanceCH3 &amp; LPTIM3_SECURE)) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
 
     <RefParameter Comment="Enable Channel as Secured" DefaultValue="DMA_CHANNEL_NSEC" TabName="SECURITY"  Name="ChannelSEC_LPDMACH3"  Group="CH3" Type="list">
         
         <PossibleValue Comment="NON SECURE" Value="DMA_CHANNEL_NSEC"/>
-        <Condition Diagnostic="" Expression="S_SECURE"/>
+        <Condition Diagnostic="" Expression="S_SECURE &amp; !S_LPBAM_CONF"/>
     </RefParameter>
    
     <RefParameter Comment="Enable Channel as Secured" DefaultValue="null" Group="SECURITY" Name="ChannelSEC_LPDMACH3" Type="list" Visible="false">
-        <Condition Diagnostic="" Expression="!S_SECURE"/>
+        <Condition Diagnostic="" Expression="!S_SECURE &amp; !S_LPBAM_CONF"/>
     </RefParameter>
 
     <RefParameter Comment="Enable Channel as Privileged" DefaultValue="DMA_CHANNEL_NPRIV" TabName="SECURITY"  Name="ChannelPRIV_LPDMACH3"  Group="CH3" Type="list">
-        <PossibleValue Comment="PRIVILEDGED" Value="DMA_CHANNEL_PRIV"/>
-        <PossibleValue Comment="NON PRIVILEDGED" Value="DMA_CHANNEL_NPRIV"/>
+        <Condition Diagnostic="" Expression="!S_LPBAM_CONF"/>
+            <PossibleValue Comment="PRIVILEDGED" Value="DMA_CHANNEL_PRIV"/>
+            <PossibleValue Comment="NON PRIVILEDGED" Value="DMA_CHANNEL_NPRIV"/>
     </RefParameter>
 
     <RefParameter Comment="Enable Source as Secured" DefaultValue="DMA_CHANNEL_SRC_SEC" TabName="SECURITY"  Name="SrcSEC_LPDMACH3"  Group="CH3" Type="list">
         <PossibleValue Comment="SECURE" Value="DMA_CHANNEL_SRC_SEC"/>
         <PossibleValue Comment="NON SECURE" Value="DMA_CHANNEL_SRC_NSEC"/>
-        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH3 &amp; (ChannelSEC_LPDMACH3=DMA_CHANNEL_SEC) &amp; (REQUEST_LPDMACH3=DMA_REQUEST_SW)"/>
+        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH3 &amp; (ChannelSEC_LPDMACH3=DMA_CHANNEL_SEC) &amp; (REQUEST_LPDMACH3=DMA_REQUEST_SW) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
 
     <RefParameter Comment="Enable Source as Secured" DefaultValue="DMA_CHANNEL_SRC_NSEC" TabName="SECURITY"  Name="SrcSEC_LPDMACH3"  Group="CH3" Type="list">
         <PossibleValue Comment="NON SECURE" Value="DMA_CHANNEL_SRC_NSEC"/>
-        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH3 &amp; !(ChannelSEC_LPDMACH3=DMA_CHANNEL_SEC)"/>
+        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH3 &amp; !(ChannelSEC_LPDMACH3=DMA_CHANNEL_SEC) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
     <RefParameter Comment="Enable Source as Secured" DefaultValue="DMA_CHANNEL_SRC_SEC" TabName="SECURITY"  Name="SrcSEC_LPDMACH3"  Group="CH3" Type="list">
         <PossibleValue Comment="SECURE" Value="DMA_CHANNEL_SRC_SEC"/>
-        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH3 &amp; (ChannelSEC_LPDMACH3=DMA_CHANNEL_SEC) &amp; (DIRECTION_LPDMACH3=DMA_PERIPH_TO_MEMORY)"/>
+        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH3 &amp; (ChannelSEC_LPDMACH3=DMA_CHANNEL_SEC) &amp; (DIRECTION_LPDMACH3=DMA_PERIPH_TO_MEMORY) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
     <RefParameter Comment="Enable Source as Secured" DefaultValue="DMA_CHANNEL_SRC_SEC" TabName="SECURITY"  Name="SrcSEC_LPDMACH3"  Group="CH3" Type="list">
         <PossibleValue Comment="SECURE" Value="DMA_CHANNEL_SRC_SEC"/>
         <PossibleValue Comment="NON SECURE" Value="DMA_CHANNEL_SRC_NSEC"/>
-        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH3 &amp; (ChannelSEC_LPDMACH3=DMA_CHANNEL_SEC) &amp; !(DIRECTION_LPDMACH3=DMA_PERIPH_TO_MEMORY)"/>
+        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH3 &amp; (ChannelSEC_LPDMACH3=DMA_CHANNEL_SEC) &amp; !(DIRECTION_LPDMACH3=DMA_PERIPH_TO_MEMORY) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
     <RefParameter Comment="Enable Source as Secured" DefaultValue="null" Group="SECURITY" Name="SrcSEC_LPDMACH3" Type="list" Visible="false">
         
-        <Condition Diagnostic="" Expression="!S_SECURE | (S_SECURE &amp; SEM_LINKEDLIST_$IpInstanceCH3)"/>
+        <Condition Diagnostic="" Expression="!S_SECURE | (S_SECURE &amp; SEM_LINKEDLIST_$IpInstanceCH3) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
 
     <RefParameter Comment="Enable Destination as Secured" DefaultValue="DMA_CHANNEL_DEST_SEC" TabName="SECURITY"  Name="DestSEC_LPDMACH3"  Group="CH3" Type="list">
         <PossibleValue Comment="SECURE" Value="DMA_CHANNEL_DEST_SEC"/>
         <PossibleValue Comment="NON SECURE" Value="DMA_CHANNEL_DEST_NSEC"/>
-        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH3 &amp; (ChannelSEC_LPDMACH3=DMA_CHANNEL_SEC) &amp; !(DIRECTION_LPDMACH3=DMA_MEMORY_TO_PERIPH)"/>
+        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH3 &amp; (ChannelSEC_LPDMACH3=DMA_CHANNEL_SEC) &amp; !(DIRECTION_LPDMACH3=DMA_MEMORY_TO_PERIPH) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
     <RefParameter Comment="Enable Destination as Secured" DefaultValue="DMA_CHANNEL_DEST_NSEC" TabName="SECURITY"  Name="DestSEC_LPDMACH3"  Group="CH3" Type="list">
         <PossibleValue Comment="NON SECURE" Value="DMA_CHANNEL_DEST_NSEC"/>
-        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH3 &amp; !(ChannelSEC_LPDMACH3=DMA_CHANNEL_SEC)"/>
+        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH3 &amp; !(ChannelSEC_LPDMACH3=DMA_CHANNEL_SEC) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
     <RefParameter Comment="Enable Destination as Secured" DefaultValue="DMA_CHANNEL_DEST_SEC" TabName="SECURITY"  Name="DestSEC_LPDMACH3"  Group="CH3" Type="list">
         <PossibleValue Comment="SECURE" Value="DMA_CHANNEL_DEST_SEC"/>
-        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH3 &amp; (ChannelSEC_LPDMACH3=DMA_CHANNEL_SEC) &amp; (DIRECTION_LPDMACH3=DMA_MEMORY_TO_PERIPH)"/>
+        <Condition Diagnostic="" Expression="S_SECURE &amp; SEM_SIMPLEREQUEST_$IpInstanceCH3 &amp; (ChannelSEC_LPDMACH3=DMA_CHANNEL_SEC) &amp; (DIRECTION_LPDMACH3=DMA_MEMORY_TO_PERIPH) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
     <RefParameter Comment="Enable Destination as Secured" DefaultValue="null" Group="SECURITY" Name="DestSEC_LPDMACH3" Type="list" Visible="false">
         
-        <Condition Diagnostic="" Expression="!S_SECURE | (S_SECURE &amp; SEM_LINKEDLIST_$IpInstanceCH3)"/>
+        <Condition Diagnostic="" Expression="!S_SECURE | (S_SECURE &amp; SEM_LINKEDLIST_$IpInstanceCH3) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
     
 
     <RefParameter Comment="Channel Attributes" DefaultValue="+ChannelPRIV_LPDMACH3+|ChannelSEC_LPDMACH3+|SrcSEC_LPDMACH3+|DestSEC_LPDMACH3"  Type="list" Name="ChannelAttributes_LPDMACH3"  Visible="false">
-    <Condition Diagnostic="" Expression="S_SECURE &amp; !SEM_CIRCULAR_$IpInstanceCH3 &amp; !SEM_LINKEDLIST_$IpInstanceCH3"/>
+    <Condition Diagnostic="" Expression="S_SECURE &amp; !SEM_CIRCULAR_$IpInstanceCH3 &amp; !SEM_LINKEDLIST_$IpInstanceCH3 &amp; !S_LPBAM_CONF"/>
     </RefParameter>
     <RefParameter Comment="Channel Attributes" DefaultValue="+ChannelPRIV_LPDMACH3+|ChannelSEC_LPDMACH3"  Type="list" Name="ChannelAttributes_LPDMACH3"  Visible="false">
-    <Condition Diagnostic="" Expression="S_SECURE &amp; (SEM_CIRCULAR_$IpInstanceCH3|SEM_LINKEDLIST_$IpInstanceCH3)"/>
+    <Condition Diagnostic="" Expression="S_SECURE &amp; (SEM_CIRCULAR_$IpInstanceCH3|SEM_LINKEDLIST_$IpInstanceCH3) &amp; !S_LPBAM_CONF"/>
     </RefParameter>
 
 
     <RefParameter Comment="Channel Attributes" DefaultValue="+ChannelPRIV_LPDMACH3"  Name="ChannelAttributes_LPDMACH3"  Type="list"  Visible="false">
-    <Condition Diagnostic="" Expression="!S_SECURE"/>
+    <Condition Diagnostic="" Expression="!S_SECURE &amp; !S_LPBAM_CONF"/>
     </RefParameter>
 
     
@@ -740,15 +744,7 @@
       <Condition Diagnostic="" Expression="!SEM_CIRCULAR_$IpInstanceCH0"/>
 </RefParameter>
 
-<RefParameter Name="LINKALLOCATEDPORT_CIRCULAR_LPDMACH0" Comment="Circular Port" Group="Circular configuration"  DefaultValue="DMA_LINK_ALLOCATED_PORT0" TabName="CH0" Type="list" >
-     <Condition Diagnostic="" Expression="SEM_CIRCULAR_$IpInstanceCH0"/>
-        <PossibleValue Comment="Port 0" Value="DMA_LINK_ALLOCATED_PORT0"/>
-        <PossibleValue Comment="Port 1" Value="DMA_LINK_ALLOCATED_PORT1"/>
-</RefParameter>
-<RefParameter Name="LINKALLOCATEDPORT_CIRCULAR_LPDMACH0" Comment="Circular Port" Group="Circular configuration"  DefaultValue="DMA_LINK_ALLOCATED_PORT0" TabName="CH0" Type="list" Visible="false">
-     <Condition Diagnostic="" Expression="!SEM_CIRCULAR_$IpInstanceCH0"/>
-        <PossibleValue Comment="Port 0" Value="DMA_LINK_ALLOCATED_PORT0"/>
-        <PossibleValue Comment="Port 1" Value="DMA_LINK_ALLOCATED_PORT1"/>
+<RefParameter Name="LINKALLOCATEDPORT_CIRCULAR_LPDMACH0" Comment="Circular Port" Group="Circular configuration"  DefaultValue="null" TabName="CH0" Type="list" Visible="false">
 </RefParameter>
 
 
@@ -792,9 +788,7 @@
         <PossibleValue Comment="First Element of the List is executed " Value="DMA_LSM_1LINK_EXECUTION"/>
 </RefParameter>
 
-<RefParameter Name="LINKALLOCATEDPORT_LPDMACH0" Comment="Allocated Port for Transfer" Group="Channel Configuration for Linked List"  DefaultValue="DMA_LINK_ALLOCATED_PORT0" TabName="CH0" Type="list" >
-        <PossibleValue Comment="Port 0" Value="DMA_LINK_ALLOCATED_PORT0"/>
-        <PossibleValue Comment="Port 1" Value="DMA_LINK_ALLOCATED_PORT1"/>
+<RefParameter Name="LINKALLOCATEDPORT_LPDMACH0" Comment="Allocated Port for Transfer" Group="Channel Configuration for Linked List"  DefaultValue="null" TabName="CH0" Type="list" Visible="false">
 </RefParameter>
 
 <RefParameter Name="TRANSFEREVENTMODE_LL_LPDMACH0" Comment="Transfer Event Generation" Group="Channel Configuration for Linked List" DefaultValue="DMA_TCEM_LAST_LL_ITEM_TRANSFER"  TabName="CH0"  Type="list">
@@ -1099,16 +1093,8 @@
       <Condition Diagnostic="" Expression="!SEM_CIRCULAR_$IpInstanceCH1"/>
 </RefParameter>
 
-<RefParameter Name="LINKALLOCATEDPORT_CIRCULAR_LPDMACH1" Comment="Circular Port" Group="Circular configuration"  DefaultValue="DMA_LINK_ALLOCATED_PORT0" TabName="CH1" Type="list" >
-     <Condition Diagnostic="" Expression="SEM_CIRCULAR_$IpInstanceCH1"/>
-        <PossibleValue Comment="Port 0" Value="DMA_LINK_ALLOCATED_PORT0"/>
-        <PossibleValue Comment="Port 1" Value="DMA_LINK_ALLOCATED_PORT1"/>
-</RefParameter>
-<RefParameter Name="LINKALLOCATEDPORT_CIRCULAR_LPDMACH1" Comment="Circular Port" Group="Circular configuration"  DefaultValue="DMA_LINK_ALLOCATED_PORT0" TabName="CH1" Type="list" Visible="false">
-     <Condition Diagnostic="" Expression="!SEM_CIRCULAR_$IpInstanceCH1"/>
-        <PossibleValue Comment="Port 0" Value="DMA_LINK_ALLOCATED_PORT0"/>
-        <PossibleValue Comment="Port 1" Value="DMA_LINK_ALLOCATED_PORT1"/>
-</RefParameter>
+<RefParameter Name="LINKALLOCATEDPORT_CIRCULAR_LPDMACH1" Comment="Circular Port" Group="Circular configuration"  DefaultValue="null" TabName="CH1" Type="list" Visible="false">
+     </RefParameter>
 
 
 <RefParameter Name="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH1" Comment="Transfer Event Generation" Group="Transfer Event Configuration" DefaultValue="DMA_TCEM_BLOCK_TRANSFER"  TabName="CH1"  Type="list">
@@ -1151,9 +1137,7 @@
         <PossibleValue Comment="First Element of the List is executed " Value="DMA_LSM_1LINK_EXECUTION"/>
 </RefParameter>
 
-<RefParameter Name="LINKALLOCATEDPORT_LPDMACH1" Comment="Allocated Port for Transfer" Group="Channel Configuration for Linked List"  DefaultValue="DMA_LINK_ALLOCATED_PORT0" TabName="CH1" Type="list" >
-        <PossibleValue Comment="Port 0" Value="DMA_LINK_ALLOCATED_PORT0"/>
-        <PossibleValue Comment="Port 1" Value="DMA_LINK_ALLOCATED_PORT1"/>
+<RefParameter Name="LINKALLOCATEDPORT_LPDMACH1" Comment="Allocated Port for Transfer" Group="Channel Configuration for Linked List"  DefaultValue="null" TabName="CH1" Type="list" Visible="false">
 </RefParameter>
 
 <RefParameter Name="TRANSFEREVENTMODE_LL_LPDMACH1" Comment="Transfer Event Generation" Group="Channel Configuration for Linked List" DefaultValue="DMA_TCEM_LAST_LL_ITEM_TRANSFER"  TabName="CH1"  Type="list">
@@ -1458,17 +1442,8 @@
       <Condition Diagnostic="" Expression="!SEM_CIRCULAR_$IpInstanceCH2"/>
 </RefParameter>
 
-<RefParameter Name="LINKALLOCATEDPORT_CIRCULAR_LPDMACH2" Comment="Circular Port" Group="Circular configuration"  DefaultValue="DMA_LINK_ALLOCATED_PORT0" TabName="CH2" Type="list" >
-     <Condition Diagnostic="" Expression="SEM_CIRCULAR_$IpInstanceCH2"/>
-        <PossibleValue Comment="Port 0" Value="DMA_LINK_ALLOCATED_PORT0"/>
-        <PossibleValue Comment="Port 1" Value="DMA_LINK_ALLOCATED_PORT1"/>
+<RefParameter Name="LINKALLOCATEDPORT_CIRCULAR_LPDMACH2" Comment="Circular Port" Group="Circular configuration"  DefaultValue="null" TabName="CH2" Type="list" Visible="false">
 </RefParameter>
-<RefParameter Name="LINKALLOCATEDPORT_CIRCULAR_LPDMACH2" Comment="Circular Port" Group="Circular configuration"  DefaultValue="DMA_LINK_ALLOCATED_PORT0" TabName="CH2" Type="list" Visible="false">
-     <Condition Diagnostic="" Expression="!SEM_CIRCULAR_$IpInstanceCH2"/>
-        <PossibleValue Comment="Port 0" Value="DMA_LINK_ALLOCATED_PORT0"/>
-        <PossibleValue Comment="Port 1" Value="DMA_LINK_ALLOCATED_PORT1"/>
-</RefParameter>
-
 
 <RefParameter Name="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH2" Comment="Transfer Event Generation" Group="Transfer Event Configuration" DefaultValue="DMA_TCEM_BLOCK_TRANSFER"  TabName="CH2"  Type="list">
      <Condition Diagnostic="" Expression="SEM_CIRCULAR_$IpInstanceCH2"/>
@@ -1510,9 +1485,7 @@
         <PossibleValue Comment="First Element of the List is executed " Value="DMA_LSM_1LINK_EXECUTION"/>
 </RefParameter>
 
-<RefParameter Name="LINKALLOCATEDPORT_LPDMACH2" Comment="Allocated Port for Transfer" Group="Channel Configuration for Linked List"  DefaultValue="DMA_LINK_ALLOCATED_PORT0" TabName="CH2" Type="list" >
-        <PossibleValue Comment="Port 0" Value="DMA_LINK_ALLOCATED_PORT0"/>
-        <PossibleValue Comment="Port 1" Value="DMA_LINK_ALLOCATED_PORT1"/>
+<RefParameter Name="LINKALLOCATEDPORT_LPDMACH2" Comment="Allocated Port for Transfer" Group="Channel Configuration for Linked List"  DefaultValue="null" TabName="CH2" Type="list" Visible="false">
 </RefParameter>
 
 <RefParameter Name="TRANSFEREVENTMODE_LL_LPDMACH2" Comment="Transfer Event Generation" Group="Channel Configuration for Linked List" DefaultValue="DMA_TCEM_LAST_LL_ITEM_TRANSFER"  TabName="CH2"  Type="list">
@@ -1814,15 +1787,7 @@
       <Condition Diagnostic="" Expression="!SEM_CIRCULAR_$IpInstanceCH3"/>
 </RefParameter>
 
-<RefParameter Name="LINKALLOCATEDPORT_CIRCULAR_LPDMACH3" Comment="Circular Port" Group="Circular configuration"  DefaultValue="DMA_LINK_ALLOCATED_PORT0" TabName="CH3" Type="list" >
-     <Condition Diagnostic="" Expression="SEM_CIRCULAR_$IpInstanceCH3"/>
-        <PossibleValue Comment="Port 0" Value="DMA_LINK_ALLOCATED_PORT0"/>
-        <PossibleValue Comment="Port 1" Value="DMA_LINK_ALLOCATED_PORT1"/>
-</RefParameter>
-<RefParameter Name="LINKALLOCATEDPORT_CIRCULAR_LPDMACH3" Comment="Circular Port" Group="Circular configuration"  DefaultValue="DMA_LINK_ALLOCATED_PORT0" TabName="CH3" Type="list" Visible="false">
-     <Condition Diagnostic="" Expression="!SEM_CIRCULAR_$IpInstanceCH3"/>
-        <PossibleValue Comment="Port 0" Value="DMA_LINK_ALLOCATED_PORT0"/>
-        <PossibleValue Comment="Port 1" Value="DMA_LINK_ALLOCATED_PORT1"/>
+<RefParameter Name="LINKALLOCATEDPORT_CIRCULAR_LPDMACH3" Comment="Circular Port" Group="Circular configuration"  DefaultValue="null" TabName="CH3" Type="list" Visible="false">
 </RefParameter>
 
 
@@ -1866,9 +1831,7 @@
         <PossibleValue Comment="First Element of the List is executed " Value="DMA_LSM_1LINK_EXECUTION"/>
 </RefParameter>
 
-<RefParameter Name="LINKALLOCATEDPORT_LPDMACH3" Comment="Allocated Port for Transfer" Group="Channel Configuration for Linked List"  DefaultValue="DMA_LINK_ALLOCATED_PORT0" TabName="CH3" Type="list" >
-        <PossibleValue Comment="Port 0" Value="DMA_LINK_ALLOCATED_PORT0"/>
-        <PossibleValue Comment="Port 1" Value="DMA_LINK_ALLOCATED_PORT1"/>
+<RefParameter Name="LINKALLOCATEDPORT_LPDMACH3" Comment="Allocated Port for Transfer" Group="Channel Configuration for Linked List"  DefaultValue="null" TabName="CH3" Type="list" Visible="false">
 </RefParameter>
 
 <RefParameter Name="TRANSFEREVENTMODE_LL_LPDMACH3" Comment="Transfer Event Generation" Group="Channel Configuration for Linked List" DefaultValue="DMA_TCEM_LAST_LL_ITEM_TRANSFER"  TabName="CH3"  Type="list">
@@ -1884,13 +1847,174 @@
  <!--DMA_InitLinkedListTypeDef-->
 
 
+<!--LPBAM Specific --> 
 
+
+<RefParameter Name="Interrupt1_LPDMACH0" Comment="Data Transfer Error"   DefaultValue="DISABLE"  Type="list"  TabName="Advanced Settings for LPBAM" Group="IP Internal Interrupt for CH0">
+        <Condition Diagnostic="" Expression="S_LPBAM_CONF"/>
+        <Description>description</Description>
+        <PossibleValue Comment="Enable" Value="DMA_IT_DTE"/>
+        <PossibleValue Comment="Disable" Value="DISABLE"/>
+</RefParameter>
+
+<RefParameter Name="Interrupt2_LPDMACH0" Comment="Update Link Error"   DefaultValue="DISABLE"  Type="list"  TabName="Advanced Settings for LPBAM" Group="IP Internal Interrupt for CH0">
+    <Condition Diagnostic="" Expression="S_LPBAM_CONF"/>
+        <Description>description</Description>
+        <PossibleValue Comment="Enable" Value="DMA_IT_ULE"/>
+        <PossibleValue Comment="Disable" Value="DISABLE"/>
+</RefParameter>
+
+<RefParameter Name="Interrupt3_LPDMACH0" Comment="User Setting Error"   DefaultValue="DISABLE"  Type="list"  TabName="Advanced Settings for LPBAM" Group="IP Internal Interrupt for CH0">
+    <Condition Diagnostic="" Expression="S_LPBAM_CONF"/>
+        <Description>description</Description>
+        <PossibleValue Comment="Enable" Value="DMA_IT_USE"/>
+        <PossibleValue Comment="Disable" Value="DISABLE"/>
+</RefParameter>
+
+<RefParameter Name="Interrupt4_LPDMACH0" Comment="Trigger Overrun Error"   DefaultValue="DISABLE"  Type="list"  TabName="Advanced Settings for LPBAM" Group="IP Internal Interrupt for CH0">
+    <Condition Diagnostic="" Expression="S_LPBAM_CONF"/>
+        <Description>description</Description>
+        <PossibleValue Comment="Enable" Value="DMA_IT_TO"/>
+        <PossibleValue Comment="Disable" Value="DISABLE"/>
+</RefParameter>
+ 
+
+
+<RefParameter Comment="Interrupt parameter for code generation __HAL_DAC_ENABLE_IT" DefaultValue="/+Interrupt1_LPDMACH0+|Interrupt2_LPDMACH0+|Interrupt3_LPDMACH0+|Interrupt4_LPDMACH0/\|DISABLE//DISABLE\|//" Group="IP Internal Interrupt for CH0" Type="list"  Name="ORingInterrupt_LPDMACH0"  Visible="true" TabName="Advanced Settings for LPBAM">
+      <Condition Diagnostic="" Expression="!((Interrupt1_LPDMACH0=DISABLE) &amp; (Interrupt2_LPDMACH0=DISABLE) &amp; (Interrupt3_LPDMACH0=DISABLE) &amp; (Interrupt4_LPDMACH0=DISABLE)) &amp; S_LPBAM_CONF"/> 
+</RefParameter>
+<RefParameter  Comment="Interrupt parameter for code generation __HAL_DAC_ENABLE_IT" DefaultValue="__NULL" Name="ORingInterrupt_LPDMACH0" Type="String" >
+               <Condition Diagnostic="" Expression="((Interrupt1_LPDMACH0=DISABLE) &amp; (Interrupt2_LPDMACH0=DISABLE) &amp; (Interrupt3_LPDMACH0=DISABLE) &amp; (Interrupt4_LPDMACH0=DISABLE)) | !S_LPBAM_CONF"/> 
+ </RefParameter>
+
+
+
+<RefParameter Name="Interrupt1_LPDMACH1" Comment="Data Transfer Error"   DefaultValue="DISABLE"  Type="list"  TabName="Advanced Settings for LPBAM" Group="IP Internal Interrupt for CH1">
+    <Condition Diagnostic="" Expression="S_LPBAM_CONF"/>
+        <Description>description</Description>
+        <PossibleValue Comment="Enable" Value="DMA_IT_DTE"/>
+        <PossibleValue Comment="Disable" Value="DISABLE"/>
+</RefParameter>
+
+<RefParameter Name="Interrupt2_LPDMACH1" Comment="Update Link Error"   DefaultValue="DISABLE"  Type="list"  TabName="Advanced Settings for LPBAM" Group="IP Internal Interrupt for CH1">
+    <Condition Diagnostic="" Expression="S_LPBAM_CONF"/>
+        <Description>description</Description>
+        <PossibleValue Comment="Enable" Value="DMA_IT_ULE"/>
+        <PossibleValue Comment="Disable" Value="DISABLE"/>
+</RefParameter>
+
+<RefParameter Name="Interrupt3_LPDMACH1" Comment="User Setting Error"   DefaultValue="DISABLE"  Type="list"  TabName="Advanced Settings for LPBAM" Group="IP Internal Interrupt for CH1">
+    <Condition Diagnostic="" Expression="S_LPBAM_CONF"/>
+        <Description>description</Description>
+        <PossibleValue Comment="Enable" Value="DMA_IT_USE"/>
+        <PossibleValue Comment="Disable" Value="DISABLE"/>
+</RefParameter>
+
+<RefParameter Name="Interrupt4_LPDMACH1" Comment="Trigger Overrun Error"   DefaultValue="DISABLE"  Type="list"  TabName="Advanced Settings for LPBAM" Group="IP Internal Interrupt for CH1">
+    <Condition Diagnostic="" Expression="S_LPBAM_CONF"/>
+        <Description>description</Description>
+        <PossibleValue Comment="Enable" Value="DMA_IT_TO"/>
+        <PossibleValue Comment="Disable" Value="DISABLE"/>
+</RefParameter>
+ 
+
+
+<RefParameter Comment="Interrupt parameter for code generation __HAL_DAC_ENABLE_IT" DefaultValue="/+Interrupt1_LPDMACH1+|Interrupt2_LPDMACH1+|Interrupt3_LPDMACH1+|Interrupt4_LPDMACH1/\|DISABLE//DISABLE\|//" Group="IP Internal Interrupt for CH1" Type="list"  Name="ORingInterrupt_LPDMACH1"  Visible="true" TabName="Advanced Settings for LPBAM">
+      <Condition Diagnostic="" Expression="!((Interrupt1_LPDMACH1=DISABLE) &amp; (Interrupt2_LPDMACH1=DISABLE) &amp; (Interrupt3_LPDMACH1=DISABLE) &amp; (Interrupt4_LPDMACH1=DISABLE)) &amp; S_LPBAM_CONF"/> 
+</RefParameter>
+<RefParameter  Comment="Interrupt parameter for code generation __HAL_DAC_ENABLE_IT" DefaultValue="__NULL" Name="ORingInterrupt_LPDMACH1" Type="String" >
+               <Condition Diagnostic="" Expression="((Interrupt1_LPDMACH1=DISABLE) &amp; (Interrupt2_LPDMACH1=DISABLE) &amp; (Interrupt3_LPDMACH1=DISABLE) &amp; (Interrupt4_LPDMACH1=DISABLE)) | !S_LPBAM_CONF"/> 
+ </RefParameter>
+
+
+
+
+<RefParameter Name="Interrupt1_LPDMACH2" Comment="Data Transfer Error"   DefaultValue="DISABLE"  Type="list"  TabName="Advanced Settings for LPBAM" Group="IP Internal Interrupt for CH2">
+    <Condition Diagnostic="" Expression="S_LPBAM_CONF"/>
+        <Description>description</Description>
+        <PossibleValue Comment="Enable" Value="DMA_IT_DTE"/>
+        <PossibleValue Comment="Disable" Value="DISABLE"/>
+</RefParameter>
+
+<RefParameter Name="Interrupt2_LPDMACH2" Comment="Update Link Error"   DefaultValue="DISABLE"  Type="list"  TabName="Advanced Settings for LPBAM" Group="IP Internal Interrupt for CH2">
+    <Condition Diagnostic="" Expression="S_LPBAM_CONF"/>
+        <Description>description</Description>
+        <PossibleValue Comment="Enable" Value="DMA_IT_ULE"/>
+        <PossibleValue Comment="Disable" Value="DISABLE"/>
+</RefParameter>
+
+<RefParameter Name="Interrupt3_LPDMACH2" Comment="User Setting Error"   DefaultValue="DISABLE"  Type="list"  TabName="Advanced Settings for LPBAM" Group="IP Internal Interrupt for CH2">
+    <Condition Diagnostic="" Expression="S_LPBAM_CONF"/>
+        <Description>description</Description>
+        <PossibleValue Comment="Enable" Value="DMA_IT_USE"/>
+        <PossibleValue Comment="Disable" Value="DISABLE"/>
+</RefParameter>
+ 
+<RefParameter Name="Interrupt4_LPDMACH2" Comment="Trigger Overrun Error"   DefaultValue="DISABLE"  Type="list"  TabName="Advanced Settings for LPBAM" Group="IP Internal Interrupt for CH2">
+    <Condition Diagnostic="" Expression="S_LPBAM_CONF"/>
+        <Description>description</Description>
+        <PossibleValue Comment="Enable" Value="DMA_IT_TO"/>
+        <PossibleValue Comment="Disable" Value="DISABLE"/>
+</RefParameter>
+ 
+
+
+<RefParameter Comment="Interrupt parameter for code generation __HAL_DAC_ENABLE_IT" DefaultValue="/+Interrupt1_LPDMACH2+|Interrupt2_LPDMACH2+|Interrupt3_LPDMACH2+|Interrupt4_LPDMACH2/\|DISABLE//DISABLE\|//" Group="IP Internal Interrupt for CH2" Type="list"  Name="ORingInterrupt_LPDMACH2"  Visible="false" TabName="Advanced Settings for LPBAM">
+      <Condition Diagnostic="" Expression="!((Interrupt1_LPDMACH2=DISABLE) &amp; (Interrupt2_LPDMACH2=DISABLE) &amp; (Interrupt3_LPDMACH2=DISABLE) &amp; (Interrupt4_LPDMACH2=DISABLE)) &amp; S_LPBAM_CONF"/> 
+</RefParameter>
+<RefParameter  Comment="Interrupt parameter for code generation __HAL_DAC_ENABLE_IT" DefaultValue="__NULL" Name="ORingInterrupt_LPDMACH2" Type="String" >
+               <Condition Diagnostic="" Expression="((Interrupt1_LPDMACH2=DISABLE) &amp; (Interrupt2_LPDMACH2=DISABLE) &amp; (Interrupt3_LPDMACH2=DISABLE) &amp; (Interrupt4_LPDMACH2=DISABLE)) | !S_LPBAM_CONF"/> 
+ </RefParameter>
+
+
+
+
+<RefParameter Name="Interrupt1_LPDMACH3" Comment="Data Transfer Error"   DefaultValue="DISABLE"  Type="list"  TabName="Advanced Settings for LPBAM" Group="IP Internal Interrupt for CH3">
+    <Condition Diagnostic="" Expression="S_LPBAM_CONF"/>
+        <Description>description</Description>
+        <PossibleValue Comment="Enable" Value="DMA_IT_DTE"/>
+        <PossibleValue Comment="Disable" Value="DISABLE"/>
+</RefParameter>
+
+<RefParameter Name="Interrupt2_LPDMACH3" Comment="Update Link Error"   DefaultValue="DISABLE"  Type="list"  TabName="Advanced Settings for LPBAM" Group="IP Internal Interrupt for CH3">
+    <Condition Diagnostic="" Expression="S_LPBAM_CONF"/>
+        <Description>description</Description>
+        <PossibleValue Comment="Enable" Value="DMA_IT_ULE"/>
+        <PossibleValue Comment="Disable" Value="DISABLE"/>
+</RefParameter>
+
+<RefParameter Name="Interrupt3_LPDMACH3" Comment="User Setting Error"   DefaultValue="DISABLE"  Type="list"  TabName="Advanced Settings for LPBAM" Group="IP Internal Interrupt for CH3">
+    <Condition Diagnostic="" Expression="S_LPBAM_CONF"/>
+        <Description>description</Description>
+        <PossibleValue Comment="Enable" Value="DMA_IT_USE"/>
+        <PossibleValue Comment="Disable" Value="DISABLE"/>
+</RefParameter>
+<RefParameter Name="Interrupt4_LPDMACH3" Comment="Trigger Overrun Error"   DefaultValue="DISABLE"  Type="list"  TabName="Advanced Settings for LPBAM" Group="IP Internal Interrupt for CH3">
+    <Condition Diagnostic="" Expression="S_LPBAM_CONF"/>
+        <Description>description</Description>
+        <PossibleValue Comment="Enable" Value="DMA_IT_TO"/>
+        <PossibleValue Comment="Disable" Value="DISABLE"/>
+</RefParameter>
+ 
+
+
+<RefParameter Comment="Interrupt parameter for code generation __HAL_DAC_ENABLE_IT" DefaultValue="/+Interrupt1_LPDMACH3+|Interrupt2_LPDMACH3+|Interrupt3_LPDMACH3+|Interrupt4_LPDMACH3/\|DISABLE//DISABLE\|//" Group="IP Internal Interrupt for CH3" Type="list"  Name="ORingInterrupt_LPDMACH3"  Visible="true" TabName="Advanced Settings for LPBAM">
+      <Condition Diagnostic="" Expression="!((Interrupt1_LPDMACH3=DISABLE) &amp; (Interrupt2_LPDMACH3=DISABLE) &amp; (Interrupt3_LPDMACH3=DISABLE) &amp; (Interrupt4_LPDMACH3=DISABLE)) &amp; S_LPBAM_CONF"/> 
+</RefParameter>
+<RefParameter  Comment="Interrupt parameter for code generation __HAL_DAC_ENABLE_IT" DefaultValue="__NULL" Name="ORingInterrupt_LPDMACH3" Type="String" >
+               <Condition Diagnostic="" Expression="((Interrupt1_LPDMACH3=DISABLE) &amp; (Interrupt2_LPDMACH3=DISABLE) &amp; (Interrupt3_LPDMACH3=DISABLE) &amp; (Interrupt4_LPDMACH3=DISABLE)) | !S_LPBAM_CONF"/> 
+ </RefParameter>
+
+
+
+<!--LPBAM Specific -->
  
 <RefMode Name="CommonConfig" Abstract="true">
 <Parameter Name="RECAP_LPDMACH0"/>
 <Parameter Name="RECAP_LPDMACH1"/>
 <Parameter Name="RECAP_LPDMACH2"/>
 <Parameter Name="RECAP_LPDMACH3"/>
+
 </RefMode>
 
 
@@ -1935,7 +2059,6 @@
       
     <Parameter Name="LINKEDLISTMODE_CIRCULAR_LPDMACH0"/> 
     <Parameter Name="LINKSTEPMODE_CIRCULAR_LPDMACH0"/> 
-    <Parameter Name="LINKALLOCATEDPORT_CIRCULAR_LPDMACH0"/> 
     <Parameter Name="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH0"/> 
 
     <Parameter Name="SRCADD_LPDMACH0"/>
@@ -1943,6 +2066,15 @@
     <Parameter Name="DATASIZE_LPDMACH0"/>
     <Parameter Name="NODETYPE_LPDMACH0"/>
     <!-- specific for circular mode -->
+
+      <!--LPBAM Specific --> 
+    <Parameter Name="Interrupt1_LPDMACH0"/>
+    <Parameter Name="Interrupt2_LPDMACH0"/>
+    <Parameter Name="Interrupt3_LPDMACH0"/>
+    <Parameter Name="Interrupt4_LPDMACH0"/>
+    
+    <!--LPBAM Specific --> 
+     
     
 </RefMode>
 
@@ -1957,8 +2089,18 @@
      <Parameter Name="PRIORITY_LL_LPDMACH0"/> 
     <Parameter Name="LINKEDLISTMODE_LPDMACH0"/> 
     <Parameter Name="LINKSTEPMODE_LPDMACH0"/> 
-    <Parameter Name="LINKALLOCATEDPORT_LPDMACH0"/> 
     <Parameter Name="TRANSFEREVENTMODE_LL_LPDMACH0"/> 
+
+
+      <!--LPBAM Specific --> 
+    <Parameter Name="Interrupt1_LPDMACH0"/>
+    <Parameter Name="Interrupt2_LPDMACH0"/>
+    <Parameter Name="Interrupt3_LPDMACH0"/>
+    <Parameter Name="Interrupt4_LPDMACH0"/>
+    
+    <!--LPBAM Specific --> 
+     
+
 </RefMode>
 
 
@@ -2006,7 +2148,6 @@
       
     <Parameter Name="LINKEDLISTMODE_CIRCULAR_LPDMACH1"/> 
     <Parameter Name="LINKSTEPMODE_CIRCULAR_LPDMACH1"/> 
-    <Parameter Name="LINKALLOCATEDPORT_CIRCULAR_LPDMACH1"/> 
     <Parameter Name="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH1"/> 
 
     <Parameter Name="SRCADD_LPDMACH1"/>
@@ -2014,6 +2155,15 @@
     <Parameter Name="DATASIZE_LPDMACH1"/>
     <Parameter Name="NODETYPE_LPDMACH1"/>
     <!-- specific for circular mode -->
+
+     <!--LPBAM Specific --> 
+    <Parameter Name="Interrupt1_LPDMACH1"/>
+    <Parameter Name="Interrupt2_LPDMACH1"/>
+    <Parameter Name="Interrupt3_LPDMACH1"/>
+    <Parameter Name="Interrupt4_LPDMACH1"/>
+    
+    <!--LPBAM Specific --> 
+
     
 </RefMode>
 
@@ -2028,8 +2178,19 @@
      <Parameter Name="PRIORITY_LL_LPDMACH1"/> 
     <Parameter Name="LINKEDLISTMODE_LPDMACH1"/> 
     <Parameter Name="LINKSTEPMODE_LPDMACH1"/> 
-    <Parameter Name="LINKALLOCATEDPORT_LPDMACH1"/> 
     <Parameter Name="TRANSFEREVENTMODE_LL_LPDMACH1"/> 
+
+
+    <!--LPBAM Specific --> 
+    <Parameter Name="Interrupt1_LPDMACH1"/>
+    <Parameter Name="Interrupt2_LPDMACH1"/>
+    <Parameter Name="Interrupt3_LPDMACH1"/>
+    <Parameter Name="Interrupt4_LPDMACH1"/>
+    
+    <!--LPBAM Specific --> 
+
+   
+
 </RefMode>
 
 
@@ -2077,7 +2238,6 @@
       
     <Parameter Name="LINKEDLISTMODE_CIRCULAR_LPDMACH2"/> 
     <Parameter Name="LINKSTEPMODE_CIRCULAR_LPDMACH2"/> 
-    <Parameter Name="LINKALLOCATEDPORT_CIRCULAR_LPDMACH2"/> 
     <Parameter Name="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH2"/> 
 
     <Parameter Name="SRCADD_LPDMACH2"/>
@@ -2085,6 +2245,15 @@
     <Parameter Name="DATASIZE_LPDMACH2"/>
     <Parameter Name="NODETYPE_LPDMACH2"/>
     <!-- specific for circular mode -->
+
+    <!--LPBAM Specific --> 
+    <Parameter Name="Interrupt1_LPDMACH2"/>
+    <Parameter Name="Interrupt2_LPDMACH2"/>
+    <Parameter Name="Interrupt3_LPDMACH2"/>
+    <Parameter Name="Interrupt4_LPDMACH2"/>
+    
+<!--LPBAM Specific --> 
+
     
 </RefMode>
 
@@ -2099,8 +2268,18 @@
      <Parameter Name="PRIORITY_LL_LPDMACH2"/> 
     <Parameter Name="LINKEDLISTMODE_LPDMACH2"/> 
     <Parameter Name="LINKSTEPMODE_LPDMACH2"/> 
-    <Parameter Name="LINKALLOCATEDPORT_LPDMACH2"/> 
     <Parameter Name="TRANSFEREVENTMODE_LL_LPDMACH2"/> 
+
+<!--LPBAM Specific --> 
+    <Parameter Name="Interrupt1_LPDMACH2"/>
+    <Parameter Name="Interrupt2_LPDMACH2"/>
+    <Parameter Name="Interrupt3_LPDMACH2"/>
+    <Parameter Name="Interrupt4_LPDMACH2"/>
+    
+<!--LPBAM Specific --> 
+
+
+
 </RefMode>
 
 
@@ -2144,7 +2323,6 @@
       
     <Parameter Name="LINKEDLISTMODE_CIRCULAR_LPDMACH3"/> 
     <Parameter Name="LINKSTEPMODE_CIRCULAR_LPDMACH3"/> 
-    <Parameter Name="LINKALLOCATEDPORT_CIRCULAR_LPDMACH3"/> 
     <Parameter Name="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH3"/> 
 
     <Parameter Name="SRCADD_LPDMACH3"/>
@@ -2152,6 +2330,17 @@
     <Parameter Name="DATASIZE_LPDMACH3"/>
     <Parameter Name="NODETYPE_LPDMACH3"/>
     <!-- specific for circular mode -->
+
+    <!--LPBAM Specific --> 
+    <Parameter Name="Interrupt1_LPDMACH3"/>
+    <Parameter Name="Interrupt2_LPDMACH3"/>
+    <Parameter Name="Interrupt3_LPDMACH3"/>
+    <Parameter Name="Interrupt4_LPDMACH3"/>
+    
+    
+<!--LPBAM Specific --> 
+
+    
     
 </RefMode>
 
@@ -2165,8 +2354,20 @@
      <Parameter Name="PRIORITY_LL_LPDMACH3"/> 
     <Parameter Name="LINKEDLISTMODE_LPDMACH3"/> 
     <Parameter Name="LINKSTEPMODE_LPDMACH3"/> 
-    <Parameter Name="LINKALLOCATEDPORT_LPDMACH3"/> 
     <Parameter Name="TRANSFEREVENTMODE_LL_LPDMACH3"/> 
+
+
+<!--LPBAM Specific --> 
+    <Parameter Name="Interrupt1_LPDMACH3"/>
+    <Parameter Name="Interrupt2_LPDMACH3"/>
+    <Parameter Name="Interrupt3_LPDMACH3"/>
+    <Parameter Name="Interrupt4_LPDMACH3"/>
+    
+    
+<!--LPBAM Specific --> 
+
+   
+
 </RefMode>
 
 
@@ -2186,7 +2387,8 @@
                         <Signal Name="VS_LPDMACH0"/>
                         </SignalLogicalOp>
                     </Mode>
-                    <Mode Name="SIMPLEREQUEST_LPDMACH0" UserName="Standard Request Mode">
+                    <Mode Name="SIMPLEREQUEST_LPDMACH0" UserName="Standard Request Mode" >
+                         <Condition Diagnostic="not available when configurring IP from LPBAM context" Expression="!S_LPBAM_CONF"/>
                                         <Semaphore>SEM_SIMPLEREQUEST_$IpInstanceCH0</Semaphore>
                     <SignalLogicalOp Name="AND">
                         <Signal Name="VS_LPDMACH0"/>
@@ -2202,7 +2404,8 @@
                         <Signal Name="VS_LPDMACH1"/>
                         </SignalLogicalOp>
                     </Mode>
-                    <Mode Name="SIMPLEREQUEST_LPDMACH1" UserName="Standard Request Mode">
+                    <Mode Name="SIMPLEREQUEST_LPDMACH1" UserName="Standard Request Mode" >
+                        <Condition Diagnostic="not available when configurring IP from LPBAM context" Expression="!S_LPBAM_CONF"/>
                                         <Semaphore>SEM_SIMPLEREQUEST_$IpInstanceCH1</Semaphore>
                     <SignalLogicalOp Name="AND">
                         <Signal Name="VS_LPDMACH1"/>
@@ -2219,6 +2422,7 @@
                         </SignalLogicalOp>
                     </Mode>
                     <Mode Name="SIMPLEREQUEST_LPDMACH2" UserName="Standard Request Mode">
+                        <Condition Diagnostic="not available when configurring IP from LPBAM context" Expression="!S_LPBAM_CONF"/>
                                         <Semaphore>SEM_SIMPLEREQUEST_$IpInstanceCH2</Semaphore>
                     <SignalLogicalOp Name="AND">
                         <Signal Name="VS_LPDMACH2"/>
@@ -2234,7 +2438,8 @@
                         <Signal Name="VS_LPDMACH3"/>
                         </SignalLogicalOp>
                     </Mode>
-                    <Mode Name="SIMPLEREQUEST_LPDMACH3" UserName="Standard Request Mode">
+                    <Mode Name="SIMPLEREQUEST_LPDMACH3" UserName="Standard Request Mode" >
+                        <Condition Diagnostic="not available when configurring IP from LPBAM context" Expression="!S_LPBAM_CONF"/>
                                         <Semaphore>SEM_SIMPLEREQUEST_$IpInstanceCH3</Semaphore>
                     <SignalLogicalOp Name="AND">
                         <Signal Name="VS_LPDMACH3"/>
@@ -2242,6 +2447,8 @@
                     </Mode>
                 </ModeLogicOperator>
         </Mode>
+
+
 </ModeLogicOperator>
 
            
@@ -2250,5 +2457,6 @@
 <RefSignal Name="VS_LPDMACH1"   Virtual="true"/>
 <RefSignal Name="VS_LPDMACH2"   Virtual="true"/>
 <RefSignal Name="VS_LPDMACH3"   Virtual="true"/>
+
 
 </IP>

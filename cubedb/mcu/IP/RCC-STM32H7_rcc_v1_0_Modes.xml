@@ -1042,9 +1042,12 @@
 
     <!--ADCFreq_Value-->
     <RefParameter Visible="false" Comment="ADC Clock Source"   Name="ADCFreq_Value"  Max="40000000"   DefaultValue="96000000" IP="ADC1,ADC2,ADC3"     Type="double" Display="value/1000000" Unit="MHz" >
-        <Condition Diagnostic="" Expression="scale2|scale3"/>
+        <Condition Diagnostic="" Expression="scale3"/>
     </RefParameter>
-    <RefParameter Visible="false" Comment="ADC Clock Source"   Name="ADCFreq_Value"  Max="80000000"   DefaultValue="96000000" IP="ADC1,ADC2,ADC3"     Type="double" Display="value/1000000" Unit="MHz" />
+    <RefParameter Visible="false" Comment="ADC Clock Source"   Name="ADCFreq_Value"  Max="60000000"   DefaultValue="96000000" IP="ADC1,ADC2,ADC3"     Type="double" Display="value/1000000" Unit="MHz" >
+        <Condition Diagnostic="" Expression="scale2"/>
+    </RefParameter>
+    <RefParameter Visible="false" Comment="ADC Clock Source"   Name="ADCFreq_Value"  Max="160000000"   DefaultValue="96000000" IP="ADC1,ADC2,ADC3"     Type="double" Display="value/1000000" Unit="MHz" />
     <!--ADC frequency  --> 
     <RefParameter Visible="false" Comment="ADC synchr"  Name="synchADCFreq_Value"  DefaultValue="=D1CPREFreq_Value" Type="double" Display="value/1000000" Unit="MHz" IP="ADC1,ADC2,ADC3"/>
     <RefParameter Visible="false" Comment="ADC asynchr" Name="asynchADCFreq_Value" DefaultValue="=ADCFreq_Value"  Type="double" Display="value/1000000"  Unit="MHz" IP="ADC1,ADC2,ADC3"/>
@@ -1177,7 +1180,10 @@
 
     <!--CortexFreq_Value-->
     <RefParameter Visible="false" Comment="Cortex Clock Source"   Name="CortexFreq_Value"     DefaultValue="96000000"   Max="480000000"  Type="double" Display="value/1000000" Unit="MHz" >
-        <Condition Diagnostic="" Expression="scale0|scale1"/>
+        <Condition Diagnostic="" Expression="scale0"/>
+    </RefParameter>
+    <RefParameter Visible="false" Comment="Cortex Clock Source"   Name="CortexFreq_Value"     DefaultValue="96000000"   Max="400000000"  Type="double" Display="value/1000000" Unit="MHz" >
+        <Condition Diagnostic="" Expression="scale1"/>
     </RefParameter>    
     <RefParameter Visible="false" Comment="Cortex Clock Source"   Name="CortexFreq_Value"     DefaultValue="96000000"   Max="300000000"  Type="double" Display="value/1000000" Unit="MHz" >
         <Condition Diagnostic="" Expression="scale2"/>
@@ -1189,7 +1195,10 @@
 
     <!--CpuClockFreq_Value-->  
     <RefParameter Visible="false" Comment="CPU Clock"   Name="CpuClockFreq_Value"     DefaultValue="96000000"   Max="480000000"  Type="double" Display="value/1000000" Unit="MHz" >
-        <Condition Diagnostic="" Expression="scale0|scale1"/>
+        <Condition Diagnostic="" Expression="scale0"/>
+    </RefParameter>
+    <RefParameter Visible="false" Comment="CPU Clock"   Name="CpuClockFreq_Value"     DefaultValue="96000000"   Max="400000000"  Type="double" Display="value/1000000" Unit="MHz" >
+        <Condition Diagnostic="" Expression="scale1"/>
     </RefParameter>
     <RefParameter Visible="false" Comment="CPU Clock"   Name="CpuClockFreq_Value"     DefaultValue="96000000"   Max="300000000"  Type="double" Display="value/1000000" Unit="MHz" >
         <Condition Diagnostic="" Expression="scale2"/>
@@ -1421,8 +1430,11 @@
     <RefParameter Visible="false" Comment="Audio Clock Input" Name="EXTERNAL_CLOCK_VALUE" DefaultValue="12288000" Type="double" Display="value/1000000" Unit="MHz"/>
     <RefParameter Visible="false" Comment="CKPer Clock "   Name="CKPERFreq_Value" DefaultValue="12288000" Type="double" Display="value/1000000" Unit="MHz"/>
     <RefParameter Visible="false" Comment="D1CPRE Clock"   Name="D1CPREFreq_Value"     DefaultValue="96000000"   Max="480000000"  Type="double" Display="value/1000000" Unit="MHz" >
-        <Condition Diagnostic="" Expression="scale0|scale1"/>
-    </RefParameter>    
+        <Condition Diagnostic="" Expression="scale0"/>
+    </RefParameter> 
+    <RefParameter Visible="false" Comment="D1CPRE Clock"   Name="D1CPREFreq_Value"     DefaultValue="96000000"   Max="400000000"  Type="double" Display="value/1000000" Unit="MHz" >
+        <Condition Diagnostic="" Expression="scale1"/>
+    </RefParameter>   
     <RefParameter Visible="false" Comment="D1CPRE Clock"   Name="D1CPREFreq_Value"     DefaultValue="96000000"   Max="300000000"  Type="double" Display="value/1000000" Unit="MHz" >
         <Condition Diagnostic="" Expression="scale2"/>
     </RefParameter>
@@ -1432,8 +1444,11 @@
     <RefParameter Visible="false" Comment="D1CPRE Clock " Name="D1CPREFreq_Value" DefaultValue="12288000" Type="double"  Max="480000000" Display="value/1000000" Unit="MHz"/>
     
     <RefParameter Visible="false" Comment="HCLK Clock"   Name="HCLKFreq_Value"     DefaultValue="96000000"   Max="240000000"  Type="double" Display="value/1000000" Unit="MHz" >
-        <Condition Diagnostic="" Expression="scale0|scale1"/>
-    </RefParameter>    
+        <Condition Diagnostic="" Expression="scale0"/>
+    </RefParameter>
+    <RefParameter Visible="false" Comment="HCLK Clock"   Name="HCLKFreq_Value"     DefaultValue="96000000"   Max="200000000"  Type="double" Display="value/1000000" Unit="MHz" >
+        <Condition Diagnostic="" Expression="scale1"/>
+    </RefParameter> 
     <RefParameter Visible="false" Comment="HCLK Clock"   Name="HCLKFreq_Value"     DefaultValue="96000000"   Max="150000000"  Type="double" Display="value/1000000" Unit="MHz" >
         <Condition Diagnostic="" Expression="scale2"/>
     </RefParameter>
@@ -1701,11 +1716,11 @@
     </RefParameter>
 	
     <!-- IWDG  Enable-->
-    <RefParameter Visible="false" Name="IWDGEnable" Comment="IWDG" Type="list" DefaultValue="true" IP="IWDG">
-        <Condition Expression="IWDGUsed_ForRCC" Diagnostic="IWDG is activated"/>
+    <RefParameter Visible="false" Name="IWDGEnable" Comment="IWDG" Type="list" DefaultValue="true" IP="IWDG1">
+        <Condition Expression="IWDG1_Used" Diagnostic="IWDG is activated"/>
         <PossibleValue Value="true" Comment="true"/>
     </RefParameter>
-    <RefParameter Visible="false" Name="IWDGEnable" Comment="IWDG" Type="list" DefaultValue="false">
+    <RefParameter Visible="false" Name="IWDGEnable" Comment="IWDG" Type="list" DefaultValue="false" IP="IWDG1">
         <PossibleValue Value="false" Comment="false"/>
     </RefParameter>
 	
@@ -1808,7 +1823,7 @@
     </RefParameter>
     <!-- cKPerUsed  Enable-->
     <RefParameter Visible="false" Name="cKPerEnable" Comment="cKPer" Type="list" DefaultValue="true" >
-        <Condition Diagnostic="" Expression="(QUADSPIUsed_ForRCC)|(FMCUsed_ForRCC)|(SAI1_SAIAUsed_ForRCC|SAI1_SAIBUsed_ForRCC|(DFSDM1Used_ForRCC &amp; SEM2RCC_SAI1_CK_REQUIRED_DFSDM1))|(LPTIM1Used_ForRCC)|(SAI4_SAIBUsed_ForRCC)|(SAI4_SAIAUsed_ForRCC)|(((USE_ADC1&amp;ADC1UsedAsynchronousCLK_ForRCC)|(USE_ADC2&amp;ADC2UsedAsynchronousCLK_ForRCC)|(USE_ADC3&amp;ADC3UsedAsynchronousCLK_ForRCC)))|(LPTIM2Used_ForRCC)|(SPI1Used_ForRCC|SPI2Used_ForRCC|SPI3Used_ForRCC)|(SAI2_SAIAUsed_ForRCC|SAI2_SAIBUsed_ForRCC|SAI3_SAIAUsed_ForRCC|SAI3_SAIBUsed_ForRCC)|(LPTIM3Used_ForRCC|LPTIM4Used_ForRCC|LPTIM5Used_ForRCC)"/>
+        <Condition Diagnostic="" Expression="(QUADSPIUsed_ForRCC)|(FMCUsed_ForRCC)|(SAI1_SAIAUsed_ForRCC|SAI1_SAIBUsed_ForRCC|(DFSDM1Used_ForRCC &amp; SEM2RCC_SAI1_CK_REQUIRED_DFSDM1))|(LPTIM1Used_ForRCC)|(SAI4_SAIBUsed_ForRCC)|(SAI4_SAIAUsed_ForRCC)|(((USE_ADC1&amp;ADC1UsedAsynchronousCLK_ForRCC)|(USE_ADC2&amp;ADC2UsedAsynchronousCLK_ForRCC)|(USE_ADC3&amp;ADC3UsedAsynchronousCLK_ForRCC)))|(LPTIM2Used_ForRCC)|(SPI1Used_ForRCC|SPI2Used_ForRCC|SPI3Used_ForRCC|I2S1Used_ForRCC|I2S2Used_ForRCC|I2S3Used_ForRCC)|(SAI2_SAIAUsed_ForRCC|SAI2_SAIBUsed_ForRCC|SAI3_SAIAUsed_ForRCC|SAI3_SAIBUsed_ForRCC)|(LPTIM3Used_ForRCC|LPTIM4Used_ForRCC|LPTIM5Used_ForRCC)"/>
 
         <PossibleValue Value="true" Comment="true"/>
     </RefParameter>
@@ -1946,7 +1961,7 @@
 	
     <!-- LSI used -->
     <RefParameter Visible="false" Comment="LSI used flag" DefaultValue="1" Name="LSIUsed" Type="integer" Min="1" Max="1">
-        <Condition Expression="(IWDGUsed_ForRCC|IWDG2Used_ForRCC|((RTCClockSelection=RCC_RTCCLKSOURCE_LSI)&amp;(RTCUsed_ForRCC)))|(MCO2Config &amp;MCO2SOURCE_LSI)|(RNGCLKSOURCE_LSI &amp;RNGUsed_ForRCC)|(LPTIM1CLKSOURCE_LSI &amp; LPTIM1Used_ForRCC)|(LPTIM2CLKSOURCE_LSI &amp; LPTIM2Used_ForRCC)|(LPTIM345CLKSOURCE_LSI &amp;(LPTIM3Used_ForRCC|LPTIM4Used_ForRCC|LPTIM5Used_ForRCC))|(CECCLKSOURCE_LSI &amp; CECUsed_ForRCC)" Diagnostic=""/>
+        <Condition Expression="(IWDG1_Used|IWDG2Used_ForRCC|((RTCClockSelection=RCC_RTCCLKSOURCE_LSI)&amp;(RTCUsed_ForRCC)))|(MCO2Config &amp;MCO2SOURCE_LSI)|(RNGCLKSOURCE_LSI &amp;RNGUsed_ForRCC)|(LPTIM1CLKSOURCE_LSI &amp; LPTIM1Used_ForRCC)|(LPTIM2CLKSOURCE_LSI &amp; LPTIM2Used_ForRCC)|(LPTIM345CLKSOURCE_LSI &amp;(LPTIM3Used_ForRCC|LPTIM4Used_ForRCC|LPTIM5Used_ForRCC))|(CECCLKSOURCE_LSI &amp; CECUsed_ForRCC)" Diagnostic=""/>
     </RefParameter>
     <RefParameter Visible="false" Comment="LSI used flag" DefaultValue="0" Name="LSIUsed" Type="integer" Min="0" Max="0"/>
    
@@ -2103,10 +2118,10 @@
 	
 	
     <RefParameter Comment="CSI Calibration Value" DefaultValue="16" Max="31" Min="0" Name="CSICalibrationValue" Group="RCC Parameters" Type="integer">
-        <Condition Diagnostic="HSI Calibration Value depending on Product revision" Expression="ProductRev=revY"/>
+        <Condition Diagnostic="CSI Calibration Value depending on Product revision" Expression="ProductRev=revY"/>
     </RefParameter>
     <RefParameter Comment="CSI Calibration Value" DefaultValue="32" Max="63" Min="0" Name="CSICalibrationValue" Group="RCC Parameters" Type="integer">
-        <Condition Diagnostic="HSI Calibration Value depending on Product revision" Expression="ProductRev=revV"/>
+        <Condition Diagnostic="CSI Calibration Value depending on Product revision" Expression="ProductRev=revV"/>
     </RefParameter>
     <RefParameter Comment="CSI Calibration Value" DefaultValue="16" Max="31" Min="0" Name="CSICalibrationValue" Group="RCC Parameters" Type="integer"/>
     
@@ -2269,7 +2284,7 @@
 	
 	
     <RefParameter Visible="false" Comment="PLL2MARG" DefaultValue="+DIVM2" Name="PLL2MARG" Type="list">
-        <Condition Diagnostic="PLL used" Expression="PLL2Used=1 &amp; (pll2usage &gt; 1) | ((MCO2SOURCE_PLL2PCLK)&amp; (MCO2Config))"/>
+        <Condition Diagnostic="PLL used" Expression="PLL2Used=1 &amp; (pll2usage &gt; 1)"/>
     </RefParameter>
 	
     <RefParameter Visible="false" Comment="PLL2MARG" DefaultValue="null" Name="PLL2MARG" Type="list"/>
@@ -2277,7 +2292,7 @@
 	
 	
     <RefParameter Visible="false" Comment="PLL2NARG" DefaultValue="+DIVN2" Name="PLL2NARG" Type="list">
-        <Condition Diagnostic="PLL used" Expression="PLL2Used=1 &amp; (pll2usage &gt; 1) | ((MCO2SOURCE_PLL2PCLK)&amp; (MCO2Config))"/>
+        <Condition Diagnostic="PLL used" Expression="PLL2Used=1 &amp; (pll2usage &gt; 1)"/>
     </RefParameter>
 	
     <RefParameter Visible="false" Comment="PLL2NARG" DefaultValue="null" Name="PLL2NARG" Type="list"/>
@@ -2285,20 +2300,20 @@
 	
 	
     <RefParameter Visible="false" Comment="PLL2PARG" DefaultValue="+DIVP2" Name="PLL2PARG" Type="list">
-        <Condition Diagnostic="PLL used" Expression="PLL2Used=1 &amp; (pll2usage &gt; 1) | ((MCO2SOURCE_PLL2PCLK)&amp; (MCO2Config))"/>
+        <Condition Diagnostic="PLL used" Expression="PLL2Used=1 &amp; (pll2usage &gt; 1)"/>
     </RefParameter>
 	
     <RefParameter Visible="false" Comment="PLL2PARG" DefaultValue="null" Name="PLL2PARG" Type="list"/>
 	
     <RefParameter Visible="false" Comment="PLL2RARG" DefaultValue="+DIVR2" Name="PLL2RARG" Type="list">
-        <Condition Expression="PLL2Used=1 &amp; (pll2usage &gt; 1) | ((MCO2SOURCE_PLL2PCLK)&amp; (MCO2Config))" Diagnostic=""/>
+        <Condition Expression="PLL2Used=1 &amp; (pll2usage &gt; 1)" Diagnostic=""/>
     </RefParameter>
     <RefParameter Visible="false" Comment="PLL2RARG" DefaultValue="null" Name="PLL2RARG" Type="list"/>
 	
 	
 	
     <RefParameter Visible="false" Comment="PLL2QARG" DefaultValue="+DIVQ2" Name="PLL2QARG" Type="list">
-        <Condition Diagnostic="PLL used" Expression="PLL2Used=1 &amp; (pll2usage &gt; 1) | ((MCO2SOURCE_PLL2PCLK)&amp; (MCO2Config))"/>
+        <Condition Diagnostic="PLL used" Expression="PLL2Used=1 &amp; (pll2usage &gt; 1)"/>
     </RefParameter>
 	
     <RefParameter Visible="false" Comment="PLL2QARG" DefaultValue="null" Name="PLL2QARG" Type="list"/>
@@ -2856,9 +2871,7 @@
     </RefParameter>
     <RefParameter Visible="false" Comment="Periph Clock Selection" Name="PeriphClockSelectionARG" DefaultValue="null" Type="list"/>
     
-    <RefParameter Visible="false" Comment="SAI Periph Clock Selection" Name="C_PeriphClockSelectionARG" DefaultValue="null" Type="list">
-        <Condition Expression="(pll2usage=1) &amp; ((MCO2SOURCE_PLL2PCLK)&amp; (MCO2Config))" Diagnostic=""/>
-    </RefParameter>   
+
     <RefParameter Visible="false" Comment="SAI Periph Clock Selection" Name="C_PeriphClockSelectionARG" DefaultValue="+RCC_PERIPHCLK_FMCVar+|RCC_PERIPHCLK_QSPIVar+|RCC_PERIPHCLK_USBVar+|RCC_PERIPHCLK_I2C4Var+|RCC_PERIPHCLK_SPI6Var+|RCC_PERIPHCLK_ADCVar+|RCC_PERIPHCLK_SAI4AVar+|RCC_PERIPHCLK_SAI4BVar+|RCC_PERIPHCLK_DSIVar+|RCC_PERIPHCLK_LPTIM1Var+|RCC_PERIPHCLK_LPTIM2Var+|RCC_PERIPHCLK_LPTIM3Var+|RCC_PERIPHCLK_LPTIM4Var+|RCC_PERIPHCLK_LPTIM5Var+|RCC_PERIPHCLK_I2C2Var+|RCC_PERIPHCLK_I2C3Var+|RCC_PERIPHCLK_I2C1Var+|RCC_PERIPHCLK_SDMMCVar+|RCC_PERIPHCLK_SAI1Var+|RCC_PERIPHCLK_SAI2Var+|RCC_PERIPHCLK_SAI3Var+|RCC_PERIPHCLK_SPI3Var+|RCC_PERIPHCLK_SPI2Var+|RCC_PERIPHCLK_SPI1Var+|RCC_PERIPHCLK_SPI4Var+|RCC_PERIPHCLK_SPI5Var+|RCC_PERIPHCLK_UART5Var+|RCC_PERIPHCLK_SPDIFRXVar+|RCC_PERIPHCLK_UART8Var+|RCC_PERIPHCLK_FDCANVar+|RCC_PERIPHCLK_USART1Var+|RCC_PERIPHCLK_USART6Var+|RCC_PERIPHCLK_UART7Var+|RCC_PERIPHCLK_UART4Var+|RCC_PERIPHCLK_USART2Var+|RCC_PERIPHCLK_LPUART1Var+|RCC_PERIPHCLK_CKPERVar+|RCC_PERIPHCLK_TIMVar+|RCC_PERIPHCLK_LTDCVar+|RCC_PERIPHCLK_USART3Var" Type="list"/>
 
     <RefParameter Visible="false" Name="RCC_PERIPHCLK_CKPERVar" Comment="Periph Clock Selection" Type="list" DefaultValue="RCC_PERIPHCLK_CKPER">
@@ -6670,31 +6683,48 @@
         <PossibleValue Value="FLASH_LATENCY_0" Comment="0 WS (1 CPU cycle)"/>
     </RefParameter> 
 	
-
+	<!-- rev V -->
     <RefParameter Name="PWR_Regulator_Voltage_Scale" Comment="Power Regulator Voltage Scale" Type="list" DefaultValue="PWR_REGULATOR_VOLTAGE_SCALE3" Group="Power Parameters">
-        <Condition Diagnostic="" Expression="((CpuClockFreq_Value &lt; 200000000)|(CpuClockFreq_Value=200000000))"/>
+        <Condition Diagnostic="" Expression="((CpuClockFreq_Value &lt; 200000000)|(CpuClockFreq_Value=200000000)) &amp; ProductRev=revV"/>
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE3" Comment="Power Regulator Voltage Scale 3" Semaphore="scale3"/>
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE2" Comment="Power Regulator Voltage Scale 2" Semaphore="scale2"/>
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE1" Comment="Power Regulator Voltage Scale 1" Semaphore="scale1"/>
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE0" Comment="Power Regulator Voltage Scale 0" Semaphore="scale0"/>
     </RefParameter>
     <RefParameter Name="PWR_Regulator_Voltage_Scale" Comment="Power Regulator Voltage Scale" Type="list" DefaultValue="PWR_REGULATOR_VOLTAGE_SCALE2" Group="Power Parameters">
-        <Condition Diagnostic="" Expression="((CpuClockFreq_Value &lt; 300000000)|(CpuClockFreq_Value=300000000)) &amp; (CpuClockFreq_Value &gt; 200000000)"/>
+        <Condition Diagnostic="" Expression="((CpuClockFreq_Value &lt; 300000000)|(CpuClockFreq_Value=300000000)) &amp; (CpuClockFreq_Value &gt; 200000000) &amp; ProductRev=revV"/>
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE2" Comment="Power Regulator Voltage Scale 2" Semaphore="scale2"/>
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE1" Comment="Power Regulator Voltage Scale 1" Semaphore="scale1"/>
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE0" Comment="Power Regulator Voltage Scale 0" Semaphore="scale0"/>
     </RefParameter>
 		  
     <RefParameter Name="PWR_Regulator_Voltage_Scale" Comment="Power Regulator Voltage Scale" Type="list" DefaultValue="PWR_REGULATOR_VOLTAGE_SCALE1" Group="Power Parameters">
-        <Condition Diagnostic="" Expression="((CpuClockFreq_Value &lt; 400000000)|(CpuClockFreq_Value=400000000)) &amp; (CpuClockFreq_Value &gt; 300000000)"/>
-    <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE1" Comment="Power Regulator Voltage Scale 1" Semaphore="scale1"/>
+        <Condition Diagnostic="" Expression="((CpuClockFreq_Value &lt; 400000000)|(CpuClockFreq_Value=400000000)) &amp; (CpuClockFreq_Value &gt; 300000000) &amp; ProductRev=revV"/>
+		<PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE1" Comment="Power Regulator Voltage Scale 1" Semaphore="scale1"/>
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE0" Comment="Power Regulator Voltage Scale 0" Semaphore="scale0"/>
     </RefParameter>
     <RefParameter Name="PWR_Regulator_Voltage_Scale" Comment="Power Regulator Voltage Scale" Type="list" DefaultValue="PWR_REGULATOR_VOLTAGE_SCALE0" Group="Power Parameters">
-        <Condition Diagnostic="" Expression="(CpuClockFreq_Value &gt; 400000000)"/>
+        <Condition Diagnostic="" Expression="(CpuClockFreq_Value &gt; 400000000) &amp; ProductRev=revV"/>
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE0" Comment="Power Regulator Voltage Scale 0" Semaphore="scale0"/>
     </RefParameter>
 	
+	<!-- rev Y -->
+	    <RefParameter Name="PWR_Regulator_Voltage_Scale" Comment="Power Regulator Voltage Scale" Type="list" DefaultValue="PWR_REGULATOR_VOLTAGE_SCALE3" Group="Power Parameters">
+        <Condition Diagnostic="" Expression="((CpuClockFreq_Value &lt; 200000000)|(CpuClockFreq_Value=200000000)) &amp; ProductRev=revY"/>
+        <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE3" Comment="Power Regulator Voltage Scale 3" Semaphore="scale3"/>
+        <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE2" Comment="Power Regulator Voltage Scale 2" Semaphore="scale2"/>
+        <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE1" Comment="Power Regulator Voltage Scale 1" Semaphore="scale1"/>
+    </RefParameter>
+    <RefParameter Name="PWR_Regulator_Voltage_Scale" Comment="Power Regulator Voltage Scale" Type="list" DefaultValue="PWR_REGULATOR_VOLTAGE_SCALE2" Group="Power Parameters">
+        <Condition Diagnostic="" Expression="((CpuClockFreq_Value &lt; 300000000)|(CpuClockFreq_Value=300000000)) &amp; (CpuClockFreq_Value &gt; 200000000) &amp; ProductRev=revY"/>
+        <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE2" Comment="Power Regulator Voltage Scale 2" Semaphore="scale2"/>
+        <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE1" Comment="Power Regulator Voltage Scale 1" Semaphore="scale1"/>
+    </RefParameter>
+		  
+    <RefParameter Name="PWR_Regulator_Voltage_Scale" Comment="Power Regulator Voltage Scale" Type="list" DefaultValue="PWR_REGULATOR_VOLTAGE_SCALE1" Group="Power Parameters">
+        <Condition Diagnostic="" Expression="((CpuClockFreq_Value &lt; 400000000)|(CpuClockFreq_Value=400000000)) &amp; (CpuClockFreq_Value &gt; 300000000) &amp; ProductRev=revY"/>
+		<PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE1" Comment="Power Regulator Voltage Scale 1" Semaphore="scale1"/>
+    </RefParameter>
     <RefParameter Name="VDD_VALUE" Comment="VDD voltage (V)" DefaultValue="3.3" Max="3.6" Min="1.62" Type="double" Unit="V" Group="System Parameters">
     </RefParameter>
     
@@ -6777,7 +6807,7 @@
     </RefParameter>
 	
     <RefParameter Visible="false" Comment="PLL2RGE" DefaultValue="+PLL2_VCI_Range" Name="PLL2RGE" Type="list">
-        <Condition Diagnostic="PLL used" Expression="PLL2Used=1 &amp; (pll2usage &gt; 1) | ((MCO2SOURCE_PLL2PCLK)&amp; (MCO2Config))"/>
+        <Condition Diagnostic="PLL used" Expression="PLL2Used=1 &amp; (pll2usage &gt; 1)"/>
     </RefParameter>
 	
     <RefParameter Visible="false" Comment="PLL2RGE" DefaultValue="null" Name="PLL2RGE" Type="list"/>
@@ -6874,7 +6904,7 @@
     </RefParameter>
 	
     <RefParameter Visible="false" Comment="PLL2VCOSELarg" DefaultValue="+PLL2_VCO_SEL" Name="PLL2VCOSELarg" Type="list">
-        <Condition Diagnostic="PLL used" Expression="PLL2Used=1 &amp; (pll2usage &gt; 1) | ((MCO2SOURCE_PLL2PCLK)&amp; (MCO2Config))"/>
+        <Condition Diagnostic="PLL used" Expression="PLL2Used=1 &amp; (pll2usage &gt; 1)"/>
     </RefParameter>
 	
     <RefParameter Visible="false" Comment="PLL2VCOSELarg" DefaultValue="null" Name="PLL2VCOSELarg" Type="list"/>
@@ -6923,7 +6953,7 @@
     <RefParameter  Comment="PLL2 Fractional Part"  Name="PLL2FRACN"  Type="integer" DefaultValue="0" Max="8191" Min="0" Group="PLL range Parameters" Visible="false"/>
 		
     <RefParameter Visible="false" Comment="PLL2FRACNARG" DefaultValue="+PLL2FRACN" Name="PLL2FRACNARG" Type="list">
-        <Condition Diagnostic="PLL used" Expression="PLL2Used=1 &amp; (pll2usage &gt; 1) | ((MCO2SOURCE_PLL2PCLK)&amp; (MCO2Config))"/>
+        <Condition Diagnostic="PLL used" Expression="PLL2Used=1 &amp; (pll2usage &gt; 1)"/>
     </RefParameter>	
     <RefParameter Visible="false" Comment="PLL2FRACNARG" DefaultValue="null" Name="PLL2FRACNARG" Type="list"/>
 		
@@ -7165,6 +7195,17 @@
         <PossibleValue Value="RCC_PLL2_DIVP"       Comment="RCC_PLL2_DIVP"/>
     </RefParameter>
     <RefParameter Visible="false" Comment="PLL2P clock output" Name="PLL2CLKOUT" DefaultValue="null" Type="list"/>
+    
+    
+    <RefParameter Visible="false" Comment="PLL2MMCO" DefaultValue="+DIVM2" Name="PLL2MMCO" Type="list"/>
+    <RefParameter Visible="false" Comment="PLL2NMCO" DefaultValue="+DIVN2" Name="PLL2NMCO" Type="list"/>
+    <RefParameter Visible="false" Comment="PLL2PMCO" DefaultValue="+DIVP2" Name="PLL2PMCO" Type="list" />
+    <RefParameter Visible="false" Comment="PLL2RMCO" DefaultValue="+DIVR2" Name="PLL2RMCO" Type="list"/>
+    <RefParameter Visible="false" Comment="PLL2QMCO" DefaultValue="+DIVQ2" Name="PLL2QMCO" Type="list"/>
+    <RefParameter Visible="false" Comment="PLL2RGE" DefaultValue="+PLL2_VCI_Range" Name="PLL2RGEMCO" Type="list"/>
+    <RefParameter Visible="false" Comment="PLL2VCOSELargFORMCO" DefaultValue="+PLL2_VCO_SEL" Name="PLL2VCOSELargMCO" Type="list"/>
+    <RefParameter Visible="false" Comment="PLL2FRACNMCO" DefaultValue="+PLL2FRACN" Name="PLL2FRACNMCO" Type="list"/>
+
     <RefParameter Visible="false" Comment="LSIRC is Internal osc" DefaultValue="true" Name="LSIRCisInternal" Type="list">
         <PossibleValue Comment="LSIRC is Internal osc" Value="true"/>
     </RefParameter>
