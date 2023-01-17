@@ -40,22 +40,6 @@
 			</Interface>
 			<!-- Bootloader Interface -->
 			<Interface name="Bootloader">
-				<Configuration number="0x0"> <!-- WRPx control the write protection of user sector-->
-					<WPRMOD reference="0x1">
-						<ReadRegister address="0x1FF80000" mask="0x00000100" value="0x0"/>
-					</WPRMOD>
-					<ValueLine>
-						<ReadRegister address="0x1FF00000" mask="0xFFFFFFFF" value="0x20001290"/>
-					</ValueLine>
-				</Configuration>
-				<Configuration number="0x1"> <!-- WRPx control the read/write protection PcROP-->
-					<WPRMOD reference="0x0">
-						<ReadRegister address="0x1FF80000" mask="0x00000100" value="0x100"/>
-					</WPRMOD>
-					<ValueLine>
-						<ReadRegister address="0x1FF00000" mask="0xFFFFFFFF" value="0x20001290"/>
-					</ValueLine>
-				</Configuration>
 				<Configuration number="0x2"> <!-- WRPx control the write protection of user sector-->
 					<WPRMOD reference="0x1">
 						<ReadRegister address="0x1FF80000" mask="0x00000100" value="0x0"/>
@@ -97,6 +81,7 @@
 				<ErasedValue>0x00</ErasedValue>
 				<Access>RWE</Access>
 				<FlashSize address="0x1FF8007C" default="0x30000"/>
+				<BootloaderVersion address="0x1FF01FFE"/>
 				<!-- 128KB single Bank -->
 				<Configuration config="0,1">
 					<Parameters address="0x08000000" name="128 Kbytes Embedded Flash" size="0x20000"/>
@@ -266,7 +251,7 @@
 					<Category>
 						<Name>User Configuration</Name>
 						<Field>
-							<Parameters address="0x4002201C" nname="FLASH_OBR" size="0x4"/>
+							<Parameters address="0x4002201C" name="FLASH_OBR" size="0x4"/>
 							<AssignedBits>
 								<Bit>
 									<Name>IWDG_SW</Name>

@@ -23,7 +23,6 @@
 			</Interface>
 			<!-- Bootloader Interface -->
 			<Interface name="Bootloader">
-			<Configurations>
 				<Configuration	number="0x0">
 					<ValueLine> <ReadRegister address="0x1FFF77DD" mask="0xFF" value="0xFF"/> </ValueLine>
 				</Configuration>
@@ -33,7 +32,6 @@
 				<Configuration	number="0x2">
 					<ValueLine> <ReadRegister address="0x1FFF77DD" mask="0xFF" value="0x31"/> </ValueLine>
 				</Configuration>
-				</Configurations>
 			</Interface>
 		</Configurations>
 		<!-- Peripherals -->
@@ -65,6 +63,11 @@
 				<ErasedValue>0xFF</ErasedValue>
 				<Access>RWE</Access>
 				<FlashSize address="0x1FFF75E0" default="0x20000"/>
+				<BootloaderVersion address="0x1FFF6FFE"/>
+				<DBGMCU_CR address="0x40015804" mask="0x007"/>
+				<DBGMCU_APB1_FZ address="0x40015808" mask="0x1800"/>
+				<RCC_APB2ENR address="0x4002103C" mask="0x08000000"/>
+				<!--<CR address="0x40002C04" mask="0x000001FF"/>-->
 				<!-- Single Bank -->
 				<Configuration>
 					<Parameters address="0x08000000" name=" 128 KB Embedded Flash" size="0x20000"/>
@@ -285,8 +288,8 @@
 									<BitWidth>0x1</BitWidth>
 									<Access>RW</Access>
 									<Values>
-										<Val value="0x0">SRAM2 parity check enable</Val>
-										<Val value="0x1">SRAM2 parity check disable</Val>
+										<Val value="0x0">SRAM parity check enable</Val>
+										<Val value="0x1">SRAM parity check disable</Val>
 									</Values>
 								</Bit>
 								<Bit>
@@ -307,8 +310,8 @@
 									<BitWidth>0x1</BitWidth>
 									<Access>RW</Access>
 									<Values>
-										<Val value="0x0">Boot from Flash if BOOT0 = 1, otherwise Embedded SRAM1</Val>
-										<Val value="0x1">Boot from Flash if BOOT0 = 1, otherwise system memory</Val>
+										<Val value="0x0">Boot from Flash if BOOT0 = 0, otherwise Embedded SRAM1</Val>
+										<Val value="0x1">Boot from Flash if BOOT0 = 0, otherwise system memory</Val>
 									</Values>
 								</Bit>
 								<Bit>
@@ -644,8 +647,8 @@
 									<BitWidth>0x1</BitWidth>
 									<Access>RW</Access>
 									<Values>
-										<Val value="0x0">SRAM2 parity check enable</Val>
-										<Val value="0x1">SRAM2 parity check disable</Val>
+										<Val value="0x0">SRAM parity check enable</Val>
+										<Val value="0x1">SRAM parity check disable</Val>
 									</Values>
 								</Bit>
 								<Bit>
