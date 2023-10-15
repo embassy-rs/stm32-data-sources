@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<device xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="1.1" xs:noNamespaceSchemaLocation="CMSIS-SVD_Schema_1_1.xsd">
+<device schemaVersion="1.1" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="CMSIS-SVD_Schema_1_1.xsd">
   <name>STM32F303</name>
   <version>1.4</version>
   <description>STM32F303</description>
@@ -9994,6 +9994,7 @@
               flag</description>
               <bitOffset>12</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="CC1OFR">
                 <usage>read</usage>
               </enumeratedValues>
@@ -10007,6 +10008,7 @@
               flag</description>
               <bitOffset>11</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="CC1OFR">
                 <usage>read</usage>
               </enumeratedValues>
@@ -10020,6 +10022,7 @@
               flag</description>
               <bitOffset>10</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="CC1OFR">
                 <usage>read</usage>
               </enumeratedValues>
@@ -10033,6 +10036,7 @@
               flag</description>
               <bitOffset>9</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
                 <name>CC1OFR</name>
                 <usage>read</usage>
@@ -10057,6 +10061,7 @@
               <description>Trigger interrupt flag</description>
               <bitOffset>6</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
                 <name>TIFR</name>
                 <usage>read</usage>
@@ -10087,6 +10092,7 @@
               flag</description>
               <bitOffset>4</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="CC1IFR">
                 <usage>read</usage>
               </enumeratedValues>
@@ -10100,6 +10106,7 @@
               flag</description>
               <bitOffset>3</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="CC1IFR">
                 <usage>read</usage>
               </enumeratedValues>
@@ -10113,6 +10120,7 @@
               flag</description>
               <bitOffset>2</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="CC1IFR">
                 <usage>read</usage>
               </enumeratedValues>
@@ -10126,6 +10134,7 @@
               flag</description>
               <bitOffset>1</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
                 <name>CC1IFR</name>
                 <usage>read</usage>
@@ -10150,18 +10159,28 @@
               <description>Update interrupt flag</description>
               <bitOffset>0</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
-                <name>UIF</name>
-                <usage>read-write</usage>
+                <name>UIFR</name>
+                <usage>read</usage>
                 <enumeratedValue>
-                  <name>Clear</name>
+                  <name>NoUpdateOccurred</name>
                   <description>No update occurred</description>
                   <value>0</value>
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>UpdatePending</name>
-                  <description>Update interrupt pending.</description>
+                  <description>Update interrupt pending</description>
                   <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+              <enumeratedValues>
+                <name>UIFW</name>
+                <usage>write</usage>
+                <enumeratedValue>
+                  <name>Clear</name>
+                  <description>Clear flag</description>
+                  <value>0</value>
                 </enumeratedValue>
               </enumeratedValues>
             </field>
@@ -10342,7 +10361,7 @@
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>PwmMode1</name>
-                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT&gt;TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
+                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT>TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
                   <value>6</value>
                 </enumeratedValue>
                 <enumeratedValue>
@@ -10721,7 +10740,7 @@
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>PwmMode1</name>
-                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT&gt;TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
+                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT>TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
                   <value>6</value>
                 </enumeratedValue>
                 <enumeratedValue>
@@ -11989,6 +12008,7 @@
               flag</description>
               <bitOffset>12</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="CC1OFR">
                 <usage>read</usage>
               </enumeratedValues>
@@ -12002,6 +12022,7 @@
               flag</description>
               <bitOffset>11</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="CC1OFR">
                 <usage>read</usage>
               </enumeratedValues>
@@ -12015,6 +12036,7 @@
               flag</description>
               <bitOffset>10</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="CC1OFR">
                 <usage>read</usage>
               </enumeratedValues>
@@ -12028,6 +12050,7 @@
               flag</description>
               <bitOffset>9</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
                 <name>CC1OFR</name>
                 <usage>read</usage>
@@ -12052,6 +12075,7 @@
               <description>Trigger interrupt flag</description>
               <bitOffset>6</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
                 <name>TIFR</name>
                 <usage>read</usage>
@@ -12082,6 +12106,7 @@
               flag</description>
               <bitOffset>4</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="CC1IFR">
                 <usage>read</usage>
               </enumeratedValues>
@@ -12095,6 +12120,7 @@
               flag</description>
               <bitOffset>3</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="CC1IFR">
                 <usage>read</usage>
               </enumeratedValues>
@@ -12108,6 +12134,7 @@
               flag</description>
               <bitOffset>2</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="CC1IFR">
                 <usage>read</usage>
               </enumeratedValues>
@@ -12121,6 +12148,7 @@
               flag</description>
               <bitOffset>1</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
                 <name>CC1IFR</name>
                 <usage>read</usage>
@@ -12145,18 +12173,28 @@
               <description>Update interrupt flag</description>
               <bitOffset>0</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
-                <name>UIF</name>
-                <usage>read-write</usage>
+                <name>UIFR</name>
+                <usage>read</usage>
                 <enumeratedValue>
-                  <name>Clear</name>
+                  <name>NoUpdateOccurred</name>
                   <description>No update occurred</description>
                   <value>0</value>
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>UpdatePending</name>
-                  <description>Update interrupt pending.</description>
+                  <description>Update interrupt pending</description>
                   <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+              <enumeratedValues>
+                <name>UIFW</name>
+                <usage>write</usage>
+                <enumeratedValue>
+                  <name>Clear</name>
+                  <description>Clear flag</description>
+                  <value>0</value>
                 </enumeratedValue>
               </enumeratedValues>
             </field>
@@ -12337,7 +12375,7 @@
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>PwmMode1</name>
-                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT&gt;TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
+                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT>TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
                   <value>6</value>
                 </enumeratedValue>
                 <enumeratedValue>
@@ -12716,7 +12754,7 @@
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>PwmMode1</name>
-                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT&gt;TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
+                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT>TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
                   <value>6</value>
                 </enumeratedValue>
                 <enumeratedValue>
@@ -13608,18 +13646,28 @@
               <description>Update interrupt flag</description>
               <bitOffset>0</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
-                <name>UIF</name>
-                <usage>read-write</usage>
+                <name>UIFR</name>
+                <usage>read</usage>
                 <enumeratedValue>
-                  <name>Clear</name>
+                  <name>NoUpdateOccurred</name>
                   <description>No update occurred</description>
                   <value>0</value>
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>UpdatePending</name>
-                  <description>Update interrupt pending.</description>
+                  <description>Update interrupt pending</description>
                   <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+              <enumeratedValues>
+                <name>UIFW</name>
+                <usage>write</usage>
+                <enumeratedValue>
+                  <name>Clear</name>
+                  <description>Clear flag</description>
+                  <value>0</value>
                 </enumeratedValue>
               </enumeratedValues>
             </field>
@@ -13755,7 +13803,7 @@
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>PwmMode1</name>
-                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT&gt;TIMx_CCRy else active / Reserved</description>
+                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT>TIMx_CCRy else active / Reserved</description>
                   <value>6</value>
                 </enumeratedValue>
                 <enumeratedValue>
@@ -14324,12 +14372,12 @@
                 <name>OIS1N</name>
                 <usage>read-write</usage>
                 <enumeratedValue>
-                  <name>Low</name>
+                  <name>Reset</name>
                   <description>OC1N=0 after a dead-time when MOE=0</description>
                   <value>0</value>
                 </enumeratedValue>
                 <enumeratedValue>
-                  <name>High</name>
+                  <name>Set</name>
                   <description>OC1N=1 after a dead-time when MOE=0</description>
                   <value>1</value>
                 </enumeratedValue>
@@ -14344,12 +14392,12 @@
                 <name>OIS1</name>
                 <usage>read-write</usage>
                 <enumeratedValue>
-                  <name>Low</name>
+                  <name>Reset</name>
                   <description>OC1=0 (after a dead-time if OC1N is implemented) when MOE=0</description>
                   <value>0</value>
                 </enumeratedValue>
                 <enumeratedValue>
-                  <name>High</name>
+                  <name>Set</name>
                   <description>OC1=1 (after a dead-time if OC1N is implemented) when MOE=0</description>
                   <value>1</value>
                 </enumeratedValue>
@@ -14603,18 +14651,28 @@
               <description>Update interrupt flag</description>
               <bitOffset>0</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
-                <name>UIF</name>
-                <usage>read-write</usage>
+                <name>UIFR</name>
+                <usage>read</usage>
                 <enumeratedValue>
-                  <name>Clear</name>
+                  <name>NoUpdateOccurred</name>
                   <description>No update occurred</description>
                   <value>0</value>
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>UpdatePending</name>
-                  <description>Update interrupt pending.</description>
+                  <description>Update interrupt pending</description>
                   <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+              <enumeratedValues>
+                <name>UIFW</name>
+                <usage>write</usage>
+                <enumeratedValue>
+                  <name>Clear</name>
+                  <description>Clear flag</description>
+                  <value>0</value>
                 </enumeratedValue>
               </enumeratedValues>
             </field>
@@ -14743,7 +14801,7 @@
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>PwmMode1</name>
-                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT&gt;TIMx_CCRy else active</description>
+                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT>TIMx_CCRy else active</description>
                   <value>6</value>
                 </enumeratedValue>
                 <enumeratedValue>
@@ -15383,18 +15441,28 @@
               <description>Update interrupt flag</description>
               <bitOffset>0</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
-                <name>UIF</name>
-                <usage>read-write</usage>
+                <name>UIFR</name>
+                <usage>read</usage>
                 <enumeratedValue>
-                  <name>Clear</name>
+                  <name>NoUpdateOccurred</name>
                   <description>No update occurred</description>
                   <value>0</value>
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>UpdatePending</name>
-                  <description>Update interrupt pending.</description>
+                  <description>Update interrupt pending</description>
                   <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+              <enumeratedValues>
+                <name>UIFW</name>
+                <usage>write</usage>
+                <enumeratedValue>
+                  <name>Clear</name>
+                  <description>Clear flag</description>
+                  <value>0</value>
                 </enumeratedValue>
               </enumeratedValues>
             </field>
@@ -15523,7 +15591,7 @@
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>PwmMode1</name>
-                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT&gt;TIMx_CCRy else active</description>
+                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT>TIMx_CCRy else active</description>
                   <value>6</value>
                 </enumeratedValue>
                 <enumeratedValue>
@@ -18386,9 +18454,10 @@
               <bitOffset>4</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
-                <name>CRCERR</name>
-                <usage>read-write</usage>
+                <name>CRCERRR</name>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Match</name>
                   <description>CRC value received matches the SPIx_RXCRCR value</description>
@@ -18398,6 +18467,15 @@
                   <name>NoMatch</name>
                   <description>CRC value received does not match the SPIx_RXCRCR value</description>
                   <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+              <enumeratedValues>
+                <name>CRCERRW</name>
+                <usage>write</usage>
+                <enumeratedValue>
+                  <name>Clear</name>
+                  <description>Clear flag</description>
+                  <value>0</value>
                 </enumeratedValue>
               </enumeratedValues>
             </field>
@@ -20245,6 +20323,7 @@
               <description>Pending bit 0</description>
               <bitOffset>0</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues>
                 <name>PR0R</name>
                 <usage>read</usage>
@@ -20274,6 +20353,7 @@
               <description>Pending bit 1</description>
               <bitOffset>1</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="PR0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -20286,6 +20366,7 @@
               <description>Pending bit 2</description>
               <bitOffset>2</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="PR0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -20298,6 +20379,7 @@
               <description>Pending bit 3</description>
               <bitOffset>3</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="PR0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -20310,6 +20392,7 @@
               <description>Pending bit 4</description>
               <bitOffset>4</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="PR0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -20322,6 +20405,7 @@
               <description>Pending bit 5</description>
               <bitOffset>5</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="PR0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -20334,6 +20418,7 @@
               <description>Pending bit 6</description>
               <bitOffset>6</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="PR0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -20346,6 +20431,7 @@
               <description>Pending bit 7</description>
               <bitOffset>7</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="PR0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -20358,6 +20444,7 @@
               <description>Pending bit 8</description>
               <bitOffset>8</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="PR0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -20370,6 +20457,7 @@
               <description>Pending bit 9</description>
               <bitOffset>9</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="PR0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -20382,6 +20470,7 @@
               <description>Pending bit 10</description>
               <bitOffset>10</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="PR0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -20394,6 +20483,7 @@
               <description>Pending bit 11</description>
               <bitOffset>11</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="PR0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -20406,6 +20496,7 @@
               <description>Pending bit 12</description>
               <bitOffset>12</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="PR0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -20418,6 +20509,7 @@
               <description>Pending bit 13</description>
               <bitOffset>13</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="PR0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -20430,6 +20522,7 @@
               <description>Pending bit 14</description>
               <bitOffset>14</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="PR0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -20442,6 +20535,7 @@
               <description>Pending bit 15</description>
               <bitOffset>15</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="PR0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -20454,6 +20548,7 @@
               <description>Pending bit 16</description>
               <bitOffset>16</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="PR0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -20466,6 +20561,7 @@
               <description>Pending bit 17</description>
               <bitOffset>17</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="PR0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -20478,6 +20574,7 @@
               <description>Pending bit 18</description>
               <bitOffset>18</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="PR0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -20490,6 +20587,7 @@
               <description>Pending bit 19</description>
               <bitOffset>19</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="PR0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -20502,6 +20600,7 @@
               <description>Pending bit 20</description>
               <bitOffset>20</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="PR0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -20514,6 +20613,7 @@
               <description>Pending bit 21</description>
               <bitOffset>21</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="PR0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -20526,6 +20626,7 @@
               <description>Pending bit 22</description>
               <bitOffset>22</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="PR0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -20538,6 +20639,7 @@
               <description>Pending bit 29</description>
               <bitOffset>29</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="PR0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -20550,6 +20652,7 @@
               <description>Pending bit 30</description>
               <bitOffset>30</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="PR0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -20562,6 +20665,7 @@
               <description>Pending bit 31</description>
               <bitOffset>31</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="PR0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -20815,6 +20919,7 @@
               <description>Pending bit on line 32</description>
               <bitOffset>0</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues>
                 <name>PR32R</name>
                 <usage>read</usage>
@@ -20844,6 +20949,7 @@
               <description>Pending bit on line 33</description>
               <bitOffset>1</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="PR32R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -23458,7 +23564,7 @@
       <name>USB</name>
       <description>Universal serial bus full-speed device
       interface</description>
-      <groupName>USB_FS</groupName>
+      <groupName>USB</groupName>
       <baseAddress>0x40005C00</baseAddress>
       <addressBlock>
         <offset>0x0</offset>
@@ -23509,9 +23615,10 @@
               <bitOffset>4</bitOffset>
               <bitWidth>2</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>oneToToggle</modifiedWriteValues>
               <enumeratedValues>
-                <name>STAT_TX</name>
-                <usage>read-write</usage>
+                <name>STAT_TXR</name>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Disabled</name>
                   <description>all transmission requests addressed to this endpoint are ignored</description>
@@ -23541,6 +23648,7 @@
               <bitOffset>6</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>oneToToggle</modifiedWriteValues>
             </field>
             <field>
               <name>CTR_TX</name>
@@ -23549,6 +23657,7 @@
               <bitOffset>7</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
             </field>
             <field>
               <name>EP_KIND</name>
@@ -23603,9 +23712,10 @@
               <bitOffset>12</bitOffset>
               <bitWidth>2</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>oneToToggle</modifiedWriteValues>
               <enumeratedValues>
-                <name>STAT_RX</name>
-                <usage>read-write</usage>
+                <name>STAT_RXR</name>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Disabled</name>
                   <description>all reception requests addressed to this endpoint are ignored</description>
@@ -23635,6 +23745,7 @@
               <bitOffset>14</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>oneToToggle</modifiedWriteValues>
             </field>
             <field>
               <name>CTR_RX</name>
@@ -23643,6 +23754,7 @@
               <bitOffset>15</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
             </field>
           </fields>
         </register>
@@ -23674,9 +23786,10 @@
               <bitOffset>4</bitOffset>
               <bitWidth>2</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>oneToToggle</modifiedWriteValues>
               <enumeratedValues>
-                <name>STAT_TX</name>
-                <usage>read-write</usage>
+                <name>STAT_TXR</name>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Disabled</name>
                   <description>all transmission requests addressed to this endpoint are ignored</description>
@@ -23706,6 +23819,7 @@
               <bitOffset>6</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>oneToToggle</modifiedWriteValues>
             </field>
             <field>
               <name>CTR_TX</name>
@@ -23714,6 +23828,7 @@
               <bitOffset>7</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
             </field>
             <field>
               <name>EP_KIND</name>
@@ -23768,9 +23883,10 @@
               <bitOffset>12</bitOffset>
               <bitWidth>2</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>oneToToggle</modifiedWriteValues>
               <enumeratedValues>
-                <name>STAT_RX</name>
-                <usage>read-write</usage>
+                <name>STAT_RXR</name>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Disabled</name>
                   <description>all reception requests addressed to this endpoint are ignored</description>
@@ -23800,6 +23916,7 @@
               <bitOffset>14</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>oneToToggle</modifiedWriteValues>
             </field>
             <field>
               <name>CTR_RX</name>
@@ -23808,6 +23925,7 @@
               <bitOffset>15</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
             </field>
           </fields>
         </register>
@@ -23839,9 +23957,10 @@
               <bitOffset>4</bitOffset>
               <bitWidth>2</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>oneToToggle</modifiedWriteValues>
               <enumeratedValues>
-                <name>STAT_TX</name>
-                <usage>read-write</usage>
+                <name>STAT_TXR</name>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Disabled</name>
                   <description>all transmission requests addressed to this endpoint are ignored</description>
@@ -23871,6 +23990,7 @@
               <bitOffset>6</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>oneToToggle</modifiedWriteValues>
             </field>
             <field>
               <name>CTR_TX</name>
@@ -23879,6 +23999,7 @@
               <bitOffset>7</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
             </field>
             <field>
               <name>EP_KIND</name>
@@ -23933,9 +24054,10 @@
               <bitOffset>12</bitOffset>
               <bitWidth>2</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>oneToToggle</modifiedWriteValues>
               <enumeratedValues>
-                <name>STAT_RX</name>
-                <usage>read-write</usage>
+                <name>STAT_RXR</name>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Disabled</name>
                   <description>all reception requests addressed to this endpoint are ignored</description>
@@ -23965,6 +24087,7 @@
               <bitOffset>14</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>oneToToggle</modifiedWriteValues>
             </field>
             <field>
               <name>CTR_RX</name>
@@ -23973,6 +24096,7 @@
               <bitOffset>15</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
             </field>
           </fields>
         </register>
@@ -24004,9 +24128,10 @@
               <bitOffset>4</bitOffset>
               <bitWidth>2</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>oneToToggle</modifiedWriteValues>
               <enumeratedValues>
-                <name>STAT_TX</name>
-                <usage>read-write</usage>
+                <name>STAT_TXR</name>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Disabled</name>
                   <description>all transmission requests addressed to this endpoint are ignored</description>
@@ -24036,6 +24161,7 @@
               <bitOffset>6</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>oneToToggle</modifiedWriteValues>
             </field>
             <field>
               <name>CTR_TX</name>
@@ -24044,6 +24170,7 @@
               <bitOffset>7</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
             </field>
             <field>
               <name>EP_KIND</name>
@@ -24098,9 +24225,10 @@
               <bitOffset>12</bitOffset>
               <bitWidth>2</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>oneToToggle</modifiedWriteValues>
               <enumeratedValues>
-                <name>STAT_RX</name>
-                <usage>read-write</usage>
+                <name>STAT_RXR</name>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Disabled</name>
                   <description>all reception requests addressed to this endpoint are ignored</description>
@@ -24130,6 +24258,7 @@
               <bitOffset>14</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>oneToToggle</modifiedWriteValues>
             </field>
             <field>
               <name>CTR_RX</name>
@@ -24138,6 +24267,7 @@
               <bitOffset>15</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
             </field>
           </fields>
         </register>
@@ -24169,9 +24299,10 @@
               <bitOffset>4</bitOffset>
               <bitWidth>2</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>oneToToggle</modifiedWriteValues>
               <enumeratedValues>
-                <name>STAT_TX</name>
-                <usage>read-write</usage>
+                <name>STAT_TXR</name>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Disabled</name>
                   <description>all transmission requests addressed to this endpoint are ignored</description>
@@ -24201,6 +24332,7 @@
               <bitOffset>6</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>oneToToggle</modifiedWriteValues>
             </field>
             <field>
               <name>CTR_TX</name>
@@ -24209,6 +24341,7 @@
               <bitOffset>7</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
             </field>
             <field>
               <name>EP_KIND</name>
@@ -24263,9 +24396,10 @@
               <bitOffset>12</bitOffset>
               <bitWidth>2</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>oneToToggle</modifiedWriteValues>
               <enumeratedValues>
-                <name>STAT_RX</name>
-                <usage>read-write</usage>
+                <name>STAT_RXR</name>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Disabled</name>
                   <description>all reception requests addressed to this endpoint are ignored</description>
@@ -24295,6 +24429,7 @@
               <bitOffset>14</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>oneToToggle</modifiedWriteValues>
             </field>
             <field>
               <name>CTR_RX</name>
@@ -24303,6 +24438,7 @@
               <bitOffset>15</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
             </field>
           </fields>
         </register>
@@ -24334,9 +24470,10 @@
               <bitOffset>4</bitOffset>
               <bitWidth>2</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>oneToToggle</modifiedWriteValues>
               <enumeratedValues>
-                <name>STAT_TX</name>
-                <usage>read-write</usage>
+                <name>STAT_TXR</name>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Disabled</name>
                   <description>all transmission requests addressed to this endpoint are ignored</description>
@@ -24366,6 +24503,7 @@
               <bitOffset>6</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>oneToToggle</modifiedWriteValues>
             </field>
             <field>
               <name>CTR_TX</name>
@@ -24374,6 +24512,7 @@
               <bitOffset>7</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
             </field>
             <field>
               <name>EP_KIND</name>
@@ -24428,9 +24567,10 @@
               <bitOffset>12</bitOffset>
               <bitWidth>2</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>oneToToggle</modifiedWriteValues>
               <enumeratedValues>
-                <name>STAT_RX</name>
-                <usage>read-write</usage>
+                <name>STAT_RXR</name>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Disabled</name>
                   <description>all reception requests addressed to this endpoint are ignored</description>
@@ -24460,6 +24600,7 @@
               <bitOffset>14</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>oneToToggle</modifiedWriteValues>
             </field>
             <field>
               <name>CTR_RX</name>
@@ -24468,6 +24609,7 @@
               <bitOffset>15</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
             </field>
           </fields>
         </register>
@@ -24499,9 +24641,10 @@
               <bitOffset>4</bitOffset>
               <bitWidth>2</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>oneToToggle</modifiedWriteValues>
               <enumeratedValues>
-                <name>STAT_TX</name>
-                <usage>read-write</usage>
+                <name>STAT_TXR</name>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Disabled</name>
                   <description>all transmission requests addressed to this endpoint are ignored</description>
@@ -24531,6 +24674,7 @@
               <bitOffset>6</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>oneToToggle</modifiedWriteValues>
             </field>
             <field>
               <name>CTR_TX</name>
@@ -24539,6 +24683,7 @@
               <bitOffset>7</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
             </field>
             <field>
               <name>EP_KIND</name>
@@ -24593,9 +24738,10 @@
               <bitOffset>12</bitOffset>
               <bitWidth>2</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>oneToToggle</modifiedWriteValues>
               <enumeratedValues>
-                <name>STAT_RX</name>
-                <usage>read-write</usage>
+                <name>STAT_RXR</name>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Disabled</name>
                   <description>all reception requests addressed to this endpoint are ignored</description>
@@ -24625,6 +24771,7 @@
               <bitOffset>14</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>oneToToggle</modifiedWriteValues>
             </field>
             <field>
               <name>CTR_RX</name>
@@ -24633,6 +24780,7 @@
               <bitOffset>15</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
             </field>
           </fields>
         </register>
@@ -24664,9 +24812,10 @@
               <bitOffset>4</bitOffset>
               <bitWidth>2</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>oneToToggle</modifiedWriteValues>
               <enumeratedValues>
-                <name>STAT_TX</name>
-                <usage>read-write</usage>
+                <name>STAT_TXR</name>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Disabled</name>
                   <description>all transmission requests addressed to this endpoint are ignored</description>
@@ -24696,6 +24845,7 @@
               <bitOffset>6</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>oneToToggle</modifiedWriteValues>
             </field>
             <field>
               <name>CTR_TX</name>
@@ -24704,6 +24854,7 @@
               <bitOffset>7</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
             </field>
             <field>
               <name>EP_KIND</name>
@@ -24758,9 +24909,10 @@
               <bitOffset>12</bitOffset>
               <bitWidth>2</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>oneToToggle</modifiedWriteValues>
               <enumeratedValues>
-                <name>STAT_RX</name>
-                <usage>read-write</usage>
+                <name>STAT_RXR</name>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Disabled</name>
                   <description>all reception requests addressed to this endpoint are ignored</description>
@@ -24790,6 +24942,7 @@
               <bitOffset>14</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>oneToToggle</modifiedWriteValues>
             </field>
             <field>
               <name>CTR_RX</name>
@@ -24798,6 +24951,7 @@
               <bitOffset>15</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
             </field>
           </fields>
         </register>
@@ -25120,13 +25274,28 @@
               <bitOffset>8</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
-                <name>ESOF</name>
-                <usage>read-write</usage>
+                <name>ESOFR</name>
+                <usage>read</usage>
+                <enumeratedValue>
+                  <name>NotExpectedStartOfFrame</name>
+                  <description>NotExpectedStartOfFrame</description>
+                  <value>0</value>
+                </enumeratedValue>
                 <enumeratedValue>
                   <name>ExpectedStartOfFrame</name>
                   <description>an SOF packet is expected but not received</description>
                   <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+              <enumeratedValues>
+                <name>ESOFW</name>
+                <usage>write</usage>
+                <enumeratedValue>
+                  <name>Clear</name>
+                  <description>Clear flag</description>
+                  <value>0</value>
                 </enumeratedValue>
               </enumeratedValues>
             </field>
@@ -25136,13 +25305,28 @@
               <bitOffset>9</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
-                <name>SOF</name>
-                <usage>read-write</usage>
+                <name>SOFR</name>
+                <usage>read</usage>
+                <enumeratedValue>
+                  <name>NotStartOfFrame</name>
+                  <description>NotStartOfFrame</description>
+                  <value>0</value>
+                </enumeratedValue>
                 <enumeratedValue>
                   <name>StartOfFrame</name>
                   <description>beginning of a new USB frame and it is set when a SOF packet arrives through the USB bus</description>
                   <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+              <enumeratedValues>
+                <name>SOFW</name>
+                <usage>write</usage>
+                <enumeratedValue>
+                  <name>Clear</name>
+                  <description>Clear flag</description>
+                  <value>0</value>
                 </enumeratedValue>
               </enumeratedValues>
             </field>
@@ -25152,13 +25336,28 @@
               <bitOffset>10</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
-                <name>RESET</name>
-                <usage>read-write</usage>
+                <name>RESETR</name>
+                <usage>read</usage>
+                <enumeratedValue>
+                  <name>NotReset</name>
+                  <description>NotReset</description>
+                  <value>0</value>
+                </enumeratedValue>
                 <enumeratedValue>
                   <name>Reset</name>
                   <description>peripheral detects an active USB RESET signal at its inputs</description>
                   <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+              <enumeratedValues>
+                <name>RESETW</name>
+                <usage>write</usage>
+                <enumeratedValue>
+                  <name>Clear</name>
+                  <description>Clear flag</description>
+                  <value>0</value>
                 </enumeratedValue>
               </enumeratedValues>
             </field>
@@ -25168,13 +25367,28 @@
               <bitOffset>11</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
-                <name>SUSP</name>
-                <usage>read-write</usage>
+                <name>SUSPR</name>
+                <usage>read</usage>
+                <enumeratedValue>
+                  <name>NotSuspend</name>
+                  <description>NotSuspend</description>
+                  <value>0</value>
+                </enumeratedValue>
                 <enumeratedValue>
                   <name>Suspend</name>
                   <description>no traffic has been received for 3 ms, indicating a suspend mode request from the USB bus</description>
                   <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+              <enumeratedValues>
+                <name>SUSPW</name>
+                <usage>write</usage>
+                <enumeratedValue>
+                  <name>Clear</name>
+                  <description>Clear flag</description>
+                  <value>0</value>
                 </enumeratedValue>
               </enumeratedValues>
             </field>
@@ -25184,13 +25398,28 @@
               <bitOffset>12</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
-                <name>WKUP</name>
-                <usage>read-write</usage>
+                <name>WKUPR</name>
+                <usage>read</usage>
+                <enumeratedValue>
+                  <name>NotWakeup</name>
+                  <description>NotWakeup</description>
+                  <value>0</value>
+                </enumeratedValue>
                 <enumeratedValue>
                   <name>Wakeup</name>
                   <description>activity is detected that wakes up the USB peripheral</description>
                   <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+              <enumeratedValues>
+                <name>WKUPW</name>
+                <usage>write</usage>
+                <enumeratedValue>
+                  <name>Clear</name>
+                  <description>Clear flag</description>
+                  <value>0</value>
                 </enumeratedValue>
               </enumeratedValues>
             </field>
@@ -25200,13 +25429,28 @@
               <bitOffset>13</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
-                <name>ERR</name>
-                <usage>read-write</usage>
+                <name>ERRR</name>
+                <usage>read</usage>
+                <enumeratedValue>
+                  <name>NotOverrun</name>
+                  <description>Errors are not occurred</description>
+                  <value>0</value>
+                </enumeratedValue>
                 <enumeratedValue>
                   <name>Error</name>
                   <description>One of No ANSwer, Cyclic Redundancy Check, Bit Stuffing or Framing format Violation error occurred</description>
                   <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+              <enumeratedValues>
+                <name>ERRW</name>
+                <usage>write</usage>
+                <enumeratedValue>
+                  <name>Clear</name>
+                  <description>Clear flag</description>
+                  <value>0</value>
                 </enumeratedValue>
               </enumeratedValues>
             </field>
@@ -25217,13 +25461,28 @@
               <bitOffset>14</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
-                <name>PMAOVR</name>
-                <usage>read-write</usage>
+                <name>PMAOVRR</name>
+                <usage>read</usage>
+                <enumeratedValue>
+                  <name>NotOverrun</name>
+                  <description>Overrun is not occurred</description>
+                  <value>0</value>
+                </enumeratedValue>
                 <enumeratedValue>
                   <name>Overrun</name>
                   <description>microcontroller has not been able to respond in time to an USB memory request</description>
                   <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+              <enumeratedValues>
+                <name>PMAOVRW</name>
+                <usage>write</usage>
+                <enumeratedValue>
+                  <name>Clear</name>
+                  <description>Clear flag</description>
+                  <value>0</value>
                 </enumeratedValue>
               </enumeratedValues>
             </field>
@@ -25979,14 +26238,24 @@
               <description>Packet error checking byte</description>
               <bitOffset>26</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToSet</modifiedWriteValues>
               <enumeratedValues>
-                <name>PECBYTE</name>
-                <usage>read-write</usage>
+                <name>PECBYTER</name>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>NoPec</name>
                   <description>No PEC transfer</description>
                   <value>0</value>
                 </enumeratedValue>
+                <enumeratedValue>
+                  <name>Pec</name>
+                  <description>PEC transmission/reception is requested</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+              <enumeratedValues>
+                <name>PECBYTEW</name>
+                <usage>write</usage>
                 <enumeratedValue>
                   <name>Pec</name>
                   <description>PEC transmission/reception is requested</description>
@@ -26053,14 +26322,24 @@
               mode)</description>
               <bitOffset>15</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToSet</modifiedWriteValues>
               <enumeratedValues>
-                <name>NACK</name>
-                <usage>read-write</usage>
+                <name>NACKR</name>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Ack</name>
                   <description>an ACK is sent after current received byte</description>
                   <value>0</value>
                 </enumeratedValue>
+                <enumeratedValue>
+                  <name>Nack</name>
+                  <description>a NACK is sent after current received byte</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+              <enumeratedValues>
+                <name>NACKW</name>
+                <usage>write</usage>
                 <enumeratedValue>
                   <name>Nack</name>
                   <description>a NACK is sent after current received byte</description>
@@ -26074,14 +26353,24 @@
               mode)</description>
               <bitOffset>14</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToSet</modifiedWriteValues>
               <enumeratedValues>
-                <name>STOP</name>
-                <usage>read-write</usage>
+                <name>STOPR</name>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>NoStop</name>
                   <description>No Stop generation</description>
                   <value>0</value>
                 </enumeratedValue>
+                <enumeratedValue>
+                  <name>Stop</name>
+                  <description>Stop generation after current byte transfer</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+              <enumeratedValues>
+                <name>STOPW</name>
+                <usage>write</usage>
                 <enumeratedValue>
                   <name>Stop</name>
                   <description>Stop generation after current byte transfer</description>
@@ -26094,14 +26383,24 @@
               <description>Start generation</description>
               <bitOffset>13</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToSet</modifiedWriteValues>
               <enumeratedValues>
-                <name>START</name>
-                <usage>read-write</usage>
+                <name>STARTR</name>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>NoStart</name>
                   <description>No Start generation</description>
                   <value>0</value>
                 </enumeratedValue>
+                <enumeratedValue>
+                  <name>Start</name>
+                  <description>Restart/Start generation</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+              <enumeratedValues>
+                <name>STARTW</name>
+                <usage>write</usage>
                 <enumeratedValue>
                   <name>Start</name>
                   <description>Restart/Start generation</description>
@@ -26843,9 +27142,10 @@
               <bitOffset>1</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>oneToSet</modifiedWriteValues>
               <enumeratedValues>
-                <name>TXIS</name>
-                <usage>read-write</usage>
+                <name>TXISR</name>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>NotEmpty</name>
                   <description>The TXDR register is not empty</description>
@@ -26857,6 +27157,15 @@
                   <value>1</value>
                 </enumeratedValue>
               </enumeratedValues>
+              <enumeratedValues>
+                <name>TXISW</name>
+                <usage>write</usage>
+                <enumeratedValue>
+                  <name>Trigger</name>
+                  <description>Generate a TXIS event</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
             <field>
               <name>TXE</name>
@@ -26865,9 +27174,10 @@
               <bitOffset>0</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>oneToSet</modifiedWriteValues>
               <enumeratedValues>
-                <name>TXE</name>
-                <usage>read-write</usage>
+                <name>TXER</name>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>NotEmpty</name>
                   <description>TXDR register not empty</description>
@@ -26876,6 +27186,15 @@
                 <enumeratedValue>
                   <name>Empty</name>
                   <description>TXDR register empty</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+              <enumeratedValues>
+                <name>TXEW</name>
+                <usage>write</usage>
+                <enumeratedValue>
+                  <name>Flush</name>
+                  <description>Flush the transmit data register</description>
                   <value>1</value>
                 </enumeratedValue>
               </enumeratedValues>
@@ -27475,6 +27794,7 @@
               flag</description>
               <bitOffset>0</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
                 <name>EWIFR</name>
                 <usage>read</usage>
@@ -27678,12 +27998,20 @@
               <description>Month tens in BCD format</description>
               <bitOffset>12</bitOffset>
               <bitWidth>1</bitWidth>
-              <writeConstraint>
-                <range>
-                  <minimum>0</minimum>
-                  <maximum>1</maximum>
-                </range>
-              </writeConstraint>
+              <enumeratedValues>
+                <name>MT</name>
+                <usage>read-write</usage>
+                <enumeratedValue>
+                  <name>Zero</name>
+                  <description>Month tens is 0</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>One</name>
+                  <description>Month tens is 1</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
             <field>
               <name>MU</name>
@@ -28270,6 +28598,7 @@
               <bitOffset>5</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
                 <name>RSFR</name>
                 <usage>read</usage>
@@ -28342,6 +28671,7 @@
               <bitOffset>8</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
                 <name>ALRAFR</name>
                 <usage>read</usage>
@@ -28367,6 +28697,7 @@
               <bitOffset>9</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
                 <name>ALRBFR</name>
                 <usage>read</usage>
@@ -28392,6 +28723,7 @@
               <bitOffset>10</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
                 <name>WUTFR</name>
                 <usage>read</usage>
@@ -28417,6 +28749,7 @@
               <bitOffset>11</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
                 <name>TSFR</name>
                 <usage>read</usage>
@@ -28442,6 +28775,7 @@
               <bitOffset>12</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
                 <name>TSOVFR</name>
                 <usage>read</usage>
@@ -28467,6 +28801,7 @@
               <bitOffset>13</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
                 <name>TAMP1FR</name>
                 <usage>read</usage>
@@ -28492,6 +28827,7 @@
               <bitOffset>14</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="TAMP1FR">
                 <usage>read</usage>
               </enumeratedValues>
@@ -28505,6 +28841,7 @@
               <bitOffset>15</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="TAMP1FR">
                 <usage>read</usage>
               </enumeratedValues>
@@ -29582,18 +29919,28 @@
               <description>Update interrupt flag</description>
               <bitOffset>0</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
-                <name>UIF</name>
-                <usage>read-write</usage>
+                <name>UIFR</name>
+                <usage>read</usage>
                 <enumeratedValue>
-                  <name>Clear</name>
+                  <name>NoUpdateOccurred</name>
                   <description>No update occurred</description>
                   <value>0</value>
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>UpdatePending</name>
-                  <description>Update interrupt pending.</description>
+                  <description>Update interrupt pending</description>
                   <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+              <enumeratedValues>
+                <name>UIFW</name>
+                <usage>write</usage>
+                <enumeratedValue>
+                  <name>Clear</name>
+                  <description>Clear flag</description>
+                  <value>0</value>
                 </enumeratedValue>
               </enumeratedValues>
             </field>
@@ -31007,54 +31354,89 @@
               <description>Output Idle state 1</description>
               <bitOffset>8</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>OIS1</name>
+                <usage>read-write</usage>
+                <enumeratedValue>
+                  <name>Reset</name>
+                  <description>OCx=0 (after a dead-time if OCx(N) is implemented) when MOE=0</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Set</name>
+                  <description>OCx=1 (after a dead-time if OCx(N) is implemented) when MOE=0</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
             <field>
               <name>OIS1N</name>
               <description>Output Idle state 1</description>
               <bitOffset>9</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>OIS1N</name>
+                <usage>read-write</usage>
+                <enumeratedValue>
+                  <name>Reset</name>
+                  <description>OCxN=0 after a dead-time when MOE=0</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Set</name>
+                  <description>OCxN=1 after a dead-time when MOE=0</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
             <field>
               <name>OIS2</name>
               <description>Output Idle state 2</description>
               <bitOffset>10</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="OIS1"/>
             </field>
             <field>
               <name>OIS2N</name>
               <description>Output Idle state 2</description>
               <bitOffset>11</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="OIS1N"/>
             </field>
             <field>
               <name>OIS3</name>
               <description>Output Idle state 3</description>
               <bitOffset>12</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="OIS1"/>
             </field>
             <field>
               <name>OIS3N</name>
               <description>Output Idle state 3</description>
               <bitOffset>13</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="OIS1N"/>
             </field>
             <field>
               <name>OIS4</name>
               <description>Output Idle state 4</description>
               <bitOffset>14</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="OIS1"/>
             </field>
             <field>
               <name>OIS5</name>
               <description>Output Idle state 5</description>
               <bitOffset>16</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="OIS1"/>
             </field>
             <field>
               <name>OIS6</name>
               <description>Output Idle state 6</description>
               <bitOffset>18</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="OIS1"/>
             </field>
             <field>
               <name>MMS2</name>
@@ -31575,18 +31957,28 @@
               <description>Update interrupt flag</description>
               <bitOffset>0</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
-                <name>UIF</name>
-                <usage>read-write</usage>
+                <name>UIFR</name>
+                <usage>read</usage>
                 <enumeratedValue>
-                  <name>Clear</name>
+                  <name>NoUpdateOccurred</name>
                   <description>No update occurred</description>
                   <value>0</value>
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>UpdatePending</name>
-                  <description>Update interrupt pending.</description>
+                  <description>Update interrupt pending</description>
                   <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+              <enumeratedValues>
+                <name>UIFW</name>
+                <usage>write</usage>
+                <enumeratedValue>
+                  <name>Clear</name>
+                  <description>Clear flag</description>
+                  <value>0</value>
                 </enumeratedValue>
               </enumeratedValues>
             </field>
@@ -31596,6 +31988,7 @@
               flag</description>
               <bitOffset>1</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
                 <name>CC1IFR</name>
                 <usage>read</usage>
@@ -31621,6 +32014,7 @@
               flag</description>
               <bitOffset>2</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="CC1IFR">
                 <usage>read</usage>
               </enumeratedValues>
@@ -31634,6 +32028,7 @@
               flag</description>
               <bitOffset>3</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="CC1IFR">
                 <usage>read</usage>
               </enumeratedValues>
@@ -31647,6 +32042,7 @@
               flag</description>
               <bitOffset>4</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="CC1IFR">
                 <usage>read</usage>
               </enumeratedValues>
@@ -31665,6 +32061,7 @@
               <description>Trigger interrupt flag</description>
               <bitOffset>6</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
                 <name>TIFR</name>
                 <usage>read</usage>
@@ -31707,6 +32104,7 @@
               flag</description>
               <bitOffset>9</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
                 <name>CC1OFR</name>
                 <usage>read</usage>
@@ -31732,6 +32130,7 @@
               flag</description>
               <bitOffset>10</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="CC1OFR">
                 <usage>read</usage>
               </enumeratedValues>
@@ -31745,6 +32144,7 @@
               flag</description>
               <bitOffset>11</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="CC1OFR">
                 <usage>read</usage>
               </enumeratedValues>
@@ -31758,6 +32158,7 @@
               flag</description>
               <bitOffset>12</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="CC1OFR">
                 <usage>read</usage>
               </enumeratedValues>
@@ -31996,7 +32397,7 @@
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>PwmMode1</name>
-                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT&gt;TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
+                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT>TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
                   <value>6</value>
                 </enumeratedValue>
                 <enumeratedValue>
@@ -32375,7 +32776,7 @@
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>PwmMode1</name>
-                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT&gt;TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
+                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT>TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
                   <value>6</value>
                 </enumeratedValue>
                 <enumeratedValue>
@@ -32851,12 +33252,42 @@
               <description>Dead-time generator setup</description>
               <bitOffset>0</bitOffset>
               <bitWidth>8</bitWidth>
+              <writeConstraint>
+                <range>
+                  <minimum>0</minimum>
+                  <maximum>255</maximum>
+                </range>
+              </writeConstraint>
             </field>
             <field>
               <name>LOCK</name>
               <description>Lock configuration</description>
               <bitOffset>8</bitOffset>
               <bitWidth>2</bitWidth>
+              <enumeratedValues>
+                <name>LOCK</name>
+                <usage>read-write</usage>
+                <enumeratedValue>
+                  <name>Off</name>
+                  <description>No bit is write protected</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Level1</name>
+                  <description>Any bits except MOE, OSSR, OSSI and LOCK in TIMx_BDTR register, OISx and OISxN bits in TIMx_CR2 register can no longer be written</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Level2</name>
+                  <description>LOCK Level 1 + CC Polarity bits (CCxP/CCxNP bits in TIMx_CCER register, as long as the related channel is configured in output through the CCxS bits) as well as OSSR and OSSI bits can no longer be written</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Level3</name>
+                  <description>LOCK Level 2 + CC Control bits (OCxM and OCxPE bits in TIMx_CCMRx registers, as long as the related channel is configured in output through the CCxS bits) can no longer be written</description>
+                  <value>3</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
             <field>
               <name>OSSI</name>
@@ -32905,18 +33336,60 @@
               <description>Break enable</description>
               <bitOffset>12</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>BKE</name>
+                <usage>read-write</usage>
+                <enumeratedValue>
+                  <name>Disabled</name>
+                  <description>Break function x disabled</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Enabled</name>
+                  <description>Break function x disabled</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
             <field>
               <name>BKP</name>
               <description>Break polarity</description>
               <bitOffset>13</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>BKP</name>
+                <usage>read-write</usage>
+                <enumeratedValue>
+                  <name>ActiveLow</name>
+                  <description>Break input BRKx is active low</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>ActiveHigh</name>
+                  <description>Break input BRKx is active high</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
             <field>
               <name>AOE</name>
               <description>Automatic output enable</description>
               <bitOffset>14</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>AOE</name>
+                <usage>read-write</usage>
+                <enumeratedValue>
+                  <name>Manual</name>
+                  <description>MOE can be set only by software</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Automatic</name>
+                  <description>MOE can be set by software or automatically at the next update event (if none of the break inputs BRK and BRK2 is active)</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
             <field>
               <name>MOE</name>
@@ -32955,12 +33428,14 @@
               <description>Break 2 enable</description>
               <bitOffset>24</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="BKE"/>
             </field>
             <field>
               <name>BK2P</name>
               <description>Break 2 polarity</description>
               <bitOffset>25</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="BKP"/>
             </field>
           </fields>
         </register>
@@ -33081,7 +33556,7 @@
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>PwmMode1</name>
-                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT&gt;TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
+                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT>TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
                   <value>6</value>
                 </enumeratedValue>
                 <enumeratedValue>
@@ -33614,54 +34089,89 @@
               <description>Output Idle state 1</description>
               <bitOffset>8</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>OIS1</name>
+                <usage>read-write</usage>
+                <enumeratedValue>
+                  <name>Reset</name>
+                  <description>OCx=0 (after a dead-time if OCx(N) is implemented) when MOE=0</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Set</name>
+                  <description>OCx=1 (after a dead-time if OCx(N) is implemented) when MOE=0</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
             <field>
               <name>OIS1N</name>
               <description>Output Idle state 1</description>
               <bitOffset>9</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>OIS1N</name>
+                <usage>read-write</usage>
+                <enumeratedValue>
+                  <name>Reset</name>
+                  <description>OCxN=0 after a dead-time when MOE=0</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Set</name>
+                  <description>OCxN=1 after a dead-time when MOE=0</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
             <field>
               <name>OIS2</name>
               <description>Output Idle state 2</description>
               <bitOffset>10</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="OIS1"/>
             </field>
             <field>
               <name>OIS2N</name>
               <description>Output Idle state 2</description>
               <bitOffset>11</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="OIS1N"/>
             </field>
             <field>
               <name>OIS3</name>
               <description>Output Idle state 3</description>
               <bitOffset>12</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="OIS1"/>
             </field>
             <field>
               <name>OIS3N</name>
               <description>Output Idle state 3</description>
               <bitOffset>13</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="OIS1N"/>
             </field>
             <field>
               <name>OIS4</name>
               <description>Output Idle state 4</description>
               <bitOffset>14</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="OIS1"/>
             </field>
             <field>
               <name>OIS5</name>
               <description>Output Idle state 5</description>
               <bitOffset>16</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="OIS1"/>
             </field>
             <field>
               <name>OIS6</name>
               <description>Output Idle state 6</description>
               <bitOffset>18</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="OIS1"/>
             </field>
             <field>
               <name>MMS2</name>
@@ -34182,18 +34692,28 @@
               <description>Update interrupt flag</description>
               <bitOffset>0</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
-                <name>UIF</name>
-                <usage>read-write</usage>
+                <name>UIFR</name>
+                <usage>read</usage>
                 <enumeratedValue>
-                  <name>Clear</name>
+                  <name>NoUpdateOccurred</name>
                   <description>No update occurred</description>
                   <value>0</value>
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>UpdatePending</name>
-                  <description>Update interrupt pending.</description>
+                  <description>Update interrupt pending</description>
                   <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+              <enumeratedValues>
+                <name>UIFW</name>
+                <usage>write</usage>
+                <enumeratedValue>
+                  <name>Clear</name>
+                  <description>Clear flag</description>
+                  <value>0</value>
                 </enumeratedValue>
               </enumeratedValues>
             </field>
@@ -34203,6 +34723,7 @@
               flag</description>
               <bitOffset>1</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
                 <name>CC1IFR</name>
                 <usage>read</usage>
@@ -34228,6 +34749,7 @@
               flag</description>
               <bitOffset>2</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="CC1IFR">
                 <usage>read</usage>
               </enumeratedValues>
@@ -34241,6 +34763,7 @@
               flag</description>
               <bitOffset>3</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="CC1IFR">
                 <usage>read</usage>
               </enumeratedValues>
@@ -34254,6 +34777,7 @@
               flag</description>
               <bitOffset>4</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="CC1IFR">
                 <usage>read</usage>
               </enumeratedValues>
@@ -34272,6 +34796,7 @@
               <description>Trigger interrupt flag</description>
               <bitOffset>6</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
                 <name>TIFR</name>
                 <usage>read</usage>
@@ -34314,6 +34839,7 @@
               flag</description>
               <bitOffset>9</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
                 <name>CC1OFR</name>
                 <usage>read</usage>
@@ -34339,6 +34865,7 @@
               flag</description>
               <bitOffset>10</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="CC1OFR">
                 <usage>read</usage>
               </enumeratedValues>
@@ -34352,6 +34879,7 @@
               flag</description>
               <bitOffset>11</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="CC1OFR">
                 <usage>read</usage>
               </enumeratedValues>
@@ -34365,6 +34893,7 @@
               flag</description>
               <bitOffset>12</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="CC1OFR">
                 <usage>read</usage>
               </enumeratedValues>
@@ -34603,7 +35132,7 @@
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>PwmMode1</name>
-                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT&gt;TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
+                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT>TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
                   <value>6</value>
                 </enumeratedValue>
                 <enumeratedValue>
@@ -34982,7 +35511,7 @@
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>PwmMode1</name>
-                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT&gt;TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
+                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT>TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
                   <value>6</value>
                 </enumeratedValue>
                 <enumeratedValue>
@@ -35458,12 +35987,42 @@
               <description>Dead-time generator setup</description>
               <bitOffset>0</bitOffset>
               <bitWidth>8</bitWidth>
+              <writeConstraint>
+                <range>
+                  <minimum>0</minimum>
+                  <maximum>255</maximum>
+                </range>
+              </writeConstraint>
             </field>
             <field>
               <name>LOCK</name>
               <description>Lock configuration</description>
               <bitOffset>8</bitOffset>
               <bitWidth>2</bitWidth>
+              <enumeratedValues>
+                <name>LOCK</name>
+                <usage>read-write</usage>
+                <enumeratedValue>
+                  <name>Off</name>
+                  <description>No bit is write protected</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Level1</name>
+                  <description>Any bits except MOE, OSSR, OSSI and LOCK in TIMx_BDTR register, OISx and OISxN bits in TIMx_CR2 register can no longer be written</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Level2</name>
+                  <description>LOCK Level 1 + CC Polarity bits (CCxP/CCxNP bits in TIMx_CCER register, as long as the related channel is configured in output through the CCxS bits) as well as OSSR and OSSI bits can no longer be written</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Level3</name>
+                  <description>LOCK Level 2 + CC Control bits (OCxM and OCxPE bits in TIMx_CCMRx registers, as long as the related channel is configured in output through the CCxS bits) can no longer be written</description>
+                  <value>3</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
             <field>
               <name>OSSI</name>
@@ -35512,18 +36071,60 @@
               <description>Break enable</description>
               <bitOffset>12</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>BKE</name>
+                <usage>read-write</usage>
+                <enumeratedValue>
+                  <name>Disabled</name>
+                  <description>Break function x disabled</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Enabled</name>
+                  <description>Break function x disabled</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
             <field>
               <name>BKP</name>
               <description>Break polarity</description>
               <bitOffset>13</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>BKP</name>
+                <usage>read-write</usage>
+                <enumeratedValue>
+                  <name>ActiveLow</name>
+                  <description>Break input BRKx is active low</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>ActiveHigh</name>
+                  <description>Break input BRKx is active high</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
             <field>
               <name>AOE</name>
               <description>Automatic output enable</description>
               <bitOffset>14</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>AOE</name>
+                <usage>read-write</usage>
+                <enumeratedValue>
+                  <name>Manual</name>
+                  <description>MOE can be set only by software</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Automatic</name>
+                  <description>MOE can be set by software or automatically at the next update event (if none of the break inputs BRK and BRK2 is active)</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
             <field>
               <name>MOE</name>
@@ -35562,12 +36163,14 @@
               <description>Break 2 enable</description>
               <bitOffset>24</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="BKE"/>
             </field>
             <field>
               <name>BK2P</name>
               <description>Break 2 polarity</description>
               <bitOffset>25</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="BKP"/>
             </field>
           </fields>
         </register>
@@ -35688,7 +36291,7 @@
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>PwmMode1</name>
-                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT&gt;TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
+                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT>TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
                   <value>6</value>
                 </enumeratedValue>
                 <enumeratedValue>
@@ -47245,7 +47848,7 @@
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>High</name>
-                  <description>Non-inverting &gt; inverting</description>
+                  <description>Non-inverting > inverting</description>
                   <value>1</value>
                 </enumeratedValue>
               </enumeratedValues>
