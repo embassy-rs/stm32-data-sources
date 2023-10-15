@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<device xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="1.1" xs:noNamespaceSchemaLocation="CMSIS-SVD_Schema_1_1.xsd">
+<device schemaVersion="1.1" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="CMSIS-SVD_Schema_1_1.xsd">
   <name>STM32G081</name>
   <version>1.1</version>
   <description>STM32G081</description>
@@ -452,6 +452,7 @@
               flag</description>
               <bitOffset>0</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
                 <name>EWIFR</name>
                 <usage>read</usage>
@@ -5014,7 +5015,10 @@
       </interrupt>
       <registers>
         <register>
-          <name>C0CR</name>
+          <dim>7</dim>
+          <dimIncrement>0x4</dimIncrement>
+          <dimIndex>0-6</dimIndex>
+          <name>CCR%s</name>
           <displayName>C0CR</displayName>
           <description>DMAMux - DMA request line multiplexer
           channel x control register</description>
@@ -5082,575 +5086,14 @@
           </fields>
         </register>
         <register>
-          <name>C1CR</name>
-          <displayName>C1CR</displayName>
-          <description>DMAMux - DMA request line multiplexer
-          channel x control register</description>
-          <addressOffset>0x4</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>DMAREQ_ID</name>
-              <description>Input DMA request line
-              selected</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-            <field>
-              <name>SOIE</name>
-              <description>Interrupt enable at synchronization
-              event overrun</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>EGE</name>
-              <description>Event generation
-              enable/disable</description>
-              <bitOffset>9</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>SE</name>
-              <description>Synchronous operating mode
-              enable/disable</description>
-              <bitOffset>16</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>SPOL</name>
-              <description>Synchronization event type selector
-              Defines the synchronization event on the selected
-              synchronization input:</description>
-              <bitOffset>17</bitOffset>
-              <bitWidth>2</bitWidth>
-            </field>
-            <field>
-              <name>NBREQ</name>
-              <description>Number of DMA requests to forward
-              Defines the number of DMA requests forwarded before
-              output event is generated. In synchronous mode, it
-              also defines the number of DMA requests to forward
-              after a synchronization event, then stop forwarding.
-              The actual number of DMA requests forwarded is
-              NBREQ+1. Note: This field can only be written when
-              both SE and EGE bits are reset.</description>
-              <bitOffset>19</bitOffset>
-              <bitWidth>5</bitWidth>
-            </field>
-            <field>
-              <name>SYNC_ID</name>
-              <description>Synchronization input
-              selected</description>
-              <bitOffset>24</bitOffset>
-              <bitWidth>5</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>C2CR</name>
-          <displayName>C2CR</displayName>
-          <description>DMAMux - DMA request line multiplexer
-          channel x control register</description>
-          <addressOffset>0x8</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>DMAREQ_ID</name>
-              <description>Input DMA request line
-              selected</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-            <field>
-              <name>SOIE</name>
-              <description>Interrupt enable at synchronization
-              event overrun</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>EGE</name>
-              <description>Event generation
-              enable/disable</description>
-              <bitOffset>9</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>SE</name>
-              <description>Synchronous operating mode
-              enable/disable</description>
-              <bitOffset>16</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>SPOL</name>
-              <description>Synchronization event type selector
-              Defines the synchronization event on the selected
-              synchronization input:</description>
-              <bitOffset>17</bitOffset>
-              <bitWidth>2</bitWidth>
-            </field>
-            <field>
-              <name>NBREQ</name>
-              <description>Number of DMA requests to forward
-              Defines the number of DMA requests forwarded before
-              output event is generated. In synchronous mode, it
-              also defines the number of DMA requests to forward
-              after a synchronization event, then stop forwarding.
-              The actual number of DMA requests forwarded is
-              NBREQ+1. Note: This field can only be written when
-              both SE and EGE bits are reset.</description>
-              <bitOffset>19</bitOffset>
-              <bitWidth>5</bitWidth>
-            </field>
-            <field>
-              <name>SYNC_ID</name>
-              <description>Synchronization input
-              selected</description>
-              <bitOffset>24</bitOffset>
-              <bitWidth>5</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>C3CR</name>
-          <displayName>C3CR</displayName>
-          <description>DMAMux - DMA request line multiplexer
-          channel x control register</description>
-          <addressOffset>0xC</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>DMAREQ_ID</name>
-              <description>Input DMA request line
-              selected</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-            <field>
-              <name>SOIE</name>
-              <description>Interrupt enable at synchronization
-              event overrun</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>EGE</name>
-              <description>Event generation
-              enable/disable</description>
-              <bitOffset>9</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>SE</name>
-              <description>Synchronous operating mode
-              enable/disable</description>
-              <bitOffset>16</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>SPOL</name>
-              <description>Synchronization event type selector
-              Defines the synchronization event on the selected
-              synchronization input:</description>
-              <bitOffset>17</bitOffset>
-              <bitWidth>2</bitWidth>
-            </field>
-            <field>
-              <name>NBREQ</name>
-              <description>Number of DMA requests to forward
-              Defines the number of DMA requests forwarded before
-              output event is generated. In synchronous mode, it
-              also defines the number of DMA requests to forward
-              after a synchronization event, then stop forwarding.
-              The actual number of DMA requests forwarded is
-              NBREQ+1. Note: This field can only be written when
-              both SE and EGE bits are reset.</description>
-              <bitOffset>19</bitOffset>
-              <bitWidth>5</bitWidth>
-            </field>
-            <field>
-              <name>SYNC_ID</name>
-              <description>Synchronization input
-              selected</description>
-              <bitOffset>24</bitOffset>
-              <bitWidth>5</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>C4CR</name>
-          <displayName>C4CR</displayName>
-          <description>DMAMux - DMA request line multiplexer
-          channel x control register</description>
-          <addressOffset>0x10</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>DMAREQ_ID</name>
-              <description>Input DMA request line
-              selected</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-            <field>
-              <name>SOIE</name>
-              <description>Interrupt enable at synchronization
-              event overrun</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>EGE</name>
-              <description>Event generation
-              enable/disable</description>
-              <bitOffset>9</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>SE</name>
-              <description>Synchronous operating mode
-              enable/disable</description>
-              <bitOffset>16</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>SPOL</name>
-              <description>Synchronization event type selector
-              Defines the synchronization event on the selected
-              synchronization input:</description>
-              <bitOffset>17</bitOffset>
-              <bitWidth>2</bitWidth>
-            </field>
-            <field>
-              <name>NBREQ</name>
-              <description>Number of DMA requests to forward
-              Defines the number of DMA requests forwarded before
-              output event is generated. In synchronous mode, it
-              also defines the number of DMA requests to forward
-              after a synchronization event, then stop forwarding.
-              The actual number of DMA requests forwarded is
-              NBREQ+1. Note: This field can only be written when
-              both SE and EGE bits are reset.</description>
-              <bitOffset>19</bitOffset>
-              <bitWidth>5</bitWidth>
-            </field>
-            <field>
-              <name>SYNC_ID</name>
-              <description>Synchronization input
-              selected</description>
-              <bitOffset>24</bitOffset>
-              <bitWidth>5</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>C5CR</name>
-          <displayName>C5CR</displayName>
-          <description>DMAMux - DMA request line multiplexer
-          channel x control register</description>
-          <addressOffset>0x14</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>DMAREQ_ID</name>
-              <description>Input DMA request line
-              selected</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-            <field>
-              <name>SOIE</name>
-              <description>Interrupt enable at synchronization
-              event overrun</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>EGE</name>
-              <description>Event generation
-              enable/disable</description>
-              <bitOffset>9</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>SE</name>
-              <description>Synchronous operating mode
-              enable/disable</description>
-              <bitOffset>16</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>SPOL</name>
-              <description>Synchronization event type selector
-              Defines the synchronization event on the selected
-              synchronization input:</description>
-              <bitOffset>17</bitOffset>
-              <bitWidth>2</bitWidth>
-            </field>
-            <field>
-              <name>NBREQ</name>
-              <description>Number of DMA requests to forward
-              Defines the number of DMA requests forwarded before
-              output event is generated. In synchronous mode, it
-              also defines the number of DMA requests to forward
-              after a synchronization event, then stop forwarding.
-              The actual number of DMA requests forwarded is
-              NBREQ+1. Note: This field can only be written when
-              both SE and EGE bits are reset.</description>
-              <bitOffset>19</bitOffset>
-              <bitWidth>5</bitWidth>
-            </field>
-            <field>
-              <name>SYNC_ID</name>
-              <description>Synchronization input
-              selected</description>
-              <bitOffset>24</bitOffset>
-              <bitWidth>5</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>C6CR</name>
-          <displayName>C6CR</displayName>
-          <description>DMAMux - DMA request line multiplexer
-          channel x control register</description>
-          <addressOffset>0x18</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>DMAREQ_ID</name>
-              <description>Input DMA request line
-              selected</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>8</bitWidth>
-            </field>
-            <field>
-              <name>SOIE</name>
-              <description>Interrupt enable at synchronization
-              event overrun</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>EGE</name>
-              <description>Event generation
-              enable/disable</description>
-              <bitOffset>9</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>SE</name>
-              <description>Synchronous operating mode
-              enable/disable</description>
-              <bitOffset>16</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>SPOL</name>
-              <description>Synchronization event type selector
-              Defines the synchronization event on the selected
-              synchronization input:</description>
-              <bitOffset>17</bitOffset>
-              <bitWidth>2</bitWidth>
-            </field>
-            <field>
-              <name>NBREQ</name>
-              <description>Number of DMA requests to forward
-              Defines the number of DMA requests forwarded before
-              output event is generated. In synchronous mode, it
-              also defines the number of DMA requests to forward
-              after a synchronization event, then stop forwarding.
-              The actual number of DMA requests forwarded is
-              NBREQ+1. Note: This field can only be written when
-              both SE and EGE bits are reset.</description>
-              <bitOffset>19</bitOffset>
-              <bitWidth>5</bitWidth>
-            </field>
-            <field>
-              <name>SYNC_ID</name>
-              <description>Synchronization input
-              selected</description>
-              <bitOffset>24</bitOffset>
-              <bitWidth>5</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RG0CR</name>
+          <dim>4</dim>
+          <dimIncrement>0x4</dimIncrement>
+          <dimIndex>0-3</dimIndex>
+          <name>RGCR%s</name>
           <displayName>RG0CR</displayName>
           <description>DMAMux - DMA request generator channel x
           control register</description>
           <addressOffset>0x100</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>SIG_ID</name>
-              <description>DMA request trigger input
-              selected</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>5</bitWidth>
-            </field>
-            <field>
-              <name>OIE</name>
-              <description>Interrupt enable at trigger event
-              overrun</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>GE</name>
-              <description>DMA request generator channel
-              enable/disable</description>
-              <bitOffset>16</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>GPOL</name>
-              <description>DMA request generator trigger event type
-              selection Defines the trigger event on the selected
-              DMA request trigger input</description>
-              <bitOffset>17</bitOffset>
-              <bitWidth>2</bitWidth>
-            </field>
-            <field>
-              <name>GNBREQ</name>
-              <description>Number of DMA requests to generate
-              Defines the number of DMA requests generated after a
-              trigger event, then stop generating. The actual
-              number of generated DMA requests is GNBREQ+1. Note:
-              This field can only be written when GE bit is
-              reset.</description>
-              <bitOffset>19</bitOffset>
-              <bitWidth>5</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RG1CR</name>
-          <displayName>RG1CR</displayName>
-          <description>DMAMux - DMA request generator channel x
-          control register</description>
-          <addressOffset>0x104</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>SIG_ID</name>
-              <description>DMA request trigger input
-              selected</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>5</bitWidth>
-            </field>
-            <field>
-              <name>OIE</name>
-              <description>Interrupt enable at trigger event
-              overrun</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>GE</name>
-              <description>DMA request generator channel
-              enable/disable</description>
-              <bitOffset>16</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>GPOL</name>
-              <description>DMA request generator trigger event type
-              selection Defines the trigger event on the selected
-              DMA request trigger input</description>
-              <bitOffset>17</bitOffset>
-              <bitWidth>2</bitWidth>
-            </field>
-            <field>
-              <name>GNBREQ</name>
-              <description>Number of DMA requests to generate
-              Defines the number of DMA requests generated after a
-              trigger event, then stop generating. The actual
-              number of generated DMA requests is GNBREQ+1. Note:
-              This field can only be written when GE bit is
-              reset.</description>
-              <bitOffset>19</bitOffset>
-              <bitWidth>5</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RG2CR</name>
-          <displayName>RG2CR</displayName>
-          <description>DMAMux - DMA request generator channel x
-          control register</description>
-          <addressOffset>0x108</addressOffset>
-          <size>0x20</size>
-          <access>read-write</access>
-          <resetValue>0x00000000</resetValue>
-          <fields>
-            <field>
-              <name>SIG_ID</name>
-              <description>DMA request trigger input
-              selected</description>
-              <bitOffset>0</bitOffset>
-              <bitWidth>5</bitWidth>
-            </field>
-            <field>
-              <name>OIE</name>
-              <description>Interrupt enable at trigger event
-              overrun</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>GE</name>
-              <description>DMA request generator channel
-              enable/disable</description>
-              <bitOffset>16</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>GPOL</name>
-              <description>DMA request generator trigger event type
-              selection Defines the trigger event on the selected
-              DMA request trigger input</description>
-              <bitOffset>17</bitOffset>
-              <bitWidth>2</bitWidth>
-            </field>
-            <field>
-              <name>GNBREQ</name>
-              <description>Number of DMA requests to generate
-              Defines the number of DMA requests generated after a
-              trigger event, then stop generating. The actual
-              number of generated DMA requests is GNBREQ+1. Note:
-              This field can only be written when GE bit is
-              reset.</description>
-              <bitOffset>19</bitOffset>
-              <bitWidth>5</bitWidth>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RG3CR</name>
-          <displayName>RG3CR</displayName>
-          <description>DMAMux - DMA request generator channel x
-          control register</description>
-          <addressOffset>0x10C</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
           <resetValue>0x00000000</resetValue>
@@ -10928,6 +10371,7 @@
               Pending bit.</description>
               <bitOffset>0</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues>
                 <name>RPIF0R</name>
                 <usage>read</usage>
@@ -10958,6 +10402,7 @@
               Pending bit.</description>
               <bitOffset>1</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="RPIF0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -10971,6 +10416,7 @@
               Pending bit.</description>
               <bitOffset>2</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="RPIF0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -10984,6 +10430,7 @@
               Pending bit.</description>
               <bitOffset>3</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="RPIF0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -10997,6 +10444,7 @@
               Pending bit.</description>
               <bitOffset>4</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="RPIF0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -11010,6 +10458,7 @@
               Pending bit</description>
               <bitOffset>5</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="RPIF0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -11023,6 +10472,7 @@
               Pending bit.</description>
               <bitOffset>6</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="RPIF0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -11036,6 +10486,7 @@
               Pending bit.</description>
               <bitOffset>7</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="RPIF0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -11049,6 +10500,7 @@
               Pending bit.</description>
               <bitOffset>8</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="RPIF0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -11062,6 +10514,7 @@
               Pending bit.</description>
               <bitOffset>9</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="RPIF0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -11075,6 +10528,7 @@
               Pending bit.</description>
               <bitOffset>10</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="RPIF0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -11088,6 +10542,7 @@
               Pending bit.</description>
               <bitOffset>11</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="RPIF0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -11101,6 +10556,7 @@
               Pending bit.</description>
               <bitOffset>12</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="RPIF0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -11114,6 +10570,7 @@
               Pending bit.</description>
               <bitOffset>13</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="RPIF0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -11127,6 +10584,7 @@
               Pending bit.</description>
               <bitOffset>14</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="RPIF0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -11140,6 +10598,7 @@
               Pending bit.</description>
               <bitOffset>15</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="RPIF0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -11153,6 +10612,7 @@
               Pending bit.</description>
               <bitOffset>16</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="RPIF0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -11166,6 +10626,7 @@
               Pending bit.</description>
               <bitOffset>17</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="RPIF0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -11179,6 +10640,7 @@
               Pending bit.</description>
               <bitOffset>18</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="RPIF0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -11204,6 +10666,7 @@
               pending bit.</description>
               <bitOffset>0</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues>
                 <name>FPIF0R</name>
                 <usage>read</usage>
@@ -11234,6 +10697,7 @@
               pending bit.</description>
               <bitOffset>1</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="FPIF0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -11247,6 +10711,7 @@
               pending bit.</description>
               <bitOffset>2</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="FPIF0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -11260,6 +10725,7 @@
               pending bit.</description>
               <bitOffset>3</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="FPIF0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -11273,6 +10739,7 @@
               pending bit.</description>
               <bitOffset>4</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="FPIF0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -11286,6 +10753,7 @@
               pending bit.</description>
               <bitOffset>5</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="FPIF0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -11299,6 +10767,7 @@
               pending bit.</description>
               <bitOffset>6</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="FPIF0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -11312,6 +10781,7 @@
               pending bit.</description>
               <bitOffset>7</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="FPIF0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -11325,6 +10795,7 @@
               pending bit.</description>
               <bitOffset>8</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="FPIF0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -11338,6 +10809,7 @@
               pending bit.</description>
               <bitOffset>9</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="FPIF0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -11351,6 +10823,7 @@
               pending bit.</description>
               <bitOffset>10</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="FPIF0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -11364,6 +10837,7 @@
               pending bit.</description>
               <bitOffset>11</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="FPIF0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -11377,6 +10851,7 @@
               pending bit.</description>
               <bitOffset>12</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="FPIF0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -11390,6 +10865,7 @@
               pending bit.</description>
               <bitOffset>13</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="FPIF0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -11403,6 +10879,7 @@
               pending bit.</description>
               <bitOffset>14</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="FPIF0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -11416,6 +10893,7 @@
               pending bit.</description>
               <bitOffset>15</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="FPIF0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -11429,6 +10907,7 @@
               pending bit.</description>
               <bitOffset>16</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="FPIF0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -11442,6 +10921,7 @@
               pending bit.</description>
               <bitOffset>17</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="FPIF0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -11455,6 +10935,7 @@
               pending bit.</description>
               <bitOffset>18</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToClear</modifiedWriteValues>
               <enumeratedValues derivedFrom="FPIF0R">
                 <usage>read</usage>
               </enumeratedValues>
@@ -12881,18 +12362,28 @@
               <description>Update interrupt flag</description>
               <bitOffset>0</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
-                <name>UIF</name>
-                <usage>read-write</usage>
+                <name>UIFR</name>
+                <usage>read</usage>
                 <enumeratedValue>
-                  <name>Clear</name>
+                  <name>NoUpdateOccurred</name>
                   <description>No update occurred</description>
                   <value>0</value>
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>UpdatePending</name>
-                  <description>Update interrupt pending.</description>
+                  <description>Update interrupt pending</description>
                   <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+              <enumeratedValues>
+                <name>UIFW</name>
+                <usage>write</usage>
+                <enumeratedValue>
+                  <name>Clear</name>
+                  <description>Clear flag</description>
+                  <value>0</value>
                 </enumeratedValue>
               </enumeratedValues>
             </field>
@@ -13000,7 +12491,7 @@
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>PwmMode1</name>
-                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT&gt;TIMx_CCRy else active</description>
+                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT>TIMx_CCRy else active</description>
                   <value>6</value>
                 </enumeratedValue>
                 <enumeratedValue>
@@ -16357,9 +15848,10 @@
               <bitOffset>4</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
-                <name>CRCERR</name>
-                <usage>read-write</usage>
+                <name>CRCERRR</name>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Match</name>
                   <description>CRC value received matches the SPIx_RXCRCR value</description>
@@ -16369,6 +15861,15 @@
                   <name>NoMatch</name>
                   <description>CRC value received does not match the SPIx_RXCRCR value</description>
                   <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+              <enumeratedValues>
+                <name>CRCERRW</name>
+                <usage>write</usage>
+                <enumeratedValue>
+                  <name>Clear</name>
+                  <description>Clear flag</description>
+                  <value>0</value>
                 </enumeratedValue>
               </enumeratedValues>
             </field>
@@ -17223,6 +16724,7 @@
               output)</description>
               <bitOffset>18</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="OIS1"/>
             </field>
             <field>
               <name>OIS5</name>
@@ -17230,48 +16732,82 @@
               output)</description>
               <bitOffset>16</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="OIS1"/>
             </field>
             <field>
               <name>OIS4</name>
               <description>Output Idle state 4</description>
               <bitOffset>14</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="OIS1"/>
             </field>
             <field>
               <name>OIS3N</name>
               <description>Output Idle state 3</description>
               <bitOffset>13</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="OIS1N"/>
             </field>
             <field>
               <name>OIS3</name>
               <description>Output Idle state 3</description>
               <bitOffset>12</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="OIS1"/>
             </field>
             <field>
               <name>OIS2N</name>
               <description>Output Idle state 2</description>
               <bitOffset>11</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="OIS1N"/>
             </field>
             <field>
               <name>OIS2</name>
               <description>Output Idle state 2</description>
               <bitOffset>10</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="OIS1"/>
             </field>
             <field>
               <name>OIS1N</name>
               <description>Output Idle state 1</description>
               <bitOffset>9</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>OIS1N</name>
+                <usage>read-write</usage>
+                <enumeratedValue>
+                  <name>Reset</name>
+                  <description>OCxN=0 after a dead-time when MOE=0</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Set</name>
+                  <description>OCxN=1 after a dead-time when MOE=0</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
             <field>
               <name>OIS1</name>
               <description>Output Idle state 1</description>
               <bitOffset>8</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>OIS1</name>
+                <usage>read-write</usage>
+                <enumeratedValue>
+                  <name>Reset</name>
+                  <description>OCx=0 (after a dead-time if OCx(N) is implemented) when MOE=0</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Set</name>
+                  <description>OCx=1 (after a dead-time if OCx(N) is implemented) when MOE=0</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
             <field>
               <name>TI1S</name>
@@ -17517,18 +17053,28 @@
               <description>Update interrupt flag</description>
               <bitOffset>0</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
-                <name>UIF</name>
-                <usage>read-write</usage>
+                <name>UIFR</name>
+                <usage>read</usage>
                 <enumeratedValue>
-                  <name>Clear</name>
+                  <name>NoUpdateOccurred</name>
                   <description>No update occurred</description>
                   <value>0</value>
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>UpdatePending</name>
-                  <description>Update interrupt pending.</description>
+                  <description>Update interrupt pending</description>
                   <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+              <enumeratedValues>
+                <name>UIFW</name>
+                <usage>write</usage>
+                <enumeratedValue>
+                  <name>Clear</name>
+                  <description>Clear flag</description>
+                  <value>0</value>
                 </enumeratedValue>
               </enumeratedValues>
             </field>
@@ -17783,7 +17329,7 @@
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>PwmMode1</name>
-                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT&gt;TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
+                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT>TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
                   <value>6</value>
                 </enumeratedValue>
                 <enumeratedValue>
@@ -18018,7 +17564,7 @@
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>PwmMode1</name>
-                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT&gt;TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
+                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT>TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
                   <value>6</value>
                 </enumeratedValue>
                 <enumeratedValue>
@@ -18526,12 +18072,42 @@
               <description>Dead-time generator setup</description>
               <bitOffset>0</bitOffset>
               <bitWidth>8</bitWidth>
+              <writeConstraint>
+                <range>
+                  <minimum>0</minimum>
+                  <maximum>255</maximum>
+                </range>
+              </writeConstraint>
             </field>
             <field>
               <name>LOCK</name>
               <description>Lock configuration</description>
               <bitOffset>8</bitOffset>
               <bitWidth>2</bitWidth>
+              <enumeratedValues>
+                <name>LOCK</name>
+                <usage>read-write</usage>
+                <enumeratedValue>
+                  <name>Off</name>
+                  <description>No bit is write protected</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Level1</name>
+                  <description>Any bits except MOE, OSSR, OSSI and LOCK in TIMx_BDTR register, OISx and OISxN bits in TIMx_CR2 register can no longer be written</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Level2</name>
+                  <description>LOCK Level 1 + CC Polarity bits (CCxP/CCxNP bits in TIMx_CCER register, as long as the related channel is configured in output through the CCxS bits) as well as OSSR and OSSI bits can no longer be written</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Level3</name>
+                  <description>LOCK Level 2 + CC Control bits (OCxM and OCxPE bits in TIMx_CCMRx registers, as long as the related channel is configured in output through the CCxS bits) can no longer be written</description>
+                  <value>3</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
             <field>
               <name>OSSI</name>
@@ -18580,18 +18156,60 @@
               <description>Break enable</description>
               <bitOffset>12</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>BKE</name>
+                <usage>read-write</usage>
+                <enumeratedValue>
+                  <name>Disabled</name>
+                  <description>Break function x disabled</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Enabled</name>
+                  <description>Break function x disabled</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
             <field>
               <name>BKP</name>
               <description>Break polarity</description>
               <bitOffset>13</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>BKP</name>
+                <usage>read-write</usage>
+                <enumeratedValue>
+                  <name>ActiveLow</name>
+                  <description>Break input BRKx is active low</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>ActiveHigh</name>
+                  <description>Break input BRKx is active high</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
             <field>
               <name>AOE</name>
               <description>Automatic output enable</description>
               <bitOffset>14</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>AOE</name>
+                <usage>read-write</usage>
+                <enumeratedValue>
+                  <name>Manual</name>
+                  <description>MOE can be set only by software</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Automatic</name>
+                  <description>MOE can be set by software or automatically at the next update event (if none of the break inputs BRK and BRK2 is active)</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
             <field>
               <name>MOE</name>
@@ -18630,12 +18248,14 @@
               <description>Break 2 enable</description>
               <bitOffset>24</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="BKE"/>
             </field>
             <field>
               <name>BK2P</name>
               <description>Break 2 polarity</description>
               <bitOffset>25</bitOffset>
               <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="BKP"/>
             </field>
             <field>
               <name>BKDSRM</name>
@@ -18835,7 +18455,7 @@
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>PwmMode1</name>
-                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT&gt;TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
+                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT>TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
                   <value>6</value>
                 </enumeratedValue>
                 <enumeratedValue>
@@ -27127,14 +26747,24 @@
               <description>Packet error checking byte</description>
               <bitOffset>26</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToSet</modifiedWriteValues>
               <enumeratedValues>
-                <name>PECBYTE</name>
-                <usage>read-write</usage>
+                <name>PECBYTER</name>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>NoPec</name>
                   <description>No PEC transfer</description>
                   <value>0</value>
                 </enumeratedValue>
+                <enumeratedValue>
+                  <name>Pec</name>
+                  <description>PEC transmission/reception is requested</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+              <enumeratedValues>
+                <name>PECBYTEW</name>
+                <usage>write</usage>
                 <enumeratedValue>
                   <name>Pec</name>
                   <description>PEC transmission/reception is requested</description>
@@ -27201,14 +26831,24 @@
               mode)</description>
               <bitOffset>15</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToSet</modifiedWriteValues>
               <enumeratedValues>
-                <name>NACK</name>
-                <usage>read-write</usage>
+                <name>NACKR</name>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>Ack</name>
                   <description>an ACK is sent after current received byte</description>
                   <value>0</value>
                 </enumeratedValue>
+                <enumeratedValue>
+                  <name>Nack</name>
+                  <description>a NACK is sent after current received byte</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+              <enumeratedValues>
+                <name>NACKW</name>
+                <usage>write</usage>
                 <enumeratedValue>
                   <name>Nack</name>
                   <description>a NACK is sent after current received byte</description>
@@ -27222,14 +26862,24 @@
               mode)</description>
               <bitOffset>14</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToSet</modifiedWriteValues>
               <enumeratedValues>
-                <name>STOP</name>
-                <usage>read-write</usage>
+                <name>STOPR</name>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>NoStop</name>
                   <description>No Stop generation</description>
                   <value>0</value>
                 </enumeratedValue>
+                <enumeratedValue>
+                  <name>Stop</name>
+                  <description>Stop generation after current byte transfer</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+              <enumeratedValues>
+                <name>STOPW</name>
+                <usage>write</usage>
                 <enumeratedValue>
                   <name>Stop</name>
                   <description>Stop generation after current byte transfer</description>
@@ -27242,14 +26892,24 @@
               <description>Start generation</description>
               <bitOffset>13</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>oneToSet</modifiedWriteValues>
               <enumeratedValues>
-                <name>START</name>
-                <usage>read-write</usage>
+                <name>STARTR</name>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>NoStart</name>
                   <description>No Start generation</description>
                   <value>0</value>
                 </enumeratedValue>
+                <enumeratedValue>
+                  <name>Start</name>
+                  <description>Restart/Start generation</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+              <enumeratedValues>
+                <name>STARTW</name>
+                <usage>write</usage>
                 <enumeratedValue>
                   <name>Start</name>
                   <description>Restart/Start generation</description>
@@ -27991,9 +27651,10 @@
               <bitOffset>1</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>oneToSet</modifiedWriteValues>
               <enumeratedValues>
-                <name>TXIS</name>
-                <usage>read-write</usage>
+                <name>TXISR</name>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>NotEmpty</name>
                   <description>The TXDR register is not empty</description>
@@ -28005,6 +27666,15 @@
                   <value>1</value>
                 </enumeratedValue>
               </enumeratedValues>
+              <enumeratedValues>
+                <name>TXISW</name>
+                <usage>write</usage>
+                <enumeratedValue>
+                  <name>Trigger</name>
+                  <description>Generate a TXIS event</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
             <field>
               <name>TXE</name>
@@ -28013,9 +27683,10 @@
               <bitOffset>0</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
+              <modifiedWriteValues>oneToSet</modifiedWriteValues>
               <enumeratedValues>
-                <name>TXE</name>
-                <usage>read-write</usage>
+                <name>TXER</name>
+                <usage>read</usage>
                 <enumeratedValue>
                   <name>NotEmpty</name>
                   <description>TXDR register not empty</description>
@@ -28024,6 +27695,15 @@
                 <enumeratedValue>
                   <name>Empty</name>
                   <description>TXDR register empty</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+              <enumeratedValues>
+                <name>TXEW</name>
+                <usage>write</usage>
+                <enumeratedValue>
+                  <name>Flush</name>
+                  <description>Flush the transmit data register</description>
                   <value>1</value>
                 </enumeratedValue>
               </enumeratedValues>
@@ -29379,18 +29059,28 @@
               <description>Update interrupt flag</description>
               <bitOffset>0</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
-                <name>UIF</name>
-                <usage>read-write</usage>
+                <name>UIFR</name>
+                <usage>read</usage>
                 <enumeratedValue>
-                  <name>Clear</name>
+                  <name>NoUpdateOccurred</name>
                   <description>No update occurred</description>
                   <value>0</value>
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>UpdatePending</name>
-                  <description>Update interrupt pending.</description>
+                  <description>Update interrupt pending</description>
                   <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+              <enumeratedValues>
+                <name>UIFW</name>
+                <usage>write</usage>
+                <enumeratedValue>
+                  <name>Clear</name>
+                  <description>Clear flag</description>
+                  <value>0</value>
                 </enumeratedValue>
               </enumeratedValues>
             </field>
@@ -29497,7 +29187,7 @@
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>PwmMode1</name>
-                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT&gt;TIMx_CCRy else active</description>
+                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT>TIMx_CCRy else active</description>
                   <value>6</value>
                 </enumeratedValue>
                 <enumeratedValue>
@@ -29924,18 +29614,28 @@
               <description>Update interrupt flag</description>
               <bitOffset>0</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
-                <name>UIF</name>
-                <usage>read-write</usage>
+                <name>UIFR</name>
+                <usage>read</usage>
                 <enumeratedValue>
-                  <name>Clear</name>
+                  <name>NoUpdateOccurred</name>
                   <description>No update occurred</description>
                   <value>0</value>
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>UpdatePending</name>
-                  <description>Update interrupt pending.</description>
+                  <description>Update interrupt pending</description>
                   <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+              <enumeratedValues>
+                <name>UIFW</name>
+                <usage>write</usage>
+                <enumeratedValue>
+                  <name>Clear</name>
+                  <description>Clear flag</description>
+                  <value>0</value>
                 </enumeratedValue>
               </enumeratedValues>
             </field>
@@ -30551,18 +30251,28 @@
               <description>Update interrupt flag</description>
               <bitOffset>0</bitOffset>
               <bitWidth>1</bitWidth>
+              <modifiedWriteValues>zeroToClear</modifiedWriteValues>
               <enumeratedValues>
-                <name>UIF</name>
-                <usage>read-write</usage>
+                <name>UIFR</name>
+                <usage>read</usage>
                 <enumeratedValue>
-                  <name>Clear</name>
+                  <name>NoUpdateOccurred</name>
                   <description>No update occurred</description>
                   <value>0</value>
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>UpdatePending</name>
-                  <description>Update interrupt pending.</description>
+                  <description>Update interrupt pending</description>
                   <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+              <enumeratedValues>
+                <name>UIFW</name>
+                <usage>write</usage>
+                <enumeratedValue>
+                  <name>Clear</name>
+                  <description>Clear flag</description>
+                  <value>0</value>
                 </enumeratedValue>
               </enumeratedValues>
             </field>
@@ -30749,7 +30459,7 @@
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>PwmMode1</name>
-                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT&gt;TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
+                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT>TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
                   <value>6</value>
                 </enumeratedValue>
                 <enumeratedValue>
@@ -30954,7 +30664,7 @@
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>PwmMode1</name>
-                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT&gt;TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
+                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT>TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
                   <value>6</value>
                 </enumeratedValue>
                 <enumeratedValue>
