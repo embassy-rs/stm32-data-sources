@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<device schemaVersion="1.1" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="CMSIS-SVD_Schema_1_1.xsd">
+<device xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="1.1" xs:noNamespaceSchemaLocation="CMSIS-SVD_Schema_1_1.xsd">
   <name>STM32C031</name>
   <version>0.2</version>
   <description>STM32C031</description>
@@ -1096,7 +1096,7 @@ If CCRDY is not yet asserted after channel configuration (writing ADC_CHSELR reg
           <name>CHSELR1</name>
           <displayName>CHSELR_MOD1</displayName>
           <description>ADC channel selection register [alternate]</description>
-          <alternateRegister>ADC_CHSELR_MOD0</alternateRegister>
+          <alternateRegister>CHSELR_MOD0</alternateRegister>
           <addressOffset>0x28</addressOffset>
           <size>0x20</size>
           <resetValue>0x00000000</resetValue>
@@ -2944,8 +2944,8 @@ It is not read-only when the channel is enabled (EN = 1).</description>
           <dimIncrement>0x4</dimIncrement>
           <dimIndex>0-2</dimIndex>
           <name>CCR%s</name>
-          <displayName>C0CR</displayName>
-          <description>DMAMUX request line multiplexer channel %s configuration register</description>
+          <displayName>C%sCR</displayName>
+          <description>DMA Multiplexer Channel %s Control register</description>
           <addressOffset>0x0</addressOffset>
           <size>0x20</size>
           <resetValue>0x00000000</resetValue>
@@ -3085,7 +3085,7 @@ Writing 1 in each bit clears the corresponding overrun flag SOFx in the DMAMUX_C
           <dimIncrement>0x4</dimIncrement>
           <dimIndex>0-3</dimIndex>
           <name>RGCR%s</name>
-          <displayName>RG0CR</displayName>
+          <displayName>RG%sCR</displayName>
           <description>DMAMUX request generator channel %s configuration register</description>
           <addressOffset>0x100</addressOffset>
           <size>0x20</size>
@@ -17417,8 +17417,8 @@ With this bit in disable state, the I2C FM+ driving capability on this I/O port 
           <fields>
             <field>
               <name>LOCKUP_LOCK</name>
-              <description>Cortex&lt;Superscript>�&lt;Default � Font>-M0+ LOCKUP enable
-This bit is set by software and cleared by system reset. When set, it enables the connection of Cortex&lt;Superscript>�&lt;Default � Font>-M0+ LOCKUP (HardFault) output to the TIM1/16/17 Break input.</description>
+              <description>Cortex&lt;Superscript&gt;�&lt;Default � Font&gt;-M0+ LOCKUP enable
+This bit is set by software and cleared by system reset. When set, it enables the connection of Cortex&lt;Superscript&gt;�&lt;Default � Font&gt;-M0+ LOCKUP (HardFault) output to the TIM1/16/17 Break input.</description>
               <bitOffset>0</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
@@ -18750,7 +18750,7 @@ Refer to IC1F[3:0] description.</description>
           <name>CCMR1_output</name>
           <displayName>CCMR1_output</displayName>
           <description>TIM1 capture/compare mode register 1 [alternate]</description>
-          <alternateRegister>TIM1_CCMR1_input</alternateRegister>
+          <alternateRegister>CCMR1_input</alternateRegister>
           <addressOffset>0x18</addressOffset>
           <size>0x20</size>
           <resetValue>0x00000000</resetValue>
@@ -18929,7 +18929,7 @@ Refer to IC1F[3:0] description.</description>
           <name>CCMR2_output</name>
           <displayName>CCMR2_output</displayName>
           <description>TIM1 capture/compare mode register 2 [alternate]</description>
-          <alternateRegister>TIM1_CCMR2_input</alternateRegister>
+          <alternateRegister>CCMR2_input</alternateRegister>
           <addressOffset>0x1C</addressOffset>
           <size>0x20</size>
           <resetValue>0x00000000</resetValue>
@@ -19400,10 +19400,10 @@ If channel CC4 is configured as input: CCR4 is the counter value transferred by 
               <name>DTG</name>
               <description>Dead-time generator setup
 This bit-field defines the duration of the dead-time inserted between the complementary outputs. DT correspond to this duration.
-DTG[7:5] = 0xx => DT = DTG[7:0] x tDTG with tDTG = tDTS.
-DTG[7:5] = 10x => DT = (64 + DTG[5:0]) x tDTG with tDTG = 2 x tDTS.
-DTG[7:5] = 110 => DT = (32 + DTG[4:0]) x tDTG with tDTG = 8 x tDTS.
-DTG[7:5] = 111 => DT = (32 + DTG[4:0]) x tDTG with tDTG = 16 x tDTS.
+DTG[7:5] = 0xx =&gt; DT = DTG[7:0] x tDTG with tDTG = tDTS.
+DTG[7:5] = 10x =&gt; DT = (64 + DTG[5:0]) x tDTG with tDTG = 2 x tDTS.
+DTG[7:5] = 110 =&gt; DT = (32 + DTG[4:0]) x tDTG with tDTG = 8 x tDTS.
+DTG[7:5] = 111 =&gt; DT = (32 + DTG[4:0]) x tDTG with tDTG = 16 x tDTS.
 Example if tDTS = 125 ns (8 MHz), dead-time possible values are:
 0 to 15875 ns by 125 ns steps,
 16 μs to 31750 ns  by 250 ns steps,
@@ -20449,7 +20449,7 @@ Note: CC2S bits are writable only when the channel is OFF (CC2E = 0 in TIMx_CCER
           <name>CCMR1_output</name>
           <displayName>CCMR1_output</displayName>
           <description>TIM3 capture/compare mode register 1 [alternate]</description>
-          <alternateRegister>TIM3_CCMR1_input</alternateRegister>
+          <alternateRegister>CCMR1_input</alternateRegister>
           <addressOffset>0x18</addressOffset>
           <size>0x20</size>
           <resetValue>0x00000000</resetValue>
@@ -20616,7 +20616,7 @@ Note: CC4S bits are writable only when the channel is OFF (CC4E = 0 in TIMx_CCER
           <name>CCMR2_output</name>
           <displayName>CCMR2_output</displayName>
           <description>TIM3 capture/compare mode register 2 [alternate]</description>
-          <alternateRegister>TIM3_CCMR2_input</alternateRegister>
+          <alternateRegister>CCMR2_input</alternateRegister>
           <addressOffset>0x1C</addressOffset>
           <size>0x20</size>
           <resetValue>0x00000000</resetValue>
@@ -20831,7 +20831,7 @@ Refer to CC1NP description</description>
           <name>CNT</name>
           <displayName>CNT_alternate</displayName>
           <description>TIM3 counter [alternate]</description>
-          <alternateRegister>TIM3_CNT</alternateRegister>
+          <alternateRegister>CNT</alternateRegister>
           <addressOffset>0x24</addressOffset>
           <size>0x20</size>
           <resetValue>0x00000000</resetValue>
@@ -21325,7 +21325,7 @@ This bit-field defines the frequency used to sample TI1 input and the length of 
           <name>CCMR1_output</name>
           <displayName>CCMR1_output</displayName>
           <description>TIM14 capture/compare mode register 1 [alternate]</description>
-          <alternateRegister>TIM14_CCMR1_input</alternateRegister>
+          <alternateRegister>CCMR1_input</alternateRegister>
           <addressOffset>0x18</addressOffset>
           <size>0x20</size>
           <resetValue>0x00000000</resetValue>
@@ -21867,7 +21867,7 @@ This bit-field defines the frequency used to sample TI1 input and the length of 
           <name>CCMR1_output</name>
           <displayName>CCMR1_output</displayName>
           <description>TIM16 capture/compare mode register 1 [alternate]</description>
-          <alternateRegister>TIM16_CCMR1_input</alternateRegister>
+          <alternateRegister>CCMR1_input</alternateRegister>
           <addressOffset>0x18</addressOffset>
           <size>0x20</size>
           <resetValue>0x00000000</resetValue>
@@ -22104,10 +22104,10 @@ CCR1 is the counter value transferred by the last input capture 1 event (IC1).</
               <name>DTG</name>
               <description>Dead-time generator setup
 This bit-field defines the duration of the dead-time inserted between the complementary outputs. DT correspond to this duration.
-DTG[7:5] = 0xx => DT = DTG[7:0] x tdtg with tdtg = tDTS
-DTG[7:5] = 10x => DT = (64 + DTG[5:0]) x tdtg with tdtg = 2 x tDTS
-DTG[7:5] = 110 => DT = (32 + DTG[4:0]) x tdtg with tdtg = 8 x tDTS
-DTG[7:5] = 111 => DT = (32 + DTG[4:0]) x tdtg with tdtg = 16 x tDTS
+DTG[7:5] = 0xx =&gt; DT = DTG[7:0] x tdtg with tdtg = tDTS
+DTG[7:5] = 10x =&gt; DT = (64 + DTG[5:0]) x tdtg with tdtg = 2 x tDTS
+DTG[7:5] = 110 =&gt; DT = (32 + DTG[4:0]) x tdtg with tdtg = 8 x tDTS
+DTG[7:5] = 111 =&gt; DT = (32 + DTG[4:0]) x tdtg with tdtg = 16 x tDTS
 Example if tDTS = 125 ns (8 MHz), dead-time possible values are:
 0 to 15875 ns by 125 ns steps,
 16 �s to 31750 ns by 250 ns steps,
@@ -22651,7 +22651,7 @@ This bit-field defines the frequency used to sample TI1 input and the length of 
           <name>CCMR1_output</name>
           <displayName>CCMR1_output</displayName>
           <description>TIM17 capture/compare mode register 1 [alternate]</description>
-          <alternateRegister>TIM17_CCMR1_input</alternateRegister>
+          <alternateRegister>CCMR1_input</alternateRegister>
           <addressOffset>0x18</addressOffset>
           <size>0x20</size>
           <resetValue>0x00000000</resetValue>
@@ -22888,10 +22888,10 @@ CCR1 is the counter value transferred by the last input capture 1 event (IC1).</
               <name>DTG</name>
               <description>Dead-time generator setup
 This bit-field defines the duration of the dead-time inserted between the complementary outputs. DT correspond to this duration.
-DTG[7:5] = 0xx => DT = DTG[7:0] x tdtg with tdtg = tDTS
-DTG[7:5] = 10x => DT = (64 + DTG[5:0]) x tdtg with tdtg = 2 x tDTS
-DTG[7:5] = 110 => DT = (32 + DTG[4:0]) x tdtg with tdtg = 8 x tDTS
-DTG[7:5] = 111 => DT = (32 + DTG[4:0]) x tdtg with tdtg = 16 x tDTS
+DTG[7:5] = 0xx =&gt; DT = DTG[7:0] x tdtg with tdtg = tDTS
+DTG[7:5] = 10x =&gt; DT = (64 + DTG[5:0]) x tdtg with tdtg = 2 x tDTS
+DTG[7:5] = 110 =&gt; DT = (32 + DTG[4:0]) x tdtg with tdtg = 8 x tDTS
+DTG[7:5] = 111 =&gt; DT = (32 + DTG[4:0]) x tdtg with tdtg = 16 x tDTS
 Example if tDTS = 125 ns (8 MHz), dead-time possible values are:
 0 to 15875 ns by 125 ns steps,
 16 �s to 31750 ns by 250 ns steps,
@@ -23351,7 +23351,7 @@ This bit is set and cleared by software.</description>
           <name>CR1_disabled</name>
           <displayName>CR1_disabled</displayName>
           <description>USART control register 1 [alternate]</description>
-          <alternateRegister>USART_CR1_enabled</alternateRegister>
+          <alternateRegister>CR1_enabled</alternateRegister>
           <addressOffset>0x0</addressOffset>
           <size>0x20</size>
           <resetValue>0x00000000</resetValue>
@@ -24461,7 +24461,7 @@ This bit is set by hardware when the TXFIFO reaches the threshold programmed in 
           <name>ISR_disabled</name>
           <displayName>ISR_disabled</displayName>
           <description>USART interrupt and status register [alternate]</description>
-          <alternateRegister>USART_ISR_enabled</alternateRegister>
+          <alternateRegister>ISR_enabled</alternateRegister>
           <addressOffset>0x1C</addressOffset>
           <size>0x20</size>
           <resetValue>0x008000C0</resetValue>
