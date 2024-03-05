@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<device schemaVersion="1.1" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="CMSIS-SVD_Schema_1_1.xsd">
+<device xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="1.1" xs:noNamespaceSchemaLocation="CMSIS-SVD_Schema_1_1.xsd">
   <name>STM32WB55</name>
   <version>1.6</version>
   <description>STM32WBxx_CM4</description>
@@ -2780,8 +2780,8 @@
           <dimIncrement>0x4</dimIncrement>
           <dimIndex>0-13</dimIndex>
           <name>CCR%s</name>
-          <displayName>C0CR</displayName>
-          <description>DMA Multiplexer Channel %s Control           register</description>
+          <displayName>C%sCR</displayName>
+          <description>DMA Multiplexer Channel %s Control register</description>
           <addressOffset>0x0</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
@@ -3026,7 +3026,7 @@
           <dimIncrement>0x4</dimIncrement>
           <dimIndex>0-3</dimIndex>
           <name>RGCR%s</name>
-          <displayName>RG0CR</displayName>
+          <displayName>RG%sCR</displayName>
           <description>DMA Request Generator %s Control           Register</description>
           <addressOffset>0x100</addressOffset>
           <size>0x20</size>
@@ -15269,8 +15269,8 @@
           <dimIncrement>0x4</dimIncrement>
           <dimIndex>0-31</dimIndex>
           <name>R%s</name>
-          <displayName>R0</displayName>
-          <description>Semaphore %s register</description>
+          <displayName>R%s</displayName>
+          <description>HSEM register HSEM_R%s</description>
           <addressOffset>0x0</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
@@ -15301,7 +15301,7 @@
           <dimIncrement>0x4</dimIncrement>
           <dimIndex>0-31</dimIndex>
           <name>RLR%s</name>
-          <displayName>RLR0</displayName>
+          <displayName>RLR%s</displayName>
           <description>Semaphore %s read lock register</description>
           <addressOffset>0x80</addressOffset>
           <size>0x20</size>
@@ -21289,7 +21289,6 @@
                 <bitWidth>1</bitWidth>
                 <enumeratedValues>
                   <name>NODIV</name>
-                  <usage>read-write</usage>
                   <enumeratedValue>
                     <name>MasterClock</name>
                     <description>MCLK output is enabled. Forces the ratio between FS and MCLK to 256 or 512 according to the OSR value</description>
@@ -21309,7 +21308,6 @@
                 <bitWidth>1</bitWidth>
                 <enumeratedValues>
                   <name>DMAEN</name>
-                  <usage>read-write</usage>
                   <enumeratedValue>
                     <name>Disabled</name>
                     <description>DMA disabled</description>
@@ -21329,7 +21327,6 @@
                 <bitWidth>1</bitWidth>
                 <enumeratedValues>
                   <name>SAIEN</name>
-                  <usage>read-write</usage>
                   <enumeratedValue>
                     <name>Disabled</name>
                     <description>SAI audio block disabled</description>
@@ -21349,7 +21346,6 @@
                 <bitWidth>1</bitWidth>
                 <enumeratedValues>
                   <name>OUTDRIV</name>
-                  <usage>read-write</usage>
                   <enumeratedValue>
                     <name>OnStart</name>
                     <description>Audio block output driven when SAIEN is set</description>
@@ -21369,7 +21365,6 @@
                 <bitWidth>1</bitWidth>
                 <enumeratedValues>
                   <name>MONO</name>
-                  <usage>read-write</usage>
                   <enumeratedValue>
                     <name>Stereo</name>
                     <description>Stereo mode</description>
@@ -21389,7 +21384,6 @@
                 <bitWidth>2</bitWidth>
                 <enumeratedValues>
                   <name>SYNCEN</name>
-                  <usage>read-write</usage>
                   <enumeratedValue>
                     <name>Asynchronous</name>
                     <description>audio sub-block in asynchronous mode</description>
@@ -21414,7 +21408,6 @@
                 <bitWidth>1</bitWidth>
                 <enumeratedValues>
                   <name>CKSTR</name>
-                  <usage>read-write</usage>
                   <enumeratedValue>
                     <name>FallingEdge</name>
                     <description>Data strobing edge is falling edge of SCK</description>
@@ -21434,7 +21427,6 @@
                 <bitWidth>1</bitWidth>
                 <enumeratedValues>
                   <name>LSBFIRST</name>
-                  <usage>read-write</usage>
                   <enumeratedValue>
                     <name>MsbFirst</name>
                     <description>Data are transferred with MSB first</description>
@@ -21454,7 +21446,6 @@
                 <bitWidth>3</bitWidth>
                 <enumeratedValues>
                   <name>DS</name>
-                  <usage>read-write</usage>
                   <enumeratedValue>
                     <name>Bit8</name>
                     <description>8 bits</description>
@@ -21494,7 +21485,6 @@
                 <bitWidth>2</bitWidth>
                 <enumeratedValues>
                   <name>PRTCFG</name>
-                  <usage>read-write</usage>
                   <enumeratedValue>
                     <name>Free</name>
                     <description>Free protocol. Free protocol allows to use the powerful configuration of the audio block to address a specific audio protocol</description>
@@ -21519,7 +21509,6 @@
                 <bitWidth>2</bitWidth>
                 <enumeratedValues>
                   <name>MODE</name>
-                  <usage>read-write</usage>
                   <enumeratedValue>
                     <name>MasterTx</name>
                     <description>Master transmitter</description>
@@ -21561,7 +21550,6 @@
                 <access>read-write</access>
                 <enumeratedValues>
                   <name>COMP</name>
-                  <usage>read-write</usage>
                   <enumeratedValue>
                     <name>NoCompanding</name>
                     <description>No companding algorithm</description>
@@ -21587,7 +21575,6 @@
                 <access>read-write</access>
                 <enumeratedValues>
                   <name>CPL</name>
-                  <usage>read-write</usage>
                   <enumeratedValue>
                     <name>OnesComplement</name>
                     <description>1’s complement representation</description>
@@ -21615,7 +21602,6 @@
                 <access>read-write</access>
                 <enumeratedValues>
                   <name>MUTEVAL</name>
-                  <usage>read-write</usage>
                   <enumeratedValue>
                     <name>SendZero</name>
                     <description>Bit value 0 is sent during the mute mode</description>
@@ -21636,7 +21622,6 @@
                 <access>read-write</access>
                 <enumeratedValues>
                   <name>MUTE</name>
-                  <usage>read-write</usage>
                   <enumeratedValue>
                     <name>Disabled</name>
                     <description>No mute mode</description>
@@ -21661,9 +21646,9 @@
                 <description>FIFO flush</description>
                 <bitOffset>3</bitOffset>
                 <bitWidth>1</bitWidth>
+                <access>write-only</access>
                 <enumeratedValues>
                   <name>FFLUSH</name>
-                  <usage>read-write</usage>
                   <enumeratedValue>
                     <name>NoFlush</name>
                     <description>No FIFO flush</description>
@@ -21684,7 +21669,6 @@
                 <access>read-write</access>
                 <enumeratedValues>
                   <name>FTH</name>
-                  <usage>read-write</usage>
                   <enumeratedValue>
                     <name>Empty</name>
                     <description>FIFO empty</description>
@@ -21731,7 +21715,6 @@
                 <access>read-write</access>
                 <enumeratedValues>
                   <name>FSOFF</name>
-                  <usage>read-write</usage>
                   <enumeratedValue>
                     <name>OnFirst</name>
                     <description>FS is asserted on the first bit of the slot 0</description>
@@ -21752,7 +21735,6 @@
                 <access>read-write</access>
                 <enumeratedValues>
                   <name>FSPOL</name>
-                  <usage>read-write</usage>
                   <enumeratedValue>
                     <name>FallingEdge</name>
                     <description>FS is active low (falling edge)</description>
@@ -21804,7 +21786,6 @@
                 <bitWidth>16</bitWidth>
                 <enumeratedValues>
                   <name>SLOTEN</name>
-                  <usage>read-write</usage>
                   <enumeratedValue>
                     <name>Inactive</name>
                     <description>Inactive slot</description>
@@ -21830,7 +21811,6 @@
                 <bitWidth>2</bitWidth>
                 <enumeratedValues>
                   <name>SLOTSZ</name>
-                  <usage>read-write</usage>
                   <enumeratedValue>
                     <name>DataSize</name>
                     <description>The slot size is equivalent to the data size (specified in DS[3:0] in the SAI_xCR1 register)</description>
@@ -21872,7 +21852,6 @@
                 <bitWidth>1</bitWidth>
                 <enumeratedValues>
                   <name>LFSDETIE</name>
-                  <usage>read-write</usage>
                   <enumeratedValue>
                     <name>Disabled</name>
                     <description>Interrupt is disabled</description>
@@ -21892,7 +21871,6 @@
                 <bitWidth>1</bitWidth>
                 <enumeratedValues>
                   <name>AFSDETIE</name>
-                  <usage>read-write</usage>
                   <enumeratedValue>
                     <name>Disabled</name>
                     <description>Interrupt is disabled</description>
@@ -21912,7 +21890,6 @@
                 <bitWidth>1</bitWidth>
                 <enumeratedValues>
                   <name>CNRDYIE</name>
-                  <usage>read-write</usage>
                   <enumeratedValue>
                     <name>Disabled</name>
                     <description>Interrupt is disabled</description>
@@ -21932,7 +21909,6 @@
                 <bitWidth>1</bitWidth>
                 <enumeratedValues>
                   <name>FREQIE</name>
-                  <usage>read-write</usage>
                   <enumeratedValue>
                     <name>Disabled</name>
                     <description>Interrupt is disabled</description>
@@ -21952,7 +21928,6 @@
                 <bitWidth>1</bitWidth>
                 <enumeratedValues>
                   <name>WCKCFGIE</name>
-                  <usage>read-write</usage>
                   <enumeratedValue>
                     <name>Disabled</name>
                     <description>Interrupt is disabled</description>
@@ -21972,7 +21947,6 @@
                 <bitWidth>1</bitWidth>
                 <enumeratedValues>
                   <name>MUTEDETIE</name>
-                  <usage>read-write</usage>
                   <enumeratedValue>
                     <name>Disabled</name>
                     <description>Interrupt is disabled</description>
@@ -21992,7 +21966,6 @@
                 <bitWidth>1</bitWidth>
                 <enumeratedValues>
                   <name>OVRUDRIE</name>
-                  <usage>read-write</usage>
                   <enumeratedValue>
                     <name>Disabled</name>
                     <description>Interrupt is disabled</description>
@@ -22023,7 +21996,6 @@
                 <bitWidth>3</bitWidth>
                 <enumeratedValues>
                   <name>FLVLR</name>
-                  <usage>read</usage>
                   <enumeratedValue>
                     <name>Empty</name>
                     <description>FIFO empty</description>
@@ -22063,7 +22035,6 @@
                 <bitWidth>1</bitWidth>
                 <enumeratedValues>
                   <name>LFSDETR</name>
-                  <usage>read</usage>
                   <enumeratedValue>
                     <name>NoError</name>
                     <description>No error</description>
@@ -22083,7 +22054,6 @@
                 <bitWidth>1</bitWidth>
                 <enumeratedValues>
                   <name>AFSDETR</name>
-                  <usage>read</usage>
                   <enumeratedValue>
                     <name>NoError</name>
                     <description>No error</description>
@@ -22103,7 +22073,6 @@
                 <bitWidth>1</bitWidth>
                 <enumeratedValues>
                   <name>CNRDYR</name>
-                  <usage>read</usage>
                   <enumeratedValue>
                     <name>Ready</name>
                     <description>External AC’97 Codec is ready</description>
@@ -22123,7 +22092,6 @@
                 <bitWidth>1</bitWidth>
                 <enumeratedValues>
                   <name>FREQR</name>
-                  <usage>read</usage>
                   <enumeratedValue>
                     <name>NoRequest</name>
                     <description>No FIFO request</description>
@@ -22143,7 +22111,6 @@
                 <bitWidth>1</bitWidth>
                 <enumeratedValues>
                   <name>WCKCFGR</name>
-                  <usage>read</usage>
                   <enumeratedValue>
                     <name>Correct</name>
                     <description>Clock configuration is correct</description>
@@ -22163,7 +22130,6 @@
                 <bitWidth>1</bitWidth>
                 <enumeratedValues>
                   <name>MUTEDETR</name>
-                  <usage>read</usage>
                   <enumeratedValue>
                     <name>NoMute</name>
                     <description>No MUTE detection on the SD input line</description>
@@ -22183,7 +22149,6 @@
                 <bitWidth>1</bitWidth>
                 <enumeratedValues>
                   <name>OVRUDRR</name>
-                  <usage>read</usage>
                   <enumeratedValue>
                     <name>NoError</name>
                     <description>No overrun/underrun error</description>
@@ -22214,7 +22179,6 @@
                 <bitWidth>1</bitWidth>
                 <enumeratedValues>
                   <name>CLFSDETW</name>
-                  <usage>write</usage>
                   <enumeratedValue>
                     <name>Clear</name>
                     <description>Clears the LFSDET flag</description>
@@ -22229,7 +22193,6 @@
                 <bitWidth>1</bitWidth>
                 <enumeratedValues>
                   <name>CAFSDETW</name>
-                  <usage>write</usage>
                   <enumeratedValue>
                     <name>Clear</name>
                     <description>Clears the AFSDET flag</description>
@@ -22244,7 +22207,6 @@
                 <bitWidth>1</bitWidth>
                 <enumeratedValues>
                   <name>CCNRDYW</name>
-                  <usage>write</usage>
                   <enumeratedValue>
                     <name>Clear</name>
                     <description>Clears the CNRDY flag</description>
@@ -22259,7 +22221,6 @@
                 <bitWidth>1</bitWidth>
                 <enumeratedValues>
                   <name>CWCKCFGW</name>
-                  <usage>write</usage>
                   <enumeratedValue>
                     <name>Clear</name>
                     <description>Clears the WCKCFG flag</description>
@@ -22274,7 +22235,6 @@
                 <bitWidth>1</bitWidth>
                 <enumeratedValues>
                   <name>CMUTEDETW</name>
-                  <usage>write</usage>
                   <enumeratedValue>
                     <name>Clear</name>
                     <description>Clears the MUTEDET flag</description>
@@ -22289,7 +22249,6 @@
                 <bitWidth>1</bitWidth>
                 <enumeratedValues>
                   <name>COVRUDRW</name>
-                  <usage>write</usage>
                   <enumeratedValue>
                     <name>Clear</name>
                     <description>Clears the OVRUDR flag</description>
@@ -22374,50 +22333,20 @@
           <resetValue>0x00000000</resetValue>
           <fields>
             <field>
-              <name>DLYM4R</name>
-              <description>Delay line for second microphone of pair               4</description>
-              <bitOffset>28</bitOffset>
-              <bitWidth>3</bitWidth>
-            </field>
-            <field>
-              <name>DLYM4L</name>
-              <description>Delay line for first microphone of pair               4</description>
-              <bitOffset>24</bitOffset>
-              <bitWidth>3</bitWidth>
-            </field>
-            <field>
-              <name>DLYM3R</name>
-              <description>Delay line for second microphone of pair               3</description>
-              <bitOffset>20</bitOffset>
-              <bitWidth>3</bitWidth>
-            </field>
-            <field>
-              <name>DLYM3L</name>
-              <description>Delay line for first microphone of pair               3</description>
-              <bitOffset>16</bitOffset>
-              <bitWidth>3</bitWidth>
-            </field>
-            <field>
-              <name>DLYM2R</name>
-              <description>Delay line for second microphone of pair               2</description>
-              <bitOffset>12</bitOffset>
-              <bitWidth>3</bitWidth>
-            </field>
-            <field>
-              <name>DLYM2L</name>
-              <description>Delay line for first microphone of pair               2</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>3</bitWidth>
-            </field>
-            <field>
-              <name>DLYM1R</name>
-              <description>Delay line for second microphone of pair               1</description>
+              <dim>4</dim>
+              <dimIncrement>0x8</dimIncrement>
+              <dimIndex>1-4</dimIndex>
+              <name>DLYM%sR</name>
+              <description>Delay line adjust for second microphone of pair %s</description>
               <bitOffset>4</bitOffset>
               <bitWidth>3</bitWidth>
             </field>
             <field>
-              <name>DLYM1L</name>
-              <description>Delay line for first microphone of pair               1</description>
+              <dim>4</dim>
+              <dimIncrement>0x8</dimIncrement>
+              <dimIndex>1-4</dimIndex>
+              <name>DLYM%sL</name>
+              <description>Delay line adjust for first microphone of pair %s</description>
               <bitOffset>0</bitOffset>
               <bitWidth>3</bitWidth>
             </field>
@@ -22805,20 +22734,12 @@
           <resetValue>0x00000000</resetValue>
           <fields>
             <field>
-              <name>OC2M_3</name>
-              <description>Output Compare 2 mode - bit               3</description>
-              <bitOffset>24</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="OC1M_3"/>
-            </field>
-            <field>
               <name>OC1M_3</name>
               <description>Output Compare 1 mode - bit               3</description>
               <bitOffset>16</bitOffset>
               <bitWidth>1</bitWidth>
               <enumeratedValues>
                 <name>OC1M_3</name>
-                <usage>read-write</usage>
                 <enumeratedValue>
                   <name>Normal</name>
                   <description>Normal output compare mode (modes 0-7)</description>
@@ -22832,40 +22753,16 @@
               </enumeratedValues>
             </field>
             <field>
+              <name>OC2M_3</name>
+              <description>Output Compare 2 mode - bit               3</description>
+              <bitOffset>24</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="OC1M_3"/>
+            </field>
+            <field>
               <name>OC2CE</name>
               <description>Output compare 2 clear               enable</description>
               <bitOffset>15</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>OC2M</name>
-              <description>Output compare 2 mode</description>
-              <bitOffset>12</bitOffset>
-              <bitWidth>3</bitWidth>
-              <enumeratedValues derivedFrom="OC1M"/>
-            </field>
-            <field>
-              <name>OC2PE</name>
-              <description>Output compare 2 preload               enable</description>
-              <bitOffset>11</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>OC2FE</name>
-              <description>Output compare 2 fast               enable</description>
-              <bitOffset>10</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>CC2S</name>
-              <description>Capture/Compare 2               selection</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>2</bitWidth>
-            </field>
-            <field>
-              <name>OC1CE</name>
-              <description>Output compare 1 clear               enable</description>
-              <bitOffset>7</bitOffset>
               <bitWidth>1</bitWidth>
             </field>
             <field>
@@ -22875,7 +22772,6 @@
               <bitWidth>3</bitWidth>
               <enumeratedValues>
                 <name>OC1M</name>
-                <usage>read-write</usage>
                 <enumeratedValue>
                   <name>Frozen</name>
                   <description>The comparison between the output compare register TIMx_CCRy and the counter TIMx_CNT has no effect on the outputs / OpmMode1: Retriggerable OPM mode 1 - In up-counting mode, the channel is active until a trigger event is detected (on TRGI signal). In down-counting mode, the channel is inactive</description>
@@ -22908,7 +22804,7 @@
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>PwmMode1</name>
-                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT>TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
+                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT&gt;TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
                   <value>6</value>
                 </enumeratedValue>
                 <enumeratedValue>
@@ -22917,6 +22813,37 @@
                   <value>7</value>
                 </enumeratedValue>
               </enumeratedValues>
+            </field>
+            <field>
+              <name>OC2M</name>
+              <description>Output compare 2 mode</description>
+              <bitOffset>12</bitOffset>
+              <bitWidth>3</bitWidth>
+              <enumeratedValues derivedFrom="OC1M"/>
+            </field>
+            <field>
+              <name>OC2PE</name>
+              <description>Output compare 2 preload               enable</description>
+              <bitOffset>11</bitOffset>
+              <bitWidth>1</bitWidth>
+            </field>
+            <field>
+              <name>OC2FE</name>
+              <description>Output compare 2 fast               enable</description>
+              <bitOffset>10</bitOffset>
+              <bitWidth>1</bitWidth>
+            </field>
+            <field>
+              <name>CC2S</name>
+              <description>Capture/Compare 2               selection</description>
+              <bitOffset>8</bitOffset>
+              <bitWidth>2</bitWidth>
+            </field>
+            <field>
+              <name>OC1CE</name>
+              <description>Output compare 1 clear               enable</description>
+              <bitOffset>7</bitOffset>
+              <bitWidth>1</bitWidth>
             </field>
             <field>
               <name>OC1PE</name>
@@ -22996,20 +22923,12 @@
           <resetValue>0x00000000</resetValue>
           <fields>
             <field>
-              <name>OC4M_3</name>
-              <description>Output Compare 4 mode - bit               3</description>
-              <bitOffset>24</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="OC3M_3"/>
-            </field>
-            <field>
               <name>OC3M_3</name>
               <description>Output Compare 3 mode - bit               3</description>
               <bitOffset>16</bitOffset>
               <bitWidth>1</bitWidth>
               <enumeratedValues>
                 <name>OC3M_3</name>
-                <usage>read-write</usage>
                 <enumeratedValue>
                   <name>Normal</name>
                   <description>Normal output compare mode (modes 0-7)</description>
@@ -23023,40 +22942,16 @@
               </enumeratedValues>
             </field>
             <field>
+              <name>OC4M_3</name>
+              <description>Output Compare 4 mode - bit               3</description>
+              <bitOffset>24</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="OC3M_3"/>
+            </field>
+            <field>
               <name>OC4CE</name>
               <description>Output compare 4 clear               enable</description>
               <bitOffset>15</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>OC4M</name>
-              <description>Output compare 4 mode</description>
-              <bitOffset>12</bitOffset>
-              <bitWidth>3</bitWidth>
-              <enumeratedValues derivedFrom="OC3M"/>
-            </field>
-            <field>
-              <name>OC4PE</name>
-              <description>Output compare 4 preload               enable</description>
-              <bitOffset>11</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>OC4FE</name>
-              <description>Output compare 4 fast               enable</description>
-              <bitOffset>10</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>CC4S</name>
-              <description>Capture/Compare 4               selection</description>
-              <bitOffset>8</bitOffset>
-              <bitWidth>2</bitWidth>
-            </field>
-            <field>
-              <name>OC3CE</name>
-              <description>Output compare 3 clear               enable</description>
-              <bitOffset>7</bitOffset>
               <bitWidth>1</bitWidth>
             </field>
             <field>
@@ -23066,7 +22961,6 @@
               <bitWidth>3</bitWidth>
               <enumeratedValues>
                 <name>OC3M</name>
-                <usage>read-write</usage>
                 <enumeratedValue>
                   <name>Frozen</name>
                   <description>The comparison between the output compare register TIMx_CCRy and the counter TIMx_CNT has no effect on the outputs / OpmMode1: Retriggerable OPM mode 1 - In up-counting mode, the channel is active until a trigger event is detected (on TRGI signal). In down-counting mode, the channel is inactive</description>
@@ -23099,7 +22993,7 @@
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>PwmMode1</name>
-                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT>TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
+                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT&gt;TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
                   <value>6</value>
                 </enumeratedValue>
                 <enumeratedValue>
@@ -23108,6 +23002,37 @@
                   <value>7</value>
                 </enumeratedValue>
               </enumeratedValues>
+            </field>
+            <field>
+              <name>OC4M</name>
+              <description>Output compare 4 mode</description>
+              <bitOffset>12</bitOffset>
+              <bitWidth>3</bitWidth>
+              <enumeratedValues derivedFrom="OC3M"/>
+            </field>
+            <field>
+              <name>OC4PE</name>
+              <description>Output compare 4 preload               enable</description>
+              <bitOffset>11</bitOffset>
+              <bitWidth>1</bitWidth>
+            </field>
+            <field>
+              <name>OC4FE</name>
+              <description>Output compare 4 fast               enable</description>
+              <bitOffset>10</bitOffset>
+              <bitWidth>1</bitWidth>
+            </field>
+            <field>
+              <name>CC4S</name>
+              <description>Capture/Compare 4               selection</description>
+              <bitOffset>8</bitOffset>
+              <bitWidth>2</bitWidth>
+            </field>
+            <field>
+              <name>OC3CE</name>
+              <description>Output compare 3 clear               enable</description>
+              <bitOffset>7</bitOffset>
+              <bitWidth>1</bitWidth>
             </field>
             <field>
               <name>OC3PE</name>
@@ -23729,7 +23654,6 @@
               <bitWidth>3</bitWidth>
               <enumeratedValues>
                 <name>OC1M</name>
-                <usage>read-write</usage>
                 <enumeratedValue>
                   <name>Frozen</name>
                   <description>The comparison between the output compare register TIMx_CCRy and the counter TIMx_CNT has no effect on the outputs</description>
@@ -23762,7 +23686,7 @@
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>PwmMode1</name>
-                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT>TIMx_CCRy else active</description>
+                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT&gt;TIMx_CCRy else active</description>
                   <value>6</value>
                 </enumeratedValue>
                 <enumeratedValue>
@@ -24389,7 +24313,6 @@
               <bitWidth>3</bitWidth>
               <enumeratedValues>
                 <name>OC1M</name>
-                <usage>read-write</usage>
                 <enumeratedValue>
                   <name>Frozen</name>
                   <description>The comparison between the output compare register TIMx_CCRy and the counter TIMx_CNT has no effect on the outputs</description>
@@ -24422,7 +24345,7 @@
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>PwmMode1</name>
-                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT>TIMx_CCRy else active</description>
+                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT&gt;TIMx_CCRy else active</description>
                   <value>6</value>
                 </enumeratedValue>
                 <enumeratedValue>
@@ -25416,7 +25339,6 @@
               <bitWidth>3</bitWidth>
               <enumeratedValues>
                 <name>OC1M</name>
-                <usage>read-write</usage>
                 <enumeratedValue>
                   <name>Frozen</name>
                   <description>The comparison between the output compare register TIMx_CCRy and the counter TIMx_CNT has no effect on the outputs / OpmMode1: Retriggerable OPM mode 1 - In up-counting mode, the channel is active until a trigger event is detected (on TRGI signal). In down-counting mode, the channel is inactive</description>
@@ -25449,7 +25371,7 @@
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>PwmMode1</name>
-                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT>TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
+                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT&gt;TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
                   <value>6</value>
                 </enumeratedValue>
                 <enumeratedValue>
@@ -25503,7 +25425,6 @@
               <bitWidth>1</bitWidth>
               <enumeratedValues>
                 <name>OC1M_3</name>
-                <usage>read-write</usage>
                 <enumeratedValue>
                   <name>Normal</name>
                   <description>Normal output compare mode (modes 0-7)</description>
@@ -25559,7 +25480,6 @@
               <bitWidth>3</bitWidth>
               <enumeratedValues>
                 <name>OC3M</name>
-                <usage>read-write</usage>
                 <enumeratedValue>
                   <name>Frozen</name>
                   <description>The comparison between the output compare register TIMx_CCRy and the counter TIMx_CNT has no effect on the outputs / OpmMode1: Retriggerable OPM mode 1 - In up-counting mode, the channel is active until a trigger event is detected (on TRGI signal). In down-counting mode, the channel is inactive</description>
@@ -25592,7 +25512,7 @@
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>PwmMode1</name>
-                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT>TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
+                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT&gt;TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
                   <value>6</value>
                 </enumeratedValue>
                 <enumeratedValue>
@@ -25646,7 +25566,6 @@
               <bitWidth>1</bitWidth>
               <enumeratedValues>
                 <name>OC3M_3</name>
-                <usage>read-write</usage>
                 <enumeratedValue>
                   <name>Normal</name>
                   <description>Normal output compare mode (modes 0-7)</description>
@@ -26140,20 +26059,12 @@
           <resetValue>0x00000000</resetValue>
           <fields>
             <field>
-              <name>OC6M_3</name>
-              <description>Output Compare 6 mode bit               3</description>
-              <bitOffset>24</bitOffset>
-              <bitWidth>1</bitWidth>
-              <enumeratedValues derivedFrom="OC5M_3"/>
-            </field>
-            <field>
               <name>OC5M_3</name>
               <description>Output Compare 5 mode bit               3</description>
               <bitOffset>16</bitOffset>
               <bitWidth>1</bitWidth>
               <enumeratedValues>
                 <name>OC5M_3</name>
-                <usage>read-write</usage>
                 <enumeratedValue>
                   <name>Normal</name>
                   <description>Normal output compare mode (modes 0-7)</description>
@@ -26167,34 +26078,16 @@
               </enumeratedValues>
             </field>
             <field>
+              <name>OC6M_3</name>
+              <description>Output Compare 6 mode bit               3</description>
+              <bitOffset>24</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="OC5M_3"/>
+            </field>
+            <field>
               <name>OC6CE</name>
               <description>Output compare 6 clear               enable</description>
               <bitOffset>15</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>OC6M</name>
-              <description>Output compare 6 mode</description>
-              <bitOffset>12</bitOffset>
-              <bitWidth>3</bitWidth>
-              <enumeratedValues derivedFrom="OC5M"/>
-            </field>
-            <field>
-              <name>OC6PE</name>
-              <description>Output compare 6 preload               enable</description>
-              <bitOffset>11</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>OC6FE</name>
-              <description>Output compare 6 fast               enable</description>
-              <bitOffset>10</bitOffset>
-              <bitWidth>1</bitWidth>
-            </field>
-            <field>
-              <name>OC5CE</name>
-              <description>Output compare 5 clear               enable</description>
-              <bitOffset>7</bitOffset>
               <bitWidth>1</bitWidth>
             </field>
             <field>
@@ -26204,7 +26097,6 @@
               <bitWidth>3</bitWidth>
               <enumeratedValues>
                 <name>OC5M</name>
-                <usage>read-write</usage>
                 <enumeratedValue>
                   <name>Frozen</name>
                   <description>The comparison between the output compare register TIMx_CCRy and the counter TIMx_CNT has no effect on the outputs / OpmMode1: Retriggerable OPM mode 1 - In up-counting mode, the channel is active until a trigger event is detected (on TRGI signal). In down-counting mode, the channel is inactive</description>
@@ -26237,7 +26129,7 @@
                 </enumeratedValue>
                 <enumeratedValue>
                   <name>PwmMode1</name>
-                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT>TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
+                  <description>In upcounting, channel is active as long as TIMx_CNT&lt;TIMx_CCRy else inactive. In downcounting, channel is inactive as long as TIMx_CNT&gt;TIMx_CCRy else active / AsymmetricPwmMode1: OCyREF has the same behavior as in PWM mode 1. OCyREFC outputs OC1REF when the counter is counting up, OC2REF when it is counting down</description>
                   <value>6</value>
                 </enumeratedValue>
                 <enumeratedValue>
@@ -26246,6 +26138,31 @@
                   <value>7</value>
                 </enumeratedValue>
               </enumeratedValues>
+            </field>
+            <field>
+              <name>OC6M</name>
+              <description>Output compare 6 mode</description>
+              <bitOffset>12</bitOffset>
+              <bitWidth>3</bitWidth>
+              <enumeratedValues derivedFrom="OC5M"/>
+            </field>
+            <field>
+              <name>OC6PE</name>
+              <description>Output compare 6 preload               enable</description>
+              <bitOffset>11</bitOffset>
+              <bitWidth>1</bitWidth>
+            </field>
+            <field>
+              <name>OC6FE</name>
+              <description>Output compare 6 fast               enable</description>
+              <bitOffset>10</bitOffset>
+              <bitWidth>1</bitWidth>
+            </field>
+            <field>
+              <name>OC5CE</name>
+              <description>Output compare 5 clear               enable</description>
+              <bitOffset>7</bitOffset>
+              <bitWidth>1</bitWidth>
             </field>
             <field>
               <name>OC5PE</name>
@@ -28639,8 +28556,8 @@
           <dimIncrement>0x4</dimIncrement>
           <dimIndex>A,B</dimIndex>
           <name>ALRM%sR</name>
-          <displayName>ALRMAR</displayName>
-          <description>Alarm register</description>
+          <displayName>ALRM%sR</displayName>
+          <description>Alarm %s register</description>
           <addressOffset>0x1C</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
@@ -28984,8 +28901,8 @@
           <dimIncrement>0x4</dimIncrement>
           <dimIndex>A,B</dimIndex>
           <name>ALRM%sSSR</name>
-          <displayName>ALRMASSR</displayName>
-          <description>Alarm sub-second register</description>
+          <displayName>ALRM%sSSR</displayName>
+          <description>Alarm %s sub-second register</description>
           <addressOffset>0x44</addressOffset>
           <size>0x20</size>
           <access>read-write</access>
@@ -29033,7 +28950,7 @@
           <dimIncrement>0x4</dimIncrement>
           <dimIndex>0-19</dimIndex>
           <name>BKP%sR</name>
-          <displayName>BKP0R</displayName>
+          <displayName>BKP%sR</displayName>
           <description>backup register</description>
           <addressOffset>0x50</addressOffset>
           <size>0x20</size>
