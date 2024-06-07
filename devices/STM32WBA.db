@@ -1,0 +1,845 @@
+<family name="STM32WBA">
+	<CPUcore>ARM Cortex-M33</CPUcore>
+	<header>Device\ST\STM32WBxx\Include\stm32wbaxx.h</header>
+	
+	<!-- WBA / TinyBluefish 1M -->
+	<subFamily name="STM32WBA52" fpu="SP" clock="8000000">
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32WBA52CE,STM32WBA52CE,STM32WBA52CE,STM32WBA52xE,STM32WBA52CE,STM32WBA52CE</PN>
+			<variants>Ux</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="32"/>
+				<memory name="FLASH" access="rx" start="0x08000000" size="512"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="32"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="248"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C03E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20010000" size="64"/>
+					<memory name="FLASH" access="rx" start="0x08040000" size="256"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32WBAxx\Include\stm32wba52xx.h</header>
+			<EWARM>
+				<!--startup file -->
+				<!-- IMPORTANT : Put in top the startup file you need to generate in project file -->
+				<startup>Device\ST\STM32WBAxx\Source\Templates\iar\startup_stm32wba52xx.s</startup>
+				<linkers>
+					<!-- IMPORTANT : Put in top the linker file you need to generate in project file -->
+					<linker>Device\ST\STM32WBAxx\Source\Templates\iar\linker\stm32wba52xx_flash.icf</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\iar\linker\stm32wba52xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -SF4000 -C0 -A1 -I0 -HNlocalhost -HP7184 -P1 -TO131090 -TC10000000 -TT10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32WBAx_1M_0800 -FS08000000 -FL0100000 -FP0($$Device:STM32WBA52CGUx$CMSIS\Flash\STM32WBAx_1M_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32WBAxx\Source\Templates\arm\startup_stm32wba52xx.s</startup>
+				 <linkers>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\arm\linker\stm32wba52xx_flash.sct</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\arm\linker\stm32wba52xx_sram.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<SW4STM32>
+				<startup>Device\ST\STM32WBAxx\Source\Templates\gcc\startup_stm32wba52xx.s</startup>
+				<linkers>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\gcc\linker\STM32WBA52xx_FLASH.ld</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\gcc\linker\STM32WBA52xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32WBA52xx</define>
+		</device>
+		<device>
+		
+
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32WBA52CG,STM32WBA52CG,STM32WBA52CG,STM32WBA52xG,STM32WBA52CG,STM32WBA52CG</PN>
+			<variants>Ux</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="128"/>
+				<memory name="FLASH" access="rx" start="0x08000000" size="1024"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="64"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="504"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C07E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20010000" size="64"/>
+					<memory name="FLASH" access="rx" start="0x08080000" size="512"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32WBAxx\Include\stm32wba52xx.h</header>
+			<EWARM>
+				<!--startup file -->
+				<!-- IMPORTANT : Put in top the startup file you need to generate in project file -->
+				<startup>Device\ST\STM32WBAxx\Source\Templates\iar\startup_stm32wba52xx.s</startup>
+				<linkers>
+					<!-- IMPORTANT : Put in top the linker file you need to generate in project file -->
+					<linker>Device\ST\STM32WBAxx\Source\Templates\iar\linker\stm32wba52xx_flash.icf</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\iar\linker\stm32wba52xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -SF4000 -C0 -A1 -I0 -HNlocalhost -HP7184 -P1 -TO131090 -TC10000000 -TT10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32WBAx_1M_0800 -FS08000000 -FL0100000 -FP0($$Device:STM32WBA52CGUx$CMSIS\Flash\STM32WBAx_1M_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32WBAxx\Source\Templates\arm\startup_stm32wba52xx.s</startup>
+				<linkers>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\arm\linker\stm32wba52xx_flash.sct</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\arm\linker\stm32wba52xx_sram.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<SW4STM32>
+				<startup>Device\ST\STM32WBAxx\Source\Templates\gcc\startup_stm32wba52xx.s</startup>
+				<linkers>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\gcc\linker\STM32WBA52xx_FLASH.ld</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\gcc\linker\STM32WBA52xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32WBA52xx</define>
+		</device>
+		
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32WBA52KG,STM32WBA52KG,STM32WBA52KG,STM32WBA52xG,STM32WBA52KG,STM32WBA52KG</PN>
+			<variants>Ux</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="128"/>
+				<memory name="FLASH" access="rx" start="0x08000000" size="1024"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="64"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="504"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C07E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20010000" size="64"/>
+					<memory name="FLASH" access="rx" start="0x08080000" size="512"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32WBAxx\Include\stm32wba52xx.h</header>
+			<EWARM>
+				<!--startup file -->
+				<!-- IMPORTANT : Put in top the startup file you need to generate in project file -->
+				<startup>Device\ST\STM32WBAxx\Source\Templates\iar\startup_stm32wba52xx.s</startup>
+				<linkers>
+					<!-- IMPORTANT : Put in top the linker file you need to generate in project file -->
+					<linker>Device\ST\STM32WBAxx\Source\Templates\iar\linker\stm32wba52xx_flash.icf</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\iar\linker\stm32wba52xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -SF4000 -C0 -A1 -I0 -HNlocalhost -HP7184 -P1 -TO131090 -TC10000000 -TT10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32WBAx_1M_0800 -FS08000000 -FL0100000 -FP0($$Device:STM32WBA52CGUx$CMSIS\Flash\STM32WBAx_1M_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32WBAxx\Source\Templates\arm\startup_stm32wba52xx.s</startup>
+				<linkers>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\arm\linker\stm32wba52xx_flash.sct</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\arm\linker\stm32wba52xx_sram.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<SW4STM32>
+				<startup>Device\ST\STM32WBAxx\Source\Templates\gcc\startup_stm32wba52xx.s</startup>
+				<linkers>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\gcc\linker\STM32WBA52xx_FLASH.ld</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\gcc\linker\STM32WBA52xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32WBA52xx</define>
+		</device>
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32WBA52KE,STM32WBA52KE,STM32WBA52KE,STM32WBA52xG,STM32WBA52KE,STM32WBA52KE</PN>
+			<variants>Ux</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="32"/>
+				<memory name="FLASH" access="rx" start="0x08000000" size="512"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="32"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="504"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C07E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20010000" size="64"/>
+					<memory name="FLASH" access="rx" start="0x08000000" size="512"/>
+				
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32WBAxx\Include\stm32wba52xx.h</header>
+			<EWARM>
+				<!--startup file -->
+				<!-- IMPORTANT : Put in top the startup file you need to generate in project file -->
+				<startup>Device\ST\STM32WBAxx\Source\Templates\iar\startup_stm32wba52xx.s</startup>
+				<linkers>
+					<!-- IMPORTANT : Put in top the linker file you need to generate in project file -->
+					<linker>Device\ST\STM32WBAxx\Source\Templates\iar\linker\stm32wba52xx_flash.icf</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\iar\linker\stm32wba52xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -SF4000 -C0 -A1 -I0 -HNlocalhost -HP7184 -P1 -TO131090 -TC10000000 -TT10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32WBAx_1M_0800 -FS08000000 -FL0100000 -FP0($$Device:STM32WBA52CGUx$CMSIS\Flash\STM32WBAx_1M_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32WBAxx\Source\Templates\arm\startup_stm32wba52xx.s</startup>
+				<linkers>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\arm\linker\stm32wba52xx_flash.sct</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\arm\linker\stm32wba52xx_sram.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<SW4STM32>
+				<startup>Device\ST\STM32WBAxx\Source\Templates\gcc\startup_stm32wba52xx.s</startup>
+				<linkers>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\gcc\linker\STM32WBA52xx_FLASH.ld</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\gcc\linker\STM32WBA52xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32WBA52xx</define>
+		</device>
+		
+		
+	</subFamily>
+	
+	<!-- WBA / TinyBluefish 1M -->
+	<subFamily name="STM32WBA54" fpu="SP" clock="8000000">
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32WBA54CE,STM32WBA54CE,STM32WBA54CE,STM32WBA54xE,STM32WBA54CE,STM32WBA54CE</PN>
+			<variants>Ux</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="32"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="512"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="32"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="248"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C07E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20010000" size="32"/>
+					<memory name="FLASH" access="rx" start="0x0803E000" size="256"/>
+				
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32WBAxx\Include\stm32wba54xx.h</header>
+			<EWARM>
+				<!--startup file -->
+				<!-- IMPORTANT : Put in top the startup file you need to generate in project file -->
+				<startup>Device\ST\STM32WBAxx\Source\Templates\iar\startup_stm32wba54xx.s</startup>
+				<linkers>
+					<!-- IMPORTANT : Put in top the linker file you need to generate in project file -->
+					<linker>Device\ST\STM32WBAxx\Source\Templates\iar\linker\stm32wba54xx_flash.icf</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\iar\linker\stm32wba54xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-UL2V8M(-S0 -C0 -P0 -FD20000000 -FC8000 -FN2 -FF0STM32WBAx_512K_0800 -FS08000000 -FL080000 -FF1STM32WBAx_512K_0C00 -FS1C000000 -FL180000 -FP0($$Device:STM32WBA54CEUx$CMSIS\Flash\STM32WBAx_512K_0800.FLM) -FP1($$Device:STM32WBA54CEUx$CMSIS\Flash\STM32WBAx_512K_0C00.FLM))</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32WBAxx\Source\Templates\arm\startup_stm32wba54xx.s</startup>
+				<linkers>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\arm\linker\stm32wba54xx_flash.sct</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\arm\linker\stm32wba54xx_sram.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<SW4STM32>
+				<startup>Device\ST\STM32WBAxx\Source\Templates\gcc\startup_stm32wba54xx.s</startup>
+				<linkers>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\gcc\linker\STM32WBA54xx_FLASH.ld</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\gcc\linker\STM32WBA54xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32WBA54xx</define>
+		</device>
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32WBA54KE,STM32WBA54KE,STM32WBA54KE,STM32WBA54xE,STM32WBA54KE,STM32WBA54KE</PN>
+			<variants>Ux</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="32"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="512"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="32"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="248"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C07E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20010000" size="32"/>
+					<memory name="FLASH" access="rx" start="0x0803E000" size="256"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32WBAxx\Include\stm32wba54xx.h</header>
+			<EWARM>
+				<!--startup file -->
+				<!-- IMPORTANT : Put in top the startup file you need to generate in project file -->
+				<startup>Device\ST\STM32WBAxx\Source\Templates\iar\startup_stm32wba54xx.s</startup>
+				<linkers>
+					<!-- IMPORTANT : Put in top the linker file you need to generate in project file -->
+					<linker>Device\ST\STM32WBAxx\Source\Templates\iar\linker\stm32wba54xx_flash.icf</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\iar\linker\stm32wba54xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32WBAxx_1M_0800.FLM -FS08000000 -FL0100000 -FP0($$Device:STM32WBA54KE$CMSIS\Flash\STM32WBAxx_1M_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32WBAxx\Source\Templates\arm\startup_stm32wba54xx.s</startup>
+				<linkers>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\arm\linker\stm32wba54xx_flash.sct</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\arm\linker\stm32wba54xx_sram.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<SW4STM32>
+				<startup>Device\ST\STM32WBAxx\Source\Templates\gcc\startup_stm32wba54xx.s</startup>
+				<linkers>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\gcc\linker\STM32WBA54xx_FLASH.ld</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\gcc\linker\STM32WBA54xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32WBA54xx</define>
+		</device>
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32WBA54CG,STM32WBA54CG,STM32WBA54CG,STM32WBA54xG,STM32WBA54CG,STM32WBA54CG</PN>
+			<variants>Ux</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="128"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="1024"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="64"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="504"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C07E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20010000" size="64"/>
+					<memory name="FLASH" access="rx" start="0x08080000" size="512"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32WBAxx\Include\stm32wba54xx.h</header>
+			<EWARM>
+				<!--startup file -->
+				<!-- IMPORTANT : Put in top the startup file you need to generate in project file -->
+				<startup>Device\ST\STM32WBAxx\Source\Templates\iar\startup_stm32wba54xx.s</startup>
+				<linkers>
+					<!-- IMPORTANT : Put in top the linker file you need to generate in project file -->
+					<linker>Device\ST\STM32WBAxx\Source\Templates\iar\linker\stm32wba54xx_flash.icf</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\iar\linker\stm32wba54xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32WBAxx_1M_0800.FLM -FS08000000 -FL0100000 -FP0($$Device:STM32WBA54CG$CMSIS\Flash\STM32WBAxx_1M_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32WBAxx\Source\Templates\arm\startup_stm32wba54xx.s</startup>
+				<linkers>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\arm\linker\stm32wba54xx_flash.sct</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\arm\linker\stm32wba54xx_sram.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<SW4STM32>
+				<startup>Device\ST\STM32WBAxx\Source\Templates\gcc\startup_stm32wba54xx.s</startup>
+				<linkers>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\gcc\linker\STM32WBA54xx_FLASH.ld</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\gcc\linker\STM32WBA54xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32WBA54xx</define>
+		</device>
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32WBA54KG,STM32WBA54KG,STM32WBA54KG,STM32WBA54xG,STM32WBA54KG,STM32WBA54KG</PN>
+			<variants>Ux</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="128"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="1024"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="64"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="504"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C07E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20010000" size="64"/>
+					<memory name="FLASH" access="rx" start="0x08080000" size="512"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32WBAxx\Include\stm32wba54xx.h</header>
+			<EWARM>
+				<!--startup file -->
+				<!-- IMPORTANT : Put in top the startup file you need to generate in project file -->
+				<startup>Device\ST\STM32WBAxx\Source\Templates\iar\startup_stm32wba54xx.s</startup>
+				<linkers>
+					<!-- IMPORTANT : Put in top the linker file you need to generate in project file -->
+					<linker>Device\ST\STM32WBAxx\Source\Templates\iar\linker\stm32wba54xx_flash.icf</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\iar\linker\stm32wba54xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32WBAxx_1M_0800.FLM -FS08000000 -FL0100000 -FP0($$Device:STM32WBA54KG$CMSIS\Flash\STM32WBAxx_1M_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32WBAxx\Source\Templates\arm\startup_stm32wba54xx.s</startup>
+				<linkers>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\arm\linker\stm32wba54xx_flash.sct</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\arm\linker\stm32wba54xx_sram.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<SW4STM32>
+				<startup>Device\ST\STM32WBAxx\Source\Templates\gcc\startup_stm32wba54xx.s</startup>
+				<linkers>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\gcc\linker\STM32WBA54xx_FLASH.ld</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\gcc\linker\STM32WBA54xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32WBA54xx</define>
+		</device>
+	</subFamily>
+	
+
+	<!-- WBA / TinyBluefish 1M -->
+	<subFamily name="STM32WBA55" fpu="SP" clock="8000000">
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32WBA55CE,STM32WBA55CE,STM32WBA55CE,STM32WBA55xE,STM32WBA55CE,STM32WBA55CE</PN>
+			<variants>Ux</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="32"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="512"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="32"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="248"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C07E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20010000" size="64"/>
+					<memory name="FLASH" access="rx" start="0x0803E000" size="256"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32WBAxx\Include\stm32wba55xx.h</header>
+			<EWARM>
+				<!--startup file -->
+				<!-- IMPORTANT : Put in top the startup file you need to generate in project file -->
+				<startup>Device\ST\STM32WBAxx\Source\Templates\iar\startup_stm32wba55xx.s</startup>
+				<linkers>
+					<!-- IMPORTANT : Put in top the linker file you need to generate in project file -->
+					<linker>Device\ST\STM32WBAxx\Source\Templates\iar\linker\stm32wba55xx_flash.icf</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\iar\linker\stm32wba55xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -SF4000 -C0 -A1 -A1 -I0 -HNlocalhost -HP7184 -P1 -TO131090 -TC10000000 -TT10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32WBAx_1M_0800 -FS0C000000 -FL0100000 -FP0($$Device:STM32WBA52CGUx$CMSIS\Flash\STM32WBAx_1M_0C00.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32WBAxx\Source\Templates\arm\startup_stm32wba55xx.s</startup>
+				<linkers>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\arm\linker\stm32wba55xx_flash.sct</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\arm\linker\stm32wba55xx_sram.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<SW4STM32>
+				<startup>Device\ST\STM32WBAxx\Source\Templates\gcc\startup_stm32wba55xx.s</startup>
+				<linkers>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\gcc\linker\STM32WBA55xx_FLASH.ld</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\gcc\linker\STM32WBA55xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32WBA55xx</define>
+		</device>
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32WBA55UE,STM32WBA55UE,STM32WBA55UE,STM32WBA55xE,STM32WBA55UE,STM32WBA55UE</PN>
+			<variants>Ix</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="32"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="512"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="32"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="248"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C07E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20010000" size="64"/>
+					<memory name="FLASH" access="rx" start="0x0803E000" size="256"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32WBAxx\Include\stm32wba55xx.h</header>
+			<EWARM>
+				<!--startup file -->
+				<!-- IMPORTANT : Put in top the startup file you need to generate in project file -->
+				<startup>Device\ST\STM32WBAxx\Source\Templates\iar\startup_stm32wba55xx.s</startup>
+				<linkers>
+					<!-- IMPORTANT : Put in top the linker file you need to generate in project file -->
+					<linker>Device\ST\STM32WBAxx\Source\Templates\iar\linker\stm32wba55xx_flash.icf</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\iar\linker\stm32wba55xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32WBAxx_1M_0800.FLM -FS08000000 -FL0100000 -FP0($$Device:STM32WBA55UE$CMSIS\Flash\STM32WBAxx_1M_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32WBAxx\Source\Templates\arm\startup_stm32wba55xx.s</startup>
+				<linkers>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\arm\linker\stm32wba55xx_flash.sct</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\arm\linker\stm32wba55xx_sram.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<SW4STM32>
+				<startup>Device\ST\STM32WBAxx\Source\Templates\gcc\startup_stm32wba55xx.s</startup>
+				<linkers>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\gcc\linker\STM32WBA55xx_FLASH.ld</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\gcc\linker\STM32WBA55xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32WBA55xx</define>
+		</device>
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32WBA55CG,STM32WBA55CG,STM32WBA55CG,STM32WBA55xG,STM32WBA55CG,STM32WBA55CG</PN>
+			<variants>Ux</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="128"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="1024"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="64"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="504"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C07E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20010000" size="64"/>
+					<memory name="FLASH" access="rx" start="0x08080000" size="512"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32WBAxx\Include\stm32wba55xx.h</header>
+			<EWARM>
+				<!--startup file -->
+				<!-- IMPORTANT : Put in top the startup file you need to generate in project file -->
+				<startup>Device\ST\STM32WBAxx\Source\Templates\iar\startup_stm32wba55xx.s</startup>
+				<linkers>
+					<!-- IMPORTANT : Put in top the linker file you need to generate in project file -->
+					<linker>Device\ST\STM32WBAxx\Source\Templates\iar\linker\stm32wba55xx_flash.icf</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\iar\linker\stm32wba55xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -SF4000 -C0 -A1 -A1 -I0 -HNlocalhost -HP7184 -P1 -TO131090 -TC10000000 -TT10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32WBAx_1M_0800 -FS08000000 -FL0100000 -FP0($$Device:STM32WBA52CGUx$CMSIS\Flash\STM32WBAx_1M_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32WBAxx\Source\Templates\arm\startup_stm32wba55xx.s</startup>
+				<linkers>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\arm\linker\stm32wba55xx_flash.sct</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\arm\linker\stm32wba55xx_sram.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<SW4STM32>
+				<startup>Device\ST\STM32WBAxx\Source\Templates\gcc\startup_stm32wba55xx.s</startup>
+				<linkers>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\gcc\linker\STM32WBA55xx_FLASH.ld</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\gcc\linker\STM32WBA55xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32WBA55xx</define>
+		</device>
+		<device>
+		
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32WBA55UG,STM32WBA55UG,STM32WBA55UG,STM32WBA55xG,STM32WBA55UG,STM32WBA55UG</PN>
+			<variants>Ix</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="128"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="1024"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="64"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="504"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C07E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20010000" size="64"/>
+					<memory name="FLASH" access="rx" start="0x08080000" size="512"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32WBAxx\Include\stm32wba55xx.h</header>
+			<EWARM>
+				<!--startup file -->
+				<!-- IMPORTANT : Put in top the startup file you need to generate in project file -->
+				<startup>Device\ST\STM32WBAxx\Source\Templates\iar\startup_stm32wba55xx.s</startup>
+				<linkers>
+					<!-- IMPORTANT : Put in top the linker file you need to generate in project file -->
+					<linker>Device\ST\STM32WBAxx\Source\Templates\iar\linker\stm32wba55xx_flash.icf</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\iar\linker\stm32wba55xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -SF4000 -C0 -A1 -A1 -I0 -HNlocalhost -HP7184 -P1 -TO131090 -TC10000000 -TT10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32WBAx_1M_0800 -FS0C000000 -FL0100000 -FP0($$Device:STM32WBA52CGUx$CMSIS\Flash\STM32WBAx_1M_0C00.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32WBAxx\Source\Templates\arm\startup_stm32wba55xx.s</startup>
+				<linkers>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\arm\linker\stm32wba55xx_flash.sct</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\arm\linker\stm32wba55xx_sram.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<SW4STM32>
+				<startup>Device\ST\STM32WBAxx\Source\Templates\gcc\startup_stm32wba55xx.s</startup>
+				<linkers>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\gcc\linker\STM32WBA55xx_FLASH.ld</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\gcc\linker\STM32WBA55xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32WBA55xx</define>
+		</device>
+	<device>
+	
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32WBA55HG,STM32WBA55HG,STM32WBA55HG,STM32WBA55xG,STM32WBA55HG,STM32WBA55HG</PN>
+			<variants>Fx</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="128"/>
+				<memory name="FLASH" access="rx" start="0x08000000" size="1024"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="64"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="504"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C07E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20010000" size="64"/>
+					<memory name="FLASH" access="rx" start="0x08080000" size="512"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32WBAxx\Include\stm32wba55xx.h</header>
+			<EWARM>
+				<!--startup file -->
+				<!-- IMPORTANT : Put in top the startup file you need to generate in project file -->
+				<startup>Device\ST\STM32WBAxx\Source\Templates\iar\startup_stm32wba55xx.s</startup>
+				<linkers>
+					<!-- IMPORTANT : Put in top the linker file you need to generate in project file -->
+					<linker>Device\ST\STM32WBAxx\Source\Templates\iar\linker\stm32wba55xx_flash.icf</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\iar\linker\stm32wba55xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -SF4000 -C0 -A1 -A1 -I0 -HNlocalhost -HP7184 -P1 -TO131090 -TC10000000 -TT10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32WBAx_1M_0800 -FS0C000000 -FL0100000 -FP0($$Device:STM32WBA52CGUx$CMSIS\Flash\STM32WBAx_1M_0C00.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32WBAxx\Source\Templates\arm\startup_stm32wba55xx.s</startup>
+				<linkers>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\arm\linker\stm32wba55xx_flash.sct</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\arm\linker\stm32wba55xx_sram.sct</linker>
+                </linkers>
+				
+			</MDK-ARM>
+			<SW4STM32>
+				<startup>Device\ST\STM32WBAxx\Source\Templates\gcc\startup_stm32wba55xx.s</startup>
+				<linkers>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\gcc\linker\STM32WBA55xx_FLASH.ld</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\gcc\linker\STM32WBA55xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32WBA55xx</define>
+		</device>
+	<device>
+	
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32WBA55HE,STM32WBA55HE,STM32WBA55HE,STM32WBA55xE,STM32WBA55HE,STM32WBA55HE</PN>
+			<variants>Fx</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="32"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="512"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="32"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="248"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C07E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20010000" size="64"/>
+					<memory name="FLASH" access="rx" start="0x0803E000" size="256"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32WBAxx\Include\stm32wba55xx.h</header>
+			<EWARM>
+				<!--startup file -->
+				<!-- IMPORTANT : Put in top the startup file you need to generate in project file -->
+				<startup>Device\ST\STM32WBAxx\Source\Templates\iar\startup_stm32wba55xx.s</startup>
+				<linkers>
+					<!-- IMPORTANT : Put in top the linker file you need to generate in project file -->
+					<linker>Device\ST\STM32WBAxx\Source\Templates\iar\linker\stm32wba55xx_flash.icf</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\iar\linker\stm32wba55xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -SF4000 -C0 -A1 -A1 -I0 -HNlocalhost -HP7184 -P1 -TO131090 -TC10000000 -TT10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32WBAx_1M_0800 -FS0C000000 -FL0100000 -FP0($$Device:STM32WBA52CGUx$CMSIS\Flash\STM32WBAx_1M_0C00.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32WBAxx\Source\Templates\arm\startup_stm32wba55xx.s</startup>
+				<linkers>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\arm\linker\stm32wba55xx_flash.sct</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\arm\linker\stm32wba55xx_sram.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<SW4STM32>
+				<startup>Device\ST\STM32WBAxx\Source\Templates\gcc\startup_stm32wba55xx.s</startup>
+				<linkers>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\gcc\linker\STM32WBA55xx_FLASH.ld</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\gcc\linker\STM32WBA55xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32WBA55xx</define>
+		</device>
+	</subFamily>
+	
+	<!-- WBA / TinyBluefish 1M -->
+	<subFamily name="STM32WBA50" fpu="SP" clock="8000000">
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32WBA50KE,STM32WBA50KE,STM32WBA50KE,STM32WBA50xE,STM32WBA50KE,STM32WBA50KE</PN>
+			<variants>Ux</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="32"/>
+				<memory name="FLASH" access="rx" start="0x08000000" size="512"/>
+			</memories>
+			<header>Device\ST\STM32WBAxx\Include\stm32wba50xx.h</header>
+			<EWARM>
+				<!--startup file -->
+				<!-- IMPORTANT : Put in top the startup file you need to generate in project file -->
+				<startup>Device\ST\STM32WBAxx\Source\Templates\iar\startup_stm32wba50xx.s</startup>
+				<linkers>
+					<!-- IMPORTANT : Put in top the linker file you need to generate in project file -->
+					<linker>Device\ST\STM32WBAxx\Source\Templates\iar\linker\stm32wba50xx_flash.icf</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\iar\linker\stm32wba50xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32WBAxx_1M.FLM -FS08000000 -FL080000 -FP0($$Device:STM32WBA50KE$CMSIS\Flash\STM32WBAxx_1M.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32WBAxx\Source\Templates\arm\startup_stm32wba50xx.s</startup>
+				<linkers>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\arm\linker\stm32wba50xx_flash.sct</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\arm\linker\stm32wba50xx_sram.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<SW4STM32>
+				<startup>Device\ST\STM32WBAxx\Source\Templates\gcc\startup_stm32wba50xx.s</startup>
+				<linkers>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\gcc\linker\STM32WBA50xx_FLASH.ld</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\gcc\linker\STM32WBA50xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32WBA50xx</define>
+		</device>
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32WBA50KG,STM32WBA50KG,STM32WBA50KG,STM32WBA50xG,STM32WBA50KG,STM32WBA50KG</PN>
+			<variants>Ux</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="32"/>
+				<memory name="FLASH" access="rx" start="0x08000000" size="512"/>
+			</memories>
+			<header>Device\ST\STM32WBAxx\Include\stm32wba50xx.h</header>
+			<EWARM>
+				<!--startup file -->
+				<!-- IMPORTANT : Put in top the startup file you need to generate in project file -->
+				<startup>Device\ST\STM32WBAxx\Source\Templates\iar\startup_stm32wba50xx.s</startup>
+				<linkers>
+					<!-- IMPORTANT : Put in top the linker file you need to generate in project file -->
+					<linker>Device\ST\STM32WBAxx\Source\Templates\iar\linker\stm32wba50xx_flash.icf</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\iar\linker\stm32wba50xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32WBAxx_1M.FLM -FS08000000 -FL080000 -FP0($$Device:STM32WBA50KG$CMSIS\Flash\STM32WBAxx_1M.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32WBAxx\Source\Templates\arm\startup_stm32wba50xx.s</startup>
+				<linkers>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\arm\linker\stm32wba50xx_flash.sct</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\arm\linker\stm32wba50xx_sram.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<SW4STM32>
+				<startup>Device\ST\STM32WBAxx\Source\Templates\gcc\startup_stm32wba50xx.s</startup>
+				<linkers>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\gcc\linker\STM32WBA50xx_FLASH.ld</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\gcc\linker\STM32WBA50xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32WBA50xx</define>
+		</device>
+	</subFamily>
+	
+	<!-- WBA / TinyBluefish 1M -->
+	<subFamily name="STM32WBA5M" fpu="SP" clock="8000000">
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32WBA5MGY,STM32WBA5MGY,STM32WBA5MGY,STM32WBA5MxY,STM32WBA5MGY,STM32WBA5MGY</PN>
+			<variants>Yx</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="128"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="1024"/>
+			</memories>
+			<header>Device\ST\STM32WBAxx\Include\stm32wba5mxx.h</header>
+			<EWARM>
+				<!--startup file -->
+				<!-- IMPORTANT : Put in top the startup file you need to generate in project file -->
+				<startup>Device\ST\STM32WBAxx\Source\Templates\iar\startup_stm32wba5mxx.s</startup>
+				<linkers>
+					<!-- IMPORTANT : Put in top the linker file you need to generate in project file -->
+					<linker>Device\ST\STM32WBAxx\Source\Templates\iar\linker\stm32wba5mxx_flash.icf</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\iar\linker\stm32wba5mxx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32WBAxx_1M.FLM -FS08000000 -FL0100000 -FP0($$Device:STM32WBA5MGY$CMSIS\Flash\STM32WBAxx_1M.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32WBAxx\Source\Templates\arm\startup_stm32wba5mxx.s</startup>
+				<linkers>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\arm\linker\stm32wba5mxx_flash.sct</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\arm\linker\stm32wba5mxx_sram.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<SW4STM32>
+				<startup>Device\ST\STM32WBAxx\Source\Templates\gcc\startup_stm32wba5mxx.s</startup>
+				<linkers>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\gcc\linker\STM32WBA5mxx_FLASH.ld</linker>
+					<linker>Device\ST\STM32WBAxx\Source\Templates\gcc\linker\STM32WBA5mxx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32WBA5Mxx</define>
+		</device>
+	</subFamily>
+	
+	<define>USE_HAL_DRIVER</define>
+	<file>Device\ST\STM32WBAxx\Source\Templates\system_stm32wbaxx.c</file>
+</family>

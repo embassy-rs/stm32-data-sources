@@ -1,0 +1,1554 @@
+<family name="STM32L5">
+	<CPUcore>ARM Cortex-M33</CPUcore>
+	<header>Device\ST\STM32L5xx\Include\stm32l5xx.h</header>
+	
+	<!--Beluga -->
+	<subFamily name="STM32L552" fpu="SP" clock="8000000">
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32L552CC,STM32L552CC,STM32L552CC,STM32L552xC,STM32L552CC,STM32L552CC</PN>
+			<variants>Tx,Ux</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="256"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="256"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="160"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="120"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C01E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20018000" size="96"/>
+					<memory name="FLASH" access="rx" start="0x8020000" size="128"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32L5xx\Include\stm32l552xx.h</header>
+			<EWARM>
+				<flash></flash>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\iar\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xc_flash.icf</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<!--flashv5>Here after the configuration of non secure project. To update this line for secure mode in KeilGenerator code</flashv5-->
+				<flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32L5x_512_0800.FLM -FS08000000 -FL040000 -FP0($$Device:STM32L552CC$Flash\STM32L5x_512_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\arm\startup_stm32l552xx.s</startup>
+				<!-- Linker file -->
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\arm\linker\stm32l552xc_flash.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<TrueSTUDIO>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+			</TrueSTUDIO>
+			<SW4STM32>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xC_FLASH.ld</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32L552xx</define>
+		</device>
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32L552CE,STM32L552CE,STM32L552CE,STM32L552xE,STM32L552CE,STM32L552CE</PN>
+			<variants>Tx,Ux</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="256"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="512"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="160"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="248"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C03E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20018000" size="96"/>
+					<memory name="FLASH" access="rx" start="0x8040000" size="256"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32L5xx\Include\stm32l552xx.h</header>
+			<EWARM>
+				<flash></flash>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\iar\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xe_flash.icf</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32L5x_512_0800.FLM -FS08000000 -FL080000 -FP0($$Device:STM32L552CE$Flash\STM32L5x_512_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\arm\startup_stm32l552xx.s</startup>
+				<!-- Linker file -->
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\arm\linker\stm32l552xe_flash.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<TrueSTUDIO>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+			</TrueSTUDIO>
+			<SW4STM32>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xE_FLASH.ld</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32L552xx</define>
+		</device>
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32L552CE,STM32L552CE,STM32L552CE,STM32L552xE,STM32L552CE,STM32L552CE</PN>
+			<variants>TxP,UxP</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="256"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="512"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="160"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="248"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C03E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20018000" size="96"/>
+					<memory name="FLASH" access="rx" start="0x8040000" size="256"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32L5xx\Include\stm32l552xx.h</header>
+			<EWARM>
+				<flash></flash>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\iar\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xe_flash.icf</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32L5x_512_0800.FLM -FS08000000 -FL080000 -FP0($$Device:STM32L552CE$Flash\STM32L5x_512_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\arm\startup_stm32l552xx.s</startup>
+				<!-- Linker file -->
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\arm\linker\stm32l552xe_flash.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<TrueSTUDIO>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+			</TrueSTUDIO>
+			<SW4STM32>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xE_FLASH.ld</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32L552xx</define>
+		</device>
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32L552RC,STM32L552RC,STM32L552RC,STM32L552xC,STM32L552RC,STM32L552RC</PN>
+			<variants>Tx</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="256"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="256"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="160"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="120"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C01E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20018000" size="96"/>
+					<memory name="FLASH" access="rx" start="0x8020000" size="128"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32L5xx\Include\stm32l552xx.h</header>
+			<EWARM>
+				<flash></flash>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\iar\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xc_flash.icf</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32L5x_512_0800.FLM -FS08000000 -FL040000 -FP0($$Device:STM32L552RC$Flash\STM32L5x_512_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\arm\startup_stm32l552xx.s</startup>
+				<!-- Linker file -->
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\arm\linker\stm32l552xc_flash.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<TrueSTUDIO>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+			</TrueSTUDIO>
+			<SW4STM32>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xC_FLASH.ld</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32L552xx</define>
+		</device>
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32L552RE,STM32L552RE,STM32L552RE,STM32L552xE,STM32L552RE,STM32L552RE</PN>
+			<variants>Tx</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="256"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="512"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="160"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="248"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C03E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20018000" size="96"/>
+					<memory name="FLASH" access="rx" start="0x8040000" size="256"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32L5xx\Include\stm32l552xx.h</header>
+			<EWARM>
+				<flash></flash>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\iar\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xe_flash.icf</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32L5x_512_0800.FLM -FS08000000 -FL080000 -FP0($$Device:STM32L552RE$Flash\STM32L5x_512_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\arm\startup_stm32l552xx.s</startup>
+				<!-- Linker file -->
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\arm\linker\stm32l552xe_flash.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<TrueSTUDIO>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+			</TrueSTUDIO>
+			<SW4STM32>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xE_FLASH.ld</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32L552xx</define>
+		</device>
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32L552RE,STM32L552RE,STM32L552RE,STM32L552xE,STM32L552RE,STM32L552RE</PN>
+			<variants>TxP</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="256"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="512"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="160"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="248"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C03E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20018000" size="96"/>
+					<memory name="FLASH" access="rx" start="0x8040000" size="256"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32L5xx\Include\stm32l552xx.h</header>
+			<EWARM>
+				<flash></flash>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\iar\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xe_flash.icf</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32L5x_512_0800.FLM -FS08000000 -FL080000 -FP0($$Device:STM32L552RE$Flash\STM32L5x_512_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\arm\startup_stm32l552xx.s</startup>
+				<!-- Linker file -->
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\arm\linker\stm32l552xe_flash.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<TrueSTUDIO>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+			</TrueSTUDIO>
+			<SW4STM32>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xE_FLASH.ld</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32L552xx</define>
+		</device>
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32L552RE,STM32L552RE,STM32L552RE,STM32L552xE,STM32L552RE,STM32L552RE</PN>
+			<variants>TxQ</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="256"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="512"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="160"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="248"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C03E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20018000" size="96"/>
+					<memory name="FLASH" access="rx" start="0x8040000" size="256"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32L5xx\Include\stm32l552xx.h</header>
+			<EWARM>
+				<flash></flash>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\iar\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xe_flash.icf</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32L5x_512_0800.FLM -FS08000000 -FL080000 -FP0($$Device:STM32L552RE$Flash\STM32L5x_512_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\arm\startup_stm32l552xx.s</startup>
+				<!-- Linker file -->
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\arm\linker\stm32l552xe_flash.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<TrueSTUDIO>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+			</TrueSTUDIO>
+			<SW4STM32>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xE_FLASH.ld</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32L552xx</define>
+		</device>
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32L552VC,STM32L552VC,STM32L552VC,STM32L552xC,STM32L552VC,STM32L552VC</PN>
+			<variants>TxQ</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="256"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="256"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="160"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="120"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C01E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20018000" size="96"/>
+					<memory name="FLASH" access="rx" start="0x8020000" size="128"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32L5xx\Include\stm32l552xx.h</header>
+			<EWARM>
+				<flash></flash>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\iar\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xc_flash.icf</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32L5x_512_0800.FLM -FS08000000 -FL040000 -FP0($$Device:STM32L552VC$Flash\STM32L5x_512_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\arm\startup_stm32l552xx.s</startup>
+				<!-- Linker file -->
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\arm\linker\stm32l552xc_flash.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<TrueSTUDIO>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+			</TrueSTUDIO>
+			<SW4STM32>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xC_FLASH.ld</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32L552xx</define>
+		</device>
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32L552VE,STM32L552VE,STM32L552VE,STM32L552xE,STM32L552VE,STM32L552VE</PN>
+			<variants>Tx</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="256"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="512"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="160"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="248"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C03E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20018000" size="96"/>
+					<memory name="FLASH" access="rx" start="0x8040000" size="256"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32L5xx\Include\stm32l552xx.h</header>
+			<EWARM>
+				<flash></flash>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\iar\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xe_flash.icf</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32L5x_512_0800.FLM -FS08000000 -FL080000 -FP0($$Device:STM32L552VE$Flash\STM32L5x_512_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\arm\startup_stm32l552xx.s</startup>
+				<!-- Linker file -->
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\arm\linker\stm32l552xe_flash.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<TrueSTUDIO>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+			</TrueSTUDIO>
+			<SW4STM32>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xE_FLASH.ld</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32L552xx</define>
+		</device>
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32L552VE,STM32L552VE,STM32L552VE,STM32L552xE,STM32L552VE,STM32L552VE</PN>
+			<variants>TxQ</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="256"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="512"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="160"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="248"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C03E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20018000" size="96"/>
+					<memory name="FLASH" access="rx" start="0x8040000" size="256"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32L5xx\Include\stm32l552xx.h</header>
+			<EWARM>
+				<flash></flash>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\iar\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xe_flash.icf</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32L5x_512_0800.FLM -FS08000000 -FL080000 -FP0($$Device:STM32L552VE$Flash\STM32L5x_512_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\arm\startup_stm32l552xx.s</startup>
+				<!-- Linker file -->
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\arm\linker\stm32l552xe_flash.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<TrueSTUDIO>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+			</TrueSTUDIO>
+			<SW4STM32>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xE_FLASH.ld</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32L552xx</define>
+		</device>
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32L552QC,STM32L552QC,STM32L552QC,STM32L552xC,STM32L552QC,STM32L552QC</PN>
+			<variants>IxQ</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="256"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="256"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="160"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="120"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C01E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20018000" size="96"/>
+					<memory name="FLASH" access="rx" start="0x8020000" size="128"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32L5xx\Include\stm32l552xx.h</header>
+			<EWARM>
+				<flash></flash>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\iar\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xc_flash.icf</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32L5x_512_0800.FLM -FS08000000 -FL040000 -FP0($$Device:STM32L552QC$Flash\STM32L5x_512_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\arm\startup_stm32l552xx.s</startup>
+				<!-- Linker file -->
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\arm\linker\stm32l552xc_flash.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<TrueSTUDIO>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+			</TrueSTUDIO>
+			<SW4STM32>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xC_FLASH.ld</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32L552xx</define>
+		</device>
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32L552QE,STM32L552QE,STM32L552QE,STM32L552xE,STM32L552QE,STM32L552QE</PN>
+			<variants>Ix</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="256"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="512"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="160"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="248"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C03E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20018000" size="96"/>
+					<memory name="FLASH" access="rx" start="0x8040000" size="256"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32L5xx\Include\stm32l552xx.h</header>
+			<EWARM>
+				<flash></flash>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\iar\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xe_flash.icf</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32L5x_512_0800.FLM -FS08000000 -FL080000 -FP0($$Device:STM32L552QE$Flash\STM32L5x_512_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\arm\startup_stm32l552xx.s</startup>
+				<!-- Linker file -->
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\arm\linker\stm32l552xe_flash.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<TrueSTUDIO>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+			</TrueSTUDIO>
+			<SW4STM32>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xE_FLASH.ld</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32L552xx</define>
+		</device>
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32L552QE,STM32L552QE,STM32L552QE,STM32L552xE,STM32L552QE,STM32L552QE</PN>
+			<variants>IxP</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="256"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="512"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="160"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="248"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C03E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20018000" size="96"/>
+					<memory name="FLASH" access="rx" start="0x8040000" size="256"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32L5xx\Include\stm32l552xx.h</header>
+			<EWARM>
+				<flash></flash>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\iar\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xe_flash.icf</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32L5x_512_0800.FLM -FS08000000 -FL080000 -FP0($$Device:STM32L552QE$Flash\STM32L5x_512_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\arm\startup_stm32l552xx.s</startup>
+				<!-- Linker file -->
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\arm\linker\stm32l552xe_flash.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<TrueSTUDIO>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+			</TrueSTUDIO>
+			<SW4STM32>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xE_FLASH.ld</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32L552xx</define>
+		</device>
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32L552QE,STM32L552QE,STM32L552QE,STM32L552xE,STM32L552QE,STM32L552QE</PN>
+			<variants>IxQ</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="256"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="512"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="160"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="248"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C03E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20018000" size="96"/>
+					<memory name="FLASH" access="rx" start="0x8040000" size="256"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32L5xx\Include\stm32l552xx.h</header>
+			<EWARM>
+				<flash></flash>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\iar\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xe_flash.icf</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32L5x_512_0800.FLM -FS08000000 -FL080000 -FP0($$Device:STM32L552QE$Flash\STM32L5x_512_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\arm\startup_stm32l552xx.s</startup>
+				<!-- Linker file -->
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\arm\linker\stm32l552xe_flash.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<TrueSTUDIO>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+			</TrueSTUDIO>
+			<SW4STM32>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xE_FLASH.ld</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32L552xx</define>
+		</device>
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32L552ZC,STM32L552ZC,STM32L552ZC,STM32L552xC,STM32L552ZC,STM32L552ZC</PN>
+			<variants>TxQ</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="256"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="256"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="160"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="120"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C01E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20018000" size="96"/>
+					<memory name="FLASH" access="rx" start="0x8020000" size="128"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32L5xx\Include\stm32l552xx.h</header>
+			<EWARM>
+				<flash></flash>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\iar\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xc_flash.icf</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32L5x_512_0800.FLM -FS08000000 -FL040000 -FP0($$Device:STM32L552ZC$Flash\STM32L5x_512_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\arm\startup_stm32l552xx.s</startup>
+				<!-- Linker file -->
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\arm\linker\stm32l552xc_flash.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<TrueSTUDIO>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+			</TrueSTUDIO>
+			<SW4STM32>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xC_FLASH.ld</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32L552xx</define>
+		</device>
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32L552ZE,STM32L552ZE,STM32L552ZE,STM32L552xE,STM32L552ZE,STM32L552ZE</PN>
+			<variants>Tx</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="256"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="512"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="160"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="248"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C03E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20018000" size="96"/>
+					<memory name="FLASH" access="rx" start="0x8040000" size="256"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32L5xx\Include\stm32l552xx.h</header>
+			<EWARM>
+				<flash></flash>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\iar\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xe_flash.icf</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32L5x_512_0800.FLM -FS08000000 -FL080000 -FP0($$Device:STM32L552ZE$Flash\STM32L5x_512_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\arm\startup_stm32l552xx.s</startup>
+				<!-- Linker file -->
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\arm\linker\stm32l552xe_flash.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<TrueSTUDIO>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+			</TrueSTUDIO>
+			<SW4STM32>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xE_FLASH.ld</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32L552xx</define>
+		</device>
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32L552ZE,STM32L552ZE,STM32L552ZE,STM32L552xE,STM32L552ZE,STM32L552ZE</PN>
+			<variants>TxQ</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="256"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="512"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="160"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="248"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C03E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20018000" size="96"/>
+					<memory name="FLASH" access="rx" start="0x8040000" size="256"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32L5xx\Include\stm32l552xx.h</header>
+			<EWARM>
+				<flash></flash>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\iar\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xe_flash.icf</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32L5x_512_0800.FLM -FS08000000 -FL080000 -FP0($$Device:STM32L552ZE$Flash\STM32L5x_512_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\arm\startup_stm32l552xx.s</startup>
+				<!-- Linker file -->
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\arm\linker\stm32l552xe_flash.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<TrueSTUDIO>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+			</TrueSTUDIO>
+			<SW4STM32>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xE_FLASH.ld</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32L552xx</define>
+		</device>
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32L552ME,STM32L552ME,STM32L552ME,STM32L552xE,STM32L552ME,STM32L552ME</PN>
+			<variants>YxP</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="256"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="512"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="160"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="248"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C03E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20018000" size="96"/>
+					<memory name="FLASH" access="rx" start="0x8040000" size="256"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32L5xx\Include\stm32l552xx.h</header>
+			<EWARM>
+				<flash></flash>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\iar\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xe_flash.icf</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32L5x_512_0800.FLM -FS08000000 -FL080000 -FP0($$Device:STM32L552ME$Flash\STM32L5x_512_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\arm\startup_stm32l552xx.s</startup>
+				<!-- Linker file -->
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\arm\linker\stm32l552xe_flash.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<TrueSTUDIO>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+			</TrueSTUDIO>
+			<SW4STM32>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xE_FLASH.ld</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32L552xx</define>
+		</device>
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32L552ME,STM32L552ME,STM32L552ME,STM32L552xE,STM32L552ME,STM32L552ME</PN>
+			<variants>YxQ</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="256"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="512"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="160"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="248"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C03E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20018000" size="96"/>
+					<memory name="FLASH" access="rx" start="0x8040000" size="256"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32L5xx\Include\stm32l552xx.h</header>
+			<EWARM>
+				<flash></flash>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\iar\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xe_flash.icf</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l552xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32L5x_512_0800.FLM -FS08000000 -FL080000 -FP0($$Device:STM32L552ME$Flash\STM32L5x_512_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\arm\startup_stm32l552xx.s</startup>
+				<!-- Linker file -->
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\arm\linker\stm32l552xe_flash.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<TrueSTUDIO>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+			</TrueSTUDIO>
+			<SW4STM32>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l552xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xE_FLASH.ld</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L552xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32L552xx</define>
+		</device>
+	</subFamily>
+	
+	<!--Beluga -->
+	<subFamily name="STM32L562" fpu="SP" clock="8000000">
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32L562CE,STM32L562CE,STM32L562CE,STM32L562xE,STM32L562CE,STM32L562CE</PN>
+			<variants>Tx,Ux</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="256"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="512"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="160"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="248"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C03E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20018000" size="96"/>
+					<memory name="FLASH" access="rx" start="0x8040000" size="256"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32L5xx\Include\stm32l562xx.h</header>
+			<EWARM>
+				<flash></flash>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\iar\startup_stm32l562xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l562xe_flash.icf</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l562xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<!--flashv5>Here after the configuration of non secure project. To update this line for secure mode in KeilGenerator code</flashv5-->
+				<flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32L5x_512_0800.FLM -FS08000000 -FL080000 -FP0($$Device:STM32L562CE$Flash\STM32L5x_512_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\arm\startup_stm32l562xx.s</startup>
+				<!-- Linker file -->
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\arm\linker\stm32l562xe_flash.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<TrueSTUDIO>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l562xx.s</startup>
+			</TrueSTUDIO>
+			<SW4STM32>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l562xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L562xE_FLASH.ld</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L562xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32L562xx</define>
+		</device>
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32L562CE,STM32L562CE,STM32L562CE,STM32L562xE,STM32L562CE,STM32L562CE</PN>
+			<variants>TxP,UxP</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="256"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="512"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="160"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="248"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C03E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20018000" size="96"/>
+					<memory name="FLASH" access="rx" start="0x8040000" size="256"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32L5xx\Include\stm32l562xx.h</header>
+			<EWARM>
+				<flash></flash>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\iar\startup_stm32l562xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l562xe_flash.icf</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l562xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32L5x_512_0800.FLM -FS08000000 -FL080000 -FP0($$Device:STM32L562CE$Flash\STM32L5x_512_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\arm\startup_stm32l562xx.s</startup>
+				<!-- Linker file -->
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\arm\linker\stm32l562xe_flash.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<TrueSTUDIO>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l562xx.s</startup>
+			</TrueSTUDIO>
+			<SW4STM32>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l562xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L562xE_FLASH.ld</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L562xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32L562xx</define>
+		</device>
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32L562RE,STM32L562RE,STM32L562RE,STM32L562xE,STM32L562RE,STM32L562RE</PN>
+			<variants>Tx,TxP,TxQ</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="256"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="512"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="160"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="248"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C03E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20018000" size="96"/>
+					<memory name="FLASH" access="rx" start="0x8040000" size="256"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32L5xx\Include\stm32l562xx.h</header>
+			<EWARM>
+				<flash></flash>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\iar\startup_stm32l562xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l562xe_flash.icf</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l562xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32L5x_512_0800.FLM -FS08000000 -FL080000 -FP0($$Device:STM32L562RE$Flash\STM32L5x_512_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\arm\startup_stm32l562xx.s</startup>
+				<!-- Linker file -->
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\arm\linker\stm32l562xe_flash.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<TrueSTUDIO>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l562xx.s</startup>
+			</TrueSTUDIO>
+			<SW4STM32>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l562xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L562xE_FLASH.ld</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L562xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32L562xx</define>
+		</device>
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32L562VE,STM32L562VE,STM32L562VE,STM32L562xE,STM32L562VE,STM32L562VE</PN>
+			<variants>Tx</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="256"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="512"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="160"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="248"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C03E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20018000" size="96"/>
+					<memory name="FLASH" access="rx" start="0x8040000" size="256"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32L5xx\Include\stm32l562xx.h</header>
+			<EWARM>
+				<flash></flash>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\iar\startup_stm32l562xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l562xe_flash.icf</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l562xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32L5x_512_0800.FLM -FS08000000 -FL080000 -FP0($$Device:STM32L562VE$Flash\STM32L5x_512_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\arm\startup_stm32l562xx.s</startup>
+				<!-- Linker file -->
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\arm\linker\stm32l562xe_flash.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<TrueSTUDIO>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l562xx.s</startup>
+			</TrueSTUDIO>
+			<SW4STM32>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l562xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L562xE_FLASH.ld</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L562xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32L562xx</define>
+		</device>
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32L562VE,STM32L562VE,STM32L562VE,STM32L562xE,STM32L562VE,STM32L562VE</PN>
+			<variants>TxQ</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="256"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="512"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="160"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="248"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C03E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20018000" size="96"/>
+					<memory name="FLASH" access="rx" start="0x8040000" size="256"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32L5xx\Include\stm32l562xx.h</header>
+			<EWARM>
+				<flash></flash>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\iar\startup_stm32l562xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l562xe_flash.icf</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l562xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32L5x_512_0800.FLM -FS08000000 -FL080000 -FP0($$Device:STM32L562VE$Flash\STM32L5x_512_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\arm\startup_stm32l562xx.s</startup>
+				<!-- Linker file -->
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\arm\linker\stm32l562xe_flash.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<TrueSTUDIO>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l562xx.s</startup>
+			</TrueSTUDIO>
+			<SW4STM32>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l562xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L562xE_FLASH.ld</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L562xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32L562xx</define>
+		</device>
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32L562ZE,STM32L562ZE,STM32L562ZE,STM32L562xE,STM32L562ZE,STM32L562ZE</PN>
+			<variants>Tx</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="256"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="512"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="160"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="248"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C03E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20018000" size="96"/>
+					<memory name="FLASH" access="rx" start="0x8040000" size="256"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32L5xx\Include\stm32l562xx.h</header>
+			<EWARM>
+				<flash></flash>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\iar\startup_stm32l562xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l562xe_flash.icf</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l562xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32L5x_512_0800.FLM -FS08000000 -FL080000 -FP0($$Device:STM32L562ZE$Flash\STM32L5x_512_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\arm\startup_stm32l562xx.s</startup>
+				<!-- Linker file -->
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\arm\linker\stm32l562xe_flash.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<TrueSTUDIO>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l562xx.s</startup>
+			</TrueSTUDIO>
+			<SW4STM32>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l562xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L562xE_FLASH.ld</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L562xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32L562xx</define>
+		</device>
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32L562ZE,STM32L562ZE,STM32L562ZE,STM32L562xE,STM32L562ZE,STM32L562ZE</PN>
+			<variants>TxQ</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="256"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="512"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="160"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="248"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C03E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20018000" size="96"/>
+					<memory name="FLASH" access="rx" start="0x8040000" size="256"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32L5xx\Include\stm32l562xx.h</header>
+			<EWARM>
+				<flash></flash>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\iar\startup_stm32l562xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l562xe_flash.icf</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l562xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32L5x_512_0800.FLM -FS08000000 -FL080000 -FP0($$Device:STM32L562ZE$Flash\STM32L5x_512_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\arm\startup_stm32l562xx.s</startup>
+				<!-- Linker file -->
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\arm\linker\stm32l562xe_flash.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<TrueSTUDIO>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l562xx.s</startup>
+			</TrueSTUDIO>
+			<SW4STM32>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l562xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L562xE_FLASH.ld</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L562xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32L562xx</define>
+		</device>
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32L562ME,STM32L562ME,STM32L562ME,STM32L562xE,STM32L562ME,STM32L562ME</PN>
+			<variants>YxP</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="256"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="512"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="160"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="248"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C03E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20018000" size="96"/>
+					<memory name="FLASH" access="rx" start="0x8040000" size="256"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32L5xx\Include\stm32l562xx.h</header>
+			<EWARM>
+				<flash></flash>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\iar\startup_stm32l562xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l562xe_flash.icf</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l562xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32L5x_512_0800.FLM -FS08000000 -FL080000 -FP0($$Device:STM32L562ME$Flash\STM32L5x_512_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\arm\startup_stm32l562xx.s</startup>
+				<!-- Linker file -->
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\arm\linker\stm32l562xe_flash.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<TrueSTUDIO>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l562xx.s</startup>
+			</TrueSTUDIO>
+			<SW4STM32>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l562xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L562xE_FLASH.ld</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L562xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32L562xx</define>
+		</device>
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32L562ME,STM32L562ME,STM32L562ME,STM32L562xE,STM32L562ME,STM32L562ME</PN>
+			<variants>YxQ</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="256"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="512"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="160"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="248"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C03E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20018000" size="96"/>
+					<memory name="FLASH" access="rx" start="0x8040000" size="256"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32L5xx\Include\stm32l562xx.h</header>
+			<EWARM>
+				<flash></flash>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\iar\startup_stm32l562xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l562xe_flash.icf</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l562xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32L5x_512_0800.FLM -FS08000000 -FL080000 -FP0($$Device:STM32L562ME$Flash\STM32L5x_512_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\arm\startup_stm32l562xx.s</startup>
+				<!-- Linker file -->
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\arm\linker\stm32l562xe_flash.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<TrueSTUDIO>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l562xx.s</startup>
+			</TrueSTUDIO>
+			<SW4STM32>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l562xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L562xE_FLASH.ld</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L562xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32L562xx</define>
+		</device>
+		<device>
+			<!--HD EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+			<PN>STM32L562QE,STM32L562QE,STM32L562QE,STM32L562xE,STM32L562QE,STM32L562QE</PN>
+			<variants>IxP,IxQ,Ix</variants>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="256"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="512"/>
+				<Secure>
+					<memory name="RAM" access="xrw" start="0x30000000" size="160"/>
+					<memory name="FLASH" access="rx" start="0x0C000000" size="248"/>
+					<memory name="FLASH_NSC" access="rx" start="0x0C03E000" size="8"/>
+				</Secure>
+				<NonSecure>
+					<memory name="RAM" access="xrw" start="0x20018000" size="96"/>
+					<memory name="FLASH" access="rx" start="0x8040000" size="256"/>
+				</NonSecure>
+			</memories>
+			<header>Device\ST\STM32L5xx\Include\stm32l562xx.h</header>
+			<EWARM>
+				<flash></flash>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\iar\startup_stm32l562xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l562xe_flash.icf</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\iar\linker\stm32l562xx_sram.icf</linker>
+                </linkers>  
+				<!--source files depending on the toolchain: ex port.c -->				 
+			</EWARM>
+			<MDK-ARM>
+				<flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32L5x_512_0800.FLM -FS08000000 -FL080000 -FP0($$Device:STM32L562QE$Flash\STM32L5x_512_0800.FLM)</flashv5>
+				<!--startup file -->
+				<startup>Device\ST\STM32L5xx\Source\Templates\arm\startup_stm32l562xx.s</startup>
+				<!-- Linker file -->
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\arm\linker\stm32l562xe_flash.sct</linker>
+                </linkers>
+			</MDK-ARM>
+			<TrueSTUDIO>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l562xx.s</startup>
+			</TrueSTUDIO>
+			<SW4STM32>
+				<flash></flash>
+				<startup>Device\ST\STM32L5xx\Source\Templates\gcc\startup_stm32l562xx.s</startup>
+				<linkers>
+                  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L562xE_FLASH.ld</linker>
+				  <linker>Device\ST\STM32L5xx\Source\Templates\gcc\linker\STM32L562xx_RAM.ld</linker>
+                </linkers>
+			</SW4STM32>
+			<!--defines depending on the device family -->
+			<define>STM32L562xx</define>
+		</device>
+	</subFamily>
+	
+	<define>USE_HAL_DRIVER</define>
+	<file>Device\ST\STM32L5xx\Source\Templates\system_stm32l5xx.c</file>
+</family>

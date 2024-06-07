@@ -1,0 +1,60 @@
+<family name="STM32W">
+	<CPUcore>ARM Cortex-M3</CPUcore>
+	
+	<!-- W108 -->
+	<subFamily name="STM32W108" fpu="None" clock="24000000">
+		<device>
+			<!--EVAL board part number for each toolchain: this order must be respected: 
+				EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32 -->
+			<PN>STM32W108CC,STM32W108CC,STM32W108CC,STM32W108CC,STM32W108CC,STM32W108CC</PN>
+			<memories>
+				<memory name="RAM" access="xrw" start="0x20000000" size="16"/>
+				<memory name="FLASH" access="rx" start="0x8000000" size="256"/>
+			</memories>
+			<EWARM>
+				<flash></flash>
+				<!--startup file -->
+				<startup>Device\ST\STM32W108xx\Source\Templates\iar\startup_stm32w108xx.s</startup>
+				<!--source files depending on the toolchain: ex port.c -->
+				 
+			</EWARM>
+			<MDK-ARM>
+				<flash>-U-O142 -O2254 -S3 -C-1 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC800 -FN1 -FF0STM32W108_256 -FS08000000 -FL040000 </flash>
+				<!--startup file -->
+				<startup>Device\ST\STM32W108xx\Source\Templates\arm\startup_stm32w108xx.s</startup>
+				 
+			</MDK-ARM>
+			<TrueSTUDIO>
+				<flash></flash>
+				<startup>Device\ST\STM32W108xx\Source\Templates\gcc\startup_stm32w108xx.s</startup>
+				 
+			</TrueSTUDIO>
+			<SW4STM32>
+				<flash></flash>
+				<startup>Device\ST\STM32W108xx\Source\Templates\gcc\startup_stm32w108xx.s</startup>
+				 
+			</SW4STM32>
+			<RIDE>
+				<flash></flash>
+				<startup>Device\ST\STM32W108xx\Source\Templates\gcc_ride7\startup_stm32w108xx.s</startup>
+				 
+			</RIDE>
+			<TASKING>
+				<flash></flash>
+				<startup></startup>
+				 
+			</TASKING>
+			<!--defines depending on the device family -->
+		</device>
+	</subFamily>
+	
+	<!--common family defines -->
+	<define>USE_STDPERIPH_DRIVER</define>
+	<define>STM32WCC</define>
+	<define>PLATFORM_HEADER</define>
+	<!--common family includes -->
+	<!--include>Include</include> <include>Device\ST\STM32W108xx\Include</include> 
+	<include>..\..\Libraries\STM32W108xx_StdPeriph_Driver\inc</include -->
+	<!--common family files: ex system_stm32xxx.c -->
+	<file>Device\ST\STM32W108xx\Source\Templates\system_stm32w108xx.c</file>
+</family>
