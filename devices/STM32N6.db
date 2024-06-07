@@ -1,0 +1,1884 @@
+<family name="STM32N6">
+    <CPUcore>ARM Cortex-M55</CPUcore>
+    <header>Device\ST\STM32N6xx\Include\stm32n6xx.h</header>
+	
+	
+    <subFamily name="STM32N645" fpu="SP" clock="8000000">
+        <device>
+            <!--HD EVAL board part number for each toolchain: this order must be respected: 
+            EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+            <PN>STM32N645A0,STM32N645A0,STM32N645A0,STM32N645A0,STM32N645A0,STM32N645A0</PN>
+            <variants>HxQ</variants>
+            <memories>
+                <memory name="RAM" access="xrw" start="0x20000000" size="768"/>
+                <memory name="FLASH" access="rx" start="0x08000000" size="1024"/>
+                <Secure>
+                    <memory name="RAM" access="xrw" start="0x30000000" size="256"/>
+                    <memory name="FLASH" access="rx" start="0x0C000000" size="504"/>
+                    <memory name="FLASH_NSC" access="rx" start="0x0C07E000" size="8"/>
+                </Secure>
+                <NonSecure>
+                    <memory name="RAM" access="xrw" start="0x20040000" size="512"/>
+                    <memory name="FLASH" access="rx" start="0x08080000" size="512"/>
+                </NonSecure>
+            </memories>
+            <header>Device\ST\STM32N6xx\Include\stm32n645xx.h</header>
+            <EWARM>
+			<macs>   
+			<FSBL>
+			<MAC>Utilities\PC_Software\setup.mac</MAC>
+			</FSBL>
+			<AppliNonSecure>
+			<MAC>Utilities\PC_Software\setup2.mac</MAC>
+			</AppliNonSecure>
+			<AppliSecure>
+			<MAC>Utilities\PC_Software\setup3.mac</MAC>
+			</AppliSecure>
+			</macs>
+                <flash></flash>
+                <!--startup file -->
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n645xx_fsbl.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n645xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n645xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n645xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+                <!--<startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n645xx.s</startup>-->
+
+                <linkers>
+                    <AppliSecure>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n645xx_LRUN_s.icf</linker>	
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n645xx_LRUN_ns.icf</linker>	
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n645xx_axisram.icf</linker>
+                    </ExtMemLoader>
+                     <FSBL>				
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n645xx_axisram2_fsbl.icf</linker>
+                    </FSBL>
+                </linkers> 
+                <!--source files depending on the toolchain: ex port.c -->				 
+            </EWARM>
+            <MDK-ARM>
+                <flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32N6xx_1M_0800.FLM -FS08000000 -FL0100000 -FP0($$Device:STM32U575AG$Flash\STM32N6xx_1M_0800.FLM)</flashv5>
+                <!--startup file -->
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n645xx_fsbl.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n645xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n645xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n645xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+            </MDK-ARM>
+            <SW4STM32>
+                <flash></flash>
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n645xx_fsbl.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n645xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n645xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n645xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+                <!--<startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n645xxxx.s</startup>-->
+                <linkers>
+                    <linker>Device\ST\STM32N6xx\Source\Templates\gcc\linker\STM32N645xxxx_FLASH.ld</linker>
+                    <linker>Device\ST\STM32N6xx\Source\Templates\gcc\linker\STM32N645xxxx_RAM.ld</linker>
+                </linkers>
+            </SW4STM32>
+            <!--defines depending on the device family -->
+            <define>STM32N645xxxx</define>
+        </device>
+        <device>
+            <!--HD EVAL board part number for each toolchain: this order must be respected: 
+            EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+            <PN>STM32N645B0,STM32N645B0,STM32N645B0,STM32N645B0,STM32N645B0,STM32N645B0</PN>
+            <variants>HxQ</variants>
+            <memories>
+                <memory name="RAM" access="xrw" start="0x20000000" size="768"/>
+                <memory name="FLASH" access="rx" start="0x08000000" size="1024"/>
+                <Secure>
+                    <memory name="RAM" access="xrw" start="0x30000000" size="256"/>
+                    <memory name="FLASH" access="rx" start="0x0C000000" size="504"/>
+                    <memory name="FLASH_NSC" access="rx" start="0x0C07E000" size="8"/>
+                </Secure>
+                <NonSecure>
+                    <memory name="RAM" access="xrw" start="0x20040000" size="512"/>
+                    <memory name="FLASH" access="rx" start="0x08080000" size="512"/>
+                </NonSecure>
+            </memories>
+            <header>Device\ST\STM32N6xx\Include\stm32n645xx.h</header>
+            <EWARM>
+			<macs>   
+			<FSBL>
+			<MAC>Utilities\PC_Software\setup.mac</MAC>
+			</FSBL>
+			<AppliNonSecure>
+			<MAC>Utilities\PC_Software\setup2.mac</MAC>
+			</AppliNonSecure>
+			<AppliSecure>
+			<MAC>Utilities\PC_Software\setup3.mac</MAC>
+			</AppliSecure>
+			</macs>
+                <flash></flash>
+                <!--startup file -->
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n645xx_fsbl.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n645xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n645xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n645xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+                 <linkers>
+                    <AppliSecure>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n645xx_LRUN_s.icf</linker>	
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n645xx_LRUN_ns.icf</linker>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n645xx_axisram.icf</linker>
+                    </ExtMemLoader>
+                     <FSBL>				
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n645xx_axisram2_fsbl.icf</linker>
+                    </FSBL>
+                </linkers> 
+                <!--source files depending on the toolchain: ex port.c -->				 
+            </EWARM>
+            <MDK-ARM>
+                <flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32N6xx_1M_0800.FLM -FS08000000 -FL0100000 -FP0($$Device:STM32U575AG$Flash\STM32N6xx_1M_0800.FLM)</flashv5>
+                <!--startup file -->
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n645xx_fsbl.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n645xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n645xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n645xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+            </MDK-ARM>
+            <SW4STM32>
+                <flash></flash>
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n645xx.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n645xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n645xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n645xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+                <linkers>
+                    <linker>Device\ST\STM32N6xx\Source\Templates\gcc\linker\STM32n645xx_FLASH.ld</linker>
+                    <linker>Device\ST\STM32N6xx\Source\Templates\gcc\linker\STM32n645xx_RAM.ld</linker>
+                </linkers>
+            </SW4STM32>
+            <!--defines depending on the device family -->
+            <define>STM32N645xx</define>
+        </device>
+        <device>
+            <!--HD EVAL board part number for each toolchain: this order must be respected: 
+            EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+            <PN>STM32N645I0,STM32N645I0,STM32N645I0,STM32N645I0,STM32N645I0,STM32N645I0</PN>
+            <variants>HxQ</variants>
+            <memories>
+                <memory name="RAM" access="xrw" start="0x20000000" size="768"/>
+                <memory name="FLASH" access="rx" start="0x08000000" size="1024"/>
+                <Secure>
+                    <memory name="RAM" access="xrw" start="0x30000000" size="256"/>
+                    <memory name="FLASH" access="rx" start="0x0C000000" size="504"/>
+                    <memory name="FLASH_NSC" access="rx" start="0x0C07E000" size="8"/>
+                </Secure>
+                <NonSecure>
+                    <memory name="RAM" access="xrw" start="0x20040000" size="512"/>
+                    <memory name="FLASH" access="rx" start="0x08080000" size="512"/>
+                </NonSecure>
+            </memories>
+            <header>Device\ST\STM32N6xx\Include\stm32n645xx.h</header>
+            <EWARM>
+			<macs>   
+			<FSBL>
+			<MAC>Utilities\PC_Software\setup.mac</MAC>
+			</FSBL>
+			<AppliNonSecure>
+			<MAC>Utilities\PC_Software\setup2.mac</MAC>
+			</AppliNonSecure>
+			<AppliSecure>
+			<MAC>Utilities\PC_Software\setup3.mac</MAC>
+			</AppliSecure>
+			</macs>
+                <flash></flash>
+                <!--startup file -->
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n645xx_fsbl.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n645xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n645xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n645xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+                <linkers>
+                    <AppliSecure>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n645xx_LRUN_s.icf</linker>	
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n645xx_LRUN_ns.icf</linker>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n645xx_axisram.icf</linker>
+                    </ExtMemLoader>
+                     <FSBL>				
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n645xx_axisram2_fsbl.icf</linker>
+                    </FSBL>
+                </linkers> 
+                <!--source files depending on the toolchain: ex port.c -->				 
+            </EWARM>
+            <MDK-ARM>
+                <flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32N6xx_1M_0800.FLM -FS08000000 -FL0100000 -FP0($$Device:STM32U575AG$Flash\STM32N6xx_1M_0800.FLM)</flashv5>
+                <!--startup file -->
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n645xx_fsbl.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n645xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n645xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n645xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+            </MDK-ARM>
+            <SW4STM32>
+                <flash></flash>
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n645xx.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n645xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n645xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n645xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+                <linkers>
+                    <linker>Device\ST\STM32N6xx\Source\Templates\gcc\linker\STM32n645xx_FLASH.ld</linker>
+                    <linker>Device\ST\STM32N6xx\Source\Templates\gcc\linker\STM32n645xx_RAM.ld</linker>
+                </linkers>
+            </SW4STM32>
+            <!--defines depending on the device family -->
+            <define>STM32N645xx</define>
+        </device>
+		
+        <device>
+            <!--HD EVAL board part number for each toolchain: this order must be respected: 
+            EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+            <PN>STM32N645L0,STM32N645L0,STM32N645L0,STM32N645L0,STM32N645L0,STM32N645L0</PN>
+            <variants>HxQ</variants>
+            <memories>
+                <memory name="RAM" access="xrw" start="0x20000000" size="768"/>
+                <memory name="FLASH" access="rx" start="0x08000000" size="1024"/>
+                <Secure>
+                    <memory name="RAM" access="xrw" start="0x30000000" size="256"/>
+                    <memory name="FLASH" access="rx" start="0x0C000000" size="504"/>
+                    <memory name="FLASH_NSC" access="rx" start="0x0C07E000" size="8"/>
+                </Secure>
+                <NonSecure>
+                    <memory name="RAM" access="xrw" start="0x20040000" size="512"/>
+                    <memory name="FLASH" access="rx" start="0x08080000" size="512"/>
+                </NonSecure>
+            </memories>
+            <header>Device\ST\STM32N6xx\Include\stm32n645xx.h</header>
+            <EWARM>
+			<macs>   
+			<FSBL>
+			<MAC>Utilities\PC_Software\setup.mac</MAC>
+			</FSBL>
+			<AppliNonSecure>
+			<MAC>Utilities\PC_Software\setup2.mac</MAC>
+			</AppliNonSecure>
+			<AppliSecure>
+			<MAC>Utilities\PC_Software\setup3.mac</MAC>
+			</AppliSecure>
+			</macs>
+                <flash></flash>
+                <!--startup file -->
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n645xx_fsbl.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n645xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n645xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n645xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+                 <linkers>
+                    <AppliSecure>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n645xx_LRUN_s.icf</linker>	
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n645xx_LRUN_ns.icf</linker>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n645xx_axisram.icf</linker>
+                    </ExtMemLoader>
+                     <FSBL>				
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n645xx_axisram2_fsbl.icf</linker>
+                    </FSBL>
+                </linkers> 
+                <!--source files depending on the toolchain: ex port.c -->				 
+            </EWARM>
+            <MDK-ARM>
+                <flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32N6xx_1M_0800.FLM -FS08000000 -FL0100000 -FP0($$Device:STM32U575AG$Flash\STM32N6xx_1M_0800.FLM)</flashv5>
+                <!--startup file -->
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n645xx_fsbl.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n645xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n645xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n645xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+            </MDK-ARM>
+            <SW4STM32>
+                <flash></flash>
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n645xx.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n645xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n645xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n645xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+                <linkers>
+                    <linker>Device\ST\STM32N6xx\Source\Templates\gcc\linker\STM32n645xx_FLASH.ld</linker>
+                    <linker>Device\ST\STM32N6xx\Source\Templates\gcc\linker\STM32n645xx_RAM.ld</linker>
+                </linkers>
+            </SW4STM32>
+            <!--defines depending on the device family -->
+            <define>STM32N645xx</define>
+        </device>
+		
+		
+        <device>
+            <!--HD EVAL board part number for each toolchain: this order must be respected: 
+            EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+            <PN>STM32N645X0,STM32N645X0,STM32N645X0,STM32N645X0,STM32N645X0,STM32N645X0</PN>
+            <variants>HxQ</variants>
+            <memories>
+                <memory name="RAM" access="xrw" start="0x20000000" size="768"/>
+                <memory name="FLASH" access="rx" start="0x08000000" size="1024"/>
+                <Secure>
+                    <memory name="RAM" access="xrw" start="0x30000000" size="256"/>
+                    <memory name="FLASH" access="rx" start="0x0C000000" size="504"/>
+                    <memory name="FLASH_NSC" access="rx" start="0x0C07E000" size="8"/>
+                </Secure>
+                <NonSecure>
+                    <memory name="RAM" access="xrw" start="0x20040000" size="512"/>
+                    <memory name="FLASH" access="rx" start="0x08080000" size="512"/>
+                </NonSecure>
+            </memories>
+            <header>Device\ST\STM32N6xx\Include\stm32n645xx.h</header>
+            <EWARM>
+			<macs>   
+			<FSBL>
+			<MAC>Utilities\PC_Software\setup.mac</MAC>
+			</FSBL>
+			<AppliNonSecure>
+			<MAC>Utilities\PC_Software\setup2.mac</MAC>
+			</AppliNonSecure>
+			<AppliSecure>
+			<MAC>Utilities\PC_Software\setup3.mac</MAC>
+			</AppliSecure>
+			</macs>
+                <flash></flash>
+                <!--startup file -->
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n645xx_fsbl.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n645xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n645xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n645xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+                 <linkers>
+                    <AppliSecure>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n645xx_LRUN_s.icf</linker>	
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n645xx_LRUN_ns.icf</linker>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n645xx_axisram.icf</linker>
+                    </ExtMemLoader>
+                     <FSBL>				
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n645xx_axisram2_fsbl.icf</linker>
+                    </FSBL>
+                </linkers> 
+                <!--source files depending on the toolchain: ex port.c -->				 
+            </EWARM>
+            <MDK-ARM>
+                <flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32N6xx_1M_0800.FLM -FS08000000 -FL0100000 -FP0($$Device:STM32U575AG$Flash\STM32N6xx_1M_0800.FLM)</flashv5>
+                <!--startup file -->
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n645xx_fsbl.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n645xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n645xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n645xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+                <!--<startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n645xx.s</startup>-->
+
+            </MDK-ARM>
+            <SW4STM32>
+                <flash></flash>
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n645xx.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n645xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n645xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n645xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+                <linkers>
+                    <linker>Device\ST\STM32N6xx\Source\Templates\gcc\linker\STM32n645xx_FLASH.ld</linker>
+                    <linker>Device\ST\STM32N6xx\Source\Templates\gcc\linker\STM32n645xx_RAM.ld</linker>
+                </linkers>
+            </SW4STM32>
+            <!--defines depending on the device family -->
+            <define>STM32N645xx</define>
+        </device>
+		
+        <device>
+            <!--HD EVAL board part number for each toolchain: this order must be respected: 
+            EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+            <PN>STM32N645Z0,STM32N645Z0,STM32N645Z0,STM32N645Z0,STM32N645Z0,STM32N645Z0</PN>
+            <variants>HxQ</variants>
+            <memories>
+                <memory name="RAM" access="xrw" start="0x20000000" size="768"/>
+                <memory name="FLASH" access="rx" start="0x08000000" size="1024"/>
+                <Secure>
+                    <memory name="RAM" access="xrw" start="0x30000000" size="256"/>
+                    <memory name="FLASH" access="rx" start="0x0C000000" size="504"/>
+                    <memory name="FLASH_NSC" access="rx" start="0x0C07E000" size="8"/>
+                </Secure>
+                <NonSecure>
+                    <memory name="RAM" access="xrw" start="0x20040000" size="512"/>
+                    <memory name="FLASH" access="rx" start="0x08080000" size="512"/>
+                </NonSecure>
+            </memories>
+            <header>Device\ST\STM32N6xx\Include\stm32n645xx.h</header>
+            <EWARM>
+			<macs>   
+			<FSBL>
+			<MAC>Utilities\PC_Software\setup.mac</MAC>
+			</FSBL>
+			<AppliNonSecure>
+			<MAC>Utilities\PC_Software\setup2.mac</MAC>
+			</AppliNonSecure>
+			<AppliSecure>
+			<MAC>Utilities\PC_Software\setup3.mac</MAC>
+			</AppliSecure>
+			</macs>
+                <flash></flash>
+                <!--startup file -->
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n645xx_fsbl.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n645xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n645xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n645xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+                 <linkers>
+                    <AppliSecure>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n645xx_LRUN_s.icf</linker>	
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n645xx_LRUN_ns.icf</linker>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n645xx_axisram.icf</linker>
+                    </ExtMemLoader>
+                     <FSBL>				
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n645xx_axisram2_fsbl.icf</linker>
+                    </FSBL>
+                </linkers> 
+                <!--source files depending on the toolchain: ex port.c -->				 
+            </EWARM>
+            <MDK-ARM>
+                <flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32N6xx_1M_0800.FLM -FS08000000 -FL0100000 -FP0($$Device:STM32U575AG$Flash\STM32N6xx_1M_0800.FLM)</flashv5>
+                <!--startup file -->
+                <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n645xxxx.s</startup>
+            </MDK-ARM>
+            <SW4STM32>
+                <flash></flash>
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n645xx.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n645xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n645xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n645xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+                <linkers>
+                    <linker>Device\ST\STM32N6xx\Source\Templates\gcc\linker\STM32n645xxxx_FLASH.ld</linker>
+                    <linker>Device\ST\STM32N6xx\Source\Templates\gcc\linker\STM32n645xxxx_RAM.ld</linker>
+                </linkers>
+            </SW4STM32>
+            <!--defines depending on the device family -->
+            <define>STM32N645xxxx</define>
+        </device>
+				
+
+			
+    </subFamily>
+	
+    <subFamily name="STM32N647" fpu="SP" clock="8000000">
+	
+        <device>
+            <!--HD EVAL board part number for each toolchain: this order must be respected: 
+            EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+            <PN>STM32N647A0,STM32N647A0,STM32N647A0,STM32N647A0,STM32N647A0,STM32N647A0</PN>
+            <variants>HxQ</variants>
+            <memories>
+                <memory name="RAM" access="xrw" start="0x20000000" size="768"/>
+                <memory name="FLASH" access="rx" start="0x08000000" size="1024"/>
+                <Secure>
+                    <memory name="RAM" access="xrw" start="0x30000000" size="256"/>
+                    <memory name="FLASH" access="rx" start="0x0C000000" size="504"/>
+                    <memory name="FLASH_NSC" access="rx" start="0x0C07E000" size="8"/>
+                </Secure>
+                <NonSecure>
+                    <memory name="RAM" access="xrw" start="0x20040000" size="512"/>
+                    <memory name="FLASH" access="rx" start="0x08080000" size="512"/>
+                </NonSecure>
+            </memories>
+            <header>Device\ST\STM32N6xx\Include\stm32n647xx.h</header>
+            <EWARM>
+			<macs>   
+			<FSBL>
+			<MAC>Utilities\PC_Software\setup.mac</MAC>
+			</FSBL>
+			<AppliNonSecure>
+			<MAC>Utilities\PC_Software\setup2.mac</MAC>
+			</AppliNonSecure>
+			<AppliSecure>
+			<MAC>Utilities\PC_Software\setup3.mac</MAC>
+			</AppliSecure>
+			</macs>
+                <flash></flash>
+                <!--startup file -->
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n647xx_fsbl.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n647xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n647xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n647xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+                <!--<startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n647xx.s</startup>-->
+               <linkers>
+                    <AppliSecure>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n647xx_LRUN_s.icf</linker>	
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n647xx_LRUN_ns.icf</linker>	
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n647xx_axisram.icf</linker>
+                    </ExtMemLoader>
+                     <FSBL>				
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n647xx_axisram2_fsbl.icf</linker>
+                    </FSBL>
+                </linkers>  
+                <!--source files depending on the toolchain: ex port.c -->				 
+            </EWARM>
+            <MDK-ARM>
+                <flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32N6xx_1M_0800.FLM -FS08000000 -FL0100000 -FP0($$Device:STM32U575AG$Flash\STM32N6xx_1M_0800.FLM)</flashv5>
+                <!--startup file -->
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n647xx_fsbl.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n647xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n647xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n647xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+                <!--<startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n647xx.s</startup>-->
+            </MDK-ARM>
+            <SW4STM32>
+                <flash></flash>
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n647xx.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n647xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n647xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n647xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+                <!--<startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n647xx.s</startup>-->
+                <linkers>
+                    <linker>Device\ST\STM32N6xx\Source\Templates\gcc\linker\STM32n647xx_FLASH.ld</linker>
+                    <linker>Device\ST\STM32N6xx\Source\Templates\gcc\linker\STM32n647xx_RAM.ld</linker>
+                </linkers>
+            </SW4STM32>
+            <!--defines depending on the device family -->
+            <define>STM32N647xx</define>
+        </device>
+        <device>
+            <!--HD EVAL board part number for each toolchain: this order must be respected: 
+            EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+            <PN>STM32N647B0,STM32N647B0,STM32N647B0,STM32N647B0,STM32N647B0,STM32N647B0</PN>
+            <variants>HxQ</variants>
+            <memories>
+                <memory name="RAM" access="xrw" start="0x20000000" size="768"/>
+                <memory name="FLASH" access="rx" start="0x08000000" size="1024"/>
+                <Secure>
+                    <memory name="RAM" access="xrw" start="0x30000000" size="256"/>
+                    <memory name="FLASH" access="rx" start="0x0C000000" size="504"/>
+                    <memory name="FLASH_NSC" access="rx" start="0x0C07E000" size="8"/>
+                </Secure>
+                <NonSecure>
+                    <memory name="RAM" access="xrw" start="0x20040000" size="512"/>
+                    <memory name="FLASH" access="rx" start="0x08080000" size="512"/>
+                </NonSecure>
+            </memories>
+            <header>Device\ST\STM32N6xx\Include\stm32n647xx.h</header>
+            <EWARM>
+			<macs>   
+			<FSBL>
+			<MAC>Utilities\PC_Software\setup.mac</MAC>
+			</FSBL>
+			<AppliNonSecure>
+			<MAC>Utilities\PC_Software\setup2.mac</MAC>
+			</AppliNonSecure>
+			<AppliSecure>
+			<MAC>Utilities\PC_Software\setup3.mac</MAC>
+			</AppliSecure>
+			</macs>
+                <flash></flash>
+                <!--startup file -->
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n647xx_fsbl.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n647xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n647xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n647xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+                <linkers>
+                    <AppliSecure>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n647xx_LRUN_s.icf</linker>	
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n647xx_LRUN_ns.icf</linker>	
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n647xx_axisram.icf</linker>
+                    </ExtMemLoader>
+                     <FSBL>				
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n647xx_axisram2_fsbl.icf</linker>
+                    </FSBL>
+                </linkers> 
+                <!--source files depending on the toolchain: ex port.c -->				 
+            </EWARM>
+            <MDK-ARM>
+                <flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32N6xx_1M_0800.FLM -FS08000000 -FL0100000 -FP0($$Device:STM32U575AG$Flash\STM32N6xx_1M_0800.FLM)</flashv5>
+                <!--startup file -->
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n647xx_fsbl.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n647xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n647xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n647xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+            </MDK-ARM>
+            <SW4STM32>
+                <flash></flash>
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n647xx.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n647xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n647xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n647xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+                <linkers>
+                    <linker>Device\ST\STM32N6xx\Source\Templates\gcc\linker\STM32n647xx_FLASH.ld</linker>
+                    <linker>Device\ST\STM32N6xx\Source\Templates\gcc\linker\STM32n647xx_RAM.ld</linker>
+                </linkers>
+            </SW4STM32>
+            <!--defines depending on the device family -->
+            <define>STM32N647xx</define>
+        </device>
+        <device>
+            <!--HD EVAL board part number for each toolchain: this order must be respected: 
+            EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+            <PN>STM32N647I0,STM32N647I0,STM32N647I0,STM32N647I0,STM32N647I0,STM32N647I0</PN>
+            <variants>HxQ</variants>
+            <memories>
+                <memory name="RAM" access="xrw" start="0x20000000" size="768"/>
+                <memory name="FLASH" access="rx" start="0x08000000" size="1024"/>
+                <Secure>
+                    <memory name="RAM" access="xrw" start="0x30000000" size="256"/>
+                    <memory name="FLASH" access="rx" start="0x0C000000" size="504"/>
+                    <memory name="FLASH_NSC" access="rx" start="0x0C07E000" size="8"/>
+                </Secure>
+                <NonSecure>
+                    <memory name="RAM" access="xrw" start="0x20040000" size="512"/>
+                    <memory name="FLASH" access="rx" start="0x08080000" size="512"/>
+                </NonSecure>
+            </memories>
+            <header>Device\ST\STM32N6xx\Include\stm32n647xx.h</header>
+            <EWARM>
+			<macs>   
+			<FSBL>
+			<MAC>Utilities\PC_Software\setup.mac</MAC>
+			</FSBL>
+			<AppliNonSecure>
+			<MAC>Utilities\PC_Software\setup2.mac</MAC>
+			</AppliNonSecure>
+			<AppliSecure>
+			<MAC>Utilities\PC_Software\setup3.mac</MAC>
+			</AppliSecure>
+			</macs>
+                <flash></flash>
+                <!--startup file -->
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n647xx_fsbl.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n647xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n647xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n647xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+                <linkers>
+                    <AppliSecure>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n647xx_LRUN_s.icf</linker>	
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n647xx_LRUN_ns.icf</linker>	
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n647xx_axisram.icf</linker>
+                    </ExtMemLoader>
+                     <FSBL>				
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n647xx_axisram2_fsbl.icf</linker>
+                    </FSBL>
+                </linkers> 
+                <!--source files depending on the toolchain: ex port.c -->				 
+            </EWARM>
+            <MDK-ARM>
+                <flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32N6xx_1M_0800.FLM -FS08000000 -FL0100000 -FP0($$Device:STM32U575AG$Flash\STM32N6xx_1M_0800.FLM)</flashv5>
+                <!--startup file -->
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n647xx_fsbl.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n647xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n647xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n647xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+            </MDK-ARM>
+            <SW4STM32>
+                <flash></flash>
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n647xx.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n647xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n647xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n647xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+                <linkers>
+                    <linker>Device\ST\STM32N6xx\Source\Templates\gcc\linker\STM32n647xx_FLASH.ld</linker>
+                    <linker>Device\ST\STM32N6xx\Source\Templates\gcc\linker\STM32n647xx_RAM.ld</linker>
+                </linkers>
+            </SW4STM32>
+            <!--defines depending on the device family -->
+            <define>STM32N647xx</define>
+        </device>
+		
+        <device>
+            <!--HD EVAL board part number for each toolchain: this order must be respected: 
+            EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+            <PN>STM32N647L0,STM32N647L0,STM32N647L0,STM32N647L0,STM32N647L0,STM32N647L0</PN>
+            <variants>HxQ</variants>
+            <memories>
+                <memory name="RAM" access="xrw" start="0x20000000" size="768"/>
+                <memory name="FLASH" access="rx" start="0x08000000" size="1024"/>
+                <Secure>
+                    <memory name="RAM" access="xrw" start="0x30000000" size="256"/>
+                    <memory name="FLASH" access="rx" start="0x0C000000" size="504"/>
+                    <memory name="FLASH_NSC" access="rx" start="0x0C07E000" size="8"/>
+                </Secure>
+                <NonSecure>
+                    <memory name="RAM" access="xrw" start="0x20040000" size="512"/>
+                    <memory name="FLASH" access="rx" start="0x08080000" size="512"/>
+                </NonSecure>
+            </memories>
+            <header>Device\ST\STM32N6xx\Include\stm32n647xx.h</header>
+            <EWARM>
+			<macs>   
+			<FSBL>
+			<MAC>Utilities\PC_Software\setup.mac</MAC>
+			</FSBL>
+			<AppliNonSecure>
+			<MAC>Utilities\PC_Software\setup2.mac</MAC>
+			</AppliNonSecure>
+			<AppliSecure>
+			<MAC>Utilities\PC_Software\setup3.mac</MAC>
+			</AppliSecure>
+			</macs>
+                <flash></flash>
+                <!--startup file -->
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n647xx_fsbl.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n647xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n647xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n647xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+              <linkers>
+                    <AppliSecure>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n647xx_LRUN_s.icf</linker>	
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n647xx_LRUN_ns.icf</linker>	
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n647xx_axisram.icf</linker>
+                    </ExtMemLoader>
+                     <FSBL>				
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n647xx_axisram2_fsbl.icf</linker>
+                    </FSBL>
+                </linkers>   
+                <!--source files depending on the toolchain: ex port.c -->				 
+            </EWARM>
+            <MDK-ARM>
+                <flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32N6xx_1M_0800.FLM -FS08000000 -FL0100000 -FP0($$Device:STM32U575AG$Flash\STM32N6xx_1M_0800.FLM)</flashv5>
+                <!--startup file -->
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n647xx_fsbl.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n647xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n647xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n647xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+            </MDK-ARM>
+            <SW4STM32>
+                <flash></flash>
+                <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n647xxxx.s</startup>
+                <linkers>
+                    <linker>Device\ST\STM32N6xx\Source\Templates\gcc\linker\STM32n647xxxx_FLASH.ld</linker>
+                    <linker>Device\ST\STM32N6xx\Source\Templates\gcc\linker\STM32n647xxxx_RAM.ld</linker>
+                </linkers>
+            </SW4STM32>
+            <!--defines depending on the device family -->
+            <define>STM32N647xx</define>
+        </device>
+		
+		
+        <device>
+            <!--HD EVAL board part number for each toolchain: this order must be respected: 
+            EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+            <PN>STM32N647X0,STM32N647X0,STM32N647X0,STM32N647X0,STM32N647X0,STM32N647X0</PN>
+            <variants>HxQ</variants>
+            <memories>
+                <memory name="RAM" access="xrw" start="0x20000000" size="768"/>
+                <memory name="FLASH" access="rx" start="0x08000000" size="1024"/>
+                <Secure>
+                    <memory name="RAM" access="xrw" start="0x30000000" size="256"/>
+                    <memory name="FLASH" access="rx" start="0x0C000000" size="504"/>
+                    <memory name="FLASH_NSC" access="rx" start="0x0C07E000" size="8"/>
+                </Secure>
+                <NonSecure>
+                    <memory name="RAM" access="xrw" start="0x20040000" size="512"/>
+                    <memory name="FLASH" access="rx" start="0x08080000" size="512"/>
+                </NonSecure>
+            </memories>
+            <header>Device\ST\STM32N6xx\Include\stm32n647xx.h</header>
+            <EWARM>
+			<macs>   
+			<FSBL>
+			<MAC>Utilities\PC_Software\setup.mac</MAC>
+			</FSBL>
+			<AppliNonSecure>
+			<MAC>Utilities\PC_Software\setup2.mac</MAC>
+			</AppliNonSecure>
+			<AppliSecure>
+			<MAC>Utilities\PC_Software\setup3.mac</MAC>
+			</AppliSecure>
+			</macs>
+                <flash></flash>
+                <!--startup file -->
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n647xx_fsbl.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n647xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n647xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n647xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+                <linkers>
+                    <AppliSecure>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n647xx_LRUN_s.icf</linker>	
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n647xx_LRUN_ns.icf</linker>	
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n647xx_axisram.icf</linker>
+                    </ExtMemLoader>
+                     <FSBL>				
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n647xx_axisram2_fsbl.icf</linker>
+                    </FSBL>
+                </linkers>  
+                <!--source files depending on the toolchain: ex port.c -->				 
+            </EWARM>
+            <MDK-ARM>
+                <flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32N6xx_1M_0800.FLM -FS08000000 -FL0100000 -FP0($$Device:STM32U575AG$Flash\STM32N6xx_1M_0800.FLM)</flashv5>
+                <!--startup file -->
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n647xx_fsbl.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n647xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n647xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n647xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+            </MDK-ARM>
+            <SW4STM32>
+                <flash></flash>
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n647xx.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n647xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n647xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n647xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+                <linkers>
+                    <linker>Device\ST\STM32N6xx\Source\Templates\gcc\linker\STM32n647xx_FLASH.ld</linker>
+                    <linker>Device\ST\STM32N6xx\Source\Templates\gcc\linker\STM32n67xxx_RAM.ld</linker>
+                </linkers>
+            </SW4STM32>
+            <!--defines depending on the device family -->
+            <define>STM32N647xx</define>
+        </device>
+		
+        <device>
+            <!--HD EVAL board part number for each toolchain: this order must be respected: 
+            EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+            <PN>STM32N647Z0,STM32N647Z0,STM32N647Z0,STM32N647Z0,STM32N647Z0,STM32N647Z0</PN>
+            <variants>HxQ</variants>
+            <memories>
+                <memory name="RAM" access="xrw" start="0x20000000" size="768"/>
+                <memory name="FLASH" access="rx" start="0x08000000" size="1024"/>
+                <Secure>
+                    <memory name="RAM" access="xrw" start="0x30000000" size="256"/>
+                    <memory name="FLASH" access="rx" start="0x0C000000" size="504"/>
+                    <memory name="FLASH_NSC" access="rx" start="0x0C07E000" size="8"/>
+                </Secure>
+                <NonSecure>
+                    <memory name="RAM" access="xrw" start="0x20040000" size="512"/>
+                    <memory name="FLASH" access="rx" start="0x08080000" size="512"/>
+                </NonSecure>
+            </memories>
+            <header>Device\ST\STM32N6xx\Include\stm32n647xx.h</header>
+            <EWARM>
+			<macs>   
+			<FSBL>
+			<MAC>Utilities\PC_Software\setup.mac</MAC>
+			</FSBL>
+			<AppliNonSecure>
+			<MAC>Utilities\PC_Software\setup2.mac</MAC>
+			</AppliNonSecure>
+			<AppliSecure>
+			<MAC>Utilities\PC_Software\setup3.mac</MAC>
+			</AppliSecure>
+			</macs>
+                <flash></flash>
+                <!--startup file -->
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n647xx_fsbl.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n647xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n647xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n647xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+                <linkers>
+                    <AppliSecure>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n647xx_LRUN_s.icf</linker>	
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n647xx_LRUN_ns.icf</linker>	
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n647xx_axisram.icf</linker>
+                    </ExtMemLoader>
+                     <FSBL>				
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n647xx_axisram2_fsbl.icf</linker>
+                    </FSBL>
+                </linkers> 
+                <!--source files depending on the toolchain: ex port.c -->				 
+            </EWARM>
+            <MDK-ARM>
+                <flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32N6xx_1M_0800.FLM -FS08000000 -FL0100000 -FP0($$Device:STM32U575AG$Flash\STM32N6xx_1M_0800.FLM)</flashv5>
+                <!--startup file -->
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n647xx_fsbl.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n647xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n647xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n647xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+            </MDK-ARM>
+            <SW4STM32>
+                <flash></flash>
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n647xx.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n647xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n647xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n647xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+                <linkers>
+                    <linker>Device\ST\STM32N6xx\Source\Templates\gcc\linker\STM32n647xx_FLASH.ld</linker>
+                    <linker>Device\ST\STM32N6xx\Source\Templates\gcc\linker\STM32n647xx_RAM.ld</linker>
+                </linkers>
+            </SW4STM32>
+            <!--defines depending on the device family -->
+            <define>STM32N647xx</define>
+        </device>
+		
+    </subFamily>
+		
+
+    <subFamily name="STM32N657" fpu="SP" clock="8000000">
+        <device>
+            <!--HD EVAL board part number for each toolchain: this order must be respected: 
+            EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+            <PN>STM32N657A0,STM32N657A0,STM32N657A0,STM32N657A0,STM32N657A0,STM32N657A0</PN>
+            <variants>HxQ</variants>
+            <memories>
+                <memory name="RAM" access="xrw" start="0x20000000" size="768"/>
+                <memory name="FLASH" access="rx" start="0x08000000" size="1024"/>
+                <Secure>
+                    <memory name="RAM" access="xrw" start="0x30000000" size="256"/>
+                    <memory name="FLASH" access="rx" start="0x0C000000" size="504"/>
+                    <memory name="FLASH_NSC" access="rx" start="0x0C07E000" size="8"/>
+                </Secure>
+                <NonSecure>
+                    <memory name="RAM" access="xrw" start="0x20040000" size="512"/>
+                    <memory name="FLASH" access="rx" start="0x08080000" size="512"/>
+                </NonSecure>
+            </memories>
+            <header>Device\ST\STM32N6xx\Include\stm32n657xx.h</header>
+            <EWARM>
+			<macs>   
+			<FSBL>
+			<MAC>Utilities\PC_Software\setup.mac</MAC>
+			</FSBL>
+			<AppliNonSecure>
+			<MAC>Utilities\PC_Software\setup2.mac</MAC>
+			</AppliNonSecure>
+			<AppliSecure>
+			<MAC>Utilities\PC_Software\setup3.mac</MAC>
+			</AppliSecure>
+			</macs>
+                <flash></flash>
+                <!--startup file -->
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n657xx_fsbl.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n657xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n657xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n657xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+                <!--<startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n657xx.s</startup>-->
+                <linkers>
+                    <AppliSecure>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n657xx_LRUN_s.icf</linker>	
+                    </AppliSecure>
+                    <AppliSecure>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n657xx_LRUN_ns.icf</linker>	
+                    </AppliSecure>
+                    <ExtMemLoader>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n657xx_fsbl.icf</linker>
+                    </ExtMemLoader>
+                    <FSBL>				
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n657xx_axisram2_fsbl.icf</linker>
+                    </FSBL>
+                </linkers>  
+                <!--source files depending on the toolchain: ex port.c -->				 
+            </EWARM>
+            <MDK-ARM>
+                <flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32N6xx_1M_0800.FLM -FS08000000 -FL0100000 -FP0($$Device:STM32U575AG$Flash\STM32N6xx_1M_0800.FLM)</flashv5>
+                <!--startup file -->
+                <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n657xx.s</startup>
+            </MDK-ARM>
+            <SW4STM32>
+                <flash></flash>
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n657xx.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n657xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n657xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n657xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+                <linkers>
+                    <linker>Device\ST\STM32N6xx\Source\Templates\gcc\linker\STM32n657xx_FLASH.ld</linker>
+                    <linker>Device\ST\STM32N6xx\Source\Templates\gcc\linker\STM32n657xx_RAM.ld</linker>
+                </linkers>
+            </SW4STM32>
+            <!--defines depending on the device family -->
+            <define>STM32N657xx</define>
+        </device>
+        <device>
+            <!--HD EVAL board part number for each toolchain: this order must be respected: 
+            EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+            <PN>STM32N657B0,STM32N657B0,STM32N657B0,STM32N657B0,STM32N657B0,STM32N657B0</PN>
+            <variants>HxQ</variants>
+            <memories>
+                <memory name="RAM" access="xrw" start="0x20000000" size="768"/>
+                <memory name="FLASH" access="rx" start="0x08000000" size="1024"/>
+                <Secure>
+                    <memory name="RAM" access="xrw" start="0x30000000" size="256"/>
+                    <memory name="FLASH" access="rx" start="0x0C000000" size="504"/>
+                    <memory name="FLASH_NSC" access="rx" start="0x0C07E000" size="8"/>
+                </Secure>
+                <NonSecure>
+                    <memory name="RAM" access="xrw" start="0x20040000" size="512"/>
+                    <memory name="FLASH" access="rx" start="0x08080000" size="512"/>
+                </NonSecure>
+            </memories>
+            <header>Device\ST\STM32N6xx\Include\stm32n657xx.h</header>
+            <EWARM>
+			<macs>   
+			<FSBL>
+			<MAC>Utilities\PC_Software\setup.mac</MAC>
+			</FSBL>
+			<AppliNonSecure>
+			<MAC>Utilities\PC_Software\setup2.mac</MAC>
+			</AppliNonSecure>
+			<AppliSecure>
+			<MAC>Utilities\PC_Software\setup3.mac</MAC>
+			</AppliSecure>
+			</macs>
+                <flash></flash>
+                <!--startup file -->
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n657xx_fsbl.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n657xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n657xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n657xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+                <linkers>
+                    <AppliSecure>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n657xx_LRUN_s.icf</linker>	
+                    </AppliSecure>
+                    <AppliSecure>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n657xx_LRUN_ns.icf</linker>	
+                    </AppliSecure>
+                    <ExtMemLoader>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n657xx_axisram.icf</linker>
+                    </ExtMemLoader>
+                     <FSBL>				
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n657xx_axisram2_fsbl.icf</linker>
+                    </FSBL>
+                </linkers>  
+                <!--source files depending on the toolchain: ex port.c -->				 
+            </EWARM>
+            <MDK-ARM>
+                <flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32N6xx_1M_0800.FLM -FS08000000 -FL0100000 -FP0($$Device:STM32U575AG$Flash\STM32N6xx_1M_0800.FLM)</flashv5>
+                <!--startup file -->
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n657xx_fsbl.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n657xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n657xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n657xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+                <!--<startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n657xx.s</startup>-->
+            </MDK-ARM>
+            <SW4STM32>
+                <flash></flash>
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n657xx.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n657xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n657xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n657xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+                <linkers>
+                    <linker>Device\ST\STM32N6xx\Source\Templates\gcc\linker\STM32n657xx_FLASH.ld</linker>
+                    <linker>Device\ST\STM32N6xx\Source\Templates\gcc\linker\STM32n657xx_RAM.ld</linker>
+                </linkers>
+            </SW4STM32>
+            <!--defines depending on the device family -->
+            <define>STM32N657xx</define>
+        </device>
+        <device>
+            <!--HD EVAL board part number for each toolchain: this order must be respected: 
+            EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+            <PN>STM32N657I0,STM32N657I0,STM32N657I0,STM32N657I0,STM32N657I0,STM32N657I0</PN>
+            <variants>HxQ</variants>
+            <memories>
+                <memory name="RAM" access="xrw" start="0x20000000" size="768"/>
+                <memory name="FLASH" access="rx" start="0x08000000" size="1024"/>
+                <Secure>
+                    <memory name="RAM" access="xrw" start="0x30000000" size="256"/>
+                    <memory name="FLASH" access="rx" start="0x0C000000" size="504"/>
+                    <memory name="FLASH_NSC" access="rx" start="0x0C07E000" size="8"/>
+                </Secure>
+                <NonSecure>
+                    <memory name="RAM" access="xrw" start="0x20040000" size="512"/>
+                    <memory name="FLASH" access="rx" start="0x08080000" size="512"/>
+                </NonSecure>
+            </memories>
+            <header>Device\ST\STM32N6xx\Include\stm32n657xx.h</header>
+            <EWARM>
+			<macs>   
+			<FSBL>
+			<MAC>Utilities\PC_Software\setup.mac</MAC>
+			</FSBL>
+			<AppliNonSecure>
+			<MAC>Utilities\PC_Software\setup2.mac</MAC>
+			</AppliNonSecure>
+			<AppliSecure>
+			<MAC>Utilities\PC_Software\setup3.mac</MAC>
+			</AppliSecure>
+			</macs>
+                <flash></flash>
+                <!--startup file -->
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n657xx_fsbl.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n657xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n657xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n657xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+                <linkers>
+                    <AppliSecure>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n657xx_LRUN_s.icf</linker>	
+                    </AppliSecure>
+                    <AppliSecure>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n657xx_LRUN_ns.icf</linker>	
+                    </AppliSecure>
+                    <ExtMemLoader>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n657xx_axisram.icf</linker>
+                    </ExtMemLoader>
+                     <FSBL>				
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n657xx_axisram2_fsbl.icf</linker>
+                    </FSBL>
+                </linkers> 
+                <!--source files depending on the toolchain: ex port.c -->				 
+            </EWARM>
+            <MDK-ARM>
+                <flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32N6xx_1M_0800.FLM -FS08000000 -FL0100000 -FP0($$Device:STM32U575AG$Flash\STM32N6xx_1M_0800.FLM)</flashv5>
+                <!--startup file -->
+                <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n657xxxx.s</startup>
+            </MDK-ARM>
+            <SW4STM32>
+                <flash></flash>
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n657xx.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n657xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n657xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n657xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+                <linkers>
+                    <linker>Device\ST\STM32N6xx\Source\Templates\gcc\linker\STM32n657xx_FLASH.ld</linker>
+                    <linker>Device\ST\STM32N6xx\Source\Templates\gcc\linker\STM32n657xx_RAM.ld</linker>
+                </linkers>
+            </SW4STM32>
+            <!--defines depending on the device family -->
+            <define>STM32N657xx</define>
+        </device>
+		
+        <device>
+            <!--HD EVAL board part number for each toolchain: this order must be respected: 
+            EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+            <PN>STM32N657L0,STM32N657L0,STM32N657L0,STM32N657L0,STM32N657L0,STM32N657L0</PN>
+            <variants>HxQ</variants>
+            <memories>
+                <memory name="RAM" access="xrw" start="0x20000000" size="768"/>
+                <memory name="FLASH" access="rx" start="0x08000000" size="1024"/>
+                <Secure>
+                    <memory name="RAM" access="xrw" start="0x30000000" size="256"/>
+                    <memory name="FLASH" access="rx" start="0x0C000000" size="504"/>
+                    <memory name="FLASH_NSC" access="rx" start="0x0C07E000" size="8"/>
+                </Secure>
+                <NonSecure>
+                    <memory name="RAM" access="xrw" start="0x20040000" size="512"/>
+                    <memory name="FLASH" access="rx" start="0x08080000" size="512"/>
+                </NonSecure>
+            </memories>
+            <header>Device\ST\STM32N6xx\Include\stm32n657xx.h</header>
+            <EWARM>
+			<macs>   
+			<FSBL>
+			<MAC>Utilities\PC_Software\setup.mac</MAC>
+			</FSBL>
+			<AppliNonSecure>
+			<MAC>Utilities\PC_Software\setup2.mac</MAC>
+			</AppliNonSecure>
+			<AppliSecure>
+			<MAC>Utilities\PC_Software\setup3.mac</MAC>
+			</AppliSecure>
+			</macs>
+                <flash></flash>
+                <!--startup file -->
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n657xx_fsbl.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n657xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n657xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n657xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+                <linkers>
+                    <AppliSecure>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n657xx_LRUN_s.icf</linker>	
+                    </AppliSecure>
+                    <AppliSecure>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n657xx_LRUN_ns.icf</linker>	
+                    </AppliSecure>
+                    <ExtMemLoader>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n657xx_axisram.icf</linker>
+                    </ExtMemLoader>
+                     <FSBL>				
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n657xx_axisram2_fsbl.icf</linker>
+                    </FSBL>
+                </linkers>  
+                <!--source files depending on the toolchain: ex port.c -->				 
+            </EWARM>
+            <MDK-ARM>
+                <flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32N6xx_1M_0800.FLM -FS08000000 -FL0100000 -FP0($$Device:STM32U575AG$Flash\STM32N6xx_1M_0800.FLM)</flashv5>
+                <!--startup file -->
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n657xx_fsbl.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n657xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n657xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n657xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+            </MDK-ARM>
+            <SW4STM32>
+                <flash></flash>
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n657xx.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n657xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n657xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n657xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+                <linkers>
+                    <linker>Device\ST\STM32N6xx\Source\Templates\gcc\linker\STM32n657xx_FLASH.ld</linker>
+                    <linker>Device\ST\STM32N6xx\Source\Templates\gcc\linker\STM32n657xx_RAM.ld</linker>
+                </linkers>
+            </SW4STM32>
+            <!--defines depending on the device family -->
+            <define>STM32N657xx</define>
+        </device>
+		
+		
+        <device>
+            <!--HD EVAL board part number for each toolchain: this order must be respected: 
+            EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+            <PN>STM32N657X0,STM32N657X0,STM32N657X0,STM32N657X0,STM32N657X0,STM32N657X0</PN>
+            <variants>HxQ</variants>
+            <memories>
+                <memory name="RAM" access="xrw" start="0x20000000" size="768"/>
+                <memory name="FLASH" access="rx" start="0x08000000" size="1024"/>
+                <Secure>
+                    <memory name="RAM" access="xrw" start="0x30000000" size="256"/>
+                    <memory name="FLASH" access="rx" start="0x0C000000" size="504"/>
+                    <memory name="FLASH_NSC" access="rx" start="0x0C07E000" size="8"/>
+                </Secure>
+                <NonSecure>
+                    <memory name="RAM" access="xrw" start="0x20040000" size="512"/>
+                    <memory name="FLASH" access="rx" start="0x08080000" size="512"/>
+                </NonSecure>
+            </memories>
+            <header>Device\ST\STM32N6xx\Include\stm32n657xx.h</header>
+            <EWARM>
+			<macs>   
+			<FSBL>
+			<MAC>Utilities\PC_Software\setup.mac</MAC>
+			</FSBL>
+			<AppliNonSecure>
+			<MAC>Utilities\PC_Software\setup2.mac</MAC>
+			</AppliNonSecure>
+			<AppliSecure>
+			<MAC>Utilities\PC_Software\setup3.mac</MAC>
+			</AppliSecure>
+			</macs>
+                <flash></flash>
+                <!--startup file -->
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n657xx_fsbl.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n657xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n657xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n657xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+                <linkers>
+                    <AppliSecure>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n657xx_LRUN_s.icf</linker>	
+                    </AppliSecure>
+                    <AppliSecure>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n657xx_LRUN_ns.icf</linker>	
+                    </AppliSecure>
+                    <ExtMemLoader>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n657xx_axisram.icf</linker>
+                    </ExtMemLoader>
+                     <FSBL>				
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n657xx_axisram2_fsbl.icf</linker>
+                    </FSBL>
+                </linkers>  
+                <!--source files depending on the toolchain: ex port.c -->				 
+            </EWARM>
+            <MDK-ARM>
+                <flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32N6xx_1M_0800.FLM -FS08000000 -FL0100000 -FP0($$Device:STM32U575AG$Flash\STM32N6xx_1M_0800.FLM)</flashv5>
+                <!--startup file -->
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n657xx_fsbl.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n657xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n657xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n657xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+            </MDK-ARM>
+            <SW4STM32>
+                <flash></flash>
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n657xx.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n657xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n657xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n657xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+                <linkers>
+                    <linker>Device\ST\STM32N6xx\Source\Templates\gcc\linker\STM32n657xx_FLASH.ld</linker>
+                    <linker>Device\ST\STM32N6xx\Source\Templates\gcc\linker\STM32n657xx_RAM.ld</linker>
+                </linkers>
+            </SW4STM32>
+            <!--defines depending on the device family -->
+            <define>STM32N657xx</define>
+        </device>
+		
+        <device>
+            <!--HD EVAL board part number for each toolchain: this order must be respected: 
+            EWARM, MDK-ARM, TrueSTUDIO, RIDE, TASKING, SW4STM32, SW4STM32 -->
+            <PN>STM32N657Z0,STM32N657Z0,STM32N657Z0,STM32N657Z0,STM32N657Z0,STM32N657Z0</PN>
+            <variants>HxQ</variants>
+            <memories>
+                <memory name="RAM" access="xrw" start="0x20000000" size="768"/>
+                <memory name="FLASH" access="rx" start="0x08000000" size="1024"/>
+                <Secure>
+                    <memory name="RAM" access="xrw" start="0x30000000" size="256"/>
+                    <memory name="FLASH" access="rx" start="0x0C000000" size="504"/>
+                    <memory name="FLASH_NSC" access="rx" start="0x0C07E000" size="8"/>
+                </Secure>
+                <NonSecure>
+                    <memory name="RAM" access="xrw" start="0x20040000" size="512"/>
+                    <memory name="FLASH" access="rx" start="0x08080000" size="512"/>
+                </NonSecure>
+            </memories>
+            <header>Device\ST\STM32N6xx\Include\stm32n657xx.h</header>
+            <EWARM>
+			<macs>   
+			<FSBL>
+			<MAC>Utilities\PC_Software\setup.mac</MAC>
+			</FSBL>
+			<AppliNonSecure>
+			<MAC>Utilities\PC_Software\setup2.mac</MAC>
+			</AppliNonSecure>
+			<AppliSecure>
+			<MAC>Utilities\PC_Software\setup3.mac</MAC>
+			</AppliSecure>
+			</macs>
+                <flash></flash>
+                <!--startup file -->
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n657xx_fsbl.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n657xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n657xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\iar\startup_stm32n657xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+                <linkers>
+                    <AppliSecure>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n657xx_LRUN_s.icf</linker>	
+                    </AppliSecure>
+                    <AppliSecure>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n657xx_LRUN_ns.icf</linker>	
+                    </AppliSecure>
+                    <ExtMemLoader>
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n657xx_axisram.icf</linker>
+                    </ExtMemLoader>
+                     <FSBL>				
+                        <linker>Device\ST\STM32N6xx\Source\Templates\iar\linker\stm32n657xx_axisram2_fsbl.icf</linker>
+                    </FSBL>
+                </linkers>  
+                <!--source files depending on the toolchain: ex port.c -->				 
+            </EWARM>
+            <MDK-ARM>
+                <flashv5>-U-O142 -O2254 -S0 -C0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32N6xx_1M_0800.FLM -FS08000000 -FL0100000 -FP0($$Device:STM32U575AG$Flash\STM32N6xx_1M_0800.FLM)</flashv5>
+                <!--startup file -->
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n657xx_fsbl.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n657xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n657xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\arm\startup_stm32n657xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+            </MDK-ARM>
+            <SW4STM32>
+                <flash></flash>
+                <startups>
+                    <FSBL>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n657xx.s</startup>
+                    </FSBL>
+                    <AppliSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n657xx.s</startup>
+                    </AppliSecure>
+                    <AppliNonSecure>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n657xx.s</startup>
+                    </AppliNonSecure>
+                    <ExtMemLoader>
+                        <startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n657xx.s</startup>
+                    </ExtMemLoader>
+                </startups>
+                <!--<startup>Device\ST\STM32N6xx\Source\Templates\gcc\startup_stm32n657xx.s</startup>-->
+                <linkers>
+                    <linker>Device\ST\STM32N6xx\Source\Templates\gcc\linker\STM32n657xx_FLASH.ld</linker>
+                    <linker>Device\ST\STM32N6xx\Source\Templates\gcc\linker\STM32n657xx_RAM.ld</linker>
+                </linkers>
+            </SW4STM32>
+            <!--defines depending on the device family -->
+            <define>STM32N657xx</define>
+        </device>
+		
+    </subFamily>
+    <define>USE_HAL_DRIVER</define>
+    <file>Device\ST\STM32N6xx\Source\Templates\system_stm32n6xx.c</file>
+</family>
