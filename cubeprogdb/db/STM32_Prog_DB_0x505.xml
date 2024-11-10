@@ -4,10 +4,10 @@
 		<DeviceID>0x505</DeviceID>
 		<Vendor>STMicroelectronics</Vendor>
 		<Type>MPU</Type>
-		<CPU>Cortex-A7</CPU>
+		<CPU>Cortex-A35</CPU>
 		<Name>STM32MP25xx</Name>
 		<Series>STM32MP</Series>
-		<Description>ARM 32-bit Cortex-A7 based device</Description>
+		<Description>ARM 64-bit Cortex-A35 based device</Description>
 		<!-- Gonfigurations' List -->
 		<Configurations>
 			<Interface name="Bootloader">
@@ -33,7 +33,7 @@
 					<Organization>Single</Organization>
 					<Bank>
 						<Field>
-							<Parameters address="0x10000000" name="SRAM" occurence="0x1" size="0x20000"/>
+							<Parameters address="0x10000000" name="SRAM" occurrence="0x1" size="0x20000"/>
 						</Field>
 					</Bank>
 				</Configuration>
@@ -254,7 +254,7 @@
 					<Category>
 						<Name>OTP8</Name>
 							<Field>
-								<Parameters address="0x48" name="Reserved" size="0x8"/>
+								<Parameters address="0x48" name="Reserved by ST" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data8</Name>
@@ -330,7 +330,7 @@
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>Status10</Name>
@@ -340,15 +340,8 @@
 										<Access>R</Access>
 									</Bit>
 									<Bit>
-										<Name>stkeyprov_ecies_attempted</Name>
-										<Description>-</Description>
-										<BitOffset>0x0</BitOffset>
-										<BitWidth>0x1</BitWidth>
-										<Access>R</Access>
-									</Bit>
-									<Bit>
 										<Name>stkeyprov_ecies_ok</Name>
-										<Description>1: ECIES hardware process is successful and ECIES_CHIP_PRIVK is valid in fuses</Description>
+										<Description>1 (successfull): ECIES ST key provisionning last attempt was successfull</Description>
 										<BitOffset>0x1</BitOffset>
 										<BitWidth>0x1</BitWidth>
 										<Access>R</Access>
@@ -361,24 +354,31 @@
 										<Access>R</Access>
 									</Bit>
 									<Bit>
-										<Name>ssp_attempts</Name>
-										<Description>SSP attempts fused at each SSP attempt (max 4)</Description>
-										<BitOffset>0x3</BitOffset>
-										<BitWidth>0x4</BitWidth>
-										<Access>R</Access>
-									</Bit>
-									<Bit>
 										<Name>Security counter</Name>
-										<Description>Security counter involved in product ID for chip certificate verification by HSM-OEM in SSP context</Description>
+										<Description>Security counter involved in productID for device certificate verification by HSM-OEM in RSSe_prov context</Description>
 										<BitOffset>0x7</BitOffset>
 										<BitWidth>0x8</BitWidth>
 										<Access>R</Access>
 									</Bit>
 									<Bit>
-										<Name>ST ECDSA key id</Name>
-										<Description>ST ECDSA Key ID involved in product ID for chip certificate verification by HSM-OEM in SSP context</Description>
+										<Name>st_pub_key_id</Name>
+										<Description>ST ECDSA Public Key ID (ST Key Instance fuse part) involved in productID for device certificate verification by HSM-OEM in RSSe_prov context</Description>
 										<BitOffset>0xF</BitOffset>
 										<BitWidth>0x4</BitWidth>
+										<Access>R</Access>
+									</Bit>
+									<Bit>
+										<Name>rssefw_active_signing_key</Name>
+										<Description>Value of monotonic counter is X where X is position of the most significant bit at 1. 8 possible ST public keys (ST key revocation feature for RSSe_FW authentication)</Description>
+										<BitOffset>0x13</BitOffset>
+										<BitWidth>0x8</BitWidth>
+										<Access>R</Access>
+									</Bit>
+									<Bit>
+										<Name>nb_added_stsecrets_2</Name>
+										<Description>Number of OTP words located in upper area [360- nb_added_stsecrets...359] that were provisioned with ST secrets</Description>
+										<BitOffset>0x1B</BitOffset>
+										<BitWidth>0x2</BitWidth>
 										<Access>R</Access>
 									</Bit>
 								</AssignedBits>
@@ -405,14 +405,14 @@
 									</Bit>
 									<Bit>
 										<Name>sdmmc1_not_default_af</Name>
-										<Description>0: SDMMC1 uses default hard coded AFMUX. 1: SDMMC1 uses AFMUX defined in OTP</Description>
+										<Description>SDMMC1 default Afmux usage</Description>
 										<BitOffset>0x1</BitOffset>
 										<BitWidth>0x1</BitWidth>
 										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>sdmmc2_not_default_af</Name>
-										<Description>0: SDMMC2 uses default hard coded AFMUX. 1: SDMMC2 uses AFMUX defined in OTP</Description>
+										<Description>SDMMC2 default Afmux usage</Description>
 										<BitOffset>0x2</BitOffset>
 										<BitWidth>0x1</BitWidth>
 										<Access>RW</Access>
@@ -425,7 +425,7 @@
 										<Access>RW</Access>
 									</Bit>
 									<Bit>
-										<Name>uart_instances_disabled</Name>
+										<Name>disable_uart</Name>
 										<Description>Disable instance 0x1: USART2 0x2: USART5 0x4: USART6 0x8: USART8 0x10: USART9 </Description>
 										<BitOffset>0xa</BitOffset>
 										<BitWidth>0x5</BitWidth>
@@ -459,13 +459,6 @@
 										<BitWidth>0x4</BitWidth>
 										<Access>RW</Access>
 									</Bit>
-									<Bit>
-										<Name>dont_boot_on_cfm_tamper</Name>
-										<Description>HSE frequency 0: boot on confirmed tamper 1: do not boot on confirmed tamper</Description>
-										<BitOffset>0x1E</BitOffset>
-										<BitWidth>0x1</BitWidth>
-										<Access>RW</Access>
-									</Bit>
 								</AssignedBits>
 							</Field>
 					</Category>
@@ -479,12 +472,19 @@
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>Status12</Name>
 										<Description>Status</Description>
 										<BitOffset>0x4</BitOffset>
+										<BitWidth>0x20</BitWidth>
+										<Access>R</Access>
+									</Bit>
+									<Bit>
+										<Name>oem_fsbla_monotonic_counter</Name>
+										<Description>OEM FSBL-A image version monotonic counter</Description>
+										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
 										<Access>R</Access>
 									</Bit>
@@ -501,7 +501,7 @@
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>Status13</Name>
@@ -512,59 +512,59 @@
 									</Bit>
 									<Bit>
 										<Name>mode0</Name>
-										<Description></Description>
+										<Description>IO mode</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x4</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>afmux0</Name>
 										<Description>AF mux value between 0 and 15</Description>
 										<BitOffset>0x4</BitOffset>
 										<BitWidth>0x4</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>pin0</Name>
 										<Description>pin id between 0 and 15 for GPIOA to GPIOJ and between 0 and 7 for GPIOK and GPIOZ</Description>
 										<BitOffset>0x8</BitOffset>
 										<BitWidth>0x4</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>port0</Name>
 										<Description>0: Unused 1: Bank A 2: Bank B 3: Bank C 4: Bank D 5: Bank E 6: Bank F 7: Bank G 8: Bank H 9: Bank I 10: Bank J 11: Bank K 12: Bank Z</Description>
 										<BitOffset>0xC</BitOffset>
 										<BitWidth>0x4</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>mode1</Name>
 										<Description>idem to mode0</Description>
 										<BitOffset>0x10</BitOffset>
 										<BitWidth>0x4</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>afmux1</Name>
 										<Description>idem to afmux0</Description>
 										<BitOffset>0x14</BitOffset>
 										<BitWidth>0x4</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 										<Bit>
 										<Name>pin1</Name>
 										<Description>idem to pin0</Description>
 										<BitOffset>0x18</BitOffset>
 										<BitWidth>0x4</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>port1</Name>
 										<Description>idem to port0</Description>
 										<BitOffset>0x1C</BitOffset>
 										<BitWidth>0x4</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 								</AssignedBits>
 							</Field>
@@ -579,7 +579,7 @@
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>Status14</Name>
@@ -593,56 +593,56 @@
 										<Description>idem to mode0</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x4</BitWidth>
-									<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>afmux2</Name>
 										<Description>idem to afmux0</Description>
 										<BitOffset>0x4</BitOffset>
 										<BitWidth>0x4</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>pin2</Name>
 										<Description>idem to pin0</Description>
 										<BitOffset>0x8</BitOffset>
 										<BitWidth>0x4</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>								
 									<Bit>
 										<Name>port2</Name>
 										<Description>idem to port0</Description>
 										<BitOffset>0xC</BitOffset>
 										<BitWidth>0x4</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>								
 									<Bit>
 										<Name>mode3</Name>
 										<Description>idem to mode0</Description>
 										<BitOffset>0x10</BitOffset>
 										<BitWidth>0x4</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>afmux3</Name>
 										<Description>idem to afmux0</Description>
 										<BitOffset>0x14</BitOffset>
 										<BitWidth>0x4</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>pin3</Name>
 										<Description>idem to pin0</Description>
 										<BitOffset>0x18</BitOffset>
 										<BitWidth>0x4</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>port3</Name>
 										<Description>idem to port0</Description>
 										<BitOffset>0x1C</BitOffset>
 										<BitWidth>0x4</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 								</AssignedBits>
 							</Field>
@@ -657,7 +657,7 @@
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>Status15</Name>
@@ -671,56 +671,56 @@
 										<Description>idem to mode0</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x4</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>afmux4</Name>
 										<Description>idem to afmux0</Description>
 										<BitOffset>0x4</BitOffset>
 										<BitWidth>0x4</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>pin4</Name>
 										<Description>idem to pin0</Description>
 										<BitOffset>0x8</BitOffset>
 										<BitWidth>0x4</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>								
 									<Bit>
 										<Name>port4</Name>
 										<Description>idem to port0</Description>
 										<BitOffset>0xC</BitOffset>
 										<BitWidth>0x4</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>								
 									<Bit>
 										<Name>mode5</Name>
 										<Description>idem to mode0</Description>
 										<BitOffset>0x10</BitOffset>
 										<BitWidth>0x4</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>afmux5</Name>
 										<Description>idem to afmux0</Description>
 										<BitOffset>0x14</BitOffset>
 										<BitWidth>0x4</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>pin5</Name>
 										<Description>idem to pin0</Description>
 										<BitOffset>0x18</BitOffset>
 										<BitWidth>0x4</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>port5</Name>
 										<Description>idem to port0</Description>
 										<BitOffset>0x1C</BitOffset>
 										<BitWidth>0x4</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 								</AssignedBits>
 							</Field>
@@ -766,7 +766,7 @@
 										<Access>RW</Access>
 									</Bit>
 									<Bit>
-										<Name>ddr_pwr_optim_disable</Name>
+										<Name>disable_blocking_failure_traces</Name>
 										<Description>0: No 1: Yes</Description>
 										<BitOffset>0x3</BitOffset>
 										<BitWidth>0x1</BitWidth>
@@ -780,8 +780,8 @@
 										<Access>RW</Access>
 									</Bit>
 									<Bit>
-										<Name>fmc_for_hw_reset</Name>
-										<Description>0: Use software procedure to reset FMC. 1: use RCC to reset FMC.</Description>
+										<Name>fmc_force_sw_reset</Name>
+										<Description>0: Use RCC to reset FMC. 1: Use software procedure to reset FMC without impacting CM33.</Description>
 										<BitOffset>0x5</BitOffset>
 										<BitWidth>0x1</BitWidth>
 										<Access>RW</Access>
@@ -809,14 +809,14 @@
 									</Bit>									
 									<Bit>
 										<Name>iomgr_port</Name>
-										<Description>IOMGR port connected to OCTOSPI1, 0: Port 1, 1: Port 2</Description>
+										<Description>IO manager port selection 0: Port 1, 1: Port 2</Description>
 										<BitOffset>0x9</BitOffset>
 										<BitWidth>0x1</BitWidth>
 										<Access>RW</Access>
 									</Bit>	
 									<Bit>
 										<Name>iomgr_mux</Name>
-										<Description>IOMGR mux is enabled: 0: no. 1: yes</Description>
+										<Description>IO manager port muxing enable: 0: no. 1: yes</Description>
 										<BitOffset>0xA</BitOffset>
 										<BitWidth>0x1</BitWidth>
 										<Access>RW</Access>
@@ -837,7 +837,7 @@
 									</Bit>
 									<Bit>
 										<Name>pnand_number_of_ecc_bits_1</Name>
-										<Description></Description>
+										<Description>0 (unset): ECC unset - 1 (hamming): ECC 1bit (Hamming) - 2 (bch4): ECC 4bit (BCH4) - 3 (bch8): ECC 8bit (BCH8) - 4 (ondie): on-die ECC</Description>
 										<BitOffset>0xF</BitOffset>
 										<BitWidth>0x3</BitWidth>
 										<Access>RW</Access>
@@ -890,7 +890,7 @@
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>Status17</Name>
@@ -900,11 +900,18 @@
 										<Access>R</Access>
 									</Bit>
 									<Bit>
-										<Name>ecdsa_active_key</Name>
-										<Description>Active OEM root key index</Description>
+										<Name>oem_active_signing_key1</Name>
+										<Description>monotonic key index of active signing key used for OEM-FSBL authentication.</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x8</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
+									</Bit>
+									<Bit>
+										<Name>oem_keys2_enable</Name>
+										<Description>0:No keys2 are not used, 1:Yes keys2 are enabled</Description>
+										<BitOffset>0x8</BitOffset>
+										<BitWidth>0x1</BitWidth>
+										<Access>R</Access>
 									</Bit>
 								</AssignedBits>
 							</Field>
@@ -930,23 +937,44 @@
 									</Bit>
 									<Bit>
 										<Name>secure_boot</Name>
-										<Description>0 = CLOSED_UNSECURE, 1 = CLOSED_SECURE</Description>
+										<Description>0 (unlocked): device is in CLOSED_UNLOCKED state. Secure boot is not enforced (FSBL authentication is not mandatory). [1-15] (locked): device is in CLOSED_LOCKED state. Secure boot is enforced (FSBL authentication is mandatory).</Description>
 										<BitOffset>0x0</BitOffset>
-										<BitWidth>0x1</BitWidth>
+										<BitWidth>0x4</BitWidth>
 										<Access>RW</Access>
 									</Bit>
 									<Bit>
-										<Name>SSP_REQ</Name>
-										<Description>0: SSP not started, 1: SSP started</Description>
-										<BitOffset>0x1</BitOffset>
-										<BitWidth>0x1</BitWidth>
+										<Name>prov_done</Name>
+										<Description>0: RSSE provisioning is not done [1-15]: RSSE provisioning is done</Description>
+										<BitOffset>0x4</BitOffset>
+										<BitWidth>0x4</BitWidth>
 										<Access>RW</Access>
 									</Bit>
 									<Bit>
-										<Name>SSP_SUCCESS</Name>
-										<Description>0: SSP not successfully finished, 1: SSP successfully finished</Description>
-										<BitOffset>0x2</BitOffset>
-										<BitWidth>0x1</BitWidth>
+										<Name>debug_lock</Name>
+										<Description>0: does not lock debug enabling [1-15]: locks debug enabling</Description>
+										<BitOffset>0x8</BitOffset>
+										<BitWidth>0x4</BitWidth>
+										<Access>RW</Access>
+									</Bit>
+									<Bit>
+										<Name>otp_prov_done</Name>
+										<Description>0: RSSe OTP provisioning is not done [1-15]: RSSe OTP provisioning part done, used to manage RSSe extension issue</Description>
+										<BitOffset>0xC</BitOffset>
+										<BitWidth>0x4</BitWidth>
+										<Access>RW</Access>
+									</Bit>
+									<Bit>
+										<Name>nb_added_stsecrets</Name>
+										<Description>Nb of OTP words located in upper area [360-nb_added_stsecrets..359] that were provisioned (in encrypted mode) with ST secrets. Those will be decoded and used by RSSE firmware. Coding up to 64 ST secrets to provision in EWS (with DEV_BOOT).</Description>
+										<BitOffset>0x10</BitOffset>
+										<BitWidth>0x6</BitWidth>
+										<Access>RW</Access>
+									</Bit>
+									<Bit>
+										<Name>rsse_nb_attempts</Name>
+										<Description>Monotonic counter to check the number of RSSe retry when an issue occurred during the provisioning process. The number is limited to 4 retries.</Description>
+										<BitOffset>0x16</BitOffset>
+										<BitWidth>0x4</BitWidth>
 										<Access>RW</Access>
 									</Bit>
 								</AssignedBits>
@@ -962,7 +990,7 @@
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>Status19</Name>
@@ -972,11 +1000,11 @@
 										<Access>R</Access>
 									</Bit>
 									<Bit>
-										<Name>FSBL-M version</Name>
-										<Description>Value of monotonic counter is the position of the most significant bit at 1.</Description>
+										<Name>oem_fsblm_monotonic_counter</Name>
+										<Description>OEM FSBL-M image version monotonic counter</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 								</AssignedBits>
 							</Field>
@@ -1009,43 +1037,78 @@
 									</Bit>
 									<Bit>
 										<Name>snand_need_plane_select_2</Name>
-										<Description>0:SPI NAND plane select not need, 1:SPI NAND plane select is needed</Description>
-										<BitOffset>0xE</BitOffset>
+										<Description>0 (no): Serial NAND plane select is not needed 1 (yes): Serial NAND plane select is need</Description>
+										<BitOffset>0x1</BitOffset>
 										<BitWidth>0x1</BitWidth>
 										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>pnand_number_of_ecc_bits_2</Name>
-										<Description></Description>
-										<BitOffset>0xF</BitOffset>
+										<Description>0 (unset): ECC unset 1 (hamming): ECC 1bit (Hamming) 2 (bch4): ECC 4bit (BCH4) 3 (bch8): ECC 8bit (BCH8) 4 (ondie): on-die ECC</Description>
+										<BitOffset>0x3</BitOffset>
 										<BitWidth>0x3</BitWidth>
 										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>pnand_bus_width_2</Name>
-										<Description>0:8 bit, 1:16 bit</Description>
-										<BitOffset>0x12</BitOffset>
+										<Description>0 (8-bits): data width is 8-bits 1 (16-bits): data width is 16-bits</Description>
+										<BitOffset>0x5</BitOffset>
 										<BitWidth>0x1</BitWidth>
 										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>nand_nb_of_blocks_2</Name>
-										<Description>Number of blocks in unit of 256 blocks</Description>
-										<BitOffset>0x13</BitOffset>
+										<Description>[1-256]: Number of block = 256 * value</Description>
+										<BitOffset>0x6</BitOffset>
 										<BitWidth>0x8</BitWidth>
 										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>nand_block_size_2</Name>
-										<Description>0:64 pages per block, 1:128 pages per block 2:256 pages per block</Description>
-										<BitOffset>0x1B</BitOffset>
+										<Description>[1-4]: Block size in number of pages</Description>
+										<BitOffset>0xE</BitOffset>
 										<BitWidth>0x2</BitWidth>
 										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>nand_page_size_2</Name>
-										<Description>0:2 Kbytes, 1:4 Kbytes, 2:8 Kbytes</Description>
-										<BitOffset>0x1D</BitOffset>
+										<Description>0 (64): 64 pages per block 1 (128): 128 pages per block 2 (256): 256 pages per block</Description>
+										<BitOffset>0x10</BitOffset>
+										<BitWidth>0x2</BitWidth>
+										<Access>RW</Access>
+									</Bit>
+									<Bit>
+										<Name>hyperflash_3V3_device</Name>
+										<Description>0:No  1:Yes is HyperFlash a 3.3V device</Description>
+										<BitOffset>0x12</BitOffset>
+										<BitWidth>0x1</BitWidth>
+										<Access>RW</Access>
+									</Bit>
+									<Bit>
+										<Name>rng_htcr_value</Name>
+										<Description>0: default value, RNG HTCR not modified 1: 0xA2B3 2: 0xAA74 3: 0xA6BA 4: 0x9AAE 5: 0x72AC 6: 0xAAC7 other: default value, RNG HTCR not modified</Description>
+										<BitOffset>0x13</BitOffset>
+										<BitWidth>0x3</BitWidth>
+										<Access>RW</Access>
+									</Bit>
+									<Bit>
+										<Name>ospi_io_speed_ovrw</Name>
+										<Description>0 (no): OSPI io speed is not overwritten by otp configuration 1 (yes): OSPI io speed is overwritten by otp configuration</Description>
+										<BitOffset>0x16</BitOffset>
+										<BitWidth>0x1</BitWidth>
+										<Access>RW</Access>
+									</Bit>
+									<Bit>
+										<Name>ospi_io_speed_clk_nclk</Name>
+										<Description>0b00 (low): low speed. 0b01 (medium): medium speed. 0b10 (high): high speed 0b11 (very_high): very high speed</Description>
+										<BitOffset>0x17</BitOffset>
+										<BitWidth>0x2</BitWidth>
+										<Access>RW</Access>
+									</Bit>
+									<Bit>
+										<Name>ospi_io_speed_data_cs</Name>
+										<Description>0b00 (low): low speed. 0b01 (medium): medium speed. 0b10 (high): high speed 0b11 (very_high): very high speed</Description>
+										<BitOffset>0x19</BitOffset>
 										<BitWidth>0x2</BitWidth>
 										<Access>RW</Access>
 									</Bit>
@@ -1071,6 +1134,13 @@
 										<BitWidth>0x20</BitWidth>
 										<Access>R</Access>
 									</Bit>
+									<Bit>
+										<Name>rssefw_version_monotonic_counter</Name>
+										<Description>Monotonic version number of RSSe FW [1-0xFFFF] - [1-32]: Value of monotonic counter is X where X is position of the most significant bit at 1.</Description>
+										<BitOffset>0x0</BitOffset>
+										<BitWidth>0x20</BitWidth>
+										<Access>RW</Access>
+									</Bit>
 								</AssignedBits>
 							</Field>
 					</Category>
@@ -1093,20 +1163,27 @@
 										<BitWidth>0x20</BitWidth>
 										<Access>R</Access>
 									</Bit>
+									<Bit>
+										<Name>oem_active_signing_key2</Name>
+										<Description>monotonic key index of active signing key used for OEM-FSBLM authentication when second set of OEM keys is enabled.</Description>
+										<BitOffset>0x0</BitOffset>
+										<BitWidth>0x8</BitWidth>
+										<Access>RW</Access>
+									</Bit>
 								</AssignedBits>
 							</Field>
 					</Category>
 					<Category>
 						<Name>OTP23</Name>
 							<Field>
-								<Parameters address="0xC0" name="Reserved" size="0x8"/>
+								<Parameters address="0xC0" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data23</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status23</Name>
@@ -1121,14 +1198,14 @@
 					<Category>
 						<Name>OTP24</Name>
 							<Field>
-								<Parameters address="0xC8" name="Reserved" size="0x8"/>
+								<Parameters address="0xC8" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data24</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status24</Name>
@@ -1143,14 +1220,14 @@
 					<Category>
 						<Name>OTP25</Name>
 							<Field>
-								<Parameters address="0xD0" name="Reserved" size="0x8"/>
+								<Parameters address="0xD0" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data25</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status25</Name>
@@ -1165,14 +1242,14 @@
 					<Category>
 						<Name>OTP26</Name>
 							<Field>
-								<Parameters address="0xD8" name="Reserved" size="0x8"/>
+								<Parameters address="0xD8" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data26</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status26</Name>
@@ -1187,14 +1264,14 @@
 					<Category>
 						<Name>OTP27</Name>
 							<Field>
-								<Parameters address="0xE0" name="Reserved" size="0x8"/>
+								<Parameters address="0xE0" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data27</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status27</Name>
@@ -1209,14 +1286,14 @@
 					<Category>
 						<Name>OTP28</Name>
 							<Field>
-								<Parameters address="0xE8" name="Reserved" size="0x8"/>
+								<Parameters address="0xE8" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data28</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status28</Name>
@@ -1231,14 +1308,14 @@
 					<Category>
 						<Name>OTP29</Name>
 							<Field>
-								<Parameters address="0xF0" name="Reserved" size="0x8"/>
+								<Parameters address="0xF0" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data29</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status29</Name>
@@ -1253,14 +1330,14 @@
 					<Category>
 						<Name>OTP30</Name>
 							<Field>
-								<Parameters address="0xF8" name="Reserved" size="0x8"/>
+								<Parameters address="0xF8" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data30</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status30</Name>
@@ -1275,14 +1352,14 @@
 					<Category>
 						<Name>OTP31</Name>
 							<Field>
-								<Parameters address="0x100" name="Reserved" size="0x8"/>
+								<Parameters address="0x100" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data31</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status31</Name>
@@ -1297,14 +1374,14 @@
 					<Category>
 						<Name>OTP32</Name>
 							<Field>
-								<Parameters address="0x108" name="Reserved" size="0x8"/>
+								<Parameters address="0x108" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data32</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status32</Name>
@@ -1319,14 +1396,14 @@
 					<Category>
 						<Name>OTP33</Name>
 							<Field>
-								<Parameters address="0x110" name="Reserved" size="0x8"/>
+								<Parameters address="0x110" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data33</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status33</Name>
@@ -1341,14 +1418,14 @@
 					<Category>
 						<Name>OTP34</Name>
 							<Field>
-								<Parameters address="0x118" name="Reserved" size="0x8"/>
+								<Parameters address="0x118" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data34</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status34</Name>
@@ -1363,14 +1440,14 @@
 					<Category>
 						<Name>OTP35</Name>
 							<Field>
-								<Parameters address="0x120" name="Reserved" size="0x8"/>
+								<Parameters address="0x120" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data35</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status35</Name>
@@ -1385,14 +1462,14 @@
 					<Category>
 						<Name>OTP36</Name>
 							<Field>
-								<Parameters address="0x128" name="Reserved" size="0x8"/>
+								<Parameters address="0x128" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data36</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status36</Name>
@@ -1407,14 +1484,14 @@
 					<Category>
 						<Name>OTP37</Name>
 							<Field>
-								<Parameters address="0x130" name="Reserved" size="0x8"/>
+								<Parameters address="0x130" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data37</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status37</Name>
@@ -1429,14 +1506,14 @@
 					<Category>
 						<Name>OTP38</Name>
 							<Field>
-								<Parameters address="0x138" name="Reserved" size="0x8"/>
+								<Parameters address="0x138" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data38</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status38</Name>
@@ -1451,14 +1528,14 @@
 					<Category>
 						<Name>OTP39</Name>
 							<Field>
-								<Parameters address="0x140" name="Reserved" size="0x8"/>
+								<Parameters address="0x140" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data39</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status39</Name>
@@ -1473,14 +1550,14 @@
 					<Category>
 						<Name>OTP40</Name>
 							<Field>
-								<Parameters address="0x148" name="Reserved" size="0x8"/>
+								<Parameters address="0x148" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data40</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status40</Name>
@@ -1495,14 +1572,14 @@
 					<Category>
 						<Name>OTP41</Name>
 							<Field>
-								<Parameters address="0x150" name="Reserved" size="0x8"/>
+								<Parameters address="0x150" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data41</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status41</Name>
@@ -1517,14 +1594,14 @@
 					<Category>
 						<Name>OTP42</Name>
 							<Field>
-								<Parameters address="0x158" name="Reserved" size="0x8"/>
+								<Parameters address="0x158" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data42</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status42</Name>
@@ -1539,14 +1616,14 @@
 					<Category>
 						<Name>OTP43</Name>
 							<Field>
-								<Parameters address="0x160" name="Reserved" size="0x8"/>
+								<Parameters address="0x160" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data43</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status43</Name>
@@ -1561,14 +1638,14 @@
 					<Category>
 						<Name>OTP44</Name>
 							<Field>
-								<Parameters address="0x168" name="Reserved" size="0x8"/>
+								<Parameters address="0x168" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data44</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status44</Name>
@@ -1583,14 +1660,14 @@
 					<Category>
 						<Name>OTP45</Name>
 							<Field>
-								<Parameters address="0x170" name="Reserved" size="0x8"/>
+								<Parameters address="0x170" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data45</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status45</Name>
@@ -1605,14 +1682,14 @@
 					<Category>
 						<Name>OTP46</Name>
 							<Field>
-								<Parameters address="0x178" name="Reserved" size="0x8"/>
+								<Parameters address="0x178" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data46</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status46</Name>
@@ -1627,14 +1704,14 @@
 					<Category>
 						<Name>OTP47</Name>
 							<Field>
-								<Parameters address="0x180" name="Reserved" size="0x8"/>
+								<Parameters address="0x180" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data47</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status47</Name>
@@ -1649,14 +1726,14 @@
 					<Category>
 						<Name>OTP48</Name>
 							<Field>
-								<Parameters address="0x188" name="Reserved" size="0x8"/>
+								<Parameters address="0x188" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data48</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status48</Name>
@@ -1671,14 +1748,14 @@
 					<Category>
 						<Name>OTP49</Name>
 							<Field>
-								<Parameters address="0x190" name="Reserved" size="0x8"/>
+								<Parameters address="0x190" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data49</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status49</Name>
@@ -1693,14 +1770,14 @@
 					<Category>
 						<Name>OTP50</Name>
 							<Field>
-								<Parameters address="0x198" name="Reserved" size="0x8"/>
+								<Parameters address="0x198" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data50</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status50</Name>
@@ -1715,14 +1792,14 @@
 					<Category>
 						<Name>OTP51</Name>
 							<Field>
-								<Parameters address="0x1A0" name="Reserved" size="0x8"/>
+								<Parameters address="0x1A0" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data51</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status51</Name>
@@ -1737,14 +1814,14 @@
 					<Category>
 						<Name>OTP52</Name>
 							<Field>
-								<Parameters address="0x1A8" name="Reserved" size="0x8"/>
+								<Parameters address="0x1A8" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data52</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status52</Name>
@@ -1759,14 +1836,14 @@
 					<Category>
 						<Name>OTP53</Name>
 							<Field>
-								<Parameters address="0x1B0" name="Reserved" size="0x8"/>
+								<Parameters address="0x1B0" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data53</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status53</Name>
@@ -1781,14 +1858,14 @@
 					<Category>
 						<Name>OTP54</Name>
 							<Field>
-								<Parameters address="0x1B8" name="Reserved" size="0x8"/>
+								<Parameters address="0x1B8" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data54</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status54</Name>
@@ -1803,14 +1880,14 @@
 					<Category>
 						<Name>OTP55</Name>
 							<Field>
-								<Parameters address="0x1C0" name="Reserved" size="0x8"/>
+								<Parameters address="0x1C0" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data55</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status55</Name>
@@ -1825,14 +1902,14 @@
 					<Category>
 						<Name>OTP56</Name>
 							<Field>
-								<Parameters address="0x1C8" name="Reserved" size="0x8"/>
+								<Parameters address="0x1C8" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data56</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status56</Name>
@@ -1847,14 +1924,14 @@
 					<Category>
 						<Name>OTP57</Name>
 							<Field>
-								<Parameters address="0x1D0" name="Reserved" size="0x8"/>
+								<Parameters address="0x1D0" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data57</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status57</Name>
@@ -1869,14 +1946,14 @@
 					<Category>
 						<Name>OTP58</Name>
 							<Field>
-								<Parameters address="0x1D8" name="Reserved" size="0x8"/>
+								<Parameters address="0x1D8" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data58</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status58</Name>
@@ -1891,14 +1968,14 @@
 					<Category>
 						<Name>OTP59</Name>
 							<Field>
-								<Parameters address="0x1E0" name="Reserved" size="0x8"/>
+								<Parameters address="0x1E0" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data59</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status59</Name>
@@ -1913,14 +1990,14 @@
 					<Category>
 						<Name>OTP60</Name>
 							<Field>
-								<Parameters address="0x1E8" name="Reserved" size="0x8"/>
+								<Parameters address="0x1E8" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data60</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status60</Name>
@@ -1935,14 +2012,14 @@
 					<Category>
 						<Name>OTP61</Name>
 							<Field>
-								<Parameters address="0x1F0" name="Reserved" size="0x8"/>
+								<Parameters address="0x1F0" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data61</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status61</Name>
@@ -1957,14 +2034,14 @@
 					<Category>
 						<Name>OTP62</Name>
 							<Field>
-								<Parameters address="0x1F8" name="Reserved" size="0x8"/>
+								<Parameters address="0x1F8" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data62</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status62</Name>
@@ -1979,14 +2056,14 @@
 					<Category>
 						<Name>OTP63</Name>
 							<Field>
-								<Parameters address="0x200" name="Reserved" size="0x8"/>
+								<Parameters address="0x200" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data63</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status63</Name>
@@ -2001,14 +2078,14 @@
 					<Category>
 						<Name>OTP64</Name>
 							<Field>
-								<Parameters address="0x208" name="Reserved" size="0x8"/>
+								<Parameters address="0x208" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data64</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status64</Name>
@@ -2023,14 +2100,14 @@
 					<Category>
 						<Name>OTP65</Name>
 							<Field>
-								<Parameters address="0x210" name="Reserved" size="0x8"/>
+								<Parameters address="0x210" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data65</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status65</Name>
@@ -2045,14 +2122,14 @@
 					<Category>
 						<Name>OTP66</Name>
 							<Field>
-								<Parameters address="0x218" name="Reserved" size="0x8"/>
+								<Parameters address="0x218" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data66</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status66</Name>
@@ -2067,14 +2144,14 @@
 					<Category>
 						<Name>OTP67</Name>
 							<Field>
-								<Parameters address="0x220" name="Reserved" size="0x8"/>
+								<Parameters address="0x220" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data67</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status67</Name>
@@ -2089,14 +2166,14 @@
 					<Category>
 						<Name>OTP68</Name>
 							<Field>
-								<Parameters address="0x228" name="Reserved" size="0x8"/>
+								<Parameters address="0x228" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data68</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status68</Name>
@@ -2111,14 +2188,14 @@
 					<Category>
 						<Name>OTP69</Name>
 							<Field>
-								<Parameters address="0x230" name="Reserved" size="0x8"/>
+								<Parameters address="0x230" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data69</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status69</Name>
@@ -2133,14 +2210,14 @@
 					<Category>
 						<Name>OTP70</Name>
 							<Field>
-								<Parameters address="0x238" name="Reserved" size="0x8"/>
+								<Parameters address="0x238" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data70</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status70</Name>
@@ -2155,14 +2232,14 @@
 					<Category>
 						<Name>OTP71</Name>
 							<Field>
-								<Parameters address="0x240" name="Reserved" size="0x8"/>
+								<Parameters address="0x240" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data71</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status71</Name>
@@ -2177,14 +2254,14 @@
 					<Category>
 						<Name>OTP72</Name>
 							<Field>
-								<Parameters address="0x248" name="Reserved" size="0x8"/>
+								<Parameters address="0x248" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data72</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status72</Name>
@@ -2199,14 +2276,14 @@
 					<Category>
 						<Name>OTP73</Name>
 							<Field>
-								<Parameters address="0x250" name="Reserved" size="0x8"/>
+								<Parameters address="0x250" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data73</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status73</Name>
@@ -2221,14 +2298,14 @@
 					<Category>
 						<Name>OTP74</Name>
 							<Field>
-								<Parameters address="0x258" name="Reserved" size="0x8"/>
+								<Parameters address="0x258" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data74</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status74</Name>
@@ -2243,14 +2320,14 @@
 					<Category>
 						<Name>OTP75</Name>
 							<Field>
-								<Parameters address="0x260" name="Reserved" size="0x8"/>
+								<Parameters address="0x260" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data75</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status75</Name>
@@ -2265,14 +2342,14 @@
 					<Category>
 						<Name>OTP76</Name>
 							<Field>
-								<Parameters address="0x268" name="Reserved" size="0x8"/>
+								<Parameters address="0x268" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data76</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status76</Name>
@@ -2287,14 +2364,14 @@
 					<Category>
 						<Name>OTP77</Name>
 							<Field>
-								<Parameters address="0x270" name="Reserved" size="0x8"/>
+								<Parameters address="0x270" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data77</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status77</Name>
@@ -2309,14 +2386,14 @@
 					<Category>
 						<Name>OTP78</Name>
 							<Field>
-								<Parameters address="0x278" name="Reserved" size="0x8"/>
+								<Parameters address="0x278" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data78</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status78</Name>
@@ -2331,14 +2408,14 @@
 					<Category>
 						<Name>OTP79</Name>
 							<Field>
-								<Parameters address="0x280" name="Reserved" size="0x8"/>
+								<Parameters address="0x280" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data79</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status79</Name>
@@ -2353,14 +2430,14 @@
 					<Category>
 						<Name>OTP80</Name>
 							<Field>
-								<Parameters address="0x288" name="Reserved" size="0x8"/>
+								<Parameters address="0x288" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data80</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status80</Name>
@@ -2375,14 +2452,14 @@
 					<Category>
 						<Name>OTP81</Name>
 							<Field>
-								<Parameters address="0x290" name="Reserved" size="0x8"/>
+								<Parameters address="0x290" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data81</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status81</Name>
@@ -2397,14 +2474,14 @@
 					<Category>
 						<Name>OTP82</Name>
 							<Field>
-								<Parameters address="0x298" name="Reserved" size="0x8"/>
+								<Parameters address="0x298" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data82</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status82</Name>
@@ -2419,14 +2496,14 @@
 					<Category>
 						<Name>OTP83</Name>
 							<Field>
-								<Parameters address="0x2A0" name="Reserved" size="0x8"/>
+								<Parameters address="0x2A0" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data83</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status83</Name>
@@ -2441,14 +2518,14 @@
 					<Category>
 						<Name>OTP84</Name>
 							<Field>
-								<Parameters address="0x2A8" name="Reserved" size="0x8"/>
+								<Parameters address="0x2A8" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data84</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status84</Name>
@@ -2463,14 +2540,14 @@
 					<Category>
 						<Name>OTP85</Name>
 							<Field>
-								<Parameters address="0x2B0" name="Reserved" size="0x8"/>
+								<Parameters address="0x2B0" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data85</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status85</Name>
@@ -2485,14 +2562,14 @@
 					<Category>
 						<Name>OTP86</Name>
 							<Field>
-								<Parameters address="0x2B8" name="Reserved" size="0x8"/>
+								<Parameters address="0x2B8" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data86</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status86</Name>
@@ -2507,14 +2584,14 @@
 					<Category>
 						<Name>OTP87</Name>
 							<Field>
-								<Parameters address="0x2C0" name="Reserved" size="0x8"/>
+								<Parameters address="0x2C0" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data87</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status87</Name>
@@ -2529,14 +2606,14 @@
 					<Category>
 						<Name>OTP88</Name>
 							<Field>
-								<Parameters address="0x2C8" name="Reserved" size="0x8"/>
+								<Parameters address="0x2C8" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data88</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status88</Name>
@@ -2551,14 +2628,14 @@
 					<Category>
 						<Name>OTP89</Name>
 							<Field>
-								<Parameters address="0x2D0" name="Reserved" size="0x8"/>
+								<Parameters address="0x2D0" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data89</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status89</Name>
@@ -2573,14 +2650,14 @@
 					<Category>
 						<Name>OTP90</Name>
 							<Field>
-								<Parameters address="0x2D8" name="Reserved" size="0x8"/>
+								<Parameters address="0x2D8" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data90</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status90</Name>
@@ -2595,14 +2672,14 @@
 					<Category>
 						<Name>OTP91</Name>
 							<Field>
-								<Parameters address="0x2E0" name="Reserved" size="0x8"/>
+								<Parameters address="0x2E0" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data91</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status91</Name>
@@ -2617,14 +2694,14 @@
 					<Category>
 						<Name>OTP92</Name>
 							<Field>
-								<Parameters address="0x2E8" name="Reserved" size="0x8"/>
+								<Parameters address="0x2E8" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data92</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status92</Name>
@@ -2639,14 +2716,14 @@
 					<Category>
 						<Name>OTP93</Name>
 							<Field>
-								<Parameters address="0x2F0" name="Reserved" size="0x8"/>
+								<Parameters address="0x2F0" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data93</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status93</Name>
@@ -2661,14 +2738,14 @@
 					<Category>
 						<Name>OTP94</Name>
 							<Field>
-								<Parameters address="0x2F8" name="Reserved" size="0x8"/>
+								<Parameters address="0x2F8" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data94</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status94</Name>
@@ -2683,14 +2760,14 @@
 					<Category>
 						<Name>OTP95</Name>
 							<Field>
-								<Parameters address="0x300" name="Reserved" size="0x8"/>
+								<Parameters address="0x300" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data95</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status95</Name>
@@ -2705,14 +2782,14 @@
 					<Category>
 						<Name>OTP96</Name>
 							<Field>
-								<Parameters address="0x308" name="Reserved" size="0x8"/>
+								<Parameters address="0x308" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data96</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status96</Name>
@@ -2727,14 +2804,14 @@
 					<Category>
 						<Name>OTP97</Name>
 							<Field>
-								<Parameters address="0x310" name="Reserved" size="0x8"/>
+								<Parameters address="0x310" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data97</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status97</Name>
@@ -2749,14 +2826,14 @@
 					<Category>
 						<Name>OTP98</Name>
 							<Field>
-								<Parameters address="0x318" name="Reserved" size="0x8"/>
+								<Parameters address="0x318" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data98</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status98</Name>
@@ -2771,14 +2848,14 @@
 					<Category>
 						<Name>OTP99</Name>
 							<Field>
-								<Parameters address="0x320" name="Reserved" size="0x8"/>
+								<Parameters address="0x320" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data99</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status99</Name>
@@ -2793,14 +2870,14 @@
 					<Category>
 						<Name>OTP100</Name>
 							<Field>
-								<Parameters address="0x328" name="Reserved" size="0x8"/>
+								<Parameters address="0x328" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data100</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status100</Name>
@@ -2815,14 +2892,14 @@
 					<Category>
 						<Name>OTP101</Name>
 							<Field>
-								<Parameters address="0x330" name="Reserved" size="0x8"/>
+								<Parameters address="0x330" name="Available to customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data101</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>R</Access>
+										<Access>RW</Access>
 									</Bit>
 									<Bit>
 										<Name>Status101</Name>
@@ -2837,7 +2914,7 @@
 					<Category>
 						<Name>OTP102</Name>
 							<Field>
-								<Parameters address="0x338" name="Reserved" size="0x8"/>
+								<Parameters address="0x338" name="REV_ID" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data102</Name>
@@ -2859,7 +2936,7 @@
 					<Category>
 						<Name>OTP103</Name>
 							<Field>
-								<Parameters address="0x340" name="Reserved" size="0x8"/>
+								<Parameters address="0x340" name="CRC_HSM" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data103</Name>
@@ -3455,36 +3532,36 @@
 										<Access>R</Access>
 									</Bit>
 									<Bit>
-										<Name>VDDIO4_IOCOMP</Name>
-										<Description>VDDIO4 I/O segment compensation trimming</Description>
+										<Name>OCTOSPI2_IOCOMP</Name>
+										<Description>OCTOSPI2 IO segment compensation trim</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x4</BitWidth>
 										<Access>R</Access>
 									</Bit>
 									<Bit>
-										<Name>VDDIO3_IOCOMP</Name>
-										<Description>VDDIO3 /IO segment compensation trimming</Description>
+										<Name>OCTOSPI1_IOCOMP</Name>
+										<Description>OCTOSPI1 IO segment compensation trim</Description>
 										<BitOffset>0x4</BitOffset>
 										<BitWidth>0x4</BitWidth>
 										<Access>R</Access>
 									</Bit>
 									<Bit>
-										<Name>VDDIO2_IOCOMP</Name>
-										<Description>VDDIO2 I/O segment compensation trimming</Description>
+										<Name>EMMC_IOCOMP</Name>
+										<Description>EMMC IO segment compensation trim</Description>
 										<BitOffset>0x8</BitOffset>
 										<BitWidth>0x4</BitWidth>
 										<Access>R</Access>
 									</Bit>
 									<Bit>
-										<Name>VDDIO1_IOCOMP</Name>
-										<Description>VDDIO1 I/O segment compensation trimming</Description>
+										<Name>SD_IOCOMP</Name>
+										<Description>SD IO segment compensation trim</Description>
 										<BitOffset>0xc</BitOffset>
 										<BitWidth>0x4</BitWidth>
 										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>VDD_IOCOMP</Name>
-										<Description>VDD I/O segment compensation trimming</Description>
+										<Description>VDD I/O segment compensation trim</Description>
 										<BitOffset>0x10</BitOffset>
 										<BitWidth>0x4</BitWidth>
 										<Access>R</Access>
@@ -3498,7 +3575,7 @@
 									</Bit>
 										<Bit>
 										<Name>BSEC_AMBIANT_TRIM</Name>
-										<Description>USB Type-C CC1, 5.1 kΩ pull-down trimming (±10%)</Description>
+										<Description>BSEC local oscillator frequency trim at ambient temperature</Description>
 										<BitOffset>0x17</BitOffset>
 										<BitWidth>0x9</BitWidth>
 										<Access>R</Access>
@@ -3654,14 +3731,14 @@
 									</Bit>
 									<Bit>
 										<Name>SYSRAM_ERASE</Name>
-										<Description>1: SYSRAM upper half erased on reset</Description>
+										<Description>0: SYSRAM upper half not erased on reset 1: SYSRAM upper half erased on reset</Description>
 										<BitOffset>0x12</BitOffset>
 										<BitWidth>0x1</BitWidth>
 										<Access>RW</Access>
 									</Bit>
 									<Bit>
-										<Name>JTAG_TDO_DIS</Name>
-										<Description>JTAG TDO output is disabled on closed-secure device when this bit is 1</Description>
+										<Name>DISABLE_SCAN</Name>
+										<Description>Scan chains are disabled on CLOSED_UNLOCKED device when this bit is 1</Description>
 										<BitOffset>0x14</BitOffset>
 										<BitWidth>0x1</BitWidth>
 										<Access>RW</Access>
@@ -4090,7 +4167,7 @@
 					<Category>
 						<Name>OTP144</Name>
 							<Field>
-								<Parameters address="0x488" name="ROOTPUBKTH0" size="0x8"/>
+								<Parameters address="0x488" name="OEM_KEY1_ROT0" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data144</Name>
@@ -4112,7 +4189,7 @@
 					<Category>
 						<Name>OTP145</Name>
 							<Field>
-								<Parameters address="0x490" name="ROOTPUBKTH1" size="0x8"/>
+								<Parameters address="0x490" name="OEM_KEY1_ROT1" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data145</Name>
@@ -4134,7 +4211,7 @@
 					<Category>
 						<Name>OTP146</Name>
 							<Field>
-								<Parameters address="0x498" name="ROOTPUBKTH2" size="0x8"/>
+								<Parameters address="0x498" name="OEM_KEY1_ROT2" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data146</Name>
@@ -4156,7 +4233,7 @@
 					<Category>
 						<Name>OTP147</Name>
 							<Field>
-								<Parameters address="0x4A0" name="ROOTPUBKTH3" size="0x8"/>
+								<Parameters address="0x4A0" name="OEM_KEY1_ROT3" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data147</Name>
@@ -4178,7 +4255,7 @@
 					<Category>
 						<Name>OTP148</Name>
 							<Field>
-								<Parameters address="0x4A8" name="ROOTPUBKTH4" size="0x8"/>
+								<Parameters address="0x4A8" name="OEM_KEY1_ROT4" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data148</Name>
@@ -4200,7 +4277,7 @@
 					<Category>
 						<Name>OTP149</Name>
 							<Field>
-								<Parameters address="0x4B0" name="ROOTPUBKTH5" size="0x8"/>
+								<Parameters address="0x4B0" name="OEM_KEY1_ROT5" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data149</Name>
@@ -4222,7 +4299,7 @@
 					<Category>
 						<Name>OTP150</Name>
 							<Field>
-								<Parameters address="0x4B8" name="ROOTPUBKTH6" size="0x8"/>
+								<Parameters address="0x4B8" name="OEM_KEY1_ROT6" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data150</Name>
@@ -4244,7 +4321,7 @@
 					<Category>
 						<Name>OTP151</Name>
 							<Field>
-								<Parameters address="0x4C0" name="ROOTPUBKTH7" size="0x8"/>
+								<Parameters address="0x4C0" name="OEM_KEY1_ROT7" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data151</Name>
@@ -4266,7 +4343,7 @@
 					<Category>
 						<Name>OTP152</Name>
 							<Field>
-								<Parameters address="0x4C8" name="MAC_ADDR0_LOW" size="0x8"/>
+								<Parameters address="0x4C8" name="OEM_KEY2_ROT0" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data152</Name>
@@ -4288,7 +4365,7 @@
 					<Category>
 						<Name>OTP153</Name>
 							<Field>
-								<Parameters address="0x4D0" name="MAC_ADDR0_HIGH" size="0x8"/>
+								<Parameters address="0x4D0" name="OEM_KEY2_ROT1" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data153</Name>
@@ -4310,7 +4387,7 @@
 					<Category>
 						<Name>OTP154</Name>
 							<Field>
-								<Parameters address="0x4D8" name="MAC_ADDR1_LOW" size="0x8"/>
+								<Parameters address="0x4D8" name="OEM_KEY2_ROT2" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data154</Name>
@@ -4332,7 +4409,7 @@
 					<Category>
 						<Name>OTP155</Name>
 							<Field>
-								<Parameters address="0x4E0" name="MAC_ADDR1_HIGH" size="0x8"/>
+								<Parameters address="0x4E0" name="OEM_KEY2_ROT3" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data155</Name>
@@ -4354,7 +4431,7 @@
 					<Category>
 						<Name>OTP156</Name>
 							<Field>
-								<Parameters address="0x4E8" name="Available to customer" size="0x8"/>
+								<Parameters address="0x4E8" name="OEM_KEY2_ROT4" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data156</Name>
@@ -4376,7 +4453,7 @@
 					<Category>
 						<Name>OTP157</Name>
 							<Field>
-								<Parameters address="0x4F0" name="Available to customer" size="0x8"/>
+								<Parameters address="0x4F0" name="OEM_KEY2_ROT5" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data157</Name>
@@ -4398,7 +4475,7 @@
 					<Category>
 						<Name>OTP158</Name>
 							<Field>
-								<Parameters address="0x4F8" name="Available to customer" size="0x8"/>
+								<Parameters address="0x4F8" name="OEM_KEY2_ROT6" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data158</Name>
@@ -4420,7 +4497,7 @@
 					<Category>
 						<Name>OTP159</Name>
 							<Field>
-								<Parameters address="0x500" name="Available to customer" size="0x8"/>
+								<Parameters address="0x500" name="OEM_KEY2_ROT7" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data159</Name>
@@ -4442,14 +4519,14 @@
 					<Category>
 						<Name>OTP160</Name>
 							<Field>
-								<Parameters address="0x508" name="Available to customer" size="0x8"/>
+								<Parameters address="0x508" name="STM32PUBKEY0" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data160</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>Status160</Name>
@@ -4464,14 +4541,14 @@
 					<Category>
 						<Name>OTP161</Name>
 							<Field>
-								<Parameters address="0x510" name="Available to customer" size="0x8"/>
+								<Parameters address="0x510" name="STM32PUBKEY1" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data161</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>Status161</Name>
@@ -4486,14 +4563,14 @@
 					<Category>
 						<Name>OTP162</Name>
 							<Field>
-								<Parameters address="0x518" name="Available to customer" size="0x8"/>
+								<Parameters address="0x518" name="STM32PUBKEY2" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data162</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>Status162</Name>
@@ -4508,14 +4585,14 @@
 					<Category>
 						<Name>OTP163</Name>
 							<Field>
-								<Parameters address="0x520" name="Available to customer" size="0x8"/>
+								<Parameters address="0x520" name="STM32PUBKEY3" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data163</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>Status163</Name>
@@ -4530,14 +4607,14 @@
 					<Category>
 						<Name>OTP164</Name>
 							<Field>
-								<Parameters address="0x528" name="Available to customer" size="0x8"/>
+								<Parameters address="0x528" name="STM32PUBKEY4" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data164</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>Status164</Name>
@@ -4552,14 +4629,14 @@
 					<Category>
 						<Name>OTP165</Name>
 							<Field>
-								<Parameters address="0x530" name="Available to customer" size="0x8"/>
+								<Parameters address="0x530" name="STM32PUBKEY5" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data165</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>Status165</Name>
@@ -4574,14 +4651,14 @@
 					<Category>
 						<Name>OTP166</Name>
 							<Field>
-								<Parameters address="0x538" name="Available to customer" size="0x8"/>
+								<Parameters address="0x538" name="STM32PUBKEY6" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data166</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>Status166</Name>
@@ -4596,14 +4673,14 @@
 					<Category>
 						<Name>OTP167</Name>
 							<Field>
-								<Parameters address="0x540" name="Available to customer" size="0x8"/>
+								<Parameters address="0x540" name="STM32PUBKEY7" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data167</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>Status167</Name>
@@ -4618,14 +4695,14 @@
 					<Category>
 						<Name>OTP168</Name>
 							<Field>
-								<Parameters address="0x548" name="Available to customer" size="0x8"/>
+								<Parameters address="0x548" name="STM32PUBKEY8" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data168</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>Status168</Name>
@@ -4640,14 +4717,14 @@
 					<Category>
 						<Name>OTP169</Name>
 							<Field>
-								<Parameters address="0x550" name="Available to customer" size="0x8"/>
+								<Parameters address="0x550" name="STM32PUBKEY9" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data169</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>Status169</Name>
@@ -4662,14 +4739,14 @@
 					<Category>
 						<Name>OTP170</Name>
 							<Field>
-								<Parameters address="0x558" name="Available to customer" size="0x8"/>
+								<Parameters address="0x558" name="STM32PUBKEY10" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data170</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>Status170</Name>
@@ -4684,14 +4761,14 @@
 					<Category>
 						<Name>OTP171</Name>
 							<Field>
-								<Parameters address="0x560" name="Available to customer" size="0x8"/>
+								<Parameters address="0x560" name="STM32PUBKEY11" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data171</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>Status171</Name>
@@ -4706,14 +4783,14 @@
 					<Category>
 						<Name>OTP172</Name>
 							<Field>
-								<Parameters address="0x568" name="Available to customer" size="0x8"/>
+								<Parameters address="0x568" name="STM32PUBKEY12" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data172</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>Status172</Name>
@@ -4728,14 +4805,14 @@
 					<Category>
 						<Name>OTP173</Name>
 							<Field>
-								<Parameters address="0x570" name="Available to customer" size="0x8"/>
+								<Parameters address="0x570" name="STM32PUBKEY13" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data173</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>Status173</Name>
@@ -4750,14 +4827,14 @@
 					<Category>
 						<Name>OTP174</Name>
 							<Field>
-								<Parameters address="0x578" name="Available to customer" size="0x8"/>
+								<Parameters address="0x578" name="STM32PUBKEY14" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data174</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>Status174</Name>
@@ -4772,14 +4849,14 @@
 					<Category>
 						<Name>OTP175</Name>
 							<Field>
-								<Parameters address="0x580" name="Available to customer" size="0x8"/>
+								<Parameters address="0x580" name="STM32PUBKEY15" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data175</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>Status175</Name>
@@ -4794,7 +4871,7 @@
 					<Category>
 						<Name>OTP176</Name>
 							<Field>
-								<Parameters address="0x588" name="Available to customer" size="0x8"/>
+								<Parameters address="0x588" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data176</Name>
@@ -4816,7 +4893,7 @@
 					<Category>
 						<Name>OTP177</Name>
 							<Field>
-								<Parameters address="0x590" name="Available to customer" size="0x8"/>
+								<Parameters address="0x590" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data177</Name>
@@ -4838,7 +4915,7 @@
 					<Category>
 						<Name>OTP178</Name>
 							<Field>
-								<Parameters address="0x598" name="Available to customer" size="0x8"/>
+								<Parameters address="0x598" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data178</Name>
@@ -4860,7 +4937,7 @@
 					<Category>
 						<Name>OTP179</Name>
 							<Field>
-								<Parameters address="0x5A0" name="Available to customer" size="0x8"/>
+								<Parameters address="0x5A0" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data179</Name>
@@ -4882,7 +4959,7 @@
 					<Category>
 						<Name>OTP180</Name>
 							<Field>
-								<Parameters address="0x5A8" name="Available to customer" size="0x8"/>
+								<Parameters address="0x5A8" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data180</Name>
@@ -4904,7 +4981,7 @@
 					<Category>
 						<Name>OTP181</Name>
 							<Field>
-								<Parameters address="0x5B0" name="Available to customer" size="0x8"/>
+								<Parameters address="0x5B0" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data181</Name>
@@ -4926,7 +5003,7 @@
 					<Category>
 						<Name>OTP182</Name>
 							<Field>
-								<Parameters address="0x5B8" name="Available to customer" size="0x8"/>
+								<Parameters address="0x5B8" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data182</Name>
@@ -4948,7 +5025,7 @@
 					<Category>
 						<Name>OTP183</Name>
 							<Field>
-								<Parameters address="0x5C0" name="Available to customer" size="0x8"/>
+								<Parameters address="0x5C0" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data183</Name>
@@ -4970,7 +5047,7 @@
 					<Category>
 						<Name>OTP184</Name>
 							<Field>
-								<Parameters address="0x5C8" name="Available to customer" size="0x8"/>
+								<Parameters address="0x5C8" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data184</Name>
@@ -4992,7 +5069,7 @@
 					<Category>
 						<Name>OTP185</Name>
 							<Field>
-								<Parameters address="0x5D0" name="Available to customer" size="0x8"/>
+								<Parameters address="0x5D0" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data185</Name>
@@ -5014,7 +5091,7 @@
 					<Category>
 						<Name>OTP186</Name>
 							<Field>
-								<Parameters address="0x5D8" name="Available to customer" size="0x8"/>
+								<Parameters address="0x5D8" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data186</Name>
@@ -5036,7 +5113,7 @@
 					<Category>
 						<Name>OTP187</Name>
 							<Field>
-								<Parameters address="0x5E0" name="Available to customer" size="0x8"/>
+								<Parameters address="0x5E0" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data187</Name>
@@ -5058,7 +5135,7 @@
 					<Category>
 						<Name>OTP188</Name>
 							<Field>
-								<Parameters address="0x5E8" name="Available to customer" size="0x8"/>
+								<Parameters address="0x5E8" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data188</Name>
@@ -5080,7 +5157,7 @@
 					<Category>
 						<Name>OTP189</Name>
 							<Field>
-								<Parameters address="0x5F0" name="Available to customer" size="0x8"/>
+								<Parameters address="0x5F0" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data189</Name>
@@ -5102,7 +5179,7 @@
 					<Category>
 						<Name>OTP190</Name>
 							<Field>
-								<Parameters address="0x5F8" name="Available to customer" size="0x8"/>
+								<Parameters address="0x5F8" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data190</Name>
@@ -5124,7 +5201,7 @@
 					<Category>
 						<Name>OTP191</Name>
 							<Field>
-								<Parameters address="0x600" name="Available to customer" size="0x8"/>
+								<Parameters address="0x600" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data191</Name>
@@ -5146,7 +5223,7 @@
 					<Category>
 						<Name>OTP192</Name>
 							<Field>
-								<Parameters address="0x608" name="Available to customer" size="0x8"/>
+								<Parameters address="0x608" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data192</Name>
@@ -5168,7 +5245,7 @@
 					<Category>
 						<Name>OTP193</Name>
 							<Field>
-								<Parameters address="0x610" name="Available to customer" size="0x8"/>
+								<Parameters address="0x610" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data193</Name>
@@ -5190,7 +5267,7 @@
 					<Category>
 						<Name>OTP194</Name>
 							<Field>
-								<Parameters address="0x618" name="Available to customer" size="0x8"/>
+								<Parameters address="0x618" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data194</Name>
@@ -5212,7 +5289,7 @@
 					<Category>
 						<Name>OTP195</Name>
 							<Field>
-								<Parameters address="0x620" name="Available to customer" size="0x8"/>
+								<Parameters address="0x620" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data195</Name>
@@ -5234,7 +5311,7 @@
 					<Category>
 						<Name>OTP196</Name>
 							<Field>
-								<Parameters address="0x628" name="Available to customer" size="0x8"/>
+								<Parameters address="0x628" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data196</Name>
@@ -5256,7 +5333,7 @@
 					<Category>
 						<Name>OTP197</Name>
 							<Field>
-								<Parameters address="0x630" name="Available to customer" size="0x8"/>
+								<Parameters address="0x630" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data197</Name>
@@ -5278,7 +5355,7 @@
 					<Category>
 						<Name>OTP198</Name>
 							<Field>
-								<Parameters address="0x638" name="Available to customer" size="0x8"/>
+								<Parameters address="0x638" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data198</Name>
@@ -5300,7 +5377,7 @@
 					<Category>
 						<Name>OTP199</Name>
 							<Field>
-								<Parameters address="0x640" name="Available to customer" size="0x8"/>
+								<Parameters address="0x640" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data199</Name>
@@ -5322,7 +5399,7 @@
 					<Category>
 						<Name>OTP200</Name>
 							<Field>
-								<Parameters address="0x648" name="Available to customer" size="0x8"/>
+								<Parameters address="0x648" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data200</Name>
@@ -5344,7 +5421,7 @@
 					<Category>
 						<Name>OTP201</Name>
 							<Field>
-								<Parameters address="0x650" name="Available to customer" size="0x8"/>
+								<Parameters address="0x650" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data201</Name>
@@ -5366,7 +5443,7 @@
 					<Category>
 						<Name>OTP202</Name>
 							<Field>
-								<Parameters address="0x658" name="Available to customer" size="0x8"/>
+								<Parameters address="0x658" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data202</Name>
@@ -5388,7 +5465,7 @@
 					<Category>
 						<Name>OTP203</Name>
 							<Field>
-								<Parameters address="0x660" name="Available to customer" size="0x8"/>
+								<Parameters address="0x660" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data203</Name>
@@ -5410,7 +5487,7 @@
 					<Category>
 						<Name>OTP204</Name>
 							<Field>
-								<Parameters address="0x668" name="Available to customer" size="0x8"/>
+								<Parameters address="0x668" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data204</Name>
@@ -5432,7 +5509,7 @@
 					<Category>
 						<Name>OTP205</Name>
 							<Field>
-								<Parameters address="0x670" name="Available to customer" size="0x8"/>
+								<Parameters address="0x670" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data205</Name>
@@ -5454,7 +5531,7 @@
 					<Category>
 						<Name>OTP206</Name>
 							<Field>
-								<Parameters address="0x678" name="Available to customer" size="0x8"/>
+								<Parameters address="0x678" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data206</Name>
@@ -5476,7 +5553,7 @@
 					<Category>
 						<Name>OTP207</Name>
 							<Field>
-								<Parameters address="0x680" name="Available to customer" size="0x8"/>
+								<Parameters address="0x680" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data207</Name>
@@ -5498,7 +5575,7 @@
 					<Category>
 						<Name>OTP208</Name>
 							<Field>
-								<Parameters address="0x688" name="Available to customer" size="0x8"/>
+								<Parameters address="0x688" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data208</Name>
@@ -5520,7 +5597,7 @@
 					<Category>
 						<Name>OTP209</Name>
 							<Field>
-								<Parameters address="0x690" name="Available to customer" size="0x8"/>
+								<Parameters address="0x690" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data209</Name>
@@ -5542,7 +5619,7 @@
 					<Category>
 						<Name>OTP210</Name>
 							<Field>
-								<Parameters address="0x698" name="Available to customer" size="0x8"/>
+								<Parameters address="0x698" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data210</Name>
@@ -5564,7 +5641,7 @@
 					<Category>
 						<Name>OTP211</Name>
 							<Field>
-								<Parameters address="0x6A0" name="Available to customer" size="0x8"/>
+								<Parameters address="0x6A0" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data211</Name>
@@ -5586,7 +5663,7 @@
 					<Category>
 						<Name>OTP212</Name>
 							<Field>
-								<Parameters address="0x6A8" name="Available to customer" size="0x8"/>
+								<Parameters address="0x6A8" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data212</Name>
@@ -5608,7 +5685,7 @@
 					<Category>
 						<Name>OTP213</Name>
 							<Field>
-								<Parameters address="0x6B0" name="Available to customer" size="0x8"/>
+								<Parameters address="0x6B0" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data213</Name>
@@ -5630,7 +5707,7 @@
 					<Category>
 						<Name>OTP214</Name>
 							<Field>
-								<Parameters address="0x6B8" name="Available to customer" size="0x8"/>
+								<Parameters address="0x6B8" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data214</Name>
@@ -5652,7 +5729,7 @@
 					<Category>
 						<Name>OTP215</Name>
 							<Field>
-								<Parameters address="0x6C0" name="Available to customer" size="0x8"/>
+								<Parameters address="0x6C0" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data215</Name>
@@ -5674,7 +5751,7 @@
 					<Category>
 						<Name>OTP216</Name>
 							<Field>
-								<Parameters address="0x6C8" name="Available to customer" size="0x8"/>
+								<Parameters address="0x6C8" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data216</Name>
@@ -5696,7 +5773,7 @@
 					<Category>
 						<Name>OTP217</Name>
 							<Field>
-								<Parameters address="0x6D0" name="Available to customer" size="0x8"/>
+								<Parameters address="0x6D0" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data217</Name>
@@ -5718,7 +5795,7 @@
 					<Category>
 						<Name>OTP218</Name>
 							<Field>
-								<Parameters address="0x6D8" name="Available to customer" size="0x8"/>
+								<Parameters address="0x6D8" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data218</Name>
@@ -5740,7 +5817,7 @@
 					<Category>
 						<Name>OTP219</Name>
 							<Field>
-								<Parameters address="0x6E0" name="Available to customer" size="0x8"/>
+								<Parameters address="0x6E0" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data219</Name>
@@ -5762,7 +5839,7 @@
 					<Category>
 						<Name>OTP220</Name>
 							<Field>
-								<Parameters address="0x6E8" name="Available to customer" size="0x8"/>
+								<Parameters address="0x6E8" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data220</Name>
@@ -5784,7 +5861,7 @@
 					<Category>
 						<Name>OTP221</Name>
 							<Field>
-								<Parameters address="0x6F0" name="Available to customer" size="0x8"/>
+								<Parameters address="0x6F0" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data221</Name>
@@ -5806,7 +5883,7 @@
 					<Category>
 						<Name>OTP222</Name>
 							<Field>
-								<Parameters address="0x6F8" name="Available to customer" size="0x8"/>
+								<Parameters address="0x6F8" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data222</Name>
@@ -5828,7 +5905,7 @@
 					<Category>
 						<Name>OTP223</Name>
 							<Field>
-								<Parameters address="0x700" name="Available to customer" size="0x8"/>
+								<Parameters address="0x700" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data223</Name>
@@ -5850,7 +5927,7 @@
 					<Category>
 						<Name>OTP224</Name>
 							<Field>
-								<Parameters address="0x708" name="Available to customer" size="0x8"/>
+								<Parameters address="0x708" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data224</Name>
@@ -5872,7 +5949,7 @@
 					<Category>
 						<Name>OTP225</Name>
 							<Field>
-								<Parameters address="0x710" name="Available to customer" size="0x8"/>
+								<Parameters address="0x710" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data225</Name>
@@ -5894,7 +5971,7 @@
 					<Category>
 						<Name>OTP226</Name>
 							<Field>
-								<Parameters address="0x718" name="Available to customer" size="0x8"/>
+								<Parameters address="0x718" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data226</Name>
@@ -5916,7 +5993,7 @@
 					<Category>
 						<Name>OTP227</Name>
 							<Field>
-								<Parameters address="0x720" name="Available to customer" size="0x8"/>
+								<Parameters address="0x720" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data227</Name>
@@ -5938,7 +6015,7 @@
 					<Category>
 						<Name>OTP228</Name>
 							<Field>
-								<Parameters address="0x728" name="Available to customer" size="0x8"/>
+								<Parameters address="0x728" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data228</Name>
@@ -5960,7 +6037,7 @@
 					<Category>
 						<Name>OTP229</Name>
 							<Field>
-								<Parameters address="0x730" name="Available to customer" size="0x8"/>
+								<Parameters address="0x730" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data229</Name>
@@ -5982,7 +6059,7 @@
 					<Category>
 						<Name>OTP230</Name>
 							<Field>
-								<Parameters address="0x738" name="Available to customer" size="0x8"/>
+								<Parameters address="0x738" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data230</Name>
@@ -6004,7 +6081,7 @@
 					<Category>
 						<Name>OTP231</Name>
 							<Field>
-								<Parameters address="0x740" name="Available to customer" size="0x8"/>
+								<Parameters address="0x740" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data231</Name>
@@ -6026,7 +6103,7 @@
 					<Category>
 						<Name>OTP232</Name>
 							<Field>
-								<Parameters address="0x748" name="Available to customer" size="0x8"/>
+								<Parameters address="0x748" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data232</Name>
@@ -6048,7 +6125,7 @@
 					<Category>
 						<Name>OTP233</Name>
 							<Field>
-								<Parameters address="0x750" name="Available to customer" size="0x8"/>
+								<Parameters address="0x750" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data233</Name>
@@ -6070,7 +6147,7 @@
 					<Category>
 						<Name>OTP234</Name>
 							<Field>
-								<Parameters address="0x758" name="Available to customer" size="0x8"/>
+								<Parameters address="0x758" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data234</Name>
@@ -6092,7 +6169,7 @@
 					<Category>
 						<Name>OTP235</Name>
 							<Field>
-								<Parameters address="0x760" name="Available to customer" size="0x8"/>
+								<Parameters address="0x760" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data235</Name>
@@ -6114,7 +6191,7 @@
 					<Category>
 						<Name>OTP236</Name>
 							<Field>
-								<Parameters address="0x768" name="Available to customer" size="0x8"/>
+								<Parameters address="0x768" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data236</Name>
@@ -6136,7 +6213,7 @@
 					<Category>
 						<Name>OTP237</Name>
 							<Field>
-								<Parameters address="0x770" name="Available to customer" size="0x8"/>
+								<Parameters address="0x770" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data237</Name>
@@ -6158,7 +6235,7 @@
 					<Category>
 						<Name>OTP238</Name>
 							<Field>
-								<Parameters address="0x778" name="Available to customer" size="0x8"/>
+								<Parameters address="0x778" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data238</Name>
@@ -6180,7 +6257,7 @@
 					<Category>
 						<Name>OTP239</Name>
 							<Field>
-								<Parameters address="0x780" name="Available to customer" size="0x8"/>
+								<Parameters address="0x780" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data239</Name>
@@ -6202,7 +6279,7 @@
 					<Category>
 						<Name>OTP240</Name>
 							<Field>
-								<Parameters address="0x788" name="Available to customer" size="0x8"/>
+								<Parameters address="0x788" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data240</Name>
@@ -6224,7 +6301,7 @@
 					<Category>
 						<Name>OTP241</Name>
 							<Field>
-								<Parameters address="0x790" name="Available to customer" size="0x8"/>
+								<Parameters address="0x790" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data241</Name>
@@ -6246,7 +6323,7 @@
 					<Category>
 						<Name>OTP242</Name>
 							<Field>
-								<Parameters address="0x798" name="Available to customer" size="0x8"/>
+								<Parameters address="0x798" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data242</Name>
@@ -6268,7 +6345,7 @@
 					<Category>
 						<Name>OTP243</Name>
 							<Field>
-								<Parameters address="0x7A0" name="Available to customer" size="0x8"/>
+								<Parameters address="0x7A0" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data243</Name>
@@ -6290,7 +6367,7 @@
 					<Category>
 						<Name>OTP244</Name>
 							<Field>
-								<Parameters address="0x7A8" name="Available to customer" size="0x8"/>
+								<Parameters address="0x7A8" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data244</Name>
@@ -6312,7 +6389,7 @@
 					<Category>
 						<Name>OTP245</Name>
 							<Field>
-								<Parameters address="0x7B0" name="Available to customer" size="0x8"/>
+								<Parameters address="0x7B0" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data245</Name>
@@ -6334,7 +6411,7 @@
 					<Category>
 						<Name>OTP246</Name>
 							<Field>
-								<Parameters address="0x7B8" name="Available to customer" size="0x8"/>
+								<Parameters address="0x7B8" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data246</Name>
@@ -6356,7 +6433,7 @@
 					<Category>
 						<Name>OTP247</Name>
 							<Field>
-								<Parameters address="0x7C0" name="Available to customer" size="0x8"/>
+								<Parameters address="0x7C0" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data247</Name>
@@ -6378,7 +6455,7 @@
 					<Category>
 						<Name>OTP248</Name>
 							<Field>
-								<Parameters address="0x7C8" name="Available to customer" size="0x8"/>
+								<Parameters address="0x7C8" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data248</Name>
@@ -6400,7 +6477,7 @@
 					<Category>
 						<Name>OTP249</Name>
 							<Field>
-								<Parameters address="0x7D0" name="Available to customer" size="0x8"/>
+								<Parameters address="0x7D0" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data249</Name>
@@ -6422,7 +6499,7 @@
 					<Category>
 						<Name>OTP250</Name>
 							<Field>
-								<Parameters address="0x7D8" name="Available to customer" size="0x8"/>
+								<Parameters address="0x7D8" name="Customer" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data250</Name>
@@ -6444,7 +6521,7 @@
 					<Category>
 						<Name>OTP251</Name>
 							<Field>
-								<Parameters address="0x7E0" name="Available to customer" size="0x8"/>
+								<Parameters address="0x7E0" name="MAC_ADDR0_LOW" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data251</Name>
@@ -6466,7 +6543,7 @@
 					<Category>
 						<Name>OTP252</Name>
 							<Field>
-								<Parameters address="0x7E8" name="Available to customer" size="0x8"/>
+								<Parameters address="0x7E8" name="MAC_ADDR0_HIGH" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data252</Name>
@@ -6488,7 +6565,7 @@
 					<Category>
 						<Name>OTP253</Name>
 							<Field>
-								<Parameters address="0x7F0" name="Available to customer" size="0x8"/>
+								<Parameters address="0x7F0" name="MAC_ADDR1_LOW" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data253</Name>
@@ -6510,7 +6587,7 @@
 					<Category>
 						<Name>OTP254</Name>
 							<Field>
-								<Parameters address="0x7F8" name="Available to customer" size="0x8"/>
+								<Parameters address="0x7F8" name="MAC_ADDR1_HIGH" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data254</Name>
@@ -6532,14 +6609,14 @@
 					<Category>
 						<Name>OTP255</Name>
 							<Field>
-								<Parameters address="0x800" name="Available to customer" size="0x8"/>
+								<Parameters address="0x800" name="ST_RSSE_EDMK_DERIV_CSTE_FUSE" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data255</Name>
 										<Description>Data</Description>
 										<BitOffset>0x0</BitOffset>
 										<BitWidth>0x20</BitWidth>
-										<Access>RW</Access>
+										<Access>R</Access>
 									</Bit>
 									<Bit>
 										<Name>Status255</Name>
@@ -8842,7 +8919,7 @@
 					<Category>
 						<Name>OTP360</Name>
 							<Field>
-								<Parameters address="0xB48" name="OEM Secrets available to customer" size="0x8"/>
+								<Parameters address="0xB48" name="OEM_KEY2_EDMK0" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data360</Name>
@@ -8864,7 +8941,7 @@
 					<Category>
 						<Name>OTP361</Name>
 							<Field>
-								<Parameters address="0xB50" name="OEM Secrets available to customer" size="0x8"/>
+								<Parameters address="0xB50" name="OEM_KEY2_EDMK1" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data361</Name>
@@ -8886,7 +8963,7 @@
 					<Category>
 						<Name>OTP362</Name>
 							<Field>
-								<Parameters address="0xB58" name="OEM Secrets available to customer" size="0x8"/>
+								<Parameters address="0xB58" name="OEM_KEY2_EDMK2" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data362</Name>
@@ -8908,7 +8985,7 @@
 					<Category>
 						<Name>OTP363</Name>
 							<Field>
-								<Parameters address="0xB60" name="OEM Secrets available to customer" size="0x8"/>
+								<Parameters address="0xB60" name="OEM_KEY2_EDMK3" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data363</Name>
@@ -8930,7 +9007,7 @@
 					<Category>
 						<Name>OTP364</Name>
 							<Field>
-								<Parameters address="0xB68" name="OEM_SECRET_FOR_CRYPTED_BOOT0" size="0x8"/>
+								<Parameters address="0xB68" name="OEM_KEY1_EDMK0" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data364</Name>
@@ -8952,7 +9029,7 @@
 					<Category>
 						<Name>OTP365</Name>
 							<Field>
-								<Parameters address="0xB70" name="OEM_SECRET_FOR_CRYPTED_BOOT1" size="0x8"/>
+								<Parameters address="0xB70" name="OEM_KEY1_EDMK1" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data365</Name>
@@ -8974,7 +9051,7 @@
 					<Category>
 						<Name>OTP366</Name>
 							<Field>
-								<Parameters address="0xB78" name="OEM_SECRET_FOR_CRYPTED_BOOT2" size="0x8"/>
+								<Parameters address="0xB78" name="OEM_KEY1_EDMK2" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data366</Name>
@@ -8996,7 +9073,7 @@
 					<Category>
 						<Name>OTP367</Name>
 							<Field>
-								<Parameters address="0xB80" name="OEM_SECRET_FOR_CRYPTED_BOOT3" size="0x8"/>
+								<Parameters address="0xB80" name="OEM_KEY1_EDMK3" size="0x8"/>
 								<AssignedBits>
 									<Bit>
 										<Name>Data367</Name>

@@ -56,7 +56,7 @@
 					<Organization>Single</Organization>
 					<Bank name="Bank 1">
 						<Field>
-							<Parameters address="0x20000000" name="SRAM" occurence="0x1" size="0x8000"/>
+							<Parameters address="0x20000000" name="SRAM" occurrence="0x1" size="0x8000"/>
 						</Field>
 					</Bank>
 				</Configuration>
@@ -66,7 +66,7 @@
 					<Organization>Single</Organization>
 					<Bank name="Bank 1">
 						<Field>
-							<Parameters address="0x30000000" name="SRAM" occurence="0x1" size="0x8000"/>
+							<Parameters address="0x30000000" name="SRAM" occurrence="0x1" size="0x8000"/>
 						</Field>
 					</Bank>
 				</Configuration>
@@ -80,19 +80,23 @@
 				<Access>RWE</Access>
 				<FlashSize address="0x08FFF80C" default="0x20000"/>
 				<BootloaderVersion address="0x0BF8FFFE"/>
+				<DBGMCU_CR address="0xE0042004" mask="0x06"/>
+				<DBGMCU_APB1_FZ address="0xE0042008" mask="0x1800"/>
+				<RCC_APB1ENR address="0x54020C9C" mask="0x00000800"/>
+				<SFSPVersion address="0x0BF860CC"/>
 				<Configuration config="0,3,4,5"> <!-- dual Bank nn secure -->
 					<Parameters address="0x08000000" name=" 128Kbyte Embedded Flash" size="0x20000"/>
 					<Description/>
 					<Organization>Dual</Organization>
-					<Allignement>0x10</Allignement>
+					<Alignment>0x10</Alignment>
 					<Bank name="Bank 1">
 						<Field>
-							<Parameters address="0x08000000" name="sector0" occurence="0x8" size="0x2000"/>
+							<Parameters address="0x08000000" name="sector0" occurrence="0x8" size="0x2000"/>
 						</Field>
 					</Bank>
 					<Bank name="Bank 2">
 						<Field>
-							<Parameters address="0x08010000" name="sector8" occurence="0x8" size="0x2000"/>
+							<Parameters address="0x08010000" name="sector8" occurrence="0x8" size="0x2000"/>
 						</Field>
 					</Bank>
 				</Configuration>
@@ -100,40 +104,39 @@
 					<Parameters address="0x0c000000" name=" 2 Mbyte Embedded Flash" size="0x20000"/>
 					<Description/>
 					<Organization>Dual</Organization>
-					<Allignement>0x10</Allignement>
+					<Alignment>0x10</Alignment>
 					<Bank name="Bank 1">
 						<Field>
-							<Parameters address="0x0c000000" name="sector0" occurence="0x10" size="0x2000"/>
+							<Parameters address="0x0c000000" name="sector0" occurrence="0x10" size="0x2000"/>
 						</Field>
 					</Bank>
 					<Bank name="Bank 2">
 						<Field>
-							<Parameters address="0x0c010000" name="sector8" occurence="0x10" size="0x2000"/>
+							<Parameters address="0x0c010000" name="sector8" occurrence="0x10" size="0x2000"/>
 						</Field>
 					</Bank>
 				</Configuration>
 			</Peripheral>
-			<!-- Data EEPROM -->
+			<!-- Dummy config to support flash mapped at 0x0C000000 -->
 			<Peripheral>
-				<Name>Data EEPROM</Name>
+				<Name>Data EEPROM</Name> <!-- reuse EEPROM tag for Dummy config to support flash mapped at 0x0C000000 -->
 				<Type>Storage</Type>
-				<Description>The Data EEPROM memory block. It contains user data.</Description>
+				<Description>Dummy config to support flash mapped at 0x0C000000</Description>
 				<ErasedValue>0xFF</ErasedValue>
 				<Access>RWE</Access>
-				<!-- Dummy Config Just to avoid crash when TZEN=0 -->
 				<Configuration config="0,1,3,4,5">
-					<Parameters address="0x0C000000" name=" 2 Mbyte Data EEPROM" size="0x200000"/>
+					<Parameters address="0x0C000000" name="Flash Secure" size="0x200000"/>
 					<Description/>
 					<Organization>Dual</Organization>
-					<Allignement>0x4</Allignement>
+					<Alignment>0x4</Alignment>
 					<Bank name="Bank 1">
 						<Field>
-							<Parameters address="0x0C000000" name="sector0" occurence="0x80" size="0x2000"/>
+							<Parameters address="0x0C000000" name="sector0" occurrence="0x80" size="0x2000"/>
 						</Field>
 					</Bank>
 					<Bank name="Bank 2">
 						<Field>
-							<Parameters address="0x0C100000" name="sector128" occurence="0x80" size="0x2000"/>
+							<Parameters address="0x0C100000" name="sector128" occurrence="0x80" size="0x2000"/>
 						</Field>
 					</Bank>
 				</Configuration>
@@ -150,10 +153,10 @@
 					<Parameters address="0x08FFF000" name=" 2 KBytes Data OTP" size="0x800"/>
 					<Description/>
 					<Organization>Single</Organization>
-					<Allignement>0x2</Allignement>
+					<Alignment>0x2</Alignment>
 					<Bank name="OTP">
 						<Field>
-							<Parameters address="0x08FFF000" name="OTP" occurence="0x1" size="0x800"/>
+							<Parameters address="0x08FFF000" name="OTP" occurrence="0x1" size="0x800"/>
 						</Field>
 					</Bank>
 				</Configuration>
@@ -184,7 +187,6 @@
 										<Val value="0x2E">Provisioned</Val>
 										<Val value="0x72">Closed</Val>
 										<Val value="0x5C">Locked</Val>
-										<Val value="0x9A">Regression</Val>
 										</Values>
 									</Bit>
 								</AssignedBits>
@@ -204,7 +206,6 @@
 										<Val value="0x2E">Provisioned</Val>
 										<Val value="0x72">Closed</Val>
 										<Val value="0x5C">Locked</Val>
-										<Val value="0x9A">Regression</Val>
 										</Values>
 									</Bit>
 								</AssignedBits>
@@ -217,7 +218,7 @@
 								<AssignedBits>
 									<Bit>
 										<Name>BORH_EN</Name>
-										<Description>Brownout high enable configuration bit</Description>
+										<Description>Brownout high enable configuration bit. Checked : BOR Level taken from BOR_LEV. Unchecked : BOR off</Description>
 										<BitOffset>0x2</BitOffset>
 										<BitWidth>0x1</BitWidth>
 										<Access>R</Access>
@@ -231,7 +232,7 @@
 								<AssignedBits>
 									<Bit>
 										<Name>BORH_EN</Name>
-										<Description>Brownout high enable configuration bit</Description>
+										<Description>Brownout high enable configuration bit. Checked : BOR Level taken from BOR_LEV. Unchecked : BOR off</Description>
 										<BitOffset>0x2</BitOffset>
 										<BitWidth>0x1</BitWidth>
 										<Access>W</Access>
@@ -251,9 +252,8 @@
 										<Access>R</Access>
 										<Values>
 											<Val value="0x0">BOR Level 1, the threshold level is low (around 2.1 V)</Val>
-											<Val value="0x1">BOR Level 1, the threshold level is low (around 2.1 V)</Val>
-											<Val value="0x2">BOR Level 2, the threshold level is medium (around 2.4 V)</Val>
-											<Val value="0x3">BOR Level 3, the threshold level is high (around 2.7 V)</Val>
+											<Val value="0x1">BOR Level 2, the threshold level is medium (around 2.4 V)</Val>
+											<Val value="0x2">BOR Level 3, the threshold level is high (around 2.7 V)</Val>
 										</Values>
 									</Bit>
 								</AssignedBits>
@@ -269,9 +269,8 @@
 										<Access>W</Access>
 										<Values>
 											<Val value="0x0">BOR Level 1, the threshold level is low (around 2.1 V)</Val>
-											<Val value="0x1">BOR Level 1, the threshold level is low (around 2.1 V)</Val>
-											<Val value="0x2">BOR Level 2, the threshold level is medium (around 2.4 V)</Val>
-											<Val value="0x3">BOR Level 3, the threshold level is high (around 2.7 V)</Val>
+											<Val value="0x1">BOR Level 2, the threshold level is medium (around 2.4 V)</Val>
+											<Val value="0x2">BOR Level 3, the threshold level is high (around 2.7 V)</Val>
 										</Values>
 									</Bit>
 								</AssignedBits>
@@ -729,7 +728,7 @@
 											<BitOffset>0x0</BitOffset>
 											<BitWidth>0x8</BitWidth>
 											<Access>R</Access>
-											<Equation multiplier="0x2000" offset="0x08000000"/>
+											<Equation multiplier="0" offset="0x08000000"/>
 										</Bit>
 									</AssignedBits>
 								</Field>
@@ -742,7 +741,7 @@
 											<BitOffset>0x0</BitOffset>
 											<BitWidth>0x8</BitWidth>
 											<Access>W</Access>
-											<Equation multiplier="0x2000" offset="0x08000000"/>
+											<Equation multiplier="0" offset="0x08000000"/>
 										</Bit>
 									</AssignedBits>
 								</Field>
@@ -762,7 +761,7 @@
 											<BitOffset>0x0</BitOffset>
 											<BitWidth>0x8</BitWidth>
 											<Access>R</Access>
-											<Equation multiplier="0x2000" offset="0x08010000"/>
+											<Equation multiplier="0" offset="0x08010000"/>
 										</Bit>
 									</AssignedBits>
 								</Field>
@@ -775,7 +774,7 @@
 											<BitOffset>0x0</BitOffset>
 											<BitWidth>0x8</BitWidth>
 											<Access>W</Access>
-											<Equation multiplier="0x2000" offset="0x08010000"/>
+											<Equation multiplier="0" offset="0x08010000"/>
 										</Bit>
 									</AssignedBits>
 								</Field>
@@ -794,7 +793,7 @@
 											<BitOffset>0x0</BitOffset>
 											<BitWidth>0x20</BitWidth>
 											<Access>R</Access>
-											<Equation multiplier="0x2000" offset="0x00000000"/>
+											<Equation multiplier="0" offset="0x00000000"/>
 										</Bit>
 									</AssignedBits>
 								</Field>
@@ -807,7 +806,7 @@
 											<BitOffset>0x0</BitOffset>
 											<BitWidth>0x20</BitWidth>
 											<Access>W</Access>
-											<Equation multiplier="0x2000" offset="0x00000000"/>
+											<Equation multiplier="0" offset="0x00000000"/>
 										</Bit>
 									</AssignedBits>
 								</Field>
@@ -930,7 +929,6 @@
 									<Val value="0x2E">Provisioned</Val>
 									<Val value="0x72">Closed</Val>
 									<Val value="0x5C">Locked</Val>
-									<Val value="0x9A">Regression</Val>
 									</Values>
 								</Bit>
 							</AssignedBits>
@@ -950,7 +948,6 @@
 									<Val value="0x2E">Provisioned</Val>
 									<Val value="0x72">Closed</Val>
 									<Val value="0x5C">Locked</Val>
-									<Val value="0x9A">Regression</Val>
 									</Values>
 								</Bit>
 							</AssignedBits>
@@ -963,7 +960,7 @@
 							<AssignedBits>
 								<Bit>
 									<Name>BORH_EN</Name>
-									<Description>Brownout high enable configuration bit</Description>
+									<Description>Brownout high enable configuration bit. Checked : BOR Level taken from BOR_LEV. Unchecked : BOR off</Description>
 									<BitOffset>0x2</BitOffset>
 									<BitWidth>0x1</BitWidth>
 									<Access>R</Access>
@@ -977,7 +974,7 @@
 							<AssignedBits>
 								<Bit>
 									<Name>BORH_EN</Name>
-									<Description>Brownout high enable configuration bit</Description>
+									<Description>Brownout high enable configuration bit. Checked : BOR Level taken from BOR_LEV. Unchecked : BOR off</Description>
 									<BitOffset>0x2</BitOffset>
 									<BitWidth>0x1</BitWidth>
 									<Access>W</Access>
@@ -996,10 +993,9 @@
 									<BitWidth>0x2</BitWidth>
 									<Access>R</Access>
 									<Values>
-										<Val value="0x0">BOR Level 1, the threshold level is low (around 2.1 V)</Val>
-										<Val value="0x1">BOR Level 1, the threshold level is low (around 2.1 V)</Val>
-										<Val value="0x2">BOR Level 2, the threshold level is medium (around 2.4 V)</Val>
-										<Val value="0x3">BOR Level 3, the threshold level is high (around 2.7 V)</Val>
+											<Val value="0x0">BOR Level 1, the threshold level is low (around 2.1 V)</Val>
+											<Val value="0x1">BOR Level 2, the threshold level is medium (around 2.4 V)</Val>
+											<Val value="0x2">BOR Level 3, the threshold level is high (around 2.7 V)</Val>
 									</Values>
 								</Bit>
 							</AssignedBits>
@@ -1014,10 +1010,9 @@
 									<BitWidth>0x2</BitWidth>
 									<Access>W</Access>
 									<Values>
-										<Val value="0x0">BOR Level 1, the threshold level is low (around 2.1 V)</Val>
-										<Val value="0x1">BOR Level 1, the threshold level is low (around 2.1 V)</Val>
-										<Val value="0x2">BOR Level 2, the threshold level is medium (around 2.4 V)</Val>
-										<Val value="0x3">BOR Level 3, the threshold level is high (around 2.7 V)</Val>
+											<Val value="0x0">BOR Level 1, the threshold level is low (around 2.1 V)</Val>
+											<Val value="0x1">BOR Level 2, the threshold level is medium (around 2.4 V)</Val>
+											<Val value="0x2">BOR Level 3, the threshold level is high (around 2.7 V)</Val>
 									</Values>
 								</Bit>
 							</AssignedBits>
@@ -1475,7 +1470,7 @@
 											<BitOffset>0x0</BitOffset>
 											<BitWidth>0x8</BitWidth>
 											<Access>R</Access>
-											<Equation multiplier="0x2000" offset="0x08000000"/>
+											<Equation multiplier="0" offset="0x08000000"/>
 										</Bit>
 									</AssignedBits>
 								</Field>
@@ -1488,7 +1483,7 @@
 											<BitOffset>0x0</BitOffset>
 											<BitWidth>0x8</BitWidth>
 											<Access>W</Access>
-											<Equation multiplier="0x2000" offset="0x08000000"/>
+											<Equation multiplier="0" offset="0x08000000"/>
 										</Bit>
 									</AssignedBits>
 								</Field>
@@ -1508,7 +1503,7 @@
 											<BitOffset>0x0</BitOffset>
 											<BitWidth>0x8</BitWidth>
 											<Access>R</Access>
-											<Equation multiplier="0x2000" offset="0x08000000"/>
+											<Equation multiplier="0" offset="0x08000000"/>
 										</Bit>
 									</AssignedBits>
 								</Field>
@@ -1521,7 +1516,7 @@
 											<BitOffset>0x0</BitOffset>
 											<BitWidth>0x8</BitWidth>
 											<Access>W</Access>
-											<Equation multiplier="0x2000" offset="0x08000000"/>
+											<Equation multiplier="0" offset="0x08000000"/>
 										</Bit>
 									</AssignedBits>
 								</Field>
@@ -1540,7 +1535,7 @@
 											<BitOffset>0x0</BitOffset>
 											<BitWidth>0x20</BitWidth>
 											<Access>R</Access>
-											<Equation multiplier="0x2000" offset="0x00000000"/>
+											<Equation multiplier="0" offset="0x00000000"/>
 										</Bit>
 									</AssignedBits>
 								</Field>
@@ -1553,7 +1548,7 @@
 											<BitOffset>0x0</BitOffset>
 											<BitWidth>0x20</BitWidth>
 											<Access>W</Access>
-											<Equation multiplier="0x2000" offset="0x00000000"/>
+											<Equation multiplier="0" offset="0x00000000"/>
 										</Bit>
 									</AssignedBits>
 								</Field>
@@ -1675,7 +1670,6 @@
 									<Val value="0x2E">Provisioned</Val>
 									<Val value="0x72">Closed</Val>
 									<Val value="0x5C">Locked</Val>
-									<Val value="0x9A">Regression</Val>
 									</Values>
 								</Bit>
 							</AssignedBits>
@@ -1695,7 +1689,6 @@
 									<Val value="0x2E">Provisioned</Val>
 									<Val value="0x72">Closed</Val>
 									<Val value="0x5C">Locked</Val>
-									<Val value="0x9A">Regression</Val>
 									</Values>
 								</Bit>
 							</AssignedBits>
@@ -1708,7 +1701,7 @@
 							<AssignedBits>
 								<Bit>
 									<Name>BORH_EN</Name>
-									<Description>Brownout high enable configuration bit</Description>
+									<Description>Brownout high enable configuration bit. Checked : BOR Level taken from BOR_LEV. Unchecked : BOR off</Description>
 									<BitOffset>0x2</BitOffset>
 									<BitWidth>0x1</BitWidth>
 									<Access>R</Access>
@@ -1722,7 +1715,7 @@
 							<AssignedBits>
 								<Bit>
 									<Name>BORH_EN</Name>
-									<Description>Brownout high enable configuration bit</Description>
+									<Description>Brownout high enable configuration bit. Checked : BOR Level taken from BOR_LEV. Unchecked : BOR off</Description>
 									<BitOffset>0x2</BitOffset>
 									<BitWidth>0x1</BitWidth>
 									<Access>W</Access>
@@ -1741,10 +1734,9 @@
 									<BitWidth>0x2</BitWidth>
 									<Access>R</Access>
 									<Values>
-										<Val value="0x0">BOR Level 1, the threshold level is low (around 2.1 V)</Val>
-										<Val value="0x1">BOR Level 1, the threshold level is low (around 2.1 V)</Val>
-										<Val value="0x2">BOR Level 2, the threshold level is medium (around 2.4 V)</Val>
-										<Val value="0x3">BOR Level 3, the threshold level is high (around 2.7 V)</Val>
+											<Val value="0x0">BOR Level 1, the threshold level is low (around 2.1 V)</Val>
+											<Val value="0x1">BOR Level 2, the threshold level is medium (around 2.4 V)</Val>
+											<Val value="0x2">BOR Level 3, the threshold level is high (around 2.7 V)</Val>
 									</Values>
 								</Bit>
 							</AssignedBits>
@@ -1759,10 +1751,9 @@
 									<BitWidth>0x2</BitWidth>
 									<Access>W</Access>
 									<Values>
-										<Val value="0x0">BOR Level 1, the threshold level is low (around 2.1 V)</Val>
-										<Val value="0x1">BOR Level 1, the threshold level is low (around 2.1 V)</Val>
-										<Val value="0x2">BOR Level 2, the threshold level is medium (around 2.4 V)</Val>
-										<Val value="0x3">BOR Level 3, the threshold level is high (around 2.7 V)</Val>
+											<Val value="0x0">BOR Level 1, the threshold level is low (around 2.1 V)</Val>
+											<Val value="0x1">BOR Level 2, the threshold level is medium (around 2.4 V)</Val>
+											<Val value="0x2">BOR Level 3, the threshold level is high (around 2.7 V)</Val>
 									</Values>
 								</Bit>
 							</AssignedBits>
@@ -2210,7 +2201,7 @@
 									<BitOffset>0x0</BitOffset>
 									<BitWidth>0x20</BitWidth>
 									<Access>R</Access>
-									<Equation multiplier="0x2000" offset="0x00000000"/>
+									<Equation multiplier="0" offset="0x00000000"/>
 								</Bit>
 							</AssignedBits>
 						</Field>
@@ -2223,7 +2214,7 @@
 									<BitOffset>0x0</BitOffset>
 									<BitWidth>0x20</BitWidth>
 									<Access>W</Access>
-									<Equation multiplier="0x2000" offset="0x00000000"/>
+									<Equation multiplier="0" offset="0x00000000"/>
 								</Bit>
 							</AssignedBits>
 						</Field>
@@ -2239,7 +2230,7 @@
 									<BitOffset>0x0</BitOffset>
 									<BitWidth>0x8</BitWidth>
 									<Access>R</Access>
-									<Equation multiplier="0x2000" offset="0x08000000"/>
+									<Equation multiplier="0" offset="0x08000000"/>
 								</Bit>
 							</AssignedBits>
 						</Field>
@@ -2252,7 +2243,7 @@
 									<BitOffset>0x0</BitOffset>
 									<BitWidth>0x8</BitWidth>
 									<Access>W</Access>
-									<Equation multiplier="0x2000" offset="0x08000000"/>
+									<Equation multiplier="0" offset="0x08000000"/>
 								</Bit>
 							</AssignedBits>
 						</Field>
@@ -2316,7 +2307,7 @@
 									<BitOffset>0x0</BitOffset>
 									<BitWidth>0x8</BitWidth>
 									<Access>R</Access>
-									<Equation multiplier="0x2000" offset="0x08010000"/>
+									<Equation multiplier="0" offset="0x08010000"/>
 								</Bit>
 							</AssignedBits>
 						</Field>
@@ -2329,7 +2320,7 @@
 									<BitOffset>0x0</BitOffset>
 									<BitWidth>0x8</BitWidth>
 									<Access>W</Access>
-									<Equation multiplier="0x2000" offset="0x08010000"/>
+									<Equation multiplier="0" offset="0x08010000"/>
 								</Bit>
 							</AssignedBits>
 						</Field>

@@ -10,7 +10,17 @@
 		<Description>ARM 32-bit Cortex-M4 based device</Description>
 		<Configurations>
 			<!-- JTAG_SWD Interface -->
-			<Interface name="JTAG_SWD"/>
+
+			<Interface name="JTAG_SWD">
+			<!-- 1MB -->
+				<Configuration number="0x0">
+					<DBANK reference="0x0"> <ReadRegister address="0x1FFF7A22" mask="0x000FFF" value="0x400"/> </DBANK>
+				</Configuration>
+			<!-- 512kB -->
+				<Configuration number="0x1">
+					<DBANK reference="0x0"> <ReadRegister address="0x1FFF7A22" mask="0x000FFF" value="0x200"/> </DBANK>
+				</Configuration>
+			</Interface>
 			<!-- Bootloader Interface -->
 			<Interface name="Bootloader"/>
 		</Configurations>
@@ -30,7 +40,7 @@
 					<Organization>Single</Organization>
 					<Bank name="Bank 1">
 						<Field>
-							<Parameters address="0x20000000" name="SRAM" occurence="0x1" size="0x20000"/>
+							<Parameters address="0x20000000" name="SRAM" occurrence="0x1" size="0x20000"/>
 						</Field>
 					</Bank>
 				</Configuration>
@@ -42,23 +52,57 @@
 				<Description>The Flash memory interface manages CPU AHB I-Code and D-Code accesses to the Flash memory. It implements the erase and program Flash memory operations and the read and write protection mechanisms</Description>
 				<ErasedValue>0xFF</ErasedValue>
 				<Access>RWE</Access>
-				<FlashSize address="0x1FFFF7CC" default="0x100000"/>
+				<FlashSize address="0x1FFF7A22" default="0x100000"/>
 				<BootloaderVersion address="0x1FFF77DE"/>
 				<!-- 1024KB Single Bank -->
+				<Configuration config="0">
+					<Parameters address="0x08000000" name=" 1024 Kbytes Embedded Flash" size="0x100000"/>
+					<Description/>
+					<Organization>Single</Organization>
+					<Alignment>0x4</Alignment>
+					<Bank name="Bank 1">
+						<Field>
+							<Parameters address="0x08000000" name="sector0" occurrence="0x4" size="0x4000"/>
+						</Field>
+						<Field>
+							<Parameters address="0x08010000" name="sector4" occurrence="0x1" size="0x10000"/>
+						</Field>
+						<Field>
+							<Parameters address="0x08020000" name="sector5" occurrence="0x7" size="0x20000"/>
+						</Field>
+					</Bank>
+				</Configuration>
+				<Configuration config="1">
+					<Parameters address="0x08000000" name=" 512 Kbytes Embedded Flash" size="0x80000"/>
+					<Description/>
+					<Organization>Single</Organization>
+					<Alignment>0x4</Alignment>
+					<Bank name="Bank 1">
+						<Field>
+							<Parameters address="0x08000000" name="sector0" occurrence="0x4" size="0x4000"/>
+						</Field>
+						<Field>
+							<Parameters address="0x08010000" name="sector4" occurrence="0x1" size="0x10000"/>
+						</Field>
+						<Field>
+							<Parameters address="0x08020000" name="sector5" occurrence="0x3" size="0x20000"/>
+						</Field>
+					</Bank>
+				</Configuration>
 				<Configuration>
 					<Parameters address="0x08000000" name=" 1024 Kbytes Embedded Flash" size="0x100000"/>
 					<Description/>
 					<Organization>Single</Organization>
-					<Allignement>0x4</Allignement>
+					<Alignment>0x4</Alignment>
 					<Bank name="Bank 1">
 						<Field>
-							<Parameters address="0x08000000" name="sector0" occurence="0x4" size="0x4000"/>
+							<Parameters address="0x08000000" name="sector0" occurrence="0x4" size="0x4000"/>
 						</Field>
 						<Field>
-							<Parameters address="0x08010000" name="sector4" occurence="0x1" size="0x10000"/>
+							<Parameters address="0x08010000" name="sector4" occurrence="0x1" size="0x10000"/>
 						</Field>
 						<Field>
-							<Parameters address="0x08020000" name="sector5" occurence="0x7" size="0x20000"/>
+							<Parameters address="0x08020000" name="sector5" occurrence="0x7" size="0x20000"/>
 						</Field>
 					</Bank>
 				</Configuration>
@@ -75,10 +119,10 @@
 					<Parameters address="0x1FFF7800" name=" 512 Bytes Data OTP" size="0x210"/>
 					<Description/>
 					<Organization>Single</Organization>
-					<Allignement>0x4</Allignement>
+					<Alignment>0x4</Alignment>
 					<Bank name="OTP">
 						<Field>
-							<Parameters address="0x1FFF7800" name="OTP" occurence="0x1" size="0x210"/>
+							<Parameters address="0x1FFF7800" name="OTP" occurrence="0x1" size="0x210"/>
 						</Field>
 					</Bank>
 				</Configuration>
@@ -95,10 +139,10 @@
 					<Parameters address="0x1FFFC000" name=" 8 Bytes Data MirrorOptionBytes" size="0x8"/>
 					<Description/>
 					<Organization>Single</Organization>
-					<Allignement>0x4</Allignement>
+					<Alignment>0x4</Alignment>
 					<Bank name="MirrorOptionBytes">
 						<Field>
-							<Parameters address="0x1FFFC000" name="MirrorOptionBytes" occurence="0x1" size="0x8"/>
+							<Parameters address="0x1FFFC000" name="MirrorOptionBytes" occurrence="0x1" size="0x8"/>
 						</Field>
 					</Bank>
 				</Configuration>

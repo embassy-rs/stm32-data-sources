@@ -11,6 +11,7 @@
 		<Configurations>
 			<!-- JTAG_SWD Interface -->
 			<Interface name="JTAG_SWD">
+				<!-- 32KB for G041/G030/G031-->
 				<Configuration	number="0x0">
 					<ValueLine> <ReadRegister address="0x1FFF77DD" mask="0xFF" value="0xFF"/> </ValueLine>
 					<ValueLine> <ReadRegister address="0x1FFF75E0" mask="0xFF" value="0x20"/> </ValueLine>
@@ -23,6 +24,7 @@
 					<ValueLine> <ReadRegister address="0x1FFF77DD" mask="0xFF" value="0x31"/> </ValueLine> <!-- 32 kb-->
 					<ValueLine> <ReadRegister address="0x1FFF75E0" mask="0xFF" value="0x20"/> </ValueLine>
 				</Configuration>
+				<!-- 64KB for G041/G030/G031-->
 				<Configuration number="0x3">
 					<ValueLine> <ReadRegister address="0x1FFF77DD" mask="0xFF" value="0xFF"/> </ValueLine>
 					<ValueLine> <ReadRegister address="0x1FFF75E0" mask="0xFF" value="0x40"/> </ValueLine>
@@ -34,6 +36,16 @@
 				<Configuration number="0x5">
 					<ValueLine> <ReadRegister address="0x1FFF77DD" mask="0xFF" value="0x31"/> </ValueLine>
 					<ValueLine> <ReadRegister address="0x1FFF75E0" mask="0xFF" value="0x40"/> </ValueLine>
+				</Configuration>
+				<!-- 64KB just for G031-->
+				<Configuration number="0x6">
+					<ValueLine> <ReadRegister address="0x1FFF77DD" mask="0xFF" value="0x31"/> </ValueLine>
+					<ValueLine> <ReadRegister address="0x1FFF75E0" mask="0xFF" value="0x10"/> </ValueLine>
+				</Configuration>
+				<!-- 16KB for G041/G030/G031-->
+				<Configuration	number="0x7">
+					<ValueLine> <ReadRegister address="0x1FFF77DD" mask="0xFF" value="0x00"/> </ValueLine>
+					<ValueLine> <ReadRegister address="0x1FFF75E0" mask="0xFF" value="0x00"/> </ValueLine>
 				</Configuration>
 			</Interface>
 			<!-- Bootloader Interface -->
@@ -80,7 +92,7 @@
 					<Organization>Single</Organization>
 					<Bank name="Bank 1">
 						<Field>
-							<Parameters address="0x20000000" name="SRAM" occurence="0x1" size="0x2000"/>
+							<Parameters address="0x20000000" name="SRAM" occurrence="0x1" size="0x2000"/>
 						</Field>
 					</Bank>
 				</Configuration>
@@ -92,28 +104,53 @@
 					<Description>The Flash memory interface manages CPU AHB I-Code and D-Code accesses to the Flash memory. It implements the erase and program Flash memory operations and the read and write protection mechanisms</Description>
 					<ErasedValue>0xFF</ErasedValue>
 					<Access>RWE</Access>
-					<FlashSize address="0x1FFF75E0" default="0x10000"/>
+					<FlashSize address="0x1FFF75E0" default="0x4000"/>
 					<BootloaderVersion address="0x1FFF1FFE"/>
-					<!-- Single Bank -->
-					<Configuration config="0,1,2">
-							<Parameters address="0x08000000" name=" 64 KB Embedded Flash" size="0x10000"/>
-							<Description/>
-							<Organization>Single</Organization>
-							<Allignement>0x8</Allignement>
-							<Bank name="Bank 1">
-								<Field>
-									<Parameters address="0x08000000" name="sector0" occurence="0x10" size="0x800"/>
-								</Field>
-							</Bank>
-					</Configuration>
+					<!-- 64 KB Single Bank -->
 					<Configuration config="3,4,5">
 							<Parameters address="0x08000000" name=" 64 KB Embedded Flash" size="0x10000"/>
 							<Description/>
 							<Organization>Single</Organization>
-							<Allignement>0x8</Allignement>
+							<Alignment>0x8</Alignment>
 							<Bank name="Bank 1">
 								<Field>
-									<Parameters address="0x08000000" name="sector0" occurence="0x20" size="0x800"/>
+									<Parameters address="0x08000000" name="sector0" occurrence="0x20" size="0x800"/>
+								</Field>
+							</Bank>
+					</Configuration>
+					<!-- 32 KB Single Bank -->
+					<Configuration config="0,1,2">
+							<Parameters address="0x08000000" name=" 32 KB Embedded Flash" size="0x8000"/>
+							<Description/>
+							<Organization>Single</Organization>
+							<Alignment>0x8</Alignment>
+							<Bank name="Bank 1">
+								<Field>
+									<Parameters address="0x08000000" name="sector0" occurrence="0x10" size="0x800"/>
+								</Field>
+							</Bank>
+					</Configuration>
+					<!-- 16 KB Single Bank -->
+					<Configuration config="6">
+							<Parameters address="0x08000000" name=" 16 KB Embedded Flash" size="0x4000"/>
+							<Description/>
+							<Organization>Single</Organization>
+							<Alignment>0x8</Alignment>
+							<Bank name="Bank 1">
+								<Field>
+									<Parameters address="0x08000000" name="sector0" occurrence="0x8" size="0x800"/>
+								</Field>
+							</Bank>
+					</Configuration>
+					<!-- 16 KB Single Bank -->
+					<Configuration config="7">
+							<Parameters address="0x08000000" name=" 16 KB Embedded Flash" size="0x2000"/>
+							<Description/>
+							<Organization>Single</Organization>
+							<Alignment>0x8</Alignment>
+							<Bank name="Bank 1">
+								<Field>
+									<Parameters address="0x08000000" name="sector0" occurrence="0x8" size="0x800"/>
 								</Field>
 							</Bank>
 					</Configuration>
@@ -130,10 +167,10 @@
 					<Parameters address="0x1FFF7000" name=" 1 KBytes Data OTP" size="0x400"/>
 					<Description/>
 					<Organization>Single</Organization>
-					<Allignement>0x4</Allignement>
+					<Alignment>0x4</Alignment>
 					<Bank name="OTP">
 						<Field>
-							<Parameters address="0x1FFF7000" name="OTP" occurence="0x1" size="0x400"/>
+							<Parameters address="0x1FFF7000" name="OTP" occurrence="0x1" size="0x400"/>
 						</Field>
 					</Bank>
 				</Configuration>
@@ -150,15 +187,15 @@
 					<Parameters address="0x1FFF7800" name=" 56 Bytes Data MirrorOptionBytes" size="0x38"/>
 					<Description/>
 					<Organization>Dual</Organization>
-					<Allignement>0x4</Allignement>
+					<Alignment>0x4</Alignment>
 					<Bank name="Bank 1">
 						<Field>
-							<Parameters address="0x1FFF7800" name="Bank1" occurence="0x1" size="0x34"/>
+							<Parameters address="0x1FFF7800" name="Bank1" occurrence="0x1" size="0x34"/>
 						</Field>
 					</Bank>
 					<Bank name="Bank 2">
 						<Field>
-							<Parameters address="0x1FFF7870" name="Bank2" occurence="0x1" size="0x4"/>
+							<Parameters address="0x1FFF7870" name="Bank2" occurrence="0x1" size="0x4"/>
 						</Field>
 					</Bank>
 				</Configuration>
@@ -280,8 +317,8 @@
 									<BitWidth>0x1</BitWidth>
 									<Access>RW</Access>
 									<Values>
-										<Val value="0x0">Hardware independant watchdog</Val>
-										<Val value="0x1">Software independant watchdog</Val>
+										<Val value="0x0">Hardware independent watchdog</Val>
+										<Val value="0x1">Software independent watchdog</Val>
 									</Values>
 								</Bit>
 								<Bit>
@@ -382,28 +419,6 @@
 									<Values>
 										<Val value="0x0">Internal resets are propagated as simple pulse on NRST pin</Val>
 										<Val value="0x1">Internal resets drives NRST pin low until it is seen as low level</Val>
-									</Values>
-								</Bit>
-								<Bit>
-									<Name>nSWAP_BANK</Name>
-									<Description>This bit selects the bank that is the subject of empty check upon boot</Description>
-									<BitOffset>0x14</BitOffset>
-									<BitWidth>0x1</BitWidth>
-									<Access>R</Access>
-									<Values>
-										<Val value="0x0">Bank 1</Val>
-										<Val value="0x1">Bank 2</Val>
-									</Values>
-								</Bit>
-								<Bit>
-									<Name>DUAL_BANK</Name>
-									<Description>Dual-bank on 512Kbytes Flash memory devices</Description>
-									<BitOffset>0x15</BitOffset>
-									<BitWidth>0x1</BitWidth>
-									<Access>R</Access>
-									<Values>
-										<Val value="0x0">512Kbytes single-bank Flash memory, contiguous addresses in Bank 1</Val>
-										<Val value="0x1">512Kbytes dual-bank Flash memory</Val>
 									</Values>
 								</Bit>
 							</AssignedBits>
@@ -767,8 +782,8 @@
 									<BitWidth>0x1</BitWidth>
 									<Access>RW</Access>
 									<Values>
-										<Val value="0x0">Hardware independant watchdog</Val>
-										<Val value="0x1">Software independant watchdog</Val>
+										<Val value="0x0">Hardware independent watchdog</Val>
+										<Val value="0x1">Software independent watchdog</Val>
 									</Values>
 								</Bit>
 								<Bit>
@@ -870,28 +885,6 @@
 									<Values>
 										<Val value="0x0">Internal resets are propagated as simple pulse on NRST pin</Val>
 										<Val value="0x1">Internal resets drives NRST pin low until it is seen as low level</Val>
-									</Values>
-								</Bit>
-								<Bit>
-									<Name>nSWAP_BANK</Name>
-									<Description>This bit selects the bank that is the subject of empty check upon boot</Description>
-									<BitOffset>0x14</BitOffset>
-									<BitWidth>0x1</BitWidth>
-									<Access>R</Access>
-									<Values>
-										<Val value="0x0">Bank 1</Val>
-										<Val value="0x1">Bank 2</Val>
-									</Values>
-								</Bit>
-								<Bit>
-									<Name>DUAL_BANK</Name>
-									<Description>Dual-bank on 512Kbytes Flash memory devices</Description>
-									<BitOffset>0x15</BitOffset>
-									<BitWidth>0x1</BitWidth>
-									<Access>R</Access>
-									<Values>
-										<Val value="0x0">512Kbytes single-bank Flash memory, contiguous addresses in Bank 1</Val>
-										<Val value="0x1">512Kbytes dual-bank Flash memory</Val>
 									</Values>
 								</Bit>
 							</AssignedBits>
