@@ -647,6 +647,10 @@
         <PossibleValue Comment="MCO1SRC PLLCLK" Value="RCC_MCO1SOURCE_HSI48"   Semaphore="MCO1SOURCE_RC48"/>
         <PossibleValue Comment="MCO1SRC PLLCLK" Value="RCC_MCO1SOURCE_PLL1QCLK" Semaphore="MCO1SOURCE_PLLCLK" />
     </RefParameter>
+    <RefParameter Visible="false" Comment="MCO1 Clock Source" DefaultValue="RCC_PLL1_DIVQ" Name="PLL1ClkOut" Type="list">
+        <Condition Expression="(MCO1Config &amp; MCO1SOURCE_PLLCLK)" Diagnostic=""/>
+	</RefParameter>
+    <RefParameter Visible="false" Comment="MCO1 Clock Source" DefaultValue="null" Name="PLL1ClkOut" Type="list"/>
     <RefParameter Visible="false" Comment="MCO2 Clock Source" DefaultValue="RCC_MCO2SOURCE_SYSCLK" Name="RCC_MCO2Source" Type="list">
         <PossibleValue Comment="MCO1SRC SYSCLK"    Value="RCC_MCO2SOURCE_SYSCLK"    Semaphore="MCO2SOURCE_SYSCLK"/>
         <PossibleValue Comment="MCO1SRC PLLI2SCLK" Value="RCC_MCO2SOURCE_PLL2PCLK"  Semaphore="MCO2SOURCE_PLL2PCLK"/>
@@ -655,7 +659,13 @@
         <PossibleValue Comment="MCO1SRC PLLCLK"    Value="RCC_MCO2SOURCE_CSICLK" 		Semaphore="MCO2SOURCE_CSI"/>
         <PossibleValue Comment="MCO1SRC PLLCLK"    Value="RCC_MCO2SOURCE_LSICLK" 		Semaphore="MCO2SOURCE_LSI"/>
     </RefParameter>
-
+    <RefParameter Visible="false" Comment="MCO2 Clock Source" DefaultValue="RCC_PLL2_DIVP" Name="PLL2ClkOut" Type="list">
+        <Condition Expression="(MCO2Config &amp; MCO2SOURCE_PLL2PCLK)" Diagnostic=""/>
+	</RefParameter>
+    <RefParameter Visible="false" Comment="MCO2 Clock Source" DefaultValue="RCC_PLL1_DIVP" Name="PLL2ClkOut" Type="list">
+        <Condition Expression="(MCO2Config &amp; MCO2SOURCE_PLLCLK)" Diagnostic=""/>
+	</RefParameter>
+    <RefParameter Visible="false" Comment="MCO2 Clock Source" DefaultValue="null" Name="PLL2ClkOut" Type="list"/>
 
 
     <RefParameter Visible="false" Name="EnbaleCSS" Comment="Clock Security System: available only when HSE is used directly or undirectly as System Clock" Type="list" DefaultValue="false">
@@ -3293,6 +3303,9 @@
     <RefParameter Visible="false" Comment="PLL2MARGP" DefaultValue="+DIVM2" IP="USART1" Name="PLL2MARGP" Type="list">
         <Condition Diagnostic="PLL used" Expression="pll2ForUSART1=1"/>
     </RefParameter>
+    <RefParameter Visible="false" Comment="PLL2MARGP" DefaultValue="+DIVM2" IP="USART2" Name="PLL2MARGP" Type="list">
+        <Condition Diagnostic="PLL used" Expression="pll2ForUSART2=1"/>
+    </RefParameter>
     <RefParameter Visible="false" Comment="PLL2MARGP" DefaultValue="+DIVM2" IP="USART6" Name="PLL2MARGP" Type="list">
         <Condition Diagnostic="PLL used" Expression="pll2ForUSART6=1"/>
     </RefParameter>
@@ -3431,6 +3444,9 @@
     <RefParameter Visible="false" Comment="PLL2NARGP" DefaultValue="+DIVN2" IP="USART1" Name="PLL2NARGP" Type="list">
         <Condition Diagnostic="PLL used" Expression="pll2ForUSART1=1"/>
     </RefParameter>
+    <RefParameter Visible="false" Comment="PLL2NARGP" DefaultValue="+DIVN2" IP="USART2" Name="PLL2NARGP" Type="list">
+        <Condition Diagnostic="PLL used" Expression="pll2ForUSART2=1"/>
+    </RefParameter>
     <RefParameter Visible="false" Comment="PLL2NARGP" DefaultValue="+DIVN2" IP="USART6" Name="PLL2NARGP" Type="list">
         <Condition Diagnostic="PLL used" Expression="pll2ForUSART6=1"/>
     </RefParameter>
@@ -3561,6 +3577,9 @@
     </RefParameter>
     <RefParameter Visible="false" Comment="PLL2PARGP" DefaultValue="+DIVP2" IP="USART1" Name="PLL2PARGP" Type="list">
         <Condition Diagnostic="PLL used" Expression="pll2ForUSART1=1"/>
+    </RefParameter>
+    <RefParameter Visible="false" Comment="PLL2PARGP" DefaultValue="+DIVP2" IP="USART2" Name="PLL2PARGP" Type="list">
+        <Condition Diagnostic="PLL used" Expression="pll2ForUSART2=1"/>
     </RefParameter>
     <RefParameter Visible="false" Comment="PLL2PARGP" DefaultValue="+DIVP2" IP="USART6" Name="PLL2PARGP" Type="list">
         <Condition Diagnostic="PLL used" Expression="pll2ForUSART6=1"/>
@@ -3694,6 +3713,9 @@
     <RefParameter Visible="false" Comment="PLL2QARGP" DefaultValue="+DIVQ2" IP="USART1" Name="PLL2QARGP" Type="list">
         <Condition Diagnostic="PLL used" Expression="pll2ForUSART1=1"/>
     </RefParameter>
+    <RefParameter Visible="false" Comment="PLL2QARGP" DefaultValue="+DIVQ2" IP="USART2" Name="PLL2QARGP" Type="list">
+        <Condition Diagnostic="PLL used" Expression="pll2ForUSART2=1"/>
+    </RefParameter>
     <RefParameter Visible="false" Comment="PLL2QARGP" DefaultValue="+DIVQ2" IP="USART6" Name="PLL2QARGP" Type="list">
         <Condition Diagnostic="PLL used" Expression="pll2ForUSART6=1"/>
     </RefParameter>
@@ -3825,6 +3847,9 @@
     </RefParameter>
     <RefParameter Visible="false" Comment="PLL2RARGP" DefaultValue="+DIVR2" IP="USART1" Name="PLL2RARGP" Type="list">
         <Condition Diagnostic="PLL used" Expression="pll2ForUSART1=1"/>
+    </RefParameter>
+    <RefParameter Visible="false" Comment="PLL2RARGP" DefaultValue="+DIVR2" IP="USART2" Name="PLL2RARGP" Type="list">
+        <Condition Diagnostic="PLL used" Expression="pll2ForUSART2=1"/>
     </RefParameter>
     <RefParameter Visible="false" Comment="PLL2RARGP" DefaultValue="+DIVR2" IP="USART6" Name="PLL2RARGP" Type="list">
         <Condition Diagnostic="PLL used" Expression="pll2ForUSART6=1"/>
@@ -3958,6 +3983,9 @@
     <RefParameter Visible="false" Comment="PLL2RGEP" DefaultValue="+PLL2_VCI_Range" IP="USART1" Name="PLL2RGEP" Type="list">
         <Condition Diagnostic="PLL used" Expression="pll2ForUSART1=1"/>
     </RefParameter>
+    <RefParameter Visible="false" Comment="PLL2RGEP" DefaultValue="+PLL2_VCI_Range" IP="USART2" Name="PLL2RGEP" Type="list">
+        <Condition Diagnostic="PLL used" Expression="pll2ForUSART2=1"/>
+    </RefParameter>
     <RefParameter Visible="false" Comment="PLL2RGEP" DefaultValue="+PLL2_VCI_Range" IP="USART6" Name="PLL2RGEP" Type="list">
         <Condition Diagnostic="PLL used" Expression="pll2ForUSART6=1"/>
     </RefParameter>
@@ -4089,6 +4117,9 @@
     <RefParameter Visible="false" Comment="PLL2VCOSELargP" DefaultValue="+PLL2_VCO_SEL" IP="USART1" Name="PLL2VCOSELargP" Type="list">
         <Condition Diagnostic="PLL used" Expression="pll2ForUSART1=1"/>
     </RefParameter>
+    <RefParameter Visible="false" Comment="PLL2VCOSELargP" DefaultValue="+PLL2_VCO_SEL" IP="USART2" Name="PLL2VCOSELargP" Type="list">
+        <Condition Diagnostic="PLL used" Expression="pll2ForUSART2=1"/>
+    </RefParameter>
     <RefParameter Visible="false" Comment="PLL2VCOSELargP" DefaultValue="+PLL2_VCO_SEL" IP="USART6" Name="PLL2VCOSELargP" Type="list">
         <Condition Diagnostic="PLL used" Expression="pll2ForUSART6=1"/>
     </RefParameter>
@@ -4219,6 +4250,9 @@
     </RefParameter>
     <RefParameter Visible="false" Comment="PLL2FRACNARGP" DefaultValue="+PLL2FRACN" IP="USART1" Name="PLL2FRACNARGP" Type="list">
         <Condition Diagnostic="PLL used" Expression="pll2ForUSART1=1"/>
+    </RefParameter>
+    <RefParameter Visible="false" Comment="PLL2FRACNARGP" DefaultValue="+PLL2FRACN" IP="USART2" Name="PLL2FRACNARGP" Type="list">
+        <Condition Diagnostic="PLL used" Expression="pll2ForUSART2=1"/>
     </RefParameter>
     <RefParameter Visible="false" Comment="PLL2FRACNARGP" DefaultValue="+PLL2FRACN" IP="USART6" Name="PLL2FRACNARGP" Type="list">
         <Condition Diagnostic="PLL used" Expression="pll2ForUSART6=1"/>
@@ -6489,39 +6523,39 @@
 	
 	
     <RefParameter Name="PWR_Regulator_Voltage_Scale" Comment="Power Regulator Voltage Scale" Type="list" DefaultValue="PWR_REGULATOR_VOLTAGE_SCALE3" Group="Power Parameters">
-        <Condition Diagnostic="" Expression="((CpuClockFreq_Value &lt; 170000000)|(CpuClockFreq_Value=170000000))"/>
+        <Condition Diagnostic="" Expression="((HCLKFreq_Value &lt; 85000000)|(HCLKFreq_Value=85000000))"/>
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE3" Comment="Power Regulator Voltage Scale 3" Semaphore="scale3"/>
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE2" Comment="Power Regulator Voltage Scale 2" Semaphore="scale2"/>
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE1" Comment="Power Regulator Voltage Scale 1" Semaphore="scale1"/>
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE0" Comment="Power Regulator Voltage Scale 0" Semaphore="scale0"/>
     </RefParameter>
     <RefParameter Name="PWR_Regulator_Voltage_Scale" Comment="Power Regulator Voltage Scale" Type="list" DefaultValue="PWR_REGULATOR_VOLTAGE_SCALE2" Group="Power Parameters">
-        <Condition Diagnostic="" Expression="((CpuClockFreq_Value &lt; 300000000)|(CpuClockFreq_Value=300000000)) &amp; (CpuClockFreq_Value &gt; 170000000)"/>
-        <PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE3" Diagnostic="Max value allowed for this scale is 170MHz" Comment="Power Regulator Voltage Scale 3" Condition="!scale3"/>
+        <Condition Diagnostic="" Expression="((HCLKFreq_Value &lt; 150000000)|(HCLKFreq_Value=150000000)) &amp; (HCLKFreq_Value &gt; 85000000)"/>
+        <PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE3" Diagnostic="Max HCLK value allowed for this scale is 85MHz" Comment="Power Regulator Voltage Scale 3" Condition="!scale3"/>
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE2" Comment="Power Regulator Voltage Scale 2" Semaphore="scale2"/>
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE1" Comment="Power Regulator Voltage Scale 1" Semaphore="scale1"/>
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE0" Comment="Power Regulator Voltage Scale 0" Semaphore="scale0"/>
     </RefParameter>
     <RefParameter Name="PWR_Regulator_Voltage_Scale" Comment="Power Regulator Voltage Scale" Type="list" DefaultValue="PWR_REGULATOR_VOLTAGE_SCALE1" Group="Power Parameters">
-        <Condition Diagnostic="" Expression="((CpuClockFreq_Value &lt; 400000000)|(CpuClockFreq_Value=400000000)) &amp; (CpuClockFreq_Value &gt; 300000000)"/>
-        <PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE3" Diagnostic="Max value allowed for this scale is 170MHz" Comment="Power Regulator Voltage Scale 3" Condition="!scale3"/>
-		<PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE2" Diagnostic="Max value allowed for this scale is 300MHz" Comment="Power Regulator Voltage Scale 2" Condition="!scale2"/>
+        <Condition Diagnostic="" Expression="((HCLKFreq_Value &lt; 200000000)|(HCLKFreq_Value=200000000)) &amp; (HCLKFreq_Value &gt; 150000000)"/>
+        <PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE3" Diagnostic="Max HCLK value allowed for this scale is 85MHz" Comment="Power Regulator Voltage Scale 3" Condition="!scale3"/>
+		<PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE2" Diagnostic="Max HCLK value allowed for this scale is 150MHz" Comment="Power Regulator Voltage Scale 2" Condition="!scale2"/>
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE1" Comment="Power Regulator Voltage Scale 1" Semaphore="scale1"/>
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE0" Comment="Power Regulator Voltage Scale 0" Semaphore="scale0"/>
     </RefParameter>
 		  
     <RefParameter Name="PWR_Regulator_Voltage_Scale" Comment="Power Regulator Voltage Scale" Type="list" DefaultValue="PWR_REGULATOR_VOLTAGE_SCALE0" Group="Power Parameters">
-        <Condition Diagnostic="You have to set CPU_FREQ_BOOST in Flash Otption bytes when CPU freq &gt; 520 Mhz" Expression="((CpuClockFreq_Value &lt; 550000000)|(CpuClockFreq_Value=550000000)) &amp; (CpuClockFreq_Value &gt; 400000000)"/>
-	    <PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE3" Diagnostic="Max value allowed for this scale is 170MHz" Comment="Power Regulator Voltage Scale 3" Condition="!scale3"/>
-		<PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE2" Diagnostic="Max value allowed for this scale is 300MHz" Comment="Power Regulator Voltage Scale 2" Condition="!scale2"/>
-		<PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE1" Diagnostic="Max value allowed for this scale is 400MHz" Comment="Power Regulator Voltage Scale 1" Condition="!scale1"/>
+        <Condition Diagnostic="You have to set CPU_FREQ_BOOST in Flash Otption bytes when CPU freq &gt; 520 Mhz" Expression="((HCLKFreq_Value &lt; 275000000)|(HCLKFreq_Value=275000000)) &amp; (HCLKFreq_Value &gt; 200000000)"/>
+	    <PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE3" Diagnostic="Max HCLK value allowed for this scale is 85MHz" Comment="Power Regulator Voltage Scale 3" Condition="!scale3"/>
+		<PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE2" Diagnostic="Max HCLK value allowed for this scale is 150MHz" Comment="Power Regulator Voltage Scale 2" Condition="!scale2"/>
+		<PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE1" Diagnostic="Max HCLK value allowed for this scale is 200MHz" Comment="Power Regulator Voltage Scale 1" Condition="!scale1"/>
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE0" Comment="Power Regulator Voltage Scale 0" Semaphore="scale0"/>
     </RefParameter>
     <RefParameter Name="PWR_Regulator_Voltage_Scale" Comment="Power Regulator Voltage Scale" Type="list" DefaultValue="PWR_REGULATOR_VOLTAGE_SCALE0" Group="Power Parameters" Visible="false">
-        <Condition Diagnostic="" Expression="(CpuClockFreq_Value &gt; 550000000)"/>
-	    <PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE3" Diagnostic="Max value allowed for this scale is 170MHz" Comment="Power Regulator Voltage Scale 3" Condition="!scale3"/>
-		<PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE2" Diagnostic="Max value allowed for this scale is 300MHz" Comment="Power Regulator Voltage Scale 2" Condition="!scale2"/>
-		<PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE1" Diagnostic="Max value allowed for this scale is 400MHz" Comment="Power Regulator Voltage Scale 1" Condition="!scale1"/>
+        <Condition Diagnostic="" Expression="(HCLKFreq_Value &gt; 275000000)"/>
+	    <PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE3" Diagnostic="Max HCLK value allowed for this scale is 85MHz" Comment="Power Regulator Voltage Scale 3" Condition="!scale3"/>
+		<PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE2" Diagnostic="Max HCLK value allowed for this scale is 150MHz" Comment="Power Regulator Voltage Scale 2" Condition="!scale2"/>
+		<PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE1" Diagnostic="Max HCLK value allowed for this scale is 200MHz" Comment="Power Regulator Voltage Scale 1" Condition="!scale1"/>
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE0" Comment="Power Regulator Voltage Scale 0" Semaphore="scale0"/>
     </RefParameter>
 	
@@ -6530,19 +6564,19 @@
     
     <RefParameter Visible="true" Comment="SupplySource" DefaultValue="PWR_DIRECT_SMPS_SUPPLY" Name="SupplySource" Type="list" Group="Power Parameters">
         <Condition Expression="STM32H725_735|STM32H730IBTxQ|STM32H730IBKxQ|STM32H730ABIxQ" Diagnostic=""/>
-        <PossibleValue Value="PWR_LDO_SUPPLY" Comment="PWR_LDO_SUPPLY"/>
-        <PossibleValue Value="PWR_DIRECT_SMPS_SUPPLY" Comment="PWR_DIRECT_SMPS_SUPPLY"/>
-        <PossibleValue Value="PWR_EXTERNAL_SOURCE_SUPPLY" Comment="PWR_EXTERNAL_SOURCE_SUPPLY"/>
-        <PossibleValue Value="PWR_SMPS_1V8_SUPPLIES_LDO" Comment="PWR_SMPS_1V8_SUPPLIES_LDO"/>
-        <PossibleValue Value="PWR_SMPS_2V5_SUPPLIES_LDO" Comment="PWR_SMPS_2V5_SUPPLIES_LDO"/>
-        <PossibleValue Value="PWR_SMPS_1V8_SUPPLIES_EXT_AND_LDO" Comment="PWR_SMPS_1V8_SUPPLIES_EXT_AND_LDO"/>
-        <PossibleValue Value="PWR_SMPS_2V5_SUPPLIES_EXT_AND_LDO" Comment="PWR_SMPS_2V5_SUPPLIES_EXT_AND_LDO"/>
-        <PossibleValue Value="PWR_SMPS_1V8_SUPPLIES_EXT" Comment="PWR_SMPS_1V8_SUPPLIES_EXT"/>
-        <PossibleValue Value="PWR_SMPS_2V5_SUPPLIES_EXT" Comment="PWR_SMPS_2V5_SUPPLIES_EXT"/>
+        <PossibleValue Value="PWR_LDO_SUPPLY" Comment="PWR_LDO_SUPPLY" Semaphore="PWR_LDO_SUPPLY"/>
+        <PossibleValue Value="PWR_DIRECT_SMPS_SUPPLY" Comment="PWR_DIRECT_SMPS_SUPPLY" Semaphore="PWR_DIRECT_SMPS_SUPPLY"/>
+        <PossibleValue Value="PWR_EXTERNAL_SOURCE_SUPPLY" Comment="PWR_EXTERNAL_SOURCE_SUPPLY" Semaphore="PWR_EXTERNAL_SOURCE_SUPPLY"/>
+        <PossibleValue Value="PWR_SMPS_1V8_SUPPLIES_LDO" Comment="PWR_SMPS_1V8_SUPPLIES_LDO" Semaphore="PWR_SMPS_1V8_SUPPLIES_LDO"/>
+        <PossibleValue Value="PWR_SMPS_2V5_SUPPLIES_LDO" Comment="PWR_SMPS_2V5_SUPPLIES_LDO" Semaphore="PWR_SMPS_2V5_SUPPLIES_LDO"/>
+        <PossibleValue Value="PWR_SMPS_1V8_SUPPLIES_EXT_AND_LDO" Comment="PWR_SMPS_1V8_SUPPLIES_EXT_AND_LDO" Semaphore="PWR_SMPS_1V8_SUPPLIES_EXT_AND_LDO"/>
+        <PossibleValue Value="PWR_SMPS_2V5_SUPPLIES_EXT_AND_LDO" Comment="PWR_SMPS_2V5_SUPPLIES_EXT_AND_LDO" Semaphore="PWR_SMPS_2V5_SUPPLIES_EXT_AND_LDO"/>
+        <PossibleValue Value="PWR_SMPS_1V8_SUPPLIES_EXT" Comment="PWR_SMPS_1V8_SUPPLIES_EXT" Semaphore="PWR_SMPS_1V8_SUPPLIES_EXT"/>
+        <PossibleValue Value="PWR_SMPS_2V5_SUPPLIES_EXT" Comment="PWR_SMPS_2V5_SUPPLIES_EXT" Semaphore="PWR_SMPS_2V5_SUPPLIES_EXT"/>
     </RefParameter>
     <RefParameter Visible="true" Comment="SupplySource" DefaultValue="PWR_LDO_SUPPLY" Name="SupplySource" Type="list" Group="Power Parameters">
-        <PossibleValue Value="PWR_LDO_SUPPLY" Comment="PWR_LDO_SUPPLY"/>
-        <PossibleValue Value="PWR_EXTERNAL_SOURCE_SUPPLY" Comment="PWR_EXTERNAL_SOURCE_SUPPLY"/>
+        <PossibleValue Value="PWR_LDO_SUPPLY" Comment="PWR_LDO_SUPPLY" Semaphore="PWR_LDO_SUPPLY"/>
+        <PossibleValue Value="PWR_EXTERNAL_SOURCE_SUPPLY" Comment="PWR_EXTERNAL_SOURCE_SUPPLY" Semaphore="PWR_EXTERNAL_SOURCE_SUPPLY"/>
     </RefParameter>
 		
     <RefParameter Name="PLL1_VCI_Range" Comment="PLL1 input frequency range" Type="u8niqueElementList" DefaultValue="RCC_PLL1VCIRANGE_0" Group="PLL range Parameters">

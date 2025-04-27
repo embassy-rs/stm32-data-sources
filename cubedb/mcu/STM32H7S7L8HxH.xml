@@ -95,6 +95,11 @@
             <ContextIP ContextName="ExtMemLoader" InitializerForced="true"/>
         </ContextSplit>
     </IP>
+    <IP ConfigFile="EXTMEM_MANAGER_APPLI-STM32H7RSxx" InstanceName="EXTMEM_MANAGER_APPLI" Name="EXTMEM_MANAGER_APPLI" Version="v1.0.0_H7RS_Cube">
+        <ContextSplit Name="split1">
+            <ContextIP ContextName="Appli"/>
+        </ContextSplit>
+    </IP>
     <IP ConfigFile="FATFS-STM32H7RSxx" InstanceName="FATFS" Name="FATFS" Version="H7RS-v0.1.0_Cube">
         <ContextSplit Name="NOINIT1">
             <ContextIP ContextName="Boot"/>
@@ -308,21 +313,21 @@
             <ContextIP ContextName="Appli"/>
         </ContextSplit>
     </IP>
-    <IP ClockEnableMode="__HAL_RCC_XSPI1_CLK_ENABLE" ConfigFile="MCE-STM32H7RSxx" InstanceName="MCE1" Name="MCE" Version="v1_0_Cube">
+    <IP ClockEnableMode="__HAL_RCC_XSPI1_CLK_ENABLE" ConfigFile="MCE-STM32H7RSxx" InstanceName="MCE1" Name="MCE" Version="v1_0_H7RS_Cube">
         <ContextSplit Name="split1">
             <ContextIP ContextName="Boot"/>
             <ContextIP ContextName="Appli"/>
             <ContextIP ContextName="ExtMemLoader"/>
         </ContextSplit>
     </IP>
-    <IP ClockEnableMode="__HAL_RCC_XSPI2_CLK_ENABLE" ConfigFile="MCE-STM32H7RSxx" InstanceName="MCE2" Name="MCE" Version="v1_0_Cube">
+    <IP ClockEnableMode="__HAL_RCC_XSPI2_CLK_ENABLE" ConfigFile="MCE-STM32H7RSxx" InstanceName="MCE2" Name="MCE" Version="v1_0_H7RS_Cube">
         <ContextSplit Name="split1">
             <ContextIP ContextName="Boot"/>
             <ContextIP ContextName="Appli"/>
             <ContextIP ContextName="ExtMemLoader"/>
         </ContextSplit>
     </IP>
-    <IP ClockEnableMode="__HAL_RCC_FMC_CLK_ENABLE" ConfigFile="MCE-STM32H7RSxx" InstanceName="MCE3" Name="MCE" Version="v1_0_Cube">
+    <IP ClockEnableMode="__HAL_RCC_FMC_CLK_ENABLE" ConfigFile="MCE-STM32H7RSxx" InstanceName="MCE3" Name="MCE" Version="v1_0_H7RS_Cube">
         <ContextSplit Name="split1">
             <ContextIP ContextName="Boot"/>
             <ContextIP ContextName="Appli"/>
@@ -356,6 +361,7 @@
             <ContextIP ContextName="ExtMemLoader"/>
         </ContextSplit>
     </IP>
+    <IP ConfigFile="RAMECC-STM32H7RSxx" InstanceName="RAMECC" Name="RAMECC" Version="ramecc_v1_0_H7RS_Cube"/>
     <IP ConfigFile="RCC-STM32H7RSxx" InstanceName="RCC" Name="RCC" Version="STM32H7RS_rcc_v1_0">
         <ContextSplit Name="split1">
             <ContextIP ContextName="Boot" InitializerForced="true"/>
@@ -401,14 +407,14 @@
             <ContextIP ContextName="ExtMemLoader"/>
         </ContextSplit>
     </IP>
-    <IP ClockEnableMode="__HAL_RCC_SDMMC1_CLK_ENABLE" ConfigFile="SDIO-STM32H7RSxx" InstanceName="SDMMC1" Name="SDMMC" Version="sdmmc2_v2_1_Cube">
+    <IP ClockEnableMode="__HAL_RCC_SDMMC1_CLK_ENABLE" ConfigFile="SDIO-STM32H7RSxx" InstanceName="SDMMC1" Name="SDMMC" Version="sdmmc2_v2_1_H7RS_Cube">
         <ContextSplit Name="NOINIT1">
             <ContextIP ContextName="Boot"/>
             <ContextIP ContextName="Appli"/>
             <ContextIP ContextName="ExtMemLoader"/>
         </ContextSplit>
     </IP>
-    <IP ClockEnableMode="__HAL_RCC_SDMMC2_CLK_ENABLE" ConfigFile="SDIO-STM32H7RSxx" InstanceName="SDMMC2" Name="SDMMC" Version="sdmmc2_v2_1_Cube">
+    <IP ClockEnableMode="__HAL_RCC_SDMMC2_CLK_ENABLE" ConfigFile="SDIO-STM32H7RSxx" InstanceName="SDMMC2" Name="SDMMC" Version="sdmmc2_v2_1_H7RS_Cube">
         <ContextSplit Name="NOINIT1">
             <ContextIP ContextName="Boot"/>
             <ContextIP ContextName="Appli"/>
@@ -632,13 +638,6 @@
         <ContextSplit Name="NOINIT1">
             <ContextIP ContextName="Boot"/>
             <ContextIP ContextName="Appli"/>
-        </ContextSplit>
-    </IP>
-    <IP InstanceName="USB_INTERNAL_REGULATOR" Name="USB_internal_regulator" Version="v1.0_Cube">
-        <ContextSplit Name="split1">
-            <ContextIP ContextName="Boot"/>
-            <ContextIP ContextName="Appli"/>
-            <ContextIP ContextName="ExtMemLoader"/>
         </ContextSplit>
     </IP>
     <IP ClockEnableMode="__HAL_RCC_USB_OTG_FS_CLK_ENABLE; __HAL_RCC_USBPHYC_CLK_ENABLE" InstanceName="USB_OTG_FS" Name="USB_OTG_FS" Version="otgfs1_v3_0_Cube">
@@ -1013,6 +1012,7 @@
         <Signal Name="PSSI_DE"/>
         <Signal Name="TAMP_IN6"/>
         <Signal Name="TAMP_OUT3"/>
+        <Signal Name="USART2_DE"/>
         <Signal Name="USART2_RTS"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
     </Pin>
@@ -1040,12 +1040,14 @@
         <Signal Name="FMC_D0"/>
         <Signal Name="FMC_DA0"/>
         <Signal Name="I2S2_CK"/>
+        <Signal Name="LPUART1_DE"/>
         <Signal Name="LPUART1_RTS"/>
         <Signal Name="LTDC_B2"/>
         <Signal Name="SAI2_FS_B"/>
         <Signal Name="SPI2_SCK"/>
         <Signal Name="TIM1_ETR"/>
         <Signal Name="UART4_TX"/>
+        <Signal Name="USART1_DE"/>
         <Signal Name="USART1_RTS"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
     </Pin>
@@ -1182,6 +1184,7 @@
         <Signal Name="PSSI_D2"/>
         <Signal Name="SDMMC1_D0"/>
         <Signal Name="TIM3_CH3"/>
+        <Signal Name="UART5_DE"/>
         <Signal Name="UART5_RTS"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
     </Pin>
@@ -1458,6 +1461,7 @@
         <Signal Name="SPI6_NSS"/>
         <Signal Name="TIM2_CH1"/>
         <Signal Name="TIM2_ETR"/>
+        <Signal Name="UART4_DE"/>
         <Signal Name="UART4_RTS"/>
         <Signal Name="UART7_TX"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
@@ -1493,6 +1497,7 @@
         <Signal Name="SPI5_MISO"/>
         <Signal Name="TIM13_CH1"/>
         <Signal Name="TIM16_CH1N"/>
+        <Signal Name="UART7_DE"/>
         <Signal Name="UART7_RTS"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
     </Pin>
@@ -1728,6 +1733,7 @@
         <Signal Name="LPTIM5_OUT"/>
         <Signal Name="PSSI_D9"/>
         <Signal Name="TIM4_CH4"/>
+        <Signal Name="UART8_DE"/>
         <Signal Name="UART8_RTS"/>
         <Signal Name="UCPD1_FRSTX2"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
@@ -1785,6 +1791,7 @@
         <Signal Name="TIM2_CH2"/>
         <Signal Name="TIM5_CH2"/>
         <Signal Name="UART4_RX"/>
+        <Signal Name="USART2_DE"/>
         <Signal Name="USART2_RTS"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
     </Pin>
@@ -1866,8 +1873,10 @@
         <Signal Name="SPI2_MISO"/>
         <Signal Name="TIM12_CH1"/>
         <Signal Name="TIM1_CH2N"/>
+        <Signal Name="UART4_DE"/>
         <Signal Name="UART4_RTS"/>
         <Signal Name="USART1_TX"/>
+        <Signal Name="USART3_DE"/>
         <Signal Name="USART3_RTS"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
     </Pin>
@@ -1956,6 +1965,7 @@
         <Signal Name="FMC_A25"/>
         <Signal Name="LTDC_G1"/>
         <Signal Name="SPI5_SCK"/>
+        <Signal Name="USART1_DE"/>
         <Signal Name="USART1_RTS"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
     </Pin>
@@ -1993,6 +2003,7 @@
         <Signal Name="PSSI_D12"/>
         <Signal Name="SAI2_FS_A"/>
         <Signal Name="TIM4_CH1"/>
+        <Signal Name="USART3_DE"/>
         <Signal Name="USART3_RTS"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
     </Pin>
@@ -2086,6 +2097,7 @@
         <Signal Name="FMC_A14"/>
         <Signal Name="FMC_BA0"/>
         <Signal Name="TIM1_CH1"/>
+        <Signal Name="UART7_DE"/>
         <Signal Name="UART7_RTS"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
     </Pin>

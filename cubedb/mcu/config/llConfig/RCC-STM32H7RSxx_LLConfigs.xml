@@ -46,6 +46,11 @@
                 <HardCode Text="#twhile(LL_FLASH_GetLatency()!= LL_FLASH_LATENCY_6)#n#t{#n#t}"/>
             </CallLibMethod>
         </IFCondition>
+        <IFCondition Expression ="FLatency=FLASH_LATENCY_7">
+            <CallLibMethod Name="" Type="HardCode">
+                <HardCode Text="#twhile(LL_FLASH_GetLatency()!= LL_FLASH_LATENCY_7)#n#t{#n#t}"/>
+            </CallLibMethod>
+        </IFCondition>
 
         <!--voltage scaling configuration-->
         <IFCondition Expression ="1=1">
@@ -616,13 +621,19 @@
             </CallLibMethod>
         </IFCondition>        
         
-        <IFCondition Expression ="(OTG_FS_Used &amp; USBOCLKSOURCE_PHY) | OTG_HS_Used">
+        <IFCondition Expression ="(USB_OTG_FS_Used &amp; USBOCLKSOURCE_PHY) | USB_OTG_HS_Used">
             <CallLibMethod Name="LL_RCC_SetUSBPHYCClockSource">
                 <MethodArg Name="USBxSource" ParameterName="UsbphyClockSelectionARG"/>
             </CallLibMethod>
         </IFCondition>
+
+        <IFCondition Expression ="USB_OTG_HS_Used">
+            <CallLibMethod Name="LL_RCC_SetUSBREFClockSource">
+                <MethodArg Name="Value" ParameterName="USBPHYFreq_ValueARG"/>
+            </CallLibMethod>
+        </IFCondition>
         
-        <IFCondition Expression ="OTG_FS_Used">
+        <IFCondition Expression ="USB_OTG_FS_Used">
             <CallLibMethod Name="LL_RCC_SetOTGFSClockSource">
                 <MethodArg Name="USBxSource" ParameterName="USBCLockSelection"/>
             </CallLibMethod>
@@ -709,7 +720,7 @@
     </RefConfig>
     
     <RefConfig Name="PWREx_EnableUSBVoltageDetector">
-        <IFCondition Expression="OTG_FS_Used|OTG_HS_Used">
+        <IFCondition Expression="USB_OTG_FS_Used|USB_OTG_HS_Used">
             <CallLibMethod Name="LL_PWR_EnableUSBVoltageDetector"/>
         </IFCondition>        
     </RefConfig>
@@ -793,6 +804,10 @@
 	
     <LibMethod Comment="" Name="LL_RCC_SetUSBPHYCClockSource">
         <Argument AddressOf="false" GenericType="simple" Name="USBxSource"/>
+    </LibMethod>
+    
+    <LibMethod Comment="" Name="LL_RCC_SetUSBREFClockSource">
+        <Argument AddressOf="false" GenericType="simple" Name="Value"/>
     </LibMethod>
 	
     <LibMethod Comment="" Name="LL_RCC_SetOTGFSClockSource">
@@ -1038,7 +1053,7 @@
         <File Category="header" Name="Drivers/STM32H7RSxx_HAL_Driver/Inc/stm32h7rsxx_ll_crs.h"/>
         <File Category="header" Name="Drivers/STM32H7RSxx_HAL_Driver/Inc/stm32h7rsxx_ll_system.h"/>
         <File Category="header" Name="Drivers/STM32H7RSxx_HAL_Driver/Inc/stm32h7rsxx_ll_utils.h"/>
-        <File Category="source" Name="Drivers/STM32H7RSxx_HAL_Driver/Src/stm32h7rsxx_ll_utils.c"/> 
+        <File Category="source"  Condition="USE_LL_DRIVER" Name="Drivers/STM32H7RSxx_HAL_Driver/Src/stm32h7rsxx_ll_utils.c"/>
         <File Category="header" Name="Drivers/STM32H7RSxx_HAL_Driver/Inc/stm32h7rsxx_ll_exti.h"/>
         <File Category="source" Name="Drivers/STM32H7RSxx_HAL_Driver/Src/stm32h7rsxx_ll_exti.c"/>
         <File Category="header" Name="Drivers/STM32H7RSxx_HAL_Driver/Inc/stm32h7rsxx_ll_pwr.h"/>

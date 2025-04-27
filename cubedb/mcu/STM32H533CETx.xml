@@ -70,7 +70,7 @@
             <ContextIP ContextName="CortexM33"/>
         </ContextSplit>
     </IP>
-    <IP ConfigFile="DAC-STM32H5xx" InstanceName="DAC1" Name="DAC" Version="dacif_v5_0_Cube">
+    <IP ConfigFile="DAC-STM32H5xx" InstanceName="DAC1" Name="DAC" Version="dacif_v5_0_Cube_H5_512k">
         <ContextSplit Name="split1">
             <ContextIP ContextName="CortexM33S"/>
         </ContextSplit>
@@ -317,6 +317,15 @@
     <IP ConfigFile="LevelX-STM32H5xx" InstanceName="LEVELX" Name="LevelX" Version="v1.0.0_H5_Cube">
         <ContextSplit Name="split2">
             <ContextIP ContextName="CortexM33NS" InitializerForced="true"/>
+        </ContextSplit>
+        <ContextSplit Name="split3">
+            <ContextIP ContextName="CortexM33"/>
+        </ContextSplit>
+    </IP>
+    <IP ConfigFile="LINKEDLIST-STM32H5xx" InstanceName="LINKEDLIST" Name="LINKEDLIST" Version="STM32H5_linkedlist_v1_0">
+        <ContextSplit Name="split1">
+            <ContextIP ContextName="CortexM33S" ForcedSelection="true" InitializerForced="true"/>
+            <ContextIP ContextName="CortexM33NS" ForcedSelection="true"/>
         </ContextSplit>
         <ContextSplit Name="split3">
             <ContextIP ContextName="CortexM33"/>
@@ -731,17 +740,6 @@
             <ContextIP ContextName="CortexM33"/>
         </ContextSplit>
     </IP>
-    <IP InstanceName="USART6" Name="USART" Version="sci3_v2_0_Cube">
-        <ContextSplit Name="split1">
-            <ContextIP ContextName="CortexM33S"/>
-        </ContextSplit>
-        <ContextSplit Name="split2">
-            <ContextIP ContextName="CortexM33NS"/>
-        </ContextSplit>
-        <ContextSplit Name="split3">
-            <ContextIP ContextName="CortexM33"/>
-        </ContextSplit>
-    </IP>
     <IP ClockEnableMode="__HAL_RCC_USB_CLK_ENABLE" InstanceName="USB" Name="USB" Version="usbfs_v1.0_Cube">
         <ContextSplit Name="split1">
             <ContextIP ContextName="CortexM33S"/>
@@ -881,8 +879,8 @@
         <Signal Name="TIM2_CH2"/>
         <Signal Name="TIM5_CH2"/>
         <Signal Name="UART4_RX"/>
+        <Signal Name="USART2_DE"/>
         <Signal Name="USART2_RTS"/>
-        <Signal Name="USART6_CK"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
     </Pin>
     <Pin Name="PA2" Position="12" Type="I/O">
@@ -1060,6 +1058,7 @@
         <Signal Name="UART4_RTS"/>
         <Signal Name="UCPD1_CC2"/>
         <Signal Name="USART1_TX"/>
+        <Signal Name="USART3_DE"/>
         <Signal Name="USART3_RTS"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
     </Pin>
@@ -1130,10 +1129,12 @@
     <Pin Name="PA12" Position="33" Type="I/O">
         <Signal Name="FDCAN1_TX"/>
         <Signal Name="I2S2_CK"/>
+        <Signal Name="LPUART1_DE"/>
         <Signal Name="LPUART1_RTS"/>
         <Signal Name="SPI2_SCK"/>
         <Signal Name="TIM1_ETR"/>
         <Signal Name="UART4_TX"/>
+        <Signal Name="USART1_DE"/>
         <Signal Name="USART1_RTS"/>
         <Signal Name="USB_DP"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
@@ -1206,7 +1207,6 @@
         <Signal Name="SPI3_MOSI"/>
         <Signal Name="TIM3_CH2"/>
         <Signal Name="UART5_RX"/>
-        <Signal Name="USART6_TX"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
     </Pin>
     <Pin Name="PB6" Position="42" Type="I/O">
@@ -1219,7 +1219,6 @@
         <Signal Name="TIM4_CH1"/>
         <Signal Name="UART5_TX"/>
         <Signal Name="USART1_TX"/>
-        <Signal Name="USART6_RX"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
     </Pin>
     <Pin Name="PB7" Position="43" Type="I/O">
@@ -1231,8 +1230,6 @@
         <Signal Name="SPI4_MISO"/>
         <Signal Name="TIM4_CH2"/>
         <Signal Name="USART1_RX"/>
-        <Signal Name="USART6_CTS"/>
-        <Signal Name="USART6_NSS"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
     </Pin>
     <Pin Name="BOOT0" Position="44" Type="Boot"/>
