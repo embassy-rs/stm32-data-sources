@@ -95,6 +95,12 @@
         <PossibleValue Action="Remove" Condition="(DMAAccessModeView=DISABLED) | (ADC_RESOLUTION6b_$IpInstance|ADC_RESOLUTION8b_$IpInstance)" Comment="DMA access mode enabled" Value="ADC_DMAACCESSMODE_12_10_BITS"/>
         <PossibleValue Action="Remove" Condition="(DMAAccessModeView=DISABLED) | (ADC_RESOLUTION12b_$IpInstance|ADC_RESOLUTION10b_$IpInstance)" Comment="DMA access mode enabled" Value="ADC_DMAACCESSMODE_8_6_BITS"/>
        </RefParameter>
+    <RefParameter Comment="Conversion Data Management Mode" DefaultValue="ADC_CONVERSIONDATA_DR" Group="ADCgroup" Name="ConversionDataManagement" Type="list">
+        <PossibleValue    Comment="Regular Conversion data stored in DR register only" Value="ADC_CONVERSIONDATA_DR" />
+        <PossibleValue    Comment="DMA One Shot Mode" Value="ADC_CONVERSIONDATA_DMA_ONESHOT" />
+        <PossibleValue    Comment="DMA Circular Mode" Value="ADC_CONVERSIONDATA_DMA_CIRCULAR" />
+        <Description>This mode specifies whether the Data conversion data is managed: using the DMA (oneshot or circular), or stored in the DR register or transfered to DFSDM register</Description>
+    </RefParameter>
 	    
         <!-- Possible value of TwoSamplingDelay parameter -->
         <RefParameter Comment="Delay between 2 sampling phases" DefaultValue="null" Group="ADCsgroup" Name="TwoSamplingDelay" Type="list" Visible="false">
@@ -285,11 +291,42 @@
     <!-- Possible values of DMAContinuousRequests parameter -->
     <RefParameter Comment="DMA Continuous Requests" DefaultValue="DISABLE" Group="ADCgroup" Name="DMAContinuousRequests" Type="list">
         <PossibleValue Comment="Disabled" Value="DISABLE"/>
-        <PossibleValue Comment="Enabled" Value="ENABLE"  />
+        <PossibleValue Comment="Enabled" Value="ENABLE"/>
         <Description>Enable/Disable DMA Continuous Requests</Description>
     </RefParameter>
 
-    
+
+    <RefParameter Comment="DMA Continuous Requests" DefaultValue="LIMITED" Group="ADCGroup" Name="DMAContinuousRequestsForConfigFile" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="$IpNumber=1 &amp; DMAContinuousRequests=DISABLE"/>
+        <PossibleValue Comment="LIMITED" Value="LIMITED"/>
+        <Description>Enable/Disable DMA Continuous Requests</Description>
+    </RefParameter>
+    <RefParameter Comment="DMA Continuous Requests" DefaultValue="UNLIMITED" Group="ADCGroup" Name="DMAContinuousRequestsForConfigFile" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="$IpNumber=1 &amp; DMAContinuousRequests=ENABLE"/>
+        <PossibleValue Comment="LIMITED" Value="UNLIMITED"/>
+        <Description>Enable/Disable DMA Continuous Requests</Description>
+    </RefParameter>
+    <RefParameter Comment="DMA Continuous Requests" DefaultValue="NONE" Group="ADCGroup" Name="DMAContinuousRequestsForConfigFile" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="$IpNumber=1 &amp; DMAContinuousRequests=DISABLE"/>
+        <PossibleValue Comment="none" Value="NONE"/>
+        <Description>Enable/Disable DMA Continuous Requests</Description>
+    </RefParameter>
+    <RefParameter Comment="DMA Continuous Requests" DefaultValue="LIMITED" Group="ADCGroup" Name="DMAContinuousRequestsForConfigFile" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="$IpNumber=2 &amp; DMAContinuousRequests=DISABLE"/>
+        <PossibleValue Comment="LIMITED" Value="LIMITED"/>
+        <Description>Enable/Disable DMA Continuous Requests</Description>
+    </RefParameter>
+    <RefParameter Comment="DMA Continuous Requests" DefaultValue="UNLIMITED" Group="ADCGroup" Name="DMAContinuousRequestsForConfigFile" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="$IpNumber=2 &amp; DMAContinuousRequests=ENABLE"/>
+        <PossibleValue Comment="LIMITED" Value="UNLIMITED"/>
+        <Description>Enable/Disable DMA Continuous Requests</Description>
+    </RefParameter>
+    <RefParameter Comment="DMA Continuous Requests" DefaultValue="NONE" Group="ADCGroup" Name="DMAContinuousRequestsForConfigFile" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="$IpNumber=2 &amp; DMAContinuousRequests=DISABLE"/>
+        <PossibleValue Comment="none" Value="NONE"/>
+        <Description>Enable/Disable DMA Continuous Requests</Description>
+    </RefParameter>
+
     <!-- Possible values of EOCSelection parameter -->
     <RefParameter Comment="End Of Conversion Selection" DefaultValue="ADC_EOC_SINGLE_CONV" Group="ADCgroup" Name="EOCSelection" Type="list">
         <PossibleValue Comment="End of single conversion" Value="ADC_EOC_SINGLE_CONV"/>
@@ -768,7 +805,6 @@
         <PossibleValue Action="Remove" Comment="Timer 3 Trigger Out event" Condition="!TIM3_Exist" Diagnostic="" Value="ADC_EXTERNALTRIGINJEC_T3_TRGO"/>
         <PossibleValue Action="Remove" Comment="Timer 3 Capture Compare 1 event" Condition="!TIM3_Exist" Diagnostic="" Value="ADC_EXTERNALTRIGINJEC_T3_CC1"/>
         <PossibleValue Action="Remove" Comment="Timer 6 Trigger Out event" Condition="!TIM6_Exist" Diagnostic="" Value="ADC_EXTERNALTRIGINJEC_T6_TRGO"/>
-        <PossibleValue Action="Remove" Comment="Timer 7 Trigger Out event" Condition="!TIM7_Exist" Diagnostic="" Value="ADC_EXTERNALTRIGINJEC_T7_TRGO"/>
         <PossibleValue Action="Remove" Comment="Timer 15 Trigger Out event" Condition="!TIM15_Exist" Diagnostic="" Value="ADC_EXTERNALTRIGINJEC_T15_TRGO"/>
         <PossibleValue Action="Remove" Comment="LPTIM 1 Out event" Condition="!LPTIM1_Exist" Diagnostic="" Value="ADC_EXTERNALTRIGINJEC_LPTIM1_CH2"/>
         <PossibleValue Action="Remove" Comment="LPTIM 2 Out event" Condition="!LPTIM2_Exist" Diagnostic="" Value="ADC_EXTERNALTRIGINJEC_LPTIM2_CH2"/>
@@ -1027,7 +1063,7 @@
     
     <!-- Possible Value of Channel parameter -->
     <RefParameter Comment="Channel" DefaultValue="ADC_CHANNEL_0" Group="ADCChannel" Name="Channel" Type="list" Visible="true">
-        <PossibleValue Comment="Channel 0" Value="ADC_CHANNEL_0"/>
+        <PossibleValue Comment="Channel 0" Value="ADC_CHANNEL_0" Semaphore="ENABLE_Channel0"/>
         <PossibleValue Comment="Channel 1" Value="ADC_CHANNEL_1"/>
         <PossibleValue Comment="Channel 2" Value="ADC_CHANNEL_2"/>
         <PossibleValue Comment="Channel Vbat" Value="ADC_CHANNEL_VBAT"/>
@@ -1673,6 +1709,8 @@
         <Parameter Name="ChannelVREF"/>
         <Parameter Name="ChannelVBAT"/>
         <Parameter Name="ChannelTS"/>
+        <Parameter Name="ConversionDataManagement"/>
+
 
         <!--        <Parameter Name="BoostMode"/>-->
         <Parameter Name="LowPowerAutoWait"/>
@@ -1875,7 +1913,6 @@
         </Parameter>
     </RefMode>
     <RefMode Comment="" Name="IN-Vcore">
-        <ConfigForMode>ADC_RegularChannelConfig</ConfigForMode>
         <Parameter Name="Channel">
             <PossibleValue>ADC_CHANNEL_VCORE</PossibleValue>
         </Parameter>

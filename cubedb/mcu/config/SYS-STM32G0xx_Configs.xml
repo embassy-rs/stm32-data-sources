@@ -62,14 +62,22 @@
 	</RefConfig>
 
 	<RefConfig Comment="PVD Configuration" Name="PVDConfig">
+		<IFCondition Expression="!Sem_ExternalAnalogVoltage">
 		<CallLibMethod Name="HAL_PWR_ConfigPVD"  ReturnHAL="false">
 			<MethodArg Name="sConfigPVD.PVDLevel" ParameterName="PVDHLevel|PVDLLevel"/>
 			<MethodArg Name="sConfigPVD.Mode" ParameterName="Mode"/>
 		</CallLibMethod>
+		</IFCondition>
                 <!--CallLibMethod Name="HAL_PWR_ConfigPVD"  ReturnHAL="false">
 			<MethodArg Name="sConfigPVD.PVDLevel" ParameterName="PVDHLevel"/>
 			<MethodArg Name="sConfigPVD.Mode" ParameterName="Mode"/>
 		</CallLibMethod-->
+		<IFCondition Expression="Sem_ExternalAnalogVoltage">
+		<CallLibMethod Name="HAL_PWR_ConfigPVD"  ReturnHAL="false">
+			<MethodArg Name="sConfigPVD.PVDLevel" ParameterName="PVDLevel"/>
+			<MethodArg Name="sConfigPVD.Mode" ParameterName="Mode"/>
+		</CallLibMethod>
+		</IFCondition>
         </RefConfig>
 	<RefConfig Comment="Enable the PVD Output" Name="PVDEnable">
 		<CallLibMethod Name="HAL_PWR_EnablePVD" ReturnHAL="false"/>
@@ -116,19 +124,6 @@
 
 
     <RefComponent Cclass="HAL" Cgroup="TIM" Cversion="">
-        <File Category="header" Name="Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_tim.h"/>
-        <File Category="source" Name="Drivers/STM32G0xx_HAL_Driver/Src/stm32g0xx_hal_tim.c"/>
-        
-               <File Category="header" Name="Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal.h"/>
-
-        <File Category="header" Name="Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_tim_ex.h"/>
-        <File Category="source" Name="Drivers/STM32G0xx_HAL_Driver/Src/stm32g0xx_hal_tim_ex.c"/>
+        <File Category="header" Name="Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal.h"/>
     </RefComponent>
-    <!--RefComponent Cclass="HAL" Cgroup="RTC" Cversion="">
-        <File Category="header" Name="Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_rtc.h" />
-        <File Category="source" Name="Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rtc.c" />
-        <File Category="header" Name="Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_rtc_ex.h" />
-        <File Category="source" Name="Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rtc_ex.c" />
-    </RefComponent-->
-
 </IP>
