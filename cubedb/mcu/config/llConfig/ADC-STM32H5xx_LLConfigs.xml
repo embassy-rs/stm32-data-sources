@@ -24,11 +24,12 @@
         <IFCondition Expression="1=1">   
                 <CallLibMethod Name="LL_ADC_Init">
                     <MethodArg Name="ADCx" ParameterName="Instance" />
+                    <MethodArg Name="DataAlignment" ParameterName="DataAlign" />
                     <MethodArg Name="Resolution" ParameterName="Resolution" />
                     <MethodArg Name="LowPowerMode" ParameterName="LowPowerAutoWait" />
                 </CallLibMethod>
         </IFCondition>
-           
+
         <IFCondition Expression="1=1">
            <CallLibMethod Name="LL_ADC_REG_Init">
             <MethodArg Name="ADCx" ParameterName="Instance" />
@@ -36,8 +37,8 @@
             <MethodArg Name="SequencerLength" ParameterName="NbrOfConversion" />
             <MethodArg Name="SequencerDiscont" ParameterName="DiscontinuousConvMode,NbrOfDiscConversion" />
             <MethodArg Name="ContinuousMode" ParameterName="ContinuousConvMode" />
-            <MethodArg Name="DMATransfer" ParameterName="DMAContinuousRequestsForConfigFile" />
             <MethodArg Name="Overrun" ParameterName="Overrun" />
+			<MethodArg Name="DMATransfer" ParameterName="ConversionDataManagement" />
         </CallLibMethod>
             <CallLibMethod Name="LL_ADC_REG_SetSamplingMode">
                 <MethodArg Name="ADCx" ParameterName="Instance" />
@@ -194,6 +195,12 @@
             <MethodArg Name="Channel" ParameterName="Channel" />
             <MethodArg Name="SingleDiff" ParameterName="SingleDiff" />
         </CallLibMethod>
+        <IFCondition Expression="ENABLE_Channel0">
+            <CallLibMethod Name="LL_ADC_EnableChannel0_GPIO">
+                <MethodArg Name="ADCx" ParameterName="Instance" />
+            </CallLibMethod>
+        </IFCondition>
+
         <IFCondition Expression="!(OffsetNumber = ADC_OFFSET_NONE)">
             <CallLibMethod Name="LL_ADC_SetOffset">
                 <MethodArg Name="ADCx" ParameterName="Instance" />
@@ -1285,6 +1292,10 @@
                       OptimizationCondition="equal" />
         </Argument>
     </LibMethod>
+    <LibMethod Comment="" Name="LL_ADC_EnableChannel0_GPIO">
+        <Argument AddressOf="false" GenericType="baseaddress" Name="ADCx"
+                  TypeName="ADC_TypeDef" />
+    </LibMethod>
     <LibMethod Comment="" Name="LL_ADC_StructInit">
         <Argument AddressOf="true" GenericType="struct" Name="ADC_InitStruct"
                   TypeName="LL_ADC_InitTypeDef">
@@ -1309,9 +1320,9 @@
                       OptimizationCondition="equal" />
             <Argument AddressOf="false" GenericType="simple" Name="ContinuousMode"
                       OptimizationCondition="equal" />
-            <Argument AddressOf="false" GenericType="simple" Name="DMATransfer"
-                      OptimizationCondition="equal" />
             <Argument AddressOf="false" GenericType="simple" Name="Overrun"
+                      OptimizationCondition="equal" />
+            <Argument AddressOf="false" GenericType="simple" Name="DMATransfer"
                       OptimizationCondition="equal" />
         </Argument>
     </LibMethod>
@@ -1326,9 +1337,9 @@
                       OptimizationCondition="equal" />
             <Argument AddressOf="false" GenericType="simple" Name="ContinuousMode"
                       OptimizationCondition="equal" />
-            <Argument AddressOf="false" GenericType="simple" Name="DMATransfer"
-                      OptimizationCondition="equal" />
             <Argument AddressOf="false" GenericType="simple" Name="Overrun"
+                      OptimizationCondition="equal" />
+            <Argument AddressOf="false" GenericType="simple" Name="DMATransfer"
                       OptimizationCondition="equal" />
         </Argument>
     </LibMethod>
