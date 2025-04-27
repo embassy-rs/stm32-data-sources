@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<IP DBVersion="V4.0" 
+	IPType="peripheral" 
+	Name="CSI" 
+	Version="v1_0_Cube" 
+	xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance" 
+	ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../../../doc/V4/Development/Specifications/db/IP_Modes.xsd" 
+	xmlns="http://mcd.rou.st.com/modules.php?name=mcu">
+  
+  <About>CSI:Camera Serial Interface</About>
+
+    <ModeLogicOperator Name="OR">
+		<Mode Name="CSI" UserName="Activated">
+			<ModeLogicOperator Name="XOR">
+				<Mode Name="CSI" UserName="Activated">
+					<SignalLogicalOp Name="AND">
+						<Signal Name="VS_CSI" />
+					</SignalLogicalOp>
+					<Semaphore>CSI</Semaphore>
+				</Mode>
+			</ModeLogicOperator>
+		</Mode>
+        <Mode Name="CSI_D0" UserName="single data lane  D0" RemoveCondition="STM32MP2|STM32N6">
+		<Condition Expression="1=2" Diagnostic=""/>
+            <SignalLogicalOp Name="AND">
+                <Signal Name="CKN"/>
+                <Signal Name="CKP"/>
+                <Signal Name="D0N"/>
+                <Signal Name="D1N"/>
+                <Signal Name="D0P"/>
+                <Signal Name="D1P"/>
+                <Signal Name="REXT" />
+            </SignalLogicalOp>
+        </Mode> 
+	</ModeLogicOperator>
+
+  <!-- RefSignal for CSI -->
+	<RefSignal Name="VS_CSI" Virtual="true"/>
+    <RefSignal Name="D0P" IOMode="System" />
+    <RefSignal Name="D0N" IOMode="System" />
+    <RefSignal Name="D1P" IOMode="System" />
+    <RefSignal Name="D1N" IOMode="System" />
+    <RefSignal Name="CKP" IOMode="System" />
+    <RefSignal Name="CKN" IOMode="System" />
+    <RefSignal Name="REXT" IOMode="System" />	
+  
+</IP>
+

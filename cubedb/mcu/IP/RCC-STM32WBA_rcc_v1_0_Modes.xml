@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <IP DBVersion="V4.0" IPType="peripheral" Name="RCC" Version="STM32WBA_rcc_v1_0" 
     xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance" ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../../../doc/V4/Development/Specifications/db/IP_Modes.xsd" 
     xmlns="http://mcd.rou.st.com/modules.php?name=mcu">
- 
+
     <About>RCC: Reset and Clock Control</About>
 
     <RefParameter Visible="false" Comment="Oscillator Type" DefaultValue="+OscillatorTypeHSI+|OscillatorTypeLSI+|OscillatorTypeHSE+|OscillatorTypeLSE" Name="OscillatorType" Type="list"/>
-    <RefParameter Name="HSE_Timout"   Comment="HSE Startup Timout Value (ms)" Type="integer" DefaultValue="100" Min="1"  Max="4294967295" Group="RCC Parameters"/>
-    <RefParameter Name="LSE_Timout"   Comment="LSE Startup Timout Value (ms)" Type="integer" DefaultValue="5000" Min="1" Max="4294967295"  Group="RCC Parameters"/>
+    <RefParameter Name="HSE_Timout"   Comment="HSE Startup Timeout Value (ms)" Type="integer" DefaultValue="100" Min="1"  Max="4294967295" Group="RCC Parameters"/>
+    <RefParameter Name="LSE_Timout"   Comment="LSE Startup Timeout Value (ms)" Type="integer" DefaultValue="5000" Min="1" Max="4294967295"  Group="RCC Parameters"/>
     <!--Les multiplicateurs-->
 
     <!--APB1 MUL for TIM-->
@@ -45,8 +45,9 @@
   
     <!--PLLN-->
     <RefParameter Visible="false" Comment="PLLN" DefaultValue="129" Max="512" Min="4" Name="PLLN" Type="integer"/>
+    
 
-    <!--divisor-->    
+    <!--divisor-->
     <RefParameter Visible="false" Comment="HseDiv" DefaultValue="RCC_HSE_DIV1" Name="HseDiv" Type="list">
         <PossibleValue Value="RCC_HSE_DIV1" Comment="1"/>
         <PossibleValue Value="RCC_HSE_DIV2" Comment="2" Semaphore="hsepres"/>
@@ -243,6 +244,7 @@
         <PossibleValue Comment="LSI2" Value="RCC_LSCOSOURCE_LSI2" Semaphore="LSI2"/>
     </RefParameter>
     <!--PLLSourceVirtual-->
+    
     <RefParameter Visible="false" Comment="PLL Source" DefaultValue="RCC_PLLSOURCE_HSI" Name="PLLSourceVirtual" Type="list">
         <PossibleValue Comment="Pllsource Hsi" Value="RCC_PLLSOURCE_HSI" Semaphore="PLLSourceHSI"/>
         <PossibleValue Comment="Pllsource Hse" Value="RCC_PLLSOURCE_HSE" Semaphore="PLLSourceHSE"/>
@@ -288,7 +290,7 @@
         <PossibleValue Comment="MCO1SRC SYSCLK" Value="RCC_MCO1SOURCE_SYSCLK"/>
         <PossibleValue Comment="MCO1SRC HSI" Value="RCC_MCO1SOURCE_HSI"/>
         <PossibleValue Comment="MCO1SRC HSE" Value="RCC_MCO1SOURCE_HSE" Semaphore="MCO1SOURCE_HSE"/>
-        <PossibleValue Comment="MCO1SRC PLLCLK" Value="RCC_MCO1SOURCE_PLL1RCLK"/>
+        <PossibleValue Comment="MCO1SRC PLLCLK" Value="RCC_MCO1SOURCE_PLL1RCLK" Semaphore="mco1_pll1r"/>
         <PossibleValue Comment="MCO1SRC LSI" Value="RCC_MCO1SOURCE_LSI"/>
         <PossibleValue Comment="MCO1SRC PLL1P" Value="RCC_MCO1SOURCE_PLL1PCLK" Semaphore="mco1_pll1p"/>
         <PossibleValue Comment="MCO1SRC PLL1Q" Value="RCC_MCO1SOURCE_PLL1QCLK" Semaphore="mco1_pll1q"/>
@@ -307,7 +309,7 @@
         <PossibleValue Comment="MCO1SRC SYSCLK" Value="RCC_MCO1SOURCE_SYSCLK"/>
         <PossibleValue Comment="MCO1SRC HSI" Value="RCC_MCO1SOURCE_HSI"/>
         <PossibleValue Comment="MCO1SRC HSE" Value="RCC_MCO1SOURCE_HSE" Semaphore="MCO1SOURCE_HSE"/>
-        <PossibleValue Comment="MCO1SRC PLLCLK" Value="RCC_MCO1SOURCE_PLL1RCLK"/>
+        <PossibleValue Comment="MCO1SRC PLLCLK" Value="RCC_MCO1SOURCE_PLL1RCLK" Semaphore="mco1_pll1r"/>
         <PossibleValue Comment="MCO1SRC LSE" Value="RCC_MCO1SOURCE_LSE"/>
         <PossibleValue Comment="MCO1SRC LSI" Value="RCC_MCO1SOURCE_LSI"/>
         <PossibleValue Comment="MCO1SRC PLL1P" Value="RCC_MCO1SOURCE_PLL1PCLK" Semaphore="mco1_pll1p"/>
@@ -319,13 +321,24 @@
         <PossibleValue Comment="MCO1SRC SYSCLK" Value="RCC_MCO1SOURCE_SYSCLK"/>
         <PossibleValue Comment="MCO1SRC HSI" Value="RCC_MCO1SOURCE_HSI"/>
         <PossibleValue Comment="MCO1SRC HSE" Value="RCC_MCO1SOURCE_HSE" Semaphore="MCO1SOURCE_HSE"/>
-        <PossibleValue Comment="MCO1SRC PLLCLK" Value="RCC_MCO1SOURCE_PLL1RCLK"/>
+        <PossibleValue Comment="MCO1SRC PLLCLK" Value="RCC_MCO1SOURCE_PLL1RCLK" Semaphore="mco1_pll1r"/>
         <PossibleValue Comment="MCO1SRC LSE" Value="RCC_MCO1SOURCE_LSE"/>
         <PossibleValue Comment="MCO1SRC LSI" Value="RCC_MCO1SOURCE_LSI"/>
         <PossibleValue Comment="MCO1SRC PLL1P" Value="RCC_MCO1SOURCE_PLL1PCLK" Semaphore="mco1_pll1p"/>
         <PossibleValue Comment="MCO1SRC PLL1Q" Value="RCC_MCO1SOURCE_PLL1QCLK" Semaphore="mco1_pll1q"/>
         <PossibleValue Comment="MCO1SRC HCLK5" Value="RCC_MCO1SOURCE_HCLK5"/>
     </RefParameter>
+
+    <RefParameter Visible="false" Comment="MCO Clock Source" DefaultValue="RCC_PLL1_RCLK" Name="PLLClkOut" Type="list">
+        <Condition Expression="(MCOConfig &amp; mco1_pll1r)" Diagnostic=""/>
+	</RefParameter>
+    <RefParameter Visible="false" Comment="MCO Clock Source" DefaultValue="RCC_PLL1_PCLK" Name="PLLClkOut" Type="list">
+        <Condition Expression="(MCOConfig &amp; mco1_pll1p)" Diagnostic=""/>
+	</RefParameter>
+    <RefParameter Visible="false" Comment="MCO Clock Source" DefaultValue="RCC_PLL1_QCLK" Name="PLLClkOut" Type="list">
+        <Condition Expression="(MCOConfig &amp; mco1_pll1q)" Diagnostic=""/>
+	</RefParameter>
+    <RefParameter Visible="false" Comment="MCO Clock Source" DefaultValue="null" Name="PLLClkOut" Type="list"/>
     <!--LSCOSource-->
     <RefParameter Visible="false" Comment="LSCOS Clock Source" DefaultValue="RCC_LSCOSOURCE_LSI" Name="LSCOSource1Virtual" Type="list">
         <Condition Expression="(LSEOscillatorRTC|LSEByPassRTC)" Diagnostic="LSE is only for RTC"/>
@@ -354,7 +367,7 @@
         <PossibleValue Comment="SPI1 Clksource HSI" Value="RCC_SPI3CLKSOURCE_HSI" Semaphore="SPI3CLKSOURCE_HSI"/>
     </RefParameter>
     <!--RCC_RTC_Clock_SourceVirtual-->
-    <RefParameter Visible="false"  Comment="RTC Clock Selection" DefaultValue="RCC_RTCCLKSOURCE_LSI" Name="RTCClockSelection" Type="list" IP="RTC">
+     <RefParameter Visible="false"  Comment="RTC Clock Selection" DefaultValue="RCC_RTCCLKSOURCE_LSI" Name="RTCClockSelection" Type="list" IP="RTC">
         <PossibleValue Comment="Rtcclksource Hse div32"  Value="RCC_RTCCLKSOURCE_HSE_DIV32" Semaphore="RTCSourceHSE"/>
         <PossibleValue Comment="Rtcclksource Lse" Value="RCC_RTCCLKSOURCE_LSE" Semaphore="RTCSourceLSE"/>
         <PossibleValue Comment="Rtcclksource Lsi" Value="RCC_RTCCLKSOURCE_LSI" Semaphore="RTCSourceLSI"/>
@@ -363,11 +376,11 @@
     <!--RCC_RadioSleepTimer_Clock_SourceVirtual-->
     <RefParameter Visible="false"  Comment="Radio sleep timer" DefaultValue="RCC_RADIOSTCLKSOURCE_HSE_DIV1000" Name="RSTClockSelectionVirtual" Type="list" IP="RF">
         <Condition Expression="(LSEOscillatorRTC|LSEByPassRTC)" Diagnostic="LSE is only for RTC"/>
-        <PossibleValue Comment="Hse div1000"   Value="RCC_RADIOSTCLKSOURCE_HSE_DIV1000"/>
+        <PossibleValue Comment="Hse div1000"   Value="RCC_RADIOSTCLKSOURCE_HSE_DIV1000" Semaphore="RST_HSE"/>
         <PossibleValue Comment="Lsi" Value="RCC_RADIOSTCLKSOURCE_LSI"/>  
     </RefParameter>
     <RefParameter Visible="false"  Comment="Radio sleep timer" DefaultValue="RCC_RADIOSTCLKSOURCE_HSE_DIV1000" Name="RSTClockSelectionVirtual" Type="list" IP="RF">
-        <PossibleValue Comment="Hse div1000"   Value="RCC_RADIOSTCLKSOURCE_HSE_DIV1000"/>
+        <PossibleValue Comment="Hse div1000"   Value="RCC_RADIOSTCLKSOURCE_HSE_DIV1000" Semaphore="RST_HSE"/>
         <PossibleValue Comment="LSE" Value="RCC_RADIOSTCLKSOURCE_LSE"/>
         <PossibleValue Comment="Lsi" Value="RCC_RADIOSTCLKSOURCE_LSI"/>  
     </RefParameter>
@@ -424,7 +437,10 @@
         <PossibleValue Comment="Usart2 Clksource Hsi" Value="RCC_USART2CLKSOURCE_HSI" Semaphore="USART2SourceHSI"/>
         <PossibleValue Comment="Usart2 Clksource Lse" Value="RCC_USART2CLKSOURCE_LSE" Semaphore="USART2SourceLSE"/>
     </RefParameter>
-
+    <RefParameter Name="FamilyName" Comment="FamilyName" DefaultValue="M" Type="list" Visible="false">
+        <PossibleValue Comment="M" Value="M" />
+        <PossibleValue Comment="TM" Value="TM" Semaphore="TM"/>
+    </RefParameter>
     <!--LPUART1CLockSelection-->
     <RefParameter Visible="false"  Comment="LPUART1 Clock Selection" DefaultValue="RCC_LPUART1CLKSOURCE_PCLK7" Name="LPUART1CLockSelectionVirtual" Type="list" IP="LPUART1">
         <Condition Expression="(LSEOscillatorRTC|LSEByPassRTC)" Diagnostic="LSE is only for RTC"/>
@@ -644,6 +660,9 @@
 	
     <!--frequence Values --> 
     <!--Source frequency Values -->
+    <RefParameter Visible="false" Comment="HSE OSC" Name="HSE_VALUE" DefaultValue="32000000" Max="32000000" Min="32000000" Type="double" Display="value/1000000" Unit="MHz">
+        <Condition Diagnostic="HSE in Crystal/Bypass Mode" Expression="(STM32WBA5MJGHx)"/>
+    </RefParameter>
     <RefParameter Visible="false" Comment="HSE OSC" Name="HSE_VALUE" DefaultValue="16000000" Max="32000000" Min="0" Type="double" Display="value/1000000" Unit="MHz"><!--HSE bypass and !PLL and !CSS-->
         <Condition Diagnostic="HSE in Crystal/Bypass Mode" Expression="(HSEOscillator|HSEByPass)"/>
     </RefParameter>
@@ -802,13 +821,13 @@
     </RefParameter>
     <RefParameter Visible="false" Comment="LPTIM2 clock Source"  Name="LPTIM2Freq_Value"  DefaultValue="4000000"  Type="double" Display="value/1000000" Unit="MHz" IP="LPTIM2"/>
 	
-    <RefParameter Visible="false" Comment="Audio clock"   Name="ASFreq_Value" DefaultValue="4000000" Max="100000000" Type="double" Display="value/1000000" Unit="MHz" IP="AUDIOSYNC_Clock">
+    <RefParameter Visible="false" Comment="Audio clock"   Name="ASFreq_Value" DefaultValue="4000000" Max="100000000" Type="double" Display="value/1000000" Unit="MHz">
         <Condition Diagnostic="" Expression="scale1"/>
     </RefParameter>
-    <RefParameter Visible="false" Comment="Audio Clock"   Name="ASFreq_Value" DefaultValue="4000000" Max="16000000" Type="double" Display="value/1000000" Unit="MHz" IP="AUDIOSYNC_Clock">
+    <RefParameter Visible="false" Comment="Audio Clock"   Name="ASFreq_Value" DefaultValue="4000000" Max="16000000" Type="double" Display="value/1000000" Unit="MHz">
         <Condition Diagnostic="" Expression="scale2"/>
     </RefParameter>
-    <RefParameter Visible="false" Comment="Audio clock Source"  Name="ASFreq_Value"  DefaultValue="4000000"  Type="double" Display="value/1000000" Unit="MHz" IP="AUDIOSYNC_Clock"/>	
+    <RefParameter Visible="false" Comment="Audio clock Source"  Name="ASFreq_Value"  DefaultValue="4000000"  Type="double" Display="value/1000000" Unit="MHz"/>	
      
    
     <RefParameter Visible="false" Comment="RNG clock"   Name="RNGFreq_Value" DefaultValue="4000000" Max="48000000" Type="double" Display="value/1000000" Unit="MHz" IP="RNG">
@@ -1790,9 +1809,10 @@
         <Condition Diagnostic=" used" Expression="LSCOConfig"/>
     </RefParameter>	
     <RefParameter Visible="false" Comment="LSCOSource1ARG" DefaultValue="null" Name="LSCOSource1ARG" Type="list"/>
-	
-    
-    
+
+    <RefParameter Visible="false" Comment="HseDiv" DefaultValue="RCC_HSE_DIV1" Name="HseDivARG" Type="list">
+        <Condition Diagnostic="" Expression="HSEUsed=1 &amp; RF_Used &amp; RST_HSE"/>
+    </RefParameter>
     <RefParameter Visible="false" Comment="HseDiv" DefaultValue="+HseDiv" Name="HseDivARG" Type="list">
         <Condition Diagnostic="" Expression="HSEUsed=1"/>
     </RefParameter>	
@@ -1808,16 +1828,26 @@
     <RefParameter Visible="false" Comment="SupplySource" DefaultValue="" Name="SupplySource" Type="list" Group="Power Parameters">
 		<Condition Diagnostic="" Expression="(STM32WBAx4|STM32WBAx2|STM32WBAx0)"/>
     </RefParameter>
+    <RefParameter Visible="true" Comment="SupplySource" DefaultValue="PWR_SMPS_SUPPLY" Name="SupplySource" Type="list" Group="Power Parameters">
+        <Condition Diagnostic="" Expression="S_STM32_WPAN"/>
+        <PossibleValue Value="PWR_LDO_SUPPLY"  Comment="PWR_LDO_SUPPLY"/>
+        <PossibleValue Value="PWR_SMPS_SUPPLY" Comment="PWR_SMPS_SUPPLY"/>
+    </RefParameter>
     <RefParameter Visible="true" Comment="SupplySource" DefaultValue="PWR_LDO_SUPPLY" Name="SupplySource" Type="list" Group="Power Parameters">
         <PossibleValue Value="PWR_LDO_SUPPLY"  Comment="PWR_LDO_SUPPLY"/>
         <PossibleValue Value="PWR_SMPS_SUPPLY" Comment="PWR_SMPS_SUPPLY"/>
     </RefParameter>
 
+    <RefParameter Name="PWR_Regulator_Voltage_Scale" Comment="Power Regulator Voltage Scale" Type="list" DefaultValue="PWR_REGULATOR_VOLTAGE_SCALE1" Group="Power Parameters">
+        <Condition Diagnostic="" Expression="((HCLKFreq_Value &lt; 16000000) | (HCLKFreq_Value=16000000)) &amp; RF_Used &amp; RST_HSE"/>
+        <PossibleValue Action="Disable" Condition="RF_Used &amp; RST_HSE" Diagnostic="VOS2 is prohibited when RF is using HSE/1000" Value="PWR_REGULATOR_VOLTAGE_SCALE2" Comment="Power Regulator Voltage Scale 2" Semaphore="scale2"/>
+        <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE1" Comment="Power Regulator Voltage Scale 1" Semaphore="scale1"/>
+    </RefParameter>
     <RefParameter Name="PWR_Regulator_Voltage_Scale" Comment="Power Regulator Voltage Scale" Type="list" DefaultValue="PWR_REGULATOR_VOLTAGE_SCALE2" Group="Power Parameters">
-        <Condition Diagnostic="" Expression="((HCLKFreq_Value &lt; 16000000) | (HCLKFreq_Value=16000000)) &amp; !(PLLUsed=1)"/>
+        <Condition Diagnostic="" Expression="((HCLKFreq_Value &lt; 16000000) | (HCLKFreq_Value=16000000))"/>
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE2" Comment="Power Regulator Voltage Scale 2" Semaphore="scale2"/>
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE1" Comment="Power Regulator Voltage Scale 1" Semaphore="scale1"/>
-    </RefParameter>    
+    </RefParameter>
     <RefParameter Name="PWR_Regulator_Voltage_Scale" Comment="Power Regulator Voltage Scale" Type="list" DefaultValue="PWR_REGULATOR_VOLTAGE_SCALE1" Group="Power Parameters">        
         <Condition Diagnostic="" Expression="(HCLKFreq_Value &gt; 16000000)"/>
 		<Description>VOS range 2 is not allowed with PLL</Description>
@@ -1886,9 +1916,9 @@
     
     <RefParameter  Visible="true" Name="LSI2_FreqTempSens" Comment="    LSI2 frequency temperature sensitivity" Type="list" DefaultValue="RCC_LSI2_FREQTEMPSENS_80" Group="RCC Parameters">
         <Condition Diagnostic="" Expression="updateLSI2"/>
-        <PossibleValue Value="RCC_LSI2_FREQTEMPSENS_80" Comment="Close to zero at +80°"  />
-        <PossibleValue Value="RCC_LSI2_FREQTEMPSENS_50"  Comment="Close to zero at +50°"/>
-        <PossibleValue Value="RCC_LSI2_FREQTEMPSENS_20" Comment="Close to zero at +20°"/>
+        <PossibleValue Value="RCC_LSI2_FREQTEMPSENS_80" Comment="Close to zero at +80Â°"  />
+        <PossibleValue Value="RCC_LSI2_FREQTEMPSENS_50"  Comment="Close to zero at +50Â°"/>
+        <PossibleValue Value="RCC_LSI2_FREQTEMPSENS_20" Comment="Close to zero at +20Â°"/>
     </RefParameter>
     <RefParameter Visible="false" Name="LSI2_FreqTempSens" Comment="    LSI2 frequency temperature sensitivity" Type="list" DefaultValue="null" Group="RCC Parameters">    
     </RefParameter>
@@ -2231,6 +2261,7 @@
         <Parameter Name="SPI3Freq_Value"/>
         <Parameter Name="SPI1CLockSelection"/>
         <Parameter Name="SPI3CLockSelection"/>
+        <Parameter Name="FamilyName"/>
         <!--Parameter Name="LSI2Config"/>
         <Parameter Name="LSI2_FreqTempSens"/>
         <Parameter Name="LSI2OpMode"/-->
@@ -2280,7 +2311,7 @@
             </ModeLogicOperator>
         </Mode-->
         <!-- Modes for Oscillators & Clocks -->
-        <Mode Name="OSC" UserName="High Speed Clock (HSE)">
+        <Mode Name="OSC" UserName="High Speed Clock (HSE)" RemoveCondition="STM32WBA5MJGHx">
             <ModeLogicOperator Name="XOR">
                 <Mode Name="HSE-External-Clock-Source" UserName="BYPASS Clock Source">
                     <SignalLogicalOp Name="AND">
@@ -2298,7 +2329,7 @@
                 </Mode>
             </ModeLogicOperator>            
         </Mode>
-        <Mode Name="OSC32" UserName="Low Speed Clock (LSE) ">
+        <Mode Name="OSC32" UserName="Low Speed Clock (LSE) " RemoveCondition="STM32WBA5MJGHx">
             <ModeLogicOperator Name="XOR">
                 <Mode Name="LSE-External-Clock-Source" UserName="BYPASS Clock Source">
                     <SignalLogicalOp Name="AND">
@@ -2325,6 +2356,33 @@
                     <SignalLogicalOp Name="AND">
                         <Signal Name="OSC32_IN"/>
                         <Signal Name="OSC32_OUT"/>
+                    </SignalLogicalOp>
+                    <Semaphore>LSEOscillatorRTC</Semaphore>
+                </Mode>            
+            </ModeLogicOperator>
+        </Mode>
+
+        <Mode Name="OSC" UserName="High Speed Clock (HSE)" RemoveCondition="!STM32WBA5MJGHx">
+            <ModeLogicOperator Name="XOR">
+                <Mode Name="HSE-External-Oscillator" UserName="Crystal/Ceramic Resonator">
+                    <SignalLogicalOp Name="AND">
+						<Signal Name="V_OSC_IN"/>
+                    </SignalLogicalOp>
+                    <Semaphore>HSEOscillator</Semaphore>
+                </Mode>
+            </ModeLogicOperator>            
+        </Mode>
+        <Mode Name="OSC32" UserName="Low Speed Clock (LSE) " RemoveCondition="!STM32WBA5MJGHx">
+            <ModeLogicOperator Name="XOR">
+                <Mode Name="LSE-External-Oscillator" UserName="Crystal/Ceramic Resonator">
+                      <SignalLogicalOp Name="AND">
+                        <Signal Name="V_OSC32_IN"/>
+                    </SignalLogicalOp>
+                    <Semaphore>LSEOscillator</Semaphore>
+                </Mode>
+                <Mode Name="LSE-External-Oscillator-for-RTC" UserName="RTC only Crystal/Ceramic Resonator">
+                    <SignalLogicalOp Name="AND">
+                        <Signal Name="V_OSC32_IN"/>
                     </SignalLogicalOp>
                     <Semaphore>LSEOscillatorRTC</Semaphore>
                 </Mode>            
@@ -2390,6 +2448,8 @@
     <RefSignal Virtual="true" Name="RMVFSEC"/>
     <RefSignal IOMode="AlternateFunctionPushPull" Name="OSC_EN"/>
     <RefSignal IOMode="AlternateFunctionPushPull" Name="OSC32_EN"/>
-
+    
+    <RefSignal Name="V_OSC_IN"  Virtual="true"/>
+    <RefSignal Name="V_OSC32_IN" Virtual="true"/>
    
 </IP>
