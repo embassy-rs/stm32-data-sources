@@ -9846,18 +9846,18 @@ typedef struct                                  /*!< Wakeup structure           
 /* =====================================================    CBIAS0_HW_TRIM_OUT     ===================================================== */
 #define RRM_CBIAS0_HW_TRIM_OUT_HW_CBIAS_IPTAT_TRIM_Pos                     (4UL)    /*!<RRM CBIAS0_HW_TRIM_OUT : HW_CBIAS_IPTAT_TRIM (Bit 4) */
 #define RRM_CBIAS0_HW_TRIM_OUT_HW_CBIAS_IPTAT_TRIM_Msk                     (0xf0UL)   /*!< RRM CBIAS0_HW_TRIM_OUT : HW_CBIAS_IPTAT_TRIM (Bitfield-Mask: 0x0f) */
-#define RRM_CBIAS0_HW_TRIM_OUT_HW_CBIAS_IPTAT_TRIM                         RRM_CBIAS0_HW_TRIM_OUT _HW_CBIAS_IPTAT_TRIM_Msk
-#define RRM_CBIAS0_HW_TRIM_OUT_HW_CBIAS_IPTAT_TRIM_0                       (0x1U << RRM_CBIAS0_HW_TRIM_OUT _HW_CBIAS_IPTAT_TRIM_Pos)
-#define RRM_CBIAS0_HW_TRIM_OUT_HW_CBIAS_IPTAT_TRIM_1                       (0x2U << RRM_CBIAS0_HW_TRIM_OUT _HW_CBIAS_IPTAT_TRIM_Pos)
-#define RRM_CBIAS0_HW_TRIM_OUT_HW_CBIAS_IPTAT_TRIM_2                       (0x4U << RRM_CBIAS0_HW_TRIM_OUT _HW_CBIAS_IPTAT_TRIM_Pos)
-#define RRM_CBIAS0_HW_TRIM_OUT_HW_CBIAS_IPTAT_TRIM_3                       (0x8U << RRM_CBIAS0_HW_TRIM_OUT _HW_CBIAS_IPTAT_TRIM_Pos)
+#define RRM_CBIAS0_HW_TRIM_OUT_HW_CBIAS_IPTAT_TRIM                         RRM_CBIAS0_HW_TRIM_OUT_HW_CBIAS_IPTAT_TRIM_Msk
+#define RRM_CBIAS0_HW_TRIM_OUT_HW_CBIAS_IPTAT_TRIM_0                       (0x1U << RRM_CBIAS0_HW_TRIM_OUT_HW_CBIAS_IPTAT_TRIM_Pos)
+#define RRM_CBIAS0_HW_TRIM_OUT_HW_CBIAS_IPTAT_TRIM_1                       (0x2U << RRM_CBIAS0_HW_TRIM_OUT_HW_CBIAS_IPTAT_TRIM_Pos)
+#define RRM_CBIAS0_HW_TRIM_OUT_HW_CBIAS_IPTAT_TRIM_2                       (0x4U << RRM_CBIAS0_HW_TRIM_OUT_HW_CBIAS_IPTAT_TRIM_Pos)
+#define RRM_CBIAS0_HW_TRIM_OUT_HW_CBIAS_IPTAT_TRIM_3                       (0x8U << RRM_CBIAS0_HW_TRIM_OUT_HW_CBIAS_IPTAT_TRIM_Pos)
 #define RRM_CBIAS0_HW_TRIM_OUT_HW_CBIAS_IBIAS_TRIM_Pos                     (0UL)    /*!<RRM CBIAS0_HW_TRIM_OUT : HW_CBIAS_IBIAS_TRIM (Bit 0) */
 #define RRM_CBIAS0_HW_TRIM_OUT_HW_CBIAS_IBIAS_TRIM_Msk                     (0xfUL)    /*!< RRM CBIAS0_HW_TRIM_OUT : HW_CBIAS_IBIAS_TRIM (Bitfield-Mask: 0x0f) */
-#define RRM_CBIAS0_HW_TRIM_OUT_HW_CBIAS_IBIAS_TRIM                         RRM_CBIAS0_HW_TRIM_OUT _HW_CBIAS_IBIAS_TRIM_Msk
-#define RRM_CBIAS0_HW_TRIM_OUT_HW_CBIAS_IBIAS_TRIM_0                       (0x1U << RRM_CBIAS0_HW_TRIM_OUT _HW_CBIAS_IBIAS_TRIM_Pos)
-#define RRM_CBIAS0_HW_TRIM_OUT_HW_CBIAS_IBIAS_TRIM_1                       (0x2U << RRM_CBIAS0_HW_TRIM_OUT _HW_CBIAS_IBIAS_TRIM_Pos)
-#define RRM_CBIAS0_HW_TRIM_OUT_HW_CBIAS_IBIAS_TRIM_2                       (0x4U << RRM_CBIAS0_HW_TRIM_OUT _HW_CBIAS_IBIAS_TRIM_Pos)
-#define RRM_CBIAS0_HW_TRIM_OUT_HW_CBIAS_IBIAS_TRIM_3                       (0x8U << RRM_CBIAS0_HW_TRIM_OUT _HW_CBIAS_IBIAS_TRIM_Pos)
+#define RRM_CBIAS0_HW_TRIM_OUT_HW_CBIAS_IBIAS_TRIM                         RRM_CBIAS0_HW_TRIM_OUT_HW_CBIAS_IBIAS_TRIM_Msk
+#define RRM_CBIAS0_HW_TRIM_OUT_HW_CBIAS_IBIAS_TRIM_0                       (0x1U << RRM_CBIAS0_HW_TRIM_OUT_HW_CBIAS_IBIAS_TRIM_Pos)
+#define RRM_CBIAS0_HW_TRIM_OUT_HW_CBIAS_IBIAS_TRIM_1                       (0x2U << RRM_CBIAS0_HW_TRIM_OUT_HW_CBIAS_IBIAS_TRIM_Pos)
+#define RRM_CBIAS0_HW_TRIM_OUT_HW_CBIAS_IBIAS_TRIM_2                       (0x4U << RRM_CBIAS0_HW_TRIM_OUT_HW_CBIAS_IBIAS_TRIM_Pos)
+#define RRM_CBIAS0_HW_TRIM_OUT_HW_CBIAS_IBIAS_TRIM_3                       (0x8U << RRM_CBIAS0_HW_TRIM_OUT_HW_CBIAS_IBIAS_TRIM_Pos)
 
 /* =====================================================    AGC_HW_TRIM_OUT    ===================================================== */
 #define RRM_AGC_HW_TRIM_OUT_HW_AGC_ANTENNAE_TRIM_Pos                       (1UL)    /*!<RRM AGC_HW_TRIM_OUT: HW_AGC_ANTENNAE_TRIM (Bit 1) */
