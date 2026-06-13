@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<IP xmlns="http://mcd.rou.st.com/modules.php?name=mcu" xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance" DBVersion="V4.0" IPType="peripheral" Name="HSP1" IpGroup="Computing" Version="v1_0_Cube" ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../../../doc/V4/Development/Specifications/db/IP_Modes.xsd">        
+    <About>HSP: Hardware Signal Processing</About>
+    <RefParameter Comment="Instance" DefaultValue="HSP1" Name="Instance" Type="" Visible="false"/>
+	
+    <RefParameter Comment="General" DefaultValue="Disable" Group="" TabName="General" Name="General" Type="list" Visible="false"/>                    
+    
+	<!-- HSP Boot Parameters -->
+    <RefParameter Comment="CRC Check" DefaultValue="Disable" Group="HSP Boot Parameters" TabName="General" Name="CRC_CHECK" Type="list">
+        <PossibleValue Comment="Disabled" Value="Disable"/>
+        <PossibleValue Comment="Enabled" Value="Enable"/>
+        <Description></Description>
+    </RefParameter>
+    <RefParameter Comment="Smart Clock Gating" DefaultValue="Enable" Group="HSP Boot Parameters" TabName="General" Name="SMART_CLOCK_GATING" Type="list">
+        <PossibleValue Comment="Disabled" Value="Disable"/>
+        <PossibleValue Comment="Enabled" Value="Enable"/>
+        <Description></Description>
+    </RefParameter>
+    <RefParameter Comment="Registers Lock" DefaultValue="Disable" Group="HSP Boot Parameters" TabName="General" Name="REGISTERS_LOCK" Type="list">
+        <PossibleValue Comment="Disabled" Value="Disable"/>
+        <PossibleValue Comment="Enabled" Value="Enable"/>
+        <Description></Description>
+    </RefParameter>
+    <RefParameter Comment="Direct Command Event Enable" DefaultValue="Disable" Group="HSP Boot Parameters" TabName="General" Name="DIRECT_COMMAND_EVENT_ENABLE" Type="list">
+        <PossibleValue Comment="Disabled" Value="Disable"/>
+        <PossibleValue Comment="Enabled" Value="Enable"/>
+        <Description></Description>
+    </RefParameter>
+    
+    <RefParameter Comment="global_state" DefaultValue="HAL_HSP_STATE_RESET" Group="HSP Boot Parameters" TabName="General" Name="global_state" Type="list" Visible="false">
+        <PossibleValue Comment="HAL_HSP_STATE_RESET" Value="HAL_HSP_STATE_RESET"/> 
+        <PossibleValue Comment="HAL_HSP_STATE_INIT" Value="HAL_HSP_STATE_INIT"/>
+        <PossibleValue Comment="HAL_HSP_STATE_READY_TO_BOOT" Value="HAL_HSP_STATE_READY_TO_BOOT"/>
+        <PossibleValue Comment="HAL_HSP_STATE_READY" Value="HAL_HSP_STATE_READY"/>
+        <PossibleValue Comment="HAL_HSP_STATE_FAULT" Value="HAL_HSP_STATE_FAULT"/>
+        <Description></Description>
+    </RefParameter>
+    
+    <RefParameter Comment="Snoop signal selection A" DefaultValue="Disable" Group="Snoop Selection" TabName="Debug" Name="SNOOP_SEL_A" Type="list">
+        <PossibleValue Comment="Disabled" Value="Disable"/>
+        <PossibleValue Comment="Show active Task number (lower bits) on SNP[2..0]" Value="1" Semaphore=""/>
+        <PossibleValue Comment="Trigger event 0 on SNP2, Buffer event on SNP1" Value="3" Semaphore=""/>      
+        <PossibleValue Comment="Show number (lower bits) of processing functions since the start of the current task on SNP[2..0]" Value="4" Semaphore=""/>      
+        <PossibleValue Comment="Show number (lower bits) of task comparator on SNP[2..0]" Value="5" Semaphore=""/>      
+        <PossibleValue Comment="Event wakeup on SNP2, SPE jump on SNP1, SPE exit from WFE on SNP0" Value="6" Semaphore=""/>      
+        <PossibleValue Comment="Prcoessing Event number (lower bits) on SNP[2..0]" Value="7" Semaphore=""/>      
+        <Description>Show the selected signals on the pins HSP1_[2..0]</Description>        
+    </RefParameter>
+    
+    <RefParameter Comment="Snoop signal selection B" DefaultValue="Disable" Group="Snoop Selection" TabName="Debug" Name="SNOOP_SEL_B" Type="list">
+        <PossibleValue Comment="Disabled" Value="Disable"/>
+        <PossibleValue Comment="Show active Task number (highest bits) on SNP[5..3]" Value="1" Semaphore=""/>
+        <!--<PossibleValue Comment="Prc_evt 25, Prc_evt 24 and Prc_evt 23 are activated" Value="2" Semaphore=""/>-->
+        <PossibleValue Comment="Direct command event on SNP5, CPU event on SNP4, HSP event on SNP3" Value="3" Semaphore=""/>
+        <PossibleValue Comment="Show number (highest bits) of processing functions since the start of the current task on SNP[5..3]" Value="4" Semaphore=""/>
+        <PossibleValue Comment="Show number (highest bits) of task comparator on SNP[3]" Value="5" Semaphore=""/>
+        <PossibleValue Comment="TSC call pulse on SNP5, TSC if pulse on SNP4, TSP ifrue pulse on SNP3 " Value="6" Semaphore=""/>
+        <PossibleValue Comment="Prcoessing Event number (highest bits) on SNP[5..3]" Value="7" Semaphore=""/>  
+        <Description>Show the selected signals on the pins HSP1_[5..3]</Description>        
+    </RefParameter>
+      
+    <!-- Snoop singalon PADx -->
+    <RefParameter Comment="SNOOP_A_ENABLE" DefaultValue="DISABLE" Group="Debug" TabName="Advanced" Name="SNOOP_A_ENABLE" Type="list">
+        <PossibleValue Comment="Disabled" Value="DISABLE"/>
+        <PossibleValue Comment="Enabled" Value="ENABLE"/>
+    </RefParameter>
+    <RefParameter Comment="tsk_active" DefaultValue="tsk_active[0]" Group="Debug" TabName="Advanced" Name="SNOOP_A_SIGNAL" Type="list">
+        <PossibleValue Comment="tsk_active[0]" Value="tsk_active[0]"/>
+        <PossibleValue Comment="tsk_active[1]" Value="tsk_active[1]"/>
+        <PossibleValue Comment="tsk_active[2]" Value="tsk_active[2]"/>
+    </RefParameter>
+    <RefParameter Comment="SNOOP_B_ENABLE" DefaultValue="DISABLE" Group="Debug" TabName="Advanced" Name="SNOOP_B_ENABLE" Type="list">
+        <PossibleValue Comment="Disabled" Value="DISABLE"/>
+        <PossibleValue Comment="Enabled" Value="ENABLE"/>
+    </RefParameter>
+    <RefParameter Comment="tsk_active" DefaultValue="tsk_active[3]" Group="Debug" TabName="Advanced" Name="SNOOP_B_SIGNAL" Type="list">
+        <PossibleValue Comment="tsk_active[3]" Value="tsk_active[3]"/>
+        <PossibleValue Comment="tsk_active[4]" Value="tsk_active[4]"/>
+        <PossibleValue Comment="tsk_active[5]" Value="tsk_active[5]"/>
+    </RefParameter>
+        
+    <!-- #############################  ##########################################################-->
+    <!--
+    <RefParameter Comment="Number Of Data To Process" DefaultValue="1" Type="integer" Min="1" Max="128" Group="Data" TabName="Processing Element" Name="NumberOfDataToProcess" Visible="true" Line="3"/>
+    <RefParameter Comment="Number Of TAPs" DefaultValue="256" Group="Data" TabName="Processing Element" Name="NumberOfTaps" Visible="true" Type="list" Line="3">             
+        <PossibleValue Comment="128" Value="128"/>
+        <PossibleValue Comment="256" Value="256"/>
+        <PossibleValue Comment="512" Value="512"/>
+    </RefParameter>
+    -->
+    
+    <!-- ############################# RefMode ##########################################################-->
+    
+    <RefMode BaseMode="Hsp_init" Name="Enable" HalMode ="HSP">
+        <ConfigForMode>HSP_Init</ConfigForMode>  
+        <!--<Parameter Name="Instance"/>--> 
+        <!-- HSP Register waiting definition from HAL--> 
+        <Parameter Name="global_state"/>
+        <!--        
+        <Parameter Name="REGISTERS_LOCK"/> 
+        <Parameter Name="SMART_CLOCK_GATING"/>
+        <Parameter Name="DIRECT_COMMAND_EVENT_ENABLE"/>  
+        -->
+    </RefMode>   
+    
+    <RefMode BaseMode="Hsp_init" Name="Debug" Abstract = "true">
+        <!-- Out of scope for SW Pack 1 -->
+        <!--
+        <Parameter Name="SNOOP_SEL_A"/>
+        <Parameter Name="SNOOP_SEL_B"/>   
+        -->
+    </RefMode>
+    
+    <!--
+    <RefMode BaseMode="Hsp_init" Name="Advanced" Abstract = "true">                                     
+        <Parameter Name="TRGO_ENABLE"/>
+        <Parameter Name="TRGO0_SOURCE"/>
+        <Parameter Name="TRGO1_SOURCE"/>
+        <Parameter Name="TRGO2_SOURCE"/>
+        <Parameter Name="TRGO3_SOURCE"/>                  
+        <Parameter Name="SNOOP_A_ENABLE"/>
+        <Parameter Name="SNOOP_A_SIGNAL"/>
+        <Parameter Name="SNOOP_B_ENABLE"/>
+        <Parameter Name="SNOOP_B_SIGNAL"/>
+    </RefMode>
+    
+    <RefMode BaseMode="Hsp_init" HalMode="HSP" Name="Accelerator">
+        <ConfigForMode>HSP_Init</ConfigForMode>       
+    </RefMode>
+    
+    <RefMode BaseMode="Hsp_init" HalMode="HSP" Name="Sequencer">        
+        <Parameter Name="ProcessingListId"/>
+        <Parameter Name="InsertYourName"/>
+        <Parameter Name="Description"/>
+        <Parameter Name="EventTypesForPL"/>
+        <Parameter Name="EventSourcesForPL"/>
+        <Parameter Name="Category"/>
+        <Parameter Name="ProcessingElementName"/>
+        <Parameter Name="ProcessingElementDescription"/>
+        <Parameter Name="FunctionF"/>
+        <Parameter Name="nbSamples"/>
+        <Parameter Name="InBuffer"/>
+        <Parameter Name="Coef1Buffer"/>
+        <Parameter Name="StateBuffer"/>
+        <Parameter Name="OutBuffer"/>        
+        <ConfigForMode>HSP_Init</ConfigForMode>       
+    </RefMode>
+    
+    <RefMode BaseMode="Hsp_init" HalMode="HSP" Name="Application">
+        <Parameter Name="Function_Filtering"/>
+        <Parameter Name="Application_Audio"/>
+        <Parameter Name="Application_AI"/>
+        <ConfigForMode>HSP_Init</ConfigForMode>       
+    </RefMode>
+    -->
+    <!-- Modes -->
+    <ModeLogicOperator Name="OR">       
+        <Mode Name="Activate">
+            <ModeLogicOperator Name="OR">
+                <Mode Name="Enable" UserName="Activate">
+                    <SignalLogicalOp Name="AND">
+                        <Signal Name="VS_HSP"/>
+                    </SignalLogicalOp>
+                    <Semaphore>MW_HSP1_MW</Semaphore>
+                    <Semaphore>S_HSP_ACTIVATED</Semaphore>
+                </Mode>               
+            </ModeLogicOperator>            
+        </Mode>
+        <Mode Name="Debug">
+            <ModeLogicOperator Name="OR">
+                <Mode Name="Debug" UserName="Debug and Diagnostic">
+                    <SignalLogicalOp Name="OR">                                          
+                        <Signal Name="SNP0"/>
+                        <Signal Name="SNP1"/>
+                        <Signal Name="SNP2"/>
+                        <Signal Name="SNP3"/>
+                        <Signal Name="SNP4"/>
+                        <Signal Name="SNP5"/>                        
+                    </SignalLogicalOp>
+                    <Semaphore>S_HSP_DEBUG</Semaphore>
+                </Mode>               
+            </ModeLogicOperator>
+            <Condition Expression="S_HSP_ACTIVATED" Diagnostic="Not valid while the Activated mode is not checked"/>
+        </Mode>       
+    </ModeLogicOperator>
+	
+    <RefSignal Name="VS_HSP" Virtual="true"/>
+    <RefSignal Name="VS_HSP_DEBUG" Virtual="true"/>
+    <RefSignal Name="VS_HSP_ACC" Virtual="true"/>
+    <RefSignal Name="VS_HSP_SEQ" Virtual="true"/>
+    <RefSignal Name="VS_HSP_BASIC" Virtual="true"/>
+    <RefSignal Name="VS_HSP_ADVANCED" Virtual="true"/>
+    <RefSignal Name="VS_HSP_APPLICATION" Virtual="true"/>
+    
+    <!-- RefSignal for HSP1 -->
+    <RefSignal IOMode="AlternateFunctionPushPullUp" Name="SNP0"/>
+    <RefSignal IOMode="AlternateFunctionPushPullUp" Name="SNP1"/>
+    <RefSignal IOMode="AlternateFunctionPushPullUp" Name="SNP2"/>
+    <RefSignal IOMode="AlternateFunctionPushPullUp" Name="SNP3"/>
+    <RefSignal IOMode="AlternateFunctionPushPullUp" Name="SNP4"/>
+    <RefSignal IOMode="AlternateFunctionPushPullUp" Name="SNP5"/>
+    <Semaphore>USE_$IpInstance</Semaphore>
+</IP>
