@@ -32,13 +32,13 @@
     
     <!-- Write Protection -->
     <!-- I Removed the Write Protection parameter (according to Intropack Owner this parameter should not be initialized, let user define it.) -->
-    <!--
+
     <RefParameter Comment="Write Protection" DefaultValue="WP_DISABLE" Name="WriteProtection" Type="list">
         <PossibleValue Comment="Disable" Value="WP_DISABLE"/>
         <PossibleValue Comment="Enable" Value="WP_ENABLE"/>
     </RefParameter>
-    -->                         <!-- SRAM2 contains 64 pages (1 Kbyte page size). -->
-    <!--
+                      <!-- SRAM2 contains 64 pages (1 Kbyte page size). -->
+
     <RefParameter Name="StartPage" Comment="    Start Page" DefaultValue="1U" Type="unsignedInt">
         <Condition Diagnostic="" Expression="WriteProtection=WP_ENABLE"/>
     </RefParameter>
@@ -46,7 +46,7 @@
     <RefParameter Name="PageNb" Comment="    Page Number" DefaultValue="1U" Type="unsignedInt">
         <Condition Diagnostic="" Expression="WriteProtection=WP_ENABLE"/>    
     </RefParameter>
-    -->
+
     
     
     <!-- Read Access Latency (Wait State)-->
@@ -93,7 +93,8 @@
 	</Parameter>
         <Parameter Name="HardwareErase"/>
         <Parameter Name="ErrorCodeCorrection"/>
-        <Parameter Name="WaitState"/>	
+        <Parameter Name="WaitState"/>
+        <Parameter Name="WriteProtection"/>
     </RefMode>
     
     <!-- RefMode RAMCFG SRAM3 -->
@@ -147,6 +148,7 @@
         <Parameter Name="HardwareErase"/>
         <Parameter Name="ErrorCodeCorrection"/>
         <Parameter Name="WaitState"/>
+        <Parameter Name="WriteProtection"/>
     </RefMode>
     
     
@@ -182,7 +184,7 @@
                     </ModeLogicOperator>					
 		</Mode> 
                 						
-		<Mode Name="RAMCFG4_Activate" UserName="RAMCFG SRAM4" RemoveCondition="STM32H5">
+		<Mode Name="RAMCFG4_Activate" UserName="RAMCFG SRAM4" RemoveCondition="DIE478|DIE474|DIE484">
                     <ModeLogicOperator Name="XOR">
 			<Mode Name="RAMCFG4_Activate" UserName="Activated">
                             <SignalLogicalOp Name="AND">
@@ -192,7 +194,7 @@
                     </ModeLogicOperator>					
 		</Mode>
                 
-                <Mode Name="RAMCFG5_Activate" UserName="RAMCFG SRAM5" RemoveCondition="STM32H5 | DIE482 | DIE455">
+                <Mode Name="RAMCFG5_Activate" UserName="RAMCFG SRAM5" RemoveCondition="DIE478|DIE474|DIE484 | DIE482 | DIE455">
                     <ModeLogicOperator Name="XOR">
 			<Mode Name="RAMCFG5_Activate" UserName="Activated">
                             <SignalLogicalOp Name="AND">
