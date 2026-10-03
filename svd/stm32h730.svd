@@ -17,9 +17,9 @@ Copyright (c) 2025 STMicroelectronics.
  limitations under the License.
 -->
 <device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="1.1" xsi:noNamespaceSchemaLocation="CMSIS-SVD_Schema_1_1.xsd">
-  <name>STM32H735</name>
+  <name>STM32H730</name>
   <version>1.8</version>
-  <description>STM32H735</description>
+  <description>STM32H730</description>
   <cpu>
     <name>CM7</name>
     <revision>r0p1</revision>
@@ -21010,13 +21010,13 @@ A read from this register resets the RRDY flag in the CORDIC_CSR register.</desc
       <baseAddress>0x52008000</baseAddress>
       <addressBlock>
         <offset>0x0</offset>
-        <size>0x8</size>
+        <size>0x400</size>
         <usage>registers</usage>
       </addressBlock>
       <interrupt>
-        <name>EXTI1</name>
-        <description>EXTI Line 1 interrupt</description>
-        <value>7</value>
+        <name>PVD_PVM</name>
+        <description>PVD through EXTI line</description>
+        <value>1</value>
       </interrupt>
       <registers>
         <register>
@@ -32876,11 +32876,6 @@ Writing 1 in each bit clears the corresponding overrun flag SOFx in the DMAMUX_C
         <usage>registers</usage>
       </addressBlock>
       <interrupt>
-        <name>PVD_PVM</name>
-        <description>PVD through EXTI line</description>
-        <value>1</value>
-      </interrupt>
-      <interrupt>
         <name>EXTI0</name>
         <description>EXTI Line 0 interrupt</description>
         <value>6</value>
@@ -32919,6 +32914,11 @@ Writing 1 in each bit clears the corresponding overrun flag SOFx in the DMAMUX_C
         <name>WKUP</name>
         <description>WKUP1 to WKUP6 pins</description>
         <value>149</value>
+      </interrupt>
+	  <interrupt>
+        <name>HASH_RNG</name>
+        <description>HASH OR RNG interrupt </description>
+        <value>80</value>
       </interrupt>
 	  <interrupt>
         <name>FPU</name>
@@ -48903,7 +48903,7 @@ Setting this bit to 1 resets to 0 CRCRDERR1 flag in FLASH_SR1 register.</descrip
       <baseAddress>0x58026400</baseAddress>
       <addressBlock>
         <offset>0x0</offset>
-        <size>0x148</size>
+        <size>0x400</size>
         <usage>registers</usage>
       </addressBlock>
       <interrupt>
@@ -69806,13 +69806,13 @@ Setting this bit to 1 resets to 0 CRCRDERR1 flag in FLASH_SR1 register.</descrip
           <fields>
             <field>
               <name>TEF</name>
-              <description>Clear transfer error flag</description>
+              <description>Transfer error flag</description>
               <bitOffset>0</bitOffset>
               <bitWidth>1</bitWidth>
             </field>
             <field>
               <name>TCF</name>
-              <description>Clear transfer complete
+              <description>Transfer complete
               flag</description>
               <bitOffset>1</bitOffset>
               <bitWidth>1</bitWidth>
@@ -69825,13 +69825,13 @@ Setting this bit to 1 resets to 0 CRCRDERR1 flag in FLASH_SR1 register.</descrip
             </field>
             <field>
               <name>SMF</name>
-              <description>Clear status match flag</description>
+              <description>Status match flag</description>
               <bitOffset>3</bitOffset>
               <bitWidth>1</bitWidth>
             </field>
             <field>
               <name>TOF</name>
-              <description>Clear timeout flag</description>
+              <description>Timeout flag</description>
               <bitOffset>4</bitOffset>
               <bitWidth>1</bitWidth>
             </field>           
@@ -70787,7 +70787,7 @@ Instruction to be sent to the external SPI device</description>
       <baseAddress>0x40040800</baseAddress>
       <addressBlock>
         <offset>0x0</offset>
-        <size>0x3F4</size>
+        <size>0x400</size>
         <usage>registers</usage>
       </addressBlock>
       <interrupt>
@@ -75712,7 +75712,7 @@ Disables IN endpoints
 Flushes the FIFO
 Determines the token sequence from the IN token sequence learning queue
 Re-enables the endpoints
-Clears the global nonperiodic IN NAK handshake If the global nonperiodic IN NAK is cleared, the core has not yet fetched data for the IN endpoint, and the IN token is received: the core generates an IN token received when FIFO empty interrupt. The OTG then sends a NAK response to the host. To avoid this scenario, the application can check the FetSusp interrupt in OTG_GINTSTS, which ensures that the FIFO is full before clearing a global NAK handshake. Alternatively, the application can mask the IN token received when FIFO empty interrupt when clearing a global IN NAK handshake.</description>
+Clears the global nonperiodic IN NAK handshake If the global nonperiodic IN NAK is cleared, the core has not yet fetched data for the IN endpoint, and the IN token is received: the core generates an 'IN token received when FIFO empty' interrupt. The OTG then sends a NAK response to the host. To avoid this scenario, the application can check the FetSusp interrupt in OTG_GINTSTS, which ensures that the FIFO is full before clearing a global NAK handshake. Alternatively, the application can mask the 'IN token received when FIFO empty' interrupt when clearing a global IN NAK handshake.</description>
                 <bitOffset>22</bitOffset>
                 <bitWidth>1</bitWidth>
                 <access>read-write</access>
@@ -82549,7 +82549,7 @@ Minimum value is 16</description>
       <baseAddress>0x40040E00</baseAddress>
       <addressBlock>
         <offset>0x0</offset>
-        <size>0x3F200</size>
+        <size>0x4</size>
         <usage>registers</usage>
       </addressBlock>
       <registers>
@@ -92516,11 +92516,6 @@ DFSDM1 peripheral clocks are the kernel clocks selected by SAI1SEL and DFSDM1SEL
         <size>0x400</size>
         <usage>registers</usage>
       </addressBlock>
-	  <interrupt>
-        <name>HASH_RNG</name>
-        <description>HASH OR RNG interrupt </description>
-        <value>80</value>
-      </interrupt>
       <registers>
         <register>
           <name>CR</name>
