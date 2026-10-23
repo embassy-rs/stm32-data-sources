@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><IP xmlns="http://mcd.rou.st.com/modules.php?name=mcu" xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance" DBVersion="V3.0" IPType="peripheral" Name="USART" Version="sci3_v2_0_Cube" ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../../../doc/V4/Development/Specifications/db/IP_Modes.xsd">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><IP xmlns="http://mcd.rou.st.com/modules.php?name=mcu" xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance" DBVersion="V3.0" IPType="peripheral" Name="USART" Version="sci3_v3_0_Cube" ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../../../doc/V4/Development/Specifications/db/IP_Modes.xsd">
  
     <About>USART: Universal Synchronous/Asynchronous Receiver Transmitter</About>
 	
@@ -133,14 +133,24 @@
 	
     <!-- Stop Bits Parameters for Synchronous, SmartCard and Others (based on Asyncronous). N.B. IrDa do not have Stop Bits -->
     <RefParameter Comment="Stop Bits" DefaultValue="STOPBITS_1" Group="Basic Parameters" Name="StopBits" Type="list">
-        <Condition Diagnostic="" Expression="VirtualMode = VM_SYNC"/>
+        <Condition Diagnostic="" Expression="$IpInstance_Asynchronous &amp; STM32N6"/>
+        <PossibleValue Comment="1" Value="STOPBITS_1"/>
+        <PossibleValue Comment="2" Value="STOPBITS_2"/>
+    </RefParameter>
+        <RefParameter Comment="Stop Bits" DefaultValue="STOPBITS_1" Group="Basic Parameters" Name="StopBits" Type="list">
+        <Condition Diagnostic="" Expression="VirtualMode = VM_SYNC &amp; STM32N6"/>
+        <PossibleValue Comment="1" Value="STOPBITS_1"/>
+        <PossibleValue Comment="2" Value="STOPBITS_2"/>
+    </RefParameter>
+        <RefParameter Comment="Stop Bits" DefaultValue="STOPBITS_1" Group="Basic Parameters" Name="StopBits" Type="list">
+        <Condition Diagnostic="" Expression="$IpInstance_Asynchronous"/>
         <PossibleValue Comment="1" Value="STOPBITS_1"/>
         <PossibleValue Comment="2" Value="STOPBITS_2"/>
         <PossibleValue Comment="0.5" Value="STOPBITS_0_5"/>
         <PossibleValue Comment="1.5" Value="STOPBITS_1_5"/>
     </RefParameter>
     <RefParameter Comment="Stop Bits" DefaultValue="STOPBITS_1" Group="Basic Parameters" Name="StopBits" Type="list">
-        <Condition Diagnostic="" Expression="$IpInstance_Asynchronous"/>
+        <Condition Diagnostic="" Expression="VirtualMode = VM_SYNC"/>
         <PossibleValue Comment="1" Value="STOPBITS_1"/>
         <PossibleValue Comment="2" Value="STOPBITS_2"/>
         <PossibleValue Comment="0.5" Value="STOPBITS_0_5"/>

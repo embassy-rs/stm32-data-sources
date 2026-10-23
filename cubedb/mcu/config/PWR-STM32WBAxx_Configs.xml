@@ -15,19 +15,6 @@
 		<CallLibMethod Name="HAL_PWR_EnablePVD" ReturnHAL="false"/>
             <!--/IFCondition-->
 	</RefConfig>
-         <RefConfig Comment="Switch to SMPS regulator instead of LDO" Name="Configsmps">
-             <IFCondition Expression ="PowerMode=PWR_SMPS_SUPPLY" >
-      		<CallLibMethod Name="HAL_PWREx_ConfigSupply"  ReturnHAL="true">
-                    <MethodArg Name="PWR_SMPS" ParameterName="PowerMode"/>
-		</CallLibMethod>
-                </IFCondition>
-                
-                <IFCondition Expression ="S_LPBAM_CONF" >
-      		<CallLibMethod Name="HAL_PWREx_ConfigSupply"  ReturnHAL="true">
-                    <MethodArg Name="PWR_SMPS" ParameterName="PowerMode"/>
-		</CallLibMethod>
-                </IFCondition>
-                </RefConfig>
                 <RefConfig Comment="Smart Run Domain Config" Name="Configsmartrun">
                 <IFCondition Expression ="S_LPBAM_CONF" >
       		<CallLibMethod Name="HAL_PWREx_ConfigSRDDomain"  ReturnHAL="false">
@@ -631,12 +618,12 @@
             <MethodArg Name="Attributes" ParameterName="AttributesSECPRIV"/>            
         </CallLibMethod>
          </IFCondition>
-          <IFCondition Expression ="S_SECURE  &amp; SEM_M33S &amp; (PWR_WKUP5=WKUP5_SECURE_YES) &amp; (pwrPrivilegeSecure=PWR_PRIVILEGE_SECURE_YES) " >
+          <!-- <IFCondition Expression ="S_SECURE  &amp; SEM_M33S &amp; (PWR_WKUP5=WKUP5_SECURE_YES) &amp; (pwrPrivilegeSecure=PWR_PRIVILEGE_SECURE_YES) " >
         <CallLibMethod Name="HAL_PWR_ConfigAttributes" ReturnHAL="false">
             <MethodArg Name="Item" ParameterName="ItemWKUP5"/>
             <MethodArg Name="Attributes" ParameterName="AttributesSECPRIV"/>            
         </CallLibMethod>
-         </IFCondition>
+         </IFCondition>-->
           <IFCondition Expression ="S_SECURE  &amp; SEM_M33S &amp; (PWR_WKUP6=WKUP6_SECURE_YES) &amp; (pwrPrivilegeSecure=PWR_PRIVILEGE_SECURE_YES) " >
         <CallLibMethod Name="HAL_PWR_ConfigAttributes" ReturnHAL="false">
             <MethodArg Name="Item" ParameterName="ItemWKUP6"/>
@@ -703,12 +690,12 @@
             <MethodArg Name="Attributes" ParameterName="AttributesSECNPRIV"/>            
         </CallLibMethod>
          </IFCondition>
-          <IFCondition Expression ="S_SECURE  &amp; SEM_M33S &amp; (PWR_WKUP5=WKUP5_SECURE_YES) &amp; (pwrPrivilegeSecure=PWR_PRIVILEGE_SECURE_NO) " >
+          <!-- <IFCondition Expression ="S_SECURE  &amp; SEM_M33S &amp; (PWR_WKUP5=WKUP5_SECURE_YES) &amp; (pwrPrivilegeSecure=PWR_PRIVILEGE_SECURE_NO) " >
         <CallLibMethod Name="HAL_PWR_ConfigAttributes" ReturnHAL="false">
             <MethodArg Name="Item" ParameterName="ItemWKUP5"/>
             <MethodArg Name="Attributes" ParameterName="AttributesSECNPRIV"/>            
         </CallLibMethod>
-         </IFCondition>
+         </IFCondition>-->
           <IFCondition Expression ="S_SECURE  &amp; SEM_M33S &amp; (PWR_WKUP6=WKUP6_SECURE_YES) &amp; (pwrPrivilegeSecure=PWR_PRIVILEGE_SECURE_NO) " >
         <CallLibMethod Name="HAL_PWR_ConfigAttributes" ReturnHAL="false">
             <MethodArg Name="Item" ParameterName="ItemWKUP6"/>
@@ -780,12 +767,12 @@
             <MethodArg Name="Attributes" ParameterName="AttributesPRIVNSEC"/>            
         </CallLibMethod>
          </IFCondition>
-          <IFCondition Expression ="S_SECURE  &amp; SEM_M33S &amp; (PWR_WKUP5=WKUP5_SECURE_NO) &amp; (pwrPrivilegeNSecure=PWR_PRIVILEGE_NSECURE_YES) " >
+         <!--  <IFCondition Expression ="S_SECURE  &amp; SEM_M33S &amp; (PWR_WKUP5=WKUP5_SECURE_NO) &amp; (pwrPrivilegeNSecure=PWR_PRIVILEGE_NSECURE_YES) " >
         <CallLibMethod Name="HAL_PWR_ConfigAttributes" ReturnHAL="false">
             <MethodArg Name="Item" ParameterName="ItemWKUP5"/>
             <MethodArg Name="Attributes" ParameterName="AttributesPRIVNSEC"/>            
         </CallLibMethod>
-         </IFCondition>
+         </IFCondition>-->
           <IFCondition Expression ="S_SECURE  &amp; SEM_M33S &amp; (PWR_WKUP6=WKUP6_SECURE_NO) &amp; (pwrPrivilegeNSecure=PWR_PRIVILEGE_NSECURE_YES) " >
         <CallLibMethod Name="HAL_PWR_ConfigAttributes" ReturnHAL="false">
             <MethodArg Name="Item" ParameterName="ItemWKUP6"/>
@@ -839,13 +826,7 @@
      </RefConfig>   
     
     
-   
-    <LibMethod Comment="Switch to SMPS regulator instead of LDO" Name="HAL_PWREx_ConfigSupply">
-		
-	<Argument AddressOf="false" GenericType="simple" Name="PWR_SMPS"/>
-			
-    </LibMethod>
-   
+
 	<LibMethod Comment="PWR PVD Config" Name="HAL_PWR_ConfigPVD">
 		<Argument AddressOf="true" GenericType="struct" Name="sConfigPVD" TypeName="PWR_PVDTypeDef">
 			<Argument AddressOf="false" GenericType="simple" Name="PVDLevel"/>

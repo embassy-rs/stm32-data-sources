@@ -27,10 +27,16 @@
         <PossibleValue Comment="Enabled" Value="I2C_ANALOGFILTER_ENABLE"/>
     </RefParameter>
 	<RefParameter Comment="FASTMODEPLUS" DefaultValue="I2C_FASTMODEPLUS_ENABLE" Name="FASTMODEPLUS" Type="list" Visible="false">
-        <Condition Diagnostic="" Expression="$IpInstance_SMBusFastMP &amp; DIE505  "/>
+        <Condition Diagnostic="" Expression="$IpInstance_SMBusFastMP &amp; (DIE505|DIE503)  "/>
     </RefParameter>
 	<RefParameter Comment="FASTMODEPLUS" DefaultValue="I2C_FASTMODEPLUS_ENABLE" Name="FASTMODEPLUS" Type="list" Visible="false">
-        <Condition Diagnostic="" Expression="$IpInstance_FastMP &amp; DIE505  "/>
+        <Condition Diagnostic="" Expression="$IpInstance_FastMP &amp; (DIE505|DIE503) "/>
+    </RefParameter>
+    <RefParameter Comment="FASTMODEPLUS" DefaultValue="SMBUS_FASTMODEPLUS_ENABLE" Name="FASTMODEPLUS" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="$IpInstance_FastMP &amp; $IpInstance_SMBus_Mode &amp; DIE503"/>
+    </RefParameter>
+    <RefParameter Comment="FASTMODEPLUS" DefaultValue="SMBUS_FASTMODEPLUS_ENABLE" Name="FASTMODEPLUS" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="$IpInstance_SMBusFastMP  &amp; DIE503"/>
     </RefParameter>
     <RefParameter Comment="FASTMODEPLUS" DefaultValue="I2C_FASTMODEPLUS_I2C1" Name="FASTMODEPLUS" Type="list" Visible="false">
         <Condition Diagnostic="" Expression="$IpInstance_FastMP&amp;$Index=1"/>
@@ -461,6 +467,132 @@
     </RefParameter>	
 
     <RefParameter Comment="Instance" DefaultValue="I2C$Index" Name="Instance" Type="" Visible="false"/>
+	
+	<!-- Autonomous Mode __begin -->
+    <RefParameter Comment="Autonomous Mode" DefaultValue="AUTONOMOUS_MODE_DISABLE" Group="Autonomous Mode" Name="AutonomousMode" Type="list">
+        <Condition Diagnostic="" Expression="STM32MP2"/>
+        <PossibleValue Comment="Disable " Value="AUTONOMOUS_MODE_DISABLE"/>
+        <PossibleValue Comment="Enable " Value="AUTONOMOUS_MODE_ENABLE"/>
+    </RefParameter>
+    <RefParameter Comment="Autonomous Mode" DefaultValue="null" Group="Autonomous Mode" Name="AutonomousMode" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="!STM32MP2"/>
+    </RefParameter>
+         
+    <RefParameter Comment="     Trigger State" DefaultValue="I2C_AUTO_MODE_ENABLE" Group="Autonomous Mode" Name="TriggerState" Type="list">
+        <Condition Diagnostic="" Expression="(AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; $IpInstance_I2C_Mode"/>
+        <PossibleValue Comment="Enable " Value="I2C_AUTO_MODE_ENABLE"/>
+        <PossibleValue Comment="Disable " Value="I2C_AUTO_MODE_DISABLE"/>
+    </RefParameter>
+    
+    <RefParameter Comment="     Trigger State" DefaultValue="I2C_AUTO_MODE_ENABLE" Group="Autonomous Mode" Name="TriggerState" Type="list">
+        <Condition Diagnostic="" Expression="(AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; $IpInstance_SMBus_Mode"/>
+        <PossibleValue Comment="Enable" Value="SMBUS_AUTO_MODE_ENABLE"/>
+        <PossibleValue Comment="Disable" Value="SMBUS_AUTO_MODE_DISABLE"/>
+    </RefParameter>
+    
+    <RefParameter Comment="     Trigger State" DefaultValue="null" Group="Autonomous Mode" Name="TriggerState" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="(AutonomousMode = AUTONOMOUS_MODE_DISABLE) | (!STM32MP2 )"/>
+    </RefParameter>    
+    
+    <RefParameter Comment="     Trigger Polarity" DefaultValue="null" Group="Autonomous Mode" Name="TriggerPolarity" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="(AutonomousMode = AUTONOMOUS_MODE_DISABLE) | (!STM32MP2)"/>
+    </RefParameter>	    
+    <RefParameter Comment="     Trigger Polarity" DefaultValue="I2C_TRIG_POLARITY_RISING" Group="Autonomous Mode" Name="TriggerPolarity" Type="list">
+        <Condition Diagnostic="" Expression="(AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; $IpInstance_I2C_Mode"/>
+        <PossibleValue Comment="RISING" Value="I2C_TRIG_POLARITY_RISING"/>
+        <PossibleValue Comment="FALLING" Value="I2C_TRIG_POLARITY_FALLING"/>
+    </RefParameter>
+    <RefParameter Comment="     Trigger Polarity" DefaultValue="I2C_TRIG_POLARITY_RISING" Group="Autonomous Mode" Name="TriggerPolarity" Type="list">
+        <Condition Diagnostic="" Expression="(AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; $IpInstance_SMBus_Mode"/>
+        <PossibleValue Comment="RISING " Value="SMBUS_TRIG_POLARITY_RISING"/>
+        <PossibleValue Comment="FALLING " Value="SMBUS_TRIG_POLARITY_FALLING"/>
+    </RefParameter>
+        
+<!--Trigger Selection I2C Mode-->
+    <RefParameter Comment="     Trigger Selection" DefaultValue="I2C_GRP1_LPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
+        <Condition Diagnostic="" Expression="DIE505 &amp; (AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; ($Index=8) &amp; ($IpInstance_I2C_Mode)" />
+        <PossibleValue Comment="LPDMA1 channel 0" Value="I2C_GRP1_LPDMA_CH0_TCF_TRG"/>
+        <PossibleValue Comment="LPDMA1 channel 1" Value="I2C_GRP1_LPDMA_CH1_TCF_TRG"/>
+        <PossibleValue Comment="LPDMA1 channel 2" Value="I2C_GRP1_LPDMA_CH2_TCF_TRG"/>
+        <PossibleValue Comment="LPDMA1 channel 3" Value="I2C_GRP1_LPDMA_CH3_TCF_TRG"/>
+        <PossibleValue Comment="EXTI line 4" Value="I2C_GRP1_EXTI4_TRG"/>
+        <PossibleValue Comment="EXTI line 5" Value="I2C_GRP1_EXTI5_TRG"/>
+        <PossibleValue Comment="LPTIM3 out" Value="I2C_GRP1_LPTIM3_CH1_TRG"/>
+        <PossibleValue Comment="LPTIM4 out" Value="I2C_GRP1_LPTIM4_CH1_TRG"/>
+        <PossibleValue Comment="LPTIM5 out" Value="I2C_GRP1_LPTIM5_OUT_TRG"/>
+        <PossibleValue Comment="RTC alarm" Value="I2C_GRP1_RTC_ALRA_TRG"/>
+        <PossibleValue Comment="RTC wakeup" Value="I2C_GRP1_RTC_WUT_TRG"/>      
+    </RefParameter>
+    <RefParameter Comment="     Trigger Selection" DefaultValue="SMBUS_GRP1_LPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
+        <Condition Diagnostic="" Expression="DIE505 &amp; (AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; ($Index=8) &amp; ($IpInstance_SMBus_Mode)" />
+        <PossibleValue Comment="LPDMA1 channel 0" Value="SMBUS_GRP1_LPDMA_CH0_TCF_TRG"/>
+        <PossibleValue Comment="LPDMA1 channel 1" Value="SMBUS_GRP1_LPDMA_CH1_TCF_TRG"/>
+        <PossibleValue Comment="LPDMA1 channel 2" Value="SMBUS_GRP1_LPDMA_CH2_TCF_TRG"/>
+        <PossibleValue Comment="LPDMA1 channel 3" Value="SMBUS_GRP1_LPDMA_CH3_TCF_TRG"/>
+        <PossibleValue Comment="EXTI line 4" Value="SMBUS_GRP1_EXTI4_TRG"/>
+        <PossibleValue Comment="EXTI line 5" Value="SMBUS_GRP1_EXTI5_TRG"/>
+        <PossibleValue Comment="LPTIM3 out" Value="SMBUS_GRP1_LPTIM3_CH1_TRG"/>
+        <PossibleValue Comment="LPTIM4 out" Value="SMBUS_GRP1_LPTIM4_CH1_TRG"/>
+        <PossibleValue Comment="LPTIM5 out" Value="SMBUS_GRP1_LPTIM5_OUT_TRG"/>
+        <PossibleValue Comment="RTC alarm" Value="SMBUS_GRP1_RTC_ALRA_TRG"/>
+        <PossibleValue Comment="RTC wakeup" Value="SMBUS_GRP1_RTC_WUT_TRG"/>      
+    </RefParameter>
+
+    <RefParameter Comment="     Trigger Selection" DefaultValue="I2C_GRP1_EXTI4_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
+        <Condition Diagnostic="" Expression="DIE503 &amp; (AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; ($Index=2 | $Index=1) &amp; ($IpInstance_I2C_Mode)" />
+        <PossibleValue Comment="EXTI line 4" Value="I2C_GRP1_EXTI4_TRG"/>
+        <PossibleValue Comment="EXTI line 5" Value="I2C_GRP1_EXTI5_TRG"/>
+        <PossibleValue Comment="LPTIM3 out"  Value="I2C_GRP1_LPTIM3_CH1_TRG"/>
+        <PossibleValue Comment="LPTIM4 out"  Value="I2C_GRP1_LPTIM4_CH1_TRG"/>
+        <PossibleValue Comment="LPTIM5 out"  Value="I2C_GRP1_LPTIM5_OUT_TRG"/>
+        <PossibleValue Comment="RTC alarm"   Value="I2C_GRP1_RTC_ALRA_TRG"/>
+        <PossibleValue Comment="RTC wakeup"  Value="I2C_GRP1_RTC_WUT_TRG"/>
+        <PossibleValue Comment="EXTI line 6" Value="I2C_GRP1_EXTI6_TRG"/>
+        <PossibleValue Comment="EXTI line 7" Value="I2C_GRP1_EXTI7_TRG"/>
+        <PossibleValue Comment="LPTIM1 out"  Value="I2C_GRP1_LPTIM1_CH1_TRG"/>
+        <PossibleValue Comment="LPTIM2 out"  Value="I2C_GRP1_LPTIM2_CH1_TRG"/>
+    </RefParameter>
+    <RefParameter Comment="     Trigger Selection" DefaultValue="SMBUS_GRP1_EXTI4_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
+        <Condition Diagnostic="" Expression="DIE503 &amp; (AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; ($Index=2 | $Index=1) &amp; ($IpInstance_SMBus_Mode)" />
+        <PossibleValue Comment="EXTI line 4" Value="SMBUS_GRP1_EXTI4_TRG"/>
+        <PossibleValue Comment="EXTI line 5" Value="SMBUS_GRP1_EXTI5_TRG"/>
+        <PossibleValue Comment="LPTIM3 out"  Value="SMBUS_GRP1_LPTIM3_CH1_TRG"/>
+        <PossibleValue Comment="LPTIM4 out"  Value="SMBUS_GRP1_LPTIM4_CH1_TRG"/>
+        <PossibleValue Comment="LPTIM5 out"  Value="SMBUS_GRP1_LPTIM5_OUT_TRG"/>
+        <PossibleValue Comment="RTC alarm"   Value="SMBUS_GRP1_RTC_ALRA_TRG"/>
+        <PossibleValue Comment="RTC wakeup"  Value="SMBUS_GRP1_RTC_WUT_TRG"/>
+        <PossibleValue Comment="EXTI line 6" Value="SMBUS_GRP1_EXTI6_TRG"/>
+        <PossibleValue Comment="EXTI line 7" Value="SMBUS_GRP1_EXTI7_TRG"/>
+        <PossibleValue Comment="LPTIM1 out"  Value="SMBUS_GRP1_LPTIM1_CH1_TRG"/>
+        <PossibleValue Comment="LPTIM2 out"  Value="SMBUS_GRP1_LPTIM2_CH1_TRG"/>
+    </RefParameter>
+
+    <RefParameter Comment="     Trigger Selection" DefaultValue="I2C_GRP2_EXTI4_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
+        <Condition Diagnostic="" Expression="DIE503 &amp; (AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; ($Index=3) &amp; ($IpInstance_I2C_Mode)" />
+        <PossibleValue Comment="EXTI line 4" Value="I2C_GRP2_EXTI4_TRG"/>
+        <PossibleValue Comment="EXTI line 5" Value="I2C_GRP2_EXTI5_TRG"/>
+        <PossibleValue Comment="LPTIM3 out"  Value="I2C_GRP2_LPTIM3_CH1_TRG"/>
+        <PossibleValue Comment="LPTIM4 out"  Value="I2C_GRP2_LPTIM4_CH1_TRG"/>
+        <PossibleValue Comment="LPTIM5 out"  Value="I2C_GRP2_LPTIM5_OUT_TRG"/>
+        <PossibleValue Comment="RTC alarm"   Value="I2C_GRP2_RTC_ALRA_TRG"/>
+        <PossibleValue Comment="RTC wakeup"  Value="I2C_GRP2_RTC_WUT_TRG"/>
+    </RefParameter>
+    <RefParameter Comment="     Trigger Selection" DefaultValue="SMBUS_GRP2_EXTI4_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
+        <Condition Diagnostic="" Expression="DIE503 &amp; (AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; ($Index=3) &amp; ($IpInstance_SMBus_Mode)" />
+        <PossibleValue Comment="EXTI line 4" Value="SMBUS_GRP2_EXTI4_TRG"/>
+        <PossibleValue Comment="EXTI line 5" Value="SMBUS_GRP2_EXTI5_TRG"/>
+        <PossibleValue Comment="LPTIM3 out"  Value="SMBUS_GRP2_LPTIM3_CH1_TRG"/>
+        <PossibleValue Comment="LPTIM4 out"  Value="SMBUS_GRP2_LPTIM4_CH1_TRG"/>
+        <PossibleValue Comment="LPTIM5 out"  Value="SMBUS_GRP2_LPTIM5_OUT_TRG"/>
+        <PossibleValue Comment="RTC alarm"   Value="SMBUS_GRP2_RTC_ALRA_TRG"/>
+        <PossibleValue Comment="RTC wakeup"  Value="SMBUS_GRP2_RTC_WUT_TRG"/>
+    </RefParameter>
+	
+    <RefParameter Comment="     Trigger Selection" DefaultValue="null" Group="Autonomous Mode" Name="TriggerSelection" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="(AutonomousMode = AUTONOMOUS_MODE_DISABLE) | (!STM32MP2)"/>
+    </RefParameter>
+
+    <!-- Autonomous Mode  __end. -->
 
     <!-- RefMode for I2C -->
     <RefMode HalMode="I2C" Name="I2C">
@@ -469,6 +601,7 @@
         <ConfigForMode>I2C_DigitalFolter</ConfigForMode>   
         <ConfigForMode>I2CEnableFastModePlus</ConfigForMode>  
         <ConfigForMode>FASTMODE_Config</ConfigForMode>
+        <ConfigForMode>AutonomousMode_Config</ConfigForMode>
         <Parameter Name="CustomTiming"/> 
         <Parameter Name="I2C_Speed_Mode"/>
         <Parameter Name="Speed"/>      
@@ -485,6 +618,11 @@
         <Parameter Name="OwnAddress2"/>  
         <Parameter Name="OwnAddress2Masks"/>	
         <Parameter Name="Instance"/>
+        <!-- Autonomous Mode -->
+        <Parameter Name="AutonomousMode"/>
+        <Parameter Name="TriggerState"/>
+        <Parameter Name="TriggerSelection"/>
+        <Parameter Name="TriggerPolarity"/>
         
     </RefMode> 
 
@@ -516,13 +654,19 @@
         <Parameter Name="TIMEOUT_time"/>
         <Parameter Name="Timeout"/>
         <Parameter Name="Instance"/>
+        <!-- Autonomous Mode -->
+        <Parameter Name="AutonomousMode"/>
+        <Parameter Name="TriggerState"/>
+        <Parameter Name="TriggerSelection"/>
+        <Parameter Name="TriggerPolarity"/>
 		
     </RefMode>
 	
     <RefMode BaseMode="SMBus_common" HalMode="SMBUS" Name="SMBus-two-wire-Interface"  >
         <ConfigForMode>SMBus_init</ConfigForMode>   
         <ConfigForMode>FASTMODE_Config</ConfigForMode>   
-        <ConfigForMode>I2C_DigitalFolter</ConfigForMode>   		
+        <ConfigForMode>I2C_DigitalFolter</ConfigForMode>
+        <ConfigForMode>AutonomousMode_Config_SMBus</ConfigForMode>   		
     </RefMode> 
 	
 	
@@ -530,7 +674,8 @@
         <ConfigForMode>SMBus_init</ConfigForMode>   
         <ConfigForMode>SMBus_alert</ConfigForMode>   
         <ConfigForMode>FASTMODE_Config</ConfigForMode>
-        <ConfigForMode>I2C_DigitalFolter</ConfigForMode>   		
+        <ConfigForMode>I2C_DigitalFolter</ConfigForMode>
+        <ConfigForMode>AutonomousMode_Config_SMBus</ConfigForMode>   		
     </RefMode>        
 
 	
@@ -547,6 +692,7 @@
                 </Mode>
                 <Mode Name="SMBus-Alert-mode">
                     <Semaphore>$IpInstance_SMBUS_Enable</Semaphore>
+                    <Semaphore>$IpInstance_SMBus_Mode</Semaphore>
                     <SignalLogicalOp Name="AND">
                         <Signal Name="SCL"/>
                         <Signal Name="SDA"/>
@@ -556,6 +702,7 @@
                 </Mode>
                 <Mode Name="SMBus-two-wire-Interface" RemoveCondition="((STM32L0|STM32F0) &amp; ($Index=2))">
                     <Semaphore>$IpInstance_SMBUS_Enable</Semaphore>
+                    <Semaphore>$IpInstance_SMBus_Mode</Semaphore>
                     <SignalLogicalOp Name="AND">
                         <Signal Name="SCL"/>
                         <Signal Name="SDA"/>

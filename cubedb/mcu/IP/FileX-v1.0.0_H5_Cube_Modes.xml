@@ -189,6 +189,7 @@
 		<Parameter Name="FX_LX_NAND_INTERFACE">
 			<PossibleValue>1</PossibleValue>
 		</Parameter>
+		<Parameter Added="true" Name="FX_LX_NAND_CUSTOM_DRIVER"/>
 	</RefMode>
 	<RefMode Abstract="true" Name="Custom_interface">
 		<ConfigForMode>FileOoSystemJjFileXJjCustomOointerface</ConfigForMode>
@@ -243,8 +244,7 @@
 							</SignalLogicalOp>
 							<Semaphore>SEMInterfacesCcFileOoSystemJjFileXOoMMCOointerface</Semaphore>
 							<Condition Expression="SEMFileXCcFileOoSystemJjFileXJjCore &amp; 
-												  (((SDMMC1_Bus1Bit | SDMMC1_Bus4Bits | SDMMC1_Bus8Bits) &amp; !SDMMC1_SD_Card)| ((SDMMC2_Bus1Bit | SDMMC2_Bus4Bits | SDMMC2_Bus8Bits) &amp; !SDMMC2_SD_Card))" Diagnostic="&lt;b&gt; Require: &lt;/b&gt; &lt;br&gt; Middleware:FILEX:Core &lt;br&gt; 
-									   Device:SDMMC:MMC" />
+												  (((SDMMC1_Bus1Bit | SDMMC1_Bus4Bits | SDMMC1_Bus8Bits) &amp; !SDMMC1_SD_Card &amp; !SDMMC1_SDIO)| ((SDMMC2_Bus1Bit | SDMMC2_Bus4Bits | SDMMC2_Bus8Bits) &amp; !SDMMC2_SD_Card &amp; !SDMMC2_SDIO))" Diagnostic="&lt;b&gt; Require: &lt;/b&gt; &lt;br&gt; Middleware:FILEX:Core &lt;br&gt; Device:SDMMC:MMC" />
 						</Mode>
 					</ModeLogicOperator>
 				</Mode>
@@ -432,48 +432,150 @@ Doing so causes default time and date to be placed on all file operations.</Desc
 		<Description>represents the power of which FX_MAX_SECTOR_CACHE is rised to</Description>
 	</RefParameter>
 	<RefParameter Added="true" Comment="FX_DRIVER_USE_64BIT_LBA" DefaultValue="0" Group="Core" Name="FX_DRIVER_USE_64BIT_LBA" TabName="FileX" Type="list">
-		<Description>Defined, enables 64-bits sector addresses used in I/O driver.
-</Description>
+		<Description>Defined, enables 64-bits sector addresses used in I/O driver.</Description>
 		<PossibleValue Comment="Disabled" Value="0" />
 		<PossibleValue Comment="Enabled" Value="1" />
 	</RefParameter>
 
+	<!--STM32h503 par exemple-->
+	<RefParameter Added="true" Comment="SRAM Disk Address ranges" DefaultValue="SRAM2_BASE_NS" Group="SRAM Disk" Name="FX_SRAM_BASE_ADDRESS_RANGES" TabName="FileX" Type="list">
+		<Description>define the address range from which the SRAM file system will be created</Description>
+		<PossibleValue Comment="SRAM1_BASE_NS (0x20000000UL)" Value="SRAM1_BASE_NS" />
+		<PossibleValue Comment="SRAM2_BASE_NS (0x20004000UL)" Value="SRAM2_BASE_NS" />
+		<Condition Diagnostic="H5 disk size" Expression="DIE474" />
+	</RefParameter>
+	<RefParameter Added="true" Comment="SRAM Disk Address" DefaultValue="0x20000000" Group="SRAM Disk" Max="0x20004000" Min="0x20000000" Name="FX_SRAM_BASE_ADDRESS" TabName="FileX" Type="Hex" Unit="">
+		<Description>define the address from which the SRAM file system will be created</Description>
+		<Condition Diagnostic="" Expression="FX_SRAM_BASE_ADDRESS_RANGES=SRAM1_BASE_NS &amp; DIE474" />
+	</RefParameter>
+	<RefParameter Added="true" Comment="SRAM Disk Address" DefaultValue="0x20004000" Group="SRAM Disk" Max="0x20008000" Min="0x20004000" Name="FX_SRAM_BASE_ADDRESS" TabName="FileX" Type="Hex" Unit="">
+		<Description>define the address from which the SRAM file system will be created</Description>
+		<Condition Diagnostic="" Expression="FX_SRAM_BASE_ADDRESS_RANGES=SRAM2_BASE_NS &amp; DIE474" />
+	</RefParameter>
+	<RefParameter Added="true" Comment="SRAM Disk Size" DefaultValue="6144" Group="SRAM Disk" Max="16384" Min="2048" Name="SRAM_DISK_SIZE" TabName="FileX" Type="integer" Unit="">
+		<Description>define the SRAM file system disk size: 16K</Description>
+		<Condition Diagnostic="SRAM1_BASE_NS disk size" Expression="FX_SRAM_BASE_ADDRESS_RANGES=SRAM1_BASE_NS &amp; DIE474" />
+	</RefParameter>
+	<RefParameter Added="true" Comment="SRAM Disk Size" DefaultValue="2048" Group="SRAM Disk" Max="16384" Min="2048" Name="SRAM_DISK_SIZE" TabName="FileX" Type="integer" Unit="">
+		<Description>define the SRAM file system disk size: 16K</Description>
+		<Condition Diagnostic="SRAM1_BASE_NS disk size" Expression="FX_SRAM_BASE_ADDRESS_RANGES=SRAM2_BASE_NS &amp; DIE474" />
+	</RefParameter>
+
+	<!--stm32h523xx par exemple-->
+	<RefParameter Added="true" Comment="SRAM Disk Address ranges" DefaultValue="SRAM3_BASE_NS" Group="SRAM Disk" Name="FX_SRAM_BASE_ADDRESS_RANGES" TabName="FileX" Type="list">
+		<Description>define the address range from which the SRAM file system will be created</Description>
+		<PossibleValue Comment="SRAM1_BASE_NS (0x20000000UL)" Value="SRAM1_BASE_NS" />
+		<PossibleValue Comment="SRAM2_BASE_NS (0x20020000UL)" Value="SRAM2_BASE_NS" />
+		<PossibleValue Comment="SRAM3_BASE_NS (0x20034000UL)" Value="SRAM3_BASE_NS" />
+		<Condition Diagnostic="H5 disk size" Expression="(DIE478 | DIE47C)" />
+	</RefParameter>
+	<RefParameter Added="true" Comment="SRAM Disk Address" DefaultValue="0x20000000" Group="SRAM Disk" Max="0x20020000" Min="0x20000000" Name="FX_SRAM_BASE_ADDRESS" TabName="FileX" Type="Hex" Unit="">
+		<Description>define the address from which the SRAM file system will be created</Description>
+		<Condition Diagnostic="" Expression="FX_SRAM_BASE_ADDRESS_RANGES=SRAM1_BASE_NS &amp; (DIE478 | DIE47C)" />
+	</RefParameter>
+	<RefParameter Added="true" Comment="SRAM Disk Address" DefaultValue="0x20020000" Group="SRAM Disk" Max="0x20034000" Min="0x20020000" Name="FX_SRAM_BASE_ADDRESS" TabName="FileX" Type="Hex" Unit="">
+		<Description>define the address from which the SRAM file system will be created</Description>
+		<Condition Diagnostic="" Expression="FX_SRAM_BASE_ADDRESS_RANGES=SRAM2_BASE_NS &amp; (DIE478 | DIE47C)" />
+	</RefParameter>
+	<RefParameter Added="true" Comment="SRAM Disk Address" DefaultValue="0x20034000" Group="SRAM Disk" Max="0x20044000" Min="0x20034000" Name="FX_SRAM_BASE_ADDRESS" TabName="FileX" Type="Hex" Unit="">
+		<Description>define the address from which the SRAM file system will be created</Description>
+		<Condition Diagnostic="" Expression="FX_SRAM_BASE_ADDRESS_RANGES=SRAM3_BASE_NS &amp; (DIE478 | DIE47C)" />
+	</RefParameter>
+	<RefParameter Added="true" Comment="SRAM Disk Size" DefaultValue="6144" Group="SRAM Disk" Max="131072" Min="2048" Name="SRAM_DISK_SIZE" TabName="FileX" Type="integer" Unit="">
+		<Description>define the SRAM file system disk size: 128K</Description>
+		<Condition Diagnostic="SRAM1_BASE_NS disk size" Expression="(FX_SRAM_BASE_ADDRESS_RANGES=SRAM1_BASE_NS) &amp; (DIE478 | DIE47C)" />
+	</RefParameter>
+	<RefParameter Added="true" Comment="SRAM Disk Size" DefaultValue="2048" Group="SRAM Disk" Max="81920" Min="2048" Name="SRAM_DISK_SIZE" TabName="FileX" Type="integer" Unit="">
+		<Description>define the SRAM file system disk size: 80K</Description>
+		<Condition Diagnostic="SRAM2_BASE_NS disk size" Expression="(FX_SRAM_BASE_ADDRESS_RANGES=SRAM2_BASE_NS) &amp; (DIE478 | DIE47C)" />
+	</RefParameter>
+	<RefParameter Added="true" Comment="SRAM Disk Size" DefaultValue="8192" Group="SRAM Disk" Max="65536" Min="2048" Name="SRAM_DISK_SIZE" TabName="FileX" Type="integer" Unit="">
+		<Description>define the SRAM file system disk size: 64K</Description>
+		<Condition Diagnostic="SRAM3_BASE_NS disk size" Expression="(FX_SRAM_BASE_ADDRESS_RANGES=SRAM3_BASE_NS) &amp; (DIE478 | DIE47C)" />
+	</RefParameter>
+
+	<!-- stm32h562xx / stm32h563xx / stm32h573xx -->
 	<RefParameter Added="true" Comment="SRAM Disk Address ranges" DefaultValue="SRAM3_BASE_NS" Group="SRAM Disk" Name="FX_SRAM_BASE_ADDRESS_RANGES" TabName="FileX" Type="list">
 		<Description>define the address range from which the SRAM file system will be created</Description>
 		<PossibleValue Comment="SRAM1_BASE_NS (0x20000000UL)" Value="SRAM1_BASE_NS" />
 		<PossibleValue Comment="SRAM2_BASE_NS (0x20040000UL)" Value="SRAM2_BASE_NS" />
 		<PossibleValue Comment="SRAM3_BASE_NS (0x20050000UL)" Value="SRAM3_BASE_NS" />
-		<Condition Diagnostic="H5 disk size" Expression="DIE484 | DIE478" />
+		<Condition Diagnostic="H5 disk size" Expression="DIE484" />
 	</RefParameter>
+	<RefParameter Added="true" Comment="SRAM Disk Address" DefaultValue="0x20000000" Group="SRAM Disk" Max="0x20040000" Min="0x20000000" Name="FX_SRAM_BASE_ADDRESS" TabName="FileX" Type="Hex" Unit="">
+		<Description>define the address from which the SRAM file system will be created</Description>
+		<Condition Diagnostic="" Expression="FX_SRAM_BASE_ADDRESS_RANGES=SRAM1_BASE_NS &amp; DIE484" />
+	</RefParameter>
+	<RefParameter Added="true" Comment="SRAM Disk Address" DefaultValue="0x20040000" Group="SRAM Disk" Max="0x20050000" Min="0x20040000" Name="FX_SRAM_BASE_ADDRESS" TabName="FileX" Type="Hex" Unit="">
+		<Description>define the address from which the SRAM file system will be created</Description>
+		<Condition Diagnostic="" Expression="FX_SRAM_BASE_ADDRESS_RANGES=SRAM2_BASE_NS &amp; DIE484" />
+	</RefParameter>
+	<RefParameter Added="true" Comment="SRAM Disk Address" DefaultValue="0x20050000" Group="SRAM Disk" Max="0x200A0000" Min="0x20050000" Name="FX_SRAM_BASE_ADDRESS" TabName="FileX" Type="Hex" Unit="">
+		<Description>define the address from which the SRAM file system will be created</Description>
+		<Condition Diagnostic="" Expression="FX_SRAM_BASE_ADDRESS_RANGES=SRAM3_BASE_NS &amp; DIE484" />
+	</RefParameter>
+	<RefParameter Added="true" Comment="SRAM Disk Size" DefaultValue="6144" Group="SRAM Disk" Max="262144" Min="2048" Name="SRAM_DISK_SIZE" TabName="FileX" Type="integer" Unit="">
+		<Description>define the SRAM file system disk size: 256K</Description>
+		<Condition Diagnostic="SRAM1_BASE_NS disk size" Expression="(FX_SRAM_BASE_ADDRESS_RANGES=SRAM1_BASE_NS) &amp; DIE484" />
+	</RefParameter>
+	<RefParameter Added="true" Comment="SRAM Disk Size" DefaultValue="2048" Group="SRAM Disk" Max="65536" Min="2048" Name="SRAM_DISK_SIZE" TabName="FileX" Type="integer" Unit="">
+		<Description>define the SRAM file system disk size: 64K</Description>
+		<Condition Diagnostic="SRAM2_BASE_NS disk size" Expression="(FX_SRAM_BASE_ADDRESS_RANGES=SRAM2_BASE_NS) &amp; DIE484" />
+	</RefParameter>
+	<RefParameter Added="true" Comment="SRAM Disk Size" DefaultValue="10240" Group="SRAM Disk" Max="327680" Min="2048" Name="SRAM_DISK_SIZE" TabName="FileX" Type="integer" Unit="">
+		<Description>define the SRAM file system disk size: 320K</Description>
+		<Condition Diagnostic="SRAM3_BASE_NS disk size" Expression="(FX_SRAM_BASE_ADDRESS_RANGES=SRAM3_BASE_NS) &amp; DIE484" />
+	</RefParameter>
+
+	<!-- stm32h5e5xx / stm32h5e4xx / stm32h5f4xx / stm32h5f5xx  -->
 	<RefParameter Added="true" Comment="SRAM Disk Address ranges" DefaultValue="SRAM3_BASE_NS" Group="SRAM Disk" Name="FX_SRAM_BASE_ADDRESS_RANGES" TabName="FileX" Type="list">
 		<Description>define the address range from which the SRAM file system will be created</Description>
 		<PossibleValue Comment="SRAM1_BASE_NS (0x20000000UL)" Value="SRAM1_BASE_NS" />
 		<PossibleValue Comment="SRAM2_BASE_NS (0x20040000UL)" Value="SRAM2_BASE_NS" />
-		<Condition Diagnostic="H5 disk size" Expression="DIE474" />
+		<PossibleValue Comment="SRAM3_BASE_NS (0x20060000UL)" Value="SRAM3_BASE_NS" />
+		<PossibleValue Comment="SRAM4_BASE_NS (0x200C0000UL)" Value="SRAM4_BASE_NS" />
+		<PossibleValue Comment="SRAM5_BASE_NS (0x20120000UL)" Value="SRAM5_BASE_NS" />
+		<Condition Diagnostic="H5 disk size" Expression="DIE47A" />
 	</RefParameter>
-	<RefParameter Added="true" Comment="SRAM Disk Address" DefaultValue="0x20000000" Group="SRAM Disk" Max="0x20030000" Min="0x20000000" Name="FX_SRAM_BASE_ADDRESS" TabName="FileX" Type="Hex" Unit="">
+	<RefParameter Added="true" Comment="SRAM Disk Address" DefaultValue="0x20000000" Group="SRAM Disk" Max="0x20040000" Min="0x20000000" Name="FX_SRAM_BASE_ADDRESS" TabName="FileX" Type="Hex" Unit="">
 		<Description>define the address from which the SRAM file system will be created</Description>
-		<Condition Diagnostic="" Expression="FX_SRAM_BASE_ADDRESS_RANGES=SRAM1_BASE_NS" />
+		<Condition Diagnostic="" Expression="FX_SRAM_BASE_ADDRESS_RANGES=SRAM1_BASE_NS &amp; DIE47A" />
 	</RefParameter>
-	<RefParameter Added="true" Comment="SRAM Disk Address" DefaultValue="0x20040000" Group="SRAM Disk" Max="0x20040000" Min="0x20030000" Name="FX_SRAM_BASE_ADDRESS" TabName="FileX" Type="Hex" Unit="">
+	<RefParameter Added="true" Comment="SRAM Disk Address" DefaultValue="0x20040000" Group="SRAM Disk" Max="0x20060000" Min="0x20040000" Name="FX_SRAM_BASE_ADDRESS" TabName="FileX" Type="Hex" Unit="">
 		<Description>define the address from which the SRAM file system will be created</Description>
-		<Condition Diagnostic="" Expression="FX_SRAM_BASE_ADDRESS_RANGES=SRAM2_BASE_NS" />
+		<Condition Diagnostic="" Expression="FX_SRAM_BASE_ADDRESS_RANGES=SRAM2_BASE_NS &amp; DIE47A" />
 	</RefParameter>
-	<RefParameter Added="true" Comment="SRAM Disk Address" DefaultValue="0x20050000" Group="SRAM Disk" Max="0x200A0000" Min="0x20040000" Name="FX_SRAM_BASE_ADDRESS" TabName="FileX" Type="Hex" Unit="">
+	<RefParameter Added="true" Comment="SRAM Disk Address" DefaultValue="0x20060000" Group="SRAM Disk" Max="0x200C0000" Min="0x20060000" Name="FX_SRAM_BASE_ADDRESS" TabName="FileX" Type="Hex" Unit="">
 		<Description>define the address from which the SRAM file system will be created</Description>
-		<Condition Diagnostic="" Expression="FX_SRAM_BASE_ADDRESS_RANGES=SRAM3_BASE_NS" />
+		<Condition Diagnostic="" Expression="FX_SRAM_BASE_ADDRESS_RANGES=SRAM3_BASE_NS &amp; DIE47A" />
 	</RefParameter>
-	<RefParameter Added="true" Comment="SRAM Disk Size" DefaultValue="6144" Group="SRAM Disk" Max="262144" Min="2048" Name="SRAM_DISK_SIZE" TabName="FileX" Type="integer" Unit="">
-		<Description>define the SRAM file system disk size: 256K</Description>
-		<Condition Diagnostic="SRAM1_BASE_NS disk size" Expression="FX_SRAM_BASE_ADDRESS_RANGES=SRAM1_BASE_NS" />
+	<RefParameter Added="true" Comment="SRAM Disk Address" DefaultValue="0x200C0000" Group="SRAM Disk" Max="0x20120000" Min="0x200C0000" Name="FX_SRAM_BASE_ADDRESS" TabName="FileX" Type="Hex" Unit="">
+		<Description>define the address from which the SRAM file system will be created</Description>
+		<Condition Diagnostic="" Expression="FX_SRAM_BASE_ADDRESS_RANGES=SRAM4_BASE_NS &amp; DIE47A" />
 	</RefParameter>
-	<RefParameter Added="true" Comment="SRAM Disk Size" DefaultValue="2048" Group="SRAM Disk" Max="65536" Min="2048" Name="SRAM_DISK_SIZE" TabName="FileX" Type="integer" Unit="">
-		<Description>define the SRAM file system disk size: 64K</Description>
-		<Condition Diagnostic="SRAM2_BASE_NS disk size" Expression="FX_SRAM_BASE_ADDRESS_RANGES=SRAM2_BASE_NS" />
+	<RefParameter Added="true" Comment="SRAM Disk Address" DefaultValue="0x20120000" Group="SRAM Disk" Max="0x20180000" Min="0x20120000" Name="FX_SRAM_BASE_ADDRESS" TabName="FileX" Type="Hex" Unit="">
+		<Description>define the address from which the SRAM file system will be created</Description>
+		<Condition Diagnostic="" Expression="FX_SRAM_BASE_ADDRESS_RANGES=SRAM5_BASE_NS &amp; DIE47A" />
 	</RefParameter>
-	<RefParameter Added="true" Comment="SRAM Disk Size" DefaultValue="8192" Group="SRAM Disk" Max="327680" Min="2048" Name="SRAM_DISK_SIZE" TabName="FileX" Type="integer" Unit="">
-		<Description>define the SRAM file system disk size: 320K</Description>
-		<Condition Diagnostic="SRAM3_BASE_NS disk size" Expression="FX_SRAM_BASE_ADDRESS_RANGES=SRAM3_BASE_NS" />
+	<RefParameter Added="true" Comment="SRAM Disk Size" DefaultValue="9216" Group="SRAM Disk" Max="262144" Min="2048" Name="SRAM_DISK_SIZE" TabName="FileX" Type="integer" Unit="">
+		<Description>define the SRAM file system disk size: 256k</Description>
+		<Condition Diagnostic="SRAM1_BASE_NS disk size" Expression="(FX_SRAM_BASE_ADDRESS_RANGES=SRAM1_BASE_NS) &amp; DIE47A" />
+	</RefParameter>
+	<RefParameter Added="true" Comment="SRAM Disk Size" DefaultValue="6144" Group="SRAM Disk" Max="131072" Min="2048" Name="SRAM_DISK_SIZE" TabName="FileX" Type="integer" Unit="">
+		<Description>define the SRAM file system disk size: 128k</Description>
+		<Condition Diagnostic="SRAM2_BASE_NS disk size" Expression="(FX_SRAM_BASE_ADDRESS_RANGES=SRAM2_BASE_NS) &amp; DIE47A" />
+	</RefParameter>
+	<RefParameter Added="true" Comment="SRAM Disk Size" DefaultValue="6144" Group="SRAM Disk" Max="393216" Min="2048" Name="SRAM_DISK_SIZE" TabName="FileX" Type="integer" Unit="">
+		<Description>define the SRAM file system disk size: 128k</Description>
+		<Condition Diagnostic="SRAM3_BASE_NS disk size" Expression="FX_SRAM_BASE_ADDRESS_RANGES=SRAM3_BASE_NS &amp; DIE47A" />
+	</RefParameter>
+	<RefParameter Added="true" Comment="SRAM Disk Size" DefaultValue="6144" Group="SRAM Disk" Max="393216" Min="2048" Name="SRAM_DISK_SIZE" TabName="FileX" Type="integer" Unit="">
+		<Description>define the SRAM file system disk size: 128k</Description>
+		<Condition Diagnostic="SRAM4_BASE_NS disk size" Expression="FX_SRAM_BASE_ADDRESS_RANGES=SRAM4_BASE_NS &amp; DIE47A" />
+	</RefParameter>
+	<RefParameter Added="true" Comment="SRAM Disk Size" DefaultValue="6144" Group="SRAM Disk" Max="393216" Min="2048" Name="SRAM_DISK_SIZE" TabName="FileX" Type="integer" Unit="">
+		<Description>define the SRAM file system disk size: 128k</Description>
+		<Condition Diagnostic="SRAM5_BASE_NS disk size" Expression="FX_SRAM_BASE_ADDRESS_RANGES=SRAM5_BASE_NS &amp; DIE47A" />
 	</RefParameter>
 
 	<!-- SD interface parameters -->
@@ -811,5 +913,12 @@ Doing so causes default time and date to be placed on all file operations.</Desc
         <PossibleValue Comment="true" Value="1"/>
         <PossibleValue Comment="false" Value="0"/>
         <Condition Diagnostic="" Expression="(GENERATE_FILEX_INIT_CODE = true) &amp; (AZRTOS_APP_MEM_ALLOCATION_METHOD = 1) &amp; SEMThreadXCcRTOSJjThreadXJjCore" />
+    </RefParameter>
+	<RefParameter Added="true" Comment="FX_LX_NAND_CUSTOM_DRIVER" DefaultValue="1" Group="NAND Custom driver"  Name="FX_LX_NAND_CUSTOM_DRIVER" TabName="" Type="string" Visible="false">
+        <Description>define the NAND custom driver initialization function.</Description>
+		<Condition Diagnostic="" Expression="SEMInterfacesCcFileOoSystemJjLevelXOoNANDOocustomOointerface"/>
+    </RefParameter>    
+	<RefParameter Added="true" Comment="FX_LX_NAND_CUSTOM_DRIVER" DefaultValue="0" Group="NAND Custom driver"  Name="FX_LX_NAND_CUSTOM_DRIVER" TabName="" Type="string" Visible="false">
+        <Description>define the NAND custom driver initialization function.</Description>
     </RefParameter>
 </IP>

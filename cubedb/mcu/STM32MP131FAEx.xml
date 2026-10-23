@@ -29,7 +29,7 @@
             <ContextIP ContextName="BootROM" ForcedSelection="true"/>
             <ContextIP ContextName="BootLoader" ForcedSelection="true"/>
             <ContextIP ContextName="CortexA7S" ForcedSelection="true"/>
-            <ContextIP ContextName="CortexA7NS" InitializerForced="true"/>
+            <ContextIP ContextName="CortexA7NS"/>
             <ContextIP ContextName="Application"/>
         </ContextSplit>
     </IP>
@@ -85,7 +85,7 @@
             <ContextIP ContextName="Application"/>
         </ContextSplit>
     </IP>
-    <IP ClockEnableMode="__HAL_RCC_ETH1MAC_CLK_ENABLE" ConfigFile="ETH-STM32MP13xx" InstanceName="ETH1" Name="ETH" Version="STM32MP13_ethermac1G_v1_1_rc1">
+    <IP ClockEnableMode="__HAL_RCC_ETH1CK_CLK_ENABLE" ConfigFile="ETH-STM32MP13xx" InstanceName="ETH1" Name="ETH" Version="STM32MP13_ethermac1G_v1_1_rc1">
         <ContextSplit Name="NOINIT1">
             <ContextIP ContextName="CortexA7S"/>
             <ContextIP ContextName="Application"/>
@@ -103,18 +103,18 @@
             <ContextIP ContextName="Application"/>
         </ContextSplit>
     </IP>
-    <IP ConfigFile="FileX-STM32MP13xx" InstanceName="FILEX" Name="FileX" Version="v1.0.0_MP13_Cube">
-        <ContextSplit Name="NOINIT1">
-            <ContextIP ContextName="CortexA7NS"/>
-            <ContextIP ContextName="Application"/>
-        </ContextSplit>
-    </IP>
     <IP ConfigFile="FMC-STM32MP13xx" InstanceName="FMC" Name="FMC" Version="STM32MP_fmc2_v1_1_beta1">
         <ContextSplit Name="NOINIT1">
             <ContextIP ContextName="BootROM"/>
             <ContextIP ContextName="BootLoader"/>
             <ContextIP ContextName="CortexA7S" DevalidatedOnSelect="CortexA7NS"/>
             <ContextIP ContextName="CortexA7NS" DevalidatedOnSelect="CortexA7S"/>
+            <ContextIP ContextName="Application"/>
+        </ContextSplit>
+    </IP>
+    <IP ConfigFile="FREERTOS-STM32MP13xx" InstanceName="FREERTOS" Name="FREERTOS" Version="MP13-v8.0.0_Cube">
+        <ContextSplit Name="NOINIT1">
+            <ContextIP ContextName="CortexA7NS"/>
             <ContextIP ContextName="Application"/>
         </ContextSplit>
     </IP>
@@ -207,7 +207,7 @@
             <ContextIP ContextName="CortexA7NS"/>
         </ContextSplit>
     </IP>
-    <IP ConfigFile="IWDG-STM32MP13xx" InstanceName="IWDG1" Name="IWDG" Version="iwdg1_v3_0">
+    <IP ClockEnableMode="__HAL_RCC_IWDG1APB_CLK_ENABLE" ConfigFile="IWDG-STM32MP13xx" InstanceName="IWDG1" Name="IWDG" Version="iwdg1_v3_0">
         <ContextSplit Name="NOINIT1">
             <ContextIP ContextName="BootLoader" SynchronizedContexts="CortexA7S"/>
             <ContextIP ContextName="CortexA7S" SynchronizedContexts="BootLoader"/>
@@ -216,19 +216,13 @@
             <ContextIP ContextName="Application"/>
         </ContextSplit>
     </IP>
-    <IP ConfigFile="IWDG-STM32MP13xx" InstanceName="IWDG2" Name="IWDG" Version="iwdg1_v3_0">
+    <IP ClockEnableMode="__HAL_RCC_IWDG2APB_CLK_ENABLE" ConfigFile="IWDG-STM32MP13xx" InstanceName="IWDG2" Name="IWDG" Version="iwdg1_v3_0">
         <ContextSplit Name="NOINIT1">
             <ContextIP ContextName="BootLoader" SynchronizedContexts="CortexA7S,CortexA7NS"/>
             <ContextIP ContextName="CortexA7S" SynchronizedContexts="BootLoader,CortexA7NS"/>
             <ContextIP ContextName="CortexA7NS" SynchronizedContexts="BootLoader,CortexA7S"/>
         </ContextSplit>
         <ContextSplit Name="NOINIT2">
-            <ContextIP ContextName="Application"/>
-        </ContextSplit>
-    </IP>
-    <IP ConfigFile="LevelX-STM32MP13xx" InstanceName="LEVELX" Name="LevelX" Version="v1.0.0_MP13_Cube">
-        <ContextSplit Name="NOINIT1">
-            <ContextIP ContextName="CortexA7NS"/>
             <ContextIP ContextName="Application"/>
         </ContextSplit>
     </IP>
@@ -273,12 +267,6 @@
             <ContextIP ContextName="BootLoader" ForcedSelection="true"/>
             <ContextIP ContextName="CortexA7S" ForcedSelection="true"/>
             <ContextIP ContextName="CortexA7NS" InitializerForced="true"/>
-        </ContextSplit>
-    </IP>
-    <IP ConfigFile="NetXDuo-STM32MP13xx" InstanceName="NETXDUO" Name="NetXDuo" Version="v1.0.0_MP13_Cube">
-        <ContextSplit Name="NOINIT1">
-            <ContextIP ContextName="CortexA7NS"/>
-            <ContextIP ContextName="Application"/>
         </ContextSplit>
     </IP>
     <IP ConfigFile="PKA-STM32MP13xx" InstanceName="PKA" Name="PKA" Version="pka32_v1_0_Cube">
@@ -437,12 +425,6 @@
             <ContextIP ContextName="BootLoader" ForcedSelection="true"/>
             <ContextIP ContextName="CortexA7S" ForcedSelection="true"/>
             <ContextIP ContextName="CortexA7NS" InitializerForced="true"/>
-            <ContextIP ContextName="Application"/>
-        </ContextSplit>
-    </IP>
-    <IP ConfigFile="ThreadX-STM32MP13xx" InstanceName="THREADX" Name="ThreadX" Version="v1.0.0_MP13_Cube">
-        <ContextSplit Name="NOINIT1">
-            <ContextIP ContextName="CortexA7NS"/>
             <ContextIP ContextName="Application"/>
         </ContextSplit>
     </IP>
@@ -653,12 +635,6 @@
         </ContextSplit>
     </IP>
     <IP InstanceName="USBH_HS2" Name="USBH_HS" Version="STM32MP_host_v1_0_Cube">
-        <ContextSplit Name="NOINIT1">
-            <ContextIP ContextName="CortexA7NS"/>
-            <ContextIP ContextName="Application"/>
-        </ContextSplit>
-    </IP>
-    <IP ConfigFile="USBX-STM32MP13xx" InstanceName="USBX" Name="USBX" Version="v1.0.0_MP13_Cube">
         <ContextSplit Name="NOINIT1">
             <ContextIP ContextName="CortexA7NS"/>
             <ContextIP ContextName="Application"/>

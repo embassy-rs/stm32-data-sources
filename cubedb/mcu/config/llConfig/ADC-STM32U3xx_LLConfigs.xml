@@ -387,12 +387,17 @@
 		
 
 			<IFCondition Expression="!(OffsetNumber = ADC_OFFSET_NONE)">
-				<CallLibMethod Name="LL_ADC_SetOffset">
+				<CallLibMethod Name="LL_ADC_SetOffsetLevel">
 					<MethodArg Name="ADCx" ParameterName="Instance" />
 					<MethodArg Name="Offsety" ParameterName="OffsetNumber" />
-					<MethodArg Name="Channel" ParameterName="Channel" />
 	                <MethodArg Name="OffsetLevel" ParameterName="Offset" />
 	            </CallLibMethod>
+
+                <CallLibMethod Name="LL_ADC_SetOffsetChannel">
+                    <MethodArg Name="ADCx" ParameterName="Instance" />
+                    <MethodArg Name="Offsety" ParameterName="OffsetNumber" />
+                    <MethodArg Name="Channel" ParameterName="Channel" />
+                </CallLibMethod>
 
 	            <CallLibMethod Name="LL_ADC_SetOffsetSignedSaturation">
 	                <MethodArg Name="ADCx" ParameterName="Instance" />
@@ -434,12 +439,18 @@
             </CallLibMethod>   
             
             <IFCondition Expression="!(OffsetNumber = ADC_OFFSET_NONE)">
-                <CallLibMethod Name="LL_ADC_SetOffset">
+                <CallLibMethod Name="LL_ADC_SetOffsetLevel">
+                    <MethodArg Name="ADCx" ParameterName="Instance" />
+                    <MethodArg Name="Offsety" ParameterName="OffsetNumber" />
+                    <MethodArg Name="OffsetLevel" ParameterName="Offset" />
+                </CallLibMethod>
+
+                <CallLibMethod Name="LL_ADC_SetOffsetChannel">
                     <MethodArg Name="ADCx" ParameterName="Instance" />
                     <MethodArg Name="Offsety" ParameterName="OffsetNumber" />
                     <MethodArg Name="Channel" ParameterName="Channel" />
-                    <MethodArg Name="OffsetLevel" ParameterName="Offset" />
                 </CallLibMethod>
+
                 <CallLibMethod Name="LL_ADC_SetOffsetSignedSaturation">
                     <MethodArg Name="ADCx" ParameterName="Instance" />
                     <MethodArg Name="Offsety" ParameterName="OffsetNumber" />
@@ -482,11 +493,16 @@
             </IFCondition-->
 
             <IFCondition Expression="!(InjectedOffsetNumber = ADC_OFFSET_NONE)">
-                <CallLibMethod Name="LL_ADC_SetOffset">
+                <CallLibMethod Name="LL_ADC_SetOffsetLevel">
+                    <MethodArg Name="ADCx" ParameterName="Instance" />
+                    <MethodArg Name="Offsety" ParameterName="InjectedOffsetNumber" />
+                    <MethodArg Name="OffsetLevel" ParameterName="InjectedOffset" />
+                </CallLibMethod>
+
+                <CallLibMethod Name="LL_ADC_SetOffsetChannel">
                     <MethodArg Name="ADCx" ParameterName="Instance" />
                     <MethodArg Name="Offsety" ParameterName="InjectedOffsetNumber" />
                     <MethodArg Name="Channel" ParameterName="InjectedChannel" />
-                    <MethodArg Name="OffsetLevel" ParameterName="InjectedOffset" />
                 </CallLibMethod>
 
 				<CallLibMethod Name="LL_ADC_SetOffsetSignedSaturation">
@@ -1232,16 +1248,23 @@
 		<Argument AddressOf="false" GenericType="baseaddress" Name="ADCx"
 			TypeName="ADC_TypeDef" />
 	</LibMethod>
-	<LibMethod Comment="" Name="LL_ADC_SetOffset">
-		<Argument AddressOf="false" GenericType="baseaddress" Name="ADCx"
-			TypeName="ADC_TypeDef" />
-		<Argument AddressOf="false" GenericType="simple" Name="Offsety"
-			OptimizationCondition="equal" />
-		<Argument AddressOf="false" GenericType="simple" Name="Channel"
-			OptimizationCondition="equal" />
-		<Argument AddressOf="false" GenericType="simple" Name="OffsetLevel"
-			OptimizationCondition="equal" />
-	</LibMethod>
+    <LibMethod Comment="" Name="LL_ADC_SetOffsetLevel">
+        <Argument AddressOf="false" GenericType="baseaddress" Name="ADCx"
+                  TypeName="ADC_TypeDef" />
+        <Argument AddressOf="false" GenericType="simple" Name="Offsety"
+                  OptimizationCondition="equal" />
+        <Argument AddressOf="false" GenericType="simple" Name="OffsetLevel"
+                  OptimizationCondition="equal" />
+    </LibMethod>
+
+    <LibMethod Comment="" Name="LL_ADC_SetOffsetChannel">
+        <Argument AddressOf="false" GenericType="baseaddress" Name="ADCx"
+                  TypeName="ADC_TypeDef" />
+        <Argument AddressOf="false" GenericType="simple" Name="Offsety"
+                  OptimizationCondition="equal" />
+        <Argument AddressOf="false" GenericType="simple" Name="Channel"
+                  OptimizationCondition="equal" />
+    </LibMethod>
 	<LibMethod Comment="" Name="LL_ADC_GetOffsetChannel">
 		<Argument AddressOf="false" GenericType="baseaddress" Name="ADCx"
 			TypeName="ADC_TypeDef" />

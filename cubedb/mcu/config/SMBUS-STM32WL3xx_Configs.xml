@@ -21,6 +21,12 @@
     <RefConfig Comment="configuration Alert Mode" Name="SMBus_alert">
             <CallLibMethod Name="HAL_SMBUS_EnableAlert_IT"/>
     </RefConfig>
+    <!-- SMBus Fast Mode Plus:new FW implementation -->
+    <RefConfig Comment="I2C Enable Fast Mode Plus" Name="SMBUSEnableFastModePlus">
+        <CallLibMethod Name="HAL_SMBUSEx_EnableFastModePlus" ReturnHAL="false">
+            <MethodArg Name="SMBUSEx_FastModePlus" ParameterName="ConfigFastModePlus"/>
+        </CallLibMethod>
+    </RefConfig>
     <!-- SMBus Fast Mode Plus -->
     <RefConfig Comment="SMBus Fast mode Plus enable" Name="FASTMODE_Config">
         <IFCondition Expression="$IpInstance_SMBusFastMP">
@@ -32,7 +38,7 @@
         </CallLibMethod>
         </IFCondition>
     </RefConfig>
-    <!-- Autonomous Mode -->
+    <!--Autonomous Mode -->
     <RefConfig Comment="Configure Autonomous Mode" Name="AutonomousMode_Config_SMBus">
         <IFCondition Expression="(AutonomousMode=AUTONOMOUS_MODE_ENABLE)">
             <CallLibMethod Name="HAL_SMBUSEx_SetConfigAutonomousMode">

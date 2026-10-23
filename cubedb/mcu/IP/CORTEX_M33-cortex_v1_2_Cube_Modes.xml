@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<IP DBVersion="V4.0" IPType="service" IpGroup="System" Name="CORTEX_M33" Version="cortex_v1_2_Cube" 
+    xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance"
+    ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../../../doc/V4/Development/Specifications/db/IP_Modes.xsd"
+    xmlns="http://mcd.rou.st.com/modules.php?name=mcu">
+    <About>CORTEX_M33 configuration</About>
+  	<!-- RefModes for CORTEX_M33 -->
+  <RefMode Name="CORTEX_M33_Activate">
+    <ConfigForMode>CORTEX_M33_Init</ConfigForMode>
+  </RefMode>
+	<!-- ModeLogicOperator for CORTEX_M33 -->
+	<ModeLogicOperator Name="OR">
+		<Mode Name="CORTEX_M33_State" UserName="Activated" RemoveDisable="true">
+			<ModeLogicOperator Name="XOR">
+				<Mode Name="CORTEX_M33_Activate" UserName="Activated">
+					<SignalLogicalOp Name="AND">
+						<Signal Name="VS_CORTEX_M33" />
+					</SignalLogicalOp>
+					<Semaphore>S_CORTEX_M33</Semaphore>
+				</Mode>
+			</ModeLogicOperator>
+		</Mode>
+	</ModeLogicOperator>
+	<!-- RefSignal for CORTEX_M33 -->
+	<RefSignal Name="VS_CORTEX_M33" Virtual="true"/>
+</IP>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<IP DBVersion="V4.0" 
+    IPType="peripheral" 
+    Name="USB_OTG_FS1" 
+    Version="v1.0.0_Cube" 
+    xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance" 
+    ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../../../doc/V4/Development/Specifications/db/IP_Modes.xsd" 
+    xmlns="http://mcd.rou.st.com/modules.php?name=mcu">
+    <About>USB_OTG_DRD: Universal Serial Dual Role Devices</About>
+	
+	<!-- Virtual Mode Parameter, to define RefParameter in function of RefMode -->
+
+	<RefParameter Name="Instance" DefaultValue="USB_OTG_FS" Comment="Instance" Type=""/>
+	<RefParameter Comment="Host Channels" DefaultValue="=USB_OTG_FS:Host_channels" Name="Host_channels" Min="1" Max="12" Type="integer" Group=""/>
+	
+	<RefParameter Comment="Speed" DefaultValue="USB_OTG_SPEED_FULL" Name="speed" Type="List" Group="Host_mode">		
+		<PossibleValue Comment="Full Speed 12MBit/s" Value="USB_OTG_SPEED_FULL"/>
+        <Condition Expression="SEM_USB_OTG_SPEED_FULL" Diagnostic=""/>
+	</RefParameter>
+	<RefParameter Comment="Speed" DefaultValue="USB_OTG_SPEED_LOW" Name="speed" Type="List" Group="Host_mode">		
+		<PossibleValue Comment="Low Speed 1.5MBit/s" Value="USB_OTG_SPEED_LOW"/>
+		<Condition Expression="SEM_USB_OTG_SPEED_LOW" Diagnostic=""/>
+	</RefParameter>
+	
+	<RefMode Name="activate_FS" HalMode="HCD">
+        <ConfigForMode>HCD_Init_FS</ConfigForMode>
+		<Parameter Name="Host_channels"/>					
+		<Parameter Name="speed"/>
+		<!--Parameter Name="phy_itface">
+			<PossibleValue>HCD_PHY_EMBEDDED</PossibleValue>
+		</Parameter-->	
+	</RefMode>
+
+	<ModeLogicOperator Name="OR">			
+		<Mode Name="activate_FS" UserName="activate_FS" RemoveDisable="true">
+			<ModeLogicOperator Name="NONE">
+				<Mode Name="activate_FS">
+					<SignalLogicalOp Name="AND">
+						<Signal Name="USB_OTG_FS_DRD" />
+					</SignalLogicalOp>
+				</Mode>
+			</ModeLogicOperator>
+			<Condition Expression="OTG_DUAL_ROL_DEVICE_FS_DRD" Diagnostic=""/>
+			<Semaphore>MW_USB_OTG_FS1_MW_HOST</Semaphore>
+		</Mode>
+	</ModeLogicOperator>
+	
+    <RefSignal Name="USB_OTG_FS_DRD" Virtual="true"/>		
+</IP>

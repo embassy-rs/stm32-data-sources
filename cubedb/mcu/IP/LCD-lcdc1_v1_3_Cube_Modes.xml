@@ -534,7 +534,18 @@
                 </Mode>
             </ModeLogicOperator>
         </Mode>
-
+		
+        <Mode Name="VLCD">
+            <Condition Expression="LCD_USED &amp;(Bias3|Bias4) " Diagnostic="Bias Selector mode should be selected first "/>
+            <ModeLogicOperator Name="OR">
+                <Mode Name="VLCD">
+                    <SignalLogicalOp Name="AND">
+                        <Signal Name="VLCD"/>
+                    </SignalLogicalOp>
+                </Mode>
+            </ModeLogicOperator>
+        </Mode>
+		
         <Mode Name="VLCD1">
             <Condition Expression="LCD_USED &amp;(Bias3|Bias4) " Diagnostic="Bias Selector mode should be selected first "/>
             <ModeLogicOperator Name="OR">
@@ -1114,6 +1125,7 @@
 	
     <RefSignal Name="LCD_mux" Virtual="true"/>
     <RefSignal Name="LCD_Bias" Virtual="true"/>
+	<RefSignal IOMode="AlternateFunctionPushPull" Name="VLCD"/>
     <RefSignal IOMode="AlternateFunctionPushPull" Name="VLCD1"/>
     <RefSignal IOMode="AlternateFunctionPushPull" Name="VLCD2"/>
     <RefSignal IOMode="AlternateFunctionPushPull" Name="VLCD3"/>

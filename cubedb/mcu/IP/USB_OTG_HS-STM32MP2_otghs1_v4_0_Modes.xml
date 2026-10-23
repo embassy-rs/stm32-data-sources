@@ -300,6 +300,19 @@
 			<Condition Expression="  OTG_DUAL_ROL_DEVICE_HS | MW_USB_OTG_HS_MW_HOST |MW_USB_OTG_HS_MW_DEVICE" Diagnostic="USB in Host or Device mode must be selected first or Not available in Device Tree context"/>
 			
 		</Mode>
+		<Mode Name="Activate_TXRTUNE">
+			<ModeLogicOperator Name="XOR">
+				<Mode Name="Activate_TXRTUNE" UserName="Activate-TXRTUNE">
+					<SignalLogicalOp Name="AND">				
+						<Signal Name="TXRTUNE"/>				
+					</SignalLogicalOp>
+				</Mode>						
+			</ModeLogicOperator>
+			<Semaphore>USB_FS_TXRTUNE</Semaphore>
+			<!-- Tracker 325936 -->
+			<Condition Expression="  OTG_DUAL_ROL_DEVICE_HS | MW_USB_OTG_HS_MW_HOST |MW_USB_OTG_HS_MW_DEVICE" Diagnostic="USB in Host or Device mode must be selected first or Not available in Device Tree context"/>
+			
+		</Mode>
 		<Mode Name="Activate_VBUS">
 			<ModeLogicOperator Name="XOR">
 				<Mode Name="Activate_VBUS_FS" UserName="Activate-VBUS">
@@ -323,6 +336,7 @@
 	<RefSignal IOMode="Analog_NoPuPd" Name="ID"/>	
 	<RefSignal IOMode="AlternateFunctionPushPull" Name="SOF"/>	
 	<RefSignal IOMode="System" Name="VBUS"/>	
+	<RefSignal IOMode="System" Name="TXRTUNE"/>
 	
 	<!-- Clock Semaphore for this IP. -->
 	<Semaphore>USB_OTG_HSUsed_ForRCC</Semaphore>

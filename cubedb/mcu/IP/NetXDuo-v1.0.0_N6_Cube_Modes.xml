@@ -121,10 +121,27 @@
         <Parameter Added="true" Name="NX_REACHABLE_TIME" />
         <Parameter Added="true" Name="NX_NAT_ENABLE" />
         <Parameter Added="true" Name="NX_ENABLE_DUAL_PACKET_POOL" />
+        <Parameter Added="true" Name="NetXDuo_Static_IP_address" />
+        <Parameter Added="true" Name="NetXDuo_Application_NetMask" />
         <Parameter Added="true" Name="NetXDuo_Version" />
+        <Parameter Added="true" Name="NetXDuo_Generate_Init_Code" />
+        <Parameter Added="true" Name="NetXDuo_Application_Thread_Name" />
+        <Parameter Added="true" Name="NX_APP_IP_INSTANCE_THREAD_SIZE" />
+        <Parameter Added="true" Name="NX_APP_PACKET_POOL_SIZE" />
+        <Parameter Added="true" Name="NX_APP_THREAD_PRIORITY" />
+        <Parameter Added="true" Name="NX_APP_THREAD_STACK_SIZE" />
+        <Parameter Added="true" Name="Initialize_DHCP_protocol" />
+        <Parameter Added="true" Name="Initialize_UDP_protocol" />
+        <Parameter Added="true" Name="Initialize_ICMP_protocol" />
+        <Parameter Added="true" Name="Initialize_TCP_protocol" />
+        <Parameter Added="true" Name="NetXDuo_Static_IP_address" />
+        <Parameter Added="true" Name="NetXDuo_Application_NetMask" />
         <Parameter Name="TX_TIMER_TICKS_PER_SECOND" />
         <Parameter Added="true" Name="NX_APP_MEM_POOL_SIZE">
             <Condition Diagnostic="" Expression="SEMThreadXCcRTOSJjThreadXJjCore" Name="NX_APP_MEM_POOL_CONDITION" />
+        </Parameter>
+        <Parameter Added="true" Name="NETXDUO_MEM_POOL_VAR_NAME">
+            <Condition Diagnostic="" Expression="SEMThreadXCcRTOSJjThreadXJjCore"  Name="NETXDUO_MEM_POOL_VAR_NAME"  />
         </Parameter>
         <Parameter Added="true" Name="AZRTOS_APP_MEM_ALLOCATION_METHOD">
             <Condition Diagnostic="" Expression="SEMThreadXCcRTOSJjThreadXJjCore" Name="APP_MEM_ALLOCATION_CONDITION" />
@@ -478,8 +495,31 @@
         <Parameter Added="true" Name="NetXDuo_Version" />
         <Parameter Added="true" Name="NX_CRYPTO_AES_USE_RAM_TABLES" />
     </RefMode>
+    <RefMode Abstract="true" Name="Ethernet_Interface">
+        <ConfigForMode>Ethernet_Interface</ConfigForMode>
+        <Parameter Name="ETH_Activated">
+            <PossibleValue>1</PossibleValue>
+        </Parameter>
+    </RefMode>
     <RefMode Abstract="true" Name="Custom_Interface">
         <ConfigForMode>Custom_Interface</ConfigForMode>
+    </RefMode>
+    <RefMode Abstract="true" Name="LAN8742_Phy_Interface">
+        <ConfigForMode>LAN8742_Phy_Interface</ConfigForMode>
+        <Parameter Name="LAN_8742">
+            <PossibleValue>1</PossibleValue>
+        </Parameter>
+        <BspDependency Name="LAN_Component" Comment="LAN8742 driver" BspIpName="" BspModeName="" Api="BSP_COMPONENT_DRIVER" Component="LAN8742" Semaphore="SEMA_lan8742" />
+    </RefMode>
+    <RefMode Abstract="true" Name="RTL8211_Phy_Interface">
+        <ConfigForMode>RTL8211_Phy_Interface</ConfigForMode>
+        <Parameter Name="RTL_8211">
+            <PossibleValue>1</PossibleValue>
+        </Parameter>
+        <BspDependency Name="RTL_Component" Comment="RTL8211 driver" BspIpName="" BspModeName="" Api="BSP_COMPONENT_DRIVER" Component="RTL8211" Semaphore="SEMA_rtl8211" />
+    </RefMode>
+    <RefMode Abstract="true" Name="Custom_Phy_Interface">
+        <ConfigForMode>Custom_Phy_Interface</ConfigForMode>
     </RefMode>
     <RefMode Abstract="true" Name="Addons_Cloud">
         <ConfigForMode>Addons_Cloud</ConfigForMode>
@@ -644,18 +684,39 @@
                 </Mode>
             </ModeLogicOperator>
         </Mode>
-        <Mode Name="Network Inetrfaces" UserName="Network Interfaces">
+        <Mode Name="Network_Interfaces" UserName="Network Interfaces">
             <ModeLogicOperator Name="OR">
-                <Mode Name="Custom_Interface" UserName="Custom Interface">
-                    <ModeLogicOperator Name="NONE">
-                        <Mode Name="Custom_Interface">
-                            <SignalLogicalOp Name="AND">
-                                <Signal Name="VS_CustomOoInterface" />
-                            </SignalLogicalOp>
+                <Mode Name="Network_Interface" UserName="Network Interface">
+                    <SignalLogicalOp Name="AND">
+                        <Signal Name="VS_NetworkOoInterface" />
+                    </SignalLogicalOp>
+                    <ModeLogicOperator Name="XOR">
+                        <Mode Name="Ethernet_Interface" UserName="Ethernet Interface">
+                            <Semaphore>SEMInterfacesCcNetworkJjEthernetOoInterface</Semaphore>
+                            <Condition Expression="MII | RMII | RGMII | ETH1_Semaphore_MII | ETH1_Semaphore_RMII | ETH1_Semaphore_RGMII | ETH2_Semaphore_MII | ETH2_Semaphore_RMII | ETH2_Semaphore_RGMII | ETH3_Semaphore_RMII | ETH3_Semaphore_RGMII" Diagnostic="Active Only if ETH IP is enabled" />
+                        </Mode>
+                        <Mode Name="Custom_Interface" UserName="Custom Interface">
                             <Semaphore>SEMInterfacesCcNetworkJjCustomOoInterface</Semaphore>
-                            <Condition Expression="SEMNetXDuoCcNetworkJjNetXDuoJjNXOoCore" Diagnostic="&lt;b&gt; Requires: &lt;/b&gt; Middleware:NETXDUO:NX Core" />
                         </Mode>
                     </ModeLogicOperator>
+                    <Condition Expression="SEMNetXDuoCcNetworkJjNetXDuoJjNXOoCore" Diagnostic="&lt;b&gt; Requires: &lt;/b&gt; Middleware:NETXDUO:NX Core" />
+                </Mode>
+                <Mode Name="Phy_Interface" UserName="Ethernet Phy Interface">
+                    <SignalLogicalOp Name="AND">
+                        <Signal Name="VS_EthernetOoPhyOoInterface" />
+                    </SignalLogicalOp>
+                    <ModeLogicOperator Name="XOR">
+                        <Mode Name="LAN8742_Phy_Interface" UserName="LAN8742 Phy Interface">
+                            <Semaphore>SEMNetXDuoCcNetworkJjNetXDuoJjInterfaceOoPhyOoLAN8742</Semaphore>
+                        </Mode>
+                        <Mode Name="RTL8211_Phy_Interface" UserName="RTL8211 Phy Interface">
+                            <Semaphore>SEMNetXDuoCcNetworkJjNetXDuoJjInterfaceOoPhyOoRTL8211</Semaphore>
+                        </Mode>
+                        <Mode Name="Custom_Phy_Interface" UserName="Custom Phy Interface">
+                            <Semaphore>SEMNetXDuoCcNetworkJjNetXDuoJjInterfaceOoPhyOoCustom</Semaphore>
+                        </Mode>
+                    </ModeLogicOperator>
+                    <Condition Expression="SEMInterfacesCcNetworkJjEthernetOoInterface" Diagnostic="&lt;b&gt; Requires: &lt;/b&gt; NETXDUO : Network Interfaces : Ethernet Interface " />
                 </Mode>
             </ModeLogicOperator>
         </Mode>
@@ -677,6 +738,8 @@
     <RefSignal Name="VS_TLS" Virtual="true" />
     <RefSignal Name="VS_Crypto" Virtual="true" />
     <RefSignal Name="VS_CustomOoInterface" Virtual="true" />
+    <RefSignal Name="VS_NetworkOoInterface" Virtual="true" />
+    <RefSignal Name="VS_EthernetOoPhyOoInterface" Virtual="true" />
 
     <RefParameter Added="true" Comment="NX_SNTP_CLIENT_PREEMPTION_THRESHOLD" DefaultValue="2" Group="SNTP" Max="255" Min="0" Name="NX_SNTP_CLIENT_PREEMPTION_THRESHOLD" TabName="NetXDuo" Type="integer" Unit="">
         <Description>This option sets the sets the level of priority at which the Client thread allows preemption. The default NetX Duo SNTP Client value is set to NX_SNTP_CLIENT_ THREAD_PRIORITY.</Description>
@@ -781,7 +844,7 @@
         <Description>Specifies the size of “password” strings used in authentication. The default value is set to 32bytes, but can be redefined prior to inclusion of nx_ppp.h.</Description>
     </RefParameter>
     <RefParameter Added="true" Comment="NX_DHCP_PACKET_PAYLOAD" DefaultValue="592" Group="DHCP" Max="65535" Min="0" Name="NX_DHCP_PACKET_PAYLOAD" TabName="NetXDuo" Type="integer" Unit="">
-        <Description>Specifies the size in bytes of the DHCP Client packet payload. The default value is NX_DHCP_MINIMUM_IP_DATAGRAM + physical header size. 
+        <Description>Specifies the size in bytes of the DHCP Client packet payload. The default value is NX_DHCP_MINIMUM_IP_DATAGRAM + physical header size.
             The physical header size in a wireline network is usually the Ethernet frame size.</Description>
     </RefParameter>
     <RefParameter Added="true" Comment="NX_DHCP_FAST_PERIODIC_TIME_INTERVAL" DefaultValue="10" Group="DHCP" Max="2147483647" Min="0" Name="NX_DHCP_FAST_PERIODIC_TIME_INTERVAL" TabName="NetXDuo" Type="integer" Unit="">
@@ -857,7 +920,7 @@
         <Description>Defines the size of master secret.
         </Description>
     </RefParameter>
-      <RefParameter Added="true" Comment="NX_SECURE_CUSTOM_SECRET_GENERATION" DefaultValue="Disabled" Group="TLS CORE" Name="NX_SECURE_CUSTOM_SECRET_GENERATION" TabName="NetXDuo" Type="list">
+    <RefParameter Added="true" Comment="NX_SECURE_CUSTOM_SECRET_GENERATION" DefaultValue="Disabled" Group="TLS CORE" Name="NX_SECURE_CUSTOM_SECRET_GENERATION" TabName="NetXDuo" Type="list">
         <Description>Enables the user to pass pointers of customized secret generation functions to TLS.
         </Description>
         <PossibleValue Comment="Disabled" Value="Disabled" />
@@ -897,7 +960,7 @@
     </RefParameter>
     <RefParameter Added="true" Comment="NX_SECURE_TLS_CLIENT_DISABLED" DefaultValue="false" Group="TLS CORE" Name="NX_SECURE_TLS_CLIENT_DISABLED" TabName="NetXDuo" Type="list">
         <Description>Defined, this option removes all TLS/DTLS stack code related to Client mode, reducing code and data usage.
-		&lt;br&gt; &lt;font color=&quot;red&quot;&gt; NX_SECURE_TLS_CLIENT_DISABLED and NX_SECURE_TLS_SERVER_DISABLED are mutually exclusive: either NX_SECURE_TLS_CLIENT_DISABLED or NX_SECURE_TLS_SERVER_DISABLED must be disabled &lt;/font&gt;</Description>
+            &lt;br&gt; &lt;font color=&quot;red&quot;&gt; NX_SECURE_TLS_CLIENT_DISABLED and NX_SECURE_TLS_SERVER_DISABLED are mutually exclusive: either NX_SECURE_TLS_CLIENT_DISABLED or NX_SECURE_TLS_SERVER_DISABLED must be disabled &lt;/font&gt;</Description>
         <PossibleValue Comment="true" Condition="NX_SECURE_TLS_SERVER_DISABLED=true" Diagnostic="Can be true only if NX_SECURE_TLS_SERVER_DISABLED is false" Action="false" Value="true" />
         <PossibleValue Comment="false" Value="false" />
     </RefParameter>
@@ -1010,13 +1073,13 @@
         <PossibleValue Comment="true" Value="true" />
         <PossibleValue Comment="false" Value="false" />
     </RefParameter>
-        <RefParameter Added="true" Comment="NX_ENABLE_VLAN" DefaultValue="Disabled" Group="Core" Name="NX_ENABLE_VLAN" TabName="NetXDuo" Type="list">
+    <RefParameter Added="true" Comment="NX_ENABLE_VLAN" DefaultValue="Disabled" Group="Core" Name="NX_ENABLE_VLAN" TabName="NetXDuo" Type="list">
         <Description>Defined, the VLAN feature is enabled.
-        &lt;br&gt; &lt;Note: Require driver support to use APIs from this file.
-        &lt;br&gt; &lt;A quick check in driver is to search for NX_LINK_RAW_PACKET_SEND. VLAN APIs are not supported if not found.
+            &lt;br&gt; &lt;Note: Require driver support to use APIs from this file.
+            &lt;br&gt; &lt;A quick check in driver is to search for NX_LINK_RAW_PACKET_SEND. VLAN APIs are not supported if not found.
         </Description>
-        <PossibleValue Comment="Disabled" Value="Disabled" />
-        <PossibleValue Comment="Enabled" Value="Enabled" />
+        <PossibleValue Comment="Disabled" Value="false" />
+        <PossibleValue Comment="Enabled" Value="true" />
     </RefParameter>
     <RefParameter Added="true" Comment="NX_DHCP_ARP_PROBE_MAX" DefaultValue="200" Group="DHCP" Max="2147483647" Min="0" Name="NX_DHCP_ARP_PROBE_MAX" TabName="NetXDuo" Type="integer" Unit="">
         <Description>Defines the maximum variation in the interval between sending ARP probes. The value is defaulted to 2 seconds.</Description>
@@ -1205,7 +1268,9 @@
         <PossibleValue Comment="false" Value="false" />
     </RefParameter>
     <RefParameter Added="true" Comment="NX_MDNS_DOMAIN_NAME_MAX" DefaultValue="16" Group="mDNS" Max="65535" Min="5" Name="NX_MDNS_DOMAIN_NAME_MAX" TabName="NetXDuo" Type="integer" Unit="">
-        <Description>Maximum string size for domain name. The default value is 16. Does not include the NULL terminator.</Description>
+        <Description>Maximum string size for domain name. The default value is 16. Does not include the NULL terminator.
+            &lt;br&gt; &lt;font color=&quot;red&quot;&gt; &lt;b&gt;(NX_MDNS_HOST_NAME_MAX + 1 + NX_MDNS_DOMAIN_NAME_MAX) must be no more than NX_MDNS_NAME_MAX! &lt;/b&gt; &lt;/font&gt;
+        </Description>
     </RefParameter>
     <RefParameter Added="true" Comment="UX_MAX_SLAVE_CLASS_DRIVER" DefaultValue="1" Group="Device Core" Max="255" Min="0" Name="UX_MAX_SLAVE_CLASS_DRIVER" TabName="USBX" Type="integer" Unit="">
         <Description>This value is the maximum number of classes in the device stack that can be loaded by USBX</Description>
@@ -1231,7 +1296,9 @@
         <Description>Specifies the number of seconds between ARP retries. The default value is 10, which represents 10 seconds, and is defined in nx_api.h. The application can override the default by defining the value before nx_api.h is included.</Description>
     </RefParameter>
     <RefParameter Added="true" Comment="NX_MDNS_HOST_NAME_MAX" DefaultValue="64" Group="mDNS" Max="65535" Min="0" Name="NX_MDNS_HOST_NAME_MAX" TabName="NetXDuo" Type="integer" Unit="">
-        <Description>Maximum string size for host name. The default value is 64. Does not include the NULL terminator.</Description>
+        <Description>Maximum string size for host name. The default value is 64. Does not include the NULL terminator.
+            &lt;br&gt; &lt;font color=&quot;red&quot;&gt; &lt;b&gt;(NX_MDNS_HOST_NAME_MAX + 1 + NX_MDNS_DOMAIN_NAME_MAX) must be no more than NX_MDNS_NAME_MAX! &lt;/b&gt; &lt;/font&gt;
+        </Description>
     </RefParameter>
     <RefParameter Added="true" Comment="NX_SECURE_POWER_ON_SELF_TEST_MODULE_INTEGRITY_CHECK" DefaultValue="false" Group="TLS CORE" Name="NX_SECURE_POWER_ON_SELF_TEST_MODULE_INTEGRITY_CHECK" TabName="NetXDuo" Type="boolean">
         <Description>This option enables module integrity self test.</Description>
@@ -1328,14 +1395,14 @@
         <PossibleValue Comment="false" Condition="NX_ENABLE_TCPIP_OFFLOAD=1" Diagnostic="Active only if NX_ENABLE_TCPIP_OFFLOAD is disabled" Action="true" Value="false" />
     </RefParameter>
     <RefParameter Added="true" Comment="NX_DISABLE_IPV4" DefaultValue="false" Group="IP" Name="NX_DISABLE_IPV4" TabName="NetXDuo" Type="list">
-        <Description>Defined, disables IPv4 functionality. This option can be used to build NetX Duo to suupport IPv6 only. By default this option is not defined. 
-		&lt;br&gt; &lt;font color=&quot;red&quot;&gt; NX_DISABLE_IPV4 and NX_DISABLE_IPV6 are mutually exclusive: either IPv4 or IPv6 must be disabled &lt;/font&gt; </Description>
+        <Description>Defined, disables IPv4 functionality. This option can be used to build NetX Duo to suupport IPv6 only. By default this option is not defined.
+            &lt;br&gt; &lt;font color=&quot;red&quot;&gt; NX_DISABLE_IPV4 and NX_DISABLE_IPV6 are mutually exclusive: either IPv4 or IPv6 must be disabled &lt;/font&gt; </Description>
         <PossibleValue Comment="true" Condition="NX_DISABLE_IPV6=true" Diagnostic="Can be true only if NX_DISABLE_IPV6 is false" Action="false" Value="true" />
         <PossibleValue Comment="false" Value="false" />
     </RefParameter>
     <RefParameter Added="true" Comment="NX_DISABLE_IPV6" DefaultValue="true" Group="IP" Name="NX_DISABLE_IPV6" TabName="NetXDuo" Type="list">
         <Description>Disables IPv6 functionality when the NetX Duo library is built. For applications that do not need IPv6, this avoids pulling in code and additional storage space needed to support IPv6.
-		&lt;br&gt; &lt;font color=&quot;red&quot;&gt; NX_DISABLE_IPV4 and NX_DISABLE_IPV6 are mutually exclusive: either IPv4 or IPv6 must be disabled &lt;/font&gt; </Description>
+            &lt;br&gt; &lt;font color=&quot;red&quot;&gt; NX_DISABLE_IPV4 and NX_DISABLE_IPV6 are mutually exclusive: either IPv4 or IPv6 must be disabled &lt;/font&gt; </Description>
         <PossibleValue Comment="true" Condition="NX_DISABLE_IPV4=true" Diagnostic="Can be true only if NX_DISABLE_IPV4 is false" Action="false" Value="true" />
         <PossibleValue Comment="false" Value="false" />
     </RefParameter>
@@ -1363,7 +1430,7 @@
         <PossibleValue Comment="false" Value="false" />
     </RefParameter>
     <RefParameter Added="true" Comment="NX_DHCPV6_PREFERENCE_VALUE" DefaultValue="0" Group="DHCP" Max="65535" Min="0" Name="NX_DHCPV6_PREFERENCE_VALUE" TabName="NetXDuo" Type="integer" Unit="">
-        <Description>This defines the preference option value between 0 and 255, where the higher the value the higher the preference, in the DHCPv6 option of the same name. 
+        <Description>This defines the preference option value between 0 and 255, where the higher the value the higher the preference, in the DHCPv6 option of the same name.
             This tells the Client what preference to place on this Server’s offer where multiple DHCPv6 Servers are available to assign IP addresses.
             A value of 255 instructs the Client to choose this server. A value of zero indicates the Client is free to choose. The default value is zero.</Description>
     </RefParameter>
@@ -1433,7 +1500,7 @@
         <Description>The minimum time interval, in ticks, between two queries. The default value is 100 ticks for 1 second.</Description>
     </RefParameter>
     <RefParameter Added="true" Comment="NX_PPP_MIN_PACKET_PAYLOAD" DefaultValue="150" Group="PPP" Max="65535" Min="0" Name="NX_PPP_MIN_PACKET_PAYLOAD" TabName="NetXDuo" Type="integer" Unit="">
-        <Description>Define the minimum PPP packet payload, the PPP commands (LCP, PAP, CHAP, IPCP) should be in one packet. 
+        <Description>Define the minimum PPP packet payload, the PPP commands (LCP, PAP, CHAP, IPCP) should be in one packet.
             The default value is (NX_PPP_PACKET + 128).</Description>
     </RefParameter>
     <RefParameter Added="true" Comment="NX_SECURE_TLS_MAX_PSK_NONCE_SIZE" DefaultValue="255" Group="TLS CORE" Max="65535" Min="1" Name="NX_SECURE_TLS_MAX_PSK_NONCE_SIZE" TabName="NetXDuo" Type="integer" Unit="">
@@ -1646,7 +1713,7 @@
     </RefParameter>
     <RefParameter Added="true" Comment="NX_SECURE_TLS_SERVER_DISABLED" DefaultValue="false" Group="TLS CORE" Name="NX_SECURE_TLS_SERVER_DISABLED" TabName="NetXDuo" Type="list">
         <Description>Defined, this option removes all TLS stack code related to TLS Server mode, reducing code and data usage.
-		&lt;br&gt; &lt;font color=&quot;red&quot;&gt; NX_SECURE_TLS_SERVER_DISABLED and NX_SECURE_TLS_CLIENT_DISABLED are mutually exclusive: either NX_SECURE_TLS_SERVER_DISABLED or NX_SECURE_TLS_CLIENT_DISABLED must be disabled &lt;/font&gt;</Description>
+            &lt;br&gt; &lt;font color=&quot;red&quot;&gt; NX_SECURE_TLS_SERVER_DISABLED and NX_SECURE_TLS_CLIENT_DISABLED are mutually exclusive: either NX_SECURE_TLS_SERVER_DISABLED or NX_SECURE_TLS_CLIENT_DISABLED must be disabled &lt;/font&gt;</Description>
         <PossibleValue Comment="true" Condition="NX_SECURE_TLS_CLIENT_DISABLED=true" Diagnostic="Can be true only if NX_SECURE_TLS_CLIENT_DISABLED is false" Action="false" Value="true" />
         <PossibleValue Comment="false" Value="false" />
     </RefParameter>
@@ -2022,15 +2089,85 @@
         <PossibleValue Comment="true" Value="true" />
         <PossibleValue Comment="false" Value="false" />
     </RefParameter>
-    <RefParameter Added="true" Comment="NetXDuo version" DefaultValue="6.2.0" Group="Version" Name="NetXDuo_Version" TabName="NetXDuo" Type="string">
+    <RefParameter Added="true" Comment="NetXDuo version" DefaultValue="6.4.0" Group="Version" Name="NetXDuo_Version" TabName="NetXDuo" Type="string">
         <Description>NetXDuo version</Description>
+    </RefParameter>
+    <RefParameter Added="true" Comment="NetXDuo Generate Init Code" DefaultValue="false" Group="NetXDuo Core Init" Name="NetXDuo_Generate_Init_Code" TabName="NetXDuo" Type="list">
+        <Description>Default value true, Generate NetXDuo Core Init.</Description>
+        <PossibleValue Comment="true" Condition="!SEMNetXDuoCcNetworkJjNetXDuoJjNXOoCore | !SEMInterfacesCcNetworkJjEthernetOoInterface" Diagnostic="Active only if LAN8742 or RTL8211 Phy Interface is enabled" Action="false" Value="true"/>
+        <PossibleValue Comment="false" Value="false"/>
+        <Condition Diagnostic="" Expression="(AZRTOS_APP_MEM_ALLOCATION_METHOD = 1)"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="NetXDuo Application Thread Name" DefaultValue="App_Main_Thread_Entry" Group="NetXDuo Core Init" Name="NetXDuo_Application_Thread_Name" TabName="NetXDuo" Type="stringRW">
+        <Description>Default value "app_nx_thread_entry" for NetXDuo Application Thread Name.</Description>
+        <Condition Diagnostic="" Expression="(NetXDuo_Generate_Init_Code = true) &amp; (AZRTOS_APP_MEM_ALLOCATION_METHOD = 1)"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="NetXDuo Application Thread Stack Size" DefaultValue="2 * 1024" Group="NetXDuo Core Init" Max="102400" Min="1024" Name="NX_APP_THREAD_STACK_SIZE" TabName="NetXDuo" Type="integer" Unit="">
+        <Description>Default value for NetXDuo Application Thread Stack Size is 1024</Description>
+        <Condition Diagnostic="" Expression="(NetXDuo_Generate_Init_Code= true) &amp; (AZRTOS_APP_MEM_ALLOCATION_METHOD = 1)"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="NetXDuo Application Thread Priority" DefaultValue="10" Group="NetXDuo Core Init" Max="1024" Min="10" Name="NX_APP_THREAD_PRIORITY" TabName="NetXDuo" Type="integer" Unit="">
+        <Description>Default value 10 for NetXDuo Application Thread Priority.</Description>
+        <Condition Diagnostic="" Expression="(NetXDuo_Generate_Init_Code = true) &amp; (AZRTOS_APP_MEM_ALLOCATION_METHOD = 1)"/>
+        <ValueCondition Expression="Value &lt;= ThreadX:TX_MAX_PRIORITIES" Diagnostic="NetXDuo Application Thread Priority must not exceed TX_MAX_PRIORITIES" />
+    </RefParameter>
+    <RefParameter Added="true" Comment="NetXDuo Pool Size in number of Packets" DefaultValue="10" Group="NetXDuo Core Init" Max="255" Min="5" Name="NX_APP_PACKET_POOL_SIZE" TabName="NetXDuo" Type="integer" Unit="">
+        <Description>Default value for the NetXDuo Packet Pool Size in number of packets is 10.</Description>
+        <Condition Diagnostic="" Expression="(NetXDuo_Generate_Init_Code = true) &amp; (AZRTOS_APP_MEM_ALLOCATION_METHOD = 1)"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="NetXDuo IP Instance Thread Size" DefaultValue="2 * 1024" Group="NetXDuo Core Init" Max="102400" Min="1024" Name="NX_APP_IP_INSTANCE_THREAD_SIZE" TabName="NetXDuo" Type="integer" Unit="">
+        <Description>Default value for the IP Instance Thread Size is 1024.</Description>
+        <Condition Diagnostic="" Expression="(NetXDuo_Generate_Init_Code = true) &amp; (AZRTOS_APP_MEM_ALLOCATION_METHOD = 1)"/>
+        <ValueCondition Expression="Value &lt;= NX_APP_MEM_POOL_SIZE" Diagnostic="NetXDuo IP Instance Thread Size must not exceed NetXDuo memory pool size" />
+    </RefParameter>
+    <RefParameter Added="true" Comment="Initialize ICMP protocol" DefaultValue="true" Group="NetXDuo Protocols" Name="Initialize_ICMP_protocol" TabName="NetXDuo" Type="boolean">
+        <Description>By Default ICMP protocol is enabled.</Description>
+        <PossibleValue Comment="true" Value="true"/>
+        <PossibleValue Comment="false" Value="false"/>
+        <Condition Diagnostic="" Expression="(NetXDuo_Generate_Init_Code = true) &amp; (AZRTOS_APP_MEM_ALLOCATION_METHOD = 1)"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="Initialize TCP protocol" DefaultValue="true" Group="NetXDuo Protocols" Name="Initialize_TCP_protocol" TabName="NetXDuo" Type="boolean">
+        <Description>By Default TCP protocol is enabled.</Description>
+        <PossibleValue Comment="true" Value="true"/>
+        <PossibleValue Comment="false" Value="false"/>
+        <Condition Diagnostic="" Expression="(NetXDuo_Generate_Init_Code = true) &amp; (AZRTOS_APP_MEM_ALLOCATION_METHOD = 1)"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="Initialize DHCP protocol" DefaultValue="true" Group="NetXDuo Protocols" Name="Initialize_DHCP_protocol" TabName="NetXDuo" Type="boolean">
+        <Description>By Default DHCP protocol is enabled. When enabled UDP protocol is enabled automatically and couldn't be disabled.</Description>
+        <PossibleValue Comment="true" Value="true"/>
+        <PossibleValue Comment="false" Value="false"/>
+        <Condition Diagnostic="" Expression="(SEMNetXDuoCcNetworkJjNetXDuoJjAddonsOoDHCPOoClient | SEMNetXDuoCcNetworkJjNetXDuoJjAddonsOoDHCPOoServer ) &amp; (NetXDuo_Generate_Init_Code = true) &amp; (AZRTOS_APP_MEM_ALLOCATION_METHOD = 1)"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="Initialize DHCP protocol" DefaultValue="false" Group="NetXDuo Protocols" Name="Initialize_DHCP_protocol" TabName="NetXDuo" Type="boolean" Visible="false">
+        <Description>By Default DHCP protocol is enabled. When enabled UDP protocol is enabled automatically and couldn't be disabled.</Description>
+        <PossibleValue Comment="false" Value="false"/>
+        <Condition Diagnostic="" Expression="!( SEMNetXDuoCcNetworkJjNetXDuoJjAddonsOoDHCPOoClient | SEMNetXDuoCcNetworkJjNetXDuoJjAddonsOoDHCPOoServer ) &amp;  (NetXDuo_Generate_Init_Code = true) &amp; (AZRTOS_APP_MEM_ALLOCATION_METHOD = 1)" Name="Nx_CORE_ETH_DHCP_ENABLED"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="Initialize UDP protocol" DefaultValue="true" Group="NetXDuo Protocols" Name="Initialize_UDP_protocol" TabName="NetXDuo" Type="boolean" >
+        <Description>UDP protocol is enabled automatically and couldn't be disabled, when DHCP protocol is enabled.</Description>
+        <PossibleValue Comment="true" Value="true"/>
+        <PossibleValue Comment="false" Value="false"/>
+        <Condition Diagnostic="" Expression="(NetXDuo_Generate_Init_Code = true) &amp; (AZRTOS_APP_MEM_ALLOCATION_METHOD = 1)  &amp; Initialize_DHCP_protocol = false"/>
+    </RefParameter>
+	<RefParameter Added="true" Comment="Initialize UDP protocol" DefaultValue="true" Group="NetXDuo Protocols" Name="Initialize_UDP_protocol" TabName="NetXDuo" Type="boolean" Visible="false" >
+        <Description></Description>
+        <PossibleValue Comment="true" Value="true"/>
+        <Condition Diagnostic="" Expression="(NetXDuo_Generate_Init_Code = true) &amp; (AZRTOS_APP_MEM_ALLOCATION_METHOD = 1)  &amp; Initialize_DHCP_protocol = true"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="NetXDuo Ethernet IP Address" DefaultValue="192.168.1.1" Group="NetXDuo Protocols" Name="NetXDuo_Static_IP_address" TabName="NetXDuo" Type="stringRW">
+        <Description>Should follow this format :&lt;br&gt;X.X.X.X  E.g., 192.168.1.1  or  255.255.255.0 </Description>
+        <Condition Diagnostic="" Expression="(NetXDuo_Generate_Init_Code = true) &amp;  Initialize_DHCP_protocol = false &amp; (AZRTOS_APP_MEM_ALLOCATION_METHOD = 1)"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="NetXDuo Ethernet NetMask Address" DefaultValue="255.255.255.0" Group="NetXDuo Protocols" Name="NetXDuo_Application_NetMask" TabName="NetXDuo" Type="stringRW">
+        <Description>Should follow this format :&lt;br&gt;X.X.X.X  E.g., 192.168.1.1  or  255.255.255.0 </Description>
+        <Condition Diagnostic="" Expression="(NetXDuo_Generate_Init_Code = true) &amp;   Initialize_DHCP_protocol= false  &amp; (AZRTOS_APP_MEM_ALLOCATION_METHOD = 1)"/>
     </RefParameter>
     <RefParameter Added="true" Comment="NX_SECURE_TLS_MINIMUM_CERTIFICATE_SIZE" DefaultValue="256" Group="TLS CORE" Max="65535" Min="0" Name="NX_SECURE_TLS_MINIMUM_CERTIFICATE_SIZE" TabName="NetXDuo" Type="integer" Unit="">
         <Description>This option defines a minimum reasonable size for a TLS X509 certificate.
-            This is used in checking for * errors in allocating certificate space. 
+            This is used in checking for * errors in allocating certificate space.
             The size is determined by assuming a 512-bit RSA key, MD5 hash, and a rough estimate
-            of other data. It is theoretically possible for a real certificate to be smaller, 
-            but in that case, bypass the error checking by re-defining this macro.   
+            of other data. It is theoretically possible for a real certificate to be smaller,
+            but in that case, bypass the error checking by re-defining this macro.
             Approximately: 64(RSA) + 16(MD5) + 176(ASN.1 + text data, common name, etc)</Description>
     </RefParameter>
     <RefParameter Added="true" Comment="NX_SNTP_CLIENT_NTP_VERSION" DefaultValue="3" Group="SNTP" Max="255" Min="0" Name="NX_SNTP_CLIENT_NTP_VERSION" TabName="NetXDuo" Type="integer" Unit="">
@@ -2150,7 +2287,9 @@
         <PossibleValue Comment="false" Value="false" />
     </RefParameter>
     <RefParameter Added="true" Comment="NX_MAX_LISTEN_REQUESTS" DefaultValue="10" Group="TCP" Max="65535" Min="1" Name="NX_MAX_LISTEN_REQUESTS" TabName="NetXDuo" Type="integer" Unit="">
-        <Description>Specifies the maximum number of server listen requests. The default value is 10 and is defined in nx_api.h. The application can override the default by defining the value before nx_api.h is included.</Description>
+        <Description>Specifies the maximum number of server listen requests. The default value is 10 and is defined in nx_api.h. The application can override the default by defining the value before nx_api.h is included.
+            &lt;br&gt; &lt;font color=&quot;red&quot;&gt; &lt;b&gt; The proper configuration is to have NX_MAX_LISTEN_REQUESTS strictly > 1 to avoid a compilation warning ! &lt;/b&gt; &lt;/font&gt;
+        </Description>
     </RefParameter>
     <RefParameter Added="true" Comment="NX_ARP_MAX_QUEUE_DEPTH" DefaultValue="4" Group="ARP/RARP" Max="65535" Min="0" Name="NX_ARP_MAX_QUEUE_DEPTH" TabName="NetXDuo" Type="integer" Unit="">
         <Description>Specifies the maximum number of packets that can be queued while waiting for an ARP response. The default value is 4 and is defined in nx_api.h.</Description>
@@ -2268,8 +2407,12 @@
     <RefParameter Comment="TX_TIMER_TICKS_PER_SECOND" DefaultValue="=ThreadX:TX_TIMER_TICKS_PER_SECOND" Group="Core" Name="TX_TIMER_TICKS_PER_SECOND" TabName="NetXDuo" Type="integer" Unit="" Visible="false">
         <Description>Define the common timer tick reference for use by other middleware components</Description>
     </RefParameter>
-    <RefParameter Added="true" Comment="NetXDuo memory pool size" DefaultValue="1024" Group="Memory Configuration" Max="262144" Min="512" Name="NX_APP_MEM_POOL_SIZE" TabName="NetXDuo" Type="integer" Unit="">
+    <RefParameter Added="true" Comment="NetXDuo memory pool size" DefaultValue="30 * 1024" Group="Memory Configuration" Max="262144" Min="512" Name="NX_APP_MEM_POOL_SIZE" TabName="NetXDuo" Type="integer" Unit="">
         <Description>Default memory pool size for the NETXDUOX application.&lt;br&gt;&lt;font color=&quot;red&quot;&gt;The allocated memory for all enabled middelwares should not exceed the total size of available memory.&lt;/font&gt;</Description>
+        <Condition Diagnostic="" Expression="(ThreadX:AZRTOS_APP_MEM_ALLOCATION_METHOD = 1)" />
+    </RefParameter>
+    <RefParameter Added="true" Comment="NetXDuo MemPool Name" DefaultValue="nx_app_byte_pool" Group="Memory Configuration" Name="NETXDUO_MEM_POOL_VAR_NAME" TabName="NetXDuo" Type="stringRW">
+        <Description>Default NetXDuo memory pool var name &lt;br&gt; &lt;font color=&quot;red&quot;&gt; &lt;b&gt;This is a variable name. It should be C compliant declaration, Otherwise compilation errors will be generated in the project. &lt;/b&gt; &lt;/font&gt;</Description>
         <Condition Diagnostic="" Expression="(ThreadX:AZRTOS_APP_MEM_ALLOCATION_METHOD = 1)" />
     </RefParameter>
     <RefParameter Added="true" Comment="Memory Allocation" DefaultValue="=(ThreadX:AZRTOS_APP_MEM_ALLOCATION_METHOD)" Group="Core" Name="AZRTOS_APP_MEM_ALLOCATION_METHOD" TabName="NetXDuo" Type="list" Visible="false">
@@ -2292,7 +2435,13 @@
         <Description></Description>
         <Condition Diagnostic="" Expression="SEMFileXCcFileOoSystemJjFileXJjCore" />
     </RefParameter>
-
+    <RefParameter Name="LAN_8742" Comment="LAN_Phy_Interface" DefaultValue="0" Type="integer" Min="0" Max="1" Group="BSP" TabName="NetXDuo" Visible="false">
+    </RefParameter>
+    <RefParameter Name="RTL_8211" Comment="RTL_Phy_Interface" DefaultValue="0" Type="integer" Min="0" Max="1" Group="BSP" TabName="NetXDuo" Visible="false">
+    </RefParameter>
+    <RefParameter Name="ETH_Activated" Comment="ETH Interface Enabled" DefaultValue="0" Type="list" Min="0" Max="1" Group="Eth" TabName="NetXDuo" Visible="false">
+        <PossibleValue Value="0" Comment=""/>
+    </RefParameter>
     <RefParameter Added="true" Comment="NX_ENABLE_TCPIP_OFFLOAD" DefaultValue="0" Group="Core" Name="NX_ENABLE_TCPIP_OFFLOAD" TabName="NetXDuo" Type="List">
         <Description>Offload TCP/IP processing to the underlining HW</Description>
         <PossibleValue Comment="Disabled" Value="0" />
@@ -2334,5 +2483,14 @@
     <RefParameter Added="true" Comment="NX_PPP_OPTION_MESSAGE_LENGTH" DefaultValue="64" Group="PPP" Max="128" Min="64" Name="NX_PPP_OPTION_MESSAGE_LENGTH" TabName="NetXDuo" Type="integer" Unit="">
         <Description>Size of the NAK list.</Description>
     </RefParameter>
-
+    <RefParameter Visible="false" Comment="Addons_DHCP_Client" Name="Addons_DHCP_Client" Type="boolean" DefaultValue="true" >
+        <Condition Diagnostic="" Expression="SEMNetXDuoCcNetworkJjNetXDuoJjAddonsOoDHCPOoClient"/>
+    </RefParameter>
+    <RefParameter Visible="false" Comment="Addons_DHCP_Client" Name="Addons_DHCP_Client" Type="boolean" DefaultValue="false" >
+    </RefParameter>
+    <RefParameter Visible="false" Comment="Addons_DHCP_Server" Name="Addons_DHCP_Server" Type="boolean" DefaultValue="true" >
+        <Condition Diagnostic="" Expression="SEMNetXDuoCcNetworkJjNetXDuoJjAddonsOoDHCPOoServer"/>
+    </RefParameter>
+    <RefParameter Visible="false" Comment="Addons_DHCP_Server" Name="Addons_DHCP_Server" Type="boolean" DefaultValue="false" >
+    </RefParameter>
 </IP>

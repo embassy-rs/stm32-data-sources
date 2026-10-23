@@ -7,7 +7,7 @@
     IncludeFile=""
     Name="LoRaWAN"
     RootFolder="Middlewares/Third_Party/"
-    Version="STM32Cube_FW_WL_V1.3.0">
+    Version="STM32Cube_FW_WL_V1.5.0RC1">
 
     <RefConfig Comment="" Name="LoRaWAN_Init">
         <CallLibMethod Name="LoRaWAN_Init"/>
@@ -20,9 +20,8 @@
         <Component Name="HAL:GPIO"/>
         <Component Name="HAL:RTC"/>
         <Component Name="HAL:SPI"/>
-        <Component Name="Middleware:MW_SUBGHZ_PHY"/>
         <Component Name="Middleware:MW_LORAWAN"/>
-
+        <Component Name="Middleware:MW_SUBGHZ_PHY"/>
         <!-- Core/Inc -->
         <ConfigFile Name="BOARD_WL5M_CONF_H"/>
         <ConfigFile Name="FLASH_IF_H"/>
@@ -70,8 +69,6 @@
         <ConfigFile Name="APP_TEST_RF_H"/>
         <ConfigFile Name="APP_LORA_INFO_C"/>
         <ConfigFile Name="APP_LORA_INFO_H"/>
-        <ConfigFile Name="APP_FW_UPDATE_AGENT_C"/>
-        <ConfigFile Name="APP_FW_UPDATE_AGENT_H"/>
 
         <!-- LoRaWAN/Target -->
         <ConfigFile Name="TARGET_LORAWAN_CONF_H"/>
@@ -82,8 +79,6 @@
         <ConfigFile Name="TARGET_SYSTIME_H"/>
         <ConfigFile Name="TARGET_TIMER_C"/>
         <ConfigFile Name="TARGET_TIMER_H"/>
-        <ConfigFile Name="TARGET_FRAG_DECODER_IF_C"/>
-        <ConfigFile Name="TARGET_FRAG_DECODER_IF_H"/>
 
        <!-- MbMux-->
         <ConfigFile Name="MBMUX_FEATURE_INFO_C"/>
@@ -131,6 +126,11 @@
         <ConfigFile Name="RTOS_VARIABLES_LORAWAN_TMP"/>
         <ConfigFile Name="RTOS_POOL_CREATE_LORAWAN_TMP"/>
         <ConfigFile Name="RTOS_DEFINES_LORAWAN_TMP"/>
+        <Defines Name="NUMBER_OF_STACKS=1"/>
+        <Defines Name="SX126X"/>
+        <Defines Name="ENDNODE" Condition="SEM_End_Node_LBM_skeleton|SEM_End_Node_Relay_LBM_skeleton"/>
+        <Defines Name="ENDNODE_RELAY"  Condition="SEM_End_Node_Relay_LBM_skeleton"/>
+        <Defines Name="RELAY"          Condition="SEM_Relay_LBM_skeleton"/>
     </RefConfig>
 
     <LibMethod Name="LoRaWAN_Init" Comment="Initialize the LoRaWAN stack">
@@ -181,41 +181,161 @@
 <!-- Requested by  -->
 
     <RefComponent Cclass="Middleware" Cgroup="MW_LORAWAN" Cversion="1.0.0">
-        <File Category="header" Name="LoRaWAN/Crypto/*.h" Condition="!SEM_M4"/>
-        <File Category="source" Name="LoRaWAN/Crypto/*.c" Condition="!SEM_M4"/>
-        <File Category="header" Name="LoRaWAN/Mac/Region/*.h" Condition="all"/>
-        <File Category="header" Name="LoRaWAN/Mac/*.h" Condition="all"/>
-        <File Category="source" Name="LoRaWAN/Mac/Region/*.c" Condition="!SEM_M4"/>
-        <File Category="source" Name="LoRaWAN/Mac/*.c" Condition="!SEM_M4"/>
-        <File Category="header" Name="LoRaWAN/*.h" Condition="!SEM_M4"/>
-        <File Category="source" Name="LoRaWAN/*.c" Condition="!SEM_M4"/>
-        <File Category="header" Name="LoRaWAN/LmHandler/*.h" Condition="all"/>
-        <File Category="source" Name="LoRaWAN/LmHandler/*.c" Condition="!SEM_M4"/>
-        <File Category="source" Name="LoRaWAN/LmHandler/Packages/FragDecoder.c" Condition="!SEM_M4 &amp; SEM_LORAWAN_DATA_DISTRIB_MGT"/>
-        <File Category="header" Name="LoRaWAN/LmHandler/Packages/FragDecoder.h" Condition="!SEM_M4 &amp; SEM_LORAWAN_DATA_DISTRIB_MGT"/>
-        <File Category="header" Name="LoRaWAN/LmHandler/Packages/LmhPackage.h" Condition="!SEM_M4"/>
-        <File Category="header" Name="LoRaWAN/LmHandler/Packages/LmhpClockSync.h" Condition="!SEM_M4 &amp; SEM_LORAWAN_DATA_DISTRIB_MGT"/>
-        <File Category="source" Name="LoRaWAN/LmHandler/Packages/LmhpClockSync.c" Condition="!SEM_M4 &amp; SEM_LORAWAN_DATA_DISTRIB_MGT"/>
-        <File Category="header" Name="LoRaWAN/LmHandler/Packages/LmhpCompliance.h" Condition="!SEM_M4"/>
-        <File Category="source" Name="LoRaWAN/LmHandler/Packages/LmhpCompliance.c" Condition="!SEM_M4"/>
-        <File Category="header" Name="LoRaWAN/LmHandler/Packages/LmhpFirmwareManagement.h" Condition="!SEM_M4 &amp; SEM_LORAWAN_DATA_DISTRIB_MGT"/>
-        <File Category="source" Name="LoRaWAN/LmHandler/Packages/LmhpFirmwareManagement.c" Condition="!SEM_M4 &amp; SEM_LORAWAN_DATA_DISTRIB_MGT"/>
-        <File Category="header" Name="LoRaWAN/LmHandler/Packages/LmhpFragmentation.h" Condition="!SEM_M4 &amp; SEM_LORAWAN_DATA_DISTRIB_MGT"/>
-        <File Category="source" Name="LoRaWAN/LmHandler/Packages/LmhpFragmentation.c" Condition="!SEM_M4 &amp; SEM_LORAWAN_DATA_DISTRIB_MGT"/>
-        <File Category="header" Name="LoRaWAN/LmHandler/Packages/LmhpPackagesRegistration.h" Condition="!SEM_M4"/>
-        <File Category="source" Name="LoRaWAN/LmHandler/Packages/LmhpPackagesRegistration.c" Condition="!SEM_M4"/>
-        <File Category="header" Name="LoRaWAN/LmHandler/Packages/LmhpRemoteMcastSetup.h" Condition="!SEM_M4 &amp; SEM_LORAWAN_DATA_DISTRIB_MGT"/>
-        <File Category="source" Name="LoRaWAN/LmHandler/Packages/LmhpRemoteMcastSetup.c" Condition="!SEM_M4 &amp; SEM_LORAWAN_DATA_DISTRIB_MGT"/>
-        <File Category="header" Name="LoRaWAN/Utilities/*.h" Condition="all"/>
-        <File Category="source" Name="LoRaWAN/Utilities/*.c" Condition="!SEM_M4"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/lorawan_api/lorawan_api.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lorawan_api/lorawan_api.h" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/smtc_modem_hal_dbg_trace.h" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lorawan_version.h" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_hal/smtc_modem_hal.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/lorawan_manager/lorawan_cid_request_management.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lorawan_manager/lorawan_cid_request_management.h" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_api/smtc_modem_api.h" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_api/smtc_modem_test_api.h" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_api/smtc_modem_utilities.h" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_api/smtc_modem_relay_api.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/lorawan_manager/lorawan_class_b_management.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lorawan_manager/lorawan_class_b_management.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/lorawan_manager/lorawan_dwn_ack_management.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lorawan_manager/lorawan_dwn_ack_management.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/lorawan_manager/lorawan_join_management.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lorawan_manager/lorawan_join_management.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/lorawan_manager/lorawan_send_management.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lorawan_manager/lorawan_send_management.h" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lorawan_manager/lorawan_management_defs.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/lorawan_packages/lorawan_certification/lorawan_certification.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lorawan_packages/lorawan_certification/lorawan_certification.h" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/lr1mac_defs.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/lr1mac/src/lr1mac_class_b/smtc_beacon_sniff.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/lr1mac_class_b/smtc_beacon_sniff.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/lr1mac/src/lr1mac_class_b/smtc_ping_slot.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/lr1mac_class_b/smtc_ping_slot.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/lr1mac/src/lr1mac_class_c/lr1mac_class_c.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/lr1mac_class_c/lr1mac_class_c.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/lr1mac/src/relay/common/relay_mac_parser.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/relay/common/relay_mac_parser.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/lr1mac/src/relay/common/relay_real.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/relay/common/relay_real.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/lr1mac/src/relay/common/wake_on_radio.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/relay/common/wake_on_radio.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/lr1mac/src/relay/common/wake_on_radio_ral.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/relay/common/wake_on_radio_ral.h" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/relay/common/wake_on_radio_def.h" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/relay/common/relay_def.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/lr1mac/src/relay/relay_rx/relay_rx.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/relay/relay_rx/relay_rx.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/lr1mac/src/relay/relay_rx/relay_rx_mac_parser.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/relay/relay_rx/relay_rx_mac_parser.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/lr1mac/src/relay/relay_tx/relay_tx.c" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/lr1mac/src/relay/relay_tx/relay_tx_mac_parser.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/relay/relay_tx/relay_tx_mac_parser.h" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/relay/relay_rx/relay_rx_api.h" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/relay/relay_tx/relay_tx_api.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/lr1mac/src/services/smtc_multicast/smtc_multicast.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/services/smtc_multicast/smtc_multicast.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/lr1mac/src/services/*.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/services/*.h" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/smtc_real/src/smtc_real_defs.h" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/smtc_real/src/region_eu_868_defs.h" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/smtc_real/src/region_as_923_defs.h" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/smtc_real/src/region_us_915_defs.h" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/smtc_real/src/region_in_865_defs.h" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/smtc_real/src/region_au_915_defs.h" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/smtc_real/src/region_cn_470_defs.h" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/smtc_real/src/region_kr_920_defs.h" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/smtc_real/src/region_ru_864_defs.h" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/smtc_real/src/region_ww2g4_defs.h" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/smtc_real/src/region_cn_470_rp_1_0_defs.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/lr1mac/src/smtc_real/src/region_as_923.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/smtc_real/src/region_as_923.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/lr1mac/src/smtc_real/src/region_au_915.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/smtc_real/src/region_au_915.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/lr1mac/src/smtc_real/src/region_cn_470.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/smtc_real/src/region_cn_470.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/lr1mac/src/smtc_real/src/region_cn_470_rp_1_0.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/smtc_real/src/region_cn_470_rp_1_0.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/lr1mac/src/smtc_real/src/region_eu_868.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/smtc_real/src/region_eu_868.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/lr1mac/src/smtc_real/src/region_in_865.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/smtc_real/src/region_in_865.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/lr1mac/src/smtc_real/src/region_kr_920.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/smtc_real/src/region_kr_920.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/lr1mac/src/smtc_real/src/region_ru_864.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/smtc_real/src/region_ru_864.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/lr1mac/src/smtc_real/src/region_us_915.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/smtc_real/src/region_us_915.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/lr1mac/src/smtc_real/src/region_ww2g4.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/smtc_real/src/region_ww2g4.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/lr1mac/src/smtc_real/src/smtc_real.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/smtc_real/src/smtc_real.h" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/smtc_real/src/smtc_real_defs_str.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/lr1mac/src/lr1_stack_mac_layer.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/lr1_stack_mac_layer.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/lr1mac/src/lr1mac_core.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/lr1mac_core.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/lr1mac/src/lr1mac_utilities.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/src/lr1mac_utilities.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/modem_services/beacon_tx_service/lorawan_beacon_tx_service_example.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/modem_services/beacon_tx_service/lorawan_beacon_tx_service_example.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/modem_services/lfu_service/file_upload.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/modem_services/lfu_service/file_upload.h" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/modem_services/modem_services_common.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/modem_services/relay_service/*.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/modem_services/relay_service/*.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/modem_services/service_template/service_template.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/modem_services/service_template/service_template.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/modem_services/store_and_forward/*.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/modem_services/store_and_forward/*.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/modem_supervisor/*.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/modem_supervisor/*.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/modem_utilities/circularfs.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/modem_utilities/circularfs.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/modem_utilities/fifo_ctrl.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/modem_utilities/fifo_ctrl.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/modem_utilities/modem_core.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/modem_utilities/modem_core.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/modem_utilities/modem_event_utilities.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/modem_utilities/modem_event_utilities.h" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/modem_utilities/modem_services_config.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/smtc_modem_crypto/soft_secure_element/*.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/smtc_modem_crypto/soft_secure_element/*.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/smtc_modem_crypto/smtc_modem_crypto.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/smtc_modem_crypto/smtc_modem_crypto.h" Condition="all"/>
+        <File Category="source" Name="LoRaWAN/smtc_modem_core/*.c" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/smtc_modem_test.h" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/smtc_modem_crypto/smtc_secure_element/smtc_secure_element.h" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/lr1mac/lr1mac_config.h" Condition="all"/>
+        <File Category="header" Name="LoRaWAN/smtc_modem_core/modem_services/device_management_defs.h" Condition="all"/>
     </RefComponent>
 
     <RefComponent Cclass="Middleware" Cgroup="MW_SUBGHZ_PHY" Cversion="1.0.0">
-        <File Category="header" Name="SubGHz_Phy/*.h" Condition="all"/>
-        <File Category="header" Name="SubGHz_Phy/stm32_radio_driver/*.h" Condition="!SEM_M4"/>
-        <File Category="source" Name="SubGHz_Phy/stm32_radio_driver/radio.c" Condition="!SEM_M4"/>
-        <File Category="source" Name="SubGHz_Phy/stm32_radio_driver/radio_driver.c" Condition="!SEM_M4"/>
-        <File Category="source" Name="SubGHz_Phy/stm32_radio_driver/radio_fw.c" Condition="!SEM_M4"/>
+        <File Category="header" Name="SubGHz_Phy/lorawan/radio_driver.h" Condition="all"/>
+        <File Category="header" Name="SubGHz_Phy/radio_driver/lr_fhss_v1_base_types.h" Condition="all"/>
+        <File Category="header" Name="SubGHz_Phy/radio_driver/subghz_phy_version.h" Condition="all"/>
+        <File Category="source" Name="SubGHz_Phy/lorawan/radio_drivers/sx126x_driver/src/lr_fhss_mac.c" Condition="all"/>
+        <File Category="header" Name="SubGHz_Phy/lorawan/radio_drivers/sx126x_driver/src/lr_fhss_mac.h" Condition="all"/>
+        <File Category="header" Name="SubGHz_Phy/lorawan/radio_drivers/sx126x_driver/src/sx126x_hal.h" Condition="all"/>
+        <File Category="source" Name="SubGHz_Phy/lorawan/radio_drivers/sx126x_driver/src/sx126x.c" Condition="all"/>
+        <File Category="header" Name="SubGHz_Phy/lorawan/radio_drivers/sx126x_driver/src/sx126x.h" Condition="all"/>
+        <File Category="header" Name="SubGHz_Phy/lorawan/radio_drivers/sx126x_driver/src/sx126x_regs.h" Condition="all"/>
+        <File Category="source" Name="SubGHz_Phy/lorawan/radio_drivers/sx126x_driver/src/sx126x_driver_version.c" Condition="all"/>
+        <File Category="header" Name="SubGHz_Phy/lorawan/radio_drivers/sx126x_driver/src/sx126x_driver_version.h" Condition="all"/>
+        <File Category="source" Name="SubGHz_Phy/lorawan/radio_drivers/sx126x_driver/src/sx126x_lr_fhss.c" Condition="all"/>
+        <File Category="header" Name="SubGHz_Phy/lorawan/radio_drivers/sx126x_driver/src/sx126x_lr_fhss.h" Condition="all"/>
+        <File Category="source" Name="SubGHz_Phy/lorawan/radio_planner/src/radio_planner.c" Condition="all"/>
+        <File Category="header" Name="SubGHz_Phy/lorawan/radio_planner/src/radio_planner.h" Condition="all"/>
+        <File Category="header" Name="SubGHz_Phy/lorawan/radio_planner/src/radio_planner_types.h" Condition="all"/>
+        <File Category="header" Name="SubGHz_Phy/lorawan/radio_planner/src/radio_planner_hook_id_defs.h" Condition="all"/>
+        <File Category="header" Name="SubGHz_Phy/lorawan/radio_planner/src/radio_planner_stats.h" Condition="all"/>
+        <File Category="source" Name="SubGHz_Phy/lorawan/smtc_ral/src/ral_sx126x.c" Condition="all"/>
+        <File Category="header" Name="SubGHz_Phy/lorawan/smtc_ral/src/ral_sx126x.h" Condition="all"/>
+        <File Category="header" Name="SubGHz_Phy/lorawan/smtc_ral/src/ral_defs.h" Condition="all"/>
+        <File Category="header" Name="SubGHz_Phy/lorawan/smtc_ral/src/ral.h" Condition="all"/>
+        <File Category="header" Name="SubGHz_Phy/lorawan/smtc_ral/src/ral_drv.h" Condition="all"/>
+        <File Category="header" Name="SubGHz_Phy/lorawan/smtc_ral/src/ral_sx126x_bsp.h" Condition="all"/>
+        <File Category="source" Name="SubGHz_Phy/lorawan/smtc_ralf/src/ralf_sx126x.c" Condition="all"/>
+        <File Category="header" Name="SubGHz_Phy/lorawan/smtc_ralf/src/ralf_sx126x.h" Condition="all"/>
+        <File Category="header" Name="SubGHz_Phy/lorawan/smtc_ralf/src/ralf.h" Condition="all"/>
+        <File Category="header" Name="SubGHz_Phy/lorawan/smtc_ralf/src/ralf_defs.h" Condition="all"/>
+        <File Category="header" Name="SubGHz_Phy/lorawan/smtc_ralf/src/ralf_drv.h" Condition="all"/>
     </RefComponent>
 
 <!-- Core/Inc begin-->
@@ -231,7 +351,7 @@
     </RefConfigFile>
 
     <RefConfigFile Description="" Name="FLASH_IF_H" Template="stm32wl/flash_if_h.ftl" destinationFolder="Core/Inc/">
-        <File Category="header" Name="flash_if.h" Version="1.0" Condition="!SEM_M0PLUS &amp; !SEM_LORA_USER_APPLICATION"/>
+        <File Category="header" Name="flash_if.h" Version="1.0" Condition="!SEM_M0PLUS"/>
         <Argument Name="STM32WL5MXX" GenericType="Simple" Comment=""/>
     </RefConfigFile>
 
@@ -250,7 +370,7 @@
     </RefConfigFile>
 
     <RefConfigFile Description="" Name="SYS_CONF_H" Template="stm32wl/sys_conf_h.ftl" destinationFolder="Core/Inc/">
-        <File Category="header" Name="sys_conf.h" Version="1.0" Condition="!SEM_LORA_USER_APPLICATION"/>
+        <File Category="header" Name="sys_conf.h" Version="1.0" Condition="all"/>
         <Argument Name="SUBGHZ_APPLICATION" GenericType="Simple" Comment=""/>
         <Argument Name="VERBOSE_LEVEL" GenericType="Simple" Comment=""/>
         <Argument Name="APP_LOG_ENABLED" GenericType="Simple" Comment=""/>
@@ -274,11 +394,11 @@
     </RefConfigFile>
 
     <RefConfigFile Description="" Name="SYS_SENSORS_H" Template="stm32wl/sys_sensors_h.ftl" destinationFolder="Core/Inc/">
-        <File Category="header" Name="sys_sensors.h" Version="1.0" Condition="SEM_LORA_END_NODE &amp; !SEM_M0PLUS"/>
+        <File Category="header" Name="sys_sensors.h" Version="1.0" Condition="!SEM_M0PLUS"/>
     </RefConfigFile>
 
     <RefConfigFile Description="" Name="SYS_DEBUG_H" Template="stm32wl/sys_debug_h.ftl" destinationFolder="Core/Inc/">
-        <File Category="header" Name="sys_debug.h" Version="1.0" Condition="!SEM_M0PLUS &amp; !SEM_M4 &amp; !SEM_LORA_USER_APPLICATION"/>
+        <File Category="header" Name="sys_debug.h" Version="1.0" Condition="!SEM_M0PLUS &amp; !SEM_M4"/>
     </RefConfigFile>
 
     <RefConfigFile Description="" Name="UTILITIES_CONF_H" Template="stm32wl/utilities_conf_h.ftl" destinationFolder="Core/Inc/">
@@ -302,7 +422,7 @@
     </RefConfigFile>
 
     <RefConfigFile Description="" Name="BOARD_WL5M_CONF_H" Template="stm32wl/b_wl5m_subg_conf_h.ftl" destinationFolder="Core/Inc/">
-        <File Category="header" Name="b_wl5m_subg_conf.h" Version="1.0" Condition="SEM_STM32WL5MXX &amp; !SEM_M0PLUS &amp; SEM_LORA_END_NODE"/>
+        <File Category="header" Name="b_wl5m_subg_conf.h" Version="1.0" Condition="SEM_STM32WL5MXX"/>
         <Argument Name="SUBGHZ_APPLICATION" GenericType="Simple" Comment=""/>
     </RefConfigFile>
 
@@ -317,7 +437,7 @@
     </RefConfigFile>
 
     <RefConfigFile Description="" Name="STM32_ADV_TRACE_IF_H" Template="stm32wl/stm32_adv_trace_if_h.ftl" destinationFolder="Core/Inc/">
-        <File Category="header" Name="stm32_adv_trace_if.h" Version="1.0" Condition="((!SEM_M0PLUS &amp; !SEM_M4) | SEM_M4) &amp; SEM_LORA_USER_APPLICATION &amp; !SEM_LORA_USE_UART &amp; S_ADV_TRACE"/>
+        <File Category="header" Name="stm32_adv_trace_if.h" Version="1.0" Condition="((!SEM_M0PLUS &amp; !SEM_M4) | SEM_M4)  &amp; !SEM_LORA_USE_UART &amp; S_ADV_TRACE &amp; !SEM_End_Node_LBM_skeleton &amp; !SEM_End_Node_Relay_LBM_skeleton &amp; !SEM_Relay_LBM_skeleton"/>
     </RefConfigFile>
 
 <!-- Core/Inc end-->
@@ -325,7 +445,7 @@
 <!-- Core/Src begin-->
 
     <RefConfigFile Description="" Name="FLASH_IF_C" Template="stm32wl/flash_if_c.ftl" destinationFolder="Core/Src/">
-        <File Category="source" Name="flash_if.c" Version="1.0" Condition="!SEM_M0PLUS &amp; !SEM_LORA_USER_APPLICATION"/>
+        <File Category="source" Name="flash_if.c" Version="1.0" Condition="!SEM_M0PLUS"/>
         <Argument Name="STM32WL5MXX" GenericType="Simple" Comment=""/>
     </RefConfigFile>
 
@@ -355,11 +475,11 @@
     </RefConfigFile>
 
     <RefConfigFile Description="" Name="SYS_DEBUG_C" Template="stm32wl/sys_debug_c.ftl" destinationFolder="Core/Src/">
-        <File Category="source" Name="sys_debug.c" Version="1.0" Condition="!SEM_M0PLUS &amp; !SEM_M4 &amp; !SEM_LORA_USER_APPLICATION"/>
+        <File Category="source" Name="sys_debug.c" Version="1.0" Condition="!SEM_M0PLUS &amp; !SEM_M4"/>
     </RefConfigFile>
 
     <RefConfigFile Description="" Name="SYS_SENSORS_C" Template="stm32wl/sys_sensors_c.ftl" destinationFolder="Core/Src/">
-        <File Category="source" Name="sys_sensors.c" Version="1.0" Condition="SEM_LORA_END_NODE &amp; !SEM_M0PLUS"/>
+        <File Category="source" Name="sys_sensors.c" Version="1.0" Condition="!SEM_M0PLUS"/>
     </RefConfigFile>
 
     <RefConfigFile Description="" Name="STM32_TIMER_IF_C" Template="stm32wl/timer_if_c.ftl" destinationFolder="Core/Src/">
@@ -370,7 +490,7 @@
     </RefConfigFile>
 
     <RefConfigFile Description="" Name="STM32_ADV_TRACE_IF_C" Template="stm32wl/stm32_adv_trace_if_c.ftl" destinationFolder="Core/Src/">
-        <File Category="source" Name="stm32_adv_trace_if.c" Version="1.0" Condition="((!SEM_M0PLUS &amp; !SEM_M4) | SEM_M4) &amp; SEM_LORA_USER_APPLICATION &amp; !SEM_LORA_USE_UART &amp; S_ADV_TRACE"/>
+        <File Category="source" Name="stm32_adv_trace_if.c" Version="1.0" Condition="((!SEM_M0PLUS &amp; !SEM_M4) | SEM_M4)  &amp; !SEM_LORA_USE_UART &amp; S_ADV_TRACE &amp; !SEM_End_Node_LBM_skeleton &amp; !SEM_End_Node_Relay_LBM_skeleton &amp; !SEM_Relay_LBM_skeleton"/>
     </RefConfigFile>
 
 <!-- Core/Src end-->
@@ -390,17 +510,15 @@
     </RefConfigFile>
 
     <RefConfigFile Description="" Name="APP_CAYENNELPP_C" Template="stm32wl/LoRaWAN_CayenneLpp_c.ftl" >
-        <File Category="source" Condition="SEM_LORA_END_NODE &amp; !SEM_M0PLUS" Name="App/CayenneLpp.c" Version="1.0"/>
+        <File Category="source" Condition="(SEM_End_Node_LBM_skeleton | SEM_End_Node_Relay_LBM_skeleton |SEM_Relay_LBM_skeleton) &amp; !SEM_M0PLUS" Name="App/CayenneLpp.c" Version="1.0"/>
     </RefConfigFile>
 
     <RefConfigFile Description="" Name="APP_CAYENNELPP_H" Template="stm32wl/LoRaWAN_CayenneLpp_h.ftl" >
-        <File Category="header" Condition="SEM_LORA_END_NODE &amp; !SEM_M0PLUS" Name="App/CayenneLpp.h" Version="1.0"/>
+        <File Category="header" Condition="(SEM_End_Node_LBM_skeleton | SEM_End_Node_Relay_LBM_skeleton |SEM_Relay_LBM_skeleton) &amp; !SEM_M0PLUS" Name="App/CayenneLpp.h" Version="1.0"/>
     </RefConfigFile>
 
     <RefConfigFile Description="" Name="APP_COMMISSIONING_H" Template="stm32wl/LoRaWAN_Commissioning_h.ftl" >
         <File Category="header" Condition="!SEM_M4" Name="App/Commissioning.h" Version="1.0"/>
-        <Argument Name="LORAWAN_PUBLIC_NETWORK" GenericType="Simple" Comment=""/>
-        <Argument Name="LORAWAN_NETWORK_ID" GenericType="Simple" Comment=""/>
     </RefConfigFile>
 
     <RefConfigFile Description="" Name="APP_SE_IDENTITY_H" Template="stm32wl/LoRaWAN_se-identity_h.ftl" >
@@ -408,7 +526,7 @@
         <Argument Name="LORAWAN_DEVICE_EUI" GenericType="Simple" Comment=""/>
         <Argument Name="LORAWAN_JOIN_EUI" GenericType="Simple" Comment=""/>
         <Argument Name="LORAWAN_APP_KEY" GenericType="Simple" Comment=""/>
-        <Argument Name="LORAWAN_NWK_KEY" GenericType="Simple" Comment=""/>
+        <Argument Name="LORAWAN_GEN_APP_KEY" GenericType="Simple" Comment=""/>
         <Argument Name="LORAWAN_DEVICE_ADDRESS" GenericType="Simple" Comment=""/>
         <Argument Name="LORAWAN_NWK_S_KEY" GenericType="Simple" Comment=""/>
         <Argument Name="LORAWAN_APP_S_KEY" GenericType="Simple" Comment=""/>
@@ -421,6 +539,7 @@
         <Argument Name="FILL_UCS" GenericType="Simple" Comment=""/>
         <Argument Name="LORAWAN_TIMER_OR_BUTTON" GenericType="Simple" Comment=""/>
         <Argument Name="STM32WL5MXX" GenericType="Simple" Comment=""/>
+        <Argument Name="LORAMAC_CLASSB_ENABLED" GenericType="Simple" Comment=""/>
     </RefConfigFile>
 
     <RefConfigFile Description="" Name="APP_LORA_APP_H" Template="stm32wl/LoRaWAN_lora_app_h.ftl">
@@ -429,16 +548,7 @@
         <Argument Name="ACTIVE_REGION" GenericType="Simple" Comment=""/>
         <Argument Name="APP_TX_DUTYCYCLE" GenericType="Simple" Comment=""/>
         <Argument Name="LORAWAN_USER_APP_PORT" GenericType="Simple" Comment=""/>
-        <Argument Name="LORAWAN_SWITCH_CLASS_PORT" GenericType="Simple" Comment=""/>
-        <Argument Name="LORAWAN_DEFAULT_CLASS" GenericType="Simple" Comment=""/>
-        <Argument Name="LORAWAN_DEFAULT_CONFIRMED_MSG_STATE" GenericType="Simple" Comment=""/>
-        <Argument Name="LORAWAN_ADR_STATE" GenericType="Simple" Comment=""/>
-        <Argument Name="LORAWAN_DEFAULT_ACTIVATION_TYPE" GenericType="Simple" Comment=""/>
-        <Argument Name="LORAWAN_FORCE_REJOIN_AT_BOOT" GenericType="Simple" Comment=""/>
-        <Argument Name="LORAWAN_DEFAULT_DATA_RATE" GenericType="Simple" Comment=""/>
-        <Argument Name="LORAWAN_DEFAULT_TX_POWER" GenericType="Simple" Comment=""/>
-        <Argument Name="LORAWAN_DEFAULT_PING_SLOT_PERIODICITY" GenericType="Simple" Comment=""/>
-        <Argument Name="LORAWAN_DEFAULT_CLASS_B_C_RESP_TIMEOUT" GenericType="Simple" Comment=""/>
+        <Argument Name="LORAWAN_CERTIFICATION_MODE" GenericType="Simple" Comment=""/>
     </RefConfigFile>
 
     <RefConfigFile Description="" Name="APP_LORA_APP_M0PLUS_C" Template="stm32wl/LoRaWAN_lora_app_M0PLUS_c.ftl">
@@ -481,49 +591,37 @@
     </RefConfigFile>
 
     <RefConfigFile Description="" Name="APP_LORA_INFO_C" Template="stm32wl/LoRaWAN_info_c.ftl">
-        <File Category="source" Name="App/lora_info.c" Condition="!SEM_M0PLUS &amp; !SEM_M4" Version="1.0"/>
+        <File Category="source" Name="App/lora_info.c" Condition="!SEM_M0PLUS &amp; !SEM_M4  &amp; !SEM_End_Node_LBM_skeleton &amp; !SEM_End_Node_Relay_LBM_skeleton &amp; !SEM_Relay_LBM_skeleton" Version="1.0"/>
         <Argument Name="SUBGHZ_APPLICATION" GenericType="Simple" Comment=""/>
     </RefConfigFile>
 
     <RefConfigFile Description="" Name="APP_LORA_INFO_H" Template="stm32wl/LoRaWAN_info_h.ftl">
-        <File Category="source" Name="App/lora_info.h" Condition="!SEM_M0PLUS &amp; !SEM_M4" Version="1.0"/>
+        <File Category="source" Name="App/lora_info.h" Condition="!SEM_M0PLUS &amp; !SEM_M4 &amp; !SEM_End_Node_LBM_skeleton &amp; !SEM_End_Node_Relay_LBM_skeleton &amp; !SEM_Relay_LBM_skeleton" Version="1.0"/>
     </RefConfigFile>
 
-    <RefConfigFile Description="" Name="APP_FW_UPDATE_AGENT_C" Template="stm32wl/fw_update_agent_c.ftl">
-        <File Category="source" Name="App/fw_update_agent.c" Version="1.0" Condition="!SEM_M4 &amp; SEM_LORAWAN_DATA_DISTRIB_MGT"/>
-        <Argument Name="STM32WL5MXX" GenericType="Simple" Comment=""/>
-    </RefConfigFile>
-
-    <RefConfigFile Description="" Name="APP_FW_UPDATE_AGENT_H" Template="stm32wl/fw_update_agent_h.ftl">
-        <File Category="header" Name="App/fw_update_agent.h" Version="1.0" Condition="!SEM_M4 &amp; SEM_LORAWAN_DATA_DISTRIB_MGT"/>
-    </RefConfigFile>
 <!-- LoRaWAN/App end-->
 
 <!-- LoRaWAN/Target begin-->
 
     <RefConfigFile Description="" Name="TARGET_LORAWAN_CONF_H" Template="stm32wl/LoRaWAN_lorawan_conf_h.ftl" >
-        <File Category="header" Condition="SEM_LORA_AT_SLAVE | SEM_LORA_END_NODE | SEM_LORA_USER_APPLICATION" Name="Target/lorawan_conf.h" Version="1.0"/>
+        <File Category="header" Condition="all" Name="Target/lorawan_conf.h" Version="1.0"/>
         <Argument Name="SUBGHZ_APPLICATION" GenericType="Simple" Comment=""/>
         <Argument Name="LORAWAN_KMS" GenericType="Simple" Comment=""/>
         <Argument Name="LORAMAC_SPECIFICATION_VERSION" GenericType="Simple" Comment=""/>
         <Argument Name="REGION" GenericType="Simple" Comment=""/>
-        <Argument Name="HYBRID_ENABLED" GenericType="Simple" Comment=""/>
         <Argument Name="KEY_EXTRACTABLE" GenericType="Simple" Comment=""/>
-        <Argument Name="CONTEXT_MANAGEMENT_ENABLED" GenericType="Simple" Comment=""/>
         <Argument Name="LORAMAC_CLASSB_ENABLED" GenericType="Simple" Comment=""/>
         <Argument Name="LORAWAN_DATA_DISTRIB_MGT" GenericType="Simple" Comment=""/>
         <Argument Name="LORAWAN_PACKAGES_VERSION" GenericType="Simple" Comment=""/>
         <Argument Name="REGION_AS923" GenericType="Simple" Comment=""/>
         <Argument Name="REGION_AU915" GenericType="Simple" Comment=""/>
         <Argument Name="REGION_CN470" GenericType="Simple" Comment=""/>
-        <Argument Name="REGION_CN779" GenericType="Simple" Comment=""/>
-        <Argument Name="REGION_EU433" GenericType="Simple" Comment=""/>
         <Argument Name="REGION_EU868" GenericType="Simple" Comment=""/>
         <Argument Name="REGION_KR920" GenericType="Simple" Comment=""/>
         <Argument Name="REGION_IN865" GenericType="Simple" Comment=""/>
         <Argument Name="REGION_US915" GenericType="Simple" Comment=""/>
         <Argument Name="REGION_RU864" GenericType="Simple" Comment=""/>
-        <Argument Name="REGION_AS923_DEFAULT_CHANNEL_PLAN" GenericType="Simple" Comment=""/>
+        <Argument Name="REGION_CN470_RP_1_0" GenericType="Simple" Comment=""/>
     </RefConfigFile>
 
     <RefConfigFile Description="" Name="TARGET_MW_LOG_CONF_H" Template="stm32wl/mw_log_conf_h.ftl" >
@@ -570,13 +668,6 @@
         <File Category="header" Name="Target/timer.h" Version="1.0" Condition="all"/>
     </RefConfigFile>
 
-    <RefConfigFile Description="" Name="TARGET_FRAG_DECODER_IF_C" Template="stm32wl/frag_decoder_if_c.ftl">
-        <File Category="source" Name="Target/frag_decoder_if.c" Version="1.0" Condition="!SEM_M4 &amp; SEM_LORAWAN_DATA_DISTRIB_MGT"/>
-    </RefConfigFile>
-
-    <RefConfigFile Description="" Name="TARGET_FRAG_DECODER_IF_H" Template="stm32wl/frag_decoder_if_h.ftl">
-        <File Category="header" Name="Target/frag_decoder_if.h" Version="1.0" Condition="!SEM_M4 &amp; SEM_LORAWAN_DATA_DISTRIB_MGT"/>
-    </RefConfigFile>
 <!-- LoRaWAN/Target end-->
 
 <!-- MbMux begin-->
@@ -704,11 +795,11 @@
 
 <!-- COMMON/System Begin-->
     <RefConfigFile Description="" Name="SYS_DEBUG_H" Template="stm32wl/sys_debug_h.ftl" destinationFolder="../Common/System/">
-        <File Category="header" Name="sys_debug.h" Version="1.0" Condition="(SEM_M0PLUS | SEM_M4) &amp; !SEM_LORA_USER_APPLICATION"/>
+        <File Category="header" Name="sys_debug.h" Version="1.0" Condition="(SEM_M0PLUS | SEM_M4)"/>
     </RefConfigFile>
 
     <RefConfigFile Description="" Name="SYS_DEBUG_C" Template="stm32wl/sys_debug_c.ftl" destinationFolder="../Common/System/">
-        <File Category="source" Name="sys_debug.c" Version="1.0" Condition="(SEM_M0PLUS | SEM_M4) &amp; !SEM_LORA_USER_APPLICATION"/>
+        <File Category="source" Name="sys_debug.c" Version="1.0" Condition="(SEM_M0PLUS | SEM_M4)"/>
     </RefConfigFile>
 <!-- COMMON/System end-->
 
@@ -746,14 +837,13 @@
 
     <RefConfigFile Description="" Name="RTOS_DEFINES_LORAWAN_TMP" Template="stm32wl/RTOS_defines_LORAWAN_tmp.ftl">
         <File Category="header" Condition="S_RTOS_M4 | S_RTOS" Name="RTOS_defines_LoRaWAN.tmp" Version="1.0"/>
-        <Argument Name="LORAWAN_APP_MEM_POOL_SIZE" GenericType="Simple" Comment=""/>
     </RefConfigFile>
 
 <!-- AzRTOS end-->
 
 <!-- Platform Setting Begin -->
     <!-- BSP HMI Begin -->
-    <RefBspComponent Name="LED 1" BspIpName="GPIO" BspModeName="Output">
+ <!--   <RefBspComponent Name="LED 1" BspIpName="GPIO" BspModeName="Output">
         <File attr="config" Category="template" Name="stm32wl/board_resources_h.ftl" Condition="!SEM_M0PLUS &amp; !SEM_M4" src="Core/Inc/"/>
         <File attr="config" Category="template" Name="stm32wl/board_resources_h.ftl" Condition="SEM_M4 &amp; SEM_BOARD_RESOURCES_M4_FOR_LORA" src="../Common/Board/"/>
         <File attr="config" Category="template" Name="stm32wl/board_resources_h.ftl" Condition="SEM_M0PLUS &amp; SEM_BOARD_RESOURCES_M0PLUS_FOR_LORA" src="../Common/Board/"/>
@@ -842,17 +932,17 @@
         <File Category="template" Name="stm32wl/board_resources_c.ftl" Condition="SEM_M4 &amp; SEM_BOARD_RESOURCES_M4_FOR_LORA" src="../Common/Board/"/>
         <File Category="template" Name="stm32wl/board_resources_c.ftl" Condition="SEM_M0PLUS &amp; SEM_BOARD_RESOURCES_M0PLUS_FOR_LORA" src="../Common/Board/"/>
         <File Category="template" Name="stm32wl/board_resources_c.ftl" Condition="(SEM_M4 | SEM_M0PLUS) &amp; SEM_BOARD_RESOURCES_BOTH_FOR_LORA" src="../Common/Board/"/>
-    </RefBspComponent>
+    </RefBspComponent>-->
     <!-- BSP HMI End -->
 
     <!-- BSP Virtual PortCom Begin -->
-    <RefBspComponent Name="USART" BspIpName="LPUART" BspModeName="Asynchronous">
-        <File Category="template" Name="stm32wl/usart_if_h.ftl" Condition="(SEM_LORA_AT_SLAVE | SEM_LORA_USE_UART) &amp; !SEM_M0PLUS" src="Core/Inc/"/>
-        <File Category="template" Name="stm32wl/usart_if_c.ftl" Condition="(SEM_LORA_AT_SLAVE | SEM_LORA_USE_UART) &amp; !SEM_M0PLUS" src="Core/Src/"/>
-    </RefBspComponent>
+  <!--  <RefBspComponent Name="USART" BspIpName="LPUART" BspModeName="Asynchronous">
+        <File Category="template" Name="stm32wl/usart_if_h.ftl" Condition="(SEM_End_Node_LBM_skeleton | SEM_End_Node_Relay_LBM_skeleton | SEM_Relay_LBM_skeleton | SEM_LORA_USE_UART) &amp; !SEM_M0PLUS" src="Core/Inc/"/>
+        <File Category="template" Name="stm32wl/usart_if_c.ftl" Condition="(SEM_End_Node_LBM_skeleton | SEM_End_Node_Relay_LBM_skeleton | SEM_Relay_LBM_skeleton | SEM_LORA_USE_UART) &amp; !SEM_M0PLUS" src="Core/Src/"/>
+    </RefBspComponent>-->
     <RefBspComponent Name="USART" BspIpName="(LPU|US)ART" BspModeName="Asynchronous">
-        <File Category="template" Name="stm32wl/usart_if_h.ftl" Condition="(SEM_LORA_END_NODE | SEM_LORA_USE_UART) &amp; !SEM_M0PLUS" src="Core/Inc/"/>
-        <File Category="template" Name="stm32wl/usart_if_c.ftl" Condition="(SEM_LORA_END_NODE | SEM_LORA_USE_UART) &amp; !SEM_M0PLUS" src="Core/Src/"/>
+        <File Category="template" Name="stm32wl/usart_if_h.ftl" Condition="(SEM_End_Node_LBM_skeleton | SEM_End_Node_Relay_LBM_skeleton | SEM_Relay_LBM_skeleton| SEM_LORA_USE_UART) &amp; !SEM_M0PLUS" src="Core/Inc/"/>
+        <File Category="template" Name="stm32wl/usart_if_c.ftl" Condition="(SEM_End_Node_LBM_skeleton | SEM_End_Node_Relay_LBM_skeleton | SEM_Relay_LBM_skeleton | SEM_LORA_USE_UART) &amp; !SEM_M0PLUS" src="Core/Src/"/>
     </RefBspComponent>
     <!-- BSP Virtual PortCom End -->
 
@@ -872,32 +962,32 @@
 
     <!-- BSP Probe Begin -->
     <RefBspComponent Name="Debug Line 1" BspIpName="GPIO" BspModeName="Output">
-        <File Category="template" Name="stm32wl/sys_debug_h.ftl" Condition="(!SEM_M0PLUS &amp; !SEM_M4) &amp; !SEM_LORA_USER_APPLICATION" src="Core/Inc/"/>
-        <File Category="template" Name="stm32wl/sys_debug_h.ftl" Condition="(SEM_M0PLUS | SEM_M4) &amp; !SEM_LORA_USER_APPLICATION" src="../Common/System/"/>
-        <File Category="template" Name="stm32wl/sys_debug_c.ftl" Condition="(!SEM_M0PLUS &amp; !SEM_M4) &amp; !SEM_LORA_USER_APPLICATION" src="Core/Src/"/>
-        <File Category="template" Name="stm32wl/sys_debug_c.ftl" Condition="(SEM_M0PLUS | SEM_M4) &amp; !SEM_LORA_USER_APPLICATION" src="../Common/System/"/>
-        <File Category="template" Name="stm32wl/radio_conf_h.ftl" Condition="!SEM_M4 &amp; !SEM_LORA_USER_APPLICATION" src="LoRaWAN/Target"/>
+        <File Category="template" Name="stm32wl/sys_debug_h.ftl" Condition="(!SEM_M0PLUS &amp; !SEM_M4)" src="Core/Inc/"/>
+        <File Category="template" Name="stm32wl/sys_debug_h.ftl" Condition="(SEM_M0PLUS | SEM_M4)" src="../Common/System/"/>
+        <File Category="template" Name="stm32wl/sys_debug_c.ftl" Condition="(!SEM_M0PLUS &amp; !SEM_M4)" src="Core/Src/"/>
+        <File Category="template" Name="stm32wl/sys_debug_c.ftl" Condition="(SEM_M0PLUS | SEM_M4)" src="../Common/System/"/>
+        <File Category="template" Name="stm32wl/radio_conf_h.ftl" Condition="!SEM_M4" src="LoRaWAN/Target"/>
     </RefBspComponent>
     <RefBspComponent Name="Debug Line 2" BspIpName="GPIO" BspModeName="Output">
-        <File Category="template" Name="stm32wl/sys_debug_h.ftl" Condition="(!SEM_M0PLUS &amp; !SEM_M4) &amp; !SEM_LORA_USER_APPLICATION" src="Core/Inc/"/>
-        <File Category="template" Name="stm32wl/sys_debug_h.ftl" Condition="(SEM_M0PLUS | SEM_M4) &amp; !SEM_LORA_USER_APPLICATION" src="../Common/System/"/>
-        <File Category="template" Name="stm32wl/sys_debug_c.ftl" Condition="(!SEM_M0PLUS &amp; !SEM_M4) &amp; !SEM_LORA_USER_APPLICATION" src="Core/Src/"/>
-        <File Category="template" Name="stm32wl/sys_debug_c.ftl" Condition="(SEM_M0PLUS | SEM_M4) &amp; !SEM_LORA_USER_APPLICATION" src="../Common/System/"/>
-        <File Category="template" Name="stm32wl/radio_conf_h.ftl" Condition="!SEM_M4 &amp; !SEM_LORA_USER_APPLICATION" src="LoRaWAN/Target"/>
+        <File Category="template" Name="stm32wl/sys_debug_h.ftl" Condition="(!SEM_M0PLUS &amp; !SEM_M4)" src="Core/Inc/"/>
+        <File Category="template" Name="stm32wl/sys_debug_h.ftl" Condition="(SEM_M0PLUS | SEM_M4)" src="../Common/System/"/>
+        <File Category="template" Name="stm32wl/sys_debug_c.ftl" Condition="(!SEM_M0PLUS &amp; !SEM_M4)" src="Core/Src/"/>
+        <File Category="template" Name="stm32wl/sys_debug_c.ftl" Condition="(SEM_M0PLUS | SEM_M4)" src="../Common/System/"/>
+        <File Category="template" Name="stm32wl/radio_conf_h.ftl" Condition="!SEM_M4" src="LoRaWAN/Target"/>
     </RefBspComponent>
     <RefBspComponent Name="Debug Line 3" BspIpName="GPIO" BspModeName="Output">
-        <File Category="template" Name="stm32wl/sys_debug_h.ftl" Condition="(!SEM_M0PLUS &amp; !SEM_M4) &amp; !SEM_LORA_USER_APPLICATION" src="Core/Inc/"/>
-        <File Category="template" Name="stm32wl/sys_debug_h.ftl" Condition="(SEM_M0PLUS | SEM_M4) &amp; !SEM_LORA_USER_APPLICATION" src="../Common/System/"/>
-        <File Category="template" Name="stm32wl/sys_debug_c.ftl" Condition="(!SEM_M0PLUS &amp; !SEM_M4) &amp; !SEM_LORA_USER_APPLICATION" src="Core/Src/"/>
-        <File Category="template" Name="stm32wl/sys_debug_c.ftl" Condition="(SEM_M0PLUS | SEM_M4) &amp; !SEM_LORA_USER_APPLICATION" src="../Common/System/"/>
-        <File Category="template" Name="stm32wl/radio_conf_h.ftl" Condition="!SEM_M4 &amp; !SEM_LORA_USER_APPLICATION" src="LoRaWAN/Target"/>
+        <File Category="template" Name="stm32wl/sys_debug_h.ftl" Condition="(!SEM_M0PLUS &amp; !SEM_M4)" src="Core/Inc/"/>
+        <File Category="template" Name="stm32wl/sys_debug_h.ftl" Condition="(SEM_M0PLUS | SEM_M4)" src="../Common/System/"/>
+        <File Category="template" Name="stm32wl/sys_debug_c.ftl" Condition="(!SEM_M0PLUS &amp; !SEM_M4)" src="Core/Src/"/>
+        <File Category="template" Name="stm32wl/sys_debug_c.ftl" Condition="(SEM_M0PLUS | SEM_M4)" src="../Common/System/"/>
+        <File Category="template" Name="stm32wl/radio_conf_h.ftl" Condition="!SEM_M4 " src="LoRaWAN/Target"/>
     </RefBspComponent>
     <RefBspComponent Name="Debug Line 4" BspIpName="GPIO" BspModeName="Output">
-        <File Category="template" Name="stm32wl/sys_debug_h.ftl" Condition="(!SEM_M0PLUS &amp; !SEM_M4) &amp; !SEM_LORA_USER_APPLICATION" src="Core/Inc/"/>
-        <File Category="template" Name="stm32wl/sys_debug_h.ftl" Condition="(SEM_M0PLUS | SEM_M4) &amp; !SEM_LORA_USER_APPLICATION" src="../Common/System/"/>
-        <File Category="template" Name="stm32wl/sys_debug_c.ftl" Condition="(!SEM_M0PLUS &amp; !SEM_M4) &amp; !SEM_LORA_USER_APPLICATION" src="Core/Src/"/>
-        <File Category="template" Name="stm32wl/sys_debug_c.ftl" Condition="(SEM_M0PLUS | SEM_M4) &amp; !SEM_LORA_USER_APPLICATION" src="../Common/System/"/>
-        <File Category="template" Name="stm32wl/radio_conf_h.ftl" Condition="!SEM_M4 &amp; !SEM_LORA_USER_APPLICATION" src="LoRaWAN/Target"/>
+        <File Category="template" Name="stm32wl/sys_debug_h.ftl" Condition="(!SEM_M0PLUS &amp; !SEM_M4)" src="Core/Inc/"/>
+        <File Category="template" Name="stm32wl/sys_debug_h.ftl" Condition="(SEM_M0PLUS | SEM_M4)" src="../Common/System/"/>
+        <File Category="template" Name="stm32wl/sys_debug_c.ftl" Condition="(!SEM_M0PLUS &amp; !SEM_M4)" src="Core/Src/"/>
+        <File Category="template" Name="stm32wl/sys_debug_c.ftl" Condition="(SEM_M0PLUS | SEM_M4)" src="../Common/System/"/>
+        <File Category="template" Name="stm32wl/radio_conf_h.ftl" Condition="!SEM_M4" src="LoRaWAN/Target"/>
     </RefBspComponent>
     <!-- BSP Probe End -->
 <!-- Platform Setting End -->

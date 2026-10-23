@@ -10,7 +10,7 @@
     <MemoryMap>Available</MemoryMap>
     <TrustZone>Available</TrustZone>
     <Ram>256</Ram>
-    <IONb>34</IONb>
+    <IONb>32</IONb>
     <Die>DIE4B0</Die>
     <Flash>1024</Flash>
     <IP ClockEnableMode="__HAL_RCC_ADC4_CLK_ENABLE" ConfigFile="ADC-STM32WBAxx" InstanceName="ADC4" Name="ADC" Version="aditf4_v4_WBA_Cube">
@@ -43,7 +43,7 @@
             <ContextIP ContextName="CortexM33"/>
         </ContextSplit>
     </IP>
-    <IP ConfigFile="COMMON_WPAN-STM32WBAxx" InstanceName="COMMON_WPAN" Name="COMMON_WPAN" Version="v1.1.0_Cube">
+    <IP ConfigFile="COMMON_WPAN-STM32WBAxx" InstanceName="COMMON_WPAN" Name="COMMON_WPAN" Version="v1.5.0_Cube">
         <ContextSplit Name="split1">
             <ContextIP ContextName="CortexM33NS" InitializerForced="true"/>
         </ContextSplit>
@@ -105,7 +105,7 @@
             <ContextIP ContextName="CortexM33"/>
         </ContextSplit>
     </IP>
-    <IP ConfigFile="flash-STM32WBAxx" InstanceName="FLASH" Name="flash" Version="v1.0.0_WBA_Cube">
+    <IP ConfigFile="flash-STM32WBA6xx" InstanceName="FLASH" Name="flash" Version="v1.0.0_WBA6_Cube">
         <ContextSplit Name="split1">
             <ContextIP ContextName="CortexM33S"/>
         </ContextSplit>
@@ -289,6 +289,14 @@
             <ContextIP ContextName="CortexM33"/>
         </ContextSplit>
     </IP>
+    <IP ConfigFile="NetXDuo-STM32WBAxx" InstanceName="NETXDUO" Name="NetXDuo" Version="v1.0.0_WBA_Cube">
+        <ContextSplit Name="split1">
+            <ContextIP ContextName="CortexM33NS" InitializerForced="true"/>
+        </ContextSplit>
+        <ContextSplit Name="split3">
+            <ContextIP ContextName="CortexM33"/>
+        </ContextSplit>
+    </IP>
     <IP ClockEnableMode="__HAL_RCC_CRC_CLK_ENABLE" ConfigFile="PDM2PCM-STM32WBAxx" InstanceName="PDM2PCM" Name="PDM2PCM" Version="pdm2pcm_v3.2.0_Cube">
         <ContextSplit Name="split1">
             <ContextIP ContextName="CortexM33S"/>
@@ -311,7 +319,7 @@
             <ContextIP ContextName="CortexM33"/>
         </ContextSplit>
     </IP>
-    <IP ConfigFile="PTA-STM32WBAxx" InstanceName="PTA" Name="PTA" Version="STM32WBA_v1_0_Cube">
+    <IP ClockEnableMode="__HAL_RCC_PTACONV_CLK_ENABLE" ConfigFile="PTA-STM32WBAxx" InstanceName="PTA" Name="PTA" Version="STM32WBA_v1_0_Cube">
         <ContextSplit Name="split1">
             <ContextIP ContextName="CortexM33NS" InitializerForced="true"/>
         </ContextSplit>
@@ -321,7 +329,7 @@
     </IP>
     <IP ClockEnableMode="__HAL_RCC_PWR_CLK_ENABLE" ConfigFile="PWR-STM32WBA6xx" InstanceName="PWR" Name="PWR" Version="STM32WBA6_pwr_v1_0">
         <ContextSplit Name="split1">
-            <ContextIP ContextName="CortexM33S" ForcedSelection="true" InitializerForced="true"/>
+            <ContextIP ContextName="CortexM33S" ForcedSelection="true"/>
             <ContextIP ContextName="CortexM33NS" ForcedSelection="true"/>
         </ContextSplit>
         <ContextSplit Name="split3">
@@ -422,6 +430,17 @@
             <ContextIP ContextName="CortexM33"/>
         </ContextSplit>
     </IP>
+    <IP ConfigFile="SPI-STM32WBAxx" InstanceName="SPI2" Name="SPI" Version="spi2s3_v2_0_Cube">
+        <ContextSplit Name="split1">
+            <ContextIP ContextName="CortexM33S"/>
+        </ContextSplit>
+        <ContextSplit Name="split2">
+            <ContextIP ContextName="CortexM33NS"/>
+        </ContextSplit>
+        <ContextSplit Name="split3">
+            <ContextIP ContextName="CortexM33"/>
+        </ContextSplit>
+    </IP>
     <IP ConfigFile="SPI-STM32WBAxx" InstanceName="SPI3" Name="SPI" Version="spi2s3_v2_0_Cube">
         <ContextSplit Name="split1">
             <ContextIP ContextName="CortexM33S"/>
@@ -433,7 +452,7 @@
             <ContextIP ContextName="CortexM33"/>
         </ContextSplit>
     </IP>
-    <IP ConfigFile="STM32_WPAN-STM32WBAxx" InstanceName="STM32_WPAN" Name="STM32_WPAN" Version="v2.6_Cube">
+    <IP ConfigFile="STM32_WPAN-STM32WBAxx" InstanceName="STM32_WPAN" Name="STM32_WPAN" Version="v2.10_Cube">
         <ContextSplit Name="split1">
             <ContextIP ContextName="CortexM33NS" InitializerForced="true"/>
         </ContextSplit>
@@ -658,6 +677,7 @@
         <Signal Name="I2C2_SMBA"/>
         <Signal Name="SAI1_SD_A"/>
         <Signal Name="SPI1_RDY"/>
+        <Signal Name="SPI2_NSS"/>
         <Signal Name="TIM2_CH1"/>
         <Signal Name="TIM2_ETR"/>
         <Signal Name="TIM3_ETR"/>
@@ -672,6 +692,7 @@
         <Signal Name="LPTIM1_CH1"/>
         <Signal Name="LPTIM1_ETR"/>
         <Signal Name="LPUART1_TX"/>
+        <Signal Name="SPI2_RDY"/>
         <Signal Name="USART3_RX"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
     </Pin>
@@ -745,6 +766,7 @@
     <Pin Name="PB10" Position="9" Type="I/O">
         <Signal Name="I2C2_SCL"/>
         <Signal Name="I2C4_SCL"/>
+        <Signal Name="SPI2_SCK"/>
         <Signal Name="TIM16_BKIN"/>
         <Signal Name="TSC_G4_IO3"/>
         <Signal Name="USART1_CK"/>
@@ -795,13 +817,11 @@
         <Signal Name="USB_OTG_HS_ID"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
     </Pin>
-    <Pin Name="PD7" Position="16" Type="I/O">
+    <Pin Name="PD7" Position="16" Type="MonoIO">
         <Signal Name="USB_OTG_HS_DM"/>
-        <Signal IOModes="Input,Output,Analog,EXTI" Name="GPIO"/>
     </Pin>
-    <Pin Name="PD6" Position="17" Type="I/O">
+    <Pin Name="PD6" Position="17" Type="MonoIO">
         <Signal Name="USB_OTG_HS_DP"/>
-        <Signal IOModes="Input,Output,Analog,EXTI" Name="GPIO"/>
     </Pin>
     <Pin Name="PB8" Position="18" Type="I/O">
         <Signal Name="COMP1_OUT"/>
@@ -837,7 +857,7 @@
         <Condition Diagnostic="" Expression="!(RTC_OUT2 &amp; (WakeUp_Outputed | AlarmA_Outputed | AlarmB_Outputed))"/>
     </Pin>
     <Pin Name="VDD" Position="22" Type="Power"/>
-    <Pin Name="PB4(NJRST)" Position="23" Type="I/O">
+    <Pin Name="PB4(NJTRST)" Position="23" Type="I/O">
         <Signal Name="DEBUG_NJTRST"/>
         <Signal Name="LPTIM2_IN2"/>
         <Signal Name="PTA_ACTIVE"/>
@@ -888,7 +908,7 @@
         <Signal Name="USB_OTG_HS_SOF"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
     </Pin>
-    <Pin Name="PA13(JTSM/SWDIO)" Position="27" Type="I/O">
+    <Pin Name="PA13(JTMS/SWDIO)" Position="27" Type="I/O">
         <Signal Name="DEBUG_JTMS-SWDIO"/>
         <Signal Name="PTA_PRIORITY"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
@@ -934,6 +954,7 @@
     </Pin>
     <Pin Name="PB0" Position="32" Type="I/O">
         <Signal Name="LPTIM2_IN2"/>
+        <Signal Name="SPI2_MOSI"/>
         <Signal Name="TIM1_CH3N"/>
         <Signal Name="USART2_TX"/>
         <Signal Name="USART3_CK"/>
@@ -975,6 +996,7 @@
     <Pin Name="PA10" Position="45" Type="I/O">
         <Signal Name="LPUART1_RX"/>
         <Signal Name="SAI1_D1"/>
+        <Signal Name="SPI2_NSS"/>
         <Signal Name="TIM3_CH1"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
     </Pin>
@@ -982,6 +1004,8 @@
         <Signal Name="LPUART1_DE"/>
         <Signal Name="LPUART1_RTS"/>
         <Signal Name="SAI1_CK1"/>
+        <Signal Name="SPI2_MISO"/>
+        <Signal Name="SPI2_SCK"/>
         <Signal Name="TIM3_CH2"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
     </Pin>
@@ -990,6 +1014,7 @@
         <Signal Name="PWR_WKUP7"/>
         <Signal Name="RTC_REFIN"/>
         <Signal Name="SAI1_SD_A"/>
+        <Signal Name="SPI2_MISO"/>
         <Signal Name="TIM3_CH3"/>
         <Signal Name="TSC_G6_IO1"/>
         <Signal Name="USART1_TX"/>
@@ -999,6 +1024,7 @@
     </Pin>
     <Pin Name="PB13" Position="48" Type="I/O">
         <Signal Name="I2C2_SCL"/>
+        <Signal Name="SPI2_SCK"/>
         <Signal Name="TIM3_CH4"/>
         <Signal Name="TSC_G6_IO2"/>
         <Signal Name="USART3_CTS"/>

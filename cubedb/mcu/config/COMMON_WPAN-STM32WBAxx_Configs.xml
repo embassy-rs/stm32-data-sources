@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <IP xmlns="http://mcd.rou.st.com/modules.php?name=mcu"
-    xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance"
     CodeTemplate=""
     DBVersion="V4.0"
     Name="COMMON_WPAN"
     RootFolder="Projects/"
-    Version="STM32Cube_FW_WBA_V0.1.0"
+    Version="STM32Cube_FW_WBA_V1.9.0"
     usedHierachicalGroup="true"
     ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../../../doc/V4/Development/Specifications/db/IP_Configs.xsd">
 
@@ -14,6 +14,7 @@
         <Component Name="Common_WPAN:Modules:$Common_WPAN_Modules"/>
         <Component Name="Common_WPAN:Modules:BasicAES:$Common_WPAN_Modules_baes"/>
         <Component Name="Common_WPAN:Modules:Flash:$Common_WPAN_Modules_Flash"/>
+        <Component Name="Common_WPAN:Modules:Log:$Common_WPAN_Modules_Log"/>
         <Component Name="Common_WPAN:Modules:MemoryManager:$Common_WPAN_Modules_MemoryManager"/>
         <Component Name="Common_WPAN:Modules:Nvm:$Common_WPAN_Modules_Nvm"/>
         <Component Name="Common_WPAN:Modules:RFControl:$Common_WPAN_Modules_RFControl"/>
@@ -22,42 +23,50 @@
         <Component Name="Common_WPAN:Startup:$Common_WPAN_Startup"/>
     </RefConfig>
     <RefComponent Cclass="Common_WPAN" Cgroup="Interface" Cversion="1.0.0">
-        <File Category="header" Condition="!(S_BLE_TM|S_BLE_HOST_SIMPLE)" Name="Common/WPAN/Interfaces/adv_trace_usart_if.h"/>
+        <File Category="header" Condition="(S_LOG_TRANSPORT_UART) &amp; !(S_BLE_TM|S_BLE_HOST_SIMPLE)" Name="Common/WPAN/Interfaces/adv_trace_usart_if.h"/>
+        <File Category="header" Condition="(S_BLE_HOST | S_BLE_HOST_SKELETON | S_BLE_SKELETON | S_BLE_HOST_SIMPLE | S_ZIGBEE | S_ZIGBEE_SKELETON)" Name="Common/WPAN/Interfaces/app_bsp.h"/>
         <File Category="header" Condition="" Name="Common/WPAN/Interfaces/hw.h"/>
         <File Category="header" Condition="" Name="Common/WPAN/Interfaces/hw_if.h"/>
         <File Category="header" Condition="" Name="Common/WPAN/Interfaces/timer_if.h"/>
-        <File Category="source" Condition="!(S_BLE_TM|S_BLE_HOST_SIMPLE)" Name="Common/WPAN/Interfaces/adv_trace_usart_if.c"/>
-        <File Category="source" Condition="" Name="Common/WPAN/Interfaces/hw_aes.c"/>
+        <File Category="source" Condition="(S_LOG_TRANSPORT_UART) &amp; !(S_BLE_TM|S_BLE_HOST_SIMPLE)" Name="Common/WPAN/Interfaces/adv_trace_usart_if.c"/>
+        <File Category="source" Condition="(S_BLE_HOST | S_BLE_HOST_SKELETON | S_BLE_SKELETON | S_BLE_HOST_SIMPLE | S_ZIGBEE | S_ZIGBEE_SKELETON) &amp; !(S_CFG_PSA_ENABLED)" Name="Common/WPAN/Interfaces/hw_aes.c"/>
         <File Category="source" Condition="" Name="Common/WPAN/Interfaces/hw_otp.c"/>
-        <File Category="source" Condition="" Name="Common/WPAN/Interfaces/hw_pka.c"/>
-        <File Category="source" Condition="" Name="Common/WPAN/Interfaces/hw_pka_p256.c"/>
-        <File Category="source" Condition="" Name="Common/WPAN/Interfaces/hw_rng.c"/>
+        <File Category="source" Condition="!(S_CFG_PSA_ENABLED)" Name="Common/WPAN/Interfaces/hw_rng.c"/>
         <File Category="source" Condition="" Name="Common/WPAN/Interfaces/timer_if.c"/>
+		<File Category="source" Condition="(S_CFG_PSA_ENABLED)" Name="Common/WPAN/Interfaces/mbedtls_threading_alt.c"/>
+		<File Category="source" Condition="(S_CFG_PSA_ENABLED)" Name="Common/WPAN/Interfaces/psa_plat_crypto.c"/>	
+		<File Category="source" Condition="(S_CFG_PSA_ENABLED)" Name="Common/WPAN/Interfaces/storage_interface.c"/>	
+    	<File Category="source" Condition="(S_CFG_PSA_ENABLED)" Name="Common/WPAN/Interfaces/rng_alt.c" />
     </RefComponent>
     <RefComponent Cclass="Common_WPAN" Cgroup="Modules" Cversion="1.0.0">
         <File Category="header" Condition="S_USE_TEMPERATURE_BASED_RADIO_CALIBRATION" Name="Common/WPAN/Modules/adc_ctrl.h"/>
-        <File Category="header" Condition="S_USE_SNVMA_NVM" Name="Common/WPAN/Modules/crc_ctrl.h"/>
+        <File Category="header" Condition="CRC_Used" Name="Common/WPAN/Modules/crc_ctrl.h"/>
         <File Category="header" Condition="" Name="Common/WPAN/Modules/dbg_trace.h"/>
         <File Category="header" Condition="" Name="Common/WPAN/Modules/otp.h"/>
+        <File Category="header" Condition="(S_BLE_SP | S_BLE_CP | S_BLE_RP | S_BLE_TM | S_BLE_SKELETON | S_BLE_HOST_SKELETON) &amp; !(S_CFG_PSA_ENABLED)" Name="Common/WPAN/Modules/pka_ctrl.h"/>
         <File Category="header" Condition="" Name="Common/WPAN/Modules/stm_list.h"/>
         <File Category="header" Condition="" Name="Common/WPAN/Modules/scm.h"/>
         <File Category="header" Condition="" Name="Common/WPAN/Modules/stm_queue.h"/>
         <File Category="header" Condition="S_USE_TEMPERATURE_BASED_RADIO_CALIBRATION" Name="Common/WPAN/Modules/temp_measurement.h"/>
         <File Category="header" Condition="" Name="Common/WPAN/Modules/utilities_common.h"/>
+        <File Category="header" Condition="" Name="Common/WPAN/Modules/wpan_utils.h"/>
         <File Category="source" Condition="S_USE_TEMPERATURE_BASED_RADIO_CALIBRATION" Name="Common/WPAN/Modules/adc_ctrl.c"/>
         <File Category="source" Condition="" Name="Common/WPAN/Modules/app_sys.c"/>
-        <File Category="source" Condition="S_USE_SNVMA_NVM" Name="Common/WPAN/Modules/crc_ctrl.c"/>
+        <File Category="header" Condition="" Name="Common/WPAN/Modules/app_sys.h"/>
+        <File Category="source" Condition="CRC_Used" Name="Common/WPAN/Modules/crc_ctrl.c"/>
         <File Category="source" Condition="" Name="Common/WPAN/Modules/otp.c"/>
+        <File Category="source" Condition="(S_BLE_SP | S_BLE_CP | S_BLE_RP | S_BLE_TM | S_BLE_SKELETON | S_BLE_HOST_SKELETON) &amp; !(S_CFG_PSA_ENABLED)" Name="Common/WPAN/Modules/pka_ctrl.c"/>
         <File Category="source" Condition="" Name="Common/WPAN/Modules/scm.c"/>
         <File Category="source" Condition="" Name="Common/WPAN/Modules/stm_list.c"/>
         <File Category="source" Condition="" Name="Common/WPAN/Modules/stm_queue.c"/>
         <File Category="source" Condition="S_USE_TEMPERATURE_BASED_RADIO_CALIBRATION" Name="Common/WPAN/Modules/temp_measurement.c"/>
+        <File Category="source" Condition="" Name="Common/WPAN/Modules/wpan_utils.c"/>
         <SubComponent Csub="BasicAES" Cvariant="true" Cversion="1.0.0">
-            <File Category="header" Condition="" Name="Common/WPAN/Modules/BasicAES/baes.h"/>
-            <File Category="header" Condition="" Name="Common/WPAN/Modules/BasicAES/baes_global.h"/>
-            <File Category="source" Condition="" Name="Common/WPAN/Modules/BasicAES/baes_cmac.c"/>
-            <File Category="source" Condition="" Name="Common/WPAN/Modules/BasicAES/baes_ccm.c"/>
-            <File Category="source" Condition="" Name="Common/WPAN/Modules/BasicAES/baes_ecb.c"/>
+            <File Category="header" Condition="(S_BLE_HOST | S_BLE_HOST_SKELETON | S_BLE_SKELETON | S_BLE_HOST_SIMPLE | S_ZIGBEE | S_ZIGBEE_SKELETON) &amp; !(S_CFG_PSA_ENABLED)" Name="Common/WPAN/Modules/BasicAES/baes.h"/>
+            <File Category="header" Condition="(S_BLE_HOST | S_BLE_HOST_SKELETON | S_BLE_SKELETON | S_BLE_HOST_SIMPLE | S_ZIGBEE | S_ZIGBEE_SKELETON) &amp; !(S_CFG_PSA_ENABLED)" Name="Common/WPAN/Modules/BasicAES/baes_global.h"/>
+            <File Category="source" Condition="(S_BLE_HOST | S_BLE_HOST_SKELETON | S_BLE_SKELETON | S_BLE_HOST_SIMPLE | S_ZIGBEE | S_ZIGBEE_SKELETON) &amp; !(S_CFG_PSA_ENABLED)" Name="Common/WPAN/Modules/BasicAES/baes_cmac.c"/>
+            <File Category="source" Condition="(S_BLE_HOST | S_BLE_HOST_SKELETON | S_BLE_SKELETON | S_BLE_HOST_SIMPLE | S_ZIGBEE | S_ZIGBEE_SKELETON) &amp; !(S_CFG_PSA_ENABLED)" Name="Common/WPAN/Modules/BasicAES/baes_ccm.c"/>
+            <File Category="source" Condition="(S_BLE_HOST | S_BLE_HOST_SKELETON | S_BLE_SKELETON | S_BLE_HOST_SIMPLE | S_ZIGBEE | S_ZIGBEE_SKELETON) &amp; !(S_CFG_PSA_ENABLED)" Name="Common/WPAN/Modules/BasicAES/baes_ecb.c"/>
         </SubComponent>
         <SubComponent Csub="Flash" Cvariant="true" Cversion="1.0.0">
             <File Category="header" Condition="S_USE_FLASH_MANAGER" Name="Common/WPAN/Modules/Flash/flash_driver.h"/>
@@ -70,21 +79,21 @@
             <File Category="source" Condition="S_USE_FLASH_MANAGER" Name="Common/WPAN/Modules/Flash/rf_timing_synchro.c"/>
             <File Category="source" Condition="S_USE_SNVMA_NVM" Name="Common/WPAN/Modules/Flash/simple_nvm_arbiter.c"/>
         </SubComponent>
+        <SubComponent Csub="Log" Cvariant="true" Cversion="1.0.0">
+            <File Category="header" Condition="!(S_BLE_HOST_SIMPLE)" Name="Common/WPAN/Modules/Log/log_module.h"/>
+            <File Category="source" Condition="(USART1 | USART2 |USART3 |S_LPUART) &amp; !(S_BLE_HOST_SIMPLE)" Name="Common/WPAN/Modules/Log/log_module.c"/>
+        </SubComponent>
         <SubComponent Csub="MemoryManager" Cvariant="true" Cversion="1.0.0">
             <File Category="header" Condition="S_USE_AMM" Name="Common/WPAN/Modules/MemoryManager/advanced_memory_manager.h"/>
             <File Category="header" Condition="(S_USE_AMM | S_USE_UTIL_MM)" Name="Common/WPAN/Modules/MemoryManager/stm32_mm.h"/>
             <File Category="source" Condition="S_USE_AMM" Name="Common/WPAN/Modules/MemoryManager/advanced_memory_manager.c"/>
             <File Category="source" Condition="(S_USE_AMM | S_USE_UTIL_MM)" Name="Common/WPAN/Modules/MemoryManager/stm32_mm.c"/>
         </SubComponent>
-        <SubComponent Csub="Nvm" Cvariant="true" Cversion="1.0.0">
-            <File Category="header" Condition="((S_BLE_CP | S_BLE_RP | S_BLE_SP | S_BLE_TM | S_BLE_HOST_SKELETON) &amp; S_BLE_HOST) | S_BLE_SKELETON" Name="Common/WPAN/Modules/Nvm/nvm.h"/>
-            <File Category="source" Condition="((S_BLE_CP | S_BLE_RP | S_BLE_SP | S_BLE_TM | S_BLE_HOST_SKELETON) &amp; S_BLE_HOST) | S_BLE_SKELETON" Name="Common/WPAN/Modules/Nvm/nvm_emul.c"/>
-        </SubComponent>
         <SubComponent Csub="RFControl" Cvariant="true" Cversion="1.0.0">
-            <File Category="header" Condition="S_BLE_TM" Name="Common/WPAN/Modules/RFControl/rf_antenna_switch.h"/>
-            <File Category="source" Condition="S_BLE_TM" Name="Common/WPAN/Modules/RFControl/rf_antenna_switch.c"/>
-            <File Category="header" Condition="S_BLE_TM" Name="Common/WPAN/Modules/RFControl/rf_external_pa.h"/>
-            <File Category="source" Condition="S_BLE_TM" Name="Common/WPAN/Modules/RFControl/rf_external_pa.c"/>
+            <File Category="header" Condition="S_AOA_AOD" Name="Common/WPAN/Modules/RFControl/rf_antenna_switch.h"/>
+            <File Category="source" Condition="S_AOA_AOD" Name="Common/WPAN/Modules/RFControl/rf_antenna_switch.c"/>
+            <File Category="header" Condition="S_EXT_PA" Name="Common/WPAN/Modules/RFControl/rf_external_pa.h"/>
+            <File Category="source" Condition="S_EXT_PA" Name="Common/WPAN/Modules/RFControl/rf_external_pa.c"/>
         </SubComponent>
         <SubComponent Csub="RTDebug" Cvariant="true" Cversion="1.0.0">
             <File Category="header" Condition="" Name="Common/WPAN/Modules/RTDebug/debug_signals.h"/>
@@ -96,11 +105,7 @@
         </SubComponent>
         <SubComponent Csub="SerialCmdInterpreter" Cvariant="true" Cversion="1.0.0">
             <File Category="header" Condition="!(S_BLE_HOST_SIMPLE)" Name="Common/WPAN/Modules/SerialCmdInterpreter/serial_cmd_interpreter.h"/>
-            <File Category="source" Condition="!(S_BLE_HOST_SIMPLE)" Name="Common/WPAN/Modules/SerialCmdInterpreter/serial_cmd_interpreter.c"/>
-        </SubComponent>
-        <SubComponent Csub="Log" Cvariant="true" Cversion="1.0.0">
-            <File Category="header" Condition="!(S_BLE_HOST_SIMPLE)" Name="Common/WPAN/Modules/Log/log_module.h"/>
-            <File Category="source" Condition="!(S_BLE_HOST_SIMPLE)" Name="Common/WPAN/Modules/Log/log_module.c"/>
+            <File Category="source" Condition="(USART1 | USART2 |USART3| S_LPUART) &amp; !(S_BLE_HOST_SIMPLE)" Name="Common/WPAN/Modules/SerialCmdInterpreter/serial_cmd_interpreter.c"/>
         </SubComponent>
     </RefComponent>
     <RefComponent Cclass="Common_WPAN" Cgroup="Startup" Cversion="1.0.0">
@@ -108,5 +113,5 @@
         <File Category="source" Condition="SIiTcompilerIiGCC" Name="Common/WPAN/Startup/stm32wbaxx_ResetHandler_GCC.s"/>
         <File Category="source" Condition="SIiTcompilerIiARMCC" Name="Common/WPAN/Startup/stm32wbaxx_ResetHandler_MDK-ARM.s"/>
     </RefComponent>
-   
+
 </IP>

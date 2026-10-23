@@ -170,6 +170,10 @@
             </CallLibMethod>
         </IFCondition>
 
+        <IFCondition Expression="Semaphore_input_Channel1TIM12 &amp; TIM12_Used | Semaphore_input_Channel1TIM15 &amp; TIM15_Used">
+            <CallLibMethod Name="LL_RCC_TIMIC_Enable">         
+            </CallLibMethod>
+        </IFCondition>
         <!--PLL configuration-->		
         <IFCondition Expression="PLL1PUsed=1 | PLL1QUsed=1 | PLL1RUsed=1">
             <CallLibMethod Name="LL_RCC_PLL1_SetSource">
@@ -349,7 +353,7 @@
             </CallLibMethod>
         </IFCondition>
 		
-        <IFCondition Expression="Systick_External &amp; !CLKSOURCE_HCLK">
+        <IFCondition Expression="Systick_External &amp; (!CLKSOURCE_HCLK|CLKSOURCE_LSE|CLKSOURCE_LSI)">
 			<CallLibMethod Name="" Type="HardCode">
 				<HardCode Text="#n#t /* Select SysTick source clock */"/>
 			</CallLibMethod>
@@ -495,6 +499,7 @@
                 </IFCondition>
             </Else>
         </IFCondition>
+
 
         <IFCondition Expression="RTCUsed_ForRCC">
             <CallLibMethod Name="HardCode:RTC" Type="HardCode">
@@ -694,7 +699,7 @@
             </CallLibMethod>
         </IFCondition>
 
-        <IFCondition Expression="USE_ADC1|ADC2_Used|DAC1_Used">
+        <IFCondition Expression="USE_ADC1|ADC2_Used|ADC3_Used|DAC1_Used">
             <CallLibMethod Name="LL_RCC_SetADCDACClockSource">
                 <MethodArg Name="ADCxSource" ParameterName="LLADCClockSelection"/>
             </CallLibMethod>
@@ -715,6 +720,11 @@
                 <MethodArg Name="Source" ParameterName="AdfClockSelection"/>
             </CallLibMethod>
         </IFCondition>
+        <IFCondition Expression="LTDC_Used">
+            <CallLibMethod Name="LL_RCC_SetLTDCClockSource">
+                <MethodArg Name="LTDCxSource" ParameterName="LTDCCLockSelection"/>
+            </CallLibMethod>
+        </IFCondition>
 
         <IFCondition Expression="DFSDM1Used_ForRCC">
             <CallLibMethod Name="LL_RCC_SetDFSDMClockSource">
@@ -728,13 +738,49 @@
             </CallLibMethod>
         </IFCondition>	
 
-        <IFCondition Expression="OCTOSPI1Used_ForRCC|OCTOSPI2Used_ForRCC">
+        <IFCondition Expression="OCTOSPI1Used_ForRCC">
             <CallLibMethod Name="LL_RCC_SetOCTOSPIClockSource">
                 <MethodArg Name="OCTOSPIxSource" ParameterName="OCTOSPIMCLockSelection"/>
             </CallLibMethod>
         </IFCondition>
 
-        <IFCondition Expression="FDCAN1Used_ForRCC|FDCAN2Used_ForRCC">
+        <IFCondition Expression="OCTOSPI2Used_ForRCC">
+            <CallLibMethod Name="LL_RCC_SetOCTOSPI2ClockSource">
+                <MethodArg Name="OSPI2xSource" ParameterName="OCTOSPI2MCLockSelection"/>
+            </CallLibMethod>
+        </IFCondition>
+
+        <IFCondition Expression="ETH_Used">
+            <CallLibMethod Name="LL_RCC_SetETHPTPClockSource">
+                <MethodArg Name="ETHxSource" ParameterName="ETHCLockSelection"/>
+            </CallLibMethod>
+            <CallLibMethod Name="LL_RCC_SetETHPTPClockDivider">
+                <MethodArg Name="Prescaler" ParameterName="ETHPTPCLKDivider"/>
+            </CallLibMethod>
+        </IFCondition>
+
+        <IFCondition Expression="PLAY1Used_ForRCC|PLAY1_Used">
+            <CallLibMethod Name="LL_RCC_SetPLAY1ClockSource">
+                <MethodArg Name="PLAY1xSource" ParameterName="PLAY1CLockSelection"/>
+            </CallLibMethod>
+            <CallLibMethod Name="LL_RCC_SetPLAY1ClockDivider">
+                <MethodArg Name="Prescaler" ParameterName="PLAY1Prescaler"/>
+            </CallLibMethod>
+        </IFCondition>
+
+        <IFCondition Expression="OTG_FS_Used|USB_OTG_FS_Used">
+            <CallLibMethod Name="LL_RCC_SetOTGFSClockSource">
+                <MethodArg Name="OTGFSxSource" ParameterName="OTGFSCLockSelection"/>
+            </CallLibMethod>
+        </IFCondition>
+
+        <IFCondition Expression="OTG_HS_Used|USB_OTG_HS_Used">
+            <CallLibMethod Name="LL_RCC_SetOTGHSClockSource">
+                <MethodArg Name="OTGHSxSource" ParameterName="OTGHSCLockSelection"/>
+            </CallLibMethod>
+        </IFCondition>
+
+        <IFCondition Expression="FDCAN1Used_ForRCC|FDCAN2Used_ForRCC|FDCAN3Used_ForRCC">
             <CallLibMethod Name="LL_RCC_SetFDCANClockSource">
                 <MethodArg Name="FDCANxSource" ParameterName="FDCANClockSelection"/>
             </CallLibMethod>
@@ -987,6 +1033,8 @@
     <LibMethod Comment="" Name="LL_RCC_LSI_Enable"/>
 	
     <LibMethod Comment="" Name="LL_RCC_CSI_Enable"/>
+	
+    <LibMethod Comment="" Name="LL_RCC_TIMIC_Enable"/>
      
     <LibMethod Comment="" Name="LL_RCC_CSI_SetRange">
         <Argument AddressOf="false" GenericType="simple" Name="Range"/>
@@ -1064,6 +1112,34 @@
 
     <LibMethod Comment="" Name="LL_RCC_SetOCTOSPIClockSource">
         <Argument AddressOf="false" GenericType="simple" Name="OCTOSPIxSource"/>
+    </LibMethod>
+
+    <LibMethod Comment="" Name="LL_RCC_SetOCTOSPI2ClockSource">
+        <Argument AddressOf="false" GenericType="simple" Name="OSPI2xSource"/>
+    </LibMethod>
+
+    <LibMethod Comment="" Name="LL_RCC_SetETHPTPClockSource">
+        <Argument AddressOf="false" GenericType="simple" Name="ETHxSource"/>
+    </LibMethod>
+
+    <LibMethod Comment="" Name="LL_RCC_SetETHPTPClockDivider">
+        <Argument AddressOf="false" GenericType="simple" Name="Prescaler"/>
+    </LibMethod>
+
+    <LibMethod Comment="" Name="LL_RCC_SetPLAY1ClockSource">
+        <Argument AddressOf="false" GenericType="simple" Name="PLAY1xSource"/>
+    </LibMethod>
+
+    <LibMethod Comment="" Name="LL_RCC_SetPLAY1ClockDivider">
+        <Argument AddressOf="false" GenericType="simple" Name="Prescaler"/>
+    </LibMethod>
+
+    <LibMethod Comment="" Name="LL_RCC_SetOTGFSClockSource">
+        <Argument AddressOf="false" GenericType="simple" Name="OTGFSxSource"/>
+    </LibMethod>
+
+    <LibMethod Comment="" Name="LL_RCC_SetOTGHSClockSource">
+        <Argument AddressOf="false" GenericType="simple" Name="OTGHSxSource"/>
     </LibMethod>
 
     <LibMethod Comment="" Name="LL_RCC_SetDFSDMAudioClockSource">
@@ -1170,6 +1246,9 @@
     </LibMethod>
     <LibMethod Comment="" Name="LL_RCC_SetADF1ClockSource">
         <Argument AddressOf="false" GenericType="simple" Name="Source"/>
+    </LibMethod>
+    <LibMethod Comment="" Name="LL_RCC_SetLTDCClockSource">
+        <Argument AddressOf="false" GenericType="simple" Name="LTDCxSource"/>
     </LibMethod>
     <LibMethod Comment="" Name="LL_RCC_SetSPIClockSource">
         <Argument AddressOf="false" GenericType="simple" Name="Source"/>

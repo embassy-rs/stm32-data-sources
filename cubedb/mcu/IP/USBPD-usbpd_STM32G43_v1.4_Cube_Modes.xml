@@ -1082,6 +1082,9 @@
     <RefParameter Name="PORT0_UCPD_MODE" DefaultValue="Source_UCPD1" Type="string" Comment="USBPD Defined Mode used for ftl" Visible="false">
         <Condition Expression="SourceUCPD1" Diagnostic=""/>
     </RefParameter>
+    <RefParameter Name="PORT0_UCPD_MODE" DefaultValue="DualRole_UCPD1" Type="string" Comment="USBPD Defined Mode used for ftl" Visible="false">
+        <Condition Expression="DualRoleUCPD1" Diagnostic=""/>
+    </RefParameter>
     <RefParameter Name="PORT0_UCPD_MODE" DefaultValue="UCPD" Type="string" Comment="USBPD Defined Mode used for ftl" Visible="false">
     </RefParameter>
     <!-- RefModes for USBPD -->
@@ -1714,6 +1717,7 @@
                 </Mode>
                 <Mode Name="PD3_Config1" UserName="Config 1">
                     <Condition Expression="(SourceUCPD1|SinkUCPD1|DualRoleUCPD1)" Diagnostic="UCPD1 is activated"/>
+                    <Condition Expression="!(SEMUSBPDOoApplicationCcDeviceJjApplicationJjSink|SEMUSBPDOoApplicationCcDeviceJjApplicationJjSource|SEMUSBPDOoApplicationCcDeviceJjApplicationJjDualIiRole)" Diagnostic="when X-CUBE-TCPP is activated,Stack configuration should only be FullStack"/>
                     <SignalLogicalOp Name="AND">
                         <Signal Name="VS_PD3CFG1"/>
                     </SignalLogicalOp>
@@ -1721,6 +1725,7 @@
                 </Mode>
                 <Mode Name="PD3_Min_Src" UserName="Min Source">
                     <Condition Expression="(SourceUCPD1)" Diagnostic="UCPD1 should be Source"/>
+                    <Condition Expression="!(SEMUSBPDOoApplicationCcDeviceJjApplicationJjSink|SEMUSBPDOoApplicationCcDeviceJjApplicationJjSource|SEMUSBPDOoApplicationCcDeviceJjApplicationJjDualIiRole)" Diagnostic="when X-CUBE-TCPP is activated,Stack configuration should only be FullStack"/>
                     <SignalLogicalOp Name="AND">
                         <Signal Name="VS_PD3MINSRC"/>
                     </SignalLogicalOp>
@@ -1728,6 +1733,7 @@
                 </Mode>
                 <Mode Name="PD3_Min_Snk" UserName="Min Sink">
                     <Condition Expression="(SinkUCPD1)" Diagnostic="UCPD1 should be Sink"/>
+                    <Condition Expression="!(SEMUSBPDOoApplicationCcDeviceJjApplicationJjSink|SEMUSBPDOoApplicationCcDeviceJjApplicationJjSource|SEMUSBPDOoApplicationCcDeviceJjApplicationJjDualIiRole)" Diagnostic="when X-CUBE-TCPP is activated,Stack configuration should only be FullStack"/>
                     <SignalLogicalOp Name="AND">
                         <Signal Name="VS_PD3MINSNK"/>
                     </SignalLogicalOp>
@@ -1735,6 +1741,7 @@
                 </Mode>
                 <Mode Name="PD3_Min_Drp" UserName="Min Drp">
                     <Condition Expression="(SourceUCPD1|SinkUCPD1)" Diagnostic="UCPD1 should be Source or Sink "/>
+                    <Condition Expression="!(SEMUSBPDOoApplicationCcDeviceJjApplicationJjSink|SEMUSBPDOoApplicationCcDeviceJjApplicationJjSource|SEMUSBPDOoApplicationCcDeviceJjApplicationJjDualIiRole)" Diagnostic="when X-CUBE-TCPP is activated,Stack configuration should only be FullStack"/>
                     <SignalLogicalOp Name="AND">
                         <Signal Name="VS_PD3MINDRP"/>
                     </SignalLogicalOp>
@@ -1742,6 +1749,7 @@
                 </Mode>
                 <Mode Name="PD3_TypeC" UserName="Type C only">
                     <Condition Expression="(SourceUCPD1|SinkUCPD1)" Diagnostic="UCPD1 should be Source or Sink"/>
+                    <Condition Expression="!(SEMUSBPDOoApplicationCcDeviceJjApplicationJjSink|SEMUSBPDOoApplicationCcDeviceJjApplicationJjSource|SEMUSBPDOoApplicationCcDeviceJjApplicationJjDualIiRole)" Diagnostic="when X-CUBE-TCPP is activated,Stack configuration should only be FullStack"/>
                     <SignalLogicalOp Name="AND">
                         <Signal Name="VS_PD3TYPEC"/>
                     </SignalLogicalOp>

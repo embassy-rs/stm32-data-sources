@@ -4,17 +4,32 @@
 
     <RefConfig Name="Rng_Init">
         <CallLibMethod Name="LL_RNG_Enable">
-           <MethodArg Name="RNGx" ParameterName="Instance"/>
-       </CallLibMethod>
+            <MethodArg Name="RNGx" ParameterName="Instance"/>
+        </CallLibMethod>
+        <IFCondition Expression = "(ClockErrorDetection=RNG_CED_DISABLE)">
+            <CallLibMethod Name="LL_RNG_DisableClkErrorDetect">
+                <MethodArg Name="RNGx" ParameterName="Instance"/>
+            </CallLibMethod>
+        </IFCondition>
+        <IFCondition Expression = "(ClockErrorDetection=RNG_CED_ENABLE)">
+            <CallLibMethod Name="LL_RNG_EnableClkErrorDetect">
+                <MethodArg Name="RNGx" ParameterName="Instance"/>
+            </CallLibMethod>
+        </IFCondition>
     </RefConfig>
+
+    <LibMethod Comment="" Name="LL_RNG_Enable">
+        <Argument AddressOf="false" GenericType="baseaddress" Name="RNGx" TypeName="RNG_TypeDef"/>
+    </LibMethod>
+    <LibMethod Comment="" Name="LL_RNG_DisableClkErrorDetect">
+        <Argument AddressOf="false" GenericType="baseaddress" Name="RNGx" TypeName="RNG_TypeDef"/>
+    </LibMethod>
+    <LibMethod Comment="" Name="LL_RNG_EnableClkErrorDetect">
+        <Argument AddressOf="false" GenericType="baseaddress" Name="RNGx" TypeName="RNG_TypeDef"/>
+    </LibMethod>
 
     <RefComponent Cclass="HAL" Cgroup="RNG" Cversion="0.2.0">
         <File Category="header" Name="Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_rng.h"/>
         <File Category="source" Name="Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_rng.c"/>
     </RefComponent>
-
-    <LibMethod Comment="" Name="LL_RNG_Enable">
-        <Argument AddressOf="false" GenericType="baseaddress" Name="RNGx" TypeName="RNG_TypeDef"/>
-    </LibMethod>
-
  </IP>

@@ -51,6 +51,7 @@
         <File Category="header" Name="Source/include/message_buffer.h" Condition="SEM_M33NS | !S_SECURE"/>
         <File Category="header" Name="Source/include/mpu_prototypes.h" Condition="SEM_M33NS | !S_SECURE"/>
         <File Category="header" Name="Source/include/mpu_wrappers.h" Condition="SEM_M33NS | !S_SECURE"/>
+        <File Category="header" Name="Source/include/mpu_syscall_numbers.h" Condition="SEM_M33NS | !S_SECURE"/>
         <File Category="header" Name="Source/include/portable.h" Condition="SEM_M33NS | !S_SECURE"/>
         <File Category="header" Name="Source/include/projdefs.h" Condition="SEM_M33NS | !S_SECURE"/>
         <File Category="header" Name="Source/include/queue.h" Condition="SEM_M33NS | !S_SECURE"/>
@@ -68,10 +69,15 @@
         <File Category="source" Name="Source/event_groups.c" Condition="SEM_M33NS | !S_SECURE"/>
         <File Category="source" Name="Source/list.c" Condition="SEM_M33NS | !S_SECURE"/>
         <File Category="source" Name="Source/queue.c" Condition="SEM_M33NS | !S_SECURE"/>
-        <File Category="source" Name="Source/stream_buffer.c" Condition="SEM_M33NS | !S_SECURE"/>
+        <File Category="source" Name="Source/stream_buffer.c" Condition="(SEM_M33NS | !S_SECURE) &amp; !configUSE_TASK_NOTIFICATIONS_DISABLED"/>
         <File Category="source" Name="Source/tasks.c" Condition="SEM_M33NS | !S_SECURE"/>
         <File Category="source" Name="Source/timers.c" Condition="SEM_M33NS | !S_SECURE"/>
 
+        <!-- New with FreeRTOS 10.6.2  -->
+        <File Category="header" Name="Source/include/newlib-freertos.h" Condition="SEM_M33NS | !S_SECURE"/>
+        <File Category="header" Name="Source/include/picolibc-freertos.h" Condition="SEM_M33NS | !S_SECURE"/>
+        <File Category="source" Name="Source/portable/Common/mpu_wrappers_v2.c" Condition="SEM_M33NS | !S_SECURE"/>
+        <!-- New with FreeRTOS 10.5.1  -->
         <File Category="source" Name="Source/CMSIS_RTOS_V2/cmsis_os2.c" Condition="SEM_M33NS | !S_SECURE"/>
         <File Category="source" Name="Source/portable/Common/mpu_wrappers.c"  Condition="SEM_M33NS | !S_SECURE"/>     
         <!-- New with FreeRTOS 10.3.1  -->
@@ -96,6 +102,7 @@
 
         <SubComponent Csub="GCC">  
 			<!--File Category="header" Name="Source/portable/GCC/ARM_CM33/secure/*.h"	Condition="SEM_M33NS &amp; S_SECURE"/-->
+            <File Category="source" Name="Source/portable/GCC/ARM_CM33_NTZ/non_secure/mpu_wrappers_v2_asm.c" Condition="SEM_M33NS &amp; S_SECURE"/>
             <File Category="source" Name="Source/portable/GCC/ARM_CM33_NTZ/non_secure/port.c" Condition="SEM_M33NS &amp; S_SECURE"/>
             <File Category="source" Name="Source/portable/GCC/ARM_CM33_NTZ/non_secure/portasm.c" Condition="SEM_M33NS &amp; S_SECURE"/>
 			<File Category="header" Name="Source/portable/GCC/ARM_CM33_NTZ/non_secure/portmacro.h" Condition="SEM_M33NS &amp;S_SECURE"/>
@@ -109,6 +116,7 @@
             <File Category="source" Name="Source/portable/GCC/ARM_CM33/secure/secure_init.c" Condition="SEM_M33S"/>
             <File Category="header" Name="Source/portable/GCC/ARM_CM33/secure/secure_init.h" Condition="SEM_M33S"/>                                       
             <File Category="header" Name="Source/portable/GCC/ARM_CM33/secure/secure_port_macros.h" Condition="SEM_M33S"/>
+            <File Category="source" Name="Source/portable/GCC/ARM_CM33_NTZ/non_secure/mpu_wrappers_v2_asm.c" Condition="!S_SECURE"/>
 			<File Category="source" Name="Source/portable/GCC/ARM_CM33_NTZ/non_secure/port.c" Condition="!S_SECURE"/>
 			<File Category="source" Name="Source/portable/GCC/ARM_CM33_NTZ/non_secure/portasm.c" Condition="!S_SECURE"/>
 			<File Category="source" Name="Source/portable/GCC/ARM_CM33_NTZ/non_secure/portasm.h" Condition="!S_SECURE"/>
@@ -222,7 +230,7 @@
     </RefConfigFile>
 
     <!-- use specific template file to generate header file containing #define -->
-    <RefConfigFile Description="Header file for #define" Name="CONFIG_V2" Template="freertos_conf_v10_5_1_cmsis_v2.ftl">
+    <RefConfigFile Description="Header file for #define" Name="CONFIG_V2" Template="freertos_conf_v10_6_2_MP2_cmsis_v2.ftl">
         <File Category="header"  Name="FreeRTOSConfig.h" Version="10.5.1" Condition="SEM_M33NS | !S_SECURE"/>
         <!-- Parameters for FReeRTOS -->
         <Argument Comment="Set to 1 to use the preemptive RTOS scheduler, or 0 to use the cooperative RTOS scheduler. " GenericType="simple" Name="configUSE_PREEMPTION"/>

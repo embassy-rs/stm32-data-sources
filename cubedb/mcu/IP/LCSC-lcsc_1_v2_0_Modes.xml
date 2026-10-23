@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<IP xmlns="http://mcd.rou.st.com/modules.php?name=mcu" xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance" DBVersion="V3.0" IPType="peripheral" Name="LCSC" Version="lcsc_1_v2_0" ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../../../doc/V4/Development/Specifications/db//IP_Modes.xsd">
+  <About>LCSC: LC Sensor Controller</About>
+  <RefParameter Name="Instance" Comment="LCSC instance" DefaultValue="LCSC$Index" Type="list" Visible="false"/> 
+  <RefParameter Name="measurementTime" Comment="Measurement duration" DefaultValue="0" Max="16383" Min="0" Type="integer" Group="LCSC configuration"/>
+  <RefParameter Name="captureTime" Comment="Capture duration time" DefaultValue="0" Max="63" Min="0" Type="integer" Group="LCSC configuration"/>
+  <RefParameter Name="InterCaptureTime" Comment="Inter-capture duration" DefaultValue="0" Max="7" Min="0" Type="integer" Group="LCSC configuration"/>
+  
+  <RefParameter Name="VCMBuff_RecoveryTime" Comment="Duration of TrecoveryVCM" DefaultValue="0" Max="511" Min="0" Type="integer" Group="VCMBuff configuration"/>
+  <RefParameter Name="VCMBuff_StartingTime" Comment="Duration of TStartVCM" DefaultValue="0" Max="2047" Min="0" Type="integer" Group="VCMBuff configuration"/>
+  <RefParameter Name="DampingThresholdLCAB" Comment="Count threshold" DefaultValue="0" Max="255" Min="0" Type="integer" Group="LCA, LCB and LCC configuration">
+    <Condition Diagnostic="" Expression="S_LCA1|S_LCA2|S_LCB1|S_LCB2|S_LCC1|S_LCC2"/>
+  </RefParameter>
+  <RefParameter Name="PulseLCAB" Comment="Pulse" DefaultValue="0" Max="15" Min="0" Type="integer" Group="LCA, LCB and LCC configuration">
+    <Condition Diagnostic="" Expression="S_LCA1|S_LCA2|S_LCB1|S_LCB2|S_LCC1|S_LCC2"/>
+  </RefParameter>
+  <RefParameter Name="measurementInterval" Comment="Measurement Interval" DefaultValue="0" Max="255" Min="0" Type="integer" Group="LCT configuration">
+    <Condition Diagnostic="" Expression="S_LCT1|S_LCT2"/>
+  </RefParameter>
+  <RefParameter Name="PulseLCT" Comment="Pulse" DefaultValue="0" Max="15" Min="0" Type="integer" Group="LCT configuration">
+    <Condition Diagnostic="" Expression="S_LCT1|S_LCT2"/>
+  </RefParameter>
+  <RefParameter Name="DampingThresholdLCT" Comment="Count threshold" DefaultValue="0" Max="255" Min="0" Type="integer" Group="LCT configuration">
+    <Condition Diagnostic="" Expression="S_LCT1|S_LCT2"/>
+  </RefParameter>
+  <RefParameter Name="Instance" DefaultValue="LCSC" Comment="Instance" Type="string" Visible="false"/>
+
+  <RefParameter Name="ClockWiseTarget" Comment="Clock Wise revolutions target" DefaultValue="0" Max="65535" Min="0" Type="integer" Group="Clock Wise configuration"/>
+  <RefParameter Name="antiClockWiseTarget" Comment="Anti Clock Wise revolutions target" DefaultValue="0" Max="65535" Min="0" Type="integer" Group="Clock Wise configuration"/>
+  <RefParameter Name="maximumBound" Comment="Maximum bound" DefaultValue="0" Max="255" Min="0" Type="integer" Group="Clock Wise configuration"/>
+  <RefParameter Name="minimumBound" Comment="Minimum bound" DefaultValue="0" Max="255" Min="0" Type="integer" Group="Clock Wise configuration"/>
+
+  <RefMode Name="LCSC_Activate" HalMode ="LCSC">
+    <ConfigForMode>LCSC_Init</ConfigForMode>    
+    <Parameter Name="measurementTime"/>
+    <Parameter Name="captureTime"/>
+    <Parameter Name="InterCaptureTime"/>
+
+    <Parameter Name="DampingThresholdLCAB"/>
+    <Parameter Name="PulseLCAB"/>
+
+    <Parameter Name="measurementInterval"/>
+    <Parameter Name="PulseLCT"/>
+    <Parameter Name="DampingThresholdLCT"/>
+
+    <Parameter Name="VCMBuff_RecoveryTime"/>
+    <Parameter Name="VCMBuff_StartingTime"/>
+
+    <Parameter Name="ClockWiseTarget"/>
+    <Parameter Name="antiClockWiseTarget"/>
+    <Parameter Name="maximumBound"/>
+    <Parameter Name="minimumBound"/>
+    
+  </RefMode>
+	<!-- ModeLogicOperator for LCSC -->
+  <ModeLogicOperator Name="OR">
+    <Mode Name="LCSC_State" UserName="Activate LCSC ">
+      <ModeLogicOperator Name="XOR">
+        <Mode Name="LCSC_Activate" UserName="Activated">
+          <SignalLogicalOp Name="AND">
+            <Signal Name="VS_LCSC" />	
+          </SignalLogicalOp>
+        <Condition Diagnostic="Active only if: &lt;br&gt; DAC1 is activated  &lt;br&gt; COMP1 is activated " Expression="DAC1_Used &amp; COMP1_Used"/> 
+      <Semaphore>S_LCSC</Semaphore>
+        </Mode>
+      </ModeLogicOperator>
+    </Mode>
+	  <Mode Name="Activate LCA">
+      <ModeLogicOperator Name="XOR">
+        <Mode Name="LCA1_Activate" UserName="LCA1">
+          <SignalLogicalOp Name="XOR">
+             <Signal Name="LCA1"/>		 
+           </SignalLogicalOp>
+            <Condition Diagnostic="Active only if: &lt;br&gt; DAC1 is activated  &lt;br&gt; COMP1 is activated" Expression="S_LCSC"/> 
+         <Semaphore>S_LCA1</Semaphore>
+        </Mode>  
+        <Mode Name="LCA2_Activate" UserName="LCA2">
+          <SignalLogicalOp Name="XOR">
+             <Signal Name="LCA2"/>	 
+           </SignalLogicalOp>
+            <Condition Diagnostic="Active only if: &lt;br&gt; DAC1 is activated  &lt;br&gt; COMP1 is activated" Expression="S_LCSC"/> 
+         <Semaphore>S_LCA2</Semaphore>
+        </Mode> 
+      </ModeLogicOperator>
+    </Mode>
+    <Mode Name="Activate LCB">
+      <ModeLogicOperator Name="XOR">
+        <Mode Name="LCB_Activate" UserName="LCB1">
+          <SignalLogicalOp Name="XOR">
+             <Signal Name="LCB1"/>		 
+           </SignalLogicalOp>
+            <Condition Diagnostic="Active only if: &lt;br&gt; DAC1 is activated  &lt;br&gt; COMP1 is activated" Expression="S_LCSC"/> 
+         <Semaphore>S_LCB1</Semaphore>
+        </Mode>
+         <Mode Name="LCB_Activate" UserName="LCB2">
+          <SignalLogicalOp Name="XOR">
+			       <Signal Name="LCB2"/>		 
+           </SignalLogicalOp>
+            <Condition Diagnostic="Active only if: &lt;br&gt; DAC1 is activated  &lt;br&gt; COMP1 is activated" Expression="S_LCSC"/> 
+         <Semaphore>S_LCB2</Semaphore>
+        </Mode>
+      </ModeLogicOperator>
+    </Mode>
+    <Mode Name="LCC" UserName="Activate LCC">
+      <ModeLogicOperator Name="XOR">
+        <Mode Name="LCC_Activate" UserName="LCC1">
+          <SignalLogicalOp Name="XOR">
+             <Signal Name="LCC1"/>		 
+           </SignalLogicalOp>
+            <Condition Diagnostic="Active only if: &lt;br&gt; DAC1 is activated  &lt;br&gt; COMP1 is activated" Expression="S_LCSC"/> 
+         <Semaphore>S_LCC1</Semaphore>
+        </Mode>
+        <Mode Name="LCC_Activate" UserName="LCC2">
+          <SignalLogicalOp Name="XOR">
+			       <Signal Name="LCC2"/>
+           </SignalLogicalOp>
+            <Condition Diagnostic="Active only if: &lt;br&gt; DAC1 is activated  &lt;br&gt; COMP1 is activated" Expression="S_LCSC"/> 
+         <Semaphore>S_LCC2</Semaphore>
+        </Mode>
+      </ModeLogicOperator>
+    </Mode>
+	  <Mode Name="LCT" UserName="Activate LCT">
+     <ModeLogicOperator Name="XOR">
+       <Mode Name="LCT_Activate" UserName="LCT1">
+         <SignalLogicalOp Name="XOR">
+          <Signal Name="LCT1"/>
+         </SignalLogicalOp>
+         <Condition Diagnostic="Active only if: &lt;br&gt;DAC1 is activated  &lt;br&gt; COMP1 is activated" Expression="S_LCSC"/> 
+         <Semaphore>S_LCT1</Semaphore>
+       </Mode>
+       <Mode Name="LCT_Activate" UserName="LCT2">
+         <SignalLogicalOp Name="XOR">
+		      <Signal Name="LCT2"/>
+         </SignalLogicalOp>
+         <Condition Diagnostic="Active only if: &lt;br&gt;DAC1 is activated  &lt;br&gt; COMP1 is activated" Expression="S_LCSC"/> 
+         <Semaphore>S_LCT2</Semaphore>
+       </Mode>
+       <Mode Name="" UserName="">
+         <SignalLogicalOp Name="XOR">
+		      <Signal Name="ACTIVITY"/>
+         </SignalLogicalOp>
+       </Mode>
+     </ModeLogicOperator>
+    </Mode>
+  </ModeLogicOperator>
+  <!-- RefSignal for LCSC -->
+  <RefSignal IOMode="Analog" Name="LCA1"/>
+  <RefSignal IOMode="Analog" Name="LCA2"/>
+  <RefSignal IOMode="Analog" Name="LCB1"/>
+  <RefSignal IOMode="Analog" Name="LCB2"/>
+  <RefSignal IOMode="Analog" Name="LCC1"/>
+  <RefSignal IOMode="Analog" Name="LCC2"/>
+  <RefSignal IOMode="Analog" Name="LCT1"/>
+  <RefSignal IOMode="Analog" Name="LCT2"/>
+  <RefSignal Name="ACTIVITY"/>
+  <RefSignal Name="VS_LCSC" Virtual="true"/>
+  <Semaphore>LCSCUsed_ForRCC</Semaphore>
+</IP>

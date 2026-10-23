@@ -30,40 +30,54 @@
         <Argument Name="instance" ParamName="instance" GenericType="simple" Comment=""/>         
     </RefConfigFile>
      <RefConfig Comment="Enable the VREF clock" Name="VREF_CLK_ENABLE">
-        <CallLibMethod Name="__HAL_RCC_VREF_CLK_ENABLE" ReturnHAL="false"/>
+        <CallLibMethod Name="__HAL_RCC_VREFBUF_CLK_ENABLE" ReturnHAL="false"/>
     </RefConfig>
     <RefConfig Comment="Enable the Internal Voltage Reference buffer" Name="VREFBUFMODEConfigEnable">
-		<CallLibMethod Name="HAL_SYSCFG_EnableVREFBUF"  ReturnHAL="false"/>
+		<IFCondition Expression="!$IpInstance=VREFBUF">
+			<CallLibMethod Name="HAL_SYSCFG_EnableVREFBUF"  ReturnHAL="false"/>
+		</IFCondition>
 	</RefConfig>
 
 	<RefConfig Comment="Disable the Internal Voltage Reference buffer" Name="VREFBUFMODEConfigDisable">
-		<CallLibMethod Name="HAL_SYSCFG_DisableVREFBUF" ReturnHAL="false"/>
+		<IFCondition Expression="!$IpInstance=VREFBUF">
+			<CallLibMethod Name="HAL_SYSCFG_DisableVREFBUF" ReturnHAL="false"/>
+		</IFCondition>
 	</RefConfig>
 
 	<RefConfig Comment="Configure the internal voltage reference buffer high impedance mode" Name="HighImpedanceModeConfig">
-		<CallLibMethod Name="HAL_SYSCFG_VREFBUF_HighImpedanceConfig" ReturnHAL="false">
-			<MethodArg Name="Mode" ParameterName="HighImpedanceMode"/>
-		</CallLibMethod>
+		<IFCondition Expression="!$IpInstance=VREFBUF">
+			<CallLibMethod Name="HAL_SYSCFG_VREFBUF_HighImpedanceConfig" ReturnHAL="false">
+				<MethodArg Name="Mode" ParameterName="HighImpedanceMode"/>
+			</CallLibMethod>
+		</IFCondition>
 	</RefConfig>
 
 	<RefConfig Comment="Configure the internal voltage reference buffer voltage scale" Name="InternalVoltageReferenceScaleConfig">
-		<CallLibMethod Name="HAL_SYSCFG_VREFBUF_VoltageScalingConfig" ReturnHAL="false"/>
+		<IFCondition Expression="!$IpInstance=VREFBUF">
+			<CallLibMethod Name="HAL_SYSCFG_VREFBUF_VoltageScalingConfig" ReturnHAL="false"/>
+		</IFCondition>
 	</RefConfig>
 
 	<RefConfig Comment="Tune the Internal Voltage Reference buffer" Name="TrimmingValueConfig">
-		<CallLibMethod Name="HAL_SYSCFG_VREFBUF_TrimmingConfig" ReturnHAL="false"/>
+		<IFCondition Expression="!$IpInstance=VREFBUF">
+			<CallLibMethod Name="HAL_SYSCFG_VREFBUF_TrimmingConfig" ReturnHAL="false"/>
+		</IFCondition>
 	</RefConfig>
     
     <RefConfig Comment="PVD Configuration" Name="PVDConfig">
-		<CallLibMethod Name="HAL_PWR_ConfigPVD"  ReturnHAL="false">
-			<MethodArg Name="sConfigPVD.PVDLevel" ParameterName="PVDLevel"/>
-			<MethodArg Name="sConfigPVD.Mode" ParameterName="Mode"/>
-		</CallLibMethod>
+		<IFCondition Expression="!$IpInstance=VREFBUF">
+			<CallLibMethod Name="HAL_PWR_ConfigPVD"  ReturnHAL="false">
+				<MethodArg Name="sConfigPVD.PVDLevel" ParameterName="PVDLevel"/>
+				<MethodArg Name="sConfigPVD.Mode" ParameterName="Mode"/>
+			</CallLibMethod>
+		</IFCondition>
 	</RefConfig>
 	<RefConfig Comment="Enable the PVD Output" Name="PVDEnable">
-		<CallLibMethod Name="HAL_PWR_EnablePVD" ReturnHAL="false"/>
+		<IFCondition Expression="!$IpInstance=VREFBUF">
+			<CallLibMethod Name="HAL_PWR_EnablePVD" ReturnHAL="false"/>
+		</IFCondition>
 	</RefConfig>
-   <LibMethod Comment="Enable the VREF" Name="__HAL_RCC_VREF_CLK_ENABLE">  
+   <LibMethod Comment="Enable the VREF" Name="__HAL_RCC_VREFBUF_CLK_ENABLE">
 		</LibMethod>
 	<LibMethod Comment="" Name="HAL_PWR_ConfigPVD">
 		<Argument AddressOf="true" GenericType="struct" Name="sConfigPVD" TypeName="PWR_PVDTypeDef">

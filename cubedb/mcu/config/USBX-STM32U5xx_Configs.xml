@@ -20,11 +20,15 @@
         <Component Name="Middleware:USBX:UXOoHostOoCoreStack:RTOSIiMODE"/>
 		<ConfigFile Name="APP_USBXH_C"/>
 		<ConfigFile Name="APP_USBXH_H"/>
+		<ConfigFile Name="APP_USBX_H"/>
+        <ConfigFile Name="APP_USBX_C"/>
     </RefConfig>
 	<RefConfig Name="UX_Device_CoreStack_HS" Comment="UX_Device_CoreStack_HS">
         <Component Name="Middleware:USBX:UXOoDeviceOoCoreStack:RTOSIiMODE"/>
 		<ConfigFile Name="APP_USBXD_C"/>
 		<ConfigFile Name="APP_USBXD_H"/>
+        <ConfigFile Name="APP_USBX_H"/>
+        <ConfigFile Name="APP_USBX_C"/>
 		<ConfigFile Name="ux_device_descriptors_c"/>
         <ConfigFile Name="ux_device_descriptors_h"/>
     </RefConfig>
@@ -39,11 +43,15 @@
         <Component Name="Middleware:USBX:UXOoHostOoCoreStack:RTOSIiMODE"/>
 		<ConfigFile Name="APP_USBXH_C"/>
 		<ConfigFile Name="APP_USBXH_H"/>
+		<ConfigFile Name="APP_USBX_H"/>
+        <ConfigFile Name="APP_USBX_C"/>
     </RefConfig>
 	<RefConfig Name="UX_Device_CoreStack_FS" Comment="UX_Device_CoreStack_FS">
         <Component Name="Middleware:USBX:UXOoDeviceOoCoreStack:RTOSIiMODE"/>
 		<ConfigFile Name="APP_USBXD_C"/>
 		<ConfigFile Name="APP_USBXD_H"/>
+        <ConfigFile Name="APP_USBX_H"/>
+        <ConfigFile Name="APP_USBX_C"/>
 		<ConfigFile Name="ux_device_descriptors_c"/>
         <ConfigFile Name="ux_device_descriptors_h"/>
     </RefConfig>
@@ -90,6 +98,8 @@
     </RefConfig>
 	<RefConfig Name="UX_Host_class_AUDIO" Comment="UX_Host_class_AUDIO">
         <Component Name="Middleware:USBX:UXOoHostOoClassOoAUDIO:AUDIO"/>
+        <ConfigFile Name="ux_host_audio_c"/>
+        <ConfigFile Name="ux_host_audio_h"/>
     </RefConfig>
 	<RefConfig Name="UX_Host_class_VIDEO" Comment="UX_Host_class_VIDEO">
         <Component Name="Middleware:USBX:UXOoHostOoClassOoVIDEO:VIDEO"/>
@@ -152,8 +162,20 @@
 		<ConfigFile Name="ux_device_dfu_media_c"/>
         <ConfigFile Name="ux_device_dfu_media_h"/>
     </RefConfig>
-	<RefConfig Name="UX_Device_class_AUDIO" Comment="UX_DEVICE_AUDIO">
+    <RefConfig Name="UX_Device_class_AUDIO" Comment="UX_DEVICE_AUDIO">
         <Component Name="Middleware:USBX:UXOoDeviceOoClassOoAUDIO:AUDIO"/>
+        <ConfigFile Name="ux_device_audio_c"/>
+        <ConfigFile Name="ux_device_audio_h"/>
+    </RefConfig>
+    <RefConfig Name="UX_Device_class_AUDIO_PLAYBACK" Comment="UX_Device_class_AUDIO_PLAYBACK">
+        <Component Name="Middleware:USBX:UXOoDeviceOoClassOoAUDIOOoPLAYBACK:AUDIO"/>
+        <ConfigFile Name="ux_device_audio_play_c"/>
+        <ConfigFile Name="ux_device_audio_play_h"/>
+    </RefConfig>
+    <RefConfig Name="UX_Device_class_AUDIO_RECORDING" Comment="UX_Device_class_AUDIO_RECORDING">
+        <Component Name="Middleware:USBX:UXOoDeviceOoClassOoAUDIOOoRECORDING:AUDIO"/>
+        <ConfigFile Name="ux_device_audio_record_c"/>
+        <ConfigFile Name="ux_device_audio_record_h"/>
     </RefConfig>
 	<RefConfig Name="UX_Device_class_PIMA" Comment="UX_DEVICE_PIMA_MTP">
         <Component Name="Middleware:USBX:UXOoDeviceOoClassOoPIMA:PIMA"/>
@@ -293,7 +315,7 @@
     </RefConfigFile>
 	
 	<RefConfigFile Added="true" Description="ux_device_descriptors.c template file" Name="ux_device_descriptors_c" Template="azure_rtos/ux_device_descriptors_c.ftl" destinationFolder="USBX/App">
-		<File Category="source" Condition="SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoCDCOoACM_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoHID_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoSTORAGE_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoCDCOoECM_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoDFU_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoCDCOoACM_HS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoHID_HS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoSTORAGE_HS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoCDCOoECM_HS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoDFU_HS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoPIMA_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoRNDIS_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoVIDEO_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoCCID_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoPRINTER_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoVIDEO_HS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoCCID_HS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoPRINTER_HS" Name="./ux_device_descriptors.c"/>
+		<File Category="source" Condition="SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoCDCOoACM_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoHID_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoSTORAGE_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoCDCOoECM_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoDFU_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoCDCOoACM_HS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoHID_HS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoSTORAGE_HS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoCDCOoECM_HS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoDFU_HS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoPIMA_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoRNDIS_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoVIDEO_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoCCID_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoPRINTER_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoVIDEO_HS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoCCID_HS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoPRINTER_HS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoAUDIO_CORE_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoAUDIO_CORE_HS" Name="./ux_device_descriptors.c"/>
 		<Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_DEVICE_FRAMEWORK_BUILDER_ENABLED" OptimizationCondition="equal"/>
       	<Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_CLASS_HID_INTERRUPT_OUT_SUPPORT" OptimizationCondition="equal"/>
     	<Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_PIMA_WITH_MTP_SUPPORT" OptimizationCondition="equal"/>
@@ -312,9 +334,31 @@
 		<Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_DEVICE_VIDEO" TypeName=""/>
 		<Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_DEVICE_CCID" TypeName=""/>
 		<Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_DEVICE_PRINTER" TypeName=""/>
+        <Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_DEVICE_AUDIO_CORE" TypeName=""/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_CLASS" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_PLAY_FREQ_192_K" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_PLAY_FREQ_96_K" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_PLAY_FREQ_48_K" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_PLAY_FREQ_44_1_K" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_PLAY_FREQ_32_K" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_PLAY_FREQ_16_K" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_PLAY_FREQ_8_K" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_CLASS_AUDIO_INTERRUPT_SUPPORT" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_CLASS_AUDIO_FEEDBACK_SUPPORT" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_PLAY_CHANNEL_COUNT" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_RECORD_CHANNEL_COUNT" OptimizationCondition="equal"/>
+        <Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_DEVICE_AUDIO_PLAYBACK" TypeName=""/>
+        <Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_DEVICE_AUDIO_RECORDING" TypeName=""/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_RECORD_FREQ_192_K" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_RECORD_FREQ_96_K" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_RECORD_FREQ_48_K" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_RECORD_FREQ_44_1_K" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_RECORD_FREQ_32_K" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_RECORD_FREQ_16_K" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_RECORD_FREQ_8_K" OptimizationCondition="equal"/>
 	</RefConfigFile>
 	<RefConfigFile Added="true" Description="ux_device_descriptors.h template file" Name="ux_device_descriptors_h" Template="azure_rtos/ux_device_descriptors_h.ftl" destinationFolder="USBX/App">
-		<File Category="header" Condition="SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoCDCOoACM_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoHID_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoSTORAGE_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoCDCOoECM_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoDFU_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoCDCOoACM_HS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoHID_HS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoSTORAGE_HS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoCDCOoECM_HS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoDFU_HS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoPIMA_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoRNDIS_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoPIMA_HS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoRNDIS_HS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoVIDEO_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoCCID_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoPRINTER_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoVIDEO_HS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoCCID_HS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoPRINTER_HS" Name="./ux_device_descriptors.h"/>
+		<File Category="header" Condition="SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoCDCOoACM_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoHID_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoSTORAGE_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoCDCOoECM_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoDFU_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoCDCOoACM_HS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoHID_HS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoSTORAGE_HS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoCDCOoECM_HS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoDFU_HS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoPIMA_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoRNDIS_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoPIMA_HS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoRNDIS_HS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoVIDEO_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoCCID_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoPRINTER_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoVIDEO_HS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoCCID_HS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoPRINTER_HS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoAUDIO_CORE_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoAUDIO_CORE_HS" Name="./ux_device_descriptors.h"/>
 		<Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_FRAMEWORK_MAX_DESC_SZ" OptimizationCondition="equal"/>
         <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_BIDIRECTIONAL_ENDPOINT_SUPPORT" OptimizationCondition="equal"/>
 		<Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_CDCECM_EPINCMD_HS_BINTERVAL" OptimizationCondition="equal"/>
@@ -469,7 +513,54 @@
 		<Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_DEVICE_VIDEO" TypeName=""/>
 		<Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_DEVICE_CCID" TypeName=""/>
 		<Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_DEVICE_PRINTER" TypeName=""/>
-	</RefConfigFile>
+        <Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_DEVICE_AUDIO_CORE" TypeName=""/>
+        <Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_DEVICE_AUDIO_PLAYBACK" TypeName=""/>
+        <Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_DEVICE_AUDIO_RECORDING" TypeName=""/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_RECORD_CHANNEL_COUNT" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_RECORD_RES_BIT" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_RECORD_CHANNEL_MAP" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_RECORD_FREQ_192_K" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_RECORD_FREQ_96_K" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_RECORD_FREQ_48_K" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_RECORD_FREQ_44_1_K" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_RECORD_FREQ_32_K" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_RECORD_FREQ_16_K" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_RECORD_FREQ_8_K" OptimizationCondition="equal"/>
+        <!-- <Argument Added="true" AddressOf="false" GenericType="simple" Name="" OptimizationCondition="equal"/> -->
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_CLASS" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_INTERRUPT_EPIN_ADDR" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_CLASS_AUDIO_INTERRUPT_SUPPORT" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_INTERRUPT_EPIN_FS_MPS" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_INTERRUPT_EPIN_FS_BINTERVAL" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_INTERRUPT_EPIN_HS_MPS" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_INTERRUPT_EPIN_HS_BINTERVAL" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_PLAY_RES_BIT" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_PLAY_CHANNEL_COUNT" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_PLAY_CHANNEL_MAP" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_PLAY_FREQ_192_K" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_PLAY_FREQ_96_K" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_PLAY_FREQ_48_K" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_PLAY_FREQ_44_1_K" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_PLAY_FREQ_32_K" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_PLAY_FREQ_16_K" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_PLAY_FREQ_8_K" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_PLAY_EPOUT_ADDR" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_PLAY_EPOUT_FS_MPS" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_PLAY_EPOUT_HS_MPS" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_EPOUT_FS_BINTERVAL" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_EPOUT_HS_BINTERVAL" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_CLASS_AUDIO_FEEDBACK_SUPPORT" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_EPIN_FEEDBACK_ADDR" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_EPIN_FEEDBACK_FS_MPS" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_EPIN_FEEDBACK_HS_MPS" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_ADUIO_EPIN_FEEDBACK_FS_BINTERVAL" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_ADUIO_EPIN_FEEDBACK_HS_BINTERVAL" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_EPIN_ADDR" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_EPIN_FS_MPS" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_EPIN_HS_MPS" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_EPIN_FS_BINTERVAL" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_EPIN_HS_BINTERVAL" OptimizationCondition="equal"/>
+    </RefConfigFile>
 	
     <RefConfigFile Added="true" Description="ux_device_mouse.c template file" Name="ux_device_mouse_c" Template="azure_rtos/ux_device_mouse_c.ftl" destinationFolder="USBX/App">
         <File Category="source" Condition="all" Name="./ux_device_mouse.c"/>
@@ -541,7 +632,48 @@
         <File Category="source" Condition="all" Name="./ux_device_cdc_ecm.h"/>
         <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_DEVICE_CDC_ECM" OptimizationCondition="equal"/>
     </RefConfigFile>
-    
+    <RefConfigFile Added="true" Description="ux_device_audio.c template file" Name="ux_device_audio_c" Template="azure_rtos/ux_device_audio_c.ftl" destinationFolder="USBX/App">
+        <File Category="source" Condition="all" Name="./ux_device_audio.c"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_CLASS_AUDIO_FEEDBACK_SUPPORT" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_DEVICE_AUDIO_RECORDING" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_DEVICE_AUDIO_PLAYBACK" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_CLASS_AUDIO_INTERRUPT_SUPPORT" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_CLASS" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_AUDIO_PLAYBACK" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_AUDIO_RECORDING" OptimizationCondition="equal"/>
+    </RefConfigFile>
+    <RefConfigFile Added="true" Description="ux_device_audio.h template file" Name="ux_device_audio_h" Template="azure_rtos/ux_device_audio_h.ftl" destinationFolder="USBX/App">
+        <File Category="source" Condition="all" Name="./ux_device_audio.h"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_CLASS_AUDIO_FEEDBACK_SUPPORT" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_DEVICE_AUDIO_RECORDING" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_DEVICE_AUDIO_PLAYBACK" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_CLASS_AUDIO_INTERRUPT_SUPPORT" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_CLASS" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_AUDIO_PLAYBACK" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_AUDIO_RECORDING" OptimizationCondition="equal"/>
+    </RefConfigFile>
+    <RefConfigFile Added="true" Description="ux_device_audio_play.c template file for Audio Class" Name="ux_device_audio_play_c" Template="azure_rtos/ux_device_audio_play_c.ftl" destinationFolder="USBX/App">
+        <File Category="source" Condition="all" Name="./ux_device_audio_play.c"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_DEVICE_AUDIO_PLAYBACK" OptimizationCondition="equal"/>
+    </RefConfigFile>
+    <RefConfigFile Added="true" Description="ux_device_audio_play.h template file for Audio Class" Name="ux_device_audio_play_h" Template="azure_rtos/ux_device_audio_play_h.ftl" destinationFolder="USBX/App">
+        <File Category="header" Condition="all" Name="./ux_device_audio_play.h"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_DEVICE_AUDIO_PLAYBACK" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_CLASS" OptimizationCondition="equal"/>
+    </RefConfigFile>
+
+    <RefConfigFile Added="true" Description="ux_device_audio_record.c template file for Audio Class" Name="ux_device_audio_record_c" Template="azure_rtos/ux_device_audio_record_c.ftl" destinationFolder="USBX/App">
+        <File Category="source" Condition="all" Name="./ux_device_audio_record.c"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_DEVICE_AUDIO_RECORDING" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_AUDIO_RECORDING" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_CLASS" OptimizationCondition="equal"/>
+    </RefConfigFile>
+    <RefConfigFile Added="true" Description="ux_device_audio_record.h template file for Audio Class" Name="ux_device_audio_record_h" Template="azure_rtos/ux_device_audio_record_h.ftl" destinationFolder="USBX/App">
+        <File Category="header" Condition="all" Name="./ux_device_audio_record.h"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_AUDIO_RECORDING" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_DEVICE_AUDIO_RECORDING" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_CLASS" OptimizationCondition="equal"/>
+    </RefConfigFile>
 	<RefConfigFile Added="true" Description="ux_device_dfu_media.c template file" Name="ux_device_dfu_media_c" Template="azure_rtos/ux_device_dfu_media_c.ftl" destinationFolder="USBX/App">
         <File Category="source" Condition="all" Name="./ux_device_dfu_media.c"/>
         <Argument Added="true" AddressOf="false" GenericType="simple" Name="MEDIA_PROGRAM_TIME" OptimizationCondition="equal"/>
@@ -630,38 +762,15 @@
         <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_HOST_CDC_ACM" OptimizationCondition="equal"/>
     </RefConfigFile>
 
-    <RefConfigFile Added="true" Description="app_usbx_host.c file" Name="APP_USBXH_C" Template="azure_rtos/app_usbx_host_c.ftl" destinationFolder="USBX/App">
+    <RefConfigFile Added="true" Description="ux_host_audio.c template file" Name="ux_host_audio_c" Template="azure_rtos/ux_host_audio_c.ftl" destinationFolder="USBX/App">
+        <File Category="source" Condition="all" Name="./ux_host_audio.c"/>
+    </RefConfigFile>
+    <RefConfigFile Added="true" Description="ux_host_audio.h template file" Name="ux_host_audio_h" Template="azure_rtos/ux_host_audio_h.ftl" destinationFolder="USBX/App">
+        <File Category="header" Condition="all" Name="./ux_host_audio.h"/>
+    </RefConfigFile>
+
+    <RefConfigFile Added="true" Description="app_usbx_host.c file" Name="APP_USBXH_C" Template="azure_rtos/app_usbx_host_drd_c.ftl" destinationFolder="USBX/App">
         <File Category="source" Condition="all" Name="app_usbx_host.c"/>
-<!--         <Argument AddressOf="true" Context="global" GenericType="struct" Name="Core_System" TypeName=""/>
-        <Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_DEVICE_HID" TypeName=""/>
-        <Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_DEVICE_CDC_ACM" TypeName=""/>
-        <Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_DEVICE_MSC" TypeName=""/>  
-        <Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_DEVICE_CDC_ECM" TypeName=""/> 
-        <Argument AddressOf="true" Context="global" GenericType="struct" Name="TraceX_Support" TypeName=""/>
-        <Argument AddressOf="true" Context="global" GenericType="struct" Name="Network_Driver" TypeName=""/>
-        <Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_Host_CoreStack" TypeName=""/>
-        <Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_Host_Controller" TypeName=""/>  
-        <Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_Host_class_HID_Core" TypeName=""/>
-        <Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_Host_class_HID_Keyboard" TypeName=""/>
-        <Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_Host_class_HID_Mouse" TypeName=""/>
-        <Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_Host_class_HID_RCU" TypeName=""/>
-        <Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_Host_MSC" TypeName=""/>  
-        <Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_Host_class_CDC_ACM" TypeName=""/>
-        <Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_Host_class_CDC_ECM" TypeName=""/>
-        <Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_Host_class_HUB" TypeName=""/>
-        <Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_Host_class_AUDIO" TypeName=""/>
-        <Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_Host_class_VIDEO" TypeName=""/>  
-        <Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_Host_class_PRINTER" TypeName=""/>
-        <Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_Host_class_GSER" TypeName=""/>
-        <Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_Host_class_ASIX" TypeName=""/>
-        <Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_Host_class_PIMA" TypeName=""/>
-        <Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_Host_class_PROLIFIC" TypeName=""/>  
-        <Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_Host_class_SWAR" TypeName=""/>
-        <Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_DEVICE_DFU" TypeName=""/>
-        <Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_DEVICE_AUDIO" TypeName=""/>
-        <Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_DEVICE_PIMA_MTP" TypeName=""/>
-        <Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_DEVICE_RNDIS" TypeName=""/>  
-        <Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_Device_CoreStack" TypeName=""/> -->
         <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_STANDALONE" OptimizationCondition="equal"/>
         <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_HOST_THREAD" OptimizationCondition="equal"/>
         <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBX_HOST_APP_THREAD_NAME" OptimizationCondition="equal"/>
@@ -672,19 +781,15 @@
         <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_HOST_CDC_ACM" OptimizationCondition="equal"/>
         <Argument Added="true" AddressOf="false" GenericType="simple" Name="AZRTOS_APP_MEM_ALLOCATION_METHOD" OptimizationCondition="equal"/>
         <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_HOST_CORE" OptimizationCondition="equal"/>
-        <!-- <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBX_HOST_SYS_SIZE" OptimizationCondition="equal"/> -->
-        <!-- <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBX_HOST_APP_THREAD_Size" OptimizationCondition="equal"/> -->
-        <!-- <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBX_HOST_APP_THREAD_PRIO" OptimizationCondition="equal"/> -->
 		<Argument Added="true" AddressOf="false" GenericType="simple" Name="AZRTOS_APP_MEM_ALLOCATION_METHOD_STANDALONE" OptimizationCondition="equal"/>
 		<Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_HOST_HUB" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_Host_Controller" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_HOST_AUDIO" OptimizationCondition="equal"/>
     </RefConfigFile>
     <RefConfigFile Added="true" Description="app_usbx_host.h file" Name="APP_USBXH_H" Template="azure_rtos/app_usbx_host_h.ftl" destinationFolder="USBX/App">
 		<File Category="header" Condition="all" Name="app_usbx_host.h"/>
-		<!-- <Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_Device_CoreStack" TypeName=""/> -->
-		<!-- <Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_Host_CoreStack" TypeName=""/> -->
 		<Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_HOST_CORE" OptimizationCondition="equal"/>
 		<Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_HOST_THREAD" OptimizationCondition="equal"/>
-		<Argument Added="true" AddressOf="false" GenericType="simple" Name="USBX_HOST_SYS_SIZE" OptimizationCondition="equal"/>
 		<Argument Added="true" AddressOf="false" GenericType="simple" Name="USBX_HOST_APP_THREAD_Size" OptimizationCondition="equal"/>
 		<Argument Added="true" AddressOf="false" GenericType="simple" Name="USBX_HOST_APP_THREAD_PRIO" OptimizationCondition="equal"/>
 		<Argument Added="true" AddressOf="false" GenericType="simple" Name="AZRTOS_APP_MEM_ALLOCATION_METHOD_STANDALONE" OptimizationCondition="equal"/>
@@ -694,11 +799,13 @@
 		<Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_HOST_Mass_Storage" OptimizationCondition="equal"/>
 		<Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_HOST_CDC_ACM" OptimizationCondition="equal"/>
 		<Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_HOST_HUB" OptimizationCondition="equal"/>
-		<Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_STANDALONE" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_HOST_AUDIO" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_STANDALONE" OptimizationCondition="equal"/>
 		<Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_HOST_APP_MEM_POOL_SIZE_STANDALONE" OptimizationCondition="equal"/>
-    </RefConfigFile>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_Host_Controller" OptimizationCondition="equal"/>
+	</RefConfigFile>
 	
-    <RefConfigFile Added="true" Description="app_usbx_device.c file" Name="APP_USBXD_C" Template="azure_rtos/app_usbx_device_c.ftl" destinationFolder="USBX/App">
+    <RefConfigFile Added="true" Description="app_usbx_device.c file" Name="APP_USBXD_C" Template="azure_rtos/app_usbx_device_drd_c.ftl" destinationFolder="USBX/App">
           <File Category="source" Condition="all" Name="app_usbx_device.c"/>
           <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_STANDALONE" OptimizationCondition="equal"/>
           <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBX_DEVICE_APP_THREAD_NAME" OptimizationCondition="equal"/>
@@ -719,6 +826,8 @@
 		  <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_DEVICE_VIDEO" OptimizationCondition="equal"/>
 		  <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_DEVICE_CCID" OptimizationCondition="equal"/>
 		  <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_DEVICE_PRINTER" OptimizationCondition="equal"/>
+          <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_DEVICE_AUDIO_PLAYBACK" OptimizationCondition="equal"/>
+          <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_DEVICE_AUDIO_RECORDING" OptimizationCondition="equal"/>
 		  <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_HID_MOUSE" OptimizationCondition="equal"/>
           <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_HID_KEYBOARD" OptimizationCondition="equal"/>
           <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_HID_CUSTOM" OptimizationCondition="equal"/>
@@ -731,19 +840,31 @@
 		  <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_VIDEO" OptimizationCondition="equal"/>
 		  <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_CCID" OptimizationCondition="equal"/>
 		  <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_PRINTER" OptimizationCondition="equal"/>
+		  <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_HID_MOUSE_PARAMETER_REPORT_ID" OptimizationCondition="equal"/>
+          <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_AUDIO_PLAYBACK" OptimizationCondition="equal"/>
+          <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_AUDIO_RECORDING" OptimizationCondition="equal"/>
+          <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_VIDEO" OptimizationCondition="equal"/>
+          <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_CCID" OptimizationCondition="equal"/>
+          <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_PRINTER" OptimizationCondition="equal"/>
+          <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_HID_MOUSE_PARAMETER_REPORT_ID" OptimizationCondition="equal"/>
+          <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_ENABLED_FS" OptimizationCondition="equal"/>
+          <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_ENABLED_HS" OptimizationCondition="equal"/>
+          <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_Device_Controller" OptimizationCondition="equal"/>
+          <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBD_AUDIO_CLASS" OptimizationCondition="equal"/>
+          <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_CLASS_AUDIO_INTERRUPT_SUPPORT" OptimizationCondition="equal"/>
+          <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_CLASS_AUDIO_FEEDBACK_SUPPORT" OptimizationCondition="equal"/>
+          <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_Device_Controller" OptimizationCondition="equal"/>
     </RefConfigFile>
     <RefConfigFile Added="true" Description="app_usbx_device.h file" Name="APP_USBXD_H" Template="azure_rtos/app_usbx_device_h.ftl" destinationFolder="USBX/App">
         <File Category="header" Condition="all" Name="app_usbx_device.h"/>
         <Argument AddressOf="true" Context="global" GenericType="struct" Name="UX_Device_CoreStack" TypeName=""/>
         <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_DEVICE_CORE" OptimizationCondition="equal"/>
         <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_DEVICE_THREAD" OptimizationCondition="equal"/>
-        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBX_DEVICE_SYS_SIZE" OptimizationCondition="equal"/>
         <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBX_DEVICE_APP_THREAD_PRIO" OptimizationCondition="equal"/>
         <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBX_DEVICE_APP_THREAD_Size" OptimizationCondition="equal"/>
         <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_USBX_DEVICE_CON_CK" OptimizationCondition="equal"/>
 		<Argument Added="true" AddressOf="false" GenericType="simple" Name="AZRTOS_APP_MEM_ALLOCATION_METHOD_STANDALONE" OptimizationCondition="equal"/>
         <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_STANDALONE" OptimizationCondition="equal"/>
-		<Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_APP_MEM_POOL_SIZE_STANDALONE" OptimizationCondition="equal"/>
         <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_Device_CoreStack" OptimizationCondition="equal"/>
 		<Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_HID_CORE" OptimizationCondition="equal"/>
 		<Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_HID_MOUSE" OptimizationCondition="equal"/>
@@ -757,7 +878,47 @@
         <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_PIMA_MTP" OptimizationCondition="equal"/>
 		<Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_VIDEO" OptimizationCondition="equal"/>
 		<Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_CCID" OptimizationCondition="equal"/>
-		<Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_PRINTER" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_PRINTER" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_DEVICE_AUDIO_PLAYBACK" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_DEVICE_AUDIO_RECORDING" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_AUDIO_PLAYBACK" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_AUDIO_RECORDING" OptimizationCondition="equal"/>
+    </RefConfigFile>
+	<RefConfigFile Added="true" Description="app_usbx.c file" Name="APP_USBX_C" Template="azure_rtos/app_usbx_c.ftl" destinationFolder="USBX/App">
+        <File Category="source" Condition="all" Name="app_usbx.c"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_STANDALONE" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="AZRTOS_APP_MEM_ALLOCATION_METHOD_STANDALONE" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_HOST_CORE" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_DEVICE_CORE" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBXDEVICE_ENABLED" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBXHOST_ENABLED" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_HOST_THREAD" OptimizationCondition="equal"/>
+		<Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_DEVICE_THREAD" OptimizationCondition="equal"/>
+		<Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_DEVICE_HID_MOUSE" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_DEVICE_HID_KEYBOARD" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_DEVICE_HID_CUSTOM" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_DEVICE_STORAGE" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_DEVICE_CDC_ACM" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_DEVICE_CDC_ECM" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_DEVICE_DFU" OptimizationCondition="equal"/>
+        <!-- <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_Device_CoreStack_FS" OptimizationCondition="equal"/> -->
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_DEVICE_RNDIS" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_DEVICE_PIMA_MTP" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_DEVICE_VIDEO" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_DEVICE_CCID" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_DEVICE_PRINTER" OptimizationCondition="equal"/>
+    </RefConfigFile>
+	
+    <RefConfigFile Added="true" Description="app_usbx.h file" Name="APP_USBX_H" Template="azure_rtos/app_usbx_h.ftl" destinationFolder="USBX/App">
+        <File Category="header" Condition="all" Name="app_usbx.h"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBXDEVICE_ENABLED" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBXHOST_ENABLED" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBX_SYS_SIZE" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_APP_MEM_POOL_SIZE_STANDALONE" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_STANDALONE" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="AZRTOS_APP_MEM_ALLOCATION_METHOD_STANDALONE" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_HOST_CORE" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="REG_UX_DEVICE_CORE" OptimizationCondition="equal"/>
     </RefConfigFile>
 	
 	<RefComponent Cclass="Middleware" Cgroup="USBX" Cversion="6Gg4Gg0">

@@ -3,7 +3,24 @@
 	xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance"
 	ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../../../doc/V4/Development/Specifications/db/IP_Modes.xsd"
 	xmlns="http://mcd.rou.st.com/modules.php?name=mcu">
-	<About>CORTEX_M33_S configuration</About>
+	<About>CORTEX_M33_NS configuration</About>
+	<RefMode Name="OTP/RO areas default mode Settings" Comment="OTP/RO areas default mode Settings" Group="OTP/RO areas default mode Settings">
+		<Condition Expression="STM32H5" Diagnostic="" />
+		<Parameter Name="default_mode_Activation" />
+	</RefMode>
+	<RefParameter Name="default_mode_Activation" Comment="Enable OTP/RO area cache disable" Type="list" DefaultValue="1" Group="OTP/RO areas default mode Settings">
+		<Condition Expression="S_H5_UNCACHE_OTP_RO_AREAS" Diagnostic="" />
+		<PossibleValue Value="1" Comment="Enabled" Semaphore="$IpInstance_S_H5_UNCACHE_OTP_RO_AREAS" />
+		<PossibleValue Value="0" Comment="Disabled" />
+		<Description>Enable/Disable MPU Speculation default mode.</Description>
+	</RefParameter>
+	<RefParameter Name="default_mode_Activation" Comment="Enable OTP/RO area cache disable" Type="list" DefaultValue="0" Group="OTP/RO areas default mode Settings">
+	<Condition Expression="!S_H5_UNCACHE_OTP_RO_AREAS" Diagnostic="" />
+		<PossibleValue Value="1" Comment="Enabled" Semaphore="$IpInstance_S_H5_UNCACHE_OTP_RO_AREAS" />
+		<PossibleValue Value="0" Comment="Disabled" />
+		<Description>Enable/Disable MPU Speculation default mode.</Description>
+	</RefParameter>
+	<RefParameter Name="default_mode_Activation" Comment="Enable OTP/RO area cache disable" Type="list" DefaultValue="null" Group="OTP/RO areas default mode Settings" Visible="false"/>
 	<RefParameter Comment="Flash Interface" DefaultValue="null" Name="FlashInterface" Type="list" Visible="false"></RefParameter>
 	<RefParameter Comment="Flash Interface" DefaultValue="AXI_Enabled" Name="FlashInterface" Type="list" Group="Cortex_Interface_Settings">
 		<PossibleValue Comment="TCM Interface" Value="TCM_Enabled" Semaphore="TCM_FlashInterfaceUsed" />
@@ -57,6 +74,16 @@
 		<Parameter Name="MPU_Control" />
 	</RefMode>
 	<RefParameter Name="MPU_Control" Comment="MPU Control Mode" Type="list" DefaultValue="__NULL" Group="Cortex_Memory_Protection_Unit_Region_Settings">
+		<Condition Expression="(!$IpInstance_S_H5_UNCACHE_OTP_RO_AREAS|!STM32H5)" Diagnostic="" />
+		<PossibleValue Value="__NULL" Comment="MPU NOT USED" Semaphore="$IpInstance_NOT_USED" />
+		<PossibleValue Value="MPU_HFNMI_PRIVDEF_NONE" Comment="Background Region Access Not Allowed + MPU Disabled during hard fault, NMI and FAULTMASK handlers" Semaphore="MPU_M33_NS_USED" />
+		<PossibleValue Value="MPU_HARDFAULT_NMI" Comment="Background Region Access Not Allowed + MPU Enabled during hard fault, NMI and FAULTMASK handlers" Semaphore="MPU_M33_NS_USED" />
+		<PossibleValue Value="MPU_PRIVILEGED_DEFAULT" Comment="Background Region Privileged accesses only + MPU Disabled during hard fault, NMI and FAULTMASK handlers" Semaphore="MPU_M33_NS_USED" />
+		<PossibleValue Value="MPU_HFNMI_PRIVDEF" Comment="Background Region Privileged accesses only + MPU Enabled during hard fault, NMI and FAULTMASK handlers" Semaphore="MPU_M33_NS_USED" />
+		<Description>Specifies the control mode of the MPU (in case MPU USED) during hard fault, NMI, FAULTMASK and privileged access to the default memory</Description>
+	</RefParameter>
+	<RefParameter Name="MPU_Control" Comment="MPU Control Mode" Type="list" DefaultValue="MPU_PRIVILEGED_DEFAULT" Group="Cortex_Memory_Protection_Unit_Region_Settings">
+		<Condition Expression="$IpInstance_S_H5_UNCACHE_OTP_RO_AREAS" Diagnostic="" />
 		<PossibleValue Value="__NULL" Comment="MPU NOT USED" Semaphore="$IpInstance_NOT_USED" />
 		<PossibleValue Value="MPU_HFNMI_PRIVDEF_NONE" Comment="Background Region Access Not Allowed + MPU Disabled during hard fault, NMI and FAULTMASK handlers" Semaphore="MPU_M33_NS_USED" />
 		<PossibleValue Value="MPU_HARDFAULT_NMI" Comment="Background Region Access Not Allowed + MPU Enabled during hard fault, NMI and FAULTMASK handlers" Semaphore="MPU_M33_NS_USED" />
@@ -66,12 +93,14 @@
 	</RefParameter>
 	<!-- MPU Region Configurations -->
 	<RefMode Name="Cortex_Memory_Protection_Unit_Region0_Settings" Comment="Cortex Memory Protection Unit Region 0 Settings" Group="Cortex Memory Protection Unit Region 0 Settings">
-		<Condition Expression="MPU_M33_NS_USED" Diagnostic="" />
+		<Condition Expression="MPU_M33_NS_USED &amp;(!$IpInstance_S_H5_UNCACHE_OTP_RO_AREAS|!STM32H5)" Diagnostic="" />
 		<ConfigForMode>MPU_ConfigRegion0</ConfigForMode>
-		<Parameter Name="Enable" />
+		<Parameter Name="Enable">
+			<PossibleValue Semaphore="MPU_M33_NS_Enabled_0">MPU_REGION_ENABLE</PossibleValue>
+			<PossibleValue >__NULL</PossibleValue>
+		</Parameter>
 		<Parameter Name="Number">
 			<PossibleValue>MPU_REGION_NUMBER0</PossibleValue>
-			<PossibleValue>__NULL</PossibleValue>
 		</Parameter>
 		<Parameter Name="BaseAddress" />
 		<Parameter Name="LimitAddress" />
@@ -80,13 +109,33 @@
 		<Parameter Name="DisableExec" />
 		<Parameter Name="IsShareable" />
 	</RefMode>
+		<RefMode Name="Cortex_Memory_Protection_Unit_Region0_OTP_RO_AREAS_Settings" Comment="Cortex Memory Protection Unit Region 0 Settings" Group="Cortex Memory Protection Unit Region 0 Settings">
+		<Condition Expression="MPU_M33_NS_USED &amp; $IpInstance_S_H5_UNCACHE_OTP_RO_AREAS" Diagnostic="" />
+		<ConfigForMode>MPU_ConfigRegion0_OTP_RO_AREAS</ConfigForMode>
+		<Parameter Name="Enable_OTP_RO_AREAS">
+			<PossibleValue Semaphore="MPU_M33_NS_Enabled_0_OTP_RO_AREAS">MPU_REGION_ENABLE</PossibleValue>
+			<PossibleValue>__NULL</PossibleValue>
+		</Parameter>
+		<Parameter Name="Number">
+			<PossibleValue>MPU_REGION_NUMBER0</PossibleValue>
+		</Parameter>
+		<Parameter Name="BaseAddress_OTP_RO_AREAS" />
+		<Parameter Name="LimitAddress_OTP_RO_AREAS" />
+		<Parameter Name="AttributesIndex_OTP_RO_AREAS" />
+		<Parameter Name="AccessPermission_OTP_RO_AREAS" />
+		<Parameter Name="DisableExec_OTP_RO_AREAS" />
+		<Parameter Name="IsShareable_OTP_RO_AREAS" />
+	    </RefMode>
 	<RefMode Name="Cortex_Memory_Protection_Unit_Region1_Settings" Comment="Cortex Memory Protection Unit Region 1 Settings" Group="Cortex Memory Protection Unit Region 1 Settings">
 		<Condition Expression="MPU_M33_NS_USED" Diagnostic="" />
 		<ConfigForMode>MPU_ConfigRegion1</ConfigForMode>
-		<Parameter Name="Enable" />
+		<Parameter Name="Enable">
+			<PossibleValue Semaphore="MPU_M33_NS_Enabled_1">MPU_REGION_ENABLE</PossibleValue>
+			<PossibleValue >__NULL</PossibleValue>
+		</Parameter>
 		<Parameter Name="Number">
 			<PossibleValue>MPU_REGION_NUMBER1</PossibleValue>
-			<PossibleValue>__NULL</PossibleValue>
+			<PossibleValue >__NULL</PossibleValue>
 		</Parameter>
 		<Parameter Name="BaseAddress" />
 		<Parameter Name="LimitAddress" />
@@ -98,10 +147,13 @@
 	<RefMode Name="Cortex_Memory_Protection_Unit_Region2_Settings" Comment="Cortex Memory Protection Unit Region 2 Settings" Group="Cortex Memory Protection Unit Region 2 Settings">
 		<Condition Expression="MPU_M33_NS_USED" Diagnostic="" />
 		<ConfigForMode>MPU_ConfigRegion2</ConfigForMode>
-		<Parameter Name="Enable" />
+		<Parameter Name="Enable">
+			<PossibleValue Semaphore="MPU_M33_NS_Enabled_2">MPU_REGION_ENABLE</PossibleValue>
+			<PossibleValue >__NULL</PossibleValue>
+		</Parameter>
 		<Parameter Name="Number">
 			<PossibleValue>MPU_REGION_NUMBER2</PossibleValue>
-			<PossibleValue>__NULL</PossibleValue>
+			<PossibleValue >__NULL</PossibleValue>
 		</Parameter>
 		<Parameter Name="BaseAddress" />
 		<Parameter Name="LimitAddress" />
@@ -113,10 +165,13 @@
 	<RefMode Name="Cortex_Memory_Protection_Unit_Region3_Settings" Comment="Cortex Memory Protection Unit Region 3 Settings" Group="Cortex Memory Protection Unit Region 3 Settings">
 		<Condition Expression="MPU_M33_NS_USED" Diagnostic="" />
 		<ConfigForMode>MPU_ConfigRegion3</ConfigForMode>
-		<Parameter Name="Enable" />
+		<Parameter Name="Enable">
+			<PossibleValue Semaphore="MPU_M33_NS_Enabled_3">MPU_REGION_ENABLE</PossibleValue>
+			<PossibleValue >__NULL</PossibleValue>
+		</Parameter>
 		<Parameter Name="Number">
 			<PossibleValue>MPU_REGION_NUMBER3</PossibleValue>
-			<PossibleValue>__NULL</PossibleValue>
+			<PossibleValue >__NULL</PossibleValue>
 		</Parameter>
 		<Parameter Name="BaseAddress" />
 		<Parameter Name="LimitAddress" />
@@ -128,10 +183,13 @@
 	<RefMode Name="Cortex_Memory_Protection_Unit_Region4_Settings" Comment="Cortex Memory Protection Unit Region 4 Settings" Group="Cortex Memory Protection Unit Region 4 Settings">
 		<Condition Expression="MPU_M33_NS_USED" Diagnostic="" />
 		<ConfigForMode>MPU_ConfigRegion4</ConfigForMode>
-		<Parameter Name="Enable" />
+		<Parameter Name="Enable">
+			<PossibleValue Semaphore="MPU_M33_NS_Enabled_4">MPU_REGION_ENABLE</PossibleValue>
+			<PossibleValue >__NULL</PossibleValue>
+		</Parameter>
 		<Parameter Name="Number">
 			<PossibleValue>MPU_REGION_NUMBER4</PossibleValue>
-			<PossibleValue>__NULL</PossibleValue>
+			<PossibleValue >__NULL</PossibleValue>
 		</Parameter>
 		<Parameter Name="BaseAddress" />
 		<Parameter Name="LimitAddress" />
@@ -143,10 +201,13 @@
 	<RefMode Name="Cortex_Memory_Protection_Unit_Region5_Settings" Comment="Cortex Memory Protection Unit Region 5 Settings" Group="Cortex Memory Protection Unit Region 5 Settings">
 		<Condition Expression="MPU_M33_NS_USED" Diagnostic="" />
 		<ConfigForMode>MPU_ConfigRegion5</ConfigForMode>
-		<Parameter Name="Enable" />
+		<Parameter Name="Enable">
+			<PossibleValue Semaphore="MPU_M33_NS_Enabled_5">MPU_REGION_ENABLE</PossibleValue>
+			<PossibleValue >__NULL</PossibleValue>
+		</Parameter>
 		<Parameter Name="Number">
 			<PossibleValue>MPU_REGION_NUMBER5</PossibleValue>
-			<PossibleValue>__NULL</PossibleValue>
+			<PossibleValue >__NULL</PossibleValue>
 		</Parameter>
 		<Parameter Name="BaseAddress" />
 		<Parameter Name="LimitAddress" />
@@ -158,10 +219,13 @@
 	<RefMode Name="Cortex_Memory_Protection_Unit_Region6_Settings" Comment="Cortex Memory Protection Unit Region 6 Settings" Group="Cortex Memory Protection Unit Region 6 Settings">
 		<Condition Expression="MPU_M33_NS_USED" Diagnostic="" />
 		<ConfigForMode>MPU_ConfigRegion6</ConfigForMode>
-		<Parameter Name="Enable" />
+		<Parameter Name="Enable">
+			<PossibleValue Semaphore="MPU_M33_NS_Enabled_6">MPU_REGION_ENABLE</PossibleValue>
+			<PossibleValue >__NULL</PossibleValue>
+		</Parameter>
 		<Parameter Name="Number">
 			<PossibleValue>MPU_REGION_NUMBER6</PossibleValue>
-			<PossibleValue>__NULL</PossibleValue>
+			<PossibleValue >__NULL</PossibleValue>
 		</Parameter>
 		<Parameter Name="BaseAddress" />
 		<Parameter Name="LimitAddress" />
@@ -173,10 +237,13 @@
 	<RefMode Name="Cortex_Memory_Protection_Unit_Region7_Settings" Comment="Cortex Memory Protection Unit Region 7 Settings" Group="Cortex Memory Protection Unit Region 7 Settings">
 		<Condition Expression="MPU_M33_NS_USED" Diagnostic="" />
 		<ConfigForMode>MPU_ConfigRegion7</ConfigForMode>
-		<Parameter Name="Enable" />
+		<Parameter Name="Enable">
+			<PossibleValue Semaphore="MPU_M33_NS_Enabled_7">MPU_REGION_ENABLE</PossibleValue>
+			<PossibleValue >__NULL</PossibleValue>
+		</Parameter>
 		<Parameter Name="Number">
 			<PossibleValue>MPU_REGION_NUMBER7</PossibleValue>
-			<PossibleValue>__NULL</PossibleValue>
+			<PossibleValue >__NULL</PossibleValue>
 		</Parameter>
 		<Parameter Name="BaseAddress" />
 		<Parameter Name="LimitAddress" />
@@ -189,8 +256,23 @@
 		<Condition Expression="!MPU_M33_NS_USED" Diagnostic="" />
 		<Parameter Name="Defaultmsg" />
 	</RefMode>
+	<RefMode Name="Cortex_Memory_Protection_Unit_Attributes0_OTP_RO_AREAS_Settings" Comment="Cortex Memory Protection Unit Attributes 0 Settings" Group="Cortex Memory Protection Unit Attributes 0 Settings">
+		<Condition Expression="MPU_M33_NS_USED &amp; $IpInstance_S_H5_UNCACHE_OTP_RO_AREAS" Diagnostic="" />
+		<ConfigForMode>MPU_ConfigMemoryAttributes0</ConfigForMode>
+		<Parameter Name="Attributes0">
+			<PossibleValue>MPU_ATTRIBUTES_NUMBER0</PossibleValue>
+			<PossibleValue>__NULL</PossibleValue>
+		</Parameter>
+		<Parameter Name="Memorytype0" />
+		<Parameter Name="LL_DeviceAttribute20" />
+		<Parameter Name="DeviceAttribute0" />
+		<Parameter Name="DeviceAttribute20" />
+		<Parameter Name="CacheableAttribute0" />
+		<Parameter Name="TransientAttribute0" />
+		<Parameter Name="AllocateAttribute0" />
+	</RefMode>
 	<RefMode Name="Cortex_Memory_Protection_Unit_Attributes0_Settings" Comment="Cortex Memory Protection Unit Attributes 0 Settings" Group="Cortex Memory Protection Unit Attributes 0 Settings">
-		<Condition Expression="MPU_M33_NS_USED" Diagnostic="" />
+		<Condition Expression="MPU_M33_NS_USED &amp; (!$IpInstance_S_H5_UNCACHE_OTP_RO_AREAS|!STM32H5)" Diagnostic="" />
 		<ConfigForMode>MPU_ConfigMemoryAttributes0</ConfigForMode>
 		<Parameter Name="Attributes0">
 			<PossibleValue>MPU_ATTRIBUTES_NUMBER0</PossibleValue>
@@ -302,6 +384,11 @@
 		<Parameter Name="TransientAttribute7" />
 		<Parameter Name="AllocateAttribute7" />
 	</RefMode>
+	<RefParameter Name="Enable_OTP_RO_AREAS" Comment="Region" Type="list" DefaultValue="MPU_REGION_ENABLE" Group="Cortex_Memory_Protection_Unit_Region_Settings">
+		<PossibleValue Value="MPU_REGION_ENABLE" Comment="Enabled" Semaphore="MPU_M33_NS_Enabled_OTP_RO_AREAS" />
+		<PossibleValue Value="__NULL" Comment="Disabled" />
+		<Description>Enable or disable region</Description>
+	</RefParameter>
 	<RefParameter Name="Enable" Comment="Region" Type="list" DefaultValue="__NULL" Group="Cortex_Memory_Protection_Unit_Region_Settings">
 		<PossibleValue Value="MPU_REGION_ENABLE" Comment="Enabled" Semaphore="MPU_M33_NS_Enabled" />
 		<PossibleValue Value="__NULL" Comment="Disabled" />
@@ -311,8 +398,14 @@
 		<Condition Expression="!MPU_M33_NS_USED" Diagnostic="" />
 		<Description>Specify MPU control mode (if MPU is used), then configure attributes.</Description>
 	</RefParameter>
+	<RefParameter Name="Attributes0" Comment="Attributes" Type="list" DefaultValue="MPU_ATTRIBUTES_NUMBER0" Group="Cortex_Memory_Protection_Unit_Attributes_Settings" TabName="Attributes Settings">
+		<Condition Expression="MPU_M33_NS_USED &amp; $IpInstance_S_H5_UNCACHE_OTP_RO_AREAS" Diagnostic="" />
+		<PossibleValue Value="MPU_ATTRIBUTES_NUMBER0" Comment="Enabled" Semaphore="MPU_ATTRIBUTES_ENABLED0_NS" />
+		<PossibleValue Value="__NULL" Comment="Disabled" Semaphore="NOT_USED0_NS" />
+		<Description>Specifies the memory attributes value.</Description>
+	</RefParameter>
 	<RefParameter Name="Attributes0" Comment="Attributes" Type="list" DefaultValue="__NULL" Group="Cortex_Memory_Protection_Unit_Attributes_Settings" TabName="Attributes Settings">
-		<Condition Expression="MPU_M33_NS_USED" Diagnostic="" />
+		<Condition Expression="MPU_M33_NS_USED &amp; (!$IpInstance_S_H5_UNCACHE_OTP_RO_AREAS|!STM32H5)" Diagnostic="" />
 		<PossibleValue Value="MPU_ATTRIBUTES_NUMBER0" Comment="Enabled" Semaphore="MPU_ATTRIBUTES_ENABLED0_NS" />
 		<PossibleValue Value="__NULL" Comment="Disabled" Semaphore="NOT_USED0_NS" />
 		<Description>Specifies the memory attributes value.</Description>
@@ -378,24 +471,44 @@
 		<PossibleValue Value="MPU_REGION_NUMBER11" Comment="Region 11" />
 		<Description>the index of the region to protect.</Description>
 	</RefParameter>
-	<RefParameter Name="BaseAddress" Comment="Region Base Address" DefaultValue="0x0" Max="=LimitAddress" Min="0x0" Type="hex" Group="Cortex_Memory_Protection_Unit_Region_Settings" >
-		<Condition Expression="MPU_M33_NS_Enabled" Diagnostic="" />
-		<Description>Specifies the base address of the region to protect</Description>
+	<RefParameter Name="BaseAddress_OTP_RO_AREAS" Comment="Region Base Address" DefaultValue="0x08FFF000" Max="0x08FFFFFF" Min="0x0" Type="hex" Group="Cortex_Memory_Protection_Unit_Region_Settings">
+		<Condition Expression="MPU_M33_NS_Enabled_OTP_RO_AREAS" Diagnostic="" />
+		<Description>The limit address must be updated first, while the base address must be between 0x0 and the limit address.</Description>
 	</RefParameter>
-	 <RefParameter Name="BaseAddress" Comment="Region Base Address" DefaultValue="null" Max="=LimitAddress" Min="0x0" Type="hex" Group="Cortex_Memory_Protection_Unit_Region_Settings" Visible="false" >
+	<RefParameter Name="BaseAddress" Comment="Region Base Address" DefaultValue="0x0" Max="=LimitAddress" Min="0x0" Type="hex" Group="Cortex_Memory_Protection_Unit_Region_Settings">
+		<Condition Expression="MPU_M33_NS_Enabled" Diagnostic="" />
+		<Description>The limit address must be updated first, while the base address must be between 0x0 and the limit address.</Description>
+	</RefParameter>
+	 <RefParameter Name="BaseAddress" Comment="Region Base Address" DefaultValue="null" Max="=LimitAddress" Min="0x0" Type="hex" Group="Cortex_Memory_Protection_Unit_Region_Settings" Visible="false">
 		<Condition Expression="!MPU_M33_NS_Enabled" Diagnostic="" />
 	</RefParameter>
-	<RefParameter Name="LimitAddress" Comment="Region Limit Address" DefaultValue="0x0" Max="0xFFFFFFE0" Min="0x0" Type="hex" Group="Cortex_Memory_Protection_Unit_Region_Settings"  >
+	<RefParameter Name="LimitAddress_OTP_RO_AREAS" Comment="Region Limit Address" DefaultValue="0x08FFFFFF" Max="0xFFFFFFE0" Min="0x0" Type="hex" Group="Cortex_Memory_Protection_Unit_Region_Settings">
+		<Condition Expression="MPU_M33_NS_Enabled_OTP_RO_AREAS" Diagnostic="" />
+		<Description>Specifies the limit address of the region to protect</Description>
+	</RefParameter>
+	<RefParameter Name="LimitAddress" Comment="Region Limit Address" DefaultValue="0x0" Max="0xFFFFFFE0" Min="0x0" Type="hex" Group="Cortex_Memory_Protection_Unit_Region_Settings">
 		<Condition Expression="MPU_M33_NS_Enabled" Diagnostic="" />
 		<Description>Specifies the limit address of the region to protect</Description>
 	</RefParameter>
 	<RefParameter Name="LimitAddress" Comment="Region Limit Address" DefaultValue="null" Max="0xFFFFFFE0" Min="0x0" Type="hex" Group="Cortex_Memory_Protection_Unit_Region_Settings" Visible="false" >
 		<Condition Expression="!MPU_M33_NS_Enabled" Diagnostic="" />
 	</RefParameter>
-	<RefParameter Name="AttributesIndex" Comment="MPU Attributes Number" Type="list" DefaultValue="__NULL" Group="Cortex_Memory_Protection_Unit_Region_Settings" Visible="false">
+	<RefParameter Name="AttributesIndex" Comment="Attributes Number" Type="list" DefaultValue="__NULL" Group="Cortex_Memory_Protection_Unit_Region_Settings" Visible="false">
 		<Condition Expression="!MPU_M33_NS_Enabled" Diagnostic="" />
 	</RefParameter>
-	<RefParameter Name="AttributesIndex" Comment="Attributes Number" Type="list" DefaultValue="MPU_ATTRIBUTES_NUMBER0" Group="Cortex_Memory_Protection_Unit_Region_Settings" Visible="true">
+	<RefParameter Name="AttributesIndex_OTP_RO_AREAS" Comment="Attributes Number" Type="list" DefaultValue="MPU_ATTRIBUTES_NUMBER0" Group="Cortex_Memory_Protection_Unit_Region_Settings" Visible="true">
+		<Condition Expression="MPU_M33_NS_Enabled_OTP_RO_AREAS" Diagnostic="" />
+		<PossibleValue Value="MPU_ATTRIBUTES_NUMBER0" Comment="ATTRIBUTE 0" Action="Disable" Condition="!MPU_ATTRIBUTES_ENABLED0_NS" Diagnostic="this value is not available until the associated attribute is configured in Attributes Settings Tab" />
+		<PossibleValue Value="MPU_ATTRIBUTES_NUMBER1" Comment="ATTRIBUTE 1" Action="Disable" Condition="!MPU_ATTRIBUTES_ENABLED1_NS" Diagnostic="this value is not available until the associated attribute is configured in Attributes Settings Tab" />
+		<PossibleValue Value="MPU_ATTRIBUTES_NUMBER2" Comment="ATTRIBUTE 2" Action="Disable" Condition="!MPU_ATTRIBUTES_ENABLED2_NS" Diagnostic="this value is not available until the associated attribute is configured in Attributes Settings Tab" />
+		<PossibleValue Value="MPU_ATTRIBUTES_NUMBER3" Comment="ATTRIBUTE 3" Action="Disable" Condition="!MPU_ATTRIBUTES_ENABLED3_NS" Diagnostic="this value is not available until the associated attribute is configured in Attributes Settings Tab" />
+		<PossibleValue Value="MPU_ATTRIBUTES_NUMBER4" Comment="ATTRIBUTE 4" Action="Disable" Condition="!MPU_ATTRIBUTES_ENABLED4_NS" Diagnostic="this value is not available until the associated attribute is configured in Attributes Settings Tab" />
+		<PossibleValue Value="MPU_ATTRIBUTES_NUMBER5" Comment="ATTRIBUTE 5" Action="Disable" Condition="!MPU_ATTRIBUTES_ENABLED5_NS" Diagnostic="this value is not available until the associated attribute is configured in Attributes Settings Tab" />
+		<PossibleValue Value="MPU_ATTRIBUTES_NUMBER6" Comment="ATTRIBUTE 6" Action="Disable" Condition="!MPU_ATTRIBUTES_ENABLED6_NS" Diagnostic="this value is not available until the associated attribute is configured in Attributes Settings Tab" />
+		<PossibleValue Value="MPU_ATTRIBUTES_NUMBER7" Comment="ATTRIBUTE 7" Action="Disable" Condition="!MPU_ATTRIBUTES_ENABLED7_NS" Diagnostic="this value is not available until the associated attribute is configured in Attributes Settings Tab" />
+		<Description>Specifies the memory attributes index.</Description>
+	</RefParameter>
+		<RefParameter Name="AttributesIndex" Comment="Attributes Number" Type="list" DefaultValue="MPU_ATTRIBUTES_NUMBER0" Group="Cortex_Memory_Protection_Unit_Region_Settings" Visible="true">
 		<Condition Expression="MPU_M33_NS_Enabled" Diagnostic="" />
 		<PossibleValue Value="MPU_ATTRIBUTES_NUMBER0" Comment="ATTRIBUTE 0" Action="Disable" Condition="!MPU_ATTRIBUTES_ENABLED0_NS" Diagnostic="this value is not available until the associated attribute is configured in Attributes Settings Tab" />
 		<PossibleValue Value="MPU_ATTRIBUTES_NUMBER1" Comment="ATTRIBUTE 1" Action="Disable" Condition="!MPU_ATTRIBUTES_ENABLED1_NS" Diagnostic="this value is not available until the associated attribute is configured in Attributes Settings Tab" />
@@ -410,16 +523,30 @@
 	<RefParameter Name="AccessPermission" Comment="Access Permission" Type="list" DefaultValue="null" Group="Cortex_Memory_Protection_Unit_Region_Settings" Visible="false">
 		<Condition Expression="!MPU_M33_NS_Enabled" Diagnostic="" />
 	</RefParameter>
+	<RefParameter Name="AccessPermission_OTP_RO_AREAS" Comment="Access Permission" Type="list" DefaultValue="MPU_REGION_ALL_RO" Group="Cortex_Memory_Protection_Unit_Region_Settings">
+		<Condition Expression="MPU_M33_NS_Enabled_OTP_RO_AREAS" Diagnostic="" />
+		<PossibleValue Value="MPU_REGION_PRIV_RW" Comment="Privileged-only READS/WRITES Permissions" />
+		<PossibleValue Value="MPU_REGION_ALL_RW" Comment="ALL READS/WRITES Permissions" />
+		<PossibleValue Value="MPU_REGION_PRIV_RO" Comment="Privileged-only READS Permissions" />
+		<PossibleValue Value="MPU_REGION_ALL_RO" Comment="ALL READS Permissions" />
+		<Description>Specifies the region access permission type</Description>
+	</RefParameter>
 	<RefParameter Name="AccessPermission" Comment="Access Permission" Type="list" DefaultValue="MPU_REGION_NO_ACCESS" Group="Cortex_Memory_Protection_Unit_Region_Settings">
 		<Condition Expression="MPU_M33_NS_Enabled" Diagnostic="" />
-		<PossibleValue Value="MPU_REGION_PRIV_RW" Comment="READS\WRITES Permissions" />
-		<PossibleValue Value="MPU_REGION_ALL_RW" Comment="ALL READS\WRITES Permissions" />
-		<PossibleValue Value="MPU_REGION_PRIV_RO" Comment="READS Permissions" />
+		<PossibleValue Value="MPU_REGION_PRIV_RW" Comment="Privileged-only READS/WRITES Permissions" />
+		<PossibleValue Value="MPU_REGION_ALL_RW" Comment="ALL READS/WRITES Permissions" />
+		<PossibleValue Value="MPU_REGION_PRIV_RO" Comment="Privileged-only READS Permissions" />
 		<PossibleValue Value="MPU_REGION_ALL_RO" Comment="ALL READS Permissions" />
 		<Description>Specifies the region access permission type</Description>
 	</RefParameter>
 	<RefParameter Name="DisableExec" Comment="Instruction Access" Type="list" DefaultValue="null" Group="Cortex_Memory_Protection_Unit_Region_Settings" Visible="false">
 		<Condition Expression="!MPU_M33_NS_Enabled" Diagnostic="" />
+	</RefParameter>
+	<RefParameter Name="DisableExec_OTP_RO_AREAS" Comment="Instruction Access" Type="list" DefaultValue="MPU_INSTRUCTION_ACCESS_DISABLE" Group="Cortex_Memory_Protection_Unit_Region_Settings">
+		<Condition Expression="MPU_M33_NS_Enabled_OTP_RO_AREAS" Diagnostic="" />
+		<PossibleValue Value="MPU_INSTRUCTION_ACCESS_ENABLE" Comment="Enable" />
+		<PossibleValue Value="MPU_INSTRUCTION_ACCESS_DISABLE" Comment="Disable" />
+		<Description>Specifies the instruction access status</Description>
 	</RefParameter>
 	<RefParameter Name="DisableExec" Comment="Instruction Access" Type="list" DefaultValue="MPU_INSTRUCTION_ACCESS_ENABLE" Group="Cortex_Memory_Protection_Unit_Region_Settings">
 		<Condition Expression="MPU_M33_NS_Enabled" Diagnostic="" />
@@ -429,6 +556,13 @@
 	</RefParameter>
 	<RefParameter Name="IsShareable" Comment="Shareability Permission" Type="list" DefaultValue="null" Group="Cortex_Memory_Protection_Unit_Region_Settings" Visible="false">
 		<Condition Expression="!MPU_M33_NS_Enabled" Diagnostic="" />
+	</RefParameter>
+	<RefParameter Name="IsShareable_OTP_RO_AREAS" Comment="Shareability Permission" Type="list" DefaultValue="MPU_ACCESS_NOT_SHAREABLE" Group="Cortex_Memory_Protection_Unit_Region_Settings">
+		<Condition Expression="MPU_M33_NS_Enabled_OTP_RO_AREAS" Diagnostic="" />
+		<PossibleValue Value="MPU_ACCESS_NOT_SHAREABLE" Comment="Disable" />
+		<PossibleValue Value="MPU_ACCESS_OUTER_SHAREABLE" Comment="Outer Shareable" />
+		<PossibleValue Value="MPU_ACCESS_INNER_SHAREABLE" Comment="Inner Shareable" />
+		<Description>Specifies the shareability status of the protected region</Description>
 	</RefParameter>
 	<RefParameter Name="IsShareable" Comment="Shareability Permission" Type="list" DefaultValue="MPU_ACCESS_NOT_SHAREABLE" Group="Cortex_Memory_Protection_Unit_Region_Settings">
 		<Condition Expression="MPU_M33_NS_Enabled" Diagnostic="" />
@@ -494,7 +628,7 @@
 		<Description>Specifies the memory attributes value.</Description>
 	</RefParameter>
 	<RefParameter Name="DeviceAttribute0" Comment="Device" Type="list" DefaultValue="MPU_DEVICE_nGnRnE" Group="Cortex_Memory_Protection_Unit_Region_NSettings" TabName="Attributes Settings">
-		<Condition Expression="MPU_MEMORY_DEVICE0_NS &amp; (STM32WBA|STM32H5)" Diagnostic="" />
+		<Condition Expression="MPU_MEMORY_DEVICE0_NS &amp; (STM32WBA|STM32H5|DIE49A)" Diagnostic="" />
 		<PossibleValue Value="MPU_DEVICE_nGnRnE" Comment="DEVICE nGnRnE" />
 		<PossibleValue Value="MPU_DEVICE_nGnRE" Comment="DEVICE nGnRE" />
 		<PossibleValue Value="MPU_DEVICE_nGRE" Comment="DEVICE nGRE" />
@@ -510,7 +644,7 @@
 		<Description>Specifies the memory attributes value.</Description>
 	</RefParameter>
 	<RefParameter Name="DeviceAttribute1" Comment="Device" Type="list" DefaultValue="MPU_DEVICE_nGnRnE" Group="Cortex_Memory_Protection_Unit_Region_NSettings" TabName="Attributes Settings">
-		<Condition Expression="MPU_MEMORY_DEVICE1_NS &amp; (STM32WBA|STM32H5)" Diagnostic="" />
+		<Condition Expression="MPU_MEMORY_DEVICE1_NS &amp; (STM32WBA|STM32H5|DIE49A)" Diagnostic="" />
 		<PossibleValue Value="MPU_DEVICE_nGnRnE" Comment="DEVICE nGnRnE" />
 		<PossibleValue Value="MPU_DEVICE_nGnRE" Comment="DEVICE nGnRE" />
 		<PossibleValue Value="MPU_DEVICE_nGRE" Comment="DEVICE nGRE" />
@@ -526,7 +660,7 @@
 		<Description>Specifies the memory attributes value.</Description>
 	</RefParameter>
 	<RefParameter Name="DeviceAttribute2" Comment="Device" Type="list" DefaultValue="MPU_DEVICE_nGnRnE" Group="Cortex_Memory_Protection_Unit_Region_NSettings" TabName="Attributes Settings">
-		<Condition Expression="MPU_MEMORY_DEVICE2_NS &amp; (STM32WBA|STM32H5)" Diagnostic="" />
+		<Condition Expression="MPU_MEMORY_DEVICE2_NS &amp; (STM32WBA|STM32H5|DIE49A)" Diagnostic="" />
 		<PossibleValue Value="MPU_DEVICE_nGnRnE" Comment="DEVICE nGnRnE" />
 		<PossibleValue Value="MPU_DEVICE_nGnRE" Comment="DEVICE nGnRE" />
 		<PossibleValue Value="MPU_DEVICE_nGRE" Comment="DEVICE nGRE" />
@@ -542,7 +676,7 @@
 		<Description>Specifies the memory attributes value.</Description>
 	</RefParameter>
 	<RefParameter Name="DeviceAttribute3" Comment="Device" Type="list" DefaultValue="MPU_DEVICE_nGnRnE" Group="Cortex_Memory_Protection_Unit_Region_NSettings" TabName="Attributes Settings">
-		<Condition Expression="MPU_MEMORY_DEVICE3_NS &amp; (STM32WBA|STM32H5)" Diagnostic="" />
+		<Condition Expression="MPU_MEMORY_DEVICE3_NS &amp; (STM32WBA|STM32H5|DIE49A)" Diagnostic="" />
 		<PossibleValue Value="MPU_DEVICE_nGnRnE" Comment="DEVICE nGnRnE" />
 		<PossibleValue Value="MPU_DEVICE_nGnRE" Comment="DEVICE nGnRE" />
 		<PossibleValue Value="MPU_DEVICE_nGRE" Comment="DEVICE nGRE" />
@@ -558,7 +692,7 @@
 		<Description>Specifies the memory attributes value.</Description>
 	</RefParameter>
 	<RefParameter Name="DeviceAttribute4" Comment="Device" Type="list" DefaultValue="MPU_DEVICE_nGnRnE" Group="Cortex_Memory_Protection_Unit_Region_NSettings" TabName="Attributes Settings">
-		<Condition Expression="MPU_MEMORY_DEVICE4_NS &amp; (STM32WBA|STM32H5)" Diagnostic="" />
+		<Condition Expression="MPU_MEMORY_DEVICE4_NS &amp; (STM32WBA|STM32H5|DIE49A)" Diagnostic="" />
 		<PossibleValue Value="MPU_DEVICE_nGnRnE" Comment="DEVICE nGnRnE" />
 		<PossibleValue Value="MPU_DEVICE_nGnRE" Comment="DEVICE nGnRE" />
 		<PossibleValue Value="MPU_DEVICE_nGRE" Comment="DEVICE nGRE" />
@@ -574,7 +708,7 @@
 		<Description>Specifies the memory attributes value.</Description>
 	</RefParameter>
 	<RefParameter Name="DeviceAttribute5" Comment="Device" Type="list" DefaultValue="MPU_DEVICE_nGnRnE" Group="Cortex_Memory_Protection_Unit_Region_NSettings" TabName="Attributes Settings">
-		<Condition Expression="MPU_MEMORY_DEVICE5_NS &amp; (STM32WBA|STM32H5)" Diagnostic="" />
+		<Condition Expression="MPU_MEMORY_DEVICE5_NS &amp; (STM32WBA|STM32H5|DIE49A)" Diagnostic="" />
 		<PossibleValue Value="MPU_DEVICE_nGnRnE" Comment="DEVICE nGnRnE" />
 		<PossibleValue Value="MPU_DEVICE_nGnRE" Comment="DEVICE nGnRE" />
 		<PossibleValue Value="MPU_DEVICE_nGRE" Comment="DEVICE nGRE" />
@@ -590,7 +724,7 @@
 		<Description>Specifies the memory attributes value.</Description>
 	</RefParameter>
 	<RefParameter Name="DeviceAttribute6" Comment="Device" Type="list" DefaultValue="MPU_DEVICE_nGnRnE" Group="Cortex_Memory_Protection_Unit_Region_NSettings" TabName="Attributes Settings">
-		<Condition Expression="MPU_MEMORY_DEVICE6_NS &amp; (STM32WBA|STM32H5)" Diagnostic="" />
+		<Condition Expression="MPU_MEMORY_DEVICE6_NS &amp; (STM32WBA|STM32H5|DIE49A)" Diagnostic="" />
 		<PossibleValue Value="MPU_DEVICE_nGnRnE" Comment="DEVICE nGnRnE" />
 		<PossibleValue Value="MPU_DEVICE_nGnRE" Comment="DEVICE nGnRE" />
 		<PossibleValue Value="MPU_DEVICE_nGRE" Comment="DEVICE nGRE" />
@@ -606,7 +740,7 @@
 		<Description>Specifies the memory attributes value.</Description>
 	</RefParameter>
 	<RefParameter Name="DeviceAttribute7" Comment="Device" Type="list" DefaultValue="MPU_DEVICE_nGnRnE" Group="Cortex_Memory_Protection_Unit_Region_NSettings" TabName="Attributes Settings">
-		<Condition Expression="MPU_MEMORY_DEVICE7_NS &amp; (STM32WBA|STM32H5)" Diagnostic="" />
+		<Condition Expression="MPU_MEMORY_DEVICE7_NS &amp; (STM32WBA|STM32H5|DIE49A)" Diagnostic="" />
 		<PossibleValue Value="MPU_DEVICE_nGnRnE" Comment="DEVICE nGnRnE" />
 		<PossibleValue Value="MPU_DEVICE_nGnRE" Comment="DEVICE nGnRE" />
 		<PossibleValue Value="MPU_DEVICE_nGRE" Comment="DEVICE nGRE" />
@@ -1049,7 +1183,7 @@
 		<Description>Specifies the memory attributes value.</Description>
 	</RefParameter>
 	<ModeLogicOperator Name="OR">
-		<Mode Name="SysTick" UserName="SysTick Source Selection" RemoveDisable="true" RemoveCondition="(!STM32WBA) &amp; (!STM32H5)">
+		<Mode Name="SysTick" UserName="SysTick Source Selection" RemoveDisable="true" RemoveCondition="(!STM32WBA) &amp; (!STM32H5) &amp; (!STM32U3) &amp; (!DIE49A)">
 			<ModeLogicOperator Name="XOR">
 				<Mode Name="Hclk_Mode" UserName="HCLK">
 					<SignalLogicalOp Name="AND">

@@ -1875,7 +1875,7 @@
     </RefParameter>
 
     <RefParameter Visible="false" Name="RTCTZEnable" Comment="RTC" Type="list" DefaultValue="true" IP="RTC">
-        <Condition Expression="RTCUsed_ForRCC &amp; RTC_SECURE &amp; !S_LPBAM_CONF" Diagnostic="Disabled if RTC is used"/>
+        <Condition Expression="RTCUsed_ForRCC &amp; RTC_SECURE &amp; !S_LPBAM_CONF &amp; (RTC_SECURE_YES | RTC_SECURE_INIT | RTC_SECURE_ALRB | RTC_SECURE_ALRA | RTC_SECURE_CAL  | RTC_NONSECURE_FEATURE_TS | RTC_SECURE_WUT)" Diagnostic="Disabled if RTC is used"/>
         <PossibleValue Value="true" Comment="true"/>
     </RefParameter>
     <RefParameter Visible="false" Name="RTCTZEnable" Comment="RTC" Type="list" DefaultValue="false" IP="RTC">
@@ -3972,10 +3972,10 @@
         <Condition Expression="USE_ADC1 &amp;ADC1UsedAsynchronousCLK_ForRCC &amp; !ADCSourcePLL2R" Diagnostic="ADC Activated"/>
     </RefParameter>
     <RefParameter Visible="false" Name="PeriphClockSelectionARG" Comment="Peripherals clock selection" IP="ADC2" Type="list" DefaultValue="RCC_PERIPHCLK_ADCDAC">
-        <Condition Expression="USE_ADC2 &amp;ADCUsed_ForRCC &amp; (PLL2NbUsed &lt; 2)" Diagnostic="ADC Activated"/>
+        <Condition Expression="USE_ADC2 &amp;ADC2UsedAsynchronousCLK_ForRCC &amp; (PLL2NbUsed &lt; 2)" Diagnostic="ADC Activated"/>
     </RefParameter>
     <RefParameter Visible="false" Name="PeriphClockSelectionARG" Comment="Peripherals clock selection" IP="ADC2" Type="list" DefaultValue="RCC_PERIPHCLK_ADCDAC">
-        <Condition Expression="USE_ADC2&amp;ADCUsed_ForRCC &amp; !ADCSourcePLL2R" Diagnostic="ADC Activated"/>
+        <Condition Expression="USE_ADC2&amp;ADC2UsedAsynchronousCLK_ForRCC &amp; !ADCSourcePLL2R" Diagnostic="ADC Activated"/>
     </RefParameter>
     <RefParameter Visible="false" Name="PeriphClockSelectionARG" Comment="Peripherals clock selection" IP="ADC4" Type="list" DefaultValue="RCC_PERIPHCLK_ADCDAC">
         <Condition Expression="USE_ADC4 &amp;ADCUsed_ForRCC &amp; (PLL2NbUsed &lt; 2)" Diagnostic="ADC Activated"/>
@@ -4361,10 +4361,10 @@
         <Condition Expression="(USE_ADC1 &amp;ADC1UsedAsynchronousCLK_ForRCC) &amp; !ADCSourcePLL2R" Diagnostic="ADC Activated"/>
     </RefParameter>
     <RefParameter Visible="false" Name="ADCClockSelectionARG" Comment="ADCClockSelectionARG" IP="ADC2" Type="list" DefaultValue="+ADCCLockSelection">
-        <Condition Expression="(USE_ADC2&amp;ADCUsed_ForRCC) &amp; (PLL2NbUsed &lt; 2)" Diagnostic="ADC Activated"/>
+        <Condition Expression="(USE_ADC2&amp;ADC2UsedAsynchronousCLK_ForRCC) &amp; (PLL2NbUsed &lt; 2)" Diagnostic="ADC Activated"/>
     </RefParameter>
     <RefParameter Visible="false" Name="ADCClockSelectionARG" Comment="ADCClockSelectionARG" IP="ADC2" Type="list" DefaultValue="+ADCCLockSelection">
-        <Condition Expression="(USE_ADC2&amp;ADCUsed_ForRCC) &amp; !ADCSourcePLL2R" Diagnostic="ADC Activated"/>
+        <Condition Expression="(USE_ADC2&amp;ADC2UsedAsynchronousCLK_ForRCC) &amp; !ADCSourcePLL2R" Diagnostic="ADC Activated"/>
     </RefParameter>
     <RefParameter Visible="false" Name="ADCClockSelectionARG" Comment="ADCClockSelectionARG" IP="ADC4" Type="list" DefaultValue="+ADCCLockSelection">
         <Condition Expression="(USE_ADC4 &amp;ADCUsed_ForRCC) &amp; (PLL2NbUsed &lt; 2)" Diagnostic="ADC Activated"/>
@@ -5723,6 +5723,7 @@
         <Parameter Name="SPI1CLockSelection"/>
         <Parameter Name="SPI2CLockSelection"/>
         <Parameter Name="SPI3CLockSelection"/>
+        <Parameter Name="RTCTZEnable"/>
         <Parameter Name="rccPrivilegeSecure">
             <Condition Diagnostic="" Expression="!S_LPBAM_CONF"/>
         </Parameter>

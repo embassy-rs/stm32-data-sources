@@ -65,7 +65,7 @@
   </RefParameter>
   <!-- ICACHE synchronize with ICACHE Secure mode -->
   <RefParameter Name="ICACHE_Secure" Comment="ICACHE" DefaultValue="GTZC_TZSC_PERIPH_SEC" Type="list" Group="Secureable Peripherals" TabName="TrustZone Security Controller - Securable Peripherals">
-    <Condition Expression="S_ICACHE_REG_Secure" Diagnostic="pre-selected all Peripheral Secured"/>
+    <Condition Expression="S_ICACHE_REG_Secure | S_All_IP_Secured" Diagnostic="pre-selected all Peripheral Secured"/>
     <PossibleValue Value="GTZC_TZSC_PERIPH_SEC" Comment="secured" Semaphore="ICACHE_GTZC_SECURE"/>
     <PossibleValue Value="GTZC_TZSC_PERIPH_NSEC" Comment="not secured"/>
   </RefParameter>
@@ -249,7 +249,7 @@
   <RefParameter Name="MPCWM1_Area1_Desc" Comment="Area 1 Descriptor" DefaultValue="MPCWM1_Area1_Desc" Type="string" Visible="false"/>
   <RefParameter Name="MPCWM1_Area1_Max" Comment="Area 1 Max" DefaultValue="0x10000000" Type="hex" Min="0x10000000" Max="0x10000000" Visible="false"/>
   <RefParameter Name="MPCWM1_Area1_Start_Address" Comment="Area 1 Start Address" DefaultValue="0x90000000" Type="hex" Min="=(MPCWM1_Area_OCTOSPI1_BASE)" Max="=(MPCWM1_Area1_Max + MPCWM1_Area_OCTOSPI1_BASE - MPCWM1_Area1_BlockSize)"  Visible="false"/>
-  <RefParameter Name="MPCWM1_Area1_Start" Comment="Area 1 Start Offset" DefaultValue="=0x0" Type="Hex" Min="0x0" Max="MPCWM1_Area1_Max" NoCheckOpt="false" Visible="true"/>
+  <RefParameter Name="MPCWM1_Area1_Start" Comment="Area 1 Start Offset" DefaultValue="=0x0" Type="hex" Min="0x0" Max="MPCWM1_Area1_Max" NoCheckOpt="false" Visible="true"/>
   <RefParameter Name="MPCWM1_Area1_Size" Comment="Area 1 Size" DefaultValue="0x10000000" Type="hex" Min="0x0" Max="=(MPCWM1_Area1_Max - MPCWM1_Area1_Start)">
     <Condition Expression="S_No_MPCWM1_Secured" Diagnostic="pre-selected no MPCWM1 Secured"/>
     <Description>0x0 : use the default HW configuration (secured and privileged memory)</Description>
@@ -288,7 +288,7 @@
   <RefParameter Name="MPCWM1_Area2_Desc" Comment="Area 2 Descriptor" DefaultValue="MPCWM1_Area2_Desc" Type="string" Visible="false"/>
   <RefParameter Name="MPCWM1_Area2_Max" Comment="Area 2 Max" DefaultValue="0x10000000" Type="hex" Min="0x10000000" Max="0x10000000" Visible="false"/>
   <RefParameter Name="MPCWM1_Area2_Start_Address" Comment="Area 2 Start Address" DefaultValue="0x90000000" Type="hex" Min="=(MPCWM1_Area_OCTOSPI1_BASE)" Max="=(MPCWM1_Area2_Max + MPCWM1_Area_OCTOSPI1_BASE - MPCWM1_Area2_BlockSize)" Visible="false"/>
-  <RefParameter Name="MPCWM1_Area2_Start" Comment="Area 2 Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCWM1_Area2_Max" NoCheckOpt="false"/>
+  <RefParameter Name="MPCWM1_Area2_Start" Comment="Area 2 Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCWM1_Area2_Max" NoCheckOpt="false"/>
   <RefParameter Name="MPCWM1_Area2_Size" Comment="Area 2 Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="=(MPCWM1_Area2_Max - MPCWM1_Area2_Start)">
     <Description>0x0 : use the default HW configuration (secured and privileged memory)</Description>
   </RefParameter>
@@ -332,7 +332,7 @@
   <RefParameter Name="MPCWM2_Area1_Desc" Comment="Area 1 Descriptor" DefaultValue="MPCWM2_Area1_Desc" Type="string" Visible="false"/>
   <RefParameter Name="MPCWM2_Area1_Max" Comment="Area 1 Max" DefaultValue="0x10000000" Type="hex" Min="0x10000000" Max="0x10000000" Visible="false"/>
   <RefParameter Name="MPCWM2_Area1_Start_Address" Comment="Area 1 Start Address" DefaultValue="0x60000000" Type="hex" Min="=(MPCWM2_Area_FMC_BANK1)" Max="=(MPCWM2_Area1_Max + MPCWM2_Area_FMC_BANK1 - MPCWM2_Area1_BlockSize)" Visible="false"/>
-  <RefParameter Name="MPCWM2_Area1_Start" Comment="Area 1 Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCWM2_Area1_Max" NoCheckOpt="false"/>
+  <RefParameter Name="MPCWM2_Area1_Start" Comment="Area 1 Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCWM2_Area1_Max" NoCheckOpt="false"/>
   <RefParameter Name="MPCWM2_Area1_Size" Comment="Area 1 Size" DefaultValue="0x10000000" Type="hex" Min="0x0" Max="=(MPCWM2_Area1_Max - MPCWM2_Area1_Start)">
     <Condition Expression="S_No_MPCWM2_Secured" Diagnostic="pre-selected no MPCWM2 Secured"/>
     <Description>0x0 : use the default HW configuration (secured and privileged memory)</Description>
@@ -371,7 +371,7 @@
   <RefParameter Name="MPCWM2_Area2_Desc" Comment="Area 2 Descriptor" DefaultValue="MPCWM2_Area2_Desc" Type="string" Visible="false"/>
   <RefParameter Name="MPCWM2_Area2_Max" Comment="Area 2 Max" DefaultValue="0x10000000" Type="hex" Min="0x10000000" Max="0x10000000" Visible="false"/>
   <RefParameter Name="MPCWM2_Area2_Start_Address" Comment="Area 2 Start Address" DefaultValue="0x60000000" Type="hex" Min="=(MPCWM2_Area_FMC_BANK1)" Max="=(MPCWM2_Area2_Max + MPCWM2_Area_FMC_BANK1 - MPCWM2_Area2_BlockSize)" Visible="false"/>
-  <RefParameter Name="MPCWM2_Area2_Start" Comment="Area 2 Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCWM2_Area2_Max" NoCheckOpt="false"/>
+  <RefParameter Name="MPCWM2_Area2_Start" Comment="Area 2 Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCWM2_Area2_Max" NoCheckOpt="false"/>
   <RefParameter Name="MPCWM2_Area2_Size" Comment="Area 2 Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="=(MPCWM2_Area2_Max - MPCWM2_Area2_Start)">
     <Description>0x0 : use the default HW configuration (secured and privileged memory)</Description>
   </RefParameter>
@@ -415,7 +415,7 @@
   <RefParameter Name="MPCWM3_Area_Desc" Comment="Area Descriptor" DefaultValue="MPCWM3_Area_Desc" Type="string" Visible="false"/>
   <RefParameter Name="MPCWM3_Area_Max" Comment="Area Max" DefaultValue="0x10000000" Type="hex" Min="0x10000000" Max="0x10000000" Visible="false"/>
   <RefParameter Name="MPCWM3_Area_Start_Address" Comment="Area Start Address" DefaultValue="0x80000000" Type="hex" Min="=(MPCWM3_Area_FMC_BANK3)" Max="=(MPCWM3_Area_Max + MPCWM3_Area_FMC_BANK3 - MPCWM3_Area_BlockSize)" Visible="false"/>
-  <RefParameter Name="MPCWM3_Area_Start" Comment="Area Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCWM3_Area_Max" NoCheckOpt="false"/>
+  <RefParameter Name="MPCWM3_Area_Start" Comment="Area Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCWM3_Area_Max" NoCheckOpt="false"/>
   <RefParameter Name="MPCWM3_Area_Size" Comment="Area Size" DefaultValue="0x10000000" Type="hex" Min="0x0" Max="=(MPCWM3_Area_Max - MPCWM3_Area_Start)">
     <Condition Expression="S_No_MPCWM3_Secured" Diagnostic="pre-selected no MPCWM3 Secured"/>
     <Description>0x0 : use the default HW configuration (secured and privileged memory)</Description>
@@ -463,7 +463,7 @@
   <RefParameter Name="MPCWM4_Area_Desc" Comment="Area Descriptor" DefaultValue="MPCWM4_Area_Desc" Type="string" Visible="false"/>
   <RefParameter Name="MPCWM4_Area_Max" Comment="Area Max" DefaultValue="0x800" Type="hex" Min="0x800" Max="0x800" Visible="false"/>
   <RefParameter Name="MPCWM4_Area_Start_Address" Comment="Area Start Address" DefaultValue="0x40036400" Type="hex" Min="=(MPCWM4_Area_BKPSRAM_BASE)" Max="=(MPCWM4_Area_Max + MPCWM4_Area_BKPSRAM_BASE - MPCWM4_Area_BlockSize)" Visible="false"/>
-  <RefParameter Name="MPCWM4_Area_Start" Comment="Area Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCWM4_Area_Max" NoCheckOpt="false"/>
+  <RefParameter Name="MPCWM4_Area_Start" Comment="Area Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCWM4_Area_Max" NoCheckOpt="false"/>
   <RefParameter Name="MPCWM4_Area_Size" Comment="Area Size" DefaultValue="0x800" Type="hex" Min="0x0" Max="=(MPCWM4_Area_Max - MPCWM4_Area_Start)">
     <Condition Expression="S_No_MPCWM4_Secured" Diagnostic="pre-selected no MPCWM4 Secured"/>
     <Description>0x0 : use the default HW configuration (secured and privileged memory)</Description>
@@ -511,7 +511,7 @@
   <RefParameter Name="MPCWM5_Area1_Desc" Comment="Area 1 Descriptor" DefaultValue="MPCWM5_Area1_Desc" Type="string" Visible="false"/>
   <RefParameter Name="MPCWM5_Area1_Max" Comment="Area 1 Max" DefaultValue="0x10000000" Type="hex" Min="0x10000000" Max="0x10000000" Visible="false"/>
   <RefParameter Name="MPCWM5_Area1_Start_Address" Comment="Area 1 Start Address" DefaultValue="0x70000000" Type="hex" Min="=(MPCWM5_Area_OCTOSPI2_BASE)" Max="=(MPCWM5_Area1_Max + MPCWM5_Area_OCTOSPI2_BASE - MPCWM5_Area1_BlockSize)" Visible="false"/>
-  <RefParameter Name="MPCWM5_Area1_Start" Comment="Area 1 Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCWM5_Area1_Max" NoCheckOpt="false"/>
+  <RefParameter Name="MPCWM5_Area1_Start" Comment="Area 1 Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCWM5_Area1_Max" NoCheckOpt="false"/>
   <RefParameter Name="MPCWM5_Area1_Size" Comment="Area 1 Size" DefaultValue="0x10000000" Type="hex" Min="0x0" Max="=(MPCWM5_Area1_Max - MPCWM5_Area1_Start)">
     <Condition Expression="S_No_MPCWM5_Secured" Diagnostic="pre-selected no MPCWM5 Secured"/>
     <Description>0x0 : use the default HW configuration (secured and privileged memory)</Description>
@@ -550,7 +550,7 @@
   <RefParameter Name="MPCWM5_Area2_Desc" Comment="Area 2 Descriptor" DefaultValue="MPCWM5_Area2_Desc" Type="string" Visible="false"/>
   <RefParameter Name="MPCWM5_Area2_Max" Comment="Area 2 Max" DefaultValue="0x10000000" Type="hex" Min="0x10000000" Max="0x10000000" Visible="false"/>
   <RefParameter Name="MPCWM5_Area2_Start_Address" Comment="Area 2 Start Address" DefaultValue="0x70000000" Type="hex" Min="=(MPCWM5_Area_OCTOSPI2_BASE)" Max="=(MPCWM5_Area2_Max + MPCWM5_Area_OCTOSPI2_BASE - MPCWM5_Area2_BlockSize)" Visible="false"/>
-  <RefParameter Name="MPCWM5_Area2_Start" Comment="Area 2 Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCWM5_Area2_Max" NoCheckOpt="false"/>
+  <RefParameter Name="MPCWM5_Area2_Start" Comment="Area 2 Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCWM5_Area2_Max" NoCheckOpt="false"/>
   <RefParameter Name="MPCWM5_Area2_Size" Comment="Area 2 Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="=(MPCWM5_Area2_Max - MPCWM5_Area2_Start)">
     <Description>0x0 : use the default HW configuration (secured and privileged memory)</Description>
   </RefParameter>
@@ -633,18 +633,18 @@
   <RefParameter Name="MPCBB1_Area_Start_Address" Comment="Area Start Address" DefaultValue="=MPCBB1_Area_SRAM1_BASE_NS" Type="hex" Min="=(MPCBB1_Area_SRAM1_BASE_NS)" Max="=(MPCBB1_Area_Max + MPCBB1_Area_SRAM1_BASE_NS - MPCBB1_Area_BlockSize)" NoCheckOpt="false" Visible="false">
     <Condition Expression="($IpInstance=GTZC)" Diagnostic="GTZC"/>
   </RefParameter>
-  <RefParameter Name="MPCBB1_Area_Start_Address" Comment="Area Start Address" DefaultValue="=GTZC_S:MPCBB1_Area_Start_Address" Type="StringHex" Min="=(MPCBB1_Area_SRAM1_BASE_NS)" Max="=(MPCBB1_Area_Max + MPCBB1_Area_SRAM1_BASE_NS - MPCBB1_Area_BlockSize)" NoCheckOpt="false" Visible="false">
+  <RefParameter Name="MPCBB1_Area_Start_Address" Comment="Area Start Address" DefaultValue="=GTZC_S:MPCBB1_Area_Start_Address" Type="stringHex" Min="=(MPCBB1_Area_SRAM1_BASE_NS)" Max="=(MPCBB1_Area_Max + MPCBB1_Area_SRAM1_BASE_NS - MPCBB1_Area_BlockSize)" NoCheckOpt="false" Visible="false">
     <Condition Expression="!($IpInstance=GTZC_S)" Diagnostic="only modifiable from GTZC_S Peripheral"/>
   </RefParameter>
   <RefParameter Name="MPCBB1_Area_Start_Address" Comment="Area Start Address" DefaultValue="=MPCBB1_Area_SRAM1_BASE_NS" Type="hex" Min="=MPCBB1_Area_SRAM1_BASE_NS" Max="=MPCBB1_Area_SRAM1_BASE_NS" NoCheckOpt="false" Visible="false">
     <Condition Expression="S_Default_MPCBB1_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
   </RefParameter>
   <RefParameter Name="MPCBB1_Area_Start_Address" Comment="Area Start Address" DefaultValue="=MPCBB1_Area_SRAM1_BASE_NS" Type="hex" Min="=(MPCBB1_Area_SRAM1_BASE_NS)" Max="=(MPCBB1_Area_Max + MPCBB1_Area_SRAM1_BASE_NS - MPCBB1_Area_BlockSize)" NoCheckOpt="false" Visible="false"/>
-  <RefParameter Name="MPCBB1_Area_Start" Comment="Area Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCBB1_Area_Max" NoCheckOpt="false" Visible="false"/>
+  <RefParameter Name="MPCBB1_Area_Start" Comment="Area Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB1_Area_Max" NoCheckOpt="false" Visible="false"/>
   <RefParameter Name="MPCBB1_Area_Size" Comment="Area Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="=(MPCBB1_Area_Max - MPCBB1_Area_Start)" NoCheckOpt="false" Visible="false">
     <Condition Expression="($IpInstance=GTZC)" Diagnostic="GTZC"/>
   </RefParameter>
-  <RefParameter Name="MPCBB1_Area_Size" Comment="Area Size" DefaultValue="=GTZC_S:MPCBB1_Area_Size" Type="StringHex" Min="0x0" Max="=(MPCBB1_Area_Max - MPCBB1_Area_Start)" NoCheckOpt="false" Visible="false">
+  <RefParameter Name="MPCBB1_Area_Size" Comment="Area Size" DefaultValue="=GTZC_S:MPCBB1_Area_Size" Type="stringHex" Min="0x0" Max="=(MPCBB1_Area_Max - MPCBB1_Area_Start)" NoCheckOpt="false" Visible="false">
     <Condition Expression="!($IpInstance=GTZC_S)" Diagnostic="only modifiable from GTZC_S Peripheral"/>
   </RefParameter>
   <RefParameter Name="MPCBB1_Area_Size" Comment="Area Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="0x0" NoCheckOpt="false" Visible="false">
@@ -664,7 +664,7 @@
     <Condition Expression="S_Default_MPCBB1_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
   </RefParameter>
   <RefParameter Name="MPCBB1_Area_Secure_Start_Address" Comment="    Area Start Address" DefaultValue="=MPCBB1_Area_Start_Address" Type="hex" Min="=(MPCBB1_Area_SRAM1_BASE_NS)" Max="=(MPCBB1_Area_Max + MPCBB1_Area_SRAM1_BASE_NS - MPCBB1_Area_BlockSize)" NoCheckOpt="false" Visible="false"/>
-  <RefParameter Name="MPCBB1_Area_Secure_Start" Comment="    Area Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCBB1_Area_Max" NoCheckOpt="false"/>
+  <RefParameter Name="MPCBB1_Area_Secure_Start" Comment="    Area Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB1_Area_Max" NoCheckOpt="false"/>
   <RefParameter Name="MPCBB1_Area_Secure_Size" Comment="    Area Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="0x0" NoCheckOpt="false">
     <Condition Expression="S_Default_MPCBB1_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
     <Description>0x0 : use the default HW configuration (secured memory)</Description>
@@ -677,7 +677,7 @@
   <RefParameter Name="MPCBB1_Area_Secure_NbSuperBlock" Comment="    Area Nb Super-Block" DefaultValue="=(MPCBB1_Area_Max / MPCBB1_Area_Secure_SuperBlockSize)" Type="integer" Min="=(MPCBB1_Area_Max / MPCBB1_Area_Secure_SuperBlockSize)" Max="=(MPCBB1_Area_Max / MPCBB1_Area_Secure_SuperBlockSize)" Visible="false"/>
 
   <RefParameter Name="MPCBB1_Area_Privilege_Start_Address" Comment="    Area Start Address" DefaultValue="=MPCBB1_Area_Start_Address" Type="hex" Min="=(MPCBB1_Area_SRAM1_BASE_NS)" Max="=(MPCBB1_Area_Max + MPCBB1_Area_SRAM1_BASE_NS - MPCBB1_Area_BlockSize)" NoCheckOpt="false" Visible="false"/>
-  <RefParameter Name="MPCBB1_Area_Privilege_Start" Comment="    Area Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCBB1_Area_Max" NoCheckOpt="false"/>
+  <RefParameter Name="MPCBB1_Area_Privilege_Start" Comment="    Area Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB1_Area_Max" NoCheckOpt="false"/>
   <RefParameter Name="MPCBB1_Area_Privilege_Size" Comment="    Area Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="=(MPCBB1_Area_Max - MPCBB1_Area_Privilege_Start)" NoCheckOpt="false">
     <Description>0x0 : use the default HW configuration (privileged memory)</Description>
   </RefParameter>
@@ -724,18 +724,18 @@
   <RefParameter Name="MPCBB1_Area_Start_Address" Comment="Area Start Address" DefaultValue="=MPCBB1_Area_SRAM1_BASE_NS" Type="hex" Min="=(MPCBB1_Area_SRAM1_BASE_NS)" Max="=(MPCBB1_Area_Max + MPCBB1_Area_SRAM1_BASE_NS - MPCBB1_Area_BlockSize)" NoCheckOpt="false" Visible="false">
     <Condition Expression="($IpInstance=GTZC)" Diagnostic="GTZC"/>
   </RefParameter>
-  <RefParameter Name="MPCBB1_Area_Start_Address" Comment="Area Start Address" DefaultValue="=GTZC_S:MPCBB1_Area_Start_Address" Type="StringHex" Min="=(MPCBB1_Area_SRAM1_BASE_NS)" Max="=(MPCBB1_Area_Max + MPCBB1_Area_SRAM1_BASE_NS - MPCBB1_Area_BlockSize)" NoCheckOpt="false" Visible="false">
+  <RefParameter Name="MPCBB1_Area_Start_Address" Comment="Area Start Address" DefaultValue="=GTZC_S:MPCBB1_Area_Start_Address" Type="stringHex" Min="=(MPCBB1_Area_SRAM1_BASE_NS)" Max="=(MPCBB1_Area_Max + MPCBB1_Area_SRAM1_BASE_NS - MPCBB1_Area_BlockSize)" NoCheckOpt="false" Visible="false">
     <Condition Expression="!($IpInstance=GTZC_S)" Diagnostic="only modifiable from GTZC_S Peripheral"/>
   </RefParameter>
   <RefParameter Name="MPCBB1_Area_Start_Address" Comment="Area Start Address" DefaultValue="=MPCBB1_Area_SRAM1_BASE_NS" Type="hex" Min="=MPCBB1_Area_SRAM1_BASE_NS" Max="=MPCBB1_Area_SRAM1_BASE_NS" NoCheckOpt="false" Visible="false">
     <Condition Expression="S_Default_MPCBB1_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
   </RefParameter>
   <RefParameter Name="MPCBB1_Area_Start_Address" Comment="Area Start Address" DefaultValue="=MPCBB1_Area_SRAM1_BASE_NS" Type="hex" Min="=(MPCBB1_Area_SRAM1_BASE_NS)" Max="=(MPCBB1_Area_Max + MPCBB1_Area_SRAM1_BASE_NS - MPCBB1_Area_BlockSize)" NoCheckOpt="false" Visible="false"/>
-  <RefParameter Name="MPCBB1_Area_Start" Comment="Area Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCBB1_Area_Max" NoCheckOpt="false" Visible="false"/>
+  <RefParameter Name="MPCBB1_Area_Start" Comment="Area Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB1_Area_Max" NoCheckOpt="false" Visible="false"/>
   <RefParameter Name="MPCBB1_Area_Size" Comment="Area Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="=(MPCBB1_Area_Max - MPCBB1_Area_Start)" NoCheckOpt="false" Visible="false">
     <Condition Expression="($IpInstance=GTZC)" Diagnostic="GTZC"/>
   </RefParameter>
-  <RefParameter Name="MPCBB1_Area_Size" Comment="Area Size" DefaultValue="=GTZC_S:MPCBB1_Area_Size" Type="StringHex" Min="0x0" Max="=(MPCBB1_Area_Max - MPCBB1_Area_Start)" NoCheckOpt="false" Visible="false">
+  <RefParameter Name="MPCBB1_Area_Size" Comment="Area Size" DefaultValue="=GTZC_S:MPCBB1_Area_Size" Type="stringHex" Min="0x0" Max="=(MPCBB1_Area_Max - MPCBB1_Area_Start)" NoCheckOpt="false" Visible="false">
     <Condition Expression="!($IpInstance=GTZC_S)" Diagnostic="only modifiable from GTZC_S Peripheral"/>
   </RefParameter>
   <RefParameter Name="MPCBB1_Area_Size" Comment="Area Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="0x0" NoCheckOpt="false" Visible="false">
@@ -755,7 +755,7 @@
     <Condition Expression="S_Default_MPCBB1_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
   </RefParameter>
   <RefParameter Name="MPCBB1_Area_Secure_Start_Address" Comment="    Area Start Address" DefaultValue="=MPCBB1_Area_Start_Address" Type="hex" Min="=(MPCBB1_Area_SRAM1_BASE_NS)" Max="=(MPCBB1_Area_Max + MPCBB1_Area_SRAM1_BASE_NS - MPCBB1_Area_BlockSize)" NoCheckOpt="false" Visible="false"/>
-  <RefParameter Name="MPCBB1_Area_Secure_Start" Comment="    Area Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCBB1_Area_Max" NoCheckOpt="false"/>
+  <RefParameter Name="MPCBB1_Area_Secure_Start" Comment="    Area Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB1_Area_Max" NoCheckOpt="false"/>
   <RefParameter Name="MPCBB1_Area_Secure_Size" Comment="    Area Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="0x0" NoCheckOpt="false">
     <Condition Expression="S_Default_MPCBB1_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
     <Description>0x0 : use the default HW configuration (secured memory)</Description>
@@ -768,7 +768,7 @@
   <RefParameter Name="MPCBB1_Area_Secure_NbSuperBlock" Comment="    Area Nb Super-Block" DefaultValue="=(MPCBB1_Area_Max / MPCBB1_Area_Secure_SuperBlockSize)" Type="integer" Min="=(MPCBB1_Area_Max / MPCBB1_Area_Secure_SuperBlockSize)" Max="=(MPCBB1_Area_Max / MPCBB1_Area_Secure_SuperBlockSize)" Visible="false"/>
 
   <RefParameter Name="MPCBB1_Area_Privilege_Start_Address" Comment="    Area Start Address" DefaultValue="=MPCBB1_Area_Start_Address" Type="hex" Min="=(MPCBB1_Area_SRAM1_BASE_NS)" Max="=(MPCBB1_Area_Max + MPCBB1_Area_SRAM1_BASE_NS - MPCBB1_Area_BlockSize)" NoCheckOpt="false" Visible="false"/>
-  <RefParameter Name="MPCBB1_Area_Privilege_Start" Comment="    Area Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCBB1_Area_Max" NoCheckOpt="false"/>
+  <RefParameter Name="MPCBB1_Area_Privilege_Start" Comment="    Area Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB1_Area_Max" NoCheckOpt="false"/>
   <RefParameter Name="MPCBB1_Area_Privilege_Size" Comment="    Area Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="=(MPCBB1_Area_Max - MPCBB1_Area_Privilege_Start)" NoCheckOpt="false">
     <Description>0x0 : use the default HW configuration (privileged memory)</Description>
   </RefParameter>
@@ -810,18 +810,18 @@
   <RefParameter Name="MPCBB1_Area2_Start_Address" Comment="Area 2 Start Address" DefaultValue="=MPCBB1_Area_SRAM1_BASE_NS" Type="hex" Min="=(MPCBB1_Area_SRAM1_BASE_NS)" Max="=(MPCBB1_Area_Max + MPCBB1_Area_SRAM1_BASE_NS - MPCBB1_Area2_BlockSize)" NoCheckOpt="false" Visible="false">
     <Condition Expression="($IpInstance=GTZC)" Diagnostic="GTZC"/>
   </RefParameter>
-  <RefParameter Name="MPCBB1_Area2_Start_Address" Comment="Area 2 Start Address" DefaultValue="=GTZC_S:MPCBB1_Area2_Start_Address" Type="StringHex" Min="=(MPCBB1_Area_SRAM1_BASE_NS)" Max="=(MPCBB1_Area_Max + MPCBB1_Area_SRAM1_BASE_NS - MPCBB1_Area2_BlockSize)" NoCheckOpt="false" Visible="false">
+  <RefParameter Name="MPCBB1_Area2_Start_Address" Comment="Area 2 Start Address" DefaultValue="=GTZC_S:MPCBB1_Area2_Start_Address" Type="stringHex" Min="=(MPCBB1_Area_SRAM1_BASE_NS)" Max="=(MPCBB1_Area_Max + MPCBB1_Area_SRAM1_BASE_NS - MPCBB1_Area2_BlockSize)" NoCheckOpt="false" Visible="false">
     <Condition Expression="!($IpInstance=GTZC_S)" Diagnostic="only modifiable from GTZC_S Peripheral"/>
   </RefParameter>
   <RefParameter Name="MPCBB1_Area2_Start_Address" Comment="Area 2 Start Address" DefaultValue="=MPCBB1_Area_SRAM1_BASE_NS" Type="hex" Min="=MPCBB1_Area_SRAM1_BASE_NS" Max="=MPCBB1_Area_SRAM1_BASE_NS" NoCheckOpt="false" Visible="false">
     <Condition Expression="S_Default_MPCBB1_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
   </RefParameter>
   <RefParameter Name="MPCBB1_Area2_Start_Address" Comment="Area 2 Start Address" DefaultValue="=MPCBB1_Area_SRAM1_BASE_NS" Type="hex" Min="=(MPCBB1_Area_SRAM1_BASE_NS)" Max="=(MPCBB1_Area_Max + MPCBB1_Area_SRAM1_BASE_NS - MPCBB1_Area2_BlockSize)" NoCheckOpt="false" Visible="false"/>
-  <RefParameter Name="MPCBB1_Area2_Start" Comment="Area 2 Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCBB1_Area_Max" NoCheckOpt="false" Visible="false"/>
+  <RefParameter Name="MPCBB1_Area2_Start" Comment="Area 2 Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB1_Area_Max" NoCheckOpt="false" Visible="false"/>
   <RefParameter Name="MPCBB1_Area2_Size" Comment="Area 2 Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="=(MPCBB1_Area_Max - MPCBB1_Area2_Start)" NoCheckOpt="false" Visible="false">
     <Condition Expression="($IpInstance=GTZC)" Diagnostic="GTZC"/>
   </RefParameter>
-  <RefParameter Name="MPCBB1_Area2_Size" Comment="Area 2 Size" DefaultValue="=GTZC_S:MPCBB1_Area2_Size" Type="StringHex" Min="0x0" Max="=(MPCBB1_Area_Max - MPCBB1_Area2_Start)" NoCheckOpt="false" Visible="false">
+  <RefParameter Name="MPCBB1_Area2_Size" Comment="Area 2 Size" DefaultValue="=GTZC_S:MPCBB1_Area2_Size" Type="stringHex" Min="0x0" Max="=(MPCBB1_Area_Max - MPCBB1_Area2_Start)" NoCheckOpt="false" Visible="false">
     <Condition Expression="!($IpInstance=GTZC_S)" Diagnostic="only modifiable from GTZC_S Peripheral"/>
   </RefParameter>
   <RefParameter Name="MPCBB1_Area2_Size" Comment="Area 2 Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="0x0" NoCheckOpt="false" Visible="false">
@@ -837,7 +837,7 @@
     <Condition Expression="S_Default_MPCBB1_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
   </RefParameter>
   <RefParameter Name="MPCBB1_Area2_Secure_Start_Address" Comment="    Area 2 Start Address" DefaultValue="=MPCBB1_Area2_Start_Address" Type="hex" Min="=(MPCBB1_Area_SRAM1_BASE_NS)" Max="=(MPCBB1_Area_Max + MPCBB1_Area_SRAM1_BASE_NS - MPCBB1_Area2_BlockSize)" NoCheckOpt="false" Visible="false"/>
-  <RefParameter Name="MPCBB1_Area2_Secure_Start" Comment="    Area 2 Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCBB1_Area_Max" NoCheckOpt="false"/>
+  <RefParameter Name="MPCBB1_Area2_Secure_Start" Comment="    Area 2 Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB1_Area_Max" NoCheckOpt="false"/>
   <RefParameter Name="MPCBB1_Area2_Secure_Size" Comment="    Area 2 Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="0x0" NoCheckOpt="false">
     <Condition Expression="S_Default_MPCBB1_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
     <Description>0x0 : use the default HW configuration (secured memory)</Description>
@@ -852,7 +852,7 @@
 
 
   <RefParameter Name="MPCBB1_Area2_Privilege_Start_Address" Comment="    Area 2 Start Address" DefaultValue="=MPCBB1_Area2_Start_Address" Type="hex" Min="=(MPCBB1_Area_SRAM1_BASE_NS)" Max="=(MPCBB1_Area_Max + MPCBB1_Area_SRAM1_BASE_NS - MPCBB1_Area2_BlockSize)" NoCheckOpt="false" Visible="false"/>
-  <RefParameter Name="MPCBB1_Area2_Privilege_Start" Comment="    Area 2 Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCBB1_Area_Max" NoCheckOpt="false"/>
+  <RefParameter Name="MPCBB1_Area2_Privilege_Start" Comment="    Area 2 Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB1_Area_Max" NoCheckOpt="false"/>
   <RefParameter Name="MPCBB1_Area2_Privilege_Size" Comment="    Area 2 Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="=(MPCBB1_Area_Max - MPCBB1_Area2_Privilege_Start)" NoCheckOpt="false">
     <Description>0x0 : use the default HW configuration (privileged memory)</Description>
   </RefParameter>
@@ -896,18 +896,18 @@
   <RefParameter Name="MPCBB2_Area_Start_Address" Comment="Area Start Address" DefaultValue="=MPCBB2_Area_SRAM2_BASE_NS" Type="hex" Min="=(MPCBB2_Area_SRAM2_BASE_NS)" Max="=(MPCBB2_Area_Max + MPCBB2_Area_SRAM2_BASE_NS - MPCBB2_Area_BlockSize)" NoCheckOpt="false" Visible="false">
     <Condition Expression="($IpInstance=GTZC)" Diagnostic="GTZC"/>
   </RefParameter>
-  <RefParameter Name="MPCBB2_Area_Start_Address" Comment="Area Start Address" DefaultValue="=GTZC_S:MPCBB2_Area_Start_Address" Type="StringHex" Min="=(MPCBB2_Area_SRAM2_BASE_NS)" Max="=(MPCBB2_Area_Max + MPCBB2_Area_SRAM2_BASE_NS - MPCBB2_Area_BlockSize)" NoCheckOpt="false" Visible="false">
+  <RefParameter Name="MPCBB2_Area_Start_Address" Comment="Area Start Address" DefaultValue="=GTZC_S:MPCBB2_Area_Start_Address" Type="stringHex" Min="=(MPCBB2_Area_SRAM2_BASE_NS)" Max="=(MPCBB2_Area_Max + MPCBB2_Area_SRAM2_BASE_NS - MPCBB2_Area_BlockSize)" NoCheckOpt="false" Visible="false">
     <Condition Expression="!($IpInstance=GTZC_S)" Diagnostic="only modifiable from GTZC_S Peripheral"/>
   </RefParameter>
   <RefParameter Name="MPCBB2_Area_Start_Address" Comment="Area Start Address" DefaultValue="=MPCBB2_Area_SRAM2_BASE_NS" Type="hex" Min="=MPCBB2_Area_SRAM2_BASE_NS" Max="=MPCBB2_Area_SRAM2_BASE_NS" NoCheckOpt="false" Visible="false">
     <Condition Expression="S_Default_MPCBB2_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
   </RefParameter>
   <RefParameter Name="MPCBB2_Area_Start_Address" Comment="Area Start Address" DefaultValue="=MPCBB2_Area_SRAM2_BASE_NS" Type="hex" Min="=(MPCBB2_Area_SRAM2_BASE_NS)" Max="=(MPCBB2_Area_Max + MPCBB2_Area_SRAM2_BASE_NS - MPCBB2_Area_BlockSize)" NoCheckOpt="false" Visible="false"/>
-  <RefParameter Name="MPCBB2_Area_Start" Comment="Area Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCBB2_Area_Max" NoCheckOpt="false" Visible="false"/>
+  <RefParameter Name="MPCBB2_Area_Start" Comment="Area Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB2_Area_Max" NoCheckOpt="false" Visible="false"/>
   <RefParameter Name="MPCBB2_Area_Size" Comment="Area Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="=(MPCBB2_Area_Max - MPCBB2_Area_Start)" NoCheckOpt="false" Visible="false">
     <Condition Expression="($IpInstance=GTZC)" Diagnostic="GTZC"/>
   </RefParameter>
-  <RefParameter Name="MPCBB2_Area_Size" Comment="Area Size" DefaultValue="=GTZC_S:MPCBB2_Area_Size" Type="StringHex" Min="0x0" Max="=(MPCBB2_Area_Max - MPCBB2_Area_Start)" NoCheckOpt="false" Visible="false">
+  <RefParameter Name="MPCBB2_Area_Size" Comment="Area Size" DefaultValue="=GTZC_S:MPCBB2_Area_Size" Type="stringHex" Min="0x0" Max="=(MPCBB2_Area_Max - MPCBB2_Area_Start)" NoCheckOpt="false" Visible="false">
     <Condition Expression="!($IpInstance=GTZC_S)" Diagnostic="only modifiable from GTZC_S Peripheral"/>
   </RefParameter>
   <RefParameter Name="MPCBB2_Area_Size" Comment="Area Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="0x0" NoCheckOpt="false" Visible="false">
@@ -927,10 +927,10 @@
     <Condition Expression="S_Default_MPCBB2_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
   </RefParameter>
   <RefParameter Name="MPCBB2_Area_Secure_Start_Address" Comment="    Area Start Address" DefaultValue="=MPCBB2_Area_Start_Address" Type="hex" Min="=(MPCBB2_Area_SRAM2_BASE_NS)" Max="=(MPCBB2_Area_Max + MPCBB2_Area_SRAM2_BASE_NS - MPCBB2_Area_BlockSize)" NoCheckOpt="false" Visible="false"/>
-  <RefParameter Name="MPCBB2_Area_Secure_Start" Comment="    Area Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="0x0" NoCheckOpt="false">
+  <RefParameter Name="MPCBB2_Area_Secure_Start" Comment="    Area Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="0x0" NoCheckOpt="false">
     <Condition Expression="S_Default_MPCBB2_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
   </RefParameter>
-  <RefParameter Name="MPCBB2_Area_Secure_Start" Comment="    Area Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCBB2_Area_Max" NoCheckOpt="false"/>
+  <RefParameter Name="MPCBB2_Area_Secure_Start" Comment="    Area Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB2_Area_Max" NoCheckOpt="false"/>
   <RefParameter Name="MPCBB2_Area_Secure_Size" Comment="    Area Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="0x0" NoCheckOpt="false">
     <Condition Expression="S_Default_MPCBB2_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
     <Description>0x0 : use the default HW configuration (secured memory)</Description>
@@ -943,7 +943,7 @@
   <RefParameter Name="MPCBB2_Area_Secure_NbSuperBlock" Comment="    Area Nb Super-Block" DefaultValue="=(MPCBB2_Area_Max / MPCBB2_Area_Secure_SuperBlockSize)" Type="integer" Min="=(MPCBB2_Area_Max / MPCBB2_Area_Secure_SuperBlockSize)" Max="=(MPCBB2_Area_Max / MPCBB2_Area_Secure_SuperBlockSize)" Visible="false"/>
 
   <RefParameter Name="MPCBB2_Area_Privilege_Start_Address" Comment="    Area Start Address" DefaultValue="=MPCBB2_Area_Start_Address" Type="hex" Min="=(MPCBB2_Area_SRAM2_BASE_NS)" Max="=(MPCBB2_Area_Max + MPCBB2_Area_SRAM2_BASE_NS - MPCBB2_Area_BlockSize)" NoCheckOpt="false" Visible="false"/>
-  <RefParameter Name="MPCBB2_Area_Privilege_Start" Comment="    Area Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCBB2_Area_Max" NoCheckOpt="false"/>
+  <RefParameter Name="MPCBB2_Area_Privilege_Start" Comment="    Area Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB2_Area_Max" NoCheckOpt="false"/>
   <RefParameter Name="MPCBB2_Area_Privilege_Size" Comment="    Area Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="=(MPCBB2_Area_Max - MPCBB2_Area_Privilege_Start)" NoCheckOpt="false">
     <Description>0x0 : use the default HW configuration (privileged memory)</Description>
   </RefParameter>
@@ -984,18 +984,18 @@
   <RefParameter Name="MPCBB2_Area2_Start_Address" Comment="Area 2 Start Address" DefaultValue="=MPCBB2_Area_SRAM2_BASE_NS" Type="hex" Min="=(MPCBB2_Area_SRAM2_BASE_NS)" Max="=(MPCBB2_Area_Max + MPCBB2_Area_SRAM2_BASE_NS - MPCBB2_Area_BlockSize)" NoCheckOpt="false" Visible="false">
     <Condition Expression="($IpInstance=GTZC)" Diagnostic="GTZC"/>
   </RefParameter>
-  <RefParameter Name="MPCBB2_Area2_Start_Address" Comment="Area 2 Start Address" DefaultValue="=GTZC_S:MPCBB2_Area2_Start_Address" Type="StringHex" Min="=(MPCBB2_Area_SRAM2_BASE_NS)" Max="=(MPCBB2_Area_Max + MPCBB2_Area_SRAM2_BASE_NS - MPCBB2_Area_BlockSize)" NoCheckOpt="false" Visible="false">
+  <RefParameter Name="MPCBB2_Area2_Start_Address" Comment="Area 2 Start Address" DefaultValue="=GTZC_S:MPCBB2_Area2_Start_Address" Type="stringHex" Min="=(MPCBB2_Area_SRAM2_BASE_NS)" Max="=(MPCBB2_Area_Max + MPCBB2_Area_SRAM2_BASE_NS - MPCBB2_Area_BlockSize)" NoCheckOpt="false" Visible="false">
     <Condition Expression="!($IpInstance=GTZC_S)" Diagnostic="only modifiable from GTZC_S Peripheral"/>
   </RefParameter>
   <RefParameter Name="MPCBB2_Area2_Start_Address" Comment="Area 2 Start Address" DefaultValue="=MPCBB2_Area_SRAM2_BASE_NS" Type="hex" Min="=MPCBB2_Area_SRAM2_BASE_NS" Max="=MPCBB2_Area_SRAM2_BASE_NS" NoCheckOpt="false" Visible="false">
     <Condition Expression="S_Default_MPCBB2_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
   </RefParameter>
   <RefParameter Name="MPCBB2_Area2_Start_Address" Comment="Area 2 Start Address" DefaultValue="=MPCBB2_Area_SRAM2_BASE_NS" Type="hex" Min="=(MPCBB2_Area_SRAM2_BASE_NS)" Max="=(MPCBB2_Area_Max + MPCBB2_Area_SRAM2_BASE_NS - MPCBB2_Area_BlockSize)" NoCheckOpt="false" Visible="false"/>
-  <RefParameter Name="MPCBB2_Area2_Start" Comment="Area 2 Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCBB2_Area_Max" NoCheckOpt="false" Visible="false"/>
+  <RefParameter Name="MPCBB2_Area2_Start" Comment="Area 2 Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB2_Area_Max" NoCheckOpt="false" Visible="false"/>
   <RefParameter Name="MPCBB2_Area2_Size" Comment="Area 2 Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="=(MPCBB2_Area_Max - MPCBB2_Area2_Start)" NoCheckOpt="false" Visible="false">
     <Condition Expression="($IpInstance=GTZC)" Diagnostic="GTZC"/>
   </RefParameter>
-  <RefParameter Name="MPCBB2_Area2_Size" Comment="Area 2 Size" DefaultValue="=GTZC_S:MPCBB2_Area2_Size" Type="StringHex" Min="0x0" Max="=(MPCBB2_Area_Max - MPCBB2_Area2_Start)" NoCheckOpt="false" Visible="false">
+  <RefParameter Name="MPCBB2_Area2_Size" Comment="Area 2 Size" DefaultValue="=GTZC_S:MPCBB2_Area2_Size" Type="stringHex" Min="0x0" Max="=(MPCBB2_Area_Max - MPCBB2_Area2_Start)" NoCheckOpt="false" Visible="false">
     <Condition Expression="!($IpInstance=GTZC_S)" Diagnostic="only modifiable from GTZC_S Peripheral"/>
   </RefParameter>
   <RefParameter Name="MPCBB2_Area2_Size" Comment="Area 2 Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="0x0" NoCheckOpt="false" Visible="false">
@@ -1015,10 +1015,10 @@
     <Condition Expression="S_Default_MPCBB2_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
   </RefParameter>
   <RefParameter Name="MPCBB2_Area2_Secure_Start_Address" Comment="    Area 2 Start Address" DefaultValue="=MPCBB2_Area2_Start_Address" Type="hex" Min="=(MPCBB2_Area_SRAM2_BASE_NS)" Max="=(MPCBB2_Area_Max + MPCBB2_Area_SRAM2_BASE_NS - MPCBB2_Area2_BlockSize)" NoCheckOpt="false" Visible="false"/>
-  <RefParameter Name="MPCBB2_Area2_Secure_Start" Comment="    Area 2 Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="0x0" NoCheckOpt="false">
+  <RefParameter Name="MPCBB2_Area2_Secure_Start" Comment="    Area 2 Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="0x0" NoCheckOpt="false">
     <Condition Expression="S_Default_MPCBB2_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
   </RefParameter>
-  <RefParameter Name="MPCBB2_Area2_Secure_Start" Comment="    Area 2 Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCBB2_Area_Max" NoCheckOpt="false"/>
+  <RefParameter Name="MPCBB2_Area2_Secure_Start" Comment="    Area 2 Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB2_Area_Max" NoCheckOpt="false"/>
   <RefParameter Name="MPCBB2_Area2_Secure_Size" Comment="    Area 2 Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="0x0" NoCheckOpt="false">
     <Condition Expression="S_Default_MPCBB2_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
     <Description>0x0 : use the default HW configuration (secured memory)</Description>
@@ -1031,7 +1031,7 @@
   <RefParameter Name="MPCBB2_Area2_Secure_NbSuperBlock" Comment="    Area 2 Nb Super-Block" DefaultValue="=(MPCBB2_Area_Max / MPCBB2_Area2_Secure_SuperBlockSize)" Type="integer" Min="=(MPCBB2_Area_Max / MPCBB2_Area2_Secure_SuperBlockSize)" Max="=(MPCBB2_Area_Max / MPCBB2_Area2_Secure_SuperBlockSize)" Visible="false"/>
 
   <RefParameter Name="MPCBB2_Area2_Privilege_Start_Address" Comment="    Area 2 Start Address" DefaultValue="=MPCBB2_Area2_Start_Address" Type="hex" Min="=(MPCBB2_Area_SRAM2_BASE_NS)" Max="=(MPCBB2_Area_Max + MPCBB2_Area_SRAM2_BASE_NS - MPCBB2_Area2_BlockSize)" NoCheckOpt="false" Visible="false"/>
-  <RefParameter Name="MPCBB2_Area2_Privilege_Start" Comment="    Area 2 Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCBB2_Area_Max" NoCheckOpt="false"/>
+  <RefParameter Name="MPCBB2_Area2_Privilege_Start" Comment="    Area 2 Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB2_Area_Max" NoCheckOpt="false"/>
   <RefParameter Name="MPCBB2_Area2_Privilege_Size" Comment="    Area 2 Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="=(MPCBB2_Area_Max - MPCBB2_Area2_Privilege_Start)" NoCheckOpt="false">
     <Description>0x0 : use the default HW configuration (privileged memory)</Description>
   </RefParameter>
@@ -1070,18 +1070,18 @@
   <RefParameter Name="MPCBB3_Area_Start_Address" Comment="Area Start Address" DefaultValue="=MPCBB3_Area_SRAM3_BASE_NS" Type="hex" Min="=(MPCBB3_Area_SRAM3_BASE_NS)" Max="=(MPCBB3_Area_Max + MPCBB3_Area_SRAM3_BASE_NS - MPCBB3_Area_BlockSize)" NoCheckOpt="false" Visible="false">
     <Condition Expression="($IpInstance=GTZC)" Diagnostic="GTZC"/>
   </RefParameter>
-  <RefParameter Name="MPCBB3_Area_Start_Address" Comment="Area Start Address" DefaultValue="=GTZC_S:MPCBB3_Area_Start_Address" Type="StringHex" Min="=(MPCBB3_Area_SRAM3_BASE_NS)" Max="=(MPCBB3_Area_Max + MPCBB3_Area_SRAM3_BASE_NS - MPCBB3_Area_BlockSize)" NoCheckOpt="false" Visible="false">
+  <RefParameter Name="MPCBB3_Area_Start_Address" Comment="Area Start Address" DefaultValue="=GTZC_S:MPCBB3_Area_Start_Address" Type="stringHex" Min="=(MPCBB3_Area_SRAM3_BASE_NS)" Max="=(MPCBB3_Area_Max + MPCBB3_Area_SRAM3_BASE_NS - MPCBB3_Area_BlockSize)" NoCheckOpt="false" Visible="false">
     <Condition Expression="!($IpInstance=GTZC_S)" Diagnostic="only modifiable from GTZC_S Peripheral"/>
   </RefParameter>
   <RefParameter Name="MPCBB3_Area_Start_Address" Comment="Area Start Address" DefaultValue="=MPCBB3_Area_SRAM3_BASE_NS" Type="hex" Min="=MPCBB3_Area_SRAM3_BASE_NS" Max="=MPCBB3_Area_SRAM3_BASE_NS" NoCheckOpt="false" Visible="false">
     <Condition Expression="S_Default_MPCBB3_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
   </RefParameter>
   <RefParameter Name="MPCBB3_Area_Start_Address" Comment="Area Start Address" DefaultValue="=MPCBB3_Area_SRAM3_BASE_NS" Type="hex" Min="=(MPCBB3_Area_SRAM3_BASE_NS)" Max="=(MPCBB3_Area_Max + MPCBB3_Area_SRAM3_BASE_NS - MPCBB3_Area_BlockSize)" NoCheckOpt="false" Visible="false"/>
-  <RefParameter Name="MPCBB3_Area_Start" Comment="Area Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCBB3_Area_Max" NoCheckOpt="false" Visible="false"/>
+  <RefParameter Name="MPCBB3_Area_Start" Comment="Area Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB3_Area_Max" NoCheckOpt="false" Visible="false"/>
   <RefParameter Name="MPCBB3_Area_Size" Comment="Area Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="=(MPCBB3_Area_Max - MPCBB3_Area_Start)" NoCheckOpt="false" Visible="false">
     <Condition Expression="($IpInstance=GTZC)" Diagnostic="GTZC"/>
   </RefParameter>
-  <RefParameter Name="MPCBB3_Area_Size" Comment="Area Size" DefaultValue="=GTZC_S:MPCBB3_Area_Size" Type="StringHex" Min="0x0" Max="=(MPCBB3_Area_Max - MPCBB3_Area_Start)" NoCheckOpt="false" Visible="false">
+  <RefParameter Name="MPCBB3_Area_Size" Comment="Area Size" DefaultValue="=GTZC_S:MPCBB3_Area_Size" Type="stringHex" Min="0x0" Max="=(MPCBB3_Area_Max - MPCBB3_Area_Start)" NoCheckOpt="false" Visible="false">
     <Condition Expression="!($IpInstance=GTZC_S)" Diagnostic="only modifiable from GTZC_S Peripheral"/>
   </RefParameter>
   <RefParameter Name="MPCBB3_Area_Size" Comment="Area Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="0x0" NoCheckOpt="false" Visible="false">
@@ -1101,7 +1101,7 @@
     <Condition Expression="S_Default_MPCBB3_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
   </RefParameter>
   <RefParameter Name="MPCBB3_Area_Secure_Start_Address" Comment="    Area Start Address" DefaultValue="=MPCBB3_Area_Start_Address" Type="hex" Min="=(MPCBB3_Area_SRAM3_BASE_NS)" Max="=(MPCBB3_Area_Max + MPCBB3_Area_SRAM3_BASE_NS - MPCBB3_Area_BlockSize)" NoCheckOpt="false" Visible="false"/>
-  <RefParameter Name="MPCBB3_Area_Secure_Start" Comment="    Area Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCBB3_Area_Max" NoCheckOpt="false"/>
+  <RefParameter Name="MPCBB3_Area_Secure_Start" Comment="    Area Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB3_Area_Max" NoCheckOpt="false"/>
   <RefParameter Name="MPCBB3_Area_Secure_Size" Comment="    Area Size" DefaultValue="=MPCBB3_Area_Max" Type="hex" Min="=MPCBB3_Area_Max" Max="=MPCBB3_Area_Max" NoCheckOpt="false">
     <Condition Expression="S_Default_MPCBB3_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
     <Description>0x0 : use the default HW configuration (secured memory)</Description>
@@ -1115,7 +1115,7 @@
   <RefParameter Name="MPCBB3_Area_Secure_NbSuperBlock" Comment="    Area Nb Super-Block" DefaultValue="=(MPCBB3_Area_Max / MPCBB3_Area_Secure_SuperBlockSize)" Type="integer" Min="=(MPCBB3_Area_Max / MPCBB3_Area_Secure_SuperBlockSize)" Max="=(MPCBB3_Area_Max / MPCBB3_Area_Secure_SuperBlockSize)" Visible="false"/>
 
   <RefParameter Name="MPCBB3_Area_Privilege_Start_Address" Comment="    Area Start Address" DefaultValue="=MPCBB3_Area_Start_Address" Type="hex" Min="=(MPCBB3_Area_SRAM3_BASE_NS)" Max="=(MPCBB3_Area_Max + MPCBB3_Area_SRAM3_BASE_NS - MPCBB3_Area_BlockSize)" NoCheckOpt="false" Visible="false"/>
-  <RefParameter Name="MPCBB3_Area_Privilege_Start" Comment="    Area Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCBB3_Area_Max" NoCheckOpt="false"/>
+  <RefParameter Name="MPCBB3_Area_Privilege_Start" Comment="    Area Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB3_Area_Max" NoCheckOpt="false"/>
   <RefParameter Name="MPCBB3_Area_Privilege_Size" Comment="    Area Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="=(MPCBB3_Area_Max - MPCBB3_Area_Privilege_Start)" NoCheckOpt="false">
     <Description>0x0 : use the default HW configuration (privileged memory)</Description>
   </RefParameter>
@@ -1149,18 +1149,18 @@
   <RefParameter Name="MPCBB3_Area2_Start_Address" Comment="Area 2 Start Address" DefaultValue="=MPCBB3_Area_SRAM3_BASE_NS" Type="hex" Min="=(MPCBB3_Area_SRAM3_BASE_NS)" Max="=(MPCBB3_Area_Max + MPCBB3_Area_SRAM3_BASE_NS - MPCBB3_Area_BlockSize)" NoCheckOpt="false" Visible="false">
     <Condition Expression="($IpInstance=GTZC)" Diagnostic="GTZC"/>
   </RefParameter>
-  <RefParameter Name="MPCBB3_Area2_Start_Address" Comment="Area 2 Start Address" DefaultValue="=GTZC_S:MPCBB3_Area2_Start_Address" Type="StringHex" Min="=(MPCBB3_Area_SRAM3_BASE_NS)" Max="=(MPCBB3_Area_Max + MPCBB3_Area_SRAM3_BASE_NS - MPCBB3_Area_BlockSize)" NoCheckOpt="false" Visible="false">
+  <RefParameter Name="MPCBB3_Area2_Start_Address" Comment="Area 2 Start Address" DefaultValue="=GTZC_S:MPCBB3_Area2_Start_Address" Type="stringHex" Min="=(MPCBB3_Area_SRAM3_BASE_NS)" Max="=(MPCBB3_Area_Max + MPCBB3_Area_SRAM3_BASE_NS - MPCBB3_Area_BlockSize)" NoCheckOpt="false" Visible="false">
     <Condition Expression="!($IpInstance=GTZC_S)" Diagnostic="only modifiable from GTZC_S Peripheral"/>
   </RefParameter>
   <RefParameter Name="MPCBB3_Area2_Start_Address" Comment="Area 2 Start Address" DefaultValue="=MPCBB3_Area_SRAM3_BASE_NS" Type="hex" Min="=MPCBB3_Area_SRAM3_BASE_NS" Max="=MPCBB3_Area_SRAM3_BASE_NS" NoCheckOpt="false" Visible="false">
     <Condition Expression="S_Default_MPCBB3_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
   </RefParameter>
   <RefParameter Name="MPCBB3_Area2_Start_Address" Comment="Area 2 Start Address" DefaultValue="=MPCBB3_Area_SRAM3_BASE_NS" Type="hex" Min="=(MPCBB3_Area_SRAM3_BASE_NS)" Max="=(MPCBB3_Area_Max + MPCBB3_Area_SRAM3_BASE_NS - MPCBB3_Area_BlockSize)" NoCheckOpt="false" Visible="false"/>
-  <RefParameter Name="MPCBB3_Area2_Start" Comment="Area 2 Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCBB3_Area_Max" NoCheckOpt="false" Visible="false"/>
+  <RefParameter Name="MPCBB3_Area2_Start" Comment="Area 2 Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB3_Area_Max" NoCheckOpt="false" Visible="false"/>
   <RefParameter Name="MPCBB3_Area2_Size" Comment="Area 2 Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="=(MPCBB3_Area_Max - MPCBB3_Area2_Start)" NoCheckOpt="false" Visible="false">
     <Condition Expression="($IpInstance=GTZC)" Diagnostic="GTZC"/>
   </RefParameter>
-  <RefParameter Name="MPCBB3_Area2_Size" Comment="Area 2 Size" DefaultValue="=GTZC_S:MPCBB3_Area2_Size" Type="StringHex" Min="0x0" Max="=(MPCBB3_Area_Max - MPCBB3_Area2_Start)" NoCheckOpt="false" Visible="false">
+  <RefParameter Name="MPCBB3_Area2_Size" Comment="Area 2 Size" DefaultValue="=GTZC_S:MPCBB3_Area2_Size" Type="stringHex" Min="0x0" Max="=(MPCBB3_Area_Max - MPCBB3_Area2_Start)" NoCheckOpt="false" Visible="false">
     <Condition Expression="!($IpInstance=GTZC_S)" Diagnostic="only modifiable from GTZC_S Peripheral"/>
   </RefParameter>
   <RefParameter Name="MPCBB3_Area2_Size" Comment="Area 2 Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="0x0" NoCheckOpt="false" Visible="false">
@@ -1180,7 +1180,7 @@
     <Condition Expression="S_Default_MPCBB3_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
   </RefParameter>
   <RefParameter Name="MPCBB3_Area2_Secure_Start_Address" Comment="    Area 2 Start Address" DefaultValue="=MPCBB3_Area2_Start_Address" Type="hex" Min="=(MPCBB3_Area_SRAM3_BASE_NS)" Max="=(MPCBB3_Area_Max + MPCBB3_Area_SRAM3_BASE_NS - MPCBB3_Area2_BlockSize)" NoCheckOpt="false" Visible="false"/>
-  <RefParameter Name="MPCBB3_Area2_Secure_Start" Comment="    Area 2 Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCBB3_Area_Max" NoCheckOpt="false"/>
+  <RefParameter Name="MPCBB3_Area2_Secure_Start" Comment="    Area 2 Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB3_Area_Max" NoCheckOpt="false"/>
   <RefParameter Name="MPCBB3_Area2_Secure_Size" Comment="    Area 2 Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB3_Area_Max" NoCheckOpt="false">
     <Condition Expression="S_Default_MPCBB3_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
     <Description>0x0 : use the default HW configuration (secured memory)</Description>
@@ -1194,7 +1194,7 @@
   <RefParameter Name="MPCBB3_Area2_Secure_NbSuperBlock" Comment="    Area 2 Nb Super-Block" DefaultValue="=(MPCBB3_Area_Max / MPCBB3_Area2_Secure_SuperBlockSize)" Type="integer" Min="=(MPCBB3_Area_Max / MPCBB3_Area2_Secure_SuperBlockSize)" Max="=(MPCBB3_Area_Max / MPCBB3_Area2_Secure_SuperBlockSize)" Visible="false"/>
 
   <RefParameter Name="MPCBB3_Area2_Privilege_Start_Address" Comment="    Area 2 Start Address" DefaultValue="=MPCBB3_Area2_Start_Address" Type="hex" Min="=(MPCBB3_Area_SRAM3_BASE_NS)" Max="=(MPCBB3_Area_Max + MPCBB3_Area_SRAM3_BASE_NS - MPCBB3_Area2_BlockSize)" NoCheckOpt="false" Visible="false"/>
-  <RefParameter Name="MPCBB3_Area2_Privilege_Start" Comment="    Area 2 Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCBB3_Area_Max" NoCheckOpt="false"/>
+  <RefParameter Name="MPCBB3_Area2_Privilege_Start" Comment="    Area 2 Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB3_Area_Max" NoCheckOpt="false"/>
   <RefParameter Name="MPCBB3_Area2_Privilege_Size" Comment="    Area 2 Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="=(MPCBB3_Area_Max - MPCBB3_Area2_Privilege_Start)" NoCheckOpt="false">
     <Description>0x0 : use the default HW configuration (privileged memory)</Description>
   </RefParameter>
@@ -1256,18 +1256,18 @@
   <RefParameter Name="MPCBB4_Area_Start_Address" Comment="Area Start Address" DefaultValue="0x28000000" Type="hex" Min="=(MPCBB4_Area_SRAM4_BASE_NS)" Max="=(MPCBB4_Area_Max + MPCBB4_Area_SRAM4_BASE_NS - MPCBB4_Area_BlockSize)" NoCheckOpt="false" Visible="false">
     <Condition Expression="($IpInstance=GTZC)" Diagnostic="GTZC"/>
   </RefParameter>
-  <RefParameter Name="MPCBB4_Area_Start_Address" Comment="Area Start Address" DefaultValue="=GTZC_S:MPCBB4_Area_Start_Address" Type="StringHex" Min="=(MPCBB4_Area_SRAM4_BASE_NS)" Max="=(MPCBB4_Area_Max + MPCBB4_Area_SRAM4_BASE_NS - MPCBB4_Area_BlockSize)" NoCheckOpt="false" Visible="false">
+  <RefParameter Name="MPCBB4_Area_Start_Address" Comment="Area Start Address" DefaultValue="=GTZC_S:MPCBB4_Area_Start_Address" Type="stringHex" Min="=(MPCBB4_Area_SRAM4_BASE_NS)" Max="=(MPCBB4_Area_Max + MPCBB4_Area_SRAM4_BASE_NS - MPCBB4_Area_BlockSize)" NoCheckOpt="false" Visible="false">
     <Condition Expression="!($IpInstance=GTZC_S)" Diagnostic="only modifiable from GTZC_S Peripheral"/>
   </RefParameter>
   <RefParameter Name="MPCBB4_Area_Start_Address" Comment="Area Start Address" DefaultValue="0x28000000" Type="hex" Min="0x28000000" Max="0x28000000" NoCheckOpt="false" Visible="false">
     <Condition Expression="S_Default_MPCBB4_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
   </RefParameter>
   <RefParameter Name="MPCBB4_Area_Start_Address" Comment="Area Start Address" DefaultValue="0x28000000" Type="hex" Min="=(MPCBB4_Area_SRAM4_BASE_NS)" Max="=(MPCBB4_Area_Max + MPCBB4_Area_SRAM4_BASE_NS - MPCBB4_Area_BlockSize)" NoCheckOpt="false" Visible="false"/>
-  <RefParameter Name="MPCBB4_Area_Start" Comment="Area Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCBB4_Area_Max" NoCheckOpt="false" Visible="false"/>
+  <RefParameter Name="MPCBB4_Area_Start" Comment="Area Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB4_Area_Max" NoCheckOpt="false" Visible="false"/>
   <RefParameter Name="MPCBB4_Area_Size" Comment="Area Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="=(MPCBB4_Area_Max - MPCBB4_Area_Start)" NoCheckOpt="false" Visible="false">
     <Condition Expression="($IpInstance=GTZC)" Diagnostic="GTZC"/>
   </RefParameter>
-  <RefParameter Name="MPCBB4_Area_Size" Comment="Area Size" DefaultValue="=GTZC_S:MPCBB4_Area_Size" Type="StringHex" Min="0x0" Max="=(MPCBB4_Area_Max - MPCBB4_Area_Start)" NoCheckOpt="false" Visible="false">
+  <RefParameter Name="MPCBB4_Area_Size" Comment="Area Size" DefaultValue="=GTZC_S:MPCBB4_Area_Size" Type="stringHex" Min="0x0" Max="=(MPCBB4_Area_Max - MPCBB4_Area_Start)" NoCheckOpt="false" Visible="false">
     <Condition Expression="!($IpInstance=GTZC_S)" Diagnostic="only modifiable from GTZC_S Peripheral"/>
   </RefParameter>
   <RefParameter Name="MPCBB4_Area_Size" Comment="Area Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="0x0" NoCheckOpt="false" Visible="false">
@@ -1286,7 +1286,7 @@
     <Condition Expression="S_Default_MPCBB4_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
   </RefParameter>
   <RefParameter Name="MPCBB4_Area_Secure_Start_Address" Comment="    Area Start Address" DefaultValue="=MPCBB4_Area_Start_Address" Type="hex" Min="=(MPCBB4_Area_SRAM4_BASE_NS)" Max="=(MPCBB4_Area_Max + MPCBB4_Area_SRAM4_BASE_NS - MPCBB4_Area_BlockSize)" NoCheckOpt="false" Visible="false"/>
-  <RefParameter Name="MPCBB4_Area_Secure_Start" Comment="    Area Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCBB4_Area_Max" NoCheckOpt="false"/>
+  <RefParameter Name="MPCBB4_Area_Secure_Start" Comment="    Area Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB4_Area_Max" NoCheckOpt="false"/>
   <RefParameter Name="MPCBB4_Area_Secure_Size" Comment="    Area Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="0x0" NoCheckOpt="false">
     <Condition Expression="S_Default_MPCBB4_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
     <Description>0x0 : use the default HW configuration (secured memory)</Description>
@@ -1299,7 +1299,7 @@
   <RefParameter Name="MPCBB4_Area_Secure_NbSuperBlock" Comment="    Area Nb Super-Block" DefaultValue="=(MPCBB4_Area_Max / MPCBB4_Area_Secure_SuperBlockSize)" Type="integer" Min="=(MPCBB4_Area_Max / MPCBB4_Area_Secure_SuperBlockSize)" Max="=(MPCBB4_Area_Max / MPCBB4_Area_Secure_SuperBlockSize)" Visible="false"/>
 
   <RefParameter Name="MPCBB4_Area_Privilege_Start_Address" Comment="    Area Start Address" DefaultValue="=MPCBB4_Area_Start_Address" Type="hex" Min="=(MPCBB4_Area_SRAM4_BASE_NS)" Max="=(MPCBB4_Area_Max + MPCBB4_Area_SRAM4_BASE_NS - MPCBB4_Area_BlockSize)" NoCheckOpt="false" Visible="false"/>
-  <RefParameter Name="MPCBB4_Area_Privilege_Start" Comment="    Area Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCBB4_Area_Max" NoCheckOpt="false"/>
+  <RefParameter Name="MPCBB4_Area_Privilege_Start" Comment="    Area Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB4_Area_Max" NoCheckOpt="false"/>
   <RefParameter Name="MPCBB4_Area_Privilege_Size" Comment="    Area Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="=(MPCBB4_Area_Max - MPCBB4_Area_Privilege_Start)" NoCheckOpt="false" Group="MPCBB4 (SRAM4)" TabName="Block-Based Memory Protection Controller">
     <Description>0x0 : use the default HW configuration (privileged memory)</Description>
   </RefParameter>
@@ -1340,18 +1340,18 @@
   <RefParameter Name="MPCBB4_Area2_Start_Address" Comment="Area 2 Start Address" DefaultValue="0x28000000" Type="hex" Min="=(MPCBB4_Area_SRAM4_BASE_NS)" Max="=(MPCBB4_Area_Max + MPCBB4_Area_SRAM4_BASE_NS - MPCBB4_Area_BlockSize)" NoCheckOpt="false" Visible="false">
     <Condition Expression="($IpInstance=GTZC)" Diagnostic="GTZC"/>
   </RefParameter>
-  <RefParameter Name="MPCBB4_Area2_Start_Address" Comment="Area 2 Start Address" DefaultValue="=GTZC_S:MPCBB4_Area2_Start_Address" Type="StringHex" Min="=(MPCBB4_Area_SRAM4_BASE_NS)" Max="=(MPCBB4_Area_Max + MPCBB4_Area_SRAM4_BASE_NS - MPCBB4_Area_BlockSize)" NoCheckOpt="false" Visible="false">
+  <RefParameter Name="MPCBB4_Area2_Start_Address" Comment="Area 2 Start Address" DefaultValue="=GTZC_S:MPCBB4_Area2_Start_Address" Type="stringHex" Min="=(MPCBB4_Area_SRAM4_BASE_NS)" Max="=(MPCBB4_Area_Max + MPCBB4_Area_SRAM4_BASE_NS - MPCBB4_Area_BlockSize)" NoCheckOpt="false" Visible="false">
     <Condition Expression="!($IpInstance=GTZC_S)" Diagnostic="only modifiable from GTZC_S Peripheral"/>
   </RefParameter>
   <RefParameter Name="MPCBB4_Area2_Start_Address" Comment="Area 2 Start Address" DefaultValue="0x28000000" Type="hex" Min="0x28000000" Max="0x28000000" NoCheckOpt="false" Visible="false">
     <Condition Expression="S_Default_MPCBB4_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
   </RefParameter>
   <RefParameter Name="MPCBB4_Area2_Start_Address" Comment="Area 2 Start Address" DefaultValue="0x28000000" Type="hex" Min="=(MPCBB4_Area_SRAM4_BASE_NS)" Max="=(MPCBB4_Area_Max + MPCBB4_Area_SRAM4_BASE_NS - MPCBB4_Area_BlockSize)" NoCheckOpt="false" Visible="false"/>
-  <RefParameter Name="MPCBB4_Area2_Start" Comment="Area 2 Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCBB4_Area_Max" NoCheckOpt="false" Visible="false"/>
+  <RefParameter Name="MPCBB4_Area2_Start" Comment="Area 2 Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB4_Area_Max" NoCheckOpt="false" Visible="false"/>
   <RefParameter Name="MPCBB4_Area2_Size" Comment="Area 2 Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="=(MPCBB4_Area_Max - MPCBB4_Area2_Start)" NoCheckOpt="false" Visible="false">
     <Condition Expression="($IpInstance=GTZC)" Diagnostic="GTZC"/>
   </RefParameter>
-  <RefParameter Name="MPCBB4_Area2_Size" Comment="Area 2 Size" DefaultValue="=GTZC_S:MPCBB4_Area2_Size" Type="StringHex" Min="0x0" Max="=(MPCBB4_Area_Max - MPCBB4_Area2_Start)" NoCheckOpt="false" Visible="false">
+  <RefParameter Name="MPCBB4_Area2_Size" Comment="Area 2 Size" DefaultValue="=GTZC_S:MPCBB4_Area2_Size" Type="stringHex" Min="0x0" Max="=(MPCBB4_Area_Max - MPCBB4_Area2_Start)" NoCheckOpt="false" Visible="false">
     <Condition Expression="!($IpInstance=GTZC_S)" Diagnostic="only modifiable from GTZC_S Peripheral"/>
   </RefParameter>
   <RefParameter Name="MPCBB4_Area2_Size" Comment="Area 2 Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="0x0" NoCheckOpt="false" Visible="false">
@@ -1370,7 +1370,7 @@
     <Condition Expression="S_Default_MPCBB4_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
   </RefParameter>
   <RefParameter Name="MPCBB4_Area2_Secure_Start_Address" Comment="    Area 2 Start Address" DefaultValue="=MPCBB4_Area2_Start_Address" Type="hex" Min="=(MPCBB4_Area_SRAM4_BASE_NS)" Max="=(MPCBB4_Area_Max + MPCBB4_Area_SRAM4_BASE_NS - MPCBB4_Area2_BlockSize)" NoCheckOpt="false" Visible="false"/>
-  <RefParameter Name="MPCBB4_Area2_Secure_Start" Comment="    Area 2 Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCBB4_Area_Max" NoCheckOpt="false"/>
+  <RefParameter Name="MPCBB4_Area2_Secure_Start" Comment="    Area 2 Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB4_Area_Max" NoCheckOpt="false"/>
   <RefParameter Name="MPCBB4_Area2_Secure_Size" Comment="    Area 2 Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="0x0" NoCheckOpt="false">
     <Condition Expression="S_Default_MPCBB4_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
     <Description>0x0 : use the default HW configuration (secured memory)</Description>
@@ -1383,7 +1383,7 @@
   <RefParameter Name="MPCBB4_Area2_Secure_NbSuperBlock" Comment="    Area 2 Nb Super-Block" DefaultValue="=(MPCBB4_Area_Max / MPCBB4_Area2_Secure_SuperBlockSize)" Type="integer" Min="=(MPCBB4_Area_Max / MPCBB4_Area2_Secure_SuperBlockSize)" Max="=(MPCBB4_Area_Max / MPCBB4_Area2_Secure_SuperBlockSize)" Visible="false"/>
 
   <RefParameter Name="MPCBB4_Area2_Privilege_Start_Address" Comment="    Area 2 Start Address" DefaultValue="=MPCBB4_Area2_Start_Address" Type="hex" Min="=(MPCBB4_Area_SRAM4_BASE_NS)" Max="=(MPCBB4_Area_Max + MPCBB4_Area_SRAM4_BASE_NS - MPCBB4_Area2_BlockSize)" NoCheckOpt="false" Visible="false"/>
-  <RefParameter Name="MPCBB4_Area2_Privilege_Start" Comment="    Area 2 Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCBB4_Area_Max" NoCheckOpt="false"/>
+  <RefParameter Name="MPCBB4_Area2_Privilege_Start" Comment="    Area 2 Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB4_Area_Max" NoCheckOpt="false"/>
   <RefParameter Name="MPCBB4_Area2_Privilege_Size" Comment="    Area 2 Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="=(MPCBB4_Area_Max - MPCBB4_Area2_Privilege_Start)" NoCheckOpt="false" Group="MPCBB4 (SRAM4)" TabName="Block-Based Memory Protection Controller">
     <Description>0x0 : use the default HW configuration (privileged memory)</Description>
   </RefParameter>

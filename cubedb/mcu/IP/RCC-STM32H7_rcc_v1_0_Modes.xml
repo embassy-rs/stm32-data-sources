@@ -784,10 +784,10 @@
     <RefParameter Visible="false" Comment="DSI phy" Name="DSIPHYCLKFreq_Value" DefaultValue="96000000"  Type="double" Display="value/1000000" Unit="MHz"/>
 	
     <!--DSI-->	
-    <RefParameter Visible="false" Comment="DSI Clock Source"    Name="DSIFreq_Value"      DefaultValue="96000000" IP="DSI"      Type="double" Display="value/1000000" Unit="MHz" Max="62000000" >
+    <RefParameter Visible="false" Comment="DSI Clock Source"    Name="DSIFreq_Value"      DefaultValue="96000000" IP="DSI"      Type="double" Display="value/1000000" Unit="MHz" Max="125000000" >
         <Condition Diagnostic="PLLM used" Expression="DSIUsed_ForRCC &amp; DSISourceisPLLR"/>
     </RefParameter>	
-    <RefParameter Visible="false" Comment="DSI Clock Source"    Name="DSIFreq_Value"      DefaultValue="96000000" IP="DSI"      Type="double" Display="value/1000000" Unit="MHz" Max="62000000"/>
+    <RefParameter Visible="false" Comment="DSI Clock Source"    Name="DSIFreq_Value"      DefaultValue="96000000" IP="DSI"      Type="double" Display="value/1000000" Unit="MHz" Max="125000000"/>
 	
     <RefParameter Visible="false" Comment="DSI txclkesc clock Source"    Name="DSITXEscFreq_Value"      DefaultValue="20000000" IP="DSI"      Type="double" Display="value/1000000" Unit="MHz" Max="20000000"/>
     <RefParameter Visible="false" Comment="PLL DSI output"       Name="PLLDSIFreq_Value" DefaultValue="500000000" Type="double" Display="value/1000000" Unit="MHz" Min="62500000" Max="1000000000"/>
@@ -1456,7 +1456,7 @@
     <RefParameter Visible="false" Comment="200 MHz max" Name="HCLKFreq_Value" DefaultValue="96000000"   Max="200000000"  Type="double" Display="value/1000000" Unit="MHz" >
         <Condition Diagnostic="" Expression="ProductRev=revY"/>
     </RefParameter>
-    <RefParameter Visible="false" Comment="240 MHz max" Name="HCLKFreq_Value" DefaultValue="96000000"   Max="225000000"  Type="double" Display="value/1000000" Unit="MHz" >
+    <RefParameter Visible="false" Comment="225 MHz max" Name="HCLKFreq_Value" DefaultValue="96000000"   Max="225000000"  Type="double" Display="value/1000000" Unit="MHz" >
         <Condition Diagnostic="" Expression="scale3|scale2|scale1"/>
     </RefParameter>
     <RefParameter Visible="false" Comment="240 MHz max" Name="HCLKFreq_Value" DefaultValue="96000000" Type="double" Max="240000000" Display="value/1000000" Unit="MHz"/>
@@ -6714,7 +6714,7 @@
 	<!-- rev V -->
     <RefParameter Name="PWR_Regulator_Voltage_Scale" Comment="Power Regulator Voltage Scale" Type="list" DefaultValue="PWR_REGULATOR_VOLTAGE_SCALE3" Group="Power Parameters">
         <Condition Diagnostic="" Expression="((CpuClockFreq_Value &lt; 200000000)|(CpuClockFreq_Value=200000000)) &amp; ProductRev=revV"/>
-        <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE3" Comment="Power Regulator Voltage Scale 3" Semaphore="scale3"/>
+        <PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE3" Comment="Power Regulator Voltage Scale 3" Semaphore="scale3" Condition="!(((APB1Freq_Value &lt; 100000000) | (APB1Freq_Value=100000000)) &amp; APB1Freq_Value &gt; 50000000) &amp; (((APB2Freq_Value &lt; 100000000) | (APB2Freq_Value=100000000)) &amp; APB2Freq_Value &gt; 50000000) &amp; (((APB3Freq_Value &lt; 100000000) | (APB3Freq_Value=100000000)) &amp; APB3Freq_Value &gt; 50000000) &amp; (((APB4Freq_Value &lt; 100000000) | (APB4Freq_Value=100000000)) &amp; APB4Freq_Value &gt; 50000000) &amp; (((HCLKFreq_Value &lt; 200000000) | (HCLKFreq_Value=200000000)) &amp; HCLKFreq_Value &gt; 100000000)"/>
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE2" Comment="Power Regulator Voltage Scale 2" Semaphore="scale2"/>
         <PossibleValue Action="Remove" Value="PWR_REGULATOR_VOLTAGE_SCALE1" Comment="Power Regulator Voltage Scale 1" Semaphore="scale1" Condition="STM32H755BIT3|STM32H755IIK3|STM32H755IIT3|STM32H755XIH3|STM32H755ZIT3"/>
         <PossibleValue Action="Remove" Value="PWR_REGULATOR_VOLTAGE_SCALE0" Comment="Power Regulator Voltage Scale 0" Semaphore="scale0" Condition="STM32H755BIT3|STM32H755IIK3|STM32H755IIT3|STM32H755XIH3|STM32H755ZIT3"/>
@@ -6722,46 +6722,47 @@
     <RefParameter Name="PWR_Regulator_Voltage_Scale" Comment="Power Regulator Voltage Scale" Type="list" DefaultValue="PWR_REGULATOR_VOLTAGE_SCALE2" Group="Power Parameters">
         <Condition Diagnostic="" Expression="((CpuClockFreq_Value &lt; 300000000)|(CpuClockFreq_Value=300000000)) &amp; (CpuClockFreq_Value &gt; 200000000) &amp; ProductRev=revV"/>
         <PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE3" Diagnostic="Max value allowed for this scale is 200MHz" Comment="Power Regulator Voltage Scale 3" Condition="!scale3"/>
-		<PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE2" Comment="Power Regulator Voltage Scale 2" Semaphore="scale2"/>
-        <PossibleValue Action="Remove" Value="PWR_REGULATOR_VOLTAGE_SCALE1" Comment="Power Regulator Voltage Scale 1" Semaphore="scale1" Condition="STM32H755BIT3|STM32H755IIK3|STM32H755IIT3|STM32H755XIH3|STM32H755ZIT3"/>
+        <PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE2" Comment="Power Regulator Voltage Scale 2" Semaphore="scale2" Condition="!(((APB1Freq_Value &lt; 75000000) | (APB1Freq_Value=75000000)) &amp; ((APB2Freq_Value &lt; 75000000) | (APB2Freq_Value=75000000)) &amp; ((APB3Freq_Value &lt; 75000000) | (APB3Freq_Value=75000000)) &amp; ((APB4Freq_Value &lt; 75000000) | (APB4Freq_Value=75000000)) &amp; ((HCLKFreq_Value &lt; 150000000) | (HCLKFreq_Value=150000000)))"/>
+        <PossibleValue Action="Remove" Value="PWR_REGULATOR_VOLTAGE_SCALE1" Comment="Power Regulator Voltage Scale 1" Semaphore="scale1" Condition="STM32H755BIT3|STM32H755IIK3|STM32H755IIT3|STM32H755XIH3|STM32H755ZIT3|!(((APB1Freq_Value &lt; 100000000) | (APB1Freq_Value=100000000)) &amp;((APB2Freq_Value &lt; 100000000) | (APB2Freq_Value=100000000)) &amp; ((APB3Freq_Value &lt; 100000000) | (APB3Freq_Value=100000000))&amp;((APB4Freq_Value &lt; 100000000) | (APB4Freq_Value=100000000)) &amp; ((HCLKFreq_Value &lt; 200000000) | (HCLKFreq_Value=200000000)))"/>
         <PossibleValue Action="Remove" Value="PWR_REGULATOR_VOLTAGE_SCALE0" Comment="Power Regulator Voltage Scale 0" Semaphore="scale0" Condition="STM32H755BIT3|STM32H755IIK3|STM32H755IIT3|STM32H755XIH3|STM32H755ZIT3"/>
     </RefParameter>
 		  
     <RefParameter Name="PWR_Regulator_Voltage_Scale" Comment="Power Regulator Voltage Scale" Type="list" DefaultValue="PWR_REGULATOR_VOLTAGE_SCALE1" Group="Power Parameters">
         <Condition Diagnostic="" Expression="((CpuClockFreq_Value &lt; 400000000)|(CpuClockFreq_Value=400000000)) &amp; (CpuClockFreq_Value &gt; 300000000) &amp; ProductRev=revV"/>
         <PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE3" Diagnostic="Max value allowed for this scale is 200MHz" Comment="Power Regulator Voltage Scale 3" Condition="!scale3"/>
-		<PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE2" Diagnostic="Max value allowed for this scale is 300MHz" Comment="Power Regulator Voltage Scale 2" Condition="!scale2"/>
-		<PossibleValue Action="Remove" Value="PWR_REGULATOR_VOLTAGE_SCALE1" Comment="Power Regulator Voltage Scale 1" Semaphore="scale1" Condition="STM32H755BIT3|STM32H755IIK3|STM32H755IIT3|STM32H755XIH3|STM32H755ZIT3"/>
+        <PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE2" Diagnostic="Max value allowed for this scale is 300MHz" Comment="Power Regulator Voltage Scale 2" Condition="!scale2"/>
+        <PossibleValue Action="Remove" Value="PWR_REGULATOR_VOLTAGE_SCALE1" Comment="Power Regulator Voltage Scale 1" Semaphore="scale1" Condition="STM32H755BIT3|STM32H755IIK3|STM32H755IIT3|STM32H755XIH3|STM32H755ZIT3|!(((APB1Freq_Value &lt; 100000000) | (APB1Freq_Value=100000000)) &amp;((APB2Freq_Value &lt; 100000000) | (APB2Freq_Value=100000000)) &amp; ((APB3Freq_Value &lt; 100000000) | (APB3Freq_Value=100000000))&amp;((APB4Freq_Value &lt; 100000000) | (APB4Freq_Value=100000000)) &amp; ((HCLKFreq_Value &lt; 200000000) | (HCLKFreq_Value=200000000)))"/>
         <PossibleValue Action="Remove" Value="PWR_REGULATOR_VOLTAGE_SCALE0" Comment="Power Regulator Voltage Scale 0" Semaphore="scale0" Condition="STM32H755BIT3|STM32H755IIK3|STM32H755IIT3|STM32H755XIH3|STM32H755ZIT3"/>
     </RefParameter>
     <RefParameter Name="PWR_Regulator_Voltage_Scale" Comment="Power Regulator Voltage Scale" Type="list" DefaultValue="PWR_REGULATOR_VOLTAGE_SCALE0" Group="Power Parameters">
         <Condition Diagnostic="" Expression="(CpuClockFreq_Value &gt; 400000000) &amp; ProductRev=revV"/>
         <PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE3" Diagnostic="Max value allowed for this scale is 200MHz" Comment="Power Regulator Voltage Scale 3" Condition="!scale3"/>
-		<PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE2" Diagnostic="Max value allowed for this scale is 300MHz" Comment="Power Regulator Voltage Scale 2" Condition="!scale2"/>
-		<PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE1" Diagnostic="Max value allowed for this scale is 400MHz" Comment="Power Regulator Voltage Scale 1" Condition="!scale1"/>
-        <PossibleValue Action="Remove" Value="PWR_REGULATOR_VOLTAGE_SCALE0" Comment="Power Regulator Voltage Scale 0" Semaphore="scale0" Condition="STM32H755BIT3|STM32H755IIK3|STM32H755IIT3|STM32H755XIH3|STM32H755ZIT3"/>
+        <PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE2" Diagnostic="Max value allowed for this scale is 300MHz" Comment="Power Regulator Voltage Scale 2" Condition="!scale2"/>
+        <PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE1" Diagnostic="Max value allowed for this scale is 400MHz" Comment="Power Regulator Voltage Scale 1" Condition="!scale1"/>
+        <PossibleValue Action="Remove" Value="PWR_REGULATOR_VOLTAGE_SCALE0" Comment="Power Regulator Voltage Scale 0" Semaphore="scale0" Condition="STM32H755BIT3|STM32H755IIK3|STM32H755IIT3|STM32H755XIH3|STM32H755ZIT3|!( ((APB1Freq_Value &lt; 120000000) | (APB1Freq_Value=120000000)) &amp;((APB2Freq_Value &lt; 120000000) | (APB2Freq_Value=120000000)) &amp;((APB3Freq_Value &lt; 120000000) | (APB3Freq_Value=120000000)) &amp;((APB4Freq_Value &lt; 120000000) | (APB4Freq_Value=120000000)) &amp; ((HCLKFreq_Value &lt; 240000000) | (HCLKFreq_Value=240000000)))"/>
     </RefParameter>
 	
 	<!-- rev Y -->
 	    <RefParameter Name="PWR_Regulator_Voltage_Scale" Comment="Power Regulator Voltage Scale" Type="list" DefaultValue="PWR_REGULATOR_VOLTAGE_SCALE3" Group="Power Parameters">
         <Condition Diagnostic="" Expression="((CpuClockFreq_Value &lt; 200000000)|(CpuClockFreq_Value=200000000)) &amp; ProductRev=revY"/>
-        <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE3" Comment="Power Regulator Voltage Scale 3" Semaphore="scale3"/>
+        <PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE3" Comment="Power Regulator Voltage Scale 3" Semaphore="scale3" Condition="!(((APB1Freq_Value &lt; 50000000) | (APB1Freq_Value=50000000)) &amp; ((APB2Freq_Value &lt; 50000000) | (APB2Freq_Value=50000000)) &amp; ((APB3Freq_Value &lt; 50000000) | (APB3Freq_Value=50000000)) &amp; ((APB4Freq_Value &lt; 50000000) | (APB4Freq_Value=50000000)) &amp; ((HCLKFreq_Value &lt; 100000000) | (HCLKFreq_Value=100000000)))"/>
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE2" Comment="Power Regulator Voltage Scale 2" Semaphore="scale2"/>
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE1" Comment="Power Regulator Voltage Scale 1" Semaphore="scale1"/>
     </RefParameter>
     <RefParameter Name="PWR_Regulator_Voltage_Scale" Comment="Power Regulator Voltage Scale" Type="list" DefaultValue="PWR_REGULATOR_VOLTAGE_SCALE2" Group="Power Parameters">
         <Condition Diagnostic="" Expression="((CpuClockFreq_Value &lt; 300000000)|(CpuClockFreq_Value=300000000)) &amp; (CpuClockFreq_Value &gt; 200000000) &amp; ProductRev=revY"/>
         <PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE3" Diagnostic="Max value allowed for this scale is 200MHz" Comment="Power Regulator Voltage Scale 3" Condition="!scale3"/>
-        <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE2" Comment="Power Regulator Voltage Scale 2" Semaphore="scale2"/>
+        <PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE2" Comment="Power Regulator Voltage Scale 2" Semaphore="scale2" Condition="((APB1Freq_Value &lt; 75000000) | (APB1Freq_Value=75000000)) &amp; ((APB2Freq_Value &lt; 75000000) | (APB2Freq_Value=75000000)) &amp; ((APB3Freq_Value &lt; 75000000) | (APB3Freq_Value=75000000)) &amp; ((APB4Freq_Value &lt; 75000000) | (APB4Freq_Value=75000000)) &amp; ((HCLKFreq_Value &lt; 150000000) | (HCLKFreq_Value=150000000))"/>
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE1" Comment="Power Regulator Voltage Scale 1" Semaphore="scale1"/>
     </RefParameter>
 		  
     <RefParameter Name="PWR_Regulator_Voltage_Scale" Comment="Power Regulator Voltage Scale" Type="list" DefaultValue="PWR_REGULATOR_VOLTAGE_SCALE1" Group="Power Parameters">
         <Condition Diagnostic="" Expression="((CpuClockFreq_Value &lt; 400000000)|(CpuClockFreq_Value=400000000)) &amp; (CpuClockFreq_Value &gt; 300000000) &amp; ProductRev=revY"/>
         <PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE3" Diagnostic="Max value allowed for this scale is 200MHz" Comment="Power Regulator Voltage Scale 3" Condition="!scale3"/>
-		<PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE2" Diagnostic="Max value allowed for this scale is 300MHz" Comment="Power Regulator Voltage Scale 2" Condition="!scale2"/>
-		<PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE1" Comment="Power Regulator Voltage Scale 1" Semaphore="scale1"/>
+        <PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE2" Diagnostic="Max value allowed for this scale is 300MHz" Comment="Power Regulator Voltage Scale 2" Condition="!scale2"/>
+        <PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE1" Comment="Power Regulator Voltage Scale 1" Semaphore="scale1" Condition="!(((APB1Freq_Value &lt; 100000000) | (APB1Freq_Value=100000000)) &amp; ((APB2Freq_Value &lt; 100000000) | (APB2Freq_Value=100000000)) &amp; ((APB3Freq_Value &lt; 100000000) | (APB3Freq_Value=100000000)) &amp; ((APB4Freq_Value &lt; 100000000) | (APB4Freq_Value=100000000))  &amp; ((HCLKFreq_Value &lt; 200000000) | (HCLKFreq_Value=200000000)))"/>
     </RefParameter>
+    
     <RefParameter Name="VDD_VALUE" Comment="VDD voltage (V)" DefaultValue="3.3" Max="3.6" Min="1.62" Type="double" Unit="V" Group="System Parameters">
     </RefParameter>
     

@@ -2239,6 +2239,7 @@
     <RefParameter Name="TIM1_ETR_REMAP" Comment="ETR remap capabilities for TIM1" DefaultValue="TIM_TIM1_ETR_COMP1" Type="list" Group="ETR remap capabilities for TIM1">
         <Condition Diagnostic="" Expression="Semaphore_TIM1_H5_ETR_REMAPTIM1"/>
             <PossibleValue Value="TIM_TIM1_ETR_COMP1" Comment="TIM1_ETR is connected to COMP1" Condition="!COMP1_Exist" Action="remove"/>
+   <PossibleValue Value="TIM_TIM1_ETR_COMP2" Comment="TIM1_ETR is connected to COMP2" Condition="!COMP2_Exist" Action="remove"/>
             <PossibleValue Value="TIM_TIM1_ETR_ADC1_AWD1" Comment="TIM1_ETR is connected to ADC1 AWD1" />
             <PossibleValue Value="TIM_TIM1_ETR_ADC1_AWD2" Comment="TIM1_ETR is connected to ADC1 AWD2" />
             <PossibleValue Value="TIM_TIM1_ETR_ADC1_AWD3" Comment="TIM1_ETR is connected to ADC1 AWD3"/>
@@ -2251,6 +2252,7 @@
     <RefParameter Name="TIM1_TI1_REMAP" Comment="TI1 remap capabilities for TIM1" DefaultValue="TIM_TIM1_TI1_COMP1" Type="list" Group="T1 remap capabilities for TIM1">
         <Condition Diagnostic="" Expression="Semaphore_TIM1_H5_TI1_REMAPTIM1"/> <!-- Attention pas declare -->
             <PossibleValue Value="TIM_TIM1_TI1_COMP1" Comment="TIM1 Channel 1 is connected to COMP1_OUT" Condition="!COMP1_Exist" Action="remove"/>
+   <PossibleValue Value="TIM_TIM1_TI1_COMP2" Comment="TIM1 Channel 1 is connected to COMP2_OUT" Condition="!COMP2_Exist" Action="remove"/>
     </RefParameter>
     <RefParameter Name="TIM1_TI1_REMAP" Comment="TI1 remap capabilities for TIM1" DefaultValue="TIM_TIM1_TI1_GPIO" Type="list" Group="T1 remap capabilities for TIM1" Visible="false">
         <Condition Diagnostic="" Expression="!Semaphore_TIM1_H5_TI1_REMAPTIM1"/>
@@ -2262,16 +2264,16 @@
         <Condition Diagnostic="" Expression="Semaphore_TIM2_H5_ETR_REMAPTIM2"/>
             <PossibleValue Value="TIM_TIM2_ETR_LSE" Comment="TIM2 ETR input is connected to LSE" Semaphore="SEM2RCC_LSE_REQUIRED_$IpInstance" Condition="!(LSEOscillator|LSEByPass)" Action="Disable" Diagnostic="LSE Oscillator must be activated in the RCC IP (Pinout view)"/>
             <PossibleValue Value="TIM_TIM2_ETR_COMP1" Comment="TIM2 ETR input is connected to COMP1_OUT" Condition="!COMP1_Exist" Action="remove"/>
+   <PossibleValue Value="TIM_TIM2_ETR_COMP2" Comment="TIM2 ETR input is connected to COMP2_OUT" Condition="!COMP2_Exist" Action="remove"/>
             <PossibleValue Value="TIM_TIM2_ETR_SAI1_FSA" Comment="TIM2 ETR input is connected to SAI1 FSA" Condition="!SAI1_Exist" Action="remove"/>
             <PossibleValue Value="TIM_TIM2_ETR_SAI1_FSB" Comment="TIM2 ETR input is connected to SAI1 FSB" Condition="!SAI1_Exist" Action="remove"/>
             <PossibleValue Value="TIM_TIM2_ETR_TIM3_ETR" Comment="TIM2 ETR is connected to TIM3 ETR pin" Condition="!TIM3_Exist" Action="remove"/>
             <PossibleValue Value="TIM_TIM2_ETR_TIM4_ETR" Comment="TIM2 ETR is connected to TIM4 ETR pin" Condition="!TIM4_Exist" Action="remove"/>
             <PossibleValue Value="TIM_TIM2_ETR_TIM5_ETR" Comment="TIM2 ETR is connected to TIM5 ETR pin" Condition="!TIM5_Exist" Action="remove"/>
-   <PossibleValue Value="TIM_TIM2_ETR_ETH_PTP_PPS_O" Comment="TIM2 ETR is connected to ETH_PTP_PPS_O" Condition="!ETH_Exist" Action="remove" Semaphore="Semaphore_TIM_TIM2_ETR_ETH_PTP_PPS_O"/>
-    </RefParameter>
-    <RefParameter Name="TIM2_ETR_REMAP" Comment="ETR remap capabilities for TIM2" DefaultValue="__NULL" Type="list" Group="ETR remap capabilities for TIM2" Visible="false">
-        <Condition Diagnostic="" Expression="!Semaphore_TIM2_H5_ETR_REMAPTIM2"/>
-            <PossibleValue Value="__NULL" Comment="TIM2 ETR input is not remapped"/>
+            <PossibleValue Value="TIM_TIM2_ETR_USBHS_SOF" Comment="TIM2_ETR is connected to USBHS SOF" Condition="!USB_OTG_HS_Exist" Action="remove"/>
+   <PossibleValue Value="TIM_TIM2_ETR_USBFS_SOF" Comment="TIM2_ETR is connected to USBFS SOF" Condition="!USB_OTG_FS_Exist" Action="remove"/>
+   <PossibleValue Value="TIM_TIM2_ETR_ETH_PPS" Comment="TIM2 ETR is connected to ETH_PPS" Condition="!ETH_Exist" Action="remove" Semaphore="Semaphore_TIM_TIM2_ETR_ETH_PPS$IpInstance"/>
+   <PossibleValue Value="TIM_TIM2_ETR_PLAY1_OUT0" Comment="TIM2 Channel 1 is connected to PLAY1_OUT0" Condition="!PLAY1_Exist" Action="remove"/>
     </RefParameter>
 <!-- for TIM2 field 3 -->
 <!-- for TIM2 TI1 -->
@@ -2281,11 +2283,14 @@
             <PossibleValue Value="TIM_TIM2_TI1_LSE" Comment="TIM2 Channel 1 is connected to LSE" Semaphore="SEM2RCC_LSE_REQUIRED1_$IpInstance" Condition="!(LSEOscillator|LSEByPass)" Action="Disable" Diagnostic="LSE Oscillator must be activated in the RCC IP (Pinout view)"/>
             <PossibleValue Value="TIM_TIM2_TI1_RTC_WKUP" Comment="TIM2 Channel 1 is connected to RTC_WKUP" Condition="!(RTC_WAKEUP_INTERRUPT &amp; (RTC_IRQn|RTC_S_IRQn))" Diagnostic="RTC wakeUp and associated NVIC interrupt must be enabled" Action="Disable"/>
             <PossibleValue Value="TIM_TIM2_TI1_TIM3_TI1" Comment="TIM2 Channel 1 is connected to TIM3_TI1" />
-   <PossibleValue Value="TIM_TIM2_TI1_ETH_PTP_PPS_O" Comment="TIM2 Channel 1 is connected to ETH_PTP_PPS_O" Condition="!ETH_Exist" Action="remove" Semaphore="Semaphore_TIM_TIM2_TI1_ETH_PTP_PPS_O"/>
+   <PossibleValue Value="TIM_TIM2_TI1_ETH_PPS" Comment="TIM2 Channel 1 is connected to ETH_PPS" Condition="!ETH_Exist" Action="remove" Semaphore="Semaphore_TIM_TIM2_TI1_ETH_PPS$IpInstance"/>
     </RefParameter>
- <RefParameter Name="TIM2_TI1_REMAP" Comment="TI1 remap capabilities for TIM2" DefaultValue="TIM_TIM2_TI1_ETH_PTP_PPS_O" Type="list" Group="T1 remap capabilities for TIM2">
-        <Condition Diagnostic="" Expression="Semaphore_TIM2_H5_TI1_REMAPTIM2 &amp; DIE484"/>
-   <PossibleValue Value="TIM_TIM2_TI1_ETH_PTP_PPS_O" Comment="TIM2 Channel 1 is connected to ETH_PTP_PPS_O" Semaphore="Semaphore_TIM_TIM2_TI1_ETH_PTP_PPS_O"/>
+ <RefParameter Name="TIM2_TI1_REMAP" Comment="TI1 remap capabilities for TIM2" DefaultValue="TIM_TIM2_TI1_ETH_PPS" Type="list" Group="T1 remap capabilities for TIM2">
+        <Condition Diagnostic="" Expression="Semaphore_TIM2_H5_TI1_REMAPTIM2 &amp; DIE484|DIE47A"/>
+   <PossibleValue Value="TIM_TIM2_TI1_ETH_PPS" Comment="TIM2 Channel 1 is connected to ETH_PPS" Condition="!ETH_Exist" Action="remove" Semaphore="Semaphore_TIM_TIM2_TI1_ETH_PPS$IpInstance"/>
+   <PossibleValue Value="TIM_TIM2_TI1_COMP1" Comment="TIM2 Channel 1 is connected to COMP1_OUT" Condition="!COMP1_Exist" Action="remove"/>
+   <PossibleValue Value="TIM_TIM2_TI1_COMP2" Comment="TIM2 Channel 1 is connected to COMP2_OUT" Condition="!COMP2_Exist" Action="remove"/>
+   <PossibleValue Value="TIM_TIM2_TI1_PLAY1_OUT3" Comment="TIM2 Channel 1 is connected to PLAY1_OUT3" Condition="!PLAY1_Exist" Action="remove"/>
     </RefParameter>
     <RefParameter Name="TIM2_TI1_REMAP" Comment="TI1 remap capabilities for TIM2" DefaultValue="TIM_TIM2_TI1_GPIO" Type="list" Group="T1 remap capabilities for TIM2" Visible="false">
         <Condition Diagnostic="" Expression="!Semaphore_TIM2_H5_TI1_REMAPTIM2"/>
@@ -2294,10 +2299,13 @@
 <!-- for TIM2 TI2 -->
     <RefParameter Name="TIM2_TI2_REMAP" Comment="TI2 remap capabilities for TIM2" DefaultValue="TIM_TIM2_TI2_COMP1" Type="list" Group="T2 remap capabilities for TIM2">
         <Condition Diagnostic="" Expression="Semaphore_TIM2_H5_TI2_REMAPTIM2"/>
-            <PossibleValue Value="TIM_TIM2_TI2_HSI_1024" Comment="TIM2_TI2 is connected to HSI_1024" Semaphore="SEM2RCC_HSI_REQUIRED_$IpInstance"/>
-            <PossibleValue Value="TIM_TIM2_TI2_CSI_128" Comment="TIM2_TI2 is connected to CSI_128" Semaphore="SEM2RCC_CSI_REQUIRED_$IpInstance"/>
-   <PossibleValue Value="TIM_TIM2_TI2_MCO2" Comment="TIM2_TI2 is connected to MCO2" Semaphore="SEM2RCC_MCO2_REQUIRED_$IpInstance"/>
-   <PossibleValue Value="TIM_TIM2_TI2_MCO1" Comment="TIM2_TI2 is connected to MCO1" Semaphore="SEM2RCC_MCO1_REQUIRED_$IpInstance"/>
+            <PossibleValue Value="TIM_TIM2_TI2_HSI_1024" Comment="TIM2_TI2 is connected to HSI_1024" Semaphore="SEM2RCC_HSI_REQUIRED_$IpInstance" Condition="DIE47A" Action="remove"/>
+            <PossibleValue Value="TIM_TIM2_TI2_CSI_128" Comment="TIM2_TI2 is connected to CSI_128" Semaphore="SEM2RCC_CSI_REQUIRED_$IpInstance" Condition="DIE47A" Action="remove"/>
+   <PossibleValue Value="TIM_TIM2_TI2_MCO2" Comment="TIM2_TI2 is connected to MCO2" Semaphore="SEM2RCC_MCO2_REQUIRED_$IpInstance" Condition="DIE47A" Action="remove"/>
+   <PossibleValue Value="TIM_TIM2_TI2_MCO1" Comment="TIM2_TI2 is connected to MCO1" Semaphore="SEM2RCC_MCO1_REQUIRED_$IpInstance" Condition="DIE47A" Action="remove"/>
+   <PossibleValue Value="TIM_TIM2_TI2_COMP1" Comment="TIM2 Channel 2 is connected to COMP1_OUT" Condition="!COMP1_Exist" Action="remove"/>
+   <PossibleValue Value="TIM_TIM2_TI2_COMP2" Comment="TIM2 Channel 2 is connected to COMP2_OUT" Condition="!COMP2_Exist" Action="remove"/>
+   <PossibleValue Value="TIM_TIM2_TI2_PLAY1_OUT4" Comment="TIM2 Channel 2 is connected to PLAY1_OUT4" Condition="!PLAY1_Exist" Action="remove"/>
     </RefParameter>
     <RefParameter Name="TIM2_TI2_REMAP" Comment="TI2 remap capabilities for TIM2" DefaultValue="TIM_TIM2_TI2_GPIO" Type="list" Group="T2 remap capabilities for TIM2" Visible="false">
         <Condition Diagnostic="" Expression="!Semaphore_TIM2_H5_TI2_REMAPTIM2"/>
@@ -2306,8 +2314,8 @@
 <!-- for TIM2 TI4 -->
     <RefParameter Name="TIM2_TI4_REMAP" Comment="TI4 remap capabilities for TIM2" DefaultValue="TIM_TIM2_TI4_COMP1" Type="list" Group="T4 remap capabilities for TIM2">
         <Condition Diagnostic="" Expression="Semaphore_TIM2_H5_TI4_REMAPTIM2"/>
-            <PossibleValue Value="TIM_TIM2_TI4_COMP1" Comment="TIM2 Channel 4 is connected to COMP1_OUT" Condition="!COMP1_Exist" Action="remove"/>
-            <PossibleValue Value="TIM_TIM2_TI4_COMP2" Comment="TIM2 Channel 4 is connected to COMP2_OUT" Condition="!COMP2_Exist" Action="remove"/>
+            <PossibleValue Value="TIM_TIM2_TI4_COMP1" Comment="TIM2 Channel 4 is connected to COMP1_OUT" Condition="!COMP1_Exist &amp;!(DIE47A)" Action="remove"/>
+            <PossibleValue Value="TIM_TIM2_TI4_COMP2" Comment="TIM2 Channel 4 is connected to COMP2_OUT" Condition="!COMP2_Exist &amp;!(DIE47A)" Action="remove"/>
     </RefParameter>
     <RefParameter Name="TIM2_TI4_REMAP" Comment="TI4 remap capabilities for TIM2" DefaultValue="TIM_TIM2_TI4_GPIO" Type="list" Group="T4 remap capabilities for TIM2" Visible="false">
         <Condition Diagnostic="" Expression="!Semaphore_TIM2_H5_TI4_REMAPTIM2"/>
@@ -2318,26 +2326,34 @@
     <RefParameter Name="TIM3_ETR_REMAP" Comment="ETR remap capabilities for TIM3" DefaultValue="TIM_TIM3_ETR_COMP1" Type="list" Group="ETR remap capabilities for TIM3">
         <Condition Diagnostic="" Expression="Semaphore_TIM3_H5_ETR_REMAPTIM3"/>
             <PossibleValue Value="TIM_TIM3_ETR_COMP1" Comment="TIM3 ETR input is connected to COMP1_OUT" Condition="!COMP1_Exist" Action="remove"/>
+            <PossibleValue Value="TIM_TIM3_ETR_COMP2" Comment="TIM3 ETR input is connected to COMP2_OUT" Condition="!COMP2_Exist" Action="remove"/>
+            <PossibleValue Value="TIM_TIM3_ETR_ADC2_AWD1" Comment="TIM3_ETR is connected to ADC2 AWD1" Condition="!DIE47A" Action="remove" />
+            <PossibleValue Value="TIM_TIM3_ETR_ADC2_AWD2" Comment="TIM3_ETR is connected to ADC2 AWD2" Condition="!DIE47A" Action="remove" />
+            <PossibleValue Value="TIM_TIM3_ETR_ADC2_AWD3" Comment="TIM3_ETR is connected to ADC2 AWD3" Condition="!DIE47A" Action="remove"/>
             <PossibleValue Value="TIM_TIM3_ETR_TIM2_ETR" Comment="TIM3 ETR is connected to TIM2 ETR pin" Condition="!TIM2_Exist" Action="remove"/>
             <PossibleValue Value="TIM_TIM3_ETR_TIM4_ETR" Comment="TIM3 ETR is connected to TIM4 ETR pin" Condition="!TIM4_Exist" Action="remove"/>
    <PossibleValue Value="TIM_TIM3_ETR_TIM5_ETR" Comment="TIM3 ETR is connected to TIM5 ETR pin" Condition="!TIM5_Exist" Action="remove"/>
-   <PossibleValue Value="TIM_TIM3_ETR_ETH_PTP_PPS_O" Comment="TIM3 ETR is connected to ETH_PTP_PPS_O" Condition="!ETH_Exist" Action="remove" Semaphore="Semaphore_TIM_TIM3_ETR_ETH_PTP_PPS_O"/>
+   <PossibleValue Value="TIM_TIM3_ETR_ETH_PPS" Comment="TIM3 ETR is connected to ETH_PPS" Condition="!ETH_Exist" Action="remove" Semaphore="Semaphore_TIM_TIM3_ETR_ETH_PPS$IpInstance"/>
+            <PossibleValue Value="TIM_TIM3_ETR_PLAY1_OUT0" Comment="TIM3 Channel 1 is connected to PLAY1_OUT0" Condition="!PLAY1_Exist" Action="remove"/>
     </RefParameter>
     <RefParameter Name="TIM3_ETR_REMAP" Comment="ETR remap capabilities for TIM3" DefaultValue="TIM_TIM3_ETR_GPIO" Type="list" Group="ETR remap capabilities for TIM3">
         <Condition Diagnostic="" Expression="!Semaphore_TIM3_H5_ETR_REMAPTIM3"/>
             <PossibleValue Value="TIM_TIM3_ETR_GPIO" Comment="TIM3 ETR input is connected to GPIO"/>
     </RefParameter>
 <!-- for TIM3 TI1 -->
-    <RefParameter Name="TIM3_TI1_REMAP" Comment="TI1 remap capabilities for TIM3" DefaultValue="TIM_TIM3_TI1_COMP1" Type="list" Group="T1 remap capabilities for TIM3">
-        <Condition Diagnostic="" Expression="Semaphore_TIM3_H5_TI1_REMAPTIM3 &amp; DIE474"/>
-            <PossibleValue Value="TIM_TIM3_TI1_COMP1" Comment="TIM3 Channel 1 is connected to COMP1_OUT"/>
-            <PossibleValue Value="TIM_TIM3_TI1_MCO1" Comment="TIM3 Channel 1 is connected to MCO1" Semaphore="SEM2RCC_MCO1_REQUIRED_$IpInstance"/>
-   <PossibleValue Value="TIM_TIM3_TI1_TIM2_TI1" Comment="TIM3 Channel 1 is connected to TIM2 TI1"/>
-   <PossibleValue Value="TIM_TIM3_TI1_HSE_1MHZ" Comment="TIM3 Channel 1 is connected to HSE 1MHZ" Semaphore="SEM2RCC_HSE_REQUIRED_$IpInstance" Condition="!(HSEOscillator|HSEByPass)" Action="Disable" Diagnostic="HSE Oscillator must be activated in the RCC IP (Pinout view)"/>
-    </RefParameter>
- <RefParameter Name="TIM3_TI1_REMAP" Comment="TI1 remap capabilities for TIM3" DefaultValue="TIM_TIM2_TI1_ETH_PTP_PPS_O" Type="list" Group="T1 remap capabilities for TIM3">
-        <Condition Diagnostic="" Expression="Semaphore_TIM3_H5_TI1_REMAPTIM3 &amp; DIE484"/>
-   <PossibleValue Value="TIM_TIM3_TI1_ETH_PTP_PPS_O" Comment="TIM3 Channel 1 is connected to ETH_PTP_PPS_O" Semaphore="Semaphore_TIM_TIM3_TI1_ETH_PTP_PPS_O"/>
+<RefParameter Name="TIM3_TI1_REMAP" Comment="TI1 remap capabilities for TIM3" DefaultValue="TIM_TIM3_TI1_COMP1" Type="list" Group="T1 remap capabilities for TIM3">
+  <Condition Diagnostic="" Expression="Semaphore_TIM3_H5_TI1_REMAPTIM3 &amp; DIE474"/>
+  <PossibleValue Value="TIM_TIM3_TI1_COMP1" Comment="TIM3 Channel 1 is connected to COMP1_OUT"/>
+  <PossibleValue Value="TIM_TIM3_TI1_MCO1" Comment="TIM3 Channel 1 is connected to MCO1" Semaphore="SEM2RCC_MCO1_REQUIRED_$IpInstance"/>
+  <PossibleValue Value="TIM_TIM3_TI1_TIM2_TI1" Comment="TIM3 Channel 1 is connected to TIM2 TI1"/>
+  <PossibleValue Value="TIM_TIM3_TI1_HSE_1MHZ" Comment="TIM3 Channel 1 is connected to HSE 1MHZ" Semaphore="SEM2RCC_HSE_REQUIRED_$IpInstance" Condition="!(HSEOscillator|HSEByPass)" Action="Disable" Diagnostic="HSE Oscillator must be activated in the RCC IP (Pinout view)"/>
+</RefParameter>
+ <RefParameter Name="TIM3_TI1_REMAP" Comment="TI1 remap capabilities for TIM3" DefaultValue="TIM_TIM3_TI1_ETH_PPS" Type="list" Group="T1 remap capabilities for TIM3">
+        <Condition Diagnostic="" Expression="Semaphore_TIM3_H5_TI1_REMAPTIM3 &amp; DIE484|DIE47A"/>
+      <PossibleValue Value="TIM_TIM3_TI1_ETH_PPS" Comment="TIM3 Channel 1 is connected to ETH_PPS" Condition="!ETH_Exist" Action="remove" Semaphore="Semaphore_TIM_TIM3_TI1_ETH_PPS$IpInstance"/>
+               <PossibleValue Value="TIM_TIM3_TI1_COMP1" Comment="TIM3 Channel 1 is connected to COMP1_OUT" Condition="!COMP1_Exist" Action="remove"/>
+      <PossibleValue Value="TIM_TIM3_TI1_COMP2" Comment="TIM3 Channel 1 is connected to COMP2_OUT" Condition="!COMP2_Exist" Action="remove"/>
+      <PossibleValue Value="TIM_TIM3_TI1_PLAY1_OUT3" Comment="TIM3 Channel 1 is connected to PLAY1_OUT3" Condition="!PLAY1_Exist" Action="remove"/>
     </RefParameter>
     <RefParameter Name="TIM3_TI1_REMAP" Comment="TI1 remap capabilities for TIM3" DefaultValue="TIM_TIM3_TI1_GPIO" Type="list" Group="T1 remap capabilities for TIM3" Visible="false">
         <Condition Diagnostic="" Expression="!Semaphore_TIM3_H5_TI1_REMAPTIM3"/>
@@ -2346,9 +2362,12 @@
 <!-- for TIM3 TI2 -->
     <RefParameter Name="TIM3_TI2_REMAP" Comment="TI2 remap capabilities for TIM3" DefaultValue="TIM_TIM3_TI2_COMP1" Type="list" Group="T2 remap capabilities for TIM3">
         <Condition Diagnostic="" Expression="Semaphore_TIM3_H5_TI2_REMAPTIM3"/>
-            <PossibleValue Value="TIM_TIM3_TI2_CSI_128" Comment="TIM3 Channel 2 is connected to CSI 128" Semaphore="SEM2RCC_CSI_REQUIRED_$IpInstance"/>
-            <PossibleValue Value="TIM_TIM3_TI2_MCO2" Comment="TIM3 Channel 2 is connected to MCO2" Semaphore="SEM2RCC_MCO2_REQUIRED_$IpInstance"/>
-            <PossibleValue Value="TIM_TIM3_TI2_HSI_1024" Comment="TIM3_TI2 is connected to HSI 1024" Semaphore="SEM2RCC_HSI_REQUIRED_$IpInstance"/>
+            <PossibleValue Value="TIM_TIM3_TI2_CSI_128" Comment="TIM3 Channel 2 is connected to CSI 128" Semaphore="SEM2RCC_CSI_REQUIRED_$IpInstance" Condition="DIE47A" Action="remove"/>
+            <PossibleValue Value="TIM_TIM3_TI2_MCO2" Comment="TIM3 Channel 2 is connected to MCO2" Semaphore="SEM2RCC_MCO2_REQUIRED_$IpInstance" Condition="DIE47A" Action="remove"/>
+            <PossibleValue Value="TIM_TIM3_TI2_HSI_1024" Comment="TIM3_TI2 is connected to HSI 1024" Semaphore="SEM2RCC_HSI_REQUIRED_$IpInstance" Condition="DIE47A" Action="remove"/>
+            <PossibleValue Value="TIM_TIM3_TI2_COMP1" Comment="TIM3 Channel 2 is connected to COMP1_OUT" Condition="!COMP1_Exist" Action="remove"/>
+            <PossibleValue Value="TIM_TIM3_TI2_COMP2" Comment="TIM3 Channel 2 is connected to COMP2_OUT" Condition="!COMP2_Exist" Action="remove"/>
+            <PossibleValue Value="TIM_TIM3_TI2_PLAY1_OUT4" Comment="TIM3 Channel 2 is connected to PLAY1_OUT4" Condition="!PLAY1_Exist" Action="remove"/>
     </RefParameter>
     <RefParameter Name="TIM3_TI2_REMAP" Comment="TI2 remap capabilities for TIM3" DefaultValue="TIM_TIM3_TI2_GPIO" Type="list" Group="T2 remap capabilities for TIM3" Visible="false">
         <Condition Diagnostic="" Expression="!Semaphore_TIM3_H5_TI2_REMAPTIM3"/>
@@ -2358,6 +2377,8 @@
 <!-- for TIM4 ETR -->
      <RefParameter Name="TIM4_ETR_REMAP" Comment="ETR remap capabilities for TIM4" DefaultValue="TIM_TIM4_ETR_TIM2_ETR" Type="list" Group="ETR remap capabilities for TIM4">
         <Condition Diagnostic="" Expression="Semaphore_TIM4_H5_ETR_REMAPTIM4"/>
+            <PossibleValue Value="TIM_TIM4_ETR_COMP1" Comment="TIM4 ETR input is connected to COMP1_OUT" Condition="!COMP1_Exist" Action="remove"/>
+            <PossibleValue Value="TIM_TIM4_ETR_COMP2" Comment="TIM4 ETR input is connected to COMP2_OUT" Condition="!COMP2_Exist" Action="remove"/>
       <PossibleValue Value="TIM_TIM4_ETR_TIM2_ETR" Comment="TIM4 ETR is connected to TIM2 ETR pin" Condition="!TIM2_Exist" Action="remove"/>
             <PossibleValue Value="TIM_TIM4_ETR_TIM3_ETR" Comment="TIM4 ETR is connected to TIM3 ETR pin" Condition="!TIM3_Exist" Action="remove"/>
             <PossibleValue Value="TIM_TIM4_ETR_TIM5_ETR" Comment="TIM4 ETR is connected to TIM5 ETR pin" Condition="!TIM5_Exist" Action="remove"/>
@@ -2390,11 +2411,15 @@
 <!-- for TIM5 ETR -->
      <RefParameter Name="TIM5_ETR_REMAP" Comment="ETR remap capabilities for TIM5" DefaultValue="TIM_TIM5_ETR_SAI2_FSA" Type="list" Group="ETR remap capabilities for TIM5">
         <Condition Diagnostic="" Expression="Semaphore_TIM5_H5_ETR_REMAPTIM5"/>
+            <PossibleValue Value="TIM_TIM5_ETR_COMP1" Comment="TIM5 ETR input is connected to COMP1_OUT" Condition="!COMP1_Exist" Action="remove"/>
+            <PossibleValue Value="TIM_TIM5_ETR_COMP2" Comment="TIM5 ETR input is connected to COMP2_OUT" Condition="!COMP2_Exist" Action="remove"/>
             <PossibleValue Value="TIM_TIM5_ETR_SAI2_FSA" Comment="TIM5 ETR input is connected to SAI2_FSA" Condition="!SAI2_Exist" Action="remove"/>
             <PossibleValue Value="TIM_TIM5_ETR_SAI2_FSB" Comment="TIM5 ETR input is connected to SAI2_FSB" Condition="!SAI2_Exist" Action="remove"/>
             <PossibleValue Value="TIM_TIM5_ETR_TIM2_ETR" Comment="TIM5 ETR is connected to TIM2 ETR pin" Condition="!TIM2_Exist" Action="remove"/>
             <PossibleValue Value="TIM_TIM5_ETR_TIM3_ETR" Comment="TIM5 ETR is connected to TIM3 ETR pin" Condition="!TIM3_Exist" Action="remove"/>
             <PossibleValue Value="TIM_TIM5_ETR_TIM4_ETR" Comment="TIM5 ETR is connected to TIM4 ETR pin" Condition="!TIM4_Exist" Action="remove"/>
+            <PossibleValue Value="TIM_TIM5_ETR_USBHS_SOF" Comment="TIM5_ETR is connected to USBHS SOF" Condition="!USB_OTG_HS_Exist" Action="remove"/>
+            <PossibleValue Value="TIM_TIM5_ETR_USBFS_SOF" Comment="TIM5_ETR is connected to USBFS SOF" Condition="!USB_OTG_FS_Exist" Action="remove"/>
     </RefParameter>
     <RefParameter Name="TIM5_ETR_REMAP" Comment="ETR remap capabilities for TIM5" DefaultValue="TIM_TIM5_ETR_GPIO" Type="list" Group="ETR remap capabilities for TIM5">
         <Condition Diagnostic="" Expression="!Semaphore_TIM5_H5_ETR_REMAPTIM5"/>
@@ -2402,10 +2427,15 @@
     </RefParameter>
 <!-- for TIM5 TI1 -->
     <RefParameter Name="TIM5_TI1_REMAP" Comment="TI1 remap capabilities for TIM5" DefaultValue="TIM_TIM5_TI1_LSI" Type="list" Group="TI1 remap capabilities for TIM5">
-        <Condition Diagnostic="" Expression="Semaphore_TIM5_H5_TI1_REMAPTIM5"/>
-            <PossibleValue Value="TIM_TIM5_TI1_LSI" Comment="TIM5 Channel 1 is connected to LSI" Semaphore="SEM2RCC_LSI_REQUIRED_$IpInstance"/>
-            <PossibleValue Value="TIM_TIM5_TI1_LSE" Comment="TIM5 Channel 1 is connected to LSE" Semaphore="SEM2RCC_LSE_REQUIRED1_$IpInstance" Condition="!(LSEOscillator|LSEByPass)" Action="Disable" Diagnostic="LSE Oscillator must be activated in the RCC IP (Pinout view)"/>
+        <Condition Diagnostic="" Expression="Semaphore_TIM5_H5_TI1_REMAPTIM5 &amp; !DIE47A"/>
+            <PossibleValue Value="TIM_TIM5_TI1_LSI" Comment="TIM5 Channel 1 is connected to LSI" Semaphore="SEM2RCC_LSI_REQUIRED_$IpInstance" />
+            <PossibleValue Value="TIM_TIM5_TI1_LSE" Comment="TIM5 Channel 1 is connected to LSE" Semaphore="SEM2RCC_LSE_REQUIRED1_$IpInstance" Condition="!(LSEOscillator|LSEByPass) " Action="Disable" Diagnostic="LSE Oscillator must be activated in the RCC IP (Pinout view)"/>
             <PossibleValue Value="TIM_TIM5_TI1_RTC_WKUP" Comment="TIM5 Channel 1 is connected to RTC wakeUp interrupt" Condition="!(RTC_WAKEUP_INTERRUPT &amp; (RTC_IRQn|RTC_S_IRQn))" Diagnostic="RTC wakeUp and associated NVIC interrupt must be enabled" Action="Disable"/>
+            <PossibleValue Value="TIM_TIM5_TI1_COMP1" Comment="TIM5 Channel 1 is connected to COMP1_OUT" Condition="!COMP1_Exist" Action="remove"/>
+            <PossibleValue Value="TIM_TIM5_TI1_COMP2" Comment="TIM5 Channel 1 is connected to COMP2_OUT" Condition="!COMP2_Exist" Action="remove"/>
+    </RefParameter>
+    <RefParameter Name="TIM5_TI1_REMAP" Comment="TI1 remap capabilities for TIM5" DefaultValue="TIM_TIM5_TI1_LSI" Type="list" Group="TI1 remap capabilities for TIM5">
+        <Condition Diagnostic="" Expression="Semaphore_TIM5_H5_TI1_REMAPTIM5 &amp; DIE47A" />
             <PossibleValue Value="TIM_TIM5_TI1_COMP1" Comment="TIM5 Channel 1 is connected to COMP1_OUT" Condition="!COMP1_Exist" Action="remove"/>
             <PossibleValue Value="TIM_TIM5_TI1_COMP2" Comment="TIM5 Channel 1 is connected to COMP2_OUT" Condition="!COMP2_Exist" Action="remove"/>
     </RefParameter>
@@ -2427,9 +2457,14 @@
 <!-- for TIM8 ETR-->
     <RefParameter Name="TIM8_ETR_REMAP" Comment="ETR remap capabilities for TIM8" DefaultValue="TIM_TIM8_ETR_ADC2_AWD1" Type="list" Group="ETR remap capabilities for TIM8">
         <Condition Diagnostic="" Expression="Semaphore_TIM8_H5_ETR_REMAPTIM8"/>
+   <PossibleValue Value="TIM_TIM8_ETR_COMP1" Comment="TIM8_ETR is connected to COMP1" Condition="!COMP1_Exist" Action="remove"/>
+   <PossibleValue Value="TIM_TIM8_ETR_COMP2" Comment="TIM8_ETR is connected to COMP2" Condition="!COMP2_Exist" Action="remove"/>
             <PossibleValue Value="TIM_TIM8_ETR_ADC2_AWD1" Comment="TIM8_ETR is connected to ADC2 AWD1" Condition="!ADC2_Exist" Action="remove"/>
             <PossibleValue Value="TIM_TIM8_ETR_ADC2_AWD2" Comment="TIM8_ETR is connected to ADC2 AWD2" Condition="!ADC2_Exist" Action="remove"/>
             <PossibleValue Value="TIM_TIM8_ETR_ADC2_AWD3" Comment="TIM8_ETR is connected to ADC2 AWD3" Condition="!ADC2_Exist" Action="remove"/>
+   <PossibleValue Value="TIM_TIM8_ETR_ADC3_AWD1" Comment="TIM8_ETR is connected to ADC3 AWD1" Condition="!ADC3_Exist" Action="remove"/>
+            <PossibleValue Value="TIM_TIM8_ETR_ADC3_AWD2" Comment="TIM8_ETR is connected to ADC3 AWD2" Condition="!ADC3_Exist" Action="remove"/>
+            <PossibleValue Value="TIM_TIM8_ETR_ADC3_AWD3" Comment="TIM8_ETR is connected to ADC3 AWD3" Condition="!ADC3_Exist" Action="remove"/>
     </RefParameter>
     <RefParameter Name="TIM8_ETR_REMAP" Comment="ETR remap capabilities for TIM8" DefaultValue="__NULL" Type="list" Group="ETR remap capabilities for TIM8" Visible="false">
         <Condition Diagnostic="" Expression="!Semaphore_TIM8_H5_ETR_REMAPTIM8"/>
@@ -2450,10 +2485,35 @@
         <Condition Diagnostic="" Expression="Semaphore_TIM12_H5_TI1_REMAPTIM12"/>
             <PossibleValue Value="TIM_TIM12_TI1_HSI_1024" Comment="TIM12 Channel 1 is connected to HSI 1024" Semaphore="SEM2RCC_HSI_REQUIRED_$IpInstance"/>
             <PossibleValue Value="TIM_TIM12_TI1_CSI_128" Comment="TIM12 Channel 1 is connected to CSI 128" Semaphore="SEM2RCC_CSI_REQUIRED_$IpInstance"/>
+            <PossibleValue Value="TIM_TIM12_TI1_COMP1" Comment="TIM12 Channel 1 is connected to COMP1_OUT" Condition="!COMP1_Exist" Action="remove"/>
+            <PossibleValue Value="TIM_TIM12_TI1_COMP2" Comment="TIM12 Channel 1 is connected to COMP2_OUT" Condition="!COMP2_Exist" Action="remove"/>
     </RefParameter>
     <RefParameter Name="TIM12_TI1_REMAP" Comment="TI1 remap capabilities for TIM12" DefaultValue="TIM_TIM12_TI1_GPIO" Type="list" Group="TI1 remap capabilities for TIM5">
         <Condition Diagnostic="" Expression="!Semaphore_TIM12_H5_TI1_REMAPTIM12"/>
             <PossibleValue Value="TIM_TIM12_TI1_GPIO" Comment="TIM12 Channel 1 is connected to GPIO" />
+    </RefParameter>
+        <!-- for TIM12 TI2 -->
+    <RefParameter Name="TIM12_TI2_REMAP" Comment="TI2 remap capabilities for TIM4" DefaultValue="TIM_TIM12_TI2_COMP1" Type="list" Group="T2 remap capabilities for TIM4">
+        <Condition Diagnostic="" Expression="Semaphore_TIM12_H5_TI2_REMAPTIM4"/>
+            <PossibleValue Value="TIM_TIM12_TI2_COMP2" Comment="TIM12 Channel 2 is connected to COMP2_OUT" Condition="!COMP2_Exist" Action="remove"/>
+    </RefParameter>
+<!-- for TIM13 TI1 -->
+    <RefParameter Name="TIM13_TI1_REMAP" Comment="TI1 remap capabilities for TIM13" DefaultValue="TIM_TIM13_TI1_I3C1_IBIACK" Type="list" Group="T1 remap capabilities for TIM13">
+        <Condition Diagnostic="" Expression="Semaphore_TIM13_H5_TI1_REMAPTIM13"/> <!-- Attention pas declare -->
+            <PossibleValue Value="TIM_TIM13_TI1_I3C1_IBIACK" Comment="TIM13_TI1 is connected to I3C1 IBI ACK" Semaphore="!I3C1_Exist"/>
+            <PossibleValue Value="TIM_TIM13_TI1_COMP1" Comment="TIM13 Channel 1 is connected to COMP1_OUT" Condition="!COMP1_Exist" Action="remove"/>
+            <PossibleValue Value="TIM_TIM13_TI1_COMP2" Comment="TIM13 Channel 1 is connected to COMP2_OUT" Condition="!COMP2_Exist" Action="remove"/>
+    </RefParameter>
+        <!-- for TIM14 TI1 -->
+    <RefParameter Name="TIM14_TI1_REMAP" Comment="TI1 remap capabilities for TIM14" DefaultValue="TIM_TIM14_TI1_I3C2_IBIACK" Type="list" Group="T1 remap capabilities for TIM14">
+        <Condition Diagnostic="" Expression="Semaphore_TIM14_H5_TI1_REMAPTIM14"/> <!-- Attention pas declare -->
+        <PossibleValue Value="TIM_TIM14_TI1_I3C2_IBIACK" Comment="TIM14_TI1 is connected to I3C2 IBI ACK" Semaphore="!I3C2_Exist"/>
+        <PossibleValue Value="TIM_TIM14_TI1_COMP1" Comment="TIM14 Channel 1 is connected to COMP1_OUT" Condition="!COMP1_Exist" Action="remove"/>
+        <PossibleValue Value="TIM_TIM14_TI1_COMP2" Comment="TIM14 Channel 1 is connected to COMP2_OUT" Condition="!COMP2_Exist" Action="remove"/>
+    </RefParameter>
+    <RefParameter Name="TIM14_TI1_REMAP" Comment="TI1 remap capabilities for TIM14" DefaultValue="TIM_TIM14_TI1_GPIO" Type="list" Group="T1 remap capabilities for TIM14" Visible="false">
+        <Condition Diagnostic="" Expression="!Semaphore_TIM14_H5_TI1_REMAPTIM14"/>
+        <PossibleValue Value="TIM_TIM14_TI1_GPIO" Comment="TIM11 TI1 is connected to GPIO"/>
     </RefParameter>
 <!-- for TIM15 of H5 family -->
  <!-- for TIM15 TI1 -->
@@ -2465,6 +2525,8 @@
             <PossibleValue Value="TIM_TIM15_TI1_LSE" Comment="TIM15 Channel 1 is connected to LSE" Semaphore="SEM2RCC_LSE_REQUIRED1_$IpInstance" Condition="!(LSEOscillator|LSEByPass)" Action="Disable" Diagnostic="LSE Oscillator must be activated in the RCC IP (Pinout view)"/>
    <PossibleValue Value="TIM_TIM15_TI1_CSI_128" Comment="TIM15 Channel 1 is connected to CSI 128" Semaphore="SEM2RCC_CSI_REQUIRED_$IpInstance"/>
    <PossibleValue Value="TIM_TIM15_TI1_MCO2" Comment="TIM15 Channel 1 is connected to MCO2" Semaphore="SEM2RCC_MCO_REQUIRED_$IpInstance"/>
+            <PossibleValue Value="TIM_TIM15_TI1_COMP1" Comment="TIM14 Channel 1 is connected to COMP1_OUT" Condition="!COMP1_Exist" Action="remove"/>
+            <PossibleValue Value="TIM_TIM15_TI1_COMP2" Comment="TIM14 Channel 1 is connected to COMP2_OUT" Condition="!COMP2_Exist" Action="remove"/>
     </RefParameter>
     <RefParameter Name="TIM15_TI1_REMAP" Comment="TI1 remap capabilities for TIM15" DefaultValue="TIM_TIM15_TI1_GPIO" Type="list" Group="T1 remap capabilities for TIM15" Visible="false">
         <Condition Diagnostic="" Expression="!Semaphore_TIM15_H5_TI1_REMAPTIM15"/>
@@ -2476,6 +2538,8 @@
    <PossibleValue Value="TIM_TIM15_TI2_TIM2" Comment="TIM15 Channel 2 is connected to TIM2"/>
    <PossibleValue Value="TIM_TIM15_TI2_TIM3" Comment="TIM15 Channel 2 is connected to TIM3"/>
    <PossibleValue Value="TIM_TIM15_TI2_TIM4" Comment="TIM15 Channel 2 is connected to TIM4"/>
+   <PossibleValue Value="TIM_TIM15_TI2_COMP1" Comment="TIM15 Channel 2 is connected to COMP1_OUT" Condition="!COMP1_Exist" Action="remove"/>
+            <PossibleValue Value="TIM_TIM15_TI2_COMP2" Comment="TIM15 Channel 2 is connected to COMP2_OUT" Condition="!COMP2_Exist" Action="remove"/>
     </RefParameter>
     <RefParameter Name="TIM15_TI2_REMAP" Comment="TI2 remap capabilities for TIM15" DefaultValue="TIM_TIM15_TI2_GPIO" Type="list" Group="T2 remap capabilities for TIM15" Visible="false">
         <Condition Diagnostic="" Expression="!Semaphore_TIM15_H5_TI2_REMAPTIM15"/>
@@ -2487,20 +2551,36 @@
             <PossibleValue Value="TIM_TIM16_TI1_RTC_WKUP" Comment="TIM16 Channel 1 is connected to RTC wakeUp interrupt" Condition="!(RTC_WAKEUP_INTERRUPT &amp; (RTC_IRQn|RTC_S_IRQn))" Diagnostic="RTC wakeUp and associated NVIC interrupt must be enabled" Action="Disable"/>
             <PossibleValue Value="TIM_TIM16_TI1_LSE" Comment="TIM16 Channel 1 is connected to LSE" Semaphore="SEM2RCC_LSE_REQUIRED1_$IpInstance" Condition="!(LSEOscillator|LSEByPass)" Action="Disable" Diagnostic="LSE Oscillator must be activated in the RCC IP (Pinout view)"/>
             <PossibleValue Value="TIM_TIM16_TI1_LSI" Comment="TIM16 Channel 1 is connected to LSI" Semaphore="SEM2RCC_LSI_REQUIRED_$IpInstance"/>
+            <PossibleValue Value="TIM_TIM16_TI1_COMP1" Comment="TIM16 Channel 1 is connected to COMP1_OUT" Condition="!COMP1_Exist" Action="remove"/>
+            <PossibleValue Value="TIM_TIM16_TI1_COMP2" Comment="TIM16 Channel 1 is connected to COMP2_OUT" Condition="!COMP2_Exist" Action="remove"/>
      </RefParameter>
     <RefParameter Name="TIM16_TI1_REMAP" Comment="TI1 remap capabilities for TIM16" DefaultValue="TIM_TIM16_TI1_GPIO" Type="list" Group="TI1 remap capabilities for TIM16">
         <Condition Diagnostic="" Expression="!Semaphore_TIM16_H5_TI1_REMAPTIM16"/>
             <PossibleValue Value="TIM_TIM16_TI1_GPIO" Comment="TIM16 Channel 1 is connected to GPIO" />
     </RefParameter>
 <!-- for TIM17 of H5 family -->
+        <!-- for TIM17 TI1 -->
     <RefParameter Name="TIM17_TI1_REMAP" Comment="TI1 remap capabilities for TIM17" DefaultValue="TIM_TIM17_TI1_LSI" Type="list" Group="TI1 remap capabilities for TIM17">
         <Condition Diagnostic="" Expression="Semaphore_TIM17_H5_TI1_REMAPTIM17"/>
             <PossibleValue Value="TIM_TIM17_TI1_MCO1" Comment="TIM17 Channel 1 is connected to MCO1" Semaphore="SEM2RCC_MCO_REQUIRED_$IpInstance"/>
             <PossibleValue Value="TIM_TIM17_TI1_HSE_1MHZ" Comment="TIM17 Channel 1 is connected to HSE 1MHZ" Semaphore="SEM2RCC_HSE_REQUIRED_$IpInstance" Condition="!(HSEOscillator|HSEByPass)" Action="Disable" Diagnostic="HSE Oscillator must be activated in the RCC IP (Pinout view)"/>
+            <PossibleValue Value="TIM_TIM17_TI1_COMP1" Comment="TIM17 Channel 1 is connected to COMP1_OUT" Condition="!COMP1_Exist" Action="remove"/>
+            <PossibleValue Value="TIM_TIM17_TI1_COMP2" Comment="TIM17 Channel 1 is connected to COMP2_OUT" Condition="!COMP2_Exist" Action="remove"/>
      </RefParameter>
     <RefParameter Name="TIM17_TI1_REMAP" Comment="TI1 remap capabilities for TIM17" DefaultValue="TIM_TIM17_TI1_GPIO" Type="list" Group="TI1 remap capabilities for TIM17">
         <Condition Diagnostic="" Expression="!Semaphore_TIM17_H5_TI1_REMAPTIM17"/>
             <PossibleValue Value="TIM_TIM17_TI1_GPIO" Comment="TIM17 Channel 1 is connected to GPIO" />
+    </RefParameter>
+        <!-- for TIM17 TI2 -->
+    <RefParameter Name="TIM17_TI2_REMAP" Comment="TI2 remap capabilities for TIM15" DefaultValue="TIM_TIM17_TI2_COMP2" Type="list" Group="T2 remap capabilities for TIM17">
+        <Condition Diagnostic="" Expression="Semaphore_TIM17_H5_TI2_REMAPTIM15"/> <!-- Attention pas declare -->
+            <PossibleValue Value="TIM_TIM17_TI2_TIM2" Comment="TIM17 Channel 2 is connected to TIM2"/>
+            <PossibleValue Value="TIM_TIM17_TI2_TIM3" Comment="TIM17 Channel 2 is connected to TIM3"/>
+            <PossibleValue Value="TIM_TIM17_TI2_TIM4" Comment="TIM17 Channel 2 is connected to TIM4"/>
+    </RefParameter>
+    <RefParameter Name="TIM17_TI2_REMAP" Comment="TI2 remap capabilities for TIM17" DefaultValue="TIM_TIM17_TI2_GPIO" Type="list" Group="TI2 remap capabilities for TIM17">
+        <Condition Diagnostic="" Expression="!Semaphore_TIM17_H5_TI2_REMAPTIM17"/>
+        <PossibleValue Value="TIM_TIM17_TI2_GPIO" Comment="TIM17 Channel 2 is connected to GPIO" />
     </RefParameter>
 <!--/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\-->
 <!--/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/ REF MODE \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\-->
@@ -2857,6 +2937,42 @@
             <Parameter Name="ICFilter_CH1" />
             <ConfigForMode>TISelection_TIM12_TI1</ConfigForMode>
             <Parameter Name="TIM12_TI1_REMAP" />
+    </RefMode>
+    <RefMode BaseMode ="Counter_init" Name="Input_Capture1_from_TI1_REMAP_TIM13" HalMode ="TIM_IC" Group="Input Capture Channel 1">
+            <ConfigForMode>TIM_MasterConfigSynchronization</ConfigForMode>
+            <ConfigForMode>TIM_ConfigBreakDeadTime</ConfigForMode>
+            <ConfigForMode>TIM_ConfigBreakInput</ConfigForMode>
+            <ConfigForMode>IC_Init</ConfigForMode>
+            <ConfigForMode>IC_ConfigChannel_CH1</ConfigForMode>
+            <Parameter Name="Channel" >
+                <PossibleValue>TIM_CHANNEL_1</PossibleValue>
+            </Parameter>
+            <Parameter Name="ICPolarity_CH1" />
+            <Parameter Name="ICSelection" >
+                <PossibleValue>TIM_ICSELECTION_DIRECTTI</PossibleValue>
+            </Parameter>
+            <Parameter Name="ICPrescaler" />
+            <Parameter Name="ICFilter_CH1" />
+            <ConfigForMode>TISelection_TIM13_TI1</ConfigForMode>
+            <Parameter Name="TIM13_TI1_REMAP" />
+    </RefMode>
+    <RefMode BaseMode ="Counter_init" Name="Input_Capture1_from_TI1_REMAP_TIM14" HalMode ="TIM_IC" Group="Input Capture Channel 1">
+            <ConfigForMode>TIM_MasterConfigSynchronization</ConfigForMode>
+            <ConfigForMode>TIM_ConfigBreakDeadTime</ConfigForMode>
+            <ConfigForMode>TIM_ConfigBreakInput</ConfigForMode>
+            <ConfigForMode>IC_Init</ConfigForMode>
+            <ConfigForMode>IC_ConfigChannel_CH1</ConfigForMode>
+            <Parameter Name="Channel" >
+                <PossibleValue>TIM_CHANNEL_1</PossibleValue>
+            </Parameter>
+            <Parameter Name="ICPolarity_CH1" />
+            <Parameter Name="ICSelection" >
+                <PossibleValue>TIM_ICSELECTION_DIRECTTI</PossibleValue>
+            </Parameter>
+            <Parameter Name="ICPrescaler" />
+            <Parameter Name="ICFilter_CH1" />
+            <ConfigForMode>TISelection_TIM14_TI1</ConfigForMode>
+            <Parameter Name="TIM14_TI1_REMAP" />
     </RefMode>
     <RefMode BaseMode ="Counter_init" Name="Input_Capture1_from_TI1_REMAP_TIM15" HalMode ="TIM_IC" Group="Input Capture Channel 1">
             <ConfigForMode>TIM_MasterConfigSynchronization</ConfigForMode>
@@ -6871,11 +6987,61 @@ Encoder_Interface_w_index_remapCH1_remapCH2_remapETR for TIM 2,3,4,5 only
                         <Signal Name="VS_NoInput1"/>
                     </SignalLogicalOp>
                 </Mode>
+    <Mode Name="Input_Capture1_from_TI1_REMAP_TIM4" UserName="Input Capture direct mode from Remap" RemoveCondition="!(($IpNumber=4) &amp; (DIE47A))">
+                                        <Semaphore>Semaphore_input_Channel1$IpInstance</Semaphore>
+                                        <Semaphore>Semaphore_input_Channel1_direct$IpInstance</Semaphore>
+                                        <Semaphore>Semaphore_CH1pinUsed$IpInstance</Semaphore>
+                                        <Semaphore>Semaphore_TIM4_H5_TI1_REMAP$IpInstance</Semaphore>
+                                       <Condition Diagnostic="Channel1 is already used as input for the Slave mode controller" Expression="((Semaphore_SMC_Reset$IpInstance|Semaphore_SMC_CombinedResetTrigger$IpInstance)|!(Semaphore_ClockTriggerSourceOnTI1$IpInstance))"/>
+                    <SignalLogicalOp Name="AND">
+                        <Signal Name="VS_NoInput1"/>
+                    </SignalLogicalOp>
+                </Mode>
+    <Mode Name="Input_Capture1_from_TI1_REMAP_TIM5" UserName="Input Capture direct mode from Remap" RemoveCondition="!(($IpNumber=5) &amp; (DIE47A))">
+                                        <Semaphore>Semaphore_input_Channel1$IpInstance</Semaphore>
+                                        <Semaphore>Semaphore_input_Channel1_direct$IpInstance</Semaphore>
+                                        <Semaphore>Semaphore_CH1pinUsed$IpInstance</Semaphore>
+                                        <Semaphore>Semaphore_TIM5_H5_TI1_REMAP$IpInstance</Semaphore>
+                                       <Condition Diagnostic="Channel1 is already used as input for the Slave mode controller" Expression="((Semaphore_SMC_Reset$IpInstance|Semaphore_SMC_CombinedResetTrigger$IpInstance)|!(Semaphore_ClockTriggerSourceOnTI1$IpInstance))"/>
+                    <SignalLogicalOp Name="AND">
+                        <Signal Name="VS_NoInput1"/>
+                    </SignalLogicalOp>
+                </Mode>
+    <Mode Name="Input_Capture1_from_TI1_REMAP_TIM8" UserName="Input Capture direct mode from Remap" RemoveCondition="!(($IpNumber=8) &amp; DIE47A)">
+                                        <Semaphore>Semaphore_input_Channel1$IpInstance</Semaphore>
+                                        <Semaphore>Semaphore_input_Channel1_direct$IpInstance</Semaphore>
+                                        <Semaphore>Semaphore_CH1pinUsed$IpInstance</Semaphore>
+                                        <Semaphore>Semaphore_TIM8_H5_TI1_REMAP$IpInstance</Semaphore>
+                                       <Condition Diagnostic="Channel1 is already used as input for the Slave mode controller" Expression="((Semaphore_SMC_Reset$IpInstance|Semaphore_SMC_CombinedResetTrigger$IpInstance)|!(Semaphore_ClockTriggerSourceOnTI1$IpInstance))"/>
+                    <SignalLogicalOp Name="AND">
+                        <Signal Name="VS_NoInput1"/>
+                    </SignalLogicalOp>
+                </Mode>
                 <Mode Name="Input_Capture1_from_TI1_REMAP_TIM12" UserName="Input Capture direct mode from Remap" RemoveCondition="!($IpNumber=12)">
                                         <Semaphore>Semaphore_input_Channel1$IpInstance</Semaphore>
                                         <Semaphore>Semaphore_input_Channel1_direct$IpInstance</Semaphore>
                                         <Semaphore>Semaphore_CH1pinUsed$IpInstance</Semaphore>
                                         <Semaphore>Semaphore_TIM12_H5_TI1_REMAP$IpInstance</Semaphore>
+                                       <Condition Diagnostic="Channel1 is already used as input for the Slave mode controller" Expression="((Semaphore_SMC_Reset$IpInstance|Semaphore_SMC_CombinedResetTrigger$IpInstance)|!(Semaphore_ClockTriggerSourceOnTI1$IpInstance))"/>
+                    <SignalLogicalOp Name="AND">
+                        <Signal Name="VS_NoInput1"/>
+                    </SignalLogicalOp>
+                </Mode>
+                <Mode Name="Input_Capture1_from_TI1_REMAP_TIM13" UserName="Input Capture direct mode from Remap" RemoveCondition="!(($IpNumber=13)&amp; DIE47A)">
+                                        <Semaphore>Semaphore_input_Channel1$IpInstance</Semaphore>
+                                        <Semaphore>Semaphore_input_Channel1_direct$IpInstance</Semaphore>
+                                        <Semaphore>Semaphore_CH1pinUsed$IpInstance</Semaphore>
+                                        <Semaphore>Semaphore_TIM13_H5_TI1_REMAP$IpInstance</Semaphore>
+                                       <Condition Diagnostic="Channel1 is already used as input for the Slave mode controller" Expression="((Semaphore_SMC_Reset$IpInstance|Semaphore_SMC_CombinedResetTrigger$IpInstance)|!(Semaphore_ClockTriggerSourceOnTI1$IpInstance))"/>
+                    <SignalLogicalOp Name="AND">
+                        <Signal Name="VS_NoInput1"/>
+                    </SignalLogicalOp>
+                </Mode>
+                <Mode Name="Input_Capture1_from_TI1_REMAP_TIM14" UserName="Input Capture direct mode from Remap" RemoveCondition="!(($IpNumber=14) &amp; DIE47A)">
+                                        <Semaphore>Semaphore_input_Channel1$IpInstance</Semaphore>
+                                        <Semaphore>Semaphore_input_Channel1_direct$IpInstance</Semaphore>
+                                        <Semaphore>Semaphore_CH1pinUsed$IpInstance</Semaphore>
+                                        <Semaphore>Semaphore_TIM14_H5_TI1_REMAP$IpInstance</Semaphore>
                                        <Condition Diagnostic="Channel1 is already used as input for the Slave mode controller" Expression="((Semaphore_SMC_Reset$IpInstance|Semaphore_SMC_CombinedResetTrigger$IpInstance)|!(Semaphore_ClockTriggerSourceOnTI1$IpInstance))"/>
                     <SignalLogicalOp Name="AND">
                         <Signal Name="VS_NoInput1"/>
@@ -7122,7 +7288,7 @@ Encoder_Interface_w_index_remapCH1_remapCH2_remapETR for TIM 2,3,4,5 only
                         <Signal Name="CH2" Direction="Input"/>
                     </SignalLogicalOp>
                 </Mode>
-                <Mode Name="Input_Capture2_from_TI2_Remap_TIM2" UserName="Input Capture direct mode from Remap" RemoveCondition="!(($IpNumber=2) &amp; DIE474)">
+                <Mode Name="Input_Capture2_from_TI2_Remap_TIM2" UserName="Input Capture direct mode from Remap" RemoveCondition="!(($IpNumber=2) &amp; (DIE474|DIE47A))">
                                         <Semaphore>Semaphore_input_Channel2$IpInstance</Semaphore>
                                         <Semaphore>Semaphore_input_Channel2_direct$IpInstance</Semaphore>
                                         <Semaphore>Semaphore_TIM2_H5_TI2_REMAP$IpInstance</Semaphore>
@@ -7131,7 +7297,7 @@ Encoder_Interface_w_index_remapCH1_remapCH2_remapETR for TIM 2,3,4,5 only
                         <Signal Name="VS_NoInput2"/>
                     </SignalLogicalOp>
                 </Mode>
-                <Mode Name="Input_Capture2_from_TI2_Remap_TIM3" UserName="Input Capture direct mode from Remap" RemoveCondition="!(($IpNumber=3) &amp; DIE474)">
+                <Mode Name="Input_Capture2_from_TI2_Remap_TIM3" UserName="Input Capture direct mode from Remap" RemoveCondition="!(($IpNumber=3) &amp; (DIE474|DIE47A))">
                                         <Semaphore>Semaphore_input_Channel2$IpInstance</Semaphore>
                                         <Semaphore>Semaphore_input_Channel2_direct$IpInstance</Semaphore>
                                         <Semaphore>Semaphore_TIM3_H5_TI2_REMAP$IpInstance</Semaphore>

@@ -3307,14 +3307,423 @@
             <ParserCondition>DIE493</ParserCondition>
         </description>
     </rule>
-    <rule name="Adapt Old IOC CSI.">
+    <rule name="Rename DIE492 PartNumber CPN STM32WBA5MJGHx -> STM32WBA5MMGHx">
         <description>
-            <MXDBVersion>DB.6.0.141</MXDBVersion>
-            <RuleType>AdaptOldIocCSI</RuleType>
-            <MatcherOnKey>Appli.IPs,AppliNonSecure.IPs,AppliSecure.IPs,FSBL.IPs</MatcherOnKey>
-            <MatcherPattern>CSI</MatcherPattern>
-            <SeparatorOnValue>,</SeparatorOnValue>
-            <ParserCondition>STM32N6</ParserCondition>
+            <MXDBVersion>DB.6.0.150</MXDBVersion>
+            <MatcherOnKey>Mcu.CPN</MatcherOnKey>
+            <MatcherPattern>STM32WBA5MJGH6TR</MatcherPattern>
+            <MatchToPattern>STM32WBA5MMGH6TR</MatchToPattern>
+            <SeparatorOnValue>__No_Separator</SeparatorOnValue>
         </description>
     </rule>
+    <rule name="Rename DIE492 PartNumber  Name STM32WBA5MJGHx -> STM32WBA5MMGHx">
+        <description>
+            <MXDBVersion>DB.6.0.150</MXDBVersion>
+            <MatcherOnKey>Mcu.Name</MatcherOnKey>
+            <MatcherPattern>STM32WBA5MJGHx</MatcherPattern>
+            <MatchToPattern>STM32WBA5MMGHx</MatchToPattern>
+            <SeparatorOnValue>__No_Separator</SeparatorOnValue>
+        </description>
+    </rule>
+    <rule name="Rename DIE492 PartNumber UserName STM32WBA5MJGHx -> STM32WBA5MMGHx">
+        <description>
+            <MXDBVersion>DB.6.0.150</MXDBVersion>
+            <MatcherOnKey>Mcu.UserName</MatcherOnKey>
+            <MatcherPattern>STM32WBA5MJGHx</MatcherPattern>
+            <MatchToPattern>STM32WBA5MMGHx</MatchToPattern>
+            <SeparatorOnValue>__No_Separator</SeparatorOnValue>
+        </description>
+    </rule>
+    <rule name="Rename DIE492 PartNumber DeviceId STM32WBA5MJGHx -> STM32WBA5MMGHx">
+        <description>
+            <MXDBVersion>DB.6.0.150</MXDBVersion>
+            <MatcherOnKey>ProjectManager.DeviceId</MatcherOnKey>
+            <MatcherPattern>STM32WBA5MJGHx</MatcherPattern>
+            <MatchToPattern>STM32WBA5MMGHx</MatchToPattern>
+            <SeparatorOnValue>__No_Separator</SeparatorOnValue>
+        </description>
+    </rule>
+    <rule name="Adapt Old IOC CSI.">
+        <description>
+            <MXDBVersion>DB.6.0.170</MXDBVersion>
+            <RuleType>AdaptOldIocCSI</RuleType>
+            <MatcherOnKey>Appli.IPs,AppliNonSecure.IPs,AppliSecure.IPs,FSBL.IPs,CortexM33NS.IPs,CortexA35NSOS.IPs,CortexA35NSSSBL.IPs,CortexA35SFSBLA.IPs,CortexA35SSecureOS.IPs,CortexM33SSecureOS.IPs,ExtMemLoader.IPs</MatcherOnKey>
+            <MatcherPattern>CSI,CSI_D0N,CSI_D0P,CSI_D1P,CSI_CKP,CSI_D1N,CSI_CKN,CSI_REXT</MatcherPattern>
+            <SeparatorOnValue>,</SeparatorOnValue>
+            <ParserCondition>STM32N6|STM32MP2</ParserCondition>
+        </description>
+    </rule>
+
+    <rule name="Adapt Old IOC DCMIPP.">
+        <description>
+            <MXDBVersion>DB.6.0.150</MXDBVersion>
+            <RuleType>AdaptOldIocDCMIPP</RuleType>
+            <MatcherOnKey>Appli.IPs,AppliNonSecure.IPs,AppliSecure.IPs,FSBL.IPs,CortexM33NS.IPs</MatcherOnKey>
+            <MatcherPattern>DCMIPP.PHYBitrate,DCMIPP.NumberOfLanes,DCMIPP.DataLaneMapping</MatcherPattern>
+            <MatchToPattern>DCMIPP.PHYBitratePIPEx,DCMIPP.NumberOfLanesPIPEx,DCMIPP.DataLaneMappingPIPEx</MatchToPattern>
+            <SeparatorOnValue>,</SeparatorOnValue>
+            <ParserCondition>STM32N6|STM32MP2</ParserCondition>
+        </description>
+    </rule>
+
+    <rule name="Adapt Old IOC DCMIPP Mode Parallel.">
+        <description>
+            <MXDBVersion>DB.6.0.150</MXDBVersion>
+            <RuleType>AdaptOldIocDCMIPP_PARALLEL</RuleType>
+            <MatcherOnKey>Appli.IPs,AppliNonSecure.IPs,AppliSecure.IPs,FSBL.IPs,CortexM33NS.IPs</MatcherOnKey>
+            <MatcherPattern>DCMIPP.PHYBitrate,DCMIPP.DataLaneMapping,DCMIPP.NumberOfLanes</MatcherPattern>
+            <MatchToPattern>DCMIPP.DCMIPP_PCKPOLARITY,DCMIPP.Format,DCMIPP.FrameEndCode,DCMIPP.FrameStartCode,DCMIPP.LineEndCode,DCMIPP.LineStartCode,DCMIPP.SwapBits,DCMIPP.SwapCycles,DCMIPP.DCMIPP_VPolarity,DCMIPP.DCMIPP_HPolarity</MatchToPattern>
+            <SeparatorOnValue>,</SeparatorOnValue>
+            <ParserCondition>STM32N6|STM32MP2</ParserCondition>
+        </description>
+    </rule>
+    <rule name="Adapt Old IOC LTDC.">
+        <description>
+            <MXDBVersion>DB.6.0.150</MXDBVersion>
+            <RuleType>AdaptOldIocRIF_LTDC</RuleType>
+            <MatcherPattern>RIF.RIFAWARE.LTDC Feature LTDC_L0L1,RIF.RIFAWARE.LTDC Feature LTDC_L2</MatcherPattern>
+            <MatchToPattern>RIF.RIFAWARE.LTDC Feature LTDC_L1L2,RIF.RIFAWARE.LTDC Feature LTDC_L3</MatchToPattern>
+            <SeparatorOnValue>,</SeparatorOnValue>
+            <ParserCondition>STM32MP2</ParserCondition>
+        </description>
+    </rule>
+    <rule name="Rename STM32MP2 RIF Peripheral LTDC RIF.RISUP.LTDC_L0L1.Privilege -> RIF.RISUP.LTDC_L1L2.Privilege">
+        <description>
+            <MXDBVersion>DB.6.0.150</MXDBVersion>
+            <MatcherOnKey>RIF.RISUP.LTDC_L0L1.Privilege</MatcherOnKey>
+            <MatcherPattern>RIF.RISUP.LTDC_L0L1.Privilege</MatcherPattern>
+            <MatchToPattern>RIF.RISUP.LTDC_L1L2.Privilege</MatchToPattern>
+            <SeparatorOnValue>__No_Separator</SeparatorOnValue>
+            <ParserCondition>STM32MP2</ParserCondition>
+        </description>
+    </rule>
+    <rule name="Rename STM32MP2 RIF Peripheral LTDC RIF.RISUP.LTDC_L0L1.Privilege -> RIF.RISUP.LTDC_L1L2.Privilege">
+        <description>
+            <MXDBVersion>DB.6.0.150</MXDBVersion>
+            <MatcherOnKey>RIF.RISUP.LTDC_L2.Privilege</MatcherOnKey>
+            <MatcherPattern>RIF.RISUP.LTDC_L2.Privilege</MatcherPattern>
+            <MatchToPattern>RIF.RISUP.LTDC_L3.Privilege</MatchToPattern>
+            <SeparatorOnValue>__No_Separator</SeparatorOnValue>
+            <ParserCondition>STM32MP2</ParserCondition>
+        </description>
+    </rule>
+    <rule name="Rename STM32MP2 RIF Peripheral LTDC RIF.RISUP.LTDC_L0L1.Lock -> RIF.RISUP.LTDC_L1L2.Lock">
+        <description>
+            <MXDBVersion>DB.6.0.150</MXDBVersion>
+            <MatcherOnKey>RIF.RISUP.LTDC_L0L1.Lock</MatcherOnKey>
+            <MatcherPattern>RIF.RISUP.LTDC_L0L1.Lock</MatcherPattern>
+            <MatchToPattern>RIF.RISUP.LTDC_L1L2.Lock</MatchToPattern>
+            <SeparatorOnValue>__No_Separator</SeparatorOnValue>
+            <ParserCondition>STM32MP2</ParserCondition>
+        </description>
+    </rule>
+    <rule name="Rename STM32MP2 RIF Peripheral LTDC RIF.RISUP.LTDC_L2.Lock -> RIF.RISUP.LTDC_L3.Lock">
+        <description>
+            <MXDBVersion>DB.6.0.150</MXDBVersion>
+            <MatcherOnKey>RIF.RISUP.LTDC_L2.Lock</MatcherOnKey>
+            <MatcherPattern>RIF.RISUP.LTDC_L2.Lock</MatcherPattern>
+            <MatchToPattern>RIF.RISUP.LTDC_L3.Lock</MatchToPattern>
+            <SeparatorOnValue>__No_Separator</SeparatorOnValue>
+            <ParserCondition>STM32MP2</ParserCondition>
+        </description>
+    </rule>
+    <rule name="Adapt the old IOC example for updating the SYS when it is misconfigured.">
+        <description>
+            <MXDBVersion>DB.6.0.150</MXDBVersion>
+            <RuleType>AdaptOldIocExemple_SYS</RuleType>
+            <MatcherOnKey>Boot.IPs,Appli.IPs</MatcherOnKey>
+            <MatcherPattern>NVIC1.TimeBaseIP,NVIC2.TimeBaseIP</MatcherPattern>
+            <SeparatorOnValue>,</SeparatorOnValue>
+            <ParserCondition>DIE485</ParserCondition>
+        </description>
+    </rule>
+    <rule name="Rename STM32C09 Mcu.Package LQFP64 -> LQFP48">
+        <description>
+            <MXDBVersion>DB.6.0.150</MXDBVersion>
+            <MatcherOnKey>Mcu.Package</MatcherOnKey>
+            <MatcherPattern>LQFP64</MatcherPattern>
+            <MatchToPattern>LQFP48</MatchToPattern>
+            <SeparatorOnValue>__No_Separator</SeparatorOnValue>
+            <ParserCondition>DIE44D</ParserCondition>
+        </description>
+    </rule>
+    <rule name="Adapt the old IOC example for updating the SYS when it is misconfigured.">
+        <description>
+            <MXDBVersion>DB.6.0.150</MXDBVersion>
+            <RuleType>AdaptOldIocWl</RuleType>
+            <MatcherOnKey>CortexM0Plus.IPs,CortexM4.IPs</MatcherOnKey>
+            <MatcherPattern>GPIOParameters</MatcherPattern>
+            <MatchToPattern>PinAttribute</MatchToPattern>
+            <SeparatorOnValue>,</SeparatorOnValue>
+            <ParserCondition>DIE497</ParserCondition>
+        </description>
+    </rule>
+
+    <rule name="Adapt the old IOC example for updating the SYS when it is misconfigured.">
+        <description>
+            <MXDBVersion>DB.6.0.150</MXDBVersion>
+            <RuleType>RemoveSignal</RuleType>
+            <MatcherOnKey>ETH1_PPS_OUT,ETH1_PTP_AUX_TS</MatcherOnKey>
+            <SeparatorOnValue>,</SeparatorOnValue>
+            <ParserCondition>STM32MP2</ParserCondition>
+        </description>
+    </rule>
+
+    <rule name="Adapt the old IOC MMT TZEnable.">
+        <description>
+            <MXDBVersion>DB.6.0.160</MXDBVersion>
+            <RuleType>AdaptOldIocWith_MMT</RuleType>
+            <MatcherOnKey>Mcu.ContextProject</MatcherOnKey>
+            <MatcherPattern>TrustZoneEnabled</MatcherPattern>
+            <SeparatorOnValue>,</SeparatorOnValue>
+            <ParserCondition>!STM32N6</ParserCondition>
+        </description>
+    </rule>
+
+    <rule name="Adapt the old IOC :The visibility(Static) check box should be disabled for SystemClock_Config(should never be static).">
+        <description>
+            <MXDBVersion>DB.6.0.170</MXDBVersion>
+            <MatcherOnKey>ProjectManager.functionlistsort</MatcherOnKey>
+            <MatcherPattern>1-SystemClock_Config-RCC-false-HAL-true</MatcherPattern>
+            <MatchToPattern>1-SystemClock_Config-RCC-false-HAL-false</MatchToPattern>
+            <SeparatorOnValue>__No_Separator</SeparatorOnValue>
+        </description>
+    </rule>
+
+    <rule name="Adapt the old IOC: SAU-STM32WBA52/54/55xG devices contain 1 MB of flash memory and 64 KB of SRAM1 (non-continuous SRAM space with SRAM2).">
+        <description>
+            <MXDBVersion>DB.6.0.170</MXDBVersion>
+            <RuleType>AdaptOldIocWith_SAU_GTZC_WBA6_5</RuleType>
+            <MatcherOnKey>CortexM33NS.IPs;CortexM33S.IPs&amp;^STM32WBA5[a-zA-Z-0-9]{2}G.*</MatcherOnKey>
+            <MatcherPattern>SAU.IPParameters=
+                SAU0_INIT_SIZE,SAU0_INIT_START
+                ,SAU1_INIT_SIZE,SAU1_INIT_START
+                ,SAU2_INIT_SIZE,SAU2_INIT_START
+                ,SAU3_INIT_SIZE,SAU3_INIT_START
+                ,SAU4_INIT_SIZE,SAU4_INIT_START
+            </MatcherPattern>
+            <MatchToPattern>
+                SAU.SAU0_INIT_SIZE=0x2000;SAU.SAU0_INIT_START=0x0C07E000;
+                SAU.SAU1_INIT_SIZE=0x80000;SAU.SAU1_INIT_START=0x08080000;
+                SAU.SAU2_INIT_SIZE=0x10000;SAU.SAU2_INIT_START=0x20010000;
+                SAU.SAU3_INIT_SIZE=0x10000000;SAU.SAU3_INIT_START=0x40000000;
+                SAU.SAU4_INIT_SIZE=0x8000;SAU.SAU4_INIT_START=0x0BF88000
+            </MatchToPattern>
+            <SeparatorOnValue>;</SeparatorOnValue>
+            <ParserCondition>DIE492</ParserCondition>
+        </description>
+    </rule>
+
+    <rule name="Adapt the old IOC: GTZC-STM32WBA52/54/55xG devices includes 1 MB of flash memory and 64 KB of SRAM1 (non-continuous SRAM space with SRAM2).">
+        <description>
+            <MXDBVersion>DB.6.0.170</MXDBVersion>
+            <RuleType>AdaptOldIocWith_SAU_GTZC_WBA6_5</RuleType>
+            <MatcherOnKey>CortexM33NS.IPs;CortexM33S.IPs&amp;^STM32WBA5[a-zA-Z-0-9]{2}G.*</MatcherOnKey>
+            <MatcherPattern>GTZC_S.IPParameters=
+                MPCBB1_Area_Choice,MPCBB1_Area_Secure_Size,MPCBB1_SecConfig_array
+                ,MPCBB2_Area_Choice,MPCBB2_Area_Secure_Start,MPCBB2_Area_Secure_Size
+            </MatcherPattern>
+            <MatchToPattern>
+                GTZC_S.MPCBB1_Area_Choice=from full Not Secured;
+                GTZC_S.MPCBB1_Area_Secure_Size=0x10000;
+                GTZC_S.MPCBB1_SecConfig_array=FFFFFFFF\:FFFFFFFF\
+                :FFFFFFFF\:FFFFFFFF;
+                GTZC_S.MPCBB2_Area_Choice=from full Secured;
+                GTZC_S.MPCBB2_Area_Secure_Size=0x10000;
+                GTZC_S.MPCBB2_Area_Secure_Start=0x0;
+                GTZC_S.MPCBB2_SecConfig_array=00000000\:00000000\
+                :00000000\:00000000
+            </MatchToPattern>
+            <SeparatorOnValue>;</SeparatorOnValue>
+            <ParserCondition>DIE492</ParserCondition>
+        </description>
+    </rule>
+
+    <rule name="Adapt the old IOC: SAU-STM32WBA6xxI devices includes 2 MB of flash memory and 448 KB of SRAM1 (non-continuous SRAM space with SRAM2).">
+        <description>
+            <MXDBVersion>DB.6.0.170</MXDBVersion>
+            <RuleType>AdaptOldIocWith_SAU_GTZC_WBA6_5</RuleType>
+            <MatcherOnKey>CortexM33NS.IPs;CortexM33S.IPs&amp;^STM32WBA6[a-zA-Z-0-9]{2}I.*</MatcherOnKey>
+            <MatcherPattern>SAU.IPParameters=
+                SAU0_INIT_SIZE,SAU0_INIT_START
+                ,SAU1_INIT_SIZE,SAU1_INIT_START
+                ,SAU2_INIT_SIZE,SAU2_INIT_START
+                ,SAU3_INIT_SIZE,SAU3_INIT_START
+                ,SAU4_INIT_SIZE,SAU4_INIT_START</MatcherPattern>
+            <MatchToPattern>
+                SAU.SAU0_INIT_SIZE=0x2000;SAU.SAU0_INIT_START=0x0C0FE000;
+                SAU.SAU1_INIT_SIZE=0x100000;SAU.SAU1_INIT_START=0x08100000;
+                SAU.SAU2_INIT_SIZE=0x40000;SAU.SAU2_INIT_START=0x20040000;
+                SAU.SAU3_INIT_SIZE=0x10000000;SAU.SAU3_INIT_START=0x40000000;
+                SAU.SAU4_INIT_SIZE=0x8000;SAU.SAU4_INIT_START=0x0BF90000</MatchToPattern>
+            <SeparatorOnValue>;</SeparatorOnValue>
+            <ParserCondition>STM32WBA</ParserCondition>
+        </description>
+    </rule>
+
+    <rule name="Adapt the old IOC: GTZC-STM32WBA6xxI devices includes 2 MB of flash memory and 448 KB of SRAM1 (non-continuous SRAM space with SRAM2).">
+        <description>
+            <MXDBVersion>DB.6.0.170</MXDBVersion>
+            <RuleType>AdaptOldIocWith_SAU_GTZC_WBA6_5</RuleType>
+            <MatcherOnKey>CortexM33NS.IPs;CortexM33S.IPs&amp;^STM32WBA6[a-zA-Z-0-9]{2}I.*</MatcherOnKey>
+            <MatcherPattern>GTZC_S.IPParameters=MPCBB1_Area_Choice,MPCBB1_Area_Secure_Start
+                ,MPCBB1_Area_Secure_Size,MPCBB1_SecConfig_array,MPCBB2_Area_Choice
+                ,MPCBB2_Area_Secure_Size,MPCBB2_SecConfig_array,MPCBB1_Area_Secure</MatcherPattern>
+            <MatchToPattern>
+                GTZC_S.MPCBB1_Area_Choice=from full Secured;
+                GTZC_S.MPCBB1_Area_Secure=GTZC_MPCBB_REGION_NSEC;
+                GTZC_S.MPCBB1_Area_Secure_Size=0x30000;
+                GTZC_S.MPCBB1_Area_Secure_Start=0x40000;
+                GTZC_S.MPCBB1_SecConfig_array=00000000\:00000000\:00000000\:00000000\
+                :00000000\:00000000\:00000000\:00000000\:00000000\:00000000\:00000000\
+                :00000000\:00000000\:00000000\:00000000\:00000000\:FFFFFFFF\:FFFFFFFF\
+                :FFFFFFFF\:FFFFFFFF\:FFFFFFFF\:FFFFFFFF\:FFFFFFFF\:FFFFFFFF\:FFFFFFFF\
+                :FFFFFFFF\:FFFFFFFF\:FFFFFFFF;
+                GTZC_S.MPCBB2_Area_Choice=from full Secured;
+                GTZC_S.MPCBB2_Area_Secure_Size=0x10000;
+                GTZC_S.MPCBB2_SecConfig_array=00000000\:00000000\:00000000\:00000000;</MatchToPattern>
+            <SeparatorOnValue>;</SeparatorOnValue>
+            <ParserCondition>DIE4B0</ParserCondition>
+        </description>
+    </rule>
+    <rule name="Rename DIE484 PinSignal ETH_CRS -> ETH_MII_CRS">
+        <description>
+            <MXDBVersion>DB.6.0.180</MXDBVersion>
+            <MatcherOnKey>ETH_CRS</MatcherOnKey>
+            <MatcherPattern>ETH_CRS</MatcherPattern>
+            <MatchToPattern>ETH_MII_CRS</MatchToPattern>
+            <SeparatorOnValue>__No_Separator</SeparatorOnValue>
+            <ParserCondition>DIE484</ParserCondition>
+        </description>
+    </rule>
+    <rule name="Rename DIE484 PinSignal ETH_REF_CLK -> ETH_RMII_REF_CLK">
+        <description>
+            <MXDBVersion>DB.6.0.180</MXDBVersion>
+            <MatcherOnKey>ETH_REF_CLK</MatcherOnKey>
+            <MatcherPattern>ETH_REF_CLK</MatcherPattern>
+            <MatchToPattern>ETH_RMII_REF_CLK</MatchToPattern>
+            <SeparatorOnValue>__No_Separator</SeparatorOnValue>
+            <ParserCondition>DIE484</ParserCondition>
+        </description>
+    </rule>
+    <rule name="Rename DIE484 PinSignal ETH_RX_CLK -> ETH_MII_RX_CLK">
+        <description>
+            <MXDBVersion>DB.6.0.180</MXDBVersion>
+            <MatcherOnKey>ETH_RX_CLK</MatcherOnKey>
+            <MatcherPattern>ETH_RX_CLK</MatcherPattern>
+            <MatchToPattern>ETH_MII_RX_CLK</MatchToPattern>
+            <SeparatorOnValue>__No_Separator</SeparatorOnValue>
+            <ParserCondition>DIE484</ParserCondition>
+        </description>
+    </rule>
+    <rule name="Rename DIE484 PinSignal ETH_COL -> ETH_MII_COL">
+        <description>
+            <MXDBVersion>DB.6.0.180</MXDBVersion>
+            <MatcherOnKey>ETH_COL</MatcherOnKey>
+            <MatcherPattern>ETH_COL</MatcherPattern>
+            <MatchToPattern>ETH_MII_COL</MatchToPattern>
+            <SeparatorOnValue>__No_Separator</SeparatorOnValue>
+            <ParserCondition>DIE484</ParserCondition>
+        </description>
+    </rule>
+    <rule name="Rename DIE484 PinSignal ETH_CRS_DV -> ETH_RMII_CRS_DV">
+        <description>
+            <MXDBVersion>DB.6.0.180</MXDBVersion>
+            <MatcherOnKey>ETH_CRS_DV</MatcherOnKey>
+            <MatcherPattern>ETH_CRS_DV</MatcherPattern>
+            <MatchToPattern>ETH_RMII_CRS_DV</MatchToPattern>
+            <SeparatorOnValue>__No_Separator</SeparatorOnValue>
+            <ParserCondition>DIE484</ParserCondition>
+        </description>
+    </rule>
+    <rule name="Rename DIE484 PinSignal ETH_RX_DV -> ETH_MII_RX_DV">
+        <description>
+            <MXDBVersion>DB.6.0.180</MXDBVersion>
+            <MatcherOnKey>ETH_RX_DV</MatcherOnKey>
+            <MatcherPattern>ETH_RX_DV</MatcherPattern>
+            <MatchToPattern>ETH_MII_RX_DV</MatchToPattern>
+            <SeparatorOnValue>__No_Separator</SeparatorOnValue>
+            <ParserCondition>DIE484</ParserCondition>
+        </description>
+    </rule>
+    <rule name="Rename DIE484 PinSignal ETH_TX_ER -> ETH_MII_TX_ER">
+        <description>
+            <MXDBVersion>DB.6.0.180</MXDBVersion>
+            <MatcherOnKey>ETH_TX_ER</MatcherOnKey>
+            <MatcherPattern>ETH_TX_ER</MatcherPattern>
+            <MatchToPattern>ETH_MII_TX_ER</MatchToPattern>
+            <SeparatorOnValue>__No_Separator</SeparatorOnValue>
+            <ParserCondition>DIE484</ParserCondition>
+        </description>
+    </rule>
+    <rule name="Rename DIE484 PinSignal ETH_RXD2 -> ETH_MII_RXD2">
+        <description>
+            <MXDBVersion>DB.6.0.180</MXDBVersion>
+            <MatcherOnKey>ETH_RXD2</MatcherOnKey>
+            <MatcherPattern>ETH_RXD2</MatcherPattern>
+            <MatchToPattern>ETH_MII_RXD2</MatchToPattern>
+            <SeparatorOnValue>__No_Separator</SeparatorOnValue>
+            <ParserCondition>DIE484</ParserCondition>
+        </description>
+    </rule>
+    <rule name="Rename DIE484 PinSignal ETH_RXD3 -> ETH_MII_RXD3">
+        <description>
+            <MXDBVersion>DB.6.0.180</MXDBVersion>
+            <MatcherOnKey>ETH_RXD3</MatcherOnKey>
+            <MatcherPattern>ETH_RXD3</MatcherPattern>
+            <MatchToPattern>ETH_MII_RXD3</MatchToPattern>
+            <SeparatorOnValue>__No_Separator</SeparatorOnValue>
+            <ParserCondition>DIE484</ParserCondition>
+        </description>
+    </rule>
+    <rule name="Rename DIE484 PinSignal ETH_RX_ER -> ETH_MII_RX_ER">
+        <description>
+            <MXDBVersion>DB.6.0.180</MXDBVersion>
+            <MatcherOnKey>ETH_RX_ER</MatcherOnKey>
+            <MatcherPattern>ETH_RX_ER</MatcherPattern>
+            <MatchToPattern>ETH_MII_RX_ER</MatchToPattern>
+            <SeparatorOnValue>__No_Separator</SeparatorOnValue>
+            <ParserCondition>DIE484</ParserCondition>
+        </description>
+    </rule>
+    <rule name="Rename DIE484 PinSignal ETH_TXD3 -> ETH_MII_TXD3">
+        <description>
+            <MXDBVersion>DB.6.0.180</MXDBVersion>
+            <MatcherOnKey>ETH_TXD3</MatcherOnKey>
+            <MatcherPattern>ETH_TXD3</MatcherPattern>
+            <MatchToPattern>ETH_MII_TXD3</MatchToPattern>
+            <SeparatorOnValue>__No_Separator</SeparatorOnValue>
+            <ParserCondition>DIE484</ParserCondition>
+        </description>
+    </rule>
+    <rule name="Rename DIE484 PinSignal ETH_TXD2 -> ETH_MII_TXD2">
+        <description>
+            <MXDBVersion>DB.6.0.180</MXDBVersion>
+            <MatcherOnKey>ETH_TXD2</MatcherOnKey>
+            <MatcherPattern>ETH_TXD2</MatcherPattern>
+            <MatchToPattern>ETH_MII_TXD2</MatchToPattern>
+            <SeparatorOnValue>__No_Separator</SeparatorOnValue>
+            <ParserCondition>DIE484</ParserCondition>
+        </description>
+    </rule>
+    <rule name="Rename DIE484 PinSignal ETH_TX_CLK -> ETH_MII_TX_CLK">
+        <description>
+            <MXDBVersion>DB.6.0.180</MXDBVersion>
+            <MatcherOnKey>ETH_TX_CLK</MatcherOnKey>
+            <MatcherPattern>ETH_TX_CLK</MatcherPattern>
+            <MatchToPattern>ETH_MII_TX_CLK</MatchToPattern>
+            <SeparatorOnValue>__No_Separator</SeparatorOnValue>
+            <ParserCondition>DIE484</ParserCondition>
+        </description>
+    </rule>
+    <rule name="Rename the DIE484 PinSignal ETH_XX_ER -> ETH_MII_XX_ER or ETH_RMII_XX_ER, depending on the selected mode">
+        <description>
+            <MXDBVersion>DB.6.0.180</MXDBVersion>
+            <RuleType>AdaptOldIocWith_PinSignal_ETH_XX_ER_DIE484</RuleType>
+            <MatcherPattern>ETH_TX_EN,ETH_TXD0,ETH_TXD1,ETH_RXD0,ETH_RXD1</MatcherPattern>
+            <SeparatorOnValue>,</SeparatorOnValue>
+            <ParserCondition>DIE484</ParserCondition>
+        </description>
+    </rule>
+
 </rules>
