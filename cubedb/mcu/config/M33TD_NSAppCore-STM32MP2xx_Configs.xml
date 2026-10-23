@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+
+<IP DBVersion="V4.0"
+    Name="trusted-firmware-m"
+    Version="STM32Cube_FW_MP2_V1.3.0"
+    IncludeFile=""
+    RootFolder="Utilities/"
+    usedHierachicalGroup="true"
+    xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://mcd.rou.st.com/modules.php?name=mcu" ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu file://C:/MicroXplorer/MicroXplorer/doc/V4/Development/Specifications/db/IP_Configs.xsd">
+
+    <RefConfig Name="M33TD_NSAppCore_Init">
+        <Component Name="Utilities:CORTEX_A35:App:true"/>
+        <Component Name="Utilities:CORTEX_A35:FaultMgr:true"/>
+        <Component Name="Utilities:CORTEX_A35:postbuild:true"/>
+        <ConfigFile Name="A35_RPROC"/>
+        <ConfigFile Name="A35_RPROC_H"/>
+
+        <Defines Name="USE_M33TD_NSAPPCORE_FAULTMGR" Type="Cdefine"/>
+    </RefConfig>
+
+    <RefConfigFile Description="CORTEX_A35 Remote proc" Name="A35_RPROC" Template="cortex_a35/app_tasks_config_h.ftl">
+        <File Category="header"  Condition="all" Name="app_tasks_config.h" Version="1.0"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="WDG_MONITOR" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="WDG_TASK_STACK_SIZE" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="WDG_TASK_PRIORITY" OptimizationCondition="equal"/>
+
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="REMOTEPROC_TASK" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="REMOTEPROC_TASK_STACK_SIZE" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="REMOTEPROC_TASK_PRIORITY" OptimizationCondition="equal"/>
+
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USERAPP_TASK" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USERAPP_TASK_STACK_SIZE" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="USERAPP_TASK_PRIORITY" OptimizationCondition="equal"/>
+
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="LOGGER_TASK" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="LOGGER_TASK_STACK_SIZE" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="LOGGER_TASK_PRIORITY" OptimizationCondition="equal"/>
+
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="SCMI_MGR_TASK" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="SCMI_MGR_TASK_STACK_SIZE" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="SCMI_MGR_TASK_PRIORITY" OptimizationCondition="equal"/>
+    </RefConfigFile>
+
+    <RefConfigFile Description="CORTEX_A35 Remote proc" Name="A35_RPROC" Template="cortex_a35/nsappcore_config_h.ftl">
+        <File Category="header"  Condition="all" Name="nsappcore_config.h" Version="1.0"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="verbosity" OptimizationCondition="equal"/>
+    </RefConfigFile>
+
+    <RefConfigFile Description="CORTEX_A35 Remote proc" Name="A35_RPROC" Template="cortex_a35/remoteproc_driver_rproc_c.ftl" destinationFolder="M33TD_NSAppCore/Src">
+        <File Category="source"  Condition="all" Name="remoteproc_driver.c" Version="1.0"/>
+    </RefConfigFile>
+
+    <RefConfigFile Description="CORTEX_A35 Remote proc" Name="A35_RPROC" Template="cortex_a35/low_power_mgr_driver_c.ftl" destinationFolder="M33TD_NSAppCore/Src">
+        <File Category="source"  Condition="all" Name="low_power_mgr_driver.c" Version="1.0"/>
+    </RefConfigFile>
+
+    <RefBspComponent BspIpName="GPIO" BspModeName="Output" Name="BSP LED">
+        <File Category="template"  Condition="all" Name="cortex_a35/led_driver_c.ftl" Version="1.0"/>
+    </RefBspComponent>
+
+
+    <RefBspComponent BspIpName="USART" BspModeName="Asynchronous" Name="BSP USART">
+        <File Category="template"  Condition="all" Name="cortex_a35/logger_output_driver_c.ftl" Version="1.0"/>
+        <!--<File Category="template" Name="usbh_platform_c.ftl"/>
+        <File Category="template" Name="usbh_platform_h.ftl"/>-->
+    </RefBspComponent>
+
+    <RefBspComponent BspIpName="UART" BspModeName="Asynchronous" Name="BSP USART">
+        <File Category="template"  Condition="all" Name="cortex_a35/logger_output_driver_c.ftl" Version="1.0"/>
+        <!--<File Category="template" Name="usbh_platform_c.ftl"/>
+        <File Category="template" Name="usbh_platform_h.ftl"/>-->
+    </RefBspComponent>
+
+    <RefComponent Cclass="Utilities" Cgroup="CORTEX_A35" Cversion="1.0.0">
+        <File Category="header" Condition="all" Name="ResourcesManager/*.h"/>
+        <File Category="header" Condition="all" Name="M33TD_NSAppCore/App/Inc/*.h"/>
+        <File Category="header" Condition="all" Name="M33TD_NSAppCore/Common/*.h"/>
+        <File Category="header" Condition="all" Name="M33TD_NSAppCore/Common/FaultMgr/*.h"/>
+        <File Category="header" Condition="all" Name="M33TD_NSAppCore/Includes/*.h"/>
+        <SubComponent Csub="App" Cvariant="true" Description="Application">
+            <File Category="source" Condition="all" Name="M33TD_NSAppCore/App/Src/logger_task.c"/>
+            <File Category="source" Condition="all" Name="M33TD_NSAppCore/App/Src/nscoreapp_init.c"/>
+            <File Category="source" Condition="all" Name="M33TD_NSAppCore/App/Src/remoteproc_task.c"/>
+            <File Category="source" Condition="all" Name="M33TD_NSAppCore/App/Src/scmi_mgr_task.c"/>
+            <File Category="source" Condition="all" Name="M33TD_NSAppCore/App/Src/userapp_task.c"/>
+            <File Category="source" Condition="all" Name="M33TD_NSAppCore/App/Src/wdg_monitor_task.c"/>
+            <File Category="source" Condition="all" Name="M33TD_NSAppCore/App/Src/low_power_mgr_task.c"/>
+        </SubComponent>
+        <SubComponent Csub="FaultMgr" Cvariant="true" Description="Fault Manager">
+            <File Category="source" Condition="all" Name="M33TD_NSAppCore/Common/FaultMgr/backtrace.c"/>
+            <File Category="source" Condition="all" Name="M33TD_NSAppCore/Common/FaultMgr/fault_manager.c"/>
+        </SubComponent>
+        <SubComponent Csub="postbuild" Cvariant="true" Description="Fault Manager">
+            <File Category="source" Condition="all" Name="M33TD_NSAppCore/postbuild/CMakeLists.txt"/>
+        </SubComponent>
+    </RefComponent>
+ </IP>
+
+

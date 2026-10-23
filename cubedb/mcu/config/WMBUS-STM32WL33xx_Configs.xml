@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<IP xmlns="http://mcd.rou.st.com/modules.php?name=mcu"
+    xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance"
+    ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../../../doc/V4/Development/Specifications/db/IP_Configs.xsd"
+    CodeTemplate=""
+    DBVersion="V4.0"
+    IncludeFile=""
+    Name="WMBUS"
+    RootFolder="Middlewares/ST/"
+    usedHierachicalGroup="true"
+    Version="STM32Cube_FW_WL3_V1.2.0">
+
+    <RefConfig Comment="" Name="wMBus_Init">
+        <CallLibMethod Name="wMBus_Init"/>
+        <Component Name="Middleware:DataLink"/>
+        <Component Name="Middleware:Phy"/>
+
+        <!-- Core/Inc -->
+        <ConfigFile Name="APP_CONF_H"/>
+        <ConfigFile Name="UTILITIES_CONF_H"/>
+
+        <!-- wMBus/App -->
+        <ConfigFile Name="APP_WMBUS_C"/>
+        <ConfigFile Name="APP_WMBUS_H"/>
+
+        <!-- System/Interfaces-->
+        <ConfigFile Name="STM32_LPM_IF_H"/>
+        <ConfigFile Name="STM32_LPM_IF_C"/>
+
+        <!-- System/Modules-->
+        <ConfigFile Name="ASM_H"/>
+        <ConfigFile Name="OSAL_H"/>
+        <ConfigFile Name="OSAL_C"/>
+
+        <!-- System/Startup-->
+        <ConfigFile Name="CPU_CONTEXT_SWITCH_S"/>
+        <ConfigFile Name="DEVICE_CONTEXT_SWITCH_H"/>
+        <ConfigFile Name="DEVICE_CONTEXT_SWITCH_C"/>
+        <Defines Name="T1C1_ACTIVATED_C1_MODE" Condition="(S_ST_WMB_T1 | S_ST_WMB_C1 | S_ST_WMB_S1) &amp; S_ST_WMB_CONCENTRATOR"/>
+        <Defines Name="PREAMBLE_AND_SYNC_IRQ_ENABLE" Condition="((S_ST_WMB_T2 | S_ST_WMB_C2 | S_ST_WMB_S2) &amp; (S_ST_WMB_CONCENTRATOR|S_ST_WMB_METER))| (S_ST_WMB_T1 | S_ST_WMB_C1 | S_ST_WMB_S1) &amp; S_ST_WMB_CONCENTRATOR"/>
+        <Defines Name="AUTOMATIC_FORMAT_DETECTION_C_MODE" Condition="((S_ST_WMB_T2 | S_ST_WMB_C2 | S_ST_WMB_S2) &amp; (S_ST_WMB_CONCENTRATOR|S_ST_WMB_METER))| (S_ST_WMB_T1 | S_ST_WMB_C1 | S_ST_WMB_S1) &amp; S_ST_WMB_CONCENTRATOR"/>
+        <Defines Name="WMBUS_RX_PERFORMANCE_ENABLED" Condition="((S_ST_WMB_T2 | S_ST_WMB_C2 | S_ST_WMB_S2) &amp; (S_ST_WMB_CONCENTRATOR|S_ST_WMB_METER))| (S_ST_WMB_T1 | S_ST_WMB_C1 | S_ST_WMB_S1) &amp; S_ST_WMB_CONCENTRATOR"/>
+        <Defines Name="WMBUS_ACTIVE_POWER_MODE_ENABLED" Condition="(S_ST_WMB_T1 | S_ST_WMB_C1 | S_ST_WMB_S1) &amp; S_ST_WMB_CONCENTRATOR"/>
+        <Defines Name="PROCESS_FRAME" Condition="(S_ST_WMB_T2 | S_ST_WMB_C2 | S_ST_WMB_S2) &amp; S_ST_WMB_CONCENTRATOR"/>
+        <Defines Name="WFI_ENABLE" Condition="(S_ST_WMB_T1 | S_ST_WMB_C1 | S_ST_WMB_S1) &amp; S_ST_WMB_CONCENTRATOR"/>
+        <Defines Name="SENSE_RSSI" Condition="(S_ST_WMB_T1 | S_ST_WMB_C1 | S_ST_WMB_S1) &amp; S_ST_WMB_METER &amp; !S_Phy_Meter_Button &amp; !S_Phy_Meter_RadioTimer"/>
+        <Defines Name="PRINT_DEBUG" Condition="(S_ST_WMB_T1 | S_ST_WMB_C1 | S_ST_WMB_S1) &amp; S_ST_WMB_METER &amp; (S_Phy_Meter_Button | S_Phy_Meter_RadioTimer)"/>
+    </RefConfig>
+
+    <LibMethod Name="wMBus_Init" Comment="Initialize the wMBus stack">
+    </LibMethod>
+
+<!-- Requested by  -->
+     <RefComponent Cclass="Middleware" Cgroup="DataLink" Cversion="0.4.0">
+        <File Category="header" Name="wMBus/DataLink/Inc/stm32wl3_wMBus_DataLink.h" Condition="S_ST_WMB_T2 | S_ST_WMB_C2 | S_ST_WMB_S2"/>
+        <File Category="header" Name="wMBus/DataLink/Inc/stm32wl3_wMBus_DataLink_timer.h" Condition="S_ST_WMB_T2 | S_ST_WMB_C2 | S_ST_WMB_S2"/>
+        <File Category="source" Name="wMBus/DataLink/Src/stm32wl3_wMBus_DataLink.c" Condition="S_ST_WMB_T2 | S_ST_WMB_C2 | S_ST_WMB_S2"/>
+        <File Category="source" Name="wMBus/DataLink/Src/stm32wl3_wMBus_DataLink_timer.c" Condition="S_ST_WMB_T2 | S_ST_WMB_C2 | S_ST_WMB_S2"/>
+     </RefComponent>
+    <RefComponent Cclass="Middleware" Cgroup="Phy" Cversion="0.4.0">
+        <File Category="header" Name="wMBus/Phy/Inc/stm32wl3_wMBus_Phy_pwr.h"/>
+        <File Category="header" Name="wMBus/Phy/Inc/stm32wl3_wMBus_Phy_radio.h"/>
+        <File Category="source" Name="wMBus/Phy/Src/stm32wl3_wMBus_Phy_pwr.c"/>
+        <File Category="source" Name="wMBus/Phy/Src/stm32wl3_wMBus_Phy_radio.c"/>
+    </RefComponent>
+
+    <RefConfigFile Description="" Name="APP_CONF_H" Template="stm32wl33/app_conf_wmbus_h.ftl" destinationFolder="Core/Inc">
+        <File Category="header" Condition="all" Name="app_conf.h" Version="1.0"/>
+        <!-- <Argument Name="CFG_FULL_LOW_POWER" GenericType="Simple" Comment=""/> -->
+        <Argument Name="CFG_LPM_SUPPORTED" GenericType="Simple" Comment=""/>
+        <!-- <Argument Name="ADV_TRACE_TIMESTAMP_ENABLE" GenericType="Simple" Comment=""/> -->
+        <!-- <Argument Name="CFG_DEBUG_APP_TRACE" GenericType="Simple" Comment=""/> -->
+        <!-- <Argument Name="CFG_DEBUG_TRACE_LIGHT" GenericType="Simple" Comment=""/> -->
+        <!-- <Argument Name="CFG_DEBUG_TRACE_FULL" GenericType="Simple" Comment=""/> -->
+        <!-- <Argument Name="DBG_TRACE_USE_CIRCULAR_QUEUE" GenericType="Simple" Comment=""/> -->
+        <!-- <Argument Name="APPLI_CONFIG_LOG_LEVEL" GenericType="Simple" Comment=""/> -->
+        <!-- <Argument Name="APPLI_PRINT_FILE_FUNC_LINE" GenericType="Simple" Comment=""/> -->
+        <!-- <Argument Name="RT_DEBUG_GPIO_MODULE" GenericType="Simple" Comment=""/> -->
+    </RefConfigFile>
+
+    <RefConfigFile Description="" Name="UTILITIES_CONF_H" Template="stm32wl33/utilities_conf_h.ftl" destinationFolder="Core/Inc">
+         <File Category="header" Condition="all" Name="utilities_conf.h" Version="1.0"/>
+    </RefConfigFile>
+
+    <RefConfigFile Description="" Name="APP_WMBUS_C" Template="stm32wl33/app_wMBus_c.ftl" destinationFolder="wMBus/App">
+        <File Category="source" Condition="all" Name="app_wMBus.c" Version="1.0"/>
+        <Argument Name="ST_WMB_MODE" GenericType="Simple" Comment=""/>
+        <Argument Name="ST_WMB_TYPE" GenericType="Simple" Comment=""/>
+        <Argument Name="ST_WMB_FORMAT" GenericType="Simple" Comment=""/>
+        <Argument Name="ST_ACTIVE_MODE" GenericType="Simple" Comment=""/>
+        <Argument Name="ST_WMB_APP_TYPE" GenericType="Simple" Comment=""/>
+        <Argument Name="CFG_LPM_SUPPORTED" GenericType="Simple" Comment=""/>
+        <Argument Name="ST_WMB_TX_Trigger" GenericType="Simple" Comment=""/>
+    </RefConfigFile>
+
+    <RefConfigFile Description="" Name="APP_WMBUS_H" Template="stm32wl33/app_wMBus_h.ftl" destinationFolder="wMBus/App">
+        <File Category="header" Condition="all" Name="app_wMBus.h" Version="1.0"/>
+        <Argument Name="ST_WMB_MODE" GenericType="Simple" Comment=""/>
+        <Argument Name="ST_WMB_TYPE" GenericType="Simple" Comment=""/>
+        <Argument Name="ST_WMB_FORMAT" GenericType="Simple" Comment=""/>
+        <Argument Name="ST_ACTIVE_MODE" GenericType="Simple" Comment=""/>
+        <Argument Name="ST_WMB_APP_TYPE" GenericType="Simple" Comment=""/>
+        <Argument Name="CFG_LPM_SUPPORTED" GenericType="Simple" Comment=""/>
+        <Argument Name="ST_WMB_TX_Trigger" GenericType="Simple" Comment=""/>
+    </RefConfigFile>
+
+    <RefConfigFile Description="" Name="STM32_LPM_IF_H" Template="stm32wl33/stm32_lpm_if_h.ftl" destinationFolder="System/Interfaces">
+        <File Category="header"  Condition="all" Name="stm32_lpm_if.h" Version="1.0"/>
+    </RefConfigFile>
+
+    <RefConfigFile Description="" Name="STM32_LPM_IF_C" Template="stm32wl33/stm32_lpm_if_c.ftl" destinationFolder="System/Interfaces">
+        <File Category="source"  Condition="all" Name="stm32_lpm_if.c" Version="1.0"/>
+    </RefConfigFile> 
+
+    <RefConfigFile Description="" Name="ASM_H" Template="stm32wl33/asm_h.ftl" destinationFolder="System/Modules">
+        <File Category="header"  Condition="all" Name="asm.h" Version="1.0"/>
+    </RefConfigFile>
+
+    <RefConfigFile Description="" Name="OSAL_H" Template="stm32wl33/osal_h.ftl" destinationFolder="System/Modules">
+        <File Category="source"  Condition="all" Name="osal.h" Version="1.0"/>
+    </RefConfigFile> 
+
+    <RefConfigFile Description="" Name="OSAL_C" Template="stm32wl33/osal_c.ftl" destinationFolder="System/Modules">
+        <File Category="source"  Condition="all" Name="osal.c" Version="1.0"/>
+    </RefConfigFile>
+
+    <RefConfigFile Description="" Name="CPU_CONTEXT_SWITCH_S" Template="stm32wl33/cpu_context_switch_s.ftl" destinationFolder="System/Startup">
+        <File Category="header"  Condition="all" Name="cpu_context_switch.s" Version="1.0"/>
+    </RefConfigFile>
+
+    <RefConfigFile Description="" Name="DEVICE_CONTEXT_SWITCH_H" Template="stm32wl33/device_context_switch_h.ftl" destinationFolder="System/Startup">
+        <File Category="header"  Condition="all" Name="device_context_switch.h" Version="1.0"/>
+    </RefConfigFile>
+
+    <RefConfigFile Description="" Name="DEVICE_CONTEXT_SWITCH_C" Template="stm32wl33/device_context_switch_c.ftl" destinationFolder="System/Startup">
+        <File Category="source"  Condition="all" Name="device_context_switch.c" Version="1.0"/>
+    </RefConfigFile>
+</IP>

@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<IP xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance"
+    ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../../../doc/V4/Development/Specifications/db/IP_Modes.xsd"
+    xmlns="http://mcd.rou.st.com/modules.php?name=mcu"
+    DBVersion="V4.0"
+    IPType="middleware"
+    IpGroup="Utilities"
+    Name="M33TD_NSAppCore"
+    Version="STM32MP_Cube">
+
+    <About>M33TD_NSAppCore: Software utility to manage A35 Co-Processor</About>
+
+    <!-- RefParameters for M33TD_NSAppCore -->
+    <RefParameter Name="verbosity" Comment="Verbosity level" DefaultValue="LOW" Type="list" Group="Log Configuration">
+        <Description>Logger Verbosity Configuration</Description>
+        <PossibleValue Value="0" Comment="Low"/>
+        <PossibleValue Value="1" Comment="Medium"/>
+        <PossibleValue Value="2" Comment="High"/>
+    </RefParameter>
+
+    <!-- Tasks configuration -->
+    <RefParameter Name="WDG_MONITOR" Comment="Watchdog Monitor task" DefaultValue="1" Type="list" Group="Watchdog Monitor Task">
+        <Description>WDG_MONITOR task configuration</Description>
+        <PossibleValue Value="1" Comment="Enabled"/>
+        <PossibleValue Value="0" Comment="Disabled" Condition="1=1" Diagnostic="Should be always enabled."/>
+    </RefParameter>
+    <RefParameter Name="WDG_TASK_STACK_SIZE" Comment="Stack size" DefaultValue="1024" Type="integer" Group="Watchdog Monitor Task">
+        <Description>&lt;b&gt;&lt;/b&gt;WDG_MONITOR task Stack size.
+            It's recommended to keep the default values to avoid runtime issues.</Description>
+    </RefParameter>
+    <RefParameter Name="WDG_TASK_PRIORITY" Comment="Priority level" DefaultValue="osPriorityHigh" Type="list" Group="Watchdog Monitor Task">
+        <Description>&lt;b&gt;&lt;/b&gt;Logger Verbosity Configuration.
+            It's recommended to keep the default values to avoid runtime issues.</Description>
+        <PossibleValue Value="osPriorityLow" Comment="Low"/>
+        <PossibleValue Value="osPriorityBelowNormal" Comment="BelowNormal"/>
+        <PossibleValue Value="osPriorityNormal" Comment="Normal"/>
+        <PossibleValue Value="osPriorityAboveNormal" Comment="AboveNormal"/>
+        <PossibleValue Value="osPriorityHigh" Comment="High"/>
+        <PossibleValue Value="osPriorityRealtime" Comment="Realtime"/>
+    </RefParameter>
+
+    <RefParameter Name="REMOTEPROC_TASK" Comment="RemoteProc Task" DefaultValue="Enabled" Type="list" Group="RemoteProc Task">
+        <Description>REMOTEPROC task configuration</Description>
+        <PossibleValue Value="1" Comment="Enabled"/>
+        <PossibleValue Value="0" Comment="Disabled" Condition="1=1" Diagnostic="Should be always enabled."/>
+    </RefParameter>
+    <RefParameter Name="REMOTEPROC_TASK_STACK_SIZE" Comment="Stack size" DefaultValue="1024" Type="integer" Group="RemoteProc Task">
+        <Description>&lt;b&gt;&lt;/b&gt;REMOTEPROC task Stack size.
+            It's recommended to keep the default values to avoid runtime issues.</Description>
+    </RefParameter>
+    <RefParameter Name="REMOTEPROC_TASK_PRIORITY" Comment="Priority level" DefaultValue="osPriorityNormal" Type="list" Group="RemoteProc Task">
+        <Description>&lt;b&gt;&lt;/b&gt;REMOTEPROC task priority Configuration.
+            It's recommended to keep the default values to avoid runtime issues.</Description>
+        <PossibleValue Value="osPriorityLow" Comment="Low"/>
+        <PossibleValue Value="osPriorityBelowNormal" Comment="BelowNormal"/>
+        <PossibleValue Value="osPriorityNormal" Comment="Normal"/>
+        <PossibleValue Value="osPriorityAboveNormal" Comment="AboveNormal"/>
+        <PossibleValue Value="osPriorityHigh" Comment="High"/>
+        <PossibleValue Value="osPriorityRealtime" Comment="Realtime"/>
+    </RefParameter>
+
+    <RefParameter Name="USERAPP_TASK" Comment="UserApp Task" DefaultValue="Enabled" Type="list" Group="UserApp Task">
+        <Description>User App task configuration</Description>
+        <PossibleValue Value="1" Comment="Enabled" Semaphore="S_USERAPP_TASK"/>
+        <PossibleValue Value="0" Comment="Disabled"/>
+    </RefParameter>
+    <RefParameter Name="USERAPP_TASK_STACK_SIZE" Comment="Stack size" DefaultValue="512" Type="integer" Group="UserApp Task">
+        <Description>&lt;b&gt;&lt;/b&gt;User App task Stack size.
+            It's recommended to keep the default values to avoid runtime issues.</Description>
+    </RefParameter>
+    <RefParameter Name="USERAPP_TASK_PRIORITY" Comment="Priority level" DefaultValue="osPriorityBelowNormal" Type="list" Group="UserApp Task">
+        <Description>&lt;b&gt;&lt;/b&gt;User App task priority configuration.
+            It's recommended to keep the default values to avoid runtime issues.</Description>
+        <PossibleValue Value="osPriorityLow" Comment="Low"/>
+        <PossibleValue Value="osPriorityBelowNormal" Comment="BelowNormal"/>
+        <PossibleValue Value="osPriorityNormal" Comment="Normal"/>
+        <PossibleValue Value="osPriorityAboveNormal" Comment="AboveNormal"/>
+        <PossibleValue Value="osPriorityHigh" Comment="High"/>
+        <PossibleValue Value="osPriorityRealtime" Comment="Realtime"/>
+    </RefParameter>
+
+    <RefParameter Name="LOGGER_TASK" Comment="Logger Task" DefaultValue="Enabled" Type="list" Group="Logger Task">
+        <Description>LOGGER task configuration</Description>
+        <PossibleValue Value="1" Comment="Enabled"/>
+        <PossibleValue Value="0" Comment="Disabled" Condition="1=1" Diagnostic="Should be always enabled."/>
+    </RefParameter>
+    <RefParameter Name="LOGGER_TASK_STACK_SIZE" Comment="Stack size" DefaultValue="1024" Type="integer" Group="Logger Task">
+        <Description>&lt;b&gt;&lt;/b&gt;LOGGER task Stack size.
+            It's recommended to keep the default values to avoid runtime issues.
+        </Description>
+    </RefParameter>
+    <RefParameter Name="LOGGER_TASK_PRIORITY" Comment="Priority level" DefaultValue="osPriorityBelowNormal" Type="list" Group="Logger Task">
+        <Description>Logger task priority</Description>
+        <PossibleValue Value="osPriorityLow" Comment="Low"/>
+        <PossibleValue Value="osPriorityBelowNormal" Comment="BelowNormal"/>
+        <PossibleValue Value="osPriorityNormal" Comment="Normal"/>
+        <PossibleValue Value="osPriorityAboveNormal" Comment="AboveNormal"/>
+        <PossibleValue Value="osPriorityHigh" Comment="High"/>
+        <PossibleValue Value="osPriorityRealtime" Comment="Realtime"/>
+    </RefParameter>
+
+    <RefParameter Name="SCMI_MGR_TASK" Comment="SCMI Manager Task" DefaultValue="Enabled" Type="list" Group="SCMI Manager Task">
+        <Description>SCMI_MGR task configuration</Description>
+        <PossibleValue Value="1" Comment="Enabled"/>
+        <PossibleValue Value="0" Comment="Disabled" Condition="1=1" Diagnostic="Should be always enabled."/>
+    </RefParameter>
+    <RefParameter Name="SCMI_MGR_TASK_STACK_SIZE" Comment="Stack size" DefaultValue="1024" Type="integer" Group="SCMI Manager Task">
+        <Description>&lt;b&gt;&lt;/b&gt;SCMI_MGR task Stack size.
+            It's recommended to keep the default values to avoid runtime issues.</Description>
+    </RefParameter>
+    <RefParameter Name="SCMI_MGR_TASK_PRIORITY" Comment="Priority level" DefaultValue="osPriorityNormal" Type="list" Group="SCMI Manager Task">
+        <Description>&lt;b&gt;&lt;/b&gt;SCMI_MGR task priority.
+            It's recommended to keep the default values to avoid runtime issues.</Description>
+        <PossibleValue Value="osPriorityLow" Comment="Low"/>
+        <PossibleValue Value="osPriorityBelowNormal" Comment="BelowNormal"/>
+        <PossibleValue Value="osPriorityNormal" Comment="Normal"/>
+        <PossibleValue Value="osPriorityAboveNormal" Comment="AboveNormal"/>
+        <PossibleValue Value="osPriorityHigh" Comment="High"/>
+        <PossibleValue Value="osPriorityRealtime" Comment="Realtime"/>
+    </RefParameter>
+    
+    <!-- RefMode for M33TD_NSAPP_CORE -->
+    <RefMode Name="M33TD_NSAppCore_Init" Abstract="true" Group="RESMGR_UTILITY_Common" HalMode="RESMGR_UTILITY">
+        <Parameter Name="verbosity"/>
+
+        <Parameter Name="WDG_MONITOR"/>
+        <Parameter Name="WDG_TASK_STACK_SIZE"/>
+        <Parameter Name="WDG_TASK_PRIORITY"/>
+
+        <Parameter Name="REMOTEPROC_TASK"/>
+        <Parameter Name="REMOTEPROC_TASK_STACK_SIZE"/>
+        <Parameter Name="REMOTEPROC_TASK_PRIORITY"/>
+
+        <Parameter Name="USERAPP_TASK"/>
+        <Parameter Name="USERAPP_TASK_STACK_SIZE"/>
+        <Parameter Name="USERAPP_TASK_PRIORITY"/>
+
+        <Parameter Name="LOGGER_TASK"/>
+        <Parameter Name="LOGGER_TASK_STACK_SIZE"/>
+        <Parameter Name="LOGGER_TASK_PRIORITY"/>
+
+        <Parameter Name="SCMI_MGR_TASK"/>
+        <Parameter Name="SCMI_MGR_TASK_STACK_SIZE"/>
+        <Parameter Name="SCMI_MGR_TASK_PRIORITY"/>
+        <ConfigForMode>M33TD_NSAppCore_Init</ConfigForMode>
+
+        <BspDependency Name="BSP LED" Comment="" BspIpName="GPIO" BspModeName="Output" Api="BSP_COMMON_DRIVER" GroupName="BSP">
+            <Condition Diagnostic="" Expression="S_CORTEX_A35_START &amp; S_USERAPP_TASK"/>
+        </BspDependency>
+        <BspDependency Name="BSP USART" Comment="Use an USART for this application" BspIpName="USART" BspModeName="Asynchronous" Api="BSP_COMMON_DRIVER" GroupName="BSP">
+            <Condition Diagnostic="" Expression="S_CORTEX_A35_START"/>
+        </BspDependency>
+        <BspDependency Name="BSP USART" Comment="Use an UART for this application" BspIpName="UART" BspModeName="Asynchronous" Api="BSP_COMMON_DRIVER" GroupName="BSP">
+            <Condition Diagnostic="" Expression="S_CORTEX_A35_START"/>
+        </BspDependency>
+    </RefMode>
+
+    <!-- ModeLogicOperator for M33TD_NSAPP_CORE -->
+    <ModeLogicOperator Name="OR">
+        <Mode Name="M33TD_NSAppCore_Init" UserName="Activated" RemoveCondition="S_CTX_PROJECT_A35TD_TZDIS|S_CTX_PROJECT_A35TD_TZEN">
+            <Condition Expression="S_CMSIS_RTOS_V2" Diagnostic="Please enable FreeRTOS with 'CMSIS_V2' interface. "/>
+            <Condition Expression="S_TFM_ENABLED" Diagnostic="Please enable TF_M middlware."/>
+            <ModeLogicOperator Name="XOR">
+                <Mode Name="M33TD_NSAppCore_Init" UserName="Manage A35 coprocessor">
+                    <SignalLogicalOp Name="AND">
+                        <Signal Name="VS_M33TD_NSAPP_CORE_INIT" />
+                    </SignalLogicalOp>
+                    <Semaphore>S_CORTEX_A35_START</Semaphore>
+                </Mode>
+            </ModeLogicOperator>
+        </Mode>
+    </ModeLogicOperator>
+
+    <!-- RefSignal for M33TD_NSAPP_CORE -->
+    <RefSignal Name="VS_M33TD_NSAPP_CORE_INIT" Virtual="true"/>
+
+</IP>

@@ -8,9 +8,10 @@
     <Context Comment="Enable the Application secure context for the peripheral(s) that you want to use from the secure domain, whether a basic secure monitor or a trusted execution environment" Core="ARM Cortex-M55" GenType="CUBE" GroupName="Runtime contexts" GroupShortName="RT" LongName="Secure Application" Name="AppliSecure" Secure="true" SemaphoreSuffix="_APPS" ShortName="AppS"/>
     <Context Comment="Enable the Application non-secure context for the peripheral(s) that you plan to use from the non secure domain" Core="ARM Cortex-M55" GenType="CUBE" GroupName="Runtime contexts" GroupShortName="RT" LongName="Non Secure Application" Name="AppliNonSecure" Secure="false" SemaphoreSuffix="_APPNS" ShortName="AppNS"/>
     <Context Comment="Enable the External Memory Loader context for the peripheral(s) that you plan to use" Core="ARM Cortex-M55" GenType="CUBE" GroupName="Runtime contexts" GroupShortName="RT" LongName="External Memory Loader" Name="ExtMemLoader" Secure="true" SemaphoreSuffix="_EL" ShortName="ExtMemLoader"/>
+    <MemoryMap>Available</MemoryMap>
     <TrustZone>Available</TrustZone>
     <Ram>4200</Ram>
-    <IONb>77</IONb>
+    <IONb>75</IONb>
     <Die>DIE486</Die>
     <Flash>0</Flash>
     <IP ClockEnableMode="__HAL_RCC_ADC12_CLK_ENABLE" ConfigFile="ADC-STM32N6xx" IPContextCoupling="ADC1|ADC2" InstanceName="ADC1" Name="ADC" Version="aditf6_v3_3_N6_Cube">
@@ -101,7 +102,7 @@
             <ContextIP ContextName="ExtMemLoader"/>
         </ContextSplit>
     </IP>
-    <IP ClockEnableMode="__HAL_RCC_DCMI_PSSI_CLK_ENABLE" InstanceName="DCMI" Name="DCMI" Version="cci_v2_0_Cube">
+    <IP ClockEnableMode="__HAL_RCC_DCMI_PSSI_CLK_ENABLE" ConfigFile="DCMI-STM32N6xx" InstanceName="DCMI" Name="DCMI" Version="cci_v2_0_Cube">
         <ContextSplit Name="NOINIT1">
             <ContextIP ContextName="FSBL"/>
             <ContextIP ContextName="AppliSecure"/>
@@ -138,6 +139,15 @@
         </ContextSplit>
     </IP>
     <IP ConfigFile="DTS-STM32N6xx" InstanceName="DTS" Name="DTS" Version="dtsN6_v1_0_Cube">
+        <ContextSplit Name="NOINIT1">
+            <ContextIP ContextName="FSBL"/>
+            <ContextIP ContextName="AppliSecure"/>
+            <ContextIP ContextName="Appli"/>
+            <ContextIP ContextName="AppliNonSecure"/>
+            <ContextIP ContextName="ExtMemLoader"/>
+        </ContextSplit>
+    </IP>
+    <IP ClockEnableMode="__HAL_RCC_ETH1_CLK_ENABLE;__HAL_RCC_ETH1MAC_CLK_ENABLE;__HAL_RCC_ETH1TX_CLK_ENABLE;__HAL_RCC_ETH1RX_CLK_ENABLE" ConfigFile="ETH-STM32N6xx" InstanceName="ETH1" Name="ETH" Version="ethermac110_v3_1_1">
         <ContextSplit Name="NOINIT1">
             <ContextIP ContextName="FSBL"/>
             <ContextIP ContextName="AppliSecure"/>
@@ -279,33 +289,6 @@
         </ContextSplit>
     </IP>
     <IP InstanceName="I2C4" Name="I2C" Version="i2c1_v1_0N6_Cube">
-        <ContextSplit Name="NOINIT1">
-            <ContextIP ContextName="FSBL"/>
-            <ContextIP ContextName="AppliSecure"/>
-            <ContextIP ContextName="Appli"/>
-            <ContextIP ContextName="AppliNonSecure"/>
-            <ContextIP ContextName="ExtMemLoader"/>
-        </ContextSplit>
-    </IP>
-    <IP ConfigFile="I2S-STM32N6xx" InstanceName="I2S1" Name="I2S" Version="spi2s3_v2_1_Cube">
-        <ContextSplit Name="NOINIT1">
-            <ContextIP ContextName="FSBL"/>
-            <ContextIP ContextName="AppliSecure"/>
-            <ContextIP ContextName="Appli"/>
-            <ContextIP ContextName="AppliNonSecure"/>
-            <ContextIP ContextName="ExtMemLoader"/>
-        </ContextSplit>
-    </IP>
-    <IP ConfigFile="I2S-STM32N6xx" InstanceName="I2S3" Name="I2S" Version="spi2s3_v2_1_Cube">
-        <ContextSplit Name="NOINIT1">
-            <ContextIP ContextName="FSBL"/>
-            <ContextIP ContextName="AppliSecure"/>
-            <ContextIP ContextName="Appli"/>
-            <ContextIP ContextName="AppliNonSecure"/>
-            <ContextIP ContextName="ExtMemLoader"/>
-        </ContextSplit>
-    </IP>
-    <IP ConfigFile="I2S-STM32N6xx" InstanceName="I2S6" Name="I2S" Version="spi2s3_v2_1_Cube">
         <ContextSplit Name="NOINIT1">
             <ContextIP ContextName="FSBL"/>
             <ContextIP ContextName="AppliSecure"/>
@@ -459,9 +442,9 @@
     </IP>
     <IP ConfigFile="RIF-STM32N6xx" InstanceName="RIF" Name="RIF" Version="STM32N6_rif_v1_0_Cube">
         <ContextSplit Name="NOINIT1">
-            <ContextIP ContextName="FSBL" DevalidatedOnSelect="AppliSecure,Appli"/>
-            <ContextIP ContextName="AppliSecure" DefaultSelection="true" DevalidatedOnSelect="FSBL"/>
-            <ContextIP ContextName="Appli" DefaultSelection="true" DevalidatedOnSelect="FSBL"/>
+            <ContextIP ContextName="FSBL" InversedAssignment="AppliSecure,Appli"/>
+            <ContextIP ContextName="AppliSecure" DefaultSelection="true" InversedAssignment="FSBL"/>
+            <ContextIP ContextName="Appli" DefaultSelection="true" InversedAssignment="FSBL"/>
         </ContextSplit>
     </IP>
     <IP ConfigFile="RNG-STM32N6xx" InstanceName="RNG" Name="RNG" Version="rng1_v4_1">
@@ -491,19 +474,10 @@
             <ContextIP ContextName="ExtMemLoader"/>
         </ContextSplit>
     </IP>
-    <IP ConfigFile="SAI-STM32N6xx" InstanceName="SAI2" Name="SAI" Version="sai1_L5_Cube">
-        <ContextSplit Name="NOINIT1">
-            <ContextIP ContextName="FSBL"/>
-            <ContextIP ContextName="AppliSecure"/>
-            <ContextIP ContextName="Appli"/>
-            <ContextIP ContextName="AppliNonSecure"/>
-            <ContextIP ContextName="ExtMemLoader"/>
-        </ContextSplit>
-    </IP>
     <IP ConfigFile="SAU-STM32N6xx" InstanceName="SAU" Name="SAU" Version="sau_v2_0_N6_Cube">
-        <ContextSplit Name="split1">
-            <ContextIP ContextName="AppliSecure" ForcedSelection="true" InitializerForced="true"/>
-            <ContextIP ContextName="Appli" ForcedSelection="true" InitializerForced="true"/>
+        <ContextSplit Name="NOINIT1">
+            <ContextIP ContextName="AppliSecure" ForcedSelection="true"/>
+            <ContextIP ContextName="Appli" ForcedSelection="true"/>
         </ContextSplit>
     </IP>
     <IP ConfigFile="SPI-STM32N6xx" InstanceName="SPI1" Name="SPI" Version="spi2s3_v2_1_Cube">
@@ -557,7 +531,7 @@
         </ContextSplit>
     </IP>
     <IP ConfigFile="SYS-STM32N6xx" InstanceName="SYS_S" Name="SYS_S" Version="STM32N6x_sys_s_v1_0">
-        <ContextSplit Name="NOINIT1">
+        <ContextSplit Name="split1">
             <ContextIP ContextName="FSBL"/>
             <ContextIP ContextName="AppliSecure"/>
             <ContextIP ContextName="Appli"/>
@@ -734,7 +708,7 @@
             <ContextIP ContextName="ExtMemLoader"/>
         </ContextSplit>
     </IP>
-    <IP ClockEnableMode="__HAL_RCC_USB1_OTG_HS_CLK_ENABLE" InstanceName="USB1_OTG_HS" Name="USB_OTG_HS" Version="otghs1_v2_5_Cube">
+    <IP ClockEnableMode="__HAL_RCC_USB1_OTG_HS_CLK_ENABLE; __HAL_RCC_USB1_OTG_HS_PHY_CLK_ENABLE" InstanceName="USB1_OTG_HS" Name="USB_OTG_HS" Version="otghs1_v2_5_Cube">
         <ContextSplit Name="NOINIT1">
             <ContextIP ContextName="FSBL"/>
             <ContextIP ContextName="AppliSecure"/>
@@ -743,7 +717,7 @@
             <ContextIP ContextName="ExtMemLoader"/>
         </ContextSplit>
     </IP>
-    <IP ClockEnableMode="__HAL_RCC_USB2_OTG_HS_CLK_ENABLE" InstanceName="USB2_OTG_HS" Name="USB_OTG_HS" Version="otghs2_v2_5_Cube">
+    <IP ClockEnableMode="__HAL_RCC_USB2_OTG_HS_CLK_ENABLE;__HAL_RCC_USB2_OTG_HS_PHY_CLK_ENABLE" InstanceName="USB2_OTG_HS" Name="USB_OTG_HS" Version="otghs2_v2_5_Cube">
         <ContextSplit Name="NOINIT1">
             <ContextIP ContextName="FSBL"/>
             <ContextIP ContextName="AppliSecure"/>
@@ -832,6 +806,16 @@
             <ContextIP ContextName="ExtMemLoader"/>
         </ContextSplit>
     </IP>
+    <IP ConfigFile="MEMORYMAP-STM32xx" InstanceName="MEMORYMAP" Name="MEMORYMAP" Version="STM32xx">
+        <ContextSplit Name="NOINIT1">
+            <ContextIP ContextName="FSBL"/>
+            <ContextIP ContextName="AppliNonSecure"/>
+        </ContextSplit>
+        <ContextSplit Name="NOINIT2">
+            <ContextIP ContextName="AppliSecure"/>
+            <ContextIP ContextName="Appli"/>
+        </ContextSplit>
+    </IP>
     <IP ConfigFile="GPIO-STM32N6xx" InstanceName="GPIO" Name="GPIO" Version="STM32N6_gpio_v1_0">
         <ContextSplit Name="split1">
             <ContextIP ContextName="FSBL" ForcedSelection="true" InitializerForced="true"/>
@@ -871,7 +855,7 @@
     <Pin Name="OTG1_TXRTUNE" Position="A6" Type="MonoIO"/>
     <Pin Name="PH0-OSC_IN(PH0)" Position="A7" Type="I/O">
         <Signal Name="RCC_OSC_IN"/>
-        <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
+        <Signal IOModes="Input,EXTI" Name="GPIO"/>
     </Pin>
     <Pin Name="PC8" Position="A8" Type="I/O">
         <Signal Name="DCMIPP_D2"/>
@@ -891,7 +875,6 @@
         <Signal Name="DCMIPP_D14"/>
         <Signal Name="HDP_HDP2"/>
         <Signal Name="I2C4_SCL"/>
-        <Signal Name="I2S3_CK"/>
         <Signal Name="I3C2_SCL"/>
         <Signal Name="PSSI_D14"/>
         <Signal Name="SPI3_SCK"/>
@@ -904,8 +887,6 @@
         <Signal Name="DCMI_D9"/>
         <Signal Name="DEBUG_TRACED3"/>
         <Signal Name="HDP_HDP4"/>
-        <Signal Name="I2S3_SDO"/>
-        <Signal Name="I2S6_CK"/>
         <Signal Name="PSSI_D9"/>
         <Signal Name="SPI3_MOSI"/>
         <Signal Name="SPI6_SCK"/>
@@ -917,18 +898,17 @@
     <Pin Name="PE13" Position="A11" Type="I/O">
         <Signal Name="ADF1_CCK0"/>
         <Signal Name="I2C4_SCL"/>
-        <Signal Name="SAI2_FS_B"/>
         <Signal Name="SPI4_MISO"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
     </Pin>
     <Pin Name="PE7" Position="A12" Type="I/O">
         <Signal Name="MDF1_CKI0"/>
-        <Signal Name="SAI2_SD_B"/>
         <Signal Name="UART7_RX"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
     </Pin>
     <Pin Name="PE9" Position="A13" Type="I/O">
         <Signal Name="MDF1_CKI4"/>
+        <Signal Name="UART7_DE"/>
         <Signal Name="UART7_RTS"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
     </Pin>
@@ -937,7 +917,6 @@
         <Signal Name="DCMI_D2"/>
         <Signal Name="LPTIM2_ETR"/>
         <Signal Name="PSSI_D2"/>
-        <Signal Name="SAI2_MCLK_A"/>
         <Signal Name="TAMP_IN6"/>
         <Signal Name="TAMP_OUT5"/>
         <Signal Name="USART3_RX"/>
@@ -945,10 +924,8 @@
     </Pin>
     <Pin Name="VSS" Position="A15" Type="Power"/>
     <Pin Name="PC15-OSC32_OUT(OSC32_OUT)" Position="B1" Type="I/O">
-        <Signal Name="ADC1_EXTI15"/>
-        <Signal Name="ADC2_EXTI15"/>
         <Signal Name="RCC_OSC32_OUT"/>
-        <Signal IOModes="Input,Output,Analog,EXTI" Name="GPIO"/>
+        <Signal IOModes="Input,EXTI" Name="GPIO"/>
     </Pin>
     <Pin Name="BOOT0" Position="B2" Type="Boot"/>
     <Pin Name="OTG2_HSDP" Position="B3" Type="MonoIO">
@@ -963,7 +940,7 @@
     <Pin Name="VDD33USB" Position="B6" Type="Power"/>
     <Pin Name="PH1-OSC_OUT(PH1)" Position="B7" Type="I/O">
         <Signal Name="RCC_OSC_OUT"/>
-        <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
+        <Signal IOModes="Input,EXTI" Name="GPIO"/>
     </Pin>
     <Pin Name="PC9" Position="B8" Type="I/O">
         <Signal Name="AUDIOCLK"/>
@@ -986,7 +963,6 @@
         <Signal Name="DCMI_D4"/>
         <Signal Name="HDP_HDP3"/>
         <Signal Name="I2C4_SDA"/>
-        <Signal Name="I2S3_SDI"/>
         <Signal Name="I3C2_SDA"/>
         <Signal Name="PSSI_D4"/>
         <Signal Name="SPI3_MISO"/>
@@ -1008,11 +984,11 @@
     <Pin Name="PE12" Position="B11" Type="I/O">
         <Signal Name="FDCAN3_RX"/>
         <Signal Name="MDF1_SDI5"/>
-        <Signal Name="SAI2_SCK_B"/>
         <Signal Name="SPI4_SCK"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
     </Pin>
     <Pin Name="PD1" Position="B12" Type="I/O">
+        <Signal Name="ETH1_MDC"/>
         <Signal Name="FDCAN1_TX"/>
         <Signal Name="UART4_TX"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
@@ -1047,7 +1023,7 @@
     </Pin>
     <Pin Name="PC14-OSC32_IN(OSC32_IN)" Position="C1" Type="I/O">
         <Signal Name="RCC_OSC32_IN"/>
-        <Signal IOModes="Input,Output,Analog,EXTI" Name="GPIO"/>
+        <Signal IOModes="Input,EXTI" Name="GPIO"/>
     </Pin>
     <Pin Name="NRST" Position="C2" Type="Reset"/>
     <Pin Name="NC" Position="C3" Type="NC"/>
@@ -1085,13 +1061,11 @@
     <Pin Name="PWR_ON" Position="D2" Type="MonoIO"/>
     <Pin Name="VDDA18USB" Position="D4" Type="Power"/>
     <Pin Name="OTG2_TXRTUNE" Position="D5" Type="MonoIO"/>
-    <Pin Name="UCPD1_CC1" Position="D6" Type="I/O">
+    <Pin Name="UCPD1_CC1" Position="D6" Type="MonoIO">
         <Signal Name="UCPD1_CC1"/>
-        <Signal IOModes="Input,Output,Analog" Name="GPIO"/>
     </Pin>
-    <Pin Name="UCPD1_CC2" Position="D7" Type="I/O">
+    <Pin Name="UCPD1_CC2" Position="D7" Type="MonoIO">
         <Signal Name="UCPD1_CC2"/>
-        <Signal IOModes="Input,Output,Analog" Name="GPIO"/>
     </Pin>
     <Pin Name="VDDIO4" Position="D8" Type="Power"/>
     <Pin Name="VSS" Position="D9" Type="Power"/>
@@ -1100,7 +1074,6 @@
         <Signal Name="GFXTIM_FCKCAL"/>
         <Signal Name="GFXTIM_LCKCAL"/>
         <Signal Name="I2C4_SDA"/>
-        <Signal Name="SAI2_MCLK_B"/>
         <Signal Name="SPI4_MOSI"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
     </Pin>
@@ -1148,7 +1121,7 @@
         <Signal Name="TAMP_IN1"/>
         <Signal Name="TAMP_OUT2"/>
         <Signal IOModes="Input,Output,Analog,EXTI" Name="GPIO"/>
-        <Condition Diagnostic="" Expression="!(RTC_OUT1 &amp; CALIBRATION)"/>
+        <Condition Diagnostic="" Expression="!(RTC_OUT2 &amp; (WakeUp_Outputed | AlarmA_Outputed | AlarmB_Outputed))"/>
     </Pin>
     <Pin Name="VDDA18AON" Position="E4" Type="Power"/>
     <Pin Name="PB7" Position="E12" Type="I/O">
@@ -1160,7 +1133,6 @@
         <Signal Name="PSSI_D7"/>
         <Signal Name="SAI1_D1"/>
         <Signal Name="SAI1_SD_A"/>
-        <Signal Name="SAI2_MCLK_B"/>
         <Signal Name="SPI4_MOSI"/>
         <Signal Name="TIM15_CH2"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
@@ -1233,10 +1205,8 @@
         <Signal Name="ADC1_INP18"/>
         <Signal Name="DCMIPP_HSYNC"/>
         <Signal Name="DCMI_HSYNC"/>
+        <Signal Name="ETH1_MDIO"/>
         <Signal Name="HDP_HDP4"/>
-        <Signal Name="I2S1_WS"/>
-        <Signal Name="I2S3_WS"/>
-        <Signal Name="I2S6_WS"/>
         <Signal Name="LTDC_R3"/>
         <Signal Name="PSSI_DE"/>
         <Signal Name="SPI1_NSS"/>
@@ -1248,6 +1218,9 @@
         <Signal Name="DCMIPP_D11"/>
         <Signal Name="DCMIPP_D15"/>
         <Signal Name="DCMI_D11"/>
+        <Signal Name="ETH1_MII_RX_DV"/>
+        <Signal Name="ETH1_RGMII_RX_CTL"/>
+        <Signal Name="ETH1_RMII_CRS_DV"/>
         <Signal Name="LTDC_R1"/>
         <Signal Name="MDF1_SDI3"/>
         <Signal Name="PSSI_D11"/>
@@ -1260,10 +1233,10 @@
     <Pin Name="PF5" Position="K3" Type="I/O">
         <Signal Name="DCMIPP_D6"/>
         <Signal Name="DCMI_D6"/>
+        <Signal Name="ETH1_CLK"/>
         <Signal Name="LPTIM2_IN2"/>
         <Signal Name="LTDC_G0"/>
         <Signal Name="PSSI_D6"/>
-        <Signal Name="SAI2_SD_A"/>
         <Signal Name="USART3_CTS"/>
         <Signal Name="USART3_NSS"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
@@ -1279,6 +1252,7 @@
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
     </Pin>
     <Pin Name="PF2" Position="L1" Type="I/O">
+        <Signal Name="ETH1_RGMII_CLK125"/>
         <Signal Name="FDCAN3_TX"/>
         <Signal Name="LTDC_B1"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
@@ -1286,6 +1260,9 @@
     <Pin Name="PF14" Position="L2" Type="I/O">
         <Signal Name="ADC2_INN2"/>
         <Signal Name="ADC2_INP6"/>
+        <Signal Name="ETH1_MII_RXD0"/>
+        <Signal Name="ETH1_RGMII_RXD0"/>
+        <Signal Name="ETH1_RMII_RXD0"/>
         <Signal Name="LTDC_G0"/>
         <Signal Name="SPI5_MOSI"/>
         <Signal Name="TIM2_CH2"/>
@@ -1296,6 +1273,7 @@
         <Signal Name="ADC1_INP16"/>
         <Signal Name="DCMIPP_HSYNC"/>
         <Signal Name="DCMI_HSYNC"/>
+        <Signal Name="ETH1_PPS_OUT"/>
         <Signal Name="FDCAN3_RX"/>
         <Signal Name="LTDC_R4"/>
         <Signal Name="PSSI_DE"/>
@@ -1307,9 +1285,6 @@
         <Signal Name="DCMI_VSYNC"/>
         <Signal Name="DEBUG_NJTRST"/>
         <Signal Name="HDP_HDP4"/>
-        <Signal Name="I2S1_SDI"/>
-        <Signal Name="I2S3_SDI"/>
-        <Signal Name="I2S6_SDI"/>
         <Signal Name="LTDC_R3"/>
         <Signal Name="PSSI_RDY"/>
         <Signal Name="SPI1_MISO"/>
@@ -1324,9 +1299,6 @@
         <Signal Name="ADC2_EXTI15"/>
         <Signal Name="DEBUG_JTDI"/>
         <Signal Name="HDP_HDP7"/>
-        <Signal Name="I2S1_WS"/>
-        <Signal Name="I2S3_WS"/>
-        <Signal Name="I2S6_WS"/>
         <Signal Name="LTDC_R5"/>
         <Signal Name="SPI1_NSS"/>
         <Signal Name="SPI3_NSS"/>
@@ -1341,8 +1313,12 @@
     <Pin Name="PF15" Position="M1" Type="I/O">
         <Signal Name="ADC1_EXTI15"/>
         <Signal Name="ADC2_EXTI15"/>
+        <Signal Name="ETH1_MII_RXD1"/>
+        <Signal Name="ETH1_RGMII_RXD1"/>
+        <Signal Name="ETH1_RMII_RXD1"/>
         <Signal Name="LTDC_G1"/>
         <Signal Name="SPI5_SCK"/>
+        <Signal Name="USART1_DE"/>
         <Signal Name="USART1_RTS"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
     </Pin>
@@ -1351,9 +1327,11 @@
         <Signal Name="ADC1_INP9"/>
         <Signal Name="ADC2_INN5"/>
         <Signal Name="ADC2_INP9"/>
+        <Signal Name="ETH1_MII_RX_CLK"/>
+        <Signal Name="ETH1_RGMII_RX_CLK"/>
+        <Signal Name="ETH1_RMII_REF_CLK"/>
         <Signal Name="GFXTIM_TE"/>
         <Signal Name="HDP_HDP0"/>
-        <Signal Name="I2S1_CK"/>
         <Signal Name="LTDC_VSYNC"/>
         <Signal Name="SPI1_SCK"/>
         <Signal Name="TIM3_CH3"/>
@@ -1388,10 +1366,10 @@
         <Signal Name="LTDC_R0"/>
         <Signal Name="PSSI_D6"/>
         <Signal Name="SAI1_FS_B"/>
-        <Signal Name="SAI2_MCLK_B"/>
         <Signal Name="SPI5_MOSI"/>
         <Signal Name="TIM14_CH1"/>
         <Signal Name="UART7_CTS"/>
+        <Signal Name="USART3_DE"/>
         <Signal Name="USART3_RTS"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
     </Pin>
@@ -1401,9 +1379,6 @@
         <Signal Name="DEBUG_JTDO-SWO"/>
         <Signal Name="FDCAN2_RX"/>
         <Signal Name="HDP_HDP5"/>
-        <Signal Name="I2S1_SDO"/>
-        <Signal Name="I2S3_SDO"/>
-        <Signal Name="I2S6_SDO"/>
         <Signal Name="LTDC_R2"/>
         <Signal Name="PSSI_D10"/>
         <Signal Name="SPI1_MOSI"/>
@@ -1415,6 +1390,8 @@
     </Pin>
     <Pin Name="PF8" Position="N1" Type="I/O">
         <Signal Name="DEBUG_TRACECLK"/>
+        <Signal Name="ETH1_MII_RXD2"/>
+        <Signal Name="ETH1_RGMII_RXD2"/>
         <Signal Name="LTDC_R6"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
     </Pin>
@@ -1423,9 +1400,11 @@
         <Signal Name="ADC1_INP2"/>
         <Signal Name="ADC2_EXTI11"/>
         <Signal Name="DCMIPP_D15"/>
+        <Signal Name="ETH1_MII_TX_EN"/>
+        <Signal Name="ETH1_RGMII_TX_CTL"/>
+        <Signal Name="ETH1_RMII_TX_EN"/>
         <Signal Name="LTDC_B0"/>
         <Signal Name="PSSI_D15"/>
-        <Signal Name="SAI2_SD_B"/>
         <Signal Name="SPI5_MOSI"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
     </Pin>
@@ -1433,6 +1412,9 @@
         <Signal Name="ADC2_INP2"/>
         <Signal Name="DCMIPP_D10"/>
         <Signal Name="DCMI_D10"/>
+        <Signal Name="ETH1_MII_TXD1"/>
+        <Signal Name="ETH1_RGMII_TXD1"/>
+        <Signal Name="ETH1_RMII_TXD1"/>
         <Signal Name="PSSI_D10"/>
         <Signal Name="SPI5_NSS"/>
         <Signal Name="USART1_TX"/>
@@ -1481,6 +1463,9 @@
         <Signal Name="ADC1_INP6"/>
         <Signal Name="DCMIPP_D13"/>
         <Signal Name="DCMI_D13"/>
+        <Signal Name="ETH1_MII_TXD0"/>
+        <Signal Name="ETH1_RGMII_TXD0"/>
+        <Signal Name="ETH1_RMII_TXD0"/>
         <Signal Name="PSSI_D13"/>
         <Signal Name="SPI5_MISO"/>
         <Signal Name="USART1_RX"/>
@@ -1505,7 +1490,6 @@
         <Signal Name="DCMIPP_D11"/>
         <Signal Name="DCMI_D11"/>
         <Signal Name="DEBUG_TRACED1"/>
-        <Signal Name="I2S6_SDO"/>
         <Signal Name="LTDC_B1"/>
         <Signal Name="PSSI_D11"/>
         <Signal Name="SPI6_MOSI"/>
@@ -1518,10 +1502,11 @@
         <Signal Name="ADC2_INP13"/>
         <Signal Name="FDCAN1_TX"/>
         <Signal Name="HDP_HDP4"/>
+        <Signal Name="LPUART1_DE"/>
         <Signal Name="LPUART1_RTS"/>
         <Signal Name="LTDC_B2"/>
-        <Signal Name="SAI2_FS_B"/>
         <Signal Name="UART4_TX"/>
+        <Signal Name="USART1_DE"/>
         <Signal Name="USART1_RTS"/>
         <Signal IOModes="Input,Output,Analog,EXTI" Name="GPIO"/>
     </Pin>
@@ -1546,7 +1531,6 @@
         <Signal Name="LTDC_B7"/>
         <Signal Name="MDIOS_MDIO"/>
         <Signal Name="PWR_WKUP2"/>
-        <Signal Name="SAI2_SCK_B"/>
         <Signal Name="TIM15_CH1"/>
         <Signal Name="TIM2_CH3"/>
         <Signal IOModes="Input,Output,Analog,EXTI" Name="GPIO"/>
@@ -1558,8 +1542,6 @@
         <Signal Name="DCMIPP_PIXCLK"/>
         <Signal Name="DCMI_PIXCLK"/>
         <Signal Name="HDP_HDP6"/>
-        <Signal Name="I2S1_SDI"/>
-        <Signal Name="I2S6_SDI"/>
         <Signal Name="I3C1_SDA"/>
         <Signal Name="LTDC_B7"/>
         <Signal Name="LTDC_HSYNC"/>
@@ -1579,7 +1561,6 @@
         <Signal Name="HDP_HDP1"/>
         <Signal Name="LTDC_G2"/>
         <Signal Name="PSSI_D0"/>
-        <Signal Name="SAI2_MCLK_B"/>
         <Signal Name="TIM15_CH1N"/>
         <Signal Name="TIM2_CH2"/>
         <Signal Name="UART4_RX"/>
@@ -1658,8 +1639,6 @@
         <Signal Name="DCMIPP_D8"/>
         <Signal Name="DCMI_D8"/>
         <Signal Name="HDP_HDP5"/>
-        <Signal Name="I2S1_CK"/>
-        <Signal Name="I2S6_CK"/>
         <Signal Name="I3C1_SCL"/>
         <Signal Name="LTDC_CLK"/>
         <Signal Name="PSSI_D8"/>
@@ -1678,7 +1657,7 @@
         <Signal Name="LPTIM2_IN1"/>
         <Signal Name="LTDC_DE"/>
         <Signal Name="PSSI_D12"/>
-        <Signal Name="SAI2_FS_A"/>
+        <Signal Name="USART3_DE"/>
         <Signal Name="USART3_RTS"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
     </Pin>
@@ -1688,10 +1667,8 @@
         <Signal Name="ADC2_INN1"/>
         <Signal Name="ADC2_INP0"/>
         <Signal Name="HDP_HDP0"/>
-        <Signal Name="I2S6_WS"/>
         <Signal Name="LTDC_G3"/>
         <Signal Name="PWR_WKUP1"/>
-        <Signal Name="SAI2_SD_B"/>
         <Signal Name="SPI6_NSS"/>
         <Signal Name="TIM15_BKIN"/>
         <Signal Name="TIM2_CH1"/>

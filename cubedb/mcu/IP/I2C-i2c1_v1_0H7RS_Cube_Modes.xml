@@ -12,7 +12,7 @@
         <PossibleValue Comment="Fast Mode" Value="I2C_Fast"/>
     </RefParameter>
     <RefParameter Comment="I2C Speed Mode " DefaultValue="I2C_Standard" Group="Timing configuration" Name="I2C_Speed_Mode" Type="list">
-        <Condition Diagnostic="" Expression="$IpInstance_SMBUS_Enable &amp; (STM32C0|STM32G4|STM32L5|STM32L4|STM32L0|STM32WL|STM32G0|STM32WB)"/>
+        <Condition Diagnostic="" Expression="$IpInstance_SMBUS_Enable &amp; (STM32C0|STM32G4|STM32L5|STM32L4|STM32L0|STM32WL|STM32G0|STM32WB|STM32H7)"/>
         <PossibleValue Comment="Standard Mode" Value="I2C_Standard"/>
         <PossibleValue Comment="Fast Mode" Value="I2C_Fast"/>
         <PossibleValue Comment="Fast Mode Plus" Semaphore="$IpInstance_SMBusFastMP" Value="I2C_Fast_Plus"/> 
@@ -507,7 +507,11 @@
     <!-- ModeLogicOperator for I2C -->
     <ModeLogicOperator Name="OR" >
         <Mode Name="I2C">
-			<Condition Expression="(FLASH_BOOT&amp;SEMA_Activate_FlashIP )|(FLASH_APPLI&amp;SEMA_Activate_FlashIP )|(!$IpNumber=1) " Diagnostic="Available only if Flash IP is activated" />       
+			<Condition Expression="(FLASH_BOOT&amp;SEMA_Activate_FlashIP )|(FLASH_APPLI&amp;SEMA_Activate_FlashIP )|(!$IpNumber=1) " Diagnostic="Available only if Flash IP is activated:&lt;br/&gt;
+             The hardware block supports both I2C (Inter-Integrated Circuit)&lt;br/&gt;
+             and I3C (Improved Inter-Integrated Circuit) communication protocols.&lt;br/&gt;
+             The selection between these two interfaces is configured at the chip level&lt;br/&gt;
+             by setting the I2C_NI3C option byte within the Flash IP.To use I2C, this option should be set to OB_I2C_NI3C_I2C." />
 			<Condition Expression="(!I3C)| ($IpNumber=2)| ($IpNumber=3)" Diagnostic="I2C1 and I3C1 are in exclusive choice"/>
             <ModeLogicOperator Name="XOR">
                 <Mode Name="I2C">

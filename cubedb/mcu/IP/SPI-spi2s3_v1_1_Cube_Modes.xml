@@ -88,6 +88,7 @@
 	<!-- Clock RefParameters for SPI --> 
 	<RefParameter Comment="Prescaler (for Baud Rate)" DefaultValue="SPI_BAUDRATEPRESCALER_2" Group="Clock Parameters" Name="BaudRatePrescaler" Type="list">
 		<Condition Diagnostic="" Expression="($IpInstance_Slave &amp; (TIMode = SPI_TIMODE_ENABLE)) | $IpInstance_Master"/>
+		<PossibleValue Comment="1"   Value="SPI_BAUDRATEPRESCALER_BYPASS"/>
 		<PossibleValue Comment="2"   Value="SPI_BAUDRATEPRESCALER_2"/>
 		<PossibleValue Comment="4"   Value="SPI_BAUDRATEPRESCALER_4"/>
 		<PossibleValue Comment="8"   Value="SPI_BAUDRATEPRESCALER_8"/>
@@ -441,7 +442,7 @@
 	</RefParameter>-->
 
         <RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
-               <Condition Diagnostic="" Expression="($IpNumber = 3) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_8BIT)"/>
+               <Condition Diagnostic="" Expression="($IpNumber = 3 |($IpNumber = 4 &amp; DIE42A)) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_8BIT)"/>
                <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
                <PossibleValue Comment="CRC 8 Bits"  Value="SPI_CRC_LENGTH_8BIT"/>
                <PossibleValue Comment="CRC 16 Bits" Value="SPI_CRC_LENGTH_16BIT"/>
@@ -482,7 +483,7 @@
 
 	<!-- SPI 3 (16bits) | Data Size 8bits, CRC Polynomial 9bits : bit[8]:1 --> 
 	<RefParameter Comment="CRC Polynomial [0x100:0xFFFF]" DefaultValue="0x107" Group="CRC Parameters" Min="0x100" Max="0xFFFF" Name="CRCPolynomial" Type="integer">
-		<Condition Diagnostic="" Expression="($IpNumber = 3) &amp; ((CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_8BIT))"/>
+		<Condition Diagnostic="" Expression="($IpNumber = 3 | ($IpNumber = 4 &amp; DIE42A)) &amp; ((CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_8BIT))"/>
 	</RefParameter>
 
 	<!-- SPI 1/2 (32bits) | Data Size 9bits, CRC Polynomial 10bits : bit[9]:1 --> 
@@ -721,6 +722,14 @@
 		<PossibleValue Comment="Fifo Threshold 15 Data" Value="SPI_FIFO_THRESHOLD_15DATA"/>
 		<PossibleValue Comment="Fifo Threshold 16 Data" Value="SPI_FIFO_THRESHOLD_16DATA"/>
 	</RefParameter>
+
+	<RefParameter Comment="Fifo Threshold" DefaultValue="SPI_FIFO_THRESHOLD_01DATA" Group="Advanced Parameters" Name="FifoThreshold" Type="list">
+		<Condition Expression="($IpNumber = 3 | $IpNumber = 4) &amp; STM32U3" Diagnostic=""/>
+		<PossibleValue Comment="Fifo Threshold 01 Data" Value="SPI_FIFO_THRESHOLD_01DATA"/>
+		<PossibleValue Comment="Fifo Threshold 02 Data" Value="SPI_FIFO_THRESHOLD_02DATA"/>
+		<PossibleValue Comment="Fifo Threshold 03 Data" Value="SPI_FIFO_THRESHOLD_03DATA"/>
+		<PossibleValue Comment="Fifo Threshold 04 Data" Value="SPI_FIFO_THRESHOLD_04DATA"/>
+	</RefParameter>
         
 	<RefParameter Comment="Fifo Threshold" DefaultValue="SPI_FIFO_THRESHOLD_01DATA" Group="Advanced Parameters" Name="FifoThreshold" Type="list">
 	    <PossibleValue Comment="Fifo Threshold 01 Data" Value="SPI_FIFO_THRESHOLD_01DATA"/>
@@ -834,6 +843,41 @@
 
 
 	<RefParameter Comment="Trigger Source" DefaultValue="SPI_GRP1_GPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
+		<Description>Autonomous Mode Trigger Source.</Description>
+		<Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2) &amp; (TriggerState = SPI_AUTO_MODE_ENABLE) &amp; DIE42A"/>
+		<PossibleValue Comment="Global Purpose DMA Channel 0" Value="SPI_GRP1_GPDMA_CH0_TCF_TRG"/>
+		<PossibleValue Comment="Global Purpose DMA Channel 1" Value="SPI_GRP1_GPDMA_CH1_TCF_TRG"/>
+		<PossibleValue Comment="Global Purpose DMA Channel 2" Value="SPI_GRP1_GPDMA_CH2_TCF_TRG"/>
+		<PossibleValue Comment="Global Purpose DMA Channel 3" Value="SPI_GRP1_GPDMA_CH3_TCF_TRG"/>
+		<PossibleValue Comment="EXTI4" Value="SPI_GRP1_EXTI4_TRG"/>
+		<PossibleValue Comment="EXTI9" Value="SPI_GRP1_EXTI9_TRG"/>
+		<PossibleValue Comment="LPTIM1 Channel 1" Value="SPI_GRP1_LPTIM1_CH1_TRG"/>
+		<PossibleValue Comment="LPTIM2 Channel 1" Value="SPI_GRP1_LPTIM2_CH1_TRG"/>
+		<PossibleValue Comment="COMP1" Value="SPI_GRP1_COMP1_TRG"/>
+		<PossibleValue Comment="COMP2" Value="SPI_GRP1_COMP2_TRG"/>
+		<PossibleValue Comment="RTC Alarm" Value="SPI_GRP1_RTC_ALRA_TRG"/>
+		<PossibleValue Comment="RTC Wakeup Timer" Value="SPI_GRP1_RTC_WUT_TRG"/>
+	</RefParameter>
+	<RefParameter Comment="Trigger Source" DefaultValue="SPI_GRP2_GPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
+		<Description>Autonomous Mode Trigger Source.</Description>
+		<Condition Diagnostic="" Expression="($IpNumber = 3 | $IpNumber = 4) &amp; (TriggerState = SPI_AUTO_MODE_ENABLE) &amp; DIE42A"/>
+		<PossibleValue Comment="Global Purpose DMA Channel 0" Value="SPI_GRP2_GPDMA_CH0_TCF_TRG"/>
+		<PossibleValue Comment="Global Purpose DMA Channel 1" Value="SPI_GRP2_GPDMA_CH1_TCF_TRG"/>
+		<PossibleValue Comment="Global Purpose DMA Channel 2" Value="SPI_GRP2_GPDMA_CH2_TCF_TRG"/>
+		<PossibleValue Comment="Global Purpose DMA Channel 3" Value="SPI_GRP2_GPDMA_CH3_TCF_TRG"/>
+		<PossibleValue Comment="EXTI4" Value="SPI_GRP2_EXTI4_TRG"/>
+		<PossibleValue Comment="EXTI8" Value="SPI_GRP2_EXTI8_TRG"/>
+		<PossibleValue Comment="LPTIM1 Channel 1" Value="SPI_GRP2_LPTIM1_CH1_TRG"/>
+		<PossibleValue Comment="LPTIM3 Channel 1" Value="SPI_GRP2_LPTIM3_CH1_TRG"/>
+		<PossibleValue Comment="COMP1" Value="SPI_GRP2_COMP1_TRG"/>
+		<PossibleValue Comment="COMP2" Value="SPI_GRP2_COMP2_TRG" />
+		<PossibleValue Comment="RTC Alarm" Value="SPI_GRP2_RTC_ALRA_TRG"/>
+		<PossibleValue Comment="RTC Wakeup Timer" Value="SPI_GRP2_RTC_WUT_TRG"/>
+	</RefParameter>
+
+
+
+	<RefParameter Comment="Trigger Source" DefaultValue="SPI_GRP1_GPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
             <Description>Autonomous Mode Trigger Source.</Description>
 	    <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2) &amp; (TriggerState = SPI_AUTO_MODE_ENABLE)"/>
             <PossibleValue Comment="Global Purpose DMA Channel 0" Value="SPI_GRP1_GPDMA_CH0_TCF_TRG"/>
@@ -852,7 +896,7 @@
 
        <RefParameter Comment="Trigger Source" DefaultValue="SPI_GRP2_GPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
             <Description>Autonomous Mode Trigger Source.</Description>
-            <Condition Diagnostic="" Expression="($IpNumber = 3) &amp; (TriggerState = SPI_AUTO_MODE_ENABLE) &amp; DIE454"/>
+            <Condition Diagnostic="" Expression="($IpNumber = 3) &amp; (TriggerState = SPI_AUTO_MODE_ENABLE) &amp; (DIE454|DIE42B)"/>
             <PossibleValue Comment="Global Purpose DMA Channel 0" Value="SPI_GRP2_GPDMA_CH0_TCF_TRG"/>
             <PossibleValue Comment="Global Purpose DMA Channel 1" Value="SPI_GRP2_GPDMA_CH1_TCF_TRG"/>
             <PossibleValue Comment="Global Purpose DMA Channel 2" Value="SPI_GRP2_GPDMA_CH2_TCF_TRG"/>
@@ -883,11 +927,15 @@
             <PossibleValue Comment="RTC Alarm" Value="SPI_GRP2_RTC_ALRA_TRG"/>
             <PossibleValue Comment="RTC Wakeup Timer" Value="SPI_GRP2_RTC_WUT_TRG"/>
         </RefParameter>
+
+	<RefParameter Comment="Trigger Source" DefaultValue="SPI_GRP2_GPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list" Visible="false">
+		<Condition Diagnostic="" Expression="($IpNumber = 3) &amp; DIE42A"/>
+	</RefParameter>
 	<RefParameter Comment="Trigger Source" DefaultValue="SPI_GRP1_GPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list" Visible="false">
 		    <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2)"/>
 	</RefParameter>
 	<RefParameter Comment="Trigger Source" DefaultValue="SPI_GRP2_GPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list" Visible="false">
-		    <Condition Diagnostic="" Expression="($IpNumber = 3) &amp; DIE454"/>
+		    <Condition Diagnostic="" Expression="($IpNumber = 3) &amp; (DIE454|DIE42B)"/>
 	</RefParameter>
 	<RefParameter Comment="Trigger Source" DefaultValue="SPI_GRP2_LPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list" Visible="false">
 		    <Condition Diagnostic="" Expression="($IpNumber = 3)"/>

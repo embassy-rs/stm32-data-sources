@@ -79,8 +79,28 @@
 		<Parameter Added="true" Name="GLUE_FUNCTIONS"/>
 		<Parameter Added="true" Name="TRANSFER_NOTIFICATION"/>
 		<Parameter Added="true" Name="LX_STM32_OSPI_BASE_ADDRESS"/>
-		<BspDependency Name="OSPI Component" Comment="OctoSPI driver" BspIpName="" BspModeName="" Api="BSP_COMPONENT_DRIVER" Component="MX25LM51245G" Semaphore="SEMA_MX25LM51245G"/>
+		<BspDependency Name="OSPI Component" Comment="OctoSPI driver" BspIpName="" BspModeName="" Api="BSP_COMPONENT_DRIVER" Component="MX25LM51245G" Semaphore="SEMA_MX25LM51245G">
+			<Condition Diagnostic="" Expression="!SEMA_MX66UW1G45G" Name="" />
+		</BspDependency>
 		<BspDependency Name="OSPI Component" Comment="OctoSPI driver" BspIpName="" BspModeName="" Api="BSP_COMPONENT_DRIVER" Component="custom" Semaphore="SEMA_CUSTOM"/>
+    </RefMode>
+	<RefMode Abstract="true" Name="XSPI_memory_interface">
+        <ConfigForMode>XSPIOomemoryOointerface</ConfigForMode>
+        <Parameter Added="true" Name="LX_XSPI_INSTANCE"/>
+		<Parameter Added="true" Name="LX_DRIVER_CALLS_XSPI_INIT"/>
+        <Parameter Added="true" Name="LX_DRIVER_ERASES_XSPI_AFTER_INIT"/>
+        <Parameter Added="true" Name="LX_XSPI_USE_BSP_API"/>
+		<Parameter Added="true" Name="LX_USE_XSPI"/>
+		<Parameter Name="LX_XSPI_Memory_Interface">
+			<PossibleValue>1</PossibleValue>
+		</Parameter>
+		<Parameter Added="true" Name="GLUE_FUNCTIONS_XSPI"/>
+		<Parameter Added="true" Name="TRANSFER_NOTIFICATION_XSPI"/>
+		<Parameter Added="true" Name="LX_STM32_XSPI_BASE_ADDRESS"/>
+		<BspDependency Name="XSPI Component" Comment="OctoSPI driver" BspIpName="" BspModeName="" Api="BSP_COMPONENT_DRIVER" Component="MX66UW1G45G" Semaphore="SEMA_MX66UW1G45G" >
+			<Condition Diagnostic="" Expression="!SEMA_MX25LM51245G" Name="" />
+		</BspDependency>
+		<BspDependency Name="XSPI Component" Comment="OctoSPI driver" BspIpName="" BspModeName="" Api="BSP_COMPONENT_DRIVER" Component="custom_xspi" Semaphore="SEMA_CUSTOM_XSPI"/>
     </RefMode>
 	<ModeLogicOperator Name="OR">
 		<Mode Name="LevelX_NOR_Flash_Support" UserName="LevelX NOR Flash Support">
@@ -171,6 +191,18 @@
 						</Mode>
 					</ModeLogicOperator>
 				</Mode>
+				<Mode Name="XSPI_memory_interface" UserName="XSPI memory interface" RemoveCondition="!HSPI1_Exist">
+					<ModeLogicOperator Name="NONE">
+						<Mode Name="XSPI_memory_interface">
+							<SignalLogicalOp Name="AND">
+								<Signal Name="VS_XSPIOomemoryOointerface"/>
+							</SignalLogicalOp>
+							<Semaphore>SEMInterfacesCcFileOoSystemJjLevelXOoXSPIOomemoryOointerface</Semaphore>
+							<Condition Expression="SEMLevelXCcFileOoSystemJjLevelXJjNOROoFlashOoSupport &amp; (Sem_HSPI1_Single | Sem_HSPI1_Dual | Sem_HSPI1_Quad | Sem_HSPI1_DualQuad | Sem_HSPI1_Octo | Sem_HSPI1_DualOcto | Sem_HSPI1_Hexa | Sem_HSPI1_HyperBus | Sem_HSPI1_HyperBus16)"  
+							Diagnostic="&lt;b&gt; Require: &lt;/b&gt; &lt;br&gt; Middleware:LEVELX:NOR Flash Support and &lt;br&gt; Device:HSPI"/>
+						</Mode>
+					</ModeLogicOperator>
+				</Mode>
 			</ModeLogicOperator>
 		</Mode>
 	</ModeLogicOperator>
@@ -183,6 +215,7 @@
 	<RefSignal Name="VS_NANDOoSimulatorOointerface" Virtual="true"/>
 	<RefSignal Name="VS_NANDOocustomOointerface" Virtual="true"/>
 	<RefSignal Name="VS_OctoSPIOomemoryOointerface" Virtual="true"/>
+	<RefSignal Name="VS_XSPIOomemoryOointerface" Virtual="true"/>
 	
 	<RefParameter Added="true" Comment="LX_DIRECT_READ" DefaultValue="0" Group="NOR Flash Support" Name="LX_DIRECT_READ" TabName="LevelX" Type="list">
         <Description>Defined, this option bypasses the NOR flash driver read routine in favor or reading the NOR memory directly, resulting in a significant performance increase.</Description>
@@ -360,13 +393,13 @@ When Set the 0 the user needs to implment the following API at application level
         <Description></Description>
         <PossibleValue Comment="ThreadX Semaphore" Semaphore="OSPI_THREADX_SEMAPHORE_NOTIFICATION" Value="ThreadX_Semaphore" Condition="!OSPI_DMA_API" />
         <PossibleValue Comment="Custom" Semaphore="SD_CUSTOM_NOTIFICATION" Value="Custom"/>
-		<Condition Diagnostic="" Expression="(GLUE_FUNCTIONS=DMA_API &amp; SEMThreadXCcRTOSJjThreadXJjCore)" />
+		<Condition Diagnostic="" Expression="(GLUE_FUNCTIONS=DMA_API &amp; SEMThreadXCcRTOSJjThreadXJjCore &amp; SEMInterfacesCcFileOoSystemJjLevelXOoOctoSPIOomemoryOointerface)" />
     </RefParameter>
 	<RefParameter Added="true" Comment="Transfer Completion Notification" DefaultValue="Global state variables" Group="NOR OctoSPI driver" Name="TRANSFER_NOTIFICATION" TabName="LevelX" Type="list" Visible="true">
         <Description></Description>
         <PossibleValue Comment="Global state variables" Semaphore="OSPI_GLOBALE_STAT_VARIABLE_NOTIFICATION" Value="Global_state_variables" Condition="!OSPI_DMA_API" />
         <PossibleValue Comment="Custom" Semaphore="SD_CUSTOM_NOTIFICATION" Value="Custom"/>
-		<Condition Diagnostic="" Expression="(GLUE_FUNCTIONS=DMA_API &amp; !SEMThreadXCcRTOSJjThreadXJjCore)" />
+		<Condition Diagnostic="" Expression="(GLUE_FUNCTIONS=DMA_API &amp; !SEMThreadXCcRTOSJjThreadXJjCore &amp; SEMInterfacesCcFileOoSystemJjLevelXOoOctoSPIOomemoryOointerface)" />
     </RefParameter>
 	<RefParameter Name="LX_STM32_OSPI_BASE_ADDRESS" Comment="LX_STM32_OSPI_BASE_ADDRESS" DefaultValue="0" Max="262144" Min="0" Group="NOR OctoSPI driver" Type="integer" TabName="LevelX">
 		<Description>This defines the start flash base address.Notice that this define is tightly dependent on the Base Address used the maximum size should not exceed the actual memory amount starting from the Base address.</Description>
@@ -513,4 +546,84 @@ When Set the 0 the user needs to implment the following API at application level
         <Description>Define the logical sector size for NOR flash. The sector size is in units of 32-bit words.
 					This sector size should match the sector size used in file system.</Description>
     </RefParameter>
+	<!--support XSPI mode -->
+	<RefParameter Added="true" Comment="XSPI Instance" DefaultValue="0" Group="NOR XSPI driver" Name="LX_XSPI_INSTANCE" TabName="LevelX" Type="list" >
+        <Description>the XSPI instance.</Description>
+		<PossibleValue Comment="HSPI1" Diagnostic="Available only when HSPI1 is activated. If trust zone is enabled HSPI1 must be activated in non secure context." Value="0"/>
+    </RefParameter>
+	
+	<RefParameter Added="true" Comment="Driver calls XSPI Init" DefaultValue="0" Group="NOR XSPI driver" Name="LX_DRIVER_CALLS_XSPI_INIT" TabName="LevelX" Type="list">
+        <Description>the LevelX XSPI interface intialializes the OSPI hw memory. If true, the parameter &lt;b&gt; Driver Erases the XSPI after init &lt;/b&gt; will be available.</Description>
+        <PossibleValue Comment="false" Value="0"/>
+        <PossibleValue Comment="true" Value="1"/>
+    </RefParameter>
+	<RefParameter Added="true" Comment="Driver Erases the XSPI after init" DefaultValue="0" Group="NOR XSPI driver" Name="LX_DRIVER_ERASES_XSPI_AFTER_INIT" TabName="LevelX" Type="list">
+        <Description>Allow the driver to erase the XSPI memory before using it. The memory needs to be erased incase a fresh FAT file system is to be created.
+		</Description>
+        <PossibleValue Comment="false" Value="0"/>
+        <PossibleValue Comment="true" Value="1"/>
+    </RefParameter>
+	<RefParameter Added="true" Comment="Use BSP/XSPI API" DefaultValue="false" Group="NOR XSPI driver" Name="LX_XSPI_USE_BSP_API" TabName="LevelX" Type="string" Visible="false">
+        <Description>When set to 1 the LevelX XSPI driver will use the BSP/XSPI API provided by the STM32Cube_FW under &lt;b&gt; "Drivers/BSP/{borad_name}_xspi.[c/h]"&lt;/b&gt; &lt;br&gt;
+in this case the user should provide the ".extSettings" file in the root of the project before generation.&lt;br&gt;
+When Set the 0 the user needs to implment the following API at application level to be linked with the LevelX XSPI driver:&lt;br&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;int32_t Lx_XSPI_Init(uint32_t Instance) &lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;int32_t Lx_XSPI_GetStatus(uint32_t Instance)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;int32_t Lx_XSPI_GetInfo(uint32_t Instance, uint32_t *totalSectors, uint32_t *SectorSize)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;int32_t Lx_XSPI_Erase_Chip(uint32_t Instance)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;int32_t Lx_XSPI_Erase_Block(uint32_t Instance, uint32_t Block, uint32_t EraseSize)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;int32_t Lx_XPI_Read(uint32_t Instance, uint8_t* Buffer, uint32_t ReadAddr, uint32_t Size)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;int32_t Lx_XSPI_Write(uint32_t Instance, uint8_t* Buffer, uint32_t ReadAddr, uint32_t Size)&lt;/code&gt;&lt;/li&gt;
+ &lt;/ul&gt;</Description>
+    </RefParameter>
+	
+	<!--to double check -->
+	<RefParameter Name="LX_USE_XSPI" Comment="LX_USE_XSPI" DefaultValue="single SPI" Type="list"  Group="NOR XSPI driver" TabName="LevelX" Visible="false">
+		<Description></Description>
+		<Condition Diagnostic="" Expression="Sem_HSPI1_Single"/>
+	</RefParameter>
+	<RefParameter Name="LX_USE_XSPI" Comment="LX_USE_XSPI" DefaultValue="dual SPI" Type="list"  Group="NOR XSPI driver" TabName="LevelX" Visible="false">
+		<Description></Description>
+		<Condition Diagnostic="" Expression="Sem_HSPI1_Single"/>
+	</RefParameter>
+	<RefParameter Name="LX_USE_XSPI" Comment="LX_USE_XSPI" DefaultValue="dual SPI mx" Type="list"  Group="NOR XSPI driver" TabName="LevelX" Visible="false">
+		<Description></Description>
+		<Condition Diagnostic="" Expression="Sem_HSPI1_Dual"/>
+	</RefParameter>
+	<RefParameter Name="LX_USE_XSPI" Comment="LX_USE_XSPI" DefaultValue="quad SPI" Type="list"  Group="NOR XSPI driver" TabName="LevelX" Visible="false">
+		<Description></Description>
+		<Condition Diagnostic="" Expression="Sem_HSPI1_Quad"/>
+	</RefParameter>
+	<RefParameter Name="LX_USE_XSPI" Comment="LX_USE_XSPI" DefaultValue="octo SPI" Type="list"  Group="NOR XSPI driver" TabName="LevelX" Visible="false">
+		<Description></Description>
+		<Condition Diagnostic="" Expression="Sem_HSPI1_Octo"/>
+	</RefParameter>
+	
+	<RefParameter Name="LX_XSPI_Memory_Interface" Comment="" DefaultValue="0" Type="integer" Min="0" Max="1" Group="" TabName="" Visible="false">
+		<Description></Description>		
+	</RefParameter>
+	<RefParameter Added="true" Comment="Glue Function Implementation" DefaultValue="HAL DMA API" Group="NOR XSPI driver" Name="GLUE_FUNCTIONS_XSPI" TabName="LevelX" Type="list" Visible="true">
+        <Description></Description>
+        <PossibleValue Comment="HAL DMA API" Semaphore="XSPI_DMA_API" Value="DMA_API"/>
+        <!-- <PossibleValue Comment="HAL IT API" Semaphore="OSPI_IT_API" Value="IT_API"/> -->
+        <!-- <PossibleValue Comment="HAL POLLING API" Semaphore="OSPI_POLLING_API" Value="POLLING_API"/> -->
+        <PossibleValue Comment="Custom" Semaphore="XSPI_CUSTOM_API" Value="Custom"/>
+		<Condition Diagnostic="" Expression="SEMInterfacesCcFileOoSystemJjLevelXOoXSPIOomemoryOointerface" />
+    </RefParameter>
+	<RefParameter Added="true" Comment="Transfer Completion Notification" DefaultValue="ThreadX_Semaphore" Group="NOR XSPI driver" Name="TRANSFER_NOTIFICATION_XSPI" TabName="LevelX" Type="list" Visible="true">
+        <Description></Description>
+        <PossibleValue Comment="ThreadX Semaphore" Semaphore="CSPI_THREADX_SEMAPHORE_NOTIFICATION" Value="ThreadX_Semaphore" Condition="!XSPI_DMA_API" />
+        <PossibleValue Comment="Custom" Semaphore="SD_CUSTOM_NOTIFICATION" Value="Custom"/>
+		<Condition Diagnostic="" Expression="(GLUE_FUNCTIONS_XSPI = DMA_API &amp; SEMThreadXCcRTOSJjThreadXJjCore)" />
+    </RefParameter>
+	<RefParameter Added="true" Comment="Transfer Completion Notification" DefaultValue="Global state variables" Group="NOR XSPI driver" Name="TRANSFER_NOTIFICATION_XSPI" TabName="LevelX" Type="list" Visible="true">
+        <Description></Description>
+        <PossibleValue Comment="Global state variables" Semaphore="OSPI_GLOBALE_STAT_VARIABLE_NOTIFICATION" Value="Global_state_variables" Condition="!XSPI_DMA_API" />
+        <PossibleValue Comment="Custom" Semaphore="SD_CUSTOM_NOTIFICATION" Value="Custom"/>
+		<Condition Diagnostic="" Expression="(GLUE_FUNCTIONS_XSPI = DMA_API &amp; !SEMThreadXCcRTOSJjThreadXJjCore)" />
+    </RefParameter>
+	<RefParameter Name="LX_STM32_XSPI_BASE_ADDRESS" Comment="LX_STM32_XSPI_BASE_ADDRESS" DefaultValue="0" Max="262144" Min="0" Group="NOR XSPI driver" Type="integer" TabName="LevelX">
+		<Description>This defines the start flash base address. Notice that this define is tightly dependent on the Base Address used the maximum size should not exceed the actual memory amount starting from the Base address.</Description>
+	</RefParameter>
 </IP>

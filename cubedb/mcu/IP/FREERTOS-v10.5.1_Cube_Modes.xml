@@ -52,14 +52,21 @@
     <!-- Semaphore of CMSIS_version TO BE UPDATED when FW packages come and support new FreeRTOS and CMSI versions -->
     <!-- Note: also used in NvicVector.java (be careful when renaming!!!) -->
     <!--  TO BE REWORKED with CMSIS V2 coming -->
+    <RefParameter Name="CMSIS_version" Comment="CMSIS-RTOS version" DefaultValue="2.1.3" Type="String" Group="Versions" TabName="Config parameters">
+        <Condition Diagnostic="When CMSIS V2 API is selected" Expression="(FreeRTOS_API=1) &amp; (STM32WL3 | STM32WL4)"/>
+        <PossibleValue Comment="Version version of CMSIS" Value="2.1.3"/>
+    </RefParameter>
     <RefParameter Name="CMSIS_version" Comment="CMSIS-RTOS version" DefaultValue="2.00" Type="String" Group="Versions" TabName="Config parameters">
         <Condition Diagnostic="When CMSIS V2 API is selected" Expression="FreeRTOS_API=1"/>
         <PossibleValue Comment="Version version of CMSIS" Value="2.00"/>
     </RefParameter>
-
-    <RefParameter Name="FREERTOS_version" Comment="FreeRTOS version" DefaultValue="10.6.2" Type="String" Group="Versions" TabName="Config parameters">
-        <PossibleValue Comment="Version of FreeRTOS" Value="10.6.2" Semaphore="S_VERSION_10_5_1"/>
-        <Condition Diagnostic="New version available for WL" Expression="STM32WL3"/>
+    <RefParameter Name="FREERTOS_version" Comment="FreeRTOS version" DefaultValue="11.2.0" Type="String" Group="Versions" TabName="Config parameters">
+        <PossibleValue Comment="Version of FreeRTOS" Value="11.2.0" Semaphore="S_VERSION_10_5_1"/>
+        <Condition Diagnostic="New version available for WL3" Expression="STM32WL3"/>
+    </RefParameter>
+    <RefParameter Name="FREERTOS_version" Comment="FreeRTOS version" DefaultValue="11.2.0" Type="String" Group="Versions" TabName="Config parameters">
+        <PossibleValue Comment="Version of FreeRTOS" Value="11.2.0" Semaphore="S_VERSION_10_5_1"/>
+        <Condition Diagnostic="New version available for WL4" Expression="STM32WL4"/>
     </RefParameter>
 
     <RefParameter Name="RAM_SIZE" Comment="RAM_SIZE" DefaultValue="=$RamSize" Type="integer" Visible="false"/>
@@ -84,7 +91,37 @@
         <PossibleValue Comment="Enabled" Value="1"/>
         <Description>Set to 1 to use the preemptive RTOS scheduler, or 0 to use the cooperative RTOS scheduler.</Description>
     </RefParameter>
-
+    <RefParameter Name="configSTATS_BUFFER_MAX_LENGTH" Comment="STATS_BUFFER_MAX_LENGTH" DefaultValue="0xFFFF" Min="0" Max="0xFFFF" Type="Integer" Group="Kernel settings" TabName="Config parameters">
+        <Condition Expression="STM32WL3 | STM32WL4" Diagnostic=""/>
+        <Description>vTaskList and vTaskGetRunTimeStats APIs take a buffer as a parameter
+            and assume that the length of the buffer is configSTATS_BUFFER_MAX_LENGTH</Description>
+    </RefParameter>
+    <RefParameter Name="configNUMBER_OF_CORES" Comment="NUMBER_OF_CORES" DefaultValue="1" Type="list" Group="Kernel settings" TabName="Config parameters">
+        <Condition Expression="STM32WL3 | STM32WL4" Diagnostic=""/>
+        <PossibleValue Comment="Disabled" Value="0"/>
+        <PossibleValue Comment="Enabled" Value="1"/>
+        <Description>configNUMBER_OF_CORES is set to 1 to use single core FreeRTOS
+            Otherwise, it can be set to the number of available processor cores.
+        </Description>
+    </RefParameter>
+    <RefParameter Name="configUSE_STREAM_BUFFERS" Comment="USE_STREAM_BUFFERS" DefaultValue="1" Type="list" Group="Kernel settings" TabName="Config parameters">
+        <Condition Expression="STM32WL3 | STM32WL4" Diagnostic=""/>
+        <PossibleValue Comment="Disabled" Value="0"/>
+        <PossibleValue Comment="Enabled" Value="1"/>
+        <Description>Control the inclusion of stream buffer functionalities</Description>
+    </RefParameter>
+    <RefParameter Name="configUSE_EVENT_GROUPS" Comment="USE_EVENT_GROUPS" DefaultValue="1" Type="list" Group="Kernel settings" TabName="Config parameters">
+        <Condition Expression="STM32WL3 | STM32WL4" Diagnostic=""/>
+        <PossibleValue Comment="Disabled" Value="0"/>
+        <PossibleValue Comment="Enabled" Value="1"/>
+        <Description>Control the inclusion of event group functionalities.</Description>
+    </RefParameter>
+    <RefParameter Name="configENABLE_HEAP_PROTECTOR" Comment="ENABLE_HEAP_PROTECTOR" DefaultValue="0"  Type="list" Group="Memory management settings" TabName="Config parameters">
+        <Condition Expression="STM32WL3 | STM32WL4" Diagnostic=""/>
+        <PossibleValue Comment="Disabled" Value="0"/>
+        <PossibleValue Comment="Enabled" Value="1"/>
+        <Description>Add bounds checking and obfuscation to internal heap block pointers in heap_4.c and heap_5.c to help catch pointer corruptions.</Description>
+    </RefParameter>
 <!-- BZ 74309 -->
     <RefParameter Name="configCPU_CLOCK_HZ" Comment="CPU_CLOCK_HZ" DefaultValue="SystemD2Clock" Type="uniqueElementList" Group="Kernel settings" TabName="Config parameters">
         <Condition Diagnostic="Value for M4 core of H7" Expression="S_FREERTOS_M4 &amp; STM32H7"/>
@@ -408,7 +445,7 @@
         <Description>Sets the length of the software timer command queue. Disabled as configUSE_TIMERS itself is disabled.</Description>
     </RefParameter>	
     <RefParameter Name="configLIBRARY_LOWEST_INTERRUPT_PRIORITY" Comment="LIBRARY_LOWEST_INTERRUPT_PRIORITY" DefaultValue="15" Max="15" Min="1"  Type="integer" Group="Interrupt nesting behaviour configuration" TabName="Config parameters" NoCheckOpt="false">
-        <Condition Diagnostic="Available for series with a Cortex core that is not a M0." Expression="STM32H7"/>
+        <Condition Diagnostic="Available for series with a Cortex core that is not a M0." Expression="STM32H7|STM32WL4"/>
         <Description>The lowest interrupt priority that can be used in a call to a "set priority" function.</Description>
     </RefParameter>
     <RefParameter Name="configLIBRARY_LOWEST_INTERRUPT_PRIORITY" Comment="LIBRARY_LOWEST_INTERRUPT_PRIORITY" DefaultValue="3" Max="3" Min="1"  Type="integer" Group="Interrupt nesting behaviour configuration" TabName="Config parameters" NoCheckOpt="false" Visible="false">
@@ -422,7 +459,7 @@
     </RefParameter>
     <!-- <RefParameter Name="configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY" Comment="LIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY" DefaultValue="5" Max="15" Min="1"  Type="integer" Group="Interrupt nesting behaviour configuration" TabName="Config parameters">  -->
     <RefParameter Name="configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY" Comment="LIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY" DefaultValue="5" Max="=configLIBRARY_LOWEST_INTERRUPT_PRIORITY" Min="1" Type="integer" Group="Interrupt nesting behaviour configuration" TabName="Config parameters" NoCheckOpt="false">
-        <Condition Diagnostic="Available for series with a Cortex core that is not a M0." Expression="STM32H7"/>
+        <Condition Diagnostic="Available for series with a Cortex core that is not a M0." Expression="STM32H7|STM32WL4"/>
         <Description>The highest interrupt priority that can be used by any interrupt service routine that makes calls to interrupt safe FreeRTOS API functions. &lt;br&gt; 
                      DO NOT CALL INTERRUPT SAFE FREERTOS API FUNCTIONS FROM ANY INTERRUPT THAT HAS A HIGHER PRIORITY THAN THIS! (higher priorities are lower numeric values).</Description>
     </RefParameter>
@@ -439,10 +476,10 @@
 	
     <!-- <RefParameter Name="configPRIO_BITS" Comment="PRIO_BITS" DefaultValue="4" Max="8" Min="0"  Type="integer" Group="Cortex-M specific definitions" TabName="Config parameters"/>  -->
     <RefParameter Name="configPRIO_BITS" Comment="PRIO_BITS" DefaultValue="4" Type="integer" Visible="false">
-		<Condition Expression="!DIE027" Diagnostic="All" />
+		<Condition Expression="!STM32WL3" Diagnostic="All except STM32WL3" />
 	</RefParameter>	
     <RefParameter Name="configPRIO_BITS" Comment="PRIO_BITS" DefaultValue="2" Type="integer" Visible="false">
-		<Condition Expression="DIE027" Diagnostic="STM32WL3" />
+		<Condition Expression="STM32WL3 " Diagnostic="only on STM32WL3" />
 	</RefParameter>	
 
     <RefParameter Name="INCLUDE_vTaskPrioritySet" Comment="vTaskPrioritySet" DefaultValue="1" Type="list" Group="Include definitions" TabName="Include parameters">
@@ -789,10 +826,11 @@
 
     <!-- cf tracker #320153, parameter forced to one in 8.2.1 because of cmsis_os; to be ok for 8.2.2 -->
     <RefParameter Name="configUSE_TASK_NOTIFICATIONS" Comment="USE_TASK_NOTIFICATIONS" DefaultValue="1" Type="list" Group="Kernel settings" TabName="Config parameters" Visible="true">
-        <PossibleValue Comment="Disabled" Value="0"/>
+        <PossibleValue Comment="Disabled" Value="0" Semaphore="configUSE_TASK_NOTIFICATIONS_DISABLED"/>
         <PossibleValue Comment="Enabled" Value="1"/>
         <Description>Each RTOS task has a 32-bit notification value. An RTOS task notification is an event sent directly to a task that can unblock the receiving task, and optionally update the receiving task's notification value.&lt;br&gt;
-                     RTOS task notification functionality is enabled by default, and can be excluded from a build (saving 8 bytes per task) by setting configUSE_TASK_NOTIFICATIONS to 0 in FreeRTOSConfig.h (achieved when setting USE_TASK_NOTIFICATIONS to Disabled). </Description>
+            RTOS task notification functionality is enabled by default, and can be excluded from a build (saving 8 bytes per task) by setting configUSE_TASK_NOTIFICATIONS to 0 in FreeRTOSConfig.h (achieved when setting USE_TASK_NOTIFICATIONS to Disabled).&lt;br&gt;
+            When disabling USE_TASK_NOTIFICATIONS, USE_OS2_THREAD_FLAGS also needs to be disabled to avoid error compilations.</Description>
     </RefParameter>
      <RefParameter Name="configOVERRIDE_DEFAULT_TICK_CONFIGURATION" Comment="OVERRIDE_DEFAULT_TICK_CONFIGURATION" DefaultValue="0" Type="list" Group="Kernel settings" TabName="Config parameters" Visible="false">
         <PossibleValue Comment="Disabled" Value="0"/>
@@ -848,7 +886,13 @@
                      &lt;b&gt;Dependency:&lt;/b&gt;&lt;br&gt;
                      Forced to 0 (Disabled) as USE_TIMERS equals to 0 (Disabled).</Description>
     </RefParameter>
-
+    <RefParameter Name="INCLUDE_xTaskAbortDelay" Comment="xTaskAbortDelay" DefaultValue="1" Type="uniqueElementList" Group="Include definitions" TabName="Include parameters">
+        <Condition Expression="STM32WL3|STM32WL4" Diagnostic=""/>
+        <PossibleValue Comment="Enabled" Value="1"/>
+        <Description>It is one of the macros allowing those components of the real time kernel not utilized by your application to be excluded from your build. &lt;br&gt;
+            - this ensures the RTOS does not use any more ROM or RAM than necessary for your particular embedded application. &lt;br&gt;
+        </Description>
+    </RefParameter>
     <RefParameter Name="INCLUDE_xTaskAbortDelay" Comment="xTaskAbortDelay" DefaultValue="0" Type="list" Group="Include definitions" TabName="Include parameters">
         <PossibleValue Comment="Disabled" Value="0"/>
         <PossibleValue Comment="Enabled" Value="1"/>
@@ -902,7 +946,13 @@
         <PossibleValue Comment="Disabled" Value="0"/>
         <Description>Use or not FPU with FreeRTOS.</Description>
     </RefParameter>
-    
+    <RefParameter Name="configMINIMAL_SECURE_STACK_SIZE" Comment="MINIMAL_SECURE_STACK_SIZE" DefaultValue="512" Type="integer" Unit="Words" Max="=MAX_SIZE_IN_USE" Min="64" Group="Kernel settings" TabName="Config parameters" NoCheckOpt="false">
+        <Condition Diagnostic="Default value set to 512" Expression="S_SECURE &amp; STM32WL4"/>
+        <Description></Description>
+    </RefParameter>
+    <RefParameter Name="configMINIMAL_SECURE_STACK_SIZE" Comment="MINIMAL_SECURE_STACK_SIZE" DefaultValue="0" Type="integer"  Unit="Words" Max="=MAX_SIZE_IN_USE" Min="0" Group="Kernel settings" TabName="Config parameters" NoCheckOpt="false" Visible="false">
+        <Description> </Description>
+    </RefParameter>
     <RefParameter Name="configMESSAGE_BUFFER_LENGTH_TYPE" Comment="MESSAGE_BUFFER_LENGTH_TYPE" DefaultValue="size_t" Type="uniqueElementList" Group="Added with 10.2.1 support" TabName="Config parameters">
         <Condition Diagnostic="Available on the series supporting FreeRTOS >= 10.2.1" Expression=" S_VERSION_10_5_1"/>
         <PossibleValue Comment="size_t" Value="size_t"/>
@@ -933,6 +983,23 @@
     <RefParameter Name="INCLUDE_uxTaskGetStackHighWaterMark2" Comment="uxTaskGetStackHighWaterMark2" DefaultValue="0" Type="list" Group="Include definitions" TabName="Include parameters" Visible="false">
         <PossibleValue Comment="Disabled" Value="0"/>
         <Description>Not available in previous versions.</Description>
+    </RefParameter>
+    <!--  10.2.1 but only for secure chips -->
+    <RefParameter Name="configRUN_FREERTOS_SECURE_ONLY" Comment="RUN_FREERTOS_SECURE_ONLY" DefaultValue="0" Type="uniqueElementList" Group="Security settings" TabName="Config parameters">
+        <Condition Diagnostic="Added since support of FreeRTOS v10.2.1" Expression="STM32WL4"/>
+        <PossibleValue Comment="Disabled" Value="0"/>
+        <Description>Forced to 0 as Secure Context not possible.</Description>
+    </RefParameter>
+
+    <RefParameter Name="configENABLE_TRUSTZONE" Comment="ENABLE_TRUSTZONE" DefaultValue="1" Type="uniqueElementList" Group="Security settings" TabName="Config parameters">
+        <Condition Diagnostic="Added since support of FreeRTOS v10.2.1" Expression="S_SECURE &amp; STM32WL4"/>
+        <PossibleValue Comment="Enabled" Value="1"/>
+        <Description>Forced to 1 when TZEN=1</Description>
+    </RefParameter>
+    <RefParameter Name="configENABLE_TRUSTZONE" Comment="ENABLE_TRUSTZONE" DefaultValue="0" Type="uniqueElementList" Group="Security settings" TabName="Config parameters">
+        <Condition Diagnostic="Added since support of FreeRTOS v10.2.1" Expression="STM32WL4"/>
+        <PossibleValue Comment="Disabled" Value="0"/>
+        <Description>Forced to 0 as TZEN=0.</Description>
     </RefParameter>
     <RefParameter Name="configUSE_OS2_THREAD_SUSPEND_RESUME" Comment="USE_OS2_THREAD_SUSPEND_RESUME" DefaultValue="1" Type="list" Group="CMSIS-RTOS V2 flags" TabName="Config parameters" Visible="true">
         <Condition Diagnostic="Available on the series supporting FreeRTOS >= 10.3.1" Expression="S_VERSION_10_5_1 &amp; S_CMSIS_RTOS_V2"/>
@@ -1052,10 +1119,14 @@
         
         <!-- Added for 10.2.1 (put here to be on top on the list shown in the tab)-->
         <Parameter Name="configENABLE_MPU"/>               <!-- will be completely ready once native api is in place... -->
-        <Parameter Name="configENABLE_FPU"/> 
-
+        <Parameter Name="configENABLE_FPU"/>
+        <Parameter Name="configMINIMAL_SECURE_STACK_SIZE"/>
         <Parameter Name="configUSE_PREEMPTION"/>
         <Parameter Name="MEMORY_ALLOCATION"/>                      <!--  new one for freertos v9.0.0 -->
+        <Parameter Name="configUSE_STREAM_BUFFERS"/><!--  new one for freertos v11.1.0 -->
+        <Parameter Name="configUSE_EVENT_GROUPS"/><!--  new one for freertos v11.1.0 -->
+        <Parameter Name="configSTATS_BUFFER_MAX_LENGTH"/><!--  new one for freertos v11.1.0 -->
+        <Parameter Name="configENABLE_HEAP_PROTECTOR"/><!--  new one for freertos v11.1.0 -->
         <Parameter Name="configCPU_CLOCK_HZ"/>
         <Parameter Name="configTICK_RATE_HZ"/>
         <Parameter Name="configMAX_PRIORITIES"/>
@@ -1194,7 +1265,7 @@
             </SignalLogicalOp>
             <Semaphore>S_FREERTOS</Semaphore>
             <Semaphore>S_CMSIS_RTOS_V1</Semaphore>
-              <Condition Expression="(!DIE027)" Diagnostic="CMSIS_V1 not available with this version of freertos ( v10.5.1)"/>
+              <Condition Expression="!(DIE027|DIE122|DIE49A)" Diagnostic="CMSIS_V1 not available with this version of freertos (v10.6.2)"/>
               <Condition Expression="(!S_AzureRTOS)" Diagnostic="Enable only when the AzureRTOS (ThreadX,FileX,..) are disabled"/>
               <Condition Expression="(!(STM32WL &amp; (S_LoRaWAN | S_Sigfox | S_SubGhzPhy))) &amp; (!(STM32WB &amp; (S_THREAD | S_BLE_HOST | S_ZIGBEE)))" Diagnostic="CMSIS-RTOS V1 not available when connectivity middlewares are enabled"/>              
               <!--<Condition Expression="(!(STM32WL &amp; (S_LoRaWAN | S_Sigfox | S_SubGhzPhy))) &amp; (!(STM32WB &amp; (S_THREAD | S_BLE_HOST | S_ZIGBEE))) &amp; (!S_AzureRTOS)" Diagnostic="CMSIS-RTOS V1 not available when connectivity middlewares are enabled"/>-->

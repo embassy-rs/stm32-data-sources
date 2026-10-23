@@ -5,14 +5,22 @@
 	
 	
     <!-- Baud Rate Parameters Asynchronous. -->
-    <RefParameter Comment="Baud Rate" DefaultValue="0" Group="Basic Parameters" Max="115200" Min="0" Name="BaudRate" Type="integer" Unit="Bits/s">
+    <RefParameter Comment="Baud Rate" DefaultValue="115200" Group="Basic Parameters" Max="115200" Min="115200" Name="BaudRate" Type="integer" Unit="Bits/s" Visible="false">
         <Condition Diagnostic="" Expression="$IpInstance_UART_AutoBaudRate_Enable"/>
     </RefParameter>
+    <RefParameter Comment="Baud Rate" DefaultValue="115200" Group="Basic Parameters" Max="9000000" Min="110" Name="BaudRate" Type="integer" Unit="Bits/s" />
 	
 		
 	
-    <!-- Word Length Parameters for Synchronous, and  Asyncronous. -->	
-	
+    <!-- Word Length Parameters for Synchronous,IrDa, and  Asyncronous. -->
+
+    <RefParameter Comment="Word Length" DefaultValue="WORDLENGTH_8B" Group="Basic Parameters" Name="WordLength" Type="list">
+        <Condition Diagnostic="" Expression="$IpInstance_IRDA"/>
+        <PossibleValue Comment="7 Bits (including Parity)" Semaphore="$IpInstance_Uart_7B" Value="WORDLENGTH_7B"/>
+        <PossibleValue Comment="8 Bits (including Parity)" Value="WORDLENGTH_8B"/>
+        <PossibleValue Comment="9 Bits (including Parity)" Value="WORDLENGTH_9B"/>
+    </RefParameter>
+
     <RefParameter Comment="Word Length" DefaultValue="WORDLENGTH_8B" Group="Basic Parameters" Name="WordLength" Type="list">
         <Condition Diagnostic="" Expression="$IpInstance_LIN"/>
         <PossibleValue Comment="8 Bits (including Parity)" Value="WORDLENGTH_8B"/>
@@ -24,10 +32,26 @@
         <PossibleValue Comment="9 Bits (including Parity)" Value="WORDLENGTH_9B"/>
     </RefParameter>
 
+    <RefParameter Comment="Word Length" DefaultValue="IRDA_WORDLENGTH_8B" Group="Basic Parameters" Name="IrdaWordLength" Type="list">
+        <Condition Diagnostic="" Expression="$IpInstance_IRDA &amp; WordLength=WORDLENGTH_8B"/>
+        <PossibleValue Comment="8 Bits (including Parity)" Value="IRDA_WORDLENGTH_8B"/>
+    </RefParameter>
+    <RefParameter Comment="Word Length" DefaultValue="IRDA_WORDLENGTH_9B" Group="Basic Parameters" Name="IrdaWordLength" Type="list">
+        <Condition Diagnostic="" Expression="$IpInstance_IRDA &amp; WordLength=WORDLENGTH_9B"/>
+        <PossibleValue Comment="9 Bits (including Parity)" Value="IRDA_WORDLENGTH_9B"/>
+    </RefParameter>
+    <RefParameter Comment="Word Length" DefaultValue="IRDA_WORDLENGTH_7B" Group="Basic Parameters" Name="IrdaWordLength" Type="list">
+        <Condition Diagnostic="" Expression="WordLength=WORDLENGTH_7B"/>
+        <PossibleValue Comment="7 Bits (including Parity)" Value="IRDA_WORDLENGTH_7B"/>
+    </RefParameter>
+
+
     <RefParameter Comment="Word Length" DefaultValue="UART_WORDLENGTH_8B" Group="Basic Parameters" Name="UartWordLength" Type="list">
         <Condition Diagnostic="" Expression="WordLength=WORDLENGTH_8B"/>
         <PossibleValue Comment="8 Bits (including Parity)" Value="UART_WORDLENGTH_8B"/>
     </RefParameter>
+
+
     <RefParameter Comment="Word Length" DefaultValue="UART_WORDLENGTH_9B" Group="Basic Parameters" Name="UartWordLength" Type="list">
         <Condition Diagnostic="" Expression="WordLength=WORDLENGTH_9B"/>
         <PossibleValue Comment="9 Bits (including Parity)" Value="UART_WORDLENGTH_9B"/>
@@ -51,6 +75,19 @@
         <PossibleValue Comment="Odd" Semaphore="$IpInstance_PARITY_ODD" Value="PARITY_ODD"/>
     </RefParameter>
 
+    <RefParameter Comment="Parity" DefaultValue="IRDA_PARITY_NONE" Group="Basic Parameters" Name="IrdaParity" Type="list">
+        <Condition Diagnostic="" Expression="$IpInstance_IRDA &amp; $IpInstance_PARITY_NONE"/>
+        <PossibleValue Comment="None" Value="IRDA_PARITY_NONE"/>
+    </RefParameter>
+    <RefParameter Comment="Parity" DefaultValue="IRDA_PARITY_EVEN" Group="Basic Parameters" Name="IrdaParity" Type="list">
+        <Condition Diagnostic="" Expression="$IpInstance_IRDA &amp; $IpInstance_PARITY_EVEN"/>
+        <PossibleValue Comment="Even" Value="IRDA_PARITY_EVEN"/>
+    </RefParameter>
+    <RefParameter Comment="Parity" DefaultValue="IRDA_PARITY_ODD" Group="Basic Parameters" Name="IrdaParity" Type="list">
+        <Condition Diagnostic="" Expression="$IpInstance_IRDA &amp; $IpInstance_PARITY_ODD"/>
+        <PossibleValue Comment="Odd" Value="IRDA_PARITY_ODD"/>
+    </RefParameter>
+
     <RefParameter Comment="Parity" DefaultValue="UART_PARITY_NONE" Group="Basic Parameters" Name="UartParity" Type="list">
         <Condition Diagnostic="" Expression="$IpInstance_PARITY_NONE"/>
         <PossibleValue Comment="None" Value="UART_PARITY_NONE"/>
@@ -68,6 +105,19 @@
         <PossibleValue Comment="Receive and Transmit" Semaphore="S_$IpInstance_TX_RX" Value="MODE_TX_RX"/>
         <PossibleValue Comment="Receive Only" Semaphore="S_$IpInstance_RX" Value="MODE_RX"/>
         <PossibleValue Comment="Transmit Only" Semaphore="S_$IpInstance_TX" Value="MODE_TX"/>
+    </RefParameter>
+
+    <RefParameter Comment="Data Direction" DefaultValue="IRDA_MODE_TX_RX" Group="Advanced Parameters" Name="IrdaMode" Type="list">
+        <Condition Diagnostic="" Expression="$IpInstance_IRDA &amp; S_$IpInstance_TX_RX"/>
+        <PossibleValue Comment="Receive and Transmit" Value="IRDA_MODE_TX_RX"/>
+    </RefParameter>
+    <RefParameter Comment="Data Direction" DefaultValue="IRDA_MODE_TX" Group="Advanced Parameters" Name="IrdaMode" Type="list">
+        <Condition Diagnostic="" Expression="$IpInstance_IRDA &amp; S_$IpInstance_TX"/>
+        <PossibleValue Comment="Transmit Only" Value="IRDA_MODE_TX"/>
+    </RefParameter>
+    <RefParameter Comment="Data Direction" DefaultValue="IRDA_MODE_RX" Group="Advanced Parameters" Name="IrdaMode" Type="list">
+        <Condition Diagnostic="" Expression="$IpInstance_IRDA &amp; S_$IpInstance_RX"/>
+        <PossibleValue Comment="Receive Only" Value="IRDA_MODE_RX"/>
     </RefParameter>
 
 
@@ -150,6 +200,20 @@
     </RefParameter>
 
 
+    <!-- Specifics RefParameters for IrDa Mode -->
+    <RefParameter Comment="Power Mode" DefaultValue="IRDA_POWERMODE_NORMAL" Group="Advanced Parameters" Name="PowerMode" Type="list">
+        <PossibleValue Comment="Low Power" Value="IRDA_POWERMODE_LOWPOWER"/>
+        <PossibleValue Comment="Normal Power" Value="IRDA_POWERMODE_NORMAL"/>
+    </RefParameter>
+
+    <RefParameter Comment="Prescaler" DefaultValue="1" Group="Advanced Parameters" Max="1" Min="1" Name="Prescaler" Type="integer">
+        <Condition Diagnostic="" Expression="$IpInstance_IRDA &amp; PowerMode = IRDA_POWERMODE_NORMAL"/>
+    </RefParameter>
+
+    <RefParameter Comment="Prescaler" DefaultValue="10" Group="Advanced Parameters" Max="255" Min="1" Name="Prescaler" Type="integer">
+        <Condition Diagnostic="" Expression="$IpInstance_IRDA"/>
+    </RefParameter>
+
     <RefParameter Comment="ClockPrescaler" DefaultValue="PRESCALER_DIV1" Group="Advanced Parameters" Name="ClockPrescaler" Type="list">
         <PossibleValue Comment="1" Value="PRESCALER_DIV1"/>
         <PossibleValue Comment="2" Value="PRESCALER_DIV2"/>
@@ -163,6 +227,55 @@
         <PossibleValue Comment="64" Value="PRESCALER_DIV64"/>
         <PossibleValue Comment="128" Value="PRESCALER_DIV128"/>
         <PossibleValue Comment="256" Value="PRESCALER_DIV256"/>
+    </RefParameter>
+
+    <RefParameter Comment="ClockPrescaler" DefaultValue="IRDA_PRESCALER_DIV1" Group="Advanced Parameters" Name="IrdaPrescaler" Type="list">
+        <Condition Diagnostic="" Expression="$IpInstance_IRDA &amp; ClockPrescaler=PRESCALER_DIV1"/>
+        <PossibleValue Comment="1" Value="IRDA_PRESCALER_DIV1"/>
+    </RefParameter>
+    <RefParameter Comment="ClockPrescaler" DefaultValue="IRDA_PRESCALER_DIV2" Group="Advanced Parameters" Name="IrdaPrescaler" Type="list">
+        <Condition Diagnostic="" Expression="$IpInstance_IRDA &amp; ClockPrescaler=PRESCALER_DIV2"/>
+        <PossibleValue Comment="2" Value="IRDA_PRESCALER_DIV2"/>
+    </RefParameter>
+    <RefParameter Comment="ClockPrescaler" DefaultValue="IRDA_PRESCALER_DIV4" Group="Advanced Parameters" Name="IrdaPrescaler" Type="list">
+        <Condition Diagnostic="" Expression="$IpInstance_IRDA &amp; ClockPrescaler=PRESCALER_DIV4"/>
+        <PossibleValue Comment="4" Value="IRDA_PRESCALER_DIV4"/>
+    </RefParameter>
+    <RefParameter Comment="ClockPrescaler" DefaultValue="IRDA_PRESCALER_DIV6" Group="Advanced Parameters" Name="IrdaPrescaler" Type="list">
+        <Condition Diagnostic="" Expression="$IpInstance_IRDA &amp; ClockPrescaler=PRESCALER_DIV6"/>
+        <PossibleValue Comment="6" Value="IRDA_PRESCALER_DIV6"/>
+    </RefParameter>
+    <RefParameter Comment="ClockPrescaler" DefaultValue="IRDA_PRESCALER_DIV8" Group="Advanced Parameters" Name="IrdaPrescaler" Type="list">
+        <Condition Diagnostic="" Expression="$IpInstance_IRDA &amp; ClockPrescaler=PRESCALER_DIV8"/>
+        <PossibleValue Comment="8" Value="IRDA_PRESCALER_DIV8"/>
+    </RefParameter>
+    <RefParameter Comment="ClockPrescaler" DefaultValue="IRDA_PRESCALER_DIV10" Group="Advanced Parameters" Name="IrdaPrescaler" Type="list">
+        <Condition Diagnostic="" Expression="$IpInstance_IRDA &amp; ClockPrescaler=PRESCALER_DIV10"/>
+        <PossibleValue Comment="10" Value="IRDA_PRESCALER_DIV10"/>
+    </RefParameter>
+    <RefParameter Comment="ClockPrescaler" DefaultValue="IRDA_PRESCALER_DIV12" Group="Advanced Parameters" Name="IrdaPrescaler" Type="list">
+        <Condition Diagnostic="" Expression="$IpInstance_IRDA &amp; ClockPrescaler=PRESCALER_DIV12"/>
+        <PossibleValue Comment="12" Value="IRDA_PRESCALER_DIV12"/>
+    </RefParameter>
+    <RefParameter Comment="ClockPrescaler" DefaultValue="IRDA_PRESCALER_DIV16" Group="Advanced Parameters" Name="IrdaPrescaler" Type="list">
+        <Condition Diagnostic="" Expression="$IpInstance_IRDA &amp; ClockPrescaler=PRESCALER_DIV16"/>
+        <PossibleValue Comment="16" Value="IRDA_PRESCALER_DIV16"/>
+    </RefParameter>
+    <RefParameter Comment="ClockPrescaler" DefaultValue="IRDA_PRESCALER_DIV32" Group="Advanced Parameters" Name="IrdaPrescaler" Type="list">
+        <Condition Diagnostic="" Expression="$IpInstance_IRDA &amp; ClockPrescaler=PRESCALER_DIV32"/>
+        <PossibleValue Comment="32" Value="IRDA_PRESCALER_DIV32"/>
+    </RefParameter>
+    <RefParameter Comment="ClockPrescaler" DefaultValue="IRDA_PRESCALER_DIV64" Group="Advanced Parameters" Name="IrdaPrescaler" Type="list">
+        <Condition Diagnostic="" Expression="$IpInstance_IRDA &amp; ClockPrescaler=PRESCALER_DIV64"/>
+        <PossibleValue Comment="64" Value="IRDA_PRESCALER_DIV64"/>
+    </RefParameter>
+    <RefParameter Comment="ClockPrescaler" DefaultValue="IRDA_PRESCALER_DIV128" Group="Advanced Parameters" Name="IrdaPrescaler" Type="list">
+        <Condition Diagnostic="" Expression="$IpInstance_IRDA &amp; ClockPrescaler=PRESCALER_DIV128"/>
+        <PossibleValue Comment="128" Value="IRDA_PRESCALER_DIV128"/>
+    </RefParameter>
+    <RefParameter Comment="ClockPrescaler" DefaultValue="IRDA_PRESCALER_DIV256" Group="Advanced Parameters" Name="IrdaPrescaler" Type="list">
+        <Condition Diagnostic="" Expression="$IpInstance_IRDA &amp; ClockPrescaler=PRESCALER_DIV256"/>
+        <PossibleValue Comment="256" Value="IRDA_PRESCALER_DIV256"/>
     </RefParameter>
 
     <RefParameter Comment="ClockPrescaler" DefaultValue="USART_PRESCALER_DIV1" Group="Advanced Parameters" Name="UartPrescaler" Type="list">
@@ -509,6 +622,69 @@
         <PossibleValue Comment="RXFIFO becomes Full " Value="UART_RXFIFO_THRESHOLD_8_8"/>
     </RefParameter>
 
+    <!-- Autonomous Mode with Parameters __begin -->
+    <RefParameter Comment="Autonomous Mode" DefaultValue="AUTONOMOUS_MODE_DISABLE" Group="Advanced Parameters" Name="AutonomousMode" Type="list">
+        <Condition Diagnostic="" Expression="DIE503 &amp; $IpInstance_Asynchronous &amp; !$IpInstance_FlowControl"/>
+        <PossibleValue Comment="Disable " Value="AUTONOMOUS_MODE_DISABLE"/>
+        <PossibleValue Comment="Enable " Value="AUTONOMOUS_MODE_ENABLE"/>
+    </RefParameter>
+    <RefParameter Comment="Autonomous Mode" DefaultValue="null" Group="Advanced Parameters" Name="AutonomousMode" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="!DIE503"/>
+    </RefParameter>
+
+    <RefParameter Comment="Autonomous Mode" DefaultValue="AUTONOMOUS_MODE_ENABLE" Name="AutonomousModeState" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="AutonomousMode = AUTONOMOUS_MODE_ENABLE"/>
+        <PossibleValue Comment="Enable " Value="UART_AUTONOMOUS_MODE_ENABLE"/>
+    </RefParameter>
+    <RefParameter Comment="Autonomous Mode" DefaultValue="AUTONOMOUS_MODE_DISABLE" Name="AutonomousModeState" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="AutonomousMode = AUTONOMOUS_MODE_DISABLE"/>
+        <PossibleValue Comment="Disable " Value="UART_AUTONOMOUS_MODE_DISABLE"/>
+    </RefParameter>
+
+    <RefParameter Comment="     Trigger Polarity" DefaultValue="null" Group="Advanced Parameters" Name="TriggerPolarity" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="!DIE503 | (AutonomousMode = AUTONOMOUS_MODE_DISABLE)"/>
+    </RefParameter>
+    <RefParameter Comment="     Trigger Polarity" DefaultValue="UART_TRIG_POLARITY_RISING" Group="Advanced Parameters" Name="TriggerPolarity" Type="list">
+        <Condition Diagnostic="" Expression="DIE503 |(AutonomousMode = AUTONOMOUS_MODE_ENABLE)"/>
+        <PossibleValue Comment="RISING" Value="UART_TRIG_POLARITY_RISING"/>
+        <PossibleValue Comment="FALLING" Value="UART_TRIG_POLARITY_FALLING"/>
+    </RefParameter>
+
+    <RefParameter Comment="     Trigger Selection" DefaultValue="null" Group="Advanced Parameters" Name="TriggerSelection" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="!DIE503 | (AutonomousMode = AUTONOMOUS_MODE_DISABLE)"/>
+    </RefParameter>
+    <RefParameter Comment="     Trigger Selection" DefaultValue="UART_LPTIM1_CH1_TRG" Group="Advanced Parameters" Name="TriggerSelection" Type="list">
+        <Condition Diagnostic="" Expression="DIE503 |(AutonomousMode = AUTONOMOUS_MODE_ENABLE)"/>
+        <PossibleValue Comment="UART LPTIM1 channel1" Value="UART_LPTIM1_CH1_TRG"/>
+        <PossibleValue Comment="UART LPTIM2 channel1" Value="UART_LPTIM2_CH1_TRG"/>
+        <PossibleValue Comment="UART LPTIM3 channel1" Value="UART_LPTIM3_CH1_TRG"/>
+        <PossibleValue Comment="UART LPTIM4 channel1" Value="UART_LPTIM4_CH1_TRG"/>
+        <PossibleValue Comment="UART LPTIM5 out" Value="UART_LPTIM5_OUT_TRG"/>
+        <PossibleValue Comment="UART EXTI1 line 6" Value="UART_EXTI1_LINE6_TRG"/>
+        <PossibleValue Comment="UART EXTI1 line 7" Value="UART_EXTI1_LINE7_TRG"/>
+        <PossibleValue Comment="UART EXTI2 line 4" Value="UART_EXTI2_LINE4_TRG"/>
+        <PossibleValue Comment="UART EXTI2 line 5" Value="UART_EXTI2_LINE5_TRG"/>
+        <PossibleValue Comment="UART RTC alarm" Value="UART_RTC_ALRA_TRG"/>
+        <PossibleValue Comment="UART RTC wakeup" Value="UART_RTC_WUT_TRG"/>
+    </RefParameter>
+
+    <RefParameter Comment="     Data Size" DefaultValue="null" Group="Advanced Parameters" Name="DataSize" Type="integer" Visible="false">
+        <Condition Diagnostic="" Expression="!DIE503 | (AutonomousMode = AUTONOMOUS_MODE_DISABLE)"/>
+    </RefParameter>
+    <RefParameter Comment="     Data Size" DefaultValue="0" Group="Advanced Parameters" Name="DataSize" Min="0" Type="integer">
+        <Condition Diagnostic="" Expression="DIE503 |(AutonomousMode = AUTONOMOUS_MODE_ENABLE)"/>
+    </RefParameter>
+
+    <RefParameter Comment="     Idle Frame" DefaultValue="null" Group="Advanced Parameters" Name="IdleFrame" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="!DIE503 | (AutonomousMode = AUTONOMOUS_MODE_DISABLE)"/>
+    </RefParameter>
+    <RefParameter Comment="     Idle Frame" DefaultValue="UART_IDLE_FRAME_DISABLE" Group="Advanced Parameters" Name="IdleFrame" Type="list">
+        <Condition Diagnostic="" Expression="DIE503 |(AutonomousMode = AUTONOMOUS_MODE_ENABLE)"/>
+        <PossibleValue Comment="Enable" Value="UART_IDLE_FRAME_ENABLE"/>
+        <PossibleValue Comment="Disable" Value="UART_IDLE_FRAME_DISABLE"/>
+    </RefParameter>
+    <!-- Autonomous Mode  __end. -->
+
 
     <RefMode Abstract="true" Name="usartBasic">
         <Parameter Name="BaudRate"/>
@@ -561,6 +737,12 @@
         <Parameter Name="FIFOMode"/>
         <Parameter Name="TXFIFOThreshold"/>
         <Parameter Name="RXFIFOThreshold"/>
+        <!-- Autonomous Mode -->
+        <Parameter Name="AutonomousMode"/>
+        <Parameter Name="TriggerPolarity"/>
+        <Parameter Name="TriggerSelection"/>
+        <Parameter Name="DataSize"/>
+        <Parameter Name="IdleFrame"/>
         <!-- Advanced Features -->
         <Parameter Name="AutoBaudRateEnableParam"/>
         <Parameter Name="AutoBaudRateMode"/>
@@ -696,7 +878,20 @@
         <Parameter Name="DMADisableonRxErrorParam"/>	
         <Parameter Name="MSBFirstParam"/>
     </RefMode>
-	
+
+    <!-- RefModes for IRDA -->
+    <RefMode BaseMode="usartBasic" HalMode="IRDA" Name="IrDA">
+        <ConfigForMode>IrDa_Init</ConfigForMode>
+        <!-- Basic Parameters -->
+
+        <Parameter Name="WordLength"/>
+        <Parameter Name="Parity"/>
+        <!-- Advanced Parameters -->
+        <Parameter Name="Mode"/>
+        <Parameter Name="Prescaler"/>
+        <Parameter Name="PowerMode"/>
+        <Parameter Name="ClockPrescaler"/>
+    </RefMode>
 	
     <!-- RefModes for Harwdware Flow Control -->
     <RefMode Name="CTS_Only"/>
@@ -713,7 +908,7 @@
         <Parameter Name="UART_DEDeassertionTime"/>
     </RefMode>
 	
-    <!-- ModeLogicOperator for UART/Modbus -->
+    <!-- ModeLogicOperator for UART/IRDA/Modbus -->
     <ModeLogicOperator Name="OR">
         <Mode Name="Mode">
             <ModeLogicOperator Name="XOR">
@@ -735,6 +930,13 @@
                         <Signal IOMode="AlternateFunctionOpenDrainAndPushPullDefaultOD" Name="RX"/>
                         <Signal IOMode="AlternateFunctionOpenDrainAndPushPullDefaultOD" Name="TX"/>
                     </SignalLogicalOp>
+                </Mode>
+                <Mode Name="IrDA">
+                    <SignalLogicalOp Name="AND">
+                        <Signal Name="RX"/>
+                        <Signal Name="TX"/>
+                    </SignalLogicalOp>
+                    <Semaphore>$IpInstance_IRDA</Semaphore>
                 </Mode>
                 <Mode Name="ModbusCommunication" UserName="Modbus Communication">
                     <SignalLogicalOp Name="AND">
@@ -794,7 +996,7 @@
         </Mode>
     </ModeLogicOperator>
 	
-    <!-- RefSignal for UART/Modbus -->
+    <!-- RefSignal for UART/IRDA/Modbus -->
     <RefSignal IOMode="AlternateFunctionPuPdOnly" Name="CTS"/>
     <RefSignal IOMode="AlternateFunctionPushPull" Name="RTS"/>
     <RefSignal IOMode="AlternateFunctionPushPull" Name="DE"/>

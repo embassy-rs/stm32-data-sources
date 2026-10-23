@@ -148,23 +148,22 @@
          </IFCondition>
     </RefConfig>	
     
-    
-            <RefConfig Comment="Switch to SMPS regulator instead of LDO" Name="Configsmps">
-             <IFCondition Expression ="PowerMode=PWR_SMPS_SUPPLY" >
-      		<CallLibMethod Name="LL_PWR_SetRegulatorSupply"  ReturnHAL="false" >
-                    <MethodArg Name="PowerMode" ParameterName="PowerMode"/>
+	<RefConfig Comment="Switch to SMPS regulator instead of LDO" Name="Configsmps">
+		<IFCondition Expression="(STM32WBA25HEFx|STM32WBA25CEUx|STM32WBA23KEUx|STM32WBA23CEUx)">
+			<CallLibMethod Name="LL_PWR_SetRegulatorSupply" ReturnHAL="false">
+			<MethodArg Name="PowerMode" ParameterName="PowerMode" />
 		</CallLibMethod>
-                <CallLibMethod Name="" Type="HardCode">
-                <HardCode Text="#n#twhile(LL_PWR_IsActiveFlag_REGULATOR()!=1) #n#t{#n#t}"/>
-            </CallLibMethod>
-                </IFCondition>
-                
-                <IFCondition Expression ="S_LPBAM_CONF" >
-      		<CallLibMethod Name="LL_PWR_SetRegulatorSupply"  ReturnHAL="false">
-                    <MethodArg Name="PowerMode" ParameterName="PowerMode"/>
+		<CallLibMethod Name="" Type="HardCode">
+			<HardCode Text="#n#twhile(LL_PWR_IsActiveFlag_REGULATOR()!=1) #n#t{#n#t}" />
 		</CallLibMethod>
-                </IFCondition>
-                </RefConfig>
+		</IFCondition>
+		
+		<IFCondition Expression="S_LPBAM_CONF">
+			<CallLibMethod Name="LL_PWR_SetRegulatorSupply" ReturnHAL="false">
+				<MethodArg Name="PowerMode" ParameterName="PowerMode" />
+			</CallLibMethod>
+		</IFCondition>
+	</RefConfig>
                 <RefConfig Comment="Smart Run Domain Config" Name="Configsmartrun">
                 <IFCondition Expression ="S_LPBAM_CONF" >
       		<CallLibMethod Name="LL_PWR_SetSmartRunDomainMode"  ReturnHAL="false">

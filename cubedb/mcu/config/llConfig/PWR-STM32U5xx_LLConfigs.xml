@@ -122,7 +122,7 @@
         </CallLibMethod>
          </IFCondition>
 
-          <IFCondition Expression ="S_SECURE  &amp; SEM_M33S &amp; (PWR_VDM=VDM_SECURE_YES)" >
+          <IFCondition Expression ="S_SECURE  &amp; SEM_M33S &amp; (PWR_VDM=VDM_SECURE_YES) &amp;!(PWR_VB=VB_SECURE_YES)" >
         <CallLibMethod Name="LL_PWR_ConfigSecure" ReturnHAL="false">
             <MethodArg Name="Item" ParameterName="ItemVDM"/>
                      
@@ -140,9 +140,16 @@
                    
         </CallLibMethod>
          </IFCondition>
-           <IFCondition Expression ="S_SECURE  &amp; SEM_M33S &amp; (PWR_VB=VB_SECURE_YES)" >
+           <IFCondition Expression ="S_SECURE  &amp; SEM_M33S &amp; (PWR_VB=VB_SECURE_YES) &amp; !(PWR_VDM=VDM_SECURE_YES)" >
         <CallLibMethod Name="LL_PWR_ConfigSecure" ReturnHAL="false">
             <MethodArg Name="Item" ParameterName="ItemVB"/>
+                
+        </CallLibMethod>
+         </IFCondition>
+         
+            <IFCondition Expression ="S_SECURE  &amp; SEM_M33S &amp; (PWR_VB=VB_SECURE_YES) &amp; (PWR_VDM=VDM_SECURE_YES)" >
+        <CallLibMethod Name="LL_PWR_ConfigSecure" ReturnHAL="false">
+            <MethodArg Name="Item" ParameterName="ItemVDM|ItemVB"/>
                 
         </CallLibMethod>
          </IFCondition>

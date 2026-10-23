@@ -7,18 +7,6 @@
 		<CallLibMethod Name="HAL_PWR_EnablePVD" ReturnHAL="false"/>
 	</RefConfig>
 	
-	<RefConfig Comment="Switch to SMPS regulator instead of LDO" Name="Configsmps">
-		<IFCondition Expression="PowerMode=PWR_SMPS_SUPPLY &amp; !nosmpsCodegenSys">
-			<CallLibMethod Name="HAL_PWREx_ConfigSupply" ReturnHAL="true">
-				<MethodArg Name="PWR_SMPS" ParameterName="PowerMode" />
-			</CallLibMethod>
-		</IFCondition>
-		<IFCondition Expression="S_LPBAM_CONF &amp; !nosmpsCodegenSys">
-			<CallLibMethod Name="HAL_PWREx_ConfigSupply" ReturnHAL="true">
-				<MethodArg Name="PWR_SMPS" ParameterName="PowerMode" />
-			</CallLibMethod>
-		</IFCondition>
-	</RefConfig>
 	<RefConfig Comment="Smart Run Domain Config" Name="Configsmartrun">
 		<IFCondition Expression="S_LPBAM_CONF &amp; !nosramCodegenSys">
 			<CallLibMethod Name="HAL_PWREx_ConfigSRDDomain" ReturnHAL="false">
@@ -79,9 +67,6 @@
 	</LibMethod>
 	<LibMethod Comment="" Name="HAL_PWR_EnablePVD"/>
 	<LibMethod Comment="" Name="HAL_PWREx_DisableUCPDDeadBattery"/>
-	<LibMethod Comment="Switch to SMPS regulator instead of LDO" Name="HAL_PWREx_ConfigSupply">
-		<Argument AddressOf="false" GenericType="simple" Name="PWR_SMPS" />
-	</LibMethod>
 	<LibMethod Comment="" Name="HAL_PWREx_ConfigSRDDomain">
 		<Argument AddressOf="false" GenericType="simple" Name="SmartRun" OptimizationCondition="equal" />
 	</LibMethod>       

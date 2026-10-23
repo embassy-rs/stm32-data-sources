@@ -275,6 +275,9 @@
 
   <RefParameter Name="MPCBB1_Area_SRAM1_BASE_NS" Comment="Area Start SRAM1_BASE_NS" DefaultValue="0x20000000" Type="hex" Min="0x20000000" Max="0x20000000" Visible="false"/>
 
+  <RefParameter Name="MPCBB1_Area_Max" Comment="Area Max" DefaultValue="0x20000" Type="hex" Min="0x20000" Max="0x20000" Visible="false">
+    <Condition Diagnostic="" Expression="DIE42B" />
+  </RefParameter>
   <RefParameter Name="MPCBB1_Area_Max" Comment="Area Max" DefaultValue="0x30000" Type="hex" Min="0x30000" Max="0x30000" Visible="false"/>
   <RefParameter Name="MPCBB1_Area_Start_Address" Comment="Area Start Address" DefaultValue="=MPCBB1_Area_SRAM1_BASE_NS" Type="hex" Min="=(MPCBB1_Area_SRAM1_BASE_NS)" Max="=(MPCBB1_Area_Max + MPCBB1_Area_SRAM1_BASE_NS - MPCBB1_Area_BlockSize)" NoCheckOpt="false" Visible="false">
     <Condition Expression="($IpInstance=GTZC)" Diagnostic="GTZC"/>
@@ -286,7 +289,7 @@
     <Condition Expression="S_Default_MPCBB1_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
   </RefParameter>
   <RefParameter Name="MPCBB1_Area_Start_Address" Comment="Area Start Address" DefaultValue="=MPCBB1_Area_SRAM1_BASE_NS" Type="hex" Min="=(MPCBB1_Area_SRAM1_BASE_NS)" Max="=(MPCBB1_Area_Max + MPCBB1_Area_SRAM1_BASE_NS - MPCBB1_Area_BlockSize)" NoCheckOpt="false" Visible="false"/>
-  <RefParameter Name="MPCBB1_Area_Start" Comment="Area Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCBB1_Area_Max" NoCheckOpt="false" Visible="false"/>
+  <RefParameter Name="MPCBB1_Area_Start" Comment="Area Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB1_Area_Max" NoCheckOpt="false" Visible="false"/>
   <RefParameter Name="MPCBB1_Area_Size" Comment="Area Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="=(MPCBB1_Area_Max - MPCBB1_Area_Start)" NoCheckOpt="false" Visible="false">
     <Condition Expression="($IpInstance=GTZC)" Diagnostic="GTZC"/>
   </RefParameter>
@@ -296,7 +299,7 @@
   <RefParameter Name="MPCBB1_Area_Size" Comment="Area Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="0x0" NoCheckOpt="false" Visible="false">
     <Condition Expression="!S_SECURE" Diagnostic="pre-selected no MPCBB1 Secured"/>
   </RefParameter>
-  <RefParameter Name="MPCBB1_Area_Size" Comment="Area Size" DefaultValue="=MPCBB1_Area_Max" Type="hex" Min="=MPCBB1_Area_Max" Max="=MPCBB1_Area_Max" NoCheckOpt="false" Visible="false">
+  <RefParameter Name="MPCBB1_Area_Size" Comment="Area Size" DefaultValue="0x18000" Type="hex" Min="0x18000" Max="0x18000" NoCheckOpt="false" Visible="false">
     <Condition Expression="S_Default_MPCBB1_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
   </RefParameter>
   <RefParameter Name="MPCBB1_Area_Size" Comment="Area Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="=(MPCBB1_Area_Max - MPCBB1_Area_Start)" NoCheckOpt="false" Visible="false"/>
@@ -310,8 +313,20 @@
     <Condition Expression="S_Default_MPCBB1_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
   </RefParameter>
   <RefParameter Name="MPCBB1_Area_Secure_Start_Address" Comment="    Area Start Address" DefaultValue="=MPCBB1_Area_Start_Address" Type="hex" Min="=(MPCBB1_Area_SRAM1_BASE_NS)" Max="=(MPCBB1_Area_Max + MPCBB1_Area_SRAM1_BASE_NS - MPCBB1_Area_BlockSize)" NoCheckOpt="false" Visible="false"/>
-  <RefParameter Name="MPCBB1_Area_Secure_Start" Comment="    Area Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCBB1_Area_Max" NoCheckOpt="false"/>
-  <RefParameter Name="MPCBB1_Area_Secure_Size" Comment="    Area Size" DefaultValue="=MPCBB1_Area_Max" Type="hex" Min="=MPCBB1_Area_Max" Max="=MPCBB1_Area_Max" NoCheckOpt="false">
+
+  <RefParameter Name="MPCBB1_Area_Secure_Start" Comment="    Area Start Offset" DefaultValue="0x10000" Type="hex" Min="0x10000" Max="0x10000" NoCheckOpt="false">
+    <Condition Expression="S_Default_MPCBB1_template_$IpInstance &amp; DIE42B" Diagnostic="ST default Template configuration Linker file"/>
+  </RefParameter>
+  <RefParameter Name="MPCBB1_Area_Secure_Start" Comment="    Area Start Offset" DefaultValue="0x18000" Type="hex" Min="0x18000" Max="0x18000" NoCheckOpt="false">
+    <Condition Expression="S_Default_MPCBB1_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
+  </RefParameter>
+  <RefParameter Name="MPCBB1_Area_Secure_Start" Comment="    Area Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB1_Area_Max" NoCheckOpt="false"/>
+
+  <RefParameter Name="MPCBB1_Area_Secure_Size" Comment="    Area Size" DefaultValue="0x10000" Type="hex" Min="0x10000" Max="0x10000" NoCheckOpt="false">
+    <Condition Expression="S_Default_MPCBB1_template_$IpInstance &amp; DIE42B" Diagnostic="ST default Template configuration Linker file"/>
+    <Description>0x0 : use the default HW configuration (secured memory)</Description>
+  </RefParameter>
+  <RefParameter Name="MPCBB1_Area_Secure_Size" Comment="    Area Size" DefaultValue="0x18000" Type="hex" Min="0x18000" Max="0x18000" NoCheckOpt="false">
     <Condition Expression="S_Default_MPCBB1_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
     <Description>0x0 : use the default HW configuration (secured memory)</Description>
   </RefParameter>
@@ -323,7 +338,7 @@
   <RefParameter Name="MPCBB1_Area_Secure_NbSuperBlock" Comment="    Area Nb Super-Block" DefaultValue="=(MPCBB1_Area_Max / MPCBB1_Area_Secure_SuperBlockSize)" Type="integer" Min="=(MPCBB1_Area_Max / MPCBB1_Area_Secure_SuperBlockSize)" Max="=(MPCBB1_Area_Max / MPCBB1_Area_Secure_SuperBlockSize)" Visible="false"/>
 
   <RefParameter Name="MPCBB1_Area_Privilege_Start_Address" Comment="    Area Start Address" DefaultValue="=MPCBB1_Area_Start_Address" Type="hex" Min="=(MPCBB1_Area_SRAM1_BASE_NS)" Max="=(MPCBB1_Area_Max + MPCBB1_Area_SRAM1_BASE_NS - MPCBB1_Area_BlockSize)" NoCheckOpt="false" Visible="false"/>
-  <RefParameter Name="MPCBB1_Area_Privilege_Start" Comment="    Area Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCBB1_Area_Max" NoCheckOpt="false"/>
+  <RefParameter Name="MPCBB1_Area_Privilege_Start" Comment="    Area Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB1_Area_Max" NoCheckOpt="false"/>
   <RefParameter Name="MPCBB1_Area_Privilege_Size" Comment="    Area Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="=(MPCBB1_Area_Max - MPCBB1_Area_Privilege_Start)" NoCheckOpt="false">
     <Description>0x0 : use the default HW configuration (privileged memory)</Description>
   </RefParameter>
@@ -364,25 +379,41 @@
     <Condition Expression="S_Default_MPCBB1_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
   </RefParameter>
   <RefParameter Name="MPCBB1_Area2_Secure_Start_Address" Comment="    Area 2 Start Address" DefaultValue="=MPCBB1_Area_Start_Address" Type="hex" Min="=(MPCBB1_Area_SRAM1_BASE_NS)" Max="=(MPCBB1_Area_Max + MPCBB1_Area_SRAM1_BASE_NS - MPCBB1_Area_BlockSize)" NoCheckOpt="false" Visible="false"/>
-  <RefParameter Name="MPCBB1_Area2_Secure_Start" Comment="    Area 2 Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCBB1_Area_Max" NoCheckOpt="false"/>
-  <RefParameter Name="MPCBB1_Area2_Secure_Size" Comment="    Area 2 Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB1_Area_Max" NoCheckOpt="false">
+  <RefParameter Name="MPCBB1_Area2_Secure_Start" Comment="    Area 2 Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB1_Area_Max" NoCheckOpt="false"/>
+  <RefParameter Name="MPCBB1_Area2_Secure_Size" Comment="    Area 2 Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="0x0" NoCheckOpt="false">
     <Condition Expression="S_Default_MPCBB1_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
-    <Description>0x0 : use the default HW configuration (not secured memory)</Description>
+    <Description>0x0 : use the default HW configuration (secured memory)</Description>
   </RefParameter>
   <RefParameter Name="MPCBB1_Area2_Secure_Size" Comment="    Area 2 Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="=(MPCBB1_Area_Max - MPCBB1_Area2_Secure_Start)" NoCheckOpt="false">
     <Description>0x0 : use the default HW configuration (not secured memory)</Description>
   </RefParameter>
+  <RefParameter Name="MPCBB1_Area2_Secure_BlockSize" Comment="    Area 2 Block Size" DefaultValue="=(MPCBB1_Area_BlockSize)" Type="hex" Min="=(MPCBB1_Area_BlockSize)" Max="=(MPCBB1_Area_BlockSize)" Visible="false"/>
+  <RefParameter Name="MPCBB1_Area2_Secure_SuperBlockSize" Comment="    Area 2 Super-Block Size" DefaultValue="=(MPCBB1_Area2_SuperBlockSize)" Type="hex" Min="=(MPCBB1_Area2_SuperBlockSize)" Max="=(MPCBB1_Area2_SuperBlockSize)" Visible="false"/>
+  <RefParameter Name="MPCBB1_Area2_Secure_NbSuperBlock" Comment="    Area 2 Nb Super-Block" DefaultValue="=(MPCBB1_Area_Max / MPCBB1_Area2_Secure_SuperBlockSize)" Type="integer" Min="=(MPCBB1_Area_Max / MPCBB1_Area2_Secure_SuperBlockSize)" Max="=(MPCBB1_Area_Max / MPCBB1_Area2_Secure_SuperBlockSize)" Visible="false"/>
+
   <RefParameter Name="MPCBB1_Area2_Privilege_Start_Address" Comment="    Area 2 Start Address" DefaultValue="=MPCBB1_Area_Start_Address" Type="hex" Min="=(MPCBB1_Area_SRAM1_BASE_NS)" Max="=(MPCBB1_Area_Max + MPCBB1_Area_SRAM1_BASE_NS - MPCBB1_Area_BlockSize)" NoCheckOpt="false" Visible="false"/>
-  <RefParameter Name="MPCBB1_Area2_Privilege_Start" Comment="    Area 2 Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCBB1_Area_Max" NoCheckOpt="false"/>
+  <RefParameter Name="MPCBB1_Area2_Privilege_Start" Comment="    Area 2 Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB1_Area_Max" NoCheckOpt="false"/>
   <RefParameter Name="MPCBB1_Area2_Privilege_Size" Comment="    Area 2 Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="=(MPCBB1_Area_Max - MPCBB1_Area2_Privilege_Start)" NoCheckOpt="false">
     <Description>0x0 : use the default HW configuration (not privileged memory)</Description>
   </RefParameter>
+  <RefParameter Name="MPCBB1_Area2_Privilege_BlockSize" Comment="    Area 2 Block Size" DefaultValue="=(MPCBB1_Area_BlockSize)" Type="hex" Min="=(MPCBB1_Area_BlockSize)" Max="=(MPCBB1_Area_BlockSize)" Visible="false"/>
+  <RefParameter Name="MPCBB1_Area2_Privilege_SuperBlockSize" Comment="    Area 2 Super-Block Size" DefaultValue="=(MPCBB1_Area2_SuperBlockSize)" Type="hex" Min="=(MPCBB1_Area2_SuperBlockSize)" Max="=(MPCBB1_Area2_SuperBlockSize)" Visible="false"/>
+  <RefParameter Name="MPCBB1_Area2_Privilege_NbSuperBlock" Comment="    Area 2 Nb Super-Block" DefaultValue="=(MPCBB1_Area_Max / MPCBB1_Area2_Privilege_SuperBlockSize)" Type="integer" Min="=(MPCBB1_Area_Max / MPCBB1_Area2_Privilege_SuperBlockSize)" Max="=(MPCBB1_Area_Max / MPCBB1_Area2_Privilege_SuperBlockSize)" Visible="false"/>
   <!--  -->
 
+  <RefParameter Name="MPCBB1_SecConfig_array" Comment="Secure configuration array" DefaultValue="00000000:00000000:00000000:00000000:00000000:00000000:00000000:00000000" Type="Array" ArraySize="8" ArrayTypeElement="uint32_t;16" Separator=":" Visible="false">
+    <Condition Expression="S_No_MPCBB1_Secured &amp; DIE42B" Diagnostic="memory not secured"/>
+  </RefParameter>
   <RefParameter Name="MPCBB1_SecConfig_array" Comment="Secure configuration array" DefaultValue="00000000:00000000:00000000:00000000:00000000:00000000:00000000:00000000:00000000:00000000:00000000:00000000" Type="Array" ArraySize="12" ArrayTypeElement="uint32_t;16" Separator=":" Visible="false">
     <Condition Expression="S_No_MPCBB1_Secured" Diagnostic="memory not secured"/>
   </RefParameter>
+  <RefParameter Name="MPCBB1_SecConfig_array" Comment="Secure configuration array" DefaultValue="FFFFFFFF:FFFFFFFF:FFFFFFFF:FFFFFFFF:FFFFFFFF:FFFFFFFF:FFFFFFFF:FFFFFFFF" Type="Array" ArraySize="8" ArrayTypeElement="uint32_t;16" Separator=":" Visible="false">
+          <Condition Expression="DIE42B" Diagnostic=""/>
+  </RefParameter>
   <RefParameter Name="MPCBB1_SecConfig_array" Comment="Secure configuration array" DefaultValue="FFFFFFFF:FFFFFFFF:FFFFFFFF:FFFFFFFF:FFFFFFFF:FFFFFFFF:FFFFFFFF:FFFFFFFF:FFFFFFFF:FFFFFFFF:FFFFFFFF:FFFFFFFF" Type="Array" ArraySize="12" ArrayTypeElement="uint32_t;16" Separator=":" Visible="false"/>
+  <RefParameter Name="MPCBB1_PrivConfig_array" Comment="Privilege configuration array" DefaultValue="FFFFFFFF:FFFFFFFF:FFFFFFFF:FFFFFFFF:FFFFFFFF:FFFFFFFF:FFFFFFFF:FFFFFFFF" Type="Array" ArraySize="8" ArrayTypeElement="uint32_t;16" Separator=":" Visible="false">
+    <Condition Expression="DIE42B" Diagnostic=""/>
+  </RefParameter>
   <RefParameter Name="MPCBB1_PrivConfig_array" Comment="Privilege configuration array" DefaultValue="FFFFFFFF:FFFFFFFF:FFFFFFFF:FFFFFFFF:FFFFFFFF:FFFFFFFF:FFFFFFFF:FFFFFFFF:FFFFFFFF:FFFFFFFF:FFFFFFFF:FFFFFFFF" Type="Array" ArraySize="12" ArrayTypeElement="uint32_t;16" Separator=":" Visible="false"/>
 
   <RefParameter Name="MPCBB1_LockConfig_array" Comment="Lock configuration array" DefaultValue="00000000" Type="Array" ArraySize="1" ArrayTypeElement="uint32_t;16" Separator=":" Min="0x0" Max="0x0">
@@ -394,12 +425,6 @@
   <RefParameter Name="MPCBB1_LockConfig_array" Comment="Lock configuration array" DefaultValue="00000FFF" Type="Array" ArraySize="1" ArrayTypeElement="uint32_t;16" Separator=":" Min="00000000" Max="0x00000FFF">
     <Condition Expression="MPCBB1_LockConfig=USER" Diagnostic="configure MPCBB memory attribute settings lock"/>
   </RefParameter>
-  <!-- not used -->
-  <!-- <RefParameter Name="MPCBB1_Area_LockAttributes_array" Comment="" DefaultValue="1:1:1:1:1:1:1:1:1:1:1:1" Type="Array" ArraySize="12" ArrayTypeElement="uint32_t;10" Separator=":" Visible="false">
-    <Condition Expression="MPCBB1_Lock=LOCK" Diagnostic=""/>
-   </RefParameter>
-  <RefParameter Name="MPCBB1_Area_LockAttributes_array" Comment="" DefaultValue="0:0:0:0:0:0:0:0:0:0:0" Type="Array" ArraySize="12" ArrayTypeElement="uint32_t;10" Separator=":" Visible="false"/> -->
-
 
   <!-- RefParameters for GTZC - MPCBB2 Secured -->
 
@@ -416,7 +441,7 @@
     <Condition Expression="S_Default_MPCBB2_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
   </RefParameter>
   <RefParameter Name="MPCBB2_Area_Start_Address" Comment="Area Start Address" DefaultValue="=MPCBB2_Area_SRAM2_BASE_NS" Type="hex" Min="=(MPCBB2_Area_SRAM2_BASE_NS)" Max="=(MPCBB2_Area_Max + MPCBB2_Area_SRAM2_BASE_NS - MPCBB2_Area_BlockSize)" NoCheckOpt="false" Visible="false"/>
-  <RefParameter Name="MPCBB2_Area_Start" Comment="Area Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCBB2_Area_Max" NoCheckOpt="false" Visible="false"/>
+  <RefParameter Name="MPCBB2_Area_Start" Comment="Area Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB2_Area_Max" NoCheckOpt="false" Visible="false"/>
   <RefParameter Name="MPCBB2_Area_Size" Comment="Area Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="=(MPCBB2_Area_Max - MPCBB2_Area_Start)" NoCheckOpt="false" Visible="false">
     <Condition Expression="($IpInstance=GTZC)" Diagnostic="GTZC"/>
   </RefParameter>
@@ -440,8 +465,13 @@
     <Condition Expression="S_Default_MPCBB2_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
   </RefParameter>
   <RefParameter Name="MPCBB2_Area_Secure_Start_Address" Comment="    Area Start Address" DefaultValue="=MPCBB2_Area_Start_Address" Type="hex" Min="=(MPCBB2_Area_SRAM2_BASE_NS)" Max="=(MPCBB2_Area_Max + MPCBB2_Area_SRAM2_BASE_NS - MPCBB2_Area_BlockSize)" NoCheckOpt="false" Visible="false"/>
-  <RefParameter Name="MPCBB2_Area_Secure_Start" Comment="    Area Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCBB2_Area_Max" NoCheckOpt="false"/>
-  <RefParameter Name="MPCBB2_Area_Secure_Size" Comment="    Area Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="0x0" NoCheckOpt="false">
+  <RefParameter Name="MPCBB2_Area_Secure_Start" Comment="    Area Start Offset" DefaultValue="0x8000" Type="hex" Min="0x8000" Max="0x8000" NoCheckOpt="false">
+    <Condition Expression="S_Default_MPCBB2_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
+    <Description>0x0 : use the default HW configuration (secured memory)</Description>
+  </RefParameter>
+  <RefParameter Name="MPCBB2_Area_Secure_Start" Comment="    Area Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB2_Area_Max" NoCheckOpt="false"/>
+
+  <RefParameter Name="MPCBB2_Area_Secure_Size" Comment="    Area Size" DefaultValue="0x8000" Type="hex" Min="0x8000" Max="0x8000" NoCheckOpt="false">
     <Condition Expression="S_Default_MPCBB2_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
     <Description>0x0 : use the default HW configuration (secured memory)</Description>
   </RefParameter>
@@ -453,7 +483,7 @@
   <RefParameter Name="MPCBB2_Area_Secure_NbSuperBlock" Comment="    Area Nb Super-Block" DefaultValue="=(MPCBB2_Area_Max / MPCBB2_Area_Secure_SuperBlockSize)" Type="integer" Min="=(MPCBB2_Area_Max / MPCBB2_Area_Secure_SuperBlockSize)" Max="=(MPCBB2_Area_Max / MPCBB2_Area_Secure_SuperBlockSize)" Visible="false"/>
 
   <RefParameter Name="MPCBB2_Area_Privilege_Start_Address" Comment="    Area Start Address" DefaultValue="=MPCBB2_Area_Start_Address" Type="hex" Min="=(MPCBB2_Area_SRAM2_BASE_NS)" Max="=(MPCBB2_Area_Max + MPCBB2_Area_SRAM2_BASE_NS - MPCBB2_Area_BlockSize)" Visible="false" NoCheckOpt="false"/>
-  <RefParameter Name="MPCBB2_Area_Privilege_Start" Comment="    Area Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCBB2_Area_Max" NoCheckOpt="false"/>
+  <RefParameter Name="MPCBB2_Area_Privilege_Start" Comment="    Area Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB2_Area_Max" NoCheckOpt="false"/>
   <RefParameter Name="MPCBB2_Area_Privilege_Size" Comment="    Area Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="=(MPCBB2_Area_Max - MPCBB2_Area_Privilege_Start)" NoCheckOpt="false">
     <Description>0x0 : use the default HW configuration (privileged memory)</Description>
   </RefParameter>
@@ -494,7 +524,7 @@
     <Condition Expression="S_Default_MPCBB2_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
   </RefParameter>
   <RefParameter Name="MPCBB2_Area2_Secure_Start_Address" Comment="    Area 2 Start Address" DefaultValue="=MPCBB2_Area_Start_Address" Type="hex" Min="=(MPCBB2_Area_SRAM2_BASE_NS)" Max="=(MPCBB2_Area_Max + MPCBB2_Area_SRAM2_BASE_NS - MPCBB2_Area_BlockSize)" Visible="false" NoCheckOpt="false"/>
-  <RefParameter Name="MPCBB2_Area2_Secure_Start" Comment="    Area 2 Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCBB2_Area_Max" NoCheckOpt="false"/>
+  <RefParameter Name="MPCBB2_Area2_Secure_Start" Comment="    Area 2 Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB2_Area_Max" NoCheckOpt="false"/>
   <RefParameter Name="MPCBB2_Area2_Secure_Size" Comment="    Area 2 Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="0x0" NoCheckOpt="false">
     <Condition Expression="S_Default_MPCBB2_template_$IpInstance" Diagnostic="ST default Template configuration Linker file"/>
     <Description>0x0 : use the default HW configuration (not secured memory)</Description>
@@ -502,11 +532,18 @@
   <RefParameter Name="MPCBB2_Area2_Secure_Size" Comment="    Area 2 Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="=(MPCBB2_Area_Max - MPCBB2_Area2_Secure_Start)" NoCheckOpt="false">
     <Description>0x0 : use the default HW configuration (not secured memory)</Description>
   </RefParameter>
+  <RefParameter Name="MPCBB2_Area2_Secure_BlockSize" Comment="    Area 2 Block Size" DefaultValue="=(MPCBB2_Area_BlockSize)" Type="hex" Min="=(MPCBB2_Area_BlockSize)" Max="=(MPCBB2_Area_BlockSize)" Visible="false"/>
+  <RefParameter Name="MPCBB2_Area2_Secure_SuperBlockSize" Comment="    Area 2 Super-Block Size" DefaultValue="=(MPCBB2_Area2_SuperBlockSize)" Type="hex" Min="=(MPCBB2_Area2_SuperBlockSize)" Max="=(MPCBB2_Area2_SuperBlockSize)" Visible="false"/>
+  <RefParameter Name="MPCBB2_Area2_Secure_NbSuperBlock" Comment="    Area 2 Nb Super-Block" DefaultValue="=(MPCBB2_Area_Max / MPCBB2_Area2_Secure_SuperBlockSize)" Type="integer" Min="=(MPCBB2_Area_Max / MPCBB2_Area2_Secure_SuperBlockSize)" Max="=(MPCBB2_Area_Max / MPCBB2_Area2_Secure_SuperBlockSize)" Visible="false"/>
+
   <RefParameter Name="MPCBB2_Area2_Privilege_Start_Address" Comment="    Area 2 Start Address" DefaultValue="=MPCBB2_Area_Start_Address" Type="hex" Min="=(MPCBB2_Area_SRAM2_BASE_NS)" Max="=(MPCBB2_Area_Max + MPCBB2_Area_SRAM2_BASE_NS - MPCBB2_Area_BlockSize)" NoCheckOpt="false" Visible="false"/>
-  <RefParameter Name="MPCBB2_Area2_Privilege_Start" Comment="    Area 2 Start Offset" DefaultValue="0x0" Type="Hex" Min="0x0" Max="=MPCBB2_Area_Max" NoCheckOpt="false"/>
+  <RefParameter Name="MPCBB2_Area2_Privilege_Start" Comment="    Area 2 Start Offset" DefaultValue="0x0" Type="hex" Min="0x0" Max="=MPCBB2_Area_Max" NoCheckOpt="false"/>
   <RefParameter Name="MPCBB2_Area2_Privilege_Size" Comment="    Area 2 Size" DefaultValue="0x0" Type="hex" Min="0x0" Max="=(MPCBB2_Area_Max - MPCBB2_Area2_Privilege_Start)" NoCheckOpt="false">
     <Description>0x0 : use the default HW configuration (not privileged memory)</Description>
   </RefParameter>
+  <RefParameter Name="MPCBB2_Area2_Privilege_BlockSize" Comment="    Area 2 Block Size" DefaultValue="=(MPCBB2_Area_BlockSize)" Type="hex" Min="=(MPCBB2_Area_BlockSize)" Max="=(MPCBB2_Area_BlockSize)" Visible="false"/>
+  <RefParameter Name="MPCBB2_Area2_Privilege_SuperBlockSize" Comment="    Area 2 Super-Block Size" DefaultValue="=(MPCBB2_Area2_SuperBlockSize)" Type="hex" Min="=(MPCBB2_Area2_SuperBlockSize)" Max="=(MPCBB2_Area2_SuperBlockSize)" Visible="false"/>
+  <RefParameter Name="MPCBB2_Area2_Privilege_NbSuperBlock" Comment="    Area 2 Nb Super-Block" DefaultValue="=(MPCBB2_Area_Max / MPCBB2_Area2_Privilege_SuperBlockSize)" Type="integer" Min="=(MPCBB2_Area_Max / MPCBB2_Area2_Privilege_SuperBlockSize)" Max="=(MPCBB2_Area_Max / MPCBB2_Area2_Privilege_SuperBlockSize)" Visible="false"/>
 
   <RefParameter Name="MPCBB2_SecConfig_array" Comment="Secure configuration array" DefaultValue="00000000:00000000:00000000:00000000" Type="Array" ArraySize="4" ArrayTypeElement="uint32_t;16" Separator=":" Visible="false">
     <Condition Expression="S_No_MPCBB2_Secured" Diagnostic="memory not secured"/>
@@ -631,7 +668,8 @@
       <PossibleValue Comment="HASH">HASH</PossibleValue>
       <PossibleValue Comment="AES">AES</PossibleValue>
       <PossibleValue Comment="USB">USB</PossibleValue>
-      <PossibleValue Comment="ADC12">ADC12</PossibleValue>
+      <PossibleValue Comment="ADC1">ADC1</PossibleValue>
+      <PossibleValue Comment="ADC2">ADC2</PossibleValue>
       <PossibleValue Comment="ICACHE">ICACHE</PossibleValue>
       <PossibleValue Comment="TSC">TSC</PossibleValue>
       <PossibleValue Comment="CRC">CRC</PossibleValue>
@@ -670,13 +708,13 @@
     <!-- Parameters for GTZC - Peripheral Secured -->
     <Parameter Name="TZSC_Secure_IP_Choice"><Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/></Parameter>
     <Parameter Name="Securable_Peripheral"><Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/></Parameter>
-    <Parameter Name="ADC12_Secure" RefParameter="IP_Secure" Comment="ADC12">
+    <Parameter Name="ADC_Secure" RefParameter="IP_Secure" Comment="ADC1|2">
       <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="ADF1_Secure" RefParameter="IP_Secure" Comment="ADF1">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="ADF1_Exist &amp; $IpInstance=GTZC_S &amp; !DIE42B"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
@@ -691,92 +729,92 @@
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="CRC_Secure" RefParameter="IP_Secure" Comment="CRC">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="CRC_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="CRS_Secure" RefParameter="CRS_Secure" Comment="CRS">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="CRS_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="DAC1_Secure" RefParameter="IP_Secure" Comment="DAC1">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="DAC1_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="OCTOSPI1_Secure" RefParameter="IP_Secure" Comment="OCTOSPI1">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="OCTOSPI1_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="FDCAN1_Secure" RefParameter="IP_Secure" Comment="FDCAN1">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="FDCAN1_Exist &amp; $IpInstance=GTZC_S &amp; !DIE42B"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="HASH_Secure" RefParameter="IP_Secure" Comment="HASH">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="HASH_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="I2C1_Secure" RefParameter="IP_Secure" Comment="I2C1">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="I2C1_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="I2C2_Secure" RefParameter="IP_Secure" Comment="I2C2">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="I2C2_Exist &amp; $IpInstance=GTZC_S &amp; !DIE42B"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="I2C3_Secure" RefParameter="IP_Secure" Comment="I2C3">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="I2C3_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="I3C1_Secure" RefParameter="IP_Secure" Comment="I3C1">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="I3C1_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="I3C2_Secure" RefParameter="IP_Secure" Comment="I3C2">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="I3C2_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="ICACHE_Secure" RefParameter="ICACHE_Secure" Comment="ICACHE">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="ICACHE_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="IWDG_Secure" RefParameter="IP_Secure" Comment="IWDG">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="IWDG_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="LPTIM1_Secure" RefParameter="IP_Secure" Comment="LPTIM1">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="LPTIM1_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="LPTIM2_Secure" RefParameter="IP_Secure" Comment="LPTIM2">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="LPTIM2_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="LPTIM3_Secure" RefParameter="IP_Secure" Comment="LPTIM3">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="LPTIM3_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="LPTIM4_Secure" RefParameter="IP_Secure" Comment="LPTIM4">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="LPTIM4_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="LPUART1_Secure" RefParameter="IP_Secure" Comment="LPUART1">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="LPUART1_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
@@ -786,7 +824,7 @@
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="USB_Secure" RefParameter="IP_Secure" Comment="USB">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="USB_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
@@ -796,7 +834,7 @@
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="RAMCFG_Secure" RefParameter="IP_Secure" Comment="RAMCFG">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="RAMCFG_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
@@ -811,112 +849,112 @@
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="SAI1_Secure" RefParameter="IP_Secure" Comment="SAI1">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="SAI1_Exist &amp; $IpInstance=GTZC_S &amp; !DIE42B"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="SDMMC1_Secure" RefParameter="IP_Secure" Comment="SDMMC1">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="SDMMC1_Exist &amp; $IpInstance=GTZC_S &amp; !DIE42B"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="SPI1_Secure" RefParameter="IP_Secure" Comment="SPI1">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="SPI1_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="SPI2_Secure" RefParameter="IP_Secure" Comment="SPI2">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="SPI2_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="SPI3_Secure" RefParameter="IP_Secure" Comment="SPI3">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="SPI3_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="TIM1_Secure" RefParameter="IP_Secure" Comment="TIM1">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="TIM1_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="TIM2_Secure" RefParameter="IP_Secure" Comment="TIM2">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="TIM2_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="TIM3_Secure" RefParameter="IP_Secure" Comment="TIM3">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="TIM3_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="TIM4_Secure" RefParameter="IP_Secure" Comment="TIM4">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="TIM4_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="TIM6_Secure" RefParameter="IP_Secure" Comment="TIM6">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="TIM6_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="TIM7_Secure" RefParameter="IP_Secure" Comment="TIM7">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="TIM7_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="TIM15_Secure" RefParameter="IP_Secure" Comment="TIM15">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="TIM15_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="TIM16_Secure" RefParameter="IP_Secure" Comment="TIM16">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="TIM16_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="TIM17_Secure" RefParameter="IP_Secure" Comment="TIM17">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="TIM17_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="TSC_Secure" RefParameter="IP_Secure" Comment="TSC">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="TSC_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="USART1_Secure" RefParameter="IP_Secure" Comment="USART1">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="USART1_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="USART3_Secure" RefParameter="IP_Secure" Comment="USART3">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="USART3_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="UART4_Secure" RefParameter="IP_Secure" Comment="UART4">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="UART4_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="UART5_Secure" RefParameter="IP_Secure" Comment="UART5">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="UART5_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="VREFBUF_Secure" RefParameter="IP_Secure" Comment="VREFBUF">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="VREFBUF_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="WWDG_Secure" RefParameter="IP_Secure" Comment="WWDG">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="WWDG_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
     <Parameter Name="CCB_Secure" RefParameter="IP_Secure" Comment="CCB">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="CCB_Exist &amp; $IpInstance=GTZC_S"/>
       <PossibleValue Comment="secured" Semaphore="S_IP_SECURED">GTZC_TZSC_PERIPH_SEC</PossibleValue>
       <PossibleValue Comment="not secured" Semaphore="S_IP_NOT_SECURED">GTZC_TZSC_PERIPH_NSEC</PossibleValue>
     </Parameter>
@@ -928,19 +966,19 @@
       <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
     </Parameter>
 
-    <Parameter Name="CRS_Privilege_Status"></Parameter>
-    <Parameter Name="ICACHE_Privilege_Status"></Parameter>
+    <Parameter Name="CRS_Privilege_Status"/>
+    <Parameter Name="ICACHE_Privilege_Status"/>
 
     <!-- Parameters for GTZC - Peripheral Privileged -->
-    <Parameter Name="TZSC_Privilege_IP_Choice"></Parameter>
-    <Parameter Name="Privilegeable_Peripheral"></Parameter>
+    <Parameter Name="TZSC_Privilege_IP_Choice"/>
+    <Parameter Name="Privilegeable_Peripheral"/>
     <Parameter Name="ADC_Privilege" RefParameter="IP_Privilege" Comment="ADC1|2">
       <Condition Diagnostic="Active on GTZC context (aligned to Secure status for Multi Project)" Expression="($IpInstance=GTZC_S &amp; ADC1_GTZC_SECURE) | (!($IpInstance=GTZC_S) &amp; (!ADC1_GTZC_SECURE))"/>
       <PossibleValue Comment="privileged" Semaphore="S_IP_PRIVILEGED_$IpInstance">GTZC_TZSC_PERIPH_PRIV</PossibleValue>
       <PossibleValue Comment="not privileged" Semaphore="S_IP_NOT_PRIVILEGED_$IpInstance">GTZC_TZSC_PERIPH_NPRIV</PossibleValue>
     </Parameter>
     <Parameter Name="ADF1_Privilege" RefParameter="IP_Privilege" Comment="ADF1">
-      <Condition Diagnostic="Active on GTZC context (aligned to Secure status for Multi Project)" Expression="($IpInstance=GTZC_S &amp; ADF1_GTZC_SECURE) | (!($IpInstance=GTZC_S) &amp; (!ADF1_GTZC_SECURE))"/>
+      <Condition Diagnostic="Active on GTZC context (aligned to Secure status for Multi Project)" Expression="($IpInstance=GTZC_S &amp; ADF1_GTZC_SECURE) | (!($IpInstance=GTZC_S) &amp; (!ADF1_GTZC_SECURE)) &amp; !DIE42B"/>
       <PossibleValue Comment="privileged" Semaphore="S_IP_PRIVILEGED_$IpInstance">GTZC_TZSC_PERIPH_PRIV</PossibleValue>
       <PossibleValue Comment="not privileged" Semaphore="S_IP_NOT_PRIVILEGED_$IpInstance">GTZC_TZSC_PERIPH_NPRIV</PossibleValue>
     </Parameter>
@@ -970,7 +1008,7 @@
       <PossibleValue Comment="not privileged" Semaphore="S_IP_NOT_PRIVILEGED_$IpInstance">GTZC_TZSC_PERIPH_NPRIV</PossibleValue>
     </Parameter>
     <Parameter Name="FDCAN1_Privilege" RefParameter="IP_Privilege" Comment="FDCAN1">
-      <Condition Diagnostic="Active on GTZC context (aligned to Secure status for Multi Project)" Expression="($IpInstance=GTZC_S &amp; FDCAN1_GTZC_SECURE) | (!($IpInstance=GTZC_S) &amp; (!FDCAN1_GTZC_SECURE))"/>
+      <Condition Diagnostic="Active on GTZC context (aligned to Secure status for Multi Project)" Expression="($IpInstance=GTZC_S &amp; FDCAN1_GTZC_SECURE) | (!($IpInstance=GTZC_S) &amp; (!FDCAN1_GTZC_SECURE)) &amp; !DIE42B"/>
       <PossibleValue Comment="privileged" Semaphore="S_IP_PRIVILEGED_$IpInstance">GTZC_TZSC_PERIPH_PRIV</PossibleValue>
       <PossibleValue Comment="not privileged" Semaphore="S_IP_NOT_PRIVILEGED_$IpInstance">GTZC_TZSC_PERIPH_NPRIV</PossibleValue>
     </Parameter>
@@ -985,7 +1023,7 @@
       <PossibleValue Comment="not privileged" Semaphore="S_IP_NOT_PRIVILEGED_$IpInstance">GTZC_TZSC_PERIPH_NPRIV</PossibleValue>
     </Parameter>
     <Parameter Name="I2C2_Privilege" RefParameter="IP_Privilege" Comment="I2C2">
-      <Condition Diagnostic="Active on GTZC context (aligned to Secure status for Multi Project)" Expression="($IpInstance=GTZC_S &amp; I2C2_GTZC_SECURE) | (!($IpInstance=GTZC_S) &amp; (!I2C2_GTZC_SECURE))"/>
+      <Condition Diagnostic="Active on GTZC context (aligned to Secure status for Multi Project)" Expression="($IpInstance=GTZC_S &amp; I2C2_GTZC_SECURE) | (!($IpInstance=GTZC_S) &amp; (!I2C2_GTZC_SECURE)) &amp; !DIE42B"/>
       <PossibleValue Comment="privileged" Semaphore="S_IP_PRIVILEGED_$IpInstance">GTZC_TZSC_PERIPH_PRIV</PossibleValue>
       <PossibleValue Comment="not privileged" Semaphore="S_IP_NOT_PRIVILEGED_$IpInstance">GTZC_TZSC_PERIPH_NPRIV</PossibleValue>
     </Parameter>
@@ -1075,14 +1113,14 @@
       <PossibleValue Comment="not privileged" Semaphore="S_IP_NOT_PRIVILEGED_$IpInstance">GTZC_TZSC_PERIPH_NPRIV</PossibleValue>
     </Parameter>
     <Parameter Name="SAI1_Privilege" RefParameter="IP_Privilege" Comment="SAI1">
-      <Condition Diagnostic="Active on GTZC context (aligned to Secure status for Multi Project)" Expression="($IpInstance=GTZC_S &amp; SAI1_GTZC_SECURE) | (!($IpInstance=GTZC_S) &amp; (!SAI1_GTZC_SECURE))"/>
+      <Condition Diagnostic="Active on GTZC context (aligned to Secure status for Multi Project)" Expression="($IpInstance=GTZC_S &amp; SAI1_GTZC_SECURE) | (!($IpInstance=GTZC_S) &amp; (!SAI1_GTZC_SECURE)) &amp; !DIE42B"/>
       <PossibleValue Comment="privileged" Semaphore="S_IP_PRIVILEGED_$IpInstance">GTZC_TZSC_PERIPH_PRIV</PossibleValue>
       <PossibleValue Comment="not privileged" Semaphore="S_IP_NOT_PRIVILEGED_$IpInstance">GTZC_TZSC_PERIPH_NPRIV</PossibleValue>
     </Parameter>
     <Parameter Name="SDMMC1_Privilege" RefParameter="IP_Privilege" Comment="SDMMC1">
       <PossibleValue Comment="privileged" Semaphore="S_IP_PRIVILEGED_$IpInstance">GTZC_TZSC_PERIPH_PRIV</PossibleValue>
       <PossibleValue Comment="not privileged" Semaphore="S_IP_NOT_PRIVILEGED_$IpInstance">GTZC_TZSC_PERIPH_NPRIV</PossibleValue>
-      <Condition Diagnostic="Active on GTZC context (aligned to Secure status for Multi Project)" Expression="($IpInstance=GTZC_S &amp; SDMMC1_GTZC_SECURE) | (!($IpInstance=GTZC_S) &amp; (!SDMMC1_GTZC_SECURE))"/>
+      <Condition Diagnostic="Active on GTZC context (aligned to Secure status for Multi Project)" Expression="($IpInstance=GTZC_S &amp; SDMMC1_GTZC_SECURE) | (!($IpInstance=GTZC_S) &amp; (!SDMMC1_GTZC_SECURE)) &amp; !DIE42B"/>
     </Parameter>
     <Parameter Name="SPI1_Privilege" RefParameter="IP_Privilege" Comment="SPI1">
       <Condition Diagnostic="Active on GTZC context (aligned to Secure status for Multi Project)" Expression="($IpInstance=GTZC_S &amp; SPI1_GTZC_SECURE) | (!($IpInstance=GTZC_S) &amp; (!SPI1_GTZC_SECURE))"/>
@@ -1303,7 +1341,7 @@
       <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
     </Parameter>
     <Parameter Name="ADF1_Illegal_Access_Interrupt" RefParameter="Illegal_Access_Interrupt" Comment="ADF1">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S &amp; !DIE42B"/>
     </Parameter>
     <Parameter Name="AES_Illegal_Access_Interrupt" RefParameter="AES_Illegal_Access_Interrupt" Comment="AES">
       <Condition Diagnostic="only Active with TZEN enabled" Expression="AES_Exist &amp; $IpInstance=GTZC_S"/>
@@ -1321,7 +1359,7 @@
       <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
     </Parameter>
     <Parameter Name="FDCAN1_Illegal_Access_Interrupt" RefParameter="Illegal_Access_Interrupt" Comment="FDCAN1">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S &amp; !DIE42B"/>
     </Parameter>
     <Parameter Name="FLASH_Illegal_Access_Interrupt" RefParameter="Illegal_Access_Interrupt" Comment="FLASH">
       <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
@@ -1339,7 +1377,7 @@
       <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
     </Parameter>
     <Parameter Name="I2C2_Illegal_Access_Interrupt" RefParameter="Illegal_Access_Interrupt" Comment="I2C2">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S &amp; !DIE42B" />
     </Parameter>
     <Parameter Name="I2C3_Illegal_Access_Interrupt" RefParameter="Illegal_Access_Interrupt" Comment="I2C3">
       <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
@@ -1396,10 +1434,10 @@
       <Condition Diagnostic="only Active with TZEN enabled" Expression="SAES_Exist &amp; $IpInstance=GTZC_S"/>
     </Parameter>
     <Parameter Name="SAI1_Illegal_Access_Interrupt" RefParameter="Illegal_Access_Interrupt" Comment="SAI1">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S &amp; !DIE42B"/>
     </Parameter>
     <Parameter Name="SDMMC1_Illegal_Access_Interrupt" RefParameter="Illegal_Access_Interrupt" Comment="SDMMC1">
-      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>
+      <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S &amp; !DIE42B"/>
     </Parameter>
     <Parameter Name="SPI1_Illegal_Access_Interrupt" RefParameter="Illegal_Access_Interrupt" Comment="SPI1">
       <Condition Diagnostic="only Active with TZEN enabled" Expression="$IpInstance=GTZC_S"/>

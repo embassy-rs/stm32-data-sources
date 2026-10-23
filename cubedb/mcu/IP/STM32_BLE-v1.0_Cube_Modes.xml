@@ -1654,11 +1654,16 @@
     </RefParameter>
 
     <RefParameter Name="BLE_CFG_MAX_NBR_GATT_EVT_HANDLERS" Comment="BLE_CFG_MAX_NBR_GATT_EVT_HANDLERS" DefaultValue="1" Min="1" Max="255" Type="integer" Group="Application configuration - Application parameters" TabName="Configuration">
-         <Condition Diagnostic="" Expression="(S_BLE_CP | S_BLE_RP | S_BLE_TM | S_BLE_SKELETON | S_BLE_TMCO)"/>
-         <Description></Description>
+         <Condition Diagnostic="" Expression="(S_BLE_CP | S_BLE_RP)"/>
+         <Description>Maximum number of GATT event handlers that can be registered</Description>
     </RefParameter>
     <RefParameter Name="BLE_CFG_MAX_NBR_GATT_EVT_HANDLERS" Comment="BLE_CFG_MAX_NBR_GATT_EVT_HANDLERS" DefaultValue="0" Min="0" Max="255" Type="integer" Group="Application configuration - Application parameters" TabName="Configuration" Visible="false">
       <Description></Description>
+    </RefParameter>
+
+    <RefParameter Name="CFG_BLE_NUM_CLIENT_CONTEXTS" Comment="CFG_BLE_NUM_CLIENT_CONTEXTS" DefaultValue="1" Min="1" Max="64" Type="integer" Group="Application configuration - Application parameters" TabName="Configuration">
+         <Condition Diagnostic="" Expression="(S_BLE_CP | S_BLE_RP)"/>
+         <Description>Maximum number of Client contexts. It must be set to the maximum number of simultaneous connected servers.</Description>
     </RefParameter>
 
     <RefParameter Name="CFG_BLE_NUM_GATT_ATTRIBUTES" Comment="CFG_BLE_NUM_GATT_ATTRIBUTES" DefaultValue="20" Min="0" Type="integer" TabName="Configuration" Group="Application configuration - BLE stack">
@@ -1870,6 +1875,10 @@
         <PossibleValue Value="0" Comment="Disabled"/>
          <PossibleValue Value="1" Comment="Enabled"/>
         <Description>If 1, Encrypted Key Material Characteristic is added in GAP service.</Description>
+    </RefParameter>
+
+    <RefParameter Name="CFG_BLE_EXTRA_LL_PROCEDURE_CONTEXTS" Comment="CFG_BLE_EXTRA_LL_PROCEDURE_CONTEXTS" DefaultValue="0" Min="0" Max="128" Type="integer" Group="Application configuration - BLE stack" TabName="Configuration" Visible="true">
+         <Description>Maximum number of simultaneous Link Layer procedures that can be managed, in addition to the minimum required by the stack. The minimum number guarantees one LL procedure initiated by the peer for each link, one LL procedure automatically initiated by the Controller and one LL procedure initiated by the Host.</Description>
     </RefParameter>
 
     <RefParameter Name="CFG_BLE_ATT_QUEUED_WRITE_SIZE" Comment="CFG_BLE_ATT_QUEUED_WRITE_SIZE" DefaultValue="512" Min="0" Type="integer" TabName="Configuration" Group="Application configuration - BLE stack">
@@ -2330,7 +2339,7 @@
 <!--  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
     <RefParameter Name="SERVICE0_UUID" Comment="UUID" DefaultValue="00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00" ArraySize="16" ArrayTypeElement="uint8_t;16" Type="Array" Separator=" " TabName="SERVICE0" Group="Service">
-        <Description>Contains the full UUID</Description>
+        <Description>Contains the full UUID (Little Endian)</Description>
         <Condition Diagnostic="" Expression="S_SERVICE0 &amp; S_SERVICE0_UUID_128_INPUT_TYPE_FULL"/>
     </RefParameter>
 
@@ -2529,7 +2538,7 @@
     </RefParameter>
 
     <RefParameter Name="SERVICE0_CHAR0_UUID" Comment="UUID" DefaultValue="00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00" ArraySize="16" ArrayTypeElement="uint8_t;16" Type="Array" Separator=" "  TabName="SERVICE0" Group="Characteristic0">
-        <Description>Contains the full UUID</Description>
+        <Description>Contains the full UUID (Little Endian)</Description>
         <Condition Diagnostic="" Expression="!S_SERVICE0_CHAR0_UUID_SIG &amp; S_SERVICE0_CHAR0_UUID_128_INPUT_TYPE_FULL"/>
     </RefParameter>
 
@@ -4146,6 +4155,23 @@
         <PossibleValue Value=" " Comment="No"/>
     </RefParameter>
 
+    <RefParameter Name="SERVICE0_CHAR0_ATTR_PERMISSION_AUTHEN_LEV4_READ" Comment="ATTR_PERMISSION_AUTHEN_LEV4_READ" DefaultValue="BLE_GATT_SRV_PERM_AUTHEN_LEV4_READ" Type="List" TabName="SERVICE0"  Group="Characteristic0">
+        <Condition Diagnostic="" Expression="S_SERVICE0_CHAR0_0x2AA5 | S_SERVICE0_CHAR0_0x2AA8 | S_SERVICE0_CHAR0_0x2AA7 | S_SERVICE0_CHAR0_0x2AAB | S_SERVICE0_CHAR0_0x2AAA | S_SERVICE0_CHAR0_0x2AAC | S_SERVICE0_CHAR0_0x2AA9 | (S_SERVICE0_0x181F &amp; S_SERVICE0_CHAR0_0x2A52)"/>
+        <Description>Authentication read of the characteristic value. Default value for this SIG characteristic is Yes.</Description>
+        <PossibleValue Value="BLE_GATT_SRV_PERM_AUTHEN_LEV4_READ" Comment="Yes"/>
+        <PossibleValue Value=" " Comment="No"/>
+    </RefParameter>
+    <RefParameter Name="SERVICE0_CHAR0_ATTR_PERMISSION_AUTHEN_LEV4_READ" Comment="ATTR_PERMISSION_AUTHEN_LEV4_READ" DefaultValue=" " Type="list" TabName="SERVICE0"  Group="Characteristic0">
+        <Description>Broadcasting of the characteristic value using a characteristic configuration descriptor.Default value is No.</Description>
+        <Condition Diagnostic="" Expression="(S_BLE_LSP | S_BLE_SP | S_BLE_RP)"/>
+        <PossibleValue Value="BLE_GATT_SRV_PERM_AUTHEN_LEV4_READ" Comment="Yes"/>
+        <PossibleValue Value=" " Comment="No"/>
+    </RefParameter>
+    <RefParameter Name="SERVICE0_CHAR0_ATTR_PERMISSION_AUTHEN_LEV4_READ" Comment="ATTR_PERMISSION_AUTHEN_LEV4_READ" DefaultValue=" " Type="list" TabName="SERVICE0"  Group="Characteristic0" Visible="false">
+        <Description>Broadcasting of the characteristic value using a characteristic configuration descriptor. Default value is No.</Description>
+        <PossibleValue Value=" " Comment="No"/>
+    </RefParameter>
+
     <RefParameter Name="SERVICE0_CHAR0_ATTR_PERMISSION_AUTHOR_READ" Comment="ATTR_PERMISSION_AUTHOR_READ" DefaultValue="BLE_GATT_SRV_PERM_AUTHOR_READ" Type="List" TabName="SERVICE0"  Group="Characteristic0">
         <Condition Diagnostic="" Expression="S_SERVICE0_CHAR0_0x2B22 | S_SERVICE0_CHAR0_0x2B25 | S_SERVICE0_CHAR0_0x2B26 | S_SERVICE0_CHAR0_0x2B23 | S_SERVICE0_CHAR0_0x2B28 | S_SERVICE0_CHAR0_0x2B27 | S_SERVICE0_CHAR0_0x2B21 | S_SERVICE0_CHAR0_0x2B20 | S_SERVICE0_CHAR0_0x2B24"/>
         <Description>Authorization read of the characteristic value. Default value for this SIG characteristic is Yes.</Description>
@@ -4193,6 +4219,23 @@
         <PossibleValue Value=" " Comment="No"/>
     </RefParameter>
     <RefParameter Name="SERVICE0_CHAR0_ATTR_PERMISSION_AUTHEN_WRITE" Comment="ATTR_PERMISSION_AUTHEN_WRITE" DefaultValue=" " Type="list" TabName="SERVICE0"  Group="Characteristic0" Visible="false">
+        <Description>Broadcasting of the characteristic value using a characteristic configuration descriptor. Default value is No.</Description>
+        <PossibleValue Value=" " Comment="No"/>
+    </RefParameter>
+
+    <RefParameter Name="SERVICE0_CHAR0_ATTR_PERMISSION_AUTHEN_LEV4_WRITE" Comment="ATTR_PERMISSION_AUTHEN_LEV4_WRITE" DefaultValue="BLE_GATT_SRV_PERM_AUTHEN_LEV4_WRITE" Type="List" TabName="SERVICE0"  Group="Characteristic0">
+        <Condition Diagnostic="" Expression="S_SERVICE0_CHAR0_0x2AA4 | S_SERVICE0_CHAR0_0x2AA7 | S_SERVICE0_CHAR0_0x2AAA | S_SERVICE0_CHAR0_0x2AAC | (S_SERVICE0_0x181F &amp; S_SERVICE0_CHAR0_0x2A52)"/>
+        <Description>Authentication write of the characteristic value. Default value for this SIG characteristic is Yes.</Description>
+        <PossibleValue Value="BLE_GATT_SRV_PERM_AUTHEN_LEV4_WRITE" Comment="Yes"/>
+        <PossibleValue Value=" " Comment="No"/>
+    </RefParameter>
+    <RefParameter Name="SERVICE0_CHAR0_ATTR_PERMISSION_AUTHEN_LEV4_WRITE" Comment="ATTR_PERMISSION_AUTHEN_LEV4_WRITE" DefaultValue=" " Type="list" TabName="SERVICE0"  Group="Characteristic0">
+        <Description>Broadcasting of the characteristic value using a characteristic configuration descriptor.Default value is No.</Description>
+        <Condition Diagnostic="" Expression="(S_BLE_LSP | S_BLE_SP | S_BLE_RP)"/>
+        <PossibleValue Value="BLE_GATT_SRV_PERM_AUTHEN_LEV4_WRITE" Comment="Yes"/>
+        <PossibleValue Value=" " Comment="No"/>
+    </RefParameter>
+    <RefParameter Name="SERVICE0_CHAR0_ATTR_PERMISSION_AUTHEN_LEV4_WRITE" Comment="ATTR_PERMISSION_AUTHEN_LEV4_WRITE" DefaultValue=" " Type="list" TabName="SERVICE0"  Group="Characteristic0" Visible="false">
         <Description>Broadcasting of the characteristic value using a characteristic configuration descriptor. Default value is No.</Description>
         <PossibleValue Value=" " Comment="No"/>
     </RefParameter>
@@ -4337,6 +4380,7 @@
         <Parameter Name="CFG_SCAN_INT_MS"/>
         <Parameter Name="CFG_SCAN_WIN_MS"/>
         <Parameter Name="BLE_CFG_MAX_NBR_GATT_EVT_HANDLERS"/>
+        <Parameter Name="CFG_BLE_NUM_CLIENT_CONTEXTS"/>
         <Parameter Name="CFG_BLE_NUM_RADIO_TASKS"/>
         <Parameter Name="GATT_CLT_MAX_NUM_SERVERS"/>
         <Parameter Name="CFG_BLE_NUM_GATT_ATTRIBUTES"/>
@@ -4369,6 +4413,7 @@
         <Parameter Name="CFG_BLE_USER_FIFO_SIZE"/>
         <Parameter Name="CFG_BLE_GAP_PERIPH_PREF_CONN_PARAM_CHARACTERISTIC"/>
         <Parameter Name="CFG_BLE_GAP_ENCRYPTED_KEY_MATERIAL_CHARACTERISTIC"/>
+        <Parameter Name="CFG_BLE_EXTRA_LL_PROCEDURE_CONTEXTS"/>
         <Parameter Name="CFG_BLE_ATT_QUEUED_WRITE_SIZE"/>
         <Parameter Name="CFG_BLE_GATT_NWK_BUFFER_SIZE"/>
         <Parameter Name="CFG_BLE_ADV_NWK_BUFFER_SIZE"/>
@@ -4391,7 +4436,7 @@
         <Parameter Name="CFG_BLE_CONTROLLER_CIS_ENABLED"/>
         <Parameter Name="CFG_FULL_LOW_POWER"/>
         <Parameter Name="CFG_LPM_SUPPORTED"/>
-	<Parameter Name="CFG_LPM_EMULATED"/>
+	    <Parameter Name="CFG_LPM_EMULATED"/>
         <Parameter Name="CFG_DEBUG_APP_TRACE"/>
         <Parameter Name="CFG_DEBUG_APP_ADV_TRACE"/>
         <Parameter Name="ADV_TRACE_TIMESTAMP_ENABLE"/>
@@ -4692,9 +4737,11 @@
         <Parameter Name="SERVICE0_CHAR0_PROP_INDICATE"/>
         <Parameter Name="SERVICE0_CHAR0_VALUE_OFFSET"/>
         <Parameter Name="SERVICE0_CHAR0_ATTR_PERMISSION_AUTHEN_READ"/>
+        <Parameter Name="SERVICE0_CHAR0_ATTR_PERMISSION_AUTHEN_LEV4_READ"/>
         <!-- <Parameter Name="SERVICE0_CHAR0_ATTR_PERMISSION_AUTHOR_READ"/> -->
         <Parameter Name="SERVICE0_CHAR0_ATTR_PERMISSION_ENCRY_READ"/>
         <Parameter Name="SERVICE0_CHAR0_ATTR_PERMISSION_AUTHEN_WRITE"/>
+        <Parameter Name="SERVICE0_CHAR0_ATTR_PERMISSION_AUTHEN_LEV4_WRITE"/>
         <!-- <Parameter Name="SERVICE0_CHAR0_ATTR_PERMISSION_AUTHOR_WRITE"/> -->
         <Parameter Name="SERVICE0_CHAR0_ATTR_PERMISSION_ENCRY_WRITE"/>
         <Parameter Name="SERVICE0_CHAR0_GATT_NOTIFY_ATTRIBUTE_WRITE"/>
@@ -4804,6 +4851,7 @@
             <Semaphore>S_STM32_BLE</Semaphore>
             <Condition Diagnostic="Active only if RADIO is activated" Expression="S_RF1"/>
             <Condition Diagnostic="Active only if PKA is activated" Expression="PKA_Activated"/>
+            <Condition Diagnostic="Active only if RNG is activated" Expression="S_RNG"/>
         </Mode>
     </ModeLogicOperator>
 

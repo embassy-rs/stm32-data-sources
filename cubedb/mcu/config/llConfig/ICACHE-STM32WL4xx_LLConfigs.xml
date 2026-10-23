@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<IP DBVersion="V4.0" Name="ICACHE" Version="STM32Cube_FW_WL4_V0.5.0" IncludeFile="stm32wl4xx_ll_icache.h" xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://mcd.rou.st.com/modules.php?name=mcu" ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../../../../doc/V4/Development/Specifications/db/IP_Configs.xsd">
+	<RefConfig Comment="Enable instruction cache (default 2-ways set associative cache) " Name="ICACHE_Init">
+		<CallLibMethod Name="LL_ICACHE_Enable" />
+	</RefConfig>
+	<RefConfig Comment=" Enable instruction cache in 1-way (direct mapped cache)" Name="ICACHE_Config">
+		<CallLibMethod Name="LL_ICACHE_SetMode">
+			<MethodArg Name="LL_ICACHE_1WAY" ParameterName="ICACHE_1WAY" />
+		</CallLibMethod>
+		<CallLibMethod Name="LL_ICACHE_Enable" />
+	</RefConfig>
+	<RefConfig Name="ICACHE_DeInit">
+		<CallLibMethod Name="LL_ICACHE_Disable" />
+	</RefConfig>
+	<RefConfig Comment="  Configure and enable a region for memory remapping.  " Name="ICACHE_EnableRemapRegion">
+		<CallLibMethod Name="LL_ICACHE_Disable" />
+		<CallLibMethod Name="LL_ICACHE_ConfigRegion" />
+	</RefConfig>
+	<RefConfig Comment="Full retention for ICACHE in stop mode" Name="ICACHE_Retention">
+		<IFCondition Expression="S_STM32_WPAN &amp;!DIE4B2 ">
+			<CallLibMethod Name="LL_PWR_SetICacheRAMStopRetention">
+				<MethodArg Name="LL_PWR_ICACHERAM_STOP_FULL_RETENTION" ParameterName="LL_PWR_ICACHERAM_STOP_FULL_RETENTION" />
+			</CallLibMethod>
+		</IFCondition>
+	</RefConfig>
+	<RefConfig Comment="Configure and enable region 0 for memory remapping" Name="ICACHE_EnableRemapRegion">
+		<IFCondition Expression="Region=ICACHE_REGION_0">
+			<CallLibMethod Name="LL_ICACHE_ConfigRegion">
+				<MethodArg Name="Region" ParameterName="Region" />
+				<MethodArg Name="Size" ParameterName="Size" />
+				<MethodArg Name="BaseAddress" ParameterName="BaseAddress" />
+				<MethodArg Name="RemapAddress" ParameterName="RemapAddress" />
+				<MethodArg Name="TrafficRoute" ParameterName="TrafficRoute" />
+				<MethodArg Name="OutputBurstType" ParameterName="OutputBurstType" />
+			</CallLibMethod>
+		</IFCondition>
+	</RefConfig>
+	<RefConfig Comment="Configure and enable region 1 for memory remapping" Name="ICACHE_EnableRemapRegion1">
+		<IFCondition Expression="Region1=ICACHE_REGION_1">
+			<CallLibMethod Name="LL_ICACHE_ConfigRegion">
+				<MethodArg Name="Region" ParameterName="Region1" />
+				<MethodArg Name="Size" ParameterName="Size1" />
+				<MethodArg Name="BaseAddress" ParameterName="BaseAddress1" />
+				<MethodArg Name="RemapAddress" ParameterName="RemapAddress1" />
+				<MethodArg Name="TrafficRoute" ParameterName="TrafficRoute1" />
+				<MethodArg Name="OutputBurstType" ParameterName="OutputBurstType1" />
+			</CallLibMethod>
+		</IFCondition>
+	</RefConfig>
+	<RefConfig Comment="Configure and enable region 2 for memory remapping" Name="ICACHE_EnableRemapRegion2">
+		<IFCondition Expression="Region2=ICACHE_REGION_2">
+			<CallLibMethod Name="LL_ICACHE_ConfigRegion">
+				<MethodArg Name="Region" ParameterName="Region2" />
+				<MethodArg Name="Size" ParameterName="Size2" />
+				<MethodArg Name="BaseAddress" ParameterName="BaseAddress2" />
+				<MethodArg Name="RemapAddress" ParameterName="RemapAddress2" />
+				<MethodArg Name="TrafficRoute" ParameterName="TrafficRoute2" />
+				<MethodArg Name="OutputBurstType" ParameterName="OutputBurstType2" />
+			</CallLibMethod>
+		</IFCondition>
+	</RefConfig>
+	<RefConfig Comment="Configure and enable region 3 for memory remapping" Name="ICACHE_EnableRemapRegion3">
+		<IFCondition Expression="Region3=ICACHE_REGION_3">
+			<CallLibMethod Name="LL_ICACHE_ConfigRegion">
+				<MethodArg Name="Region" ParameterName="Region3" />
+				<MethodArg Name="Size" ParameterName="Size3" />
+				<MethodArg Name="BaseAddress" ParameterName="BaseAddress3" />
+				<MethodArg Name="RemapAddress" ParameterName="RemapAddress3" />
+				<MethodArg Name="TrafficRoute" ParameterName="TrafficRoute3" />
+				<MethodArg Name="OutputBurstType" ParameterName="OutputBurstType3" />
+			</CallLibMethod>
+		</IFCondition>
+	</RefConfig>
+	<LibMethod Comment="" Name="LL_ICACHE_Enable"></LibMethod>
+	<LibMethod Comment="" Name="LL_ICACHE_SetMode">
+		<Argument AddressOf="false" GenericType="simple" Name="LL_ICACHE_1WAY" OptimizationCondition="equal" />
+	</LibMethod>
+	<LibMethod Comment="" Name="LL_PWR_SetICacheRAMStopRetention">
+		<Argument AddressOf="false" GenericType="simple" Name="LL_PWR_ICACHERAM_STOP_FULL_RETENTION" OptimizationCondition="equal" />
+	</LibMethod>
+	<LibMethod Comment="" Name="LL_ICACHE_Disable">
+		<Argument AddressOf="false" GenericType="simple" Name="Lock" OptimizationCondition="equal" />
+		<Argument AddressOf="false" GenericType="simple" Name="State" OptimizationCondition="equal" />
+	</LibMethod>
+	<LibMethod Comment="" Name="LL_ICACHE_ConfigRegion">
+		<Argument AddressOf="false" GenericType="simple" Name="Region" OptimizationCondition="equal" />
+		<Argument AddressOf="true" GenericType="struct" Name="pICACHE_RegionStruct" TypeName="LL_ICACHE_RegionTypeDef">
+			<Argument AddressOf="false" GenericType="simple" Name="Size" OptimizationCondition="equal" />
+			<Argument AddressOf="false" GenericType="simple" Name="BaseAddress" OptimizationCondition="equal" />
+			<Argument AddressOf="false" GenericType="simple" Name="RemapAddress" OptimizationCondition="equal" />
+			<Argument AddressOf="false" GenericType="simple" Name="TrafficRoute" OptimizationCondition="equal" />
+			<Argument AddressOf="false" GenericType="simple" Name="OutputBurstType" OptimizationCondition="equal" />
+		</Argument>
+	</LibMethod>
+	<RefComponent Cclass="HAL" Cgroup="ICACHE__LL" Cversion="0.2.0">
+		<File Category="header" Name="Drivers/STM32WL4xx_HAL_Driver/Inc/stm32wl4xx_ll_icache.h" />
+		<File Category="source" Name="Drivers/STM32WL4xx_HAL_Driver/Src/stm32wl4xx_ll_icache.c" />
+	</RefComponent>
+</IP>

@@ -11,7 +11,13 @@
             </CallLibMethod>
         </IFCondition>		
     </RefConfig>
-
+    <RefConfig Comment="Configure the System Power Supply" Name="RCC_MODIFY_REG">
+        <IFCondition Expression="(SupplySource=PWR_SMPS_SUPPLY)">
+            <CallLibMethod Name="HAL_PWREx_ConfigSupply" ReturnHAL="true">
+                <MethodArg Name="SupplySource" ParameterName="SupplySource"/>
+            </CallLibMethod>
+        </IFCondition>
+    </RefConfig>
     <RefConfig Comment="Enable the SYSCFG APB clock" Name="SYSCFG_CLK_ENABLE">
         <CallLibMethod Name="__HAL_RCC_SYSCFG_CLK_ENABLE" ReturnHAL="false"/>
     </RefConfig>    
@@ -33,6 +39,15 @@
             <MethodArg Name="MSIKDiv" ParameterName="MSIKDIVARG"/>        
         </CallLibMethod>
     </RefConfig>
+    
+    <RefConfig Comment="Enable access to the backup domain" Name="RTC_BACKUP">
+	    <IFCondition Expression="RTCClockSelectionARG=RCC_RTCCLKSOURCE_LSI">
+        <CallLibMethod Name="HardCode:RTC" Type="HardCode">
+            <HardCode Text="#t#tHAL_PWR_EnableBkUpAccess();"/>
+        </CallLibMethod>
+		</IFCondition>
+    </RefConfig>
+
     <RefConfig Comment="Configures CRS" Name="RCC_CRSConfig">
         <CallLibMethod Name="HAL_RCCEx_CRSConfig" ReturnHAL="false">
             <MethodArg Name="Prescaler" ParameterName="Prescaler"/>
@@ -60,6 +75,7 @@
         <CallLibMethod Name="HAL_RCCEx_PeriphCLKConfig">
             <MethodArg Name="PeriphClockSelection" ParameterName="PeriphClockSelectionARG"/>
             <MethodArg Name="Usart1ClockSelection" ParameterName="USART1lockSelectionARG"/>
+            <MethodArg Name="Usart2ClockSelection" ParameterName="USART2lockSelectionARG"/>
             <MethodArg Name="Usart3ClockSelection" ParameterName="USART3lockSelectionARG"/>
             <MethodArg Name="Uart4ClockSelection" ParameterName="UART4lockSelectionARG"/>
             <MethodArg Name="Uart5ClockSelection" ParameterName="UART5lockSelectionARG"/>
@@ -77,6 +93,7 @@
             <MethodArg Name="TimIcClockSelection" ParameterName=""/>
             <MethodArg Name="Adf1ClockSelection" ParameterName="Adf1ClockSelectionARG"/>
             <MethodArg Name="Spi3ClockSelection" ParameterName="Spi3ClockSelectionARG"/>
+            <MethodArg Name="Spi4ClockSelection" ParameterName="Spi4ClockSelectionARG"/>
             <MethodArg Name="Sai1ClockSelection" ParameterName="SAI1lockSelectionARG"/>
             <MethodArg Name="RngClockSelection" ParameterName="RNGClockSelectionARG"/>
             <MethodArg Name="AdcDacClockSelection" ParameterName="ADCClockSelectionARG"/>
@@ -85,6 +102,7 @@
             <MethodArg Name="Octospi1ClockSelection" ParameterName="OCTOSPIMCLockSelectionARG"/>
             <MethodArg Name="Lpuart1ClockSelection" ParameterName="LPUART1lockSelectionARG"/>
             <MethodArg Name="I2c3ClockSelection" ParameterName="I2C3lockSelectionARG"/>
+            <MethodArg Name="I2c4ClockSelection" ParameterName="I2C4lockSelectionARG"/>
             <MethodArg Name="Lptim34ClockSelection" ParameterName="LPTIM3lockSelectionARG"/>
             <MethodArg Name="Lptim1ClockSelection" ParameterName="LPTIM1lockSelectionARG"/>
             <MethodArg Name="RTCClockSelection" ParameterName="RTCClockSelectionARG"/>
@@ -92,9 +110,11 @@
     </RefConfig>
 	
     <RefConfig Comment="Initializes the common peripherals clock" Name="RCC_CommonPeriphClockConfig">
+       <IFCondition Expression="Systick_External">
         <CallLibMethod Name="HAL_RCCEx_PeriphCLKConfig">
             <MethodArg Name="PeriphClockSelection" ParameterName="C_PeriphClockSelectionARG"/>
             <MethodArg Name="Usart1ClockSelection" ParameterName=""/>
+            <MethodArg Name="Usart2ClockSelection" ParameterName=""/>
             <MethodArg Name="Usart3ClockSelection" ParameterName=""/>
             <MethodArg Name="Uart4ClockSelection" ParameterName=""/>
             <MethodArg Name="Uart5ClockSelection" ParameterName=""/>
@@ -112,6 +132,7 @@
             <MethodArg Name="TimIcClockSelection" ParameterName=""/>
             <MethodArg Name="Adf1ClockSelection" ParameterName=""/>
             <MethodArg Name="Spi3ClockSelection" ParameterName=""/>
+            <MethodArg Name="Spi4ClockSelection" ParameterName=""/>
             <MethodArg Name="Sai1ClockSelection" ParameterName=""/>
             <MethodArg Name="RngClockSelection" ParameterName=""/>
             <MethodArg Name="AdcDacClockSelection" ParameterName=""/>
@@ -120,15 +141,24 @@
             <MethodArg Name="Octospi1ClockSelection" ParameterName=""/>
             <MethodArg Name="Lpuart1ClockSelection" ParameterName=""/>
             <MethodArg Name="I2c3ClockSelection" ParameterName=""/>
+            <MethodArg Name="I2c4ClockSelection" ParameterName=""/>
             <MethodArg Name="Lptim34ClockSelection" ParameterName=""/>
             <MethodArg Name="Lptim1ClockSelection" ParameterName=""/>
             <MethodArg Name="RTCClockSelection" ParameterName=""/>
         </CallLibMethod>
+        </IFCondition>
     </RefConfig>
-    <RefConfig Comment="configure PLL mode" Name="RCC_MSIRCxPLLModeConfig">
+    <RefConfig Comment="Configure MSI PLL mode" Name="RCC_MSIRCxPLLModeConfig">
         <CallLibMethod Name="HAL_RCCEx_MSIRCxPLLModeConfig">
+            <MethodArg Name="MSISourceARG" ParameterName="MSISourceARG"/>
             <MethodArg Name="State" ParameterName="MSIPLLStructStateARG"/>
             <MethodArg Name="InputSrce" ParameterName="MSIPLLStructSourceARG"/>
+        </CallLibMethod>
+    
+        <CallLibMethod Name="HAL_RCCEx_MSIRCxPLLModeConfig">
+            <MethodArg Name="MSISourceARG" ParameterName="MSISourceARG2"/>
+            <MethodArg Name="State" ParameterName="MSIPLLStructStateARG"/>
+            <MethodArg Name="InputSrce" ParameterName="MSIPLLStructSourceARG2"/>
         </CallLibMethod>
     </RefConfig>
     <RefConfig Comment="Enables the Clock Security System" Name="RCC_CSS_Enable">
@@ -292,6 +322,7 @@
         <Argument AddressOf="true" GenericType="struct" Name="PeriphClkInit" TypeName="RCC_PeriphCLKInitTypeDef">
             <Argument AddressOf="false" GenericType="simple" Name="PeriphClockSelection" OptimizationCondition="equal"/>
             <Argument AddressOf="false" GenericType="simple" Name="Usart1ClockSelection" OptimizationCondition="equal"/>
+            <Argument AddressOf="false" GenericType="simple" Name="Usart2ClockSelection" OptimizationCondition="equal"/>
             <Argument AddressOf="false" GenericType="simple" Name="Usart3ClockSelection" OptimizationCondition="equal"/>
             <Argument AddressOf="false" GenericType="simple" Name="Uart4ClockSelection" OptimizationCondition="equal"/>
             <Argument AddressOf="false" GenericType="simple" Name="Uart5ClockSelection" OptimizationCondition="equal"/>
@@ -309,6 +340,7 @@
             <Argument AddressOf="false" GenericType="simple" Name="TimIcClockSelection" OptimizationCondition="equal"/>
             <Argument AddressOf="false" GenericType="simple" Name="Adf1ClockSelection" OptimizationCondition="equal"/>
             <Argument AddressOf="false" GenericType="simple" Name="Spi3ClockSelection" OptimizationCondition="equal"/>
+            <Argument AddressOf="false" GenericType="simple" Name="Spi4ClockSelection" OptimizationCondition="equal"/>
             <Argument AddressOf="false" GenericType="simple" Name="Sai1ClockSelection" OptimizationCondition="equal"/>
             <Argument AddressOf="false" GenericType="simple" Name="RngClockSelection" OptimizationCondition="equal"/>
             <Argument AddressOf="false" GenericType="simple" Name="AdcDacClockSelection" OptimizationCondition="equal"/>
@@ -317,13 +349,14 @@
             <Argument AddressOf="false" GenericType="simple" Name="Octospi1ClockSelection" OptimizationCondition="equal"/>
             <Argument AddressOf="false" GenericType="simple" Name="Lpuart1ClockSelection" OptimizationCondition="equal"/>
             <Argument AddressOf="false" GenericType="simple" Name="I2c3ClockSelection" OptimizationCondition="equal"/>
+            <Argument AddressOf="false" GenericType="simple" Name="I2c4ClockSelection" OptimizationCondition="equal"/>
             <Argument AddressOf="false" GenericType="simple" Name="Lptim34ClockSelection" OptimizationCondition="equal"/>
             <Argument AddressOf="false" GenericType="simple" Name="Lptim1ClockSelection" OptimizationCondition="equal"/>
             <Argument AddressOf="false" GenericType="simple" Name="RTCClockSelection" OptimizationCondition="equal"/>
         </Argument>
     </LibMethod>
-    <LibMethod Comment="configure PLL mode" Name="HAL_RCCEx_MSIRCxPLLModeConfig">
-        <Argument AddressOf="false" GenericType="simple" Name="MSIPLLSourceAR" OptimizationCondition="equal"/>
+    <LibMethod Comment="Configure MSI PLL mode" Name="HAL_RCCEx_MSIRCxPLLModeConfig">
+        <Argument AddressOf="false" GenericType="simple" Name="MSISourceARG" OptimizationCondition="equal"/>
         <Argument AddressOf="true" GenericType="struct" Name="RCC_MSIRCxPLLStruct" TypeName="RCC_MSIRCxPLLTypeDef">
             <Argument AddressOf="false" GenericType="simple" Name="State" OptimizationCondition="equal"/>
             <Argument AddressOf="false" GenericType="simple" Name="InputSrce" OptimizationCondition="equal"/>

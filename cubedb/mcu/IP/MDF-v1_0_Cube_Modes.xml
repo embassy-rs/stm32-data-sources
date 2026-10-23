@@ -5,7 +5,6 @@
     xmlns="http://mcd.rou.st.com/modules.php?name=mcu">
     <About>Multi-function Digital Filter</About>
     <IPDependencies>ADC1,ADC2</IPDependencies>
-    
     <!--############################################################################################################-->
     <!--############################################################################################################-->
     <!--####################################### RefParameters BEGIN ################################################-->
@@ -17,6 +16,7 @@
     </RefParameter>
     <RefParameter Name="Instance" DefaultValue="MDF1" Comment="$IpInstance" Group="MDFgroup" Type="string" Visible="false">
         <Condition Diagnostic="" Expression="$IpInstance=MDF1"/>
+        
     </RefParameter>
     <RefParameter Name="Instance" DefaultValue="__NULL" Comment=" $IpInstance" Group="MDFgroup" Type="string" Visible="false"/>
 
@@ -617,6 +617,17 @@
     <RefParameter Name="MDF_DFLT0_SCDThreshold" Comment="Threshold" DefaultValue="__NULL" Type="integer" Min="2" Max="256" Visible="false"/>
 
     <RefParameter Name="MDF_DFLT0_SCDBreakSignal" Comment="Break Signal" DefaultValue="MDF_NO_BREAK_SIGNAL" Type="list">
+        <Condition Expression="(MDF_DFLT0_SCDActivation=ENABLE) &amp; (DIE47A)" Diagnostic=""/>
+        <PossibleValue Value="MDF_NO_BREAK_SIGNAL"    Comment="No Break"/>
+        <PossibleValue Value="MDF_TIM1_BREAK_TIM15_BREAK_SIGNALS"  Comment="TIM1 Break"/>
+        <PossibleValue Value="MDF_TIM1_BREAK2_TIM16_BREAK_SIGNALS" Comment="TIM1 Break2"/>
+        <PossibleValue Value="MDF_TIM8_BREAK_TIM17_BREAK_SIGNALS"  Comment="TIM8 Break"/>
+        <PossibleValue Value="MDF_TIM8_BREAK2_SIGNAL"              Comment="TIM8 Break2"/>
+        <Description>
+            Break signal defines the signal to use when the threshold is reached.
+        </Description>
+    </RefParameter>
+    <RefParameter Name="MDF_DFLT0_SCDBreakSignal" Comment="Break Signal" DefaultValue="MDF_NO_BREAK_SIGNAL" Type="list">
         <Condition Expression="MDF_DFLT0_SCDActivation=ENABLE" Diagnostic=""/>
         <PossibleValue Value="MDF_NO_BREAK_SIGNAL"    Comment="No Break"/>
         <PossibleValue Value="MDF_TIM1_BREAK_SIGNAL"  Comment="TIM1 Break"/>
@@ -670,6 +681,17 @@
     </RefParameter>
     <RefParameter Name="MDF_DFLT0_OLDEventConfig" DefaultValue="null" Comment="OutOff Limit Event Config" Type="list" Visible="false"/>
 
+    <RefParameter Name="MDF_DFLT0_OLDBreakSignal" DefaultValue="MDF_NO_BREAK_SIGNAL" Comment="Break Signal" Type="list">
+        <Condition Expression="(MDF_DFLT0_OLDActivation=ENABLE) &amp; (DIE47A) " Diagnostic=""/>
+        <PossibleValue Value="MDF_NO_BREAK_SIGNAL" Comment="No Break"/>
+        <PossibleValue Value="MDF_TIM1_BREAK_TIM15_BREAK_SIGNALS" Comment="TIM1 Break"/>
+        <PossibleValue Value="MDF_TIM1_BREAK2_TIM16_BREAK_SIGNALS" Comment="TIM1 Break2"/>
+        <PossibleValue Value="MDF_TIM8_BREAK_TIM17_BREAK_SIGNALS" Comment="TIM8 Break"/>
+        <PossibleValue Value="MDF_TIM8_BREAK2_SIGNAL" Comment="TIM8 Break2"/>
+        <Description>
+            Break signal defines the signal to use when the threshold is reached.
+        </Description>
+    </RefParameter>
     <RefParameter Name="MDF_DFLT0_OLDBreakSignal" DefaultValue="MDF_NO_BREAK_SIGNAL" Comment="Break Signal" Type="list">
         <Condition Expression="MDF_DFLT0_OLDActivation=ENABLE" Diagnostic=""/>
         <PossibleValue Value="MDF_NO_BREAK_SIGNAL" Comment="No Break"/>
@@ -1238,7 +1260,18 @@
     <RefParameter Name="MDF_DFLT1_SCDThreshold" Comment="Threshold" DefaultValue="__NULL" Type="integer" Min="2" Max="256" Visible="false"/>
 
     <RefParameter Name="MDF_DFLT1_SCDBreakSignal" Comment="Break Signal" DefaultValue="MDF_NO_BREAK_SIGNAL" Type="list">
-        <Condition Expression=" MDF_DFLT1_SCDActivation=ENABLE" Diagnostic=""/>
+        <Condition Expression=" (MDF_DFLT1_SCDActivation=ENABLE) &amp; (DIE47A)" Diagnostic=""/>
+        <PossibleValue Value="MDF_NO_BREAK_SIGNAL"    Comment="No Break"/>
+        <PossibleValue Value="MDF_TIM1_BREAK_TIM15_BREAK_SIGNALS"  Comment="TIM1 break"/>
+        <PossibleValue Value="MDF_TIM1_BREAK2_TIM16_BREAK_SIGNALS" Comment="TIM1 Break2"/>
+        <PossibleValue Value="MDF_TIM8_BREAK_TIM17_BREAK_SIGNALS"  Comment="TIM8 Break"/>
+        <PossibleValue Value="MDF_TIM8_BREAK2_SIGNAL" Comment="TIM8 break2"/>
+        <Description>
+            Break signal defines the signal to use when the threshold is reached.
+        </Description>
+   </RefParameter>
+   <RefParameter Name="MDF_DFLT1_SCDBreakSignal" Comment="Break Signal" DefaultValue="MDF_NO_BREAK_SIGNAL" Type="list">
+        <Condition Expression="MDF_DFLT1_SCDActivation=ENABLE" Diagnostic=""/>
         <PossibleValue Value="MDF_NO_BREAK_SIGNAL"    Comment="No Break"/>
         <PossibleValue Value="MDF_TIM1_BREAK_SIGNAL"  Comment="TIM1 break"/>
         <PossibleValue Value="MDF_TIM1_BREAK2_SIGNAL" Comment="TIM1 Break2"/>
@@ -1292,7 +1325,18 @@
     <RefParameter Name="MDF_DFLT1_OLDEventConfig" DefaultValue="null" Comment="OutOff Limit Event Config" Type="list" Visible="false"/>
 
     <RefParameter Name="MDF_DFLT1_OLDBreakSignal" DefaultValue="MDF_NO_BREAK_SIGNAL" Comment="Break Signal" Type="list">
-        <Condition Expression=" MDF_DFLT1_OLDActivation=ENABLE" Diagnostic=""/>
+        <Condition Expression=" (MDF_DFLT1_OLDActivation=ENABLE) &amp; (DIE47A)" Diagnostic=""/>
+        <PossibleValue Value="MDF_NO_BREAK_SIGNAL" Comment="No Break"/>
+        <PossibleValue Value="MDF_TIM1_BREAK_TIM15_BREAK_SIGNALS" Comment="TIM1 Break"/>
+        <PossibleValue Value="MDF_TIM1_BREAK2_TIM16_BREAK_SIGNALS" Comment="TIM1 Break2"/>
+        <PossibleValue Value="MDF_TIM8_BREAK_TIM17_BREAK_SIGNALS" Comment="TIM8 Break"/>
+        <PossibleValue Value="MDF_TIM8_BREAK2_SIGNAL" Comment="TIM8 Break2"/>
+        <Description>
+            Break signal defines the signal to use when the threshold is reached.
+        </Description>
+    </RefParameter>
+    <RefParameter Name="MDF_DFLT1_OLDBreakSignal" DefaultValue="MDF_NO_BREAK_SIGNAL" Comment="Break Signal" Type="list">
+        <Condition Expression="MDF_DFLT1_OLDActivation=ENABLE" Diagnostic=""/>
         <PossibleValue Value="MDF_NO_BREAK_SIGNAL" Comment="No Break"/>
         <PossibleValue Value="MDF_TIM1_BREAK_SIGNAL" Comment="TIM1 Break"/>
         <PossibleValue Value="MDF_TIM1_BREAK2_SIGNAL" Comment="TIM1 Break2"/>
@@ -1845,6 +1889,17 @@
   </RefParameter>
     <RefParameter Name="MDF_DFLT2_SCDThreshold" Comment="Threshold" DefaultValue="__NULL" Type="integer" Min="2" Max="256" Visible="false"/>
     <RefParameter Name="MDF_DFLT2_SCDBreakSignal" Comment="Break Signal" DefaultValue="MDF_NO_BREAK_SIGNAL" Type="list">
+        <Condition Expression="(MDF_DFLT2_SCDActivation=ENABLE) &amp; (DIE47A) " Diagnostic=""/>
+        <PossibleValue Value="MDF_NO_BREAK_SIGNAL"    Comment="No Break"/>
+        <PossibleValue Value="MDF_TIM1_BREAK_TIM15_BREAK_SIGNALS"  Comment="TIM1 break"/>
+        <PossibleValue Value="MDF_TIM1_BREAK2_TIM16_BREAK_SIGNALS" Comment="TIM1 Break2"/>
+        <PossibleValue Value="MDF_TIM8_BREAK_TIM17_BREAK_SIGNALS"  Comment="TIM8 Break"/>
+        <PossibleValue Value="MDF_TIM8_BREAK2_SIGNAL" Comment="TIM8 break2"/>
+           <Description>
+            Break signal defines the signal to use when the threshold is reached.
+        </Description>
+ </RefParameter>
+ <RefParameter Name="MDF_DFLT2_SCDBreakSignal" Comment="Break Signal" DefaultValue="MDF_NO_BREAK_SIGNAL" Type="list">
         <Condition Expression="MDF_DFLT2_SCDActivation=ENABLE" Diagnostic=""/>
         <PossibleValue Value="MDF_NO_BREAK_SIGNAL"    Comment="No Break"/>
         <PossibleValue Value="MDF_TIM1_BREAK_SIGNAL"  Comment="TIM1 break"/>
@@ -1894,9 +1949,20 @@
    </RefParameter>    
     <RefParameter Name="MDF_DFLT2_OLDEventConfig" DefaultValue="null" Comment="OutOff Limit Event Config" Type="list" Visible="false"/>
     <RefParameter Name="MDF_DFLT2_OLDBreakSignal" DefaultValue="MDF_NO_BREAK_SIGNAL" Comment="Break Signal" Type="list">
+        <Condition Expression="(MDF_DFLT2_OLDActivation=ENABLE) &amp; (DIE47A)" Diagnostic=""/>        
+        <PossibleValue Value="MDF_NO_BREAK_SIGNAL" Comment="No Break"/>        
+        <PossibleValue Value="MDF_TIM1_BREAK_TIM15_BREAK_SIGNALS" Comment="TIM1 Break"/>
+        <PossibleValue Value="MDF_TIM1_BREAK2_TIM16_BREAK_SIGNALS" Comment="TIM1 Break2"/>
+        <PossibleValue Value="MDF_TIM8_BREAK_TIM17_BREAK_SIGNALS" Comment="TIM8 Break"/>
+        <PossibleValue Value="MDF_TIM8_BREAK2_SIGNAL" Comment="TIM8 Break2"/>
+        <Description>
+            Break signal defines the signal to use when the threshold is reached.
+        </Description>
+   </RefParameter>
+   <RefParameter Name="MDF_DFLT2_OLDBreakSignal" DefaultValue="MDF_NO_BREAK_SIGNAL" Comment="Break Signal" Type="list">
         <Condition Expression="MDF_DFLT2_OLDActivation=ENABLE" Diagnostic=""/>        
         <PossibleValue Value="MDF_NO_BREAK_SIGNAL" Comment="No Break"/>        
-          <PossibleValue Value="MDF_TIM1_BREAK_SIGNAL" Comment="TIM1 Break"/>
+        <PossibleValue Value="MDF_TIM1_BREAK_SIGNAL" Comment="TIM1 Break"/>
         <PossibleValue Value="MDF_TIM1_BREAK2_SIGNAL" Comment="TIM1 Break2"/>
         <PossibleValue Value="MDF_TIM8_BREAK_SIGNAL" Comment="TIM8 Break"/>
         <PossibleValue Value="MDF_TIM8_BREAK2_SIGNAL" Comment="TIM8 Break2"/>
@@ -2436,6 +2502,17 @@
     </RefParameter>
     <RefParameter Name="MDF_DFLT3_SCDThreshold" Comment="Threshold" DefaultValue="__NULL" Type="integer" Min="2" Max="256" Visible="false"/>
     <RefParameter Name="MDF_DFLT3_SCDBreakSignal" Comment="Break Signal" DefaultValue="MDF_NO_BREAK_SIGNAL" Type="list">
+        <Condition Expression="(MDF_DFLT3_SCDActivation=ENABLE) &amp; (DIE47A)" Diagnostic=""/>
+        <PossibleValue Value="MDF_NO_BREAK_SIGNAL"    Comment="No Break"/>
+        <PossibleValue Value="MDF_TIM1_BREAK_TIM15_BREAK_SIGNALS"  Comment="TIM1 break"/>
+        <PossibleValue Value="MDF_TIM1_BREAK2_TIM16_BREAK_SIGNALS" Comment="TIM1 Break2"/>
+        <PossibleValue Value="MDF_TIM8_BREAK_TIM17_BREAK_SIGNALS"  Comment="TIM8 Break"/>
+        <PossibleValue Value="MDF_TIM8_BREAK2_SIGNAL" Comment="TIM8 break2"/> 
+           <Description>
+            Break signal defines the signal to use when the threshold is reached.
+        </Description>
+ </RefParameter>
+ <RefParameter Name="MDF_DFLT3_SCDBreakSignal" Comment="Break Signal" DefaultValue="MDF_NO_BREAK_SIGNAL" Type="list">
         <Condition Expression="MDF_DFLT3_SCDActivation=ENABLE" Diagnostic=""/>
         <PossibleValue Value="MDF_NO_BREAK_SIGNAL"    Comment="No Break"/>
         <PossibleValue Value="MDF_TIM1_BREAK_SIGNAL"  Comment="TIM1 break"/>
@@ -2485,9 +2562,20 @@
   </RefParameter>
     <RefParameter Name="MDF_DFLT3_OLDEventConfig" DefaultValue="null" Comment="OutOff Limit Event Config" Type="list" Visible="false"/>
     <RefParameter Name="MDF_DFLT3_OLDBreakSignal" DefaultValue="MDF_NO_BREAK_SIGNAL" Comment="Break Signal" Type="list">
+        <Condition Expression="(MDF_DFLT3_OLDActivation=ENABLE) &amp; (DIE47A)" Diagnostic=""/>
+        <PossibleValue Value="MDF_NO_BREAK_SIGNAL" Comment="No Break"/>
+        <PossibleValue Value="MDF_TIM1_BREAK_TIM15_BREAK_SIGNALS" Comment="TIM1 Break"/>
+        <PossibleValue Value="MDF_TIM1_BREAK2_TIM16_BREAK_SIGNALS" Comment="TIM1 Break2"/>
+        <PossibleValue Value="MDF_TIM8_BREAK_TIM17_BREAK_SIGNALS" Comment="TIM8 Break"/>
+        <PossibleValue Value="MDF_TIM8_BREAK2_SIGNAL" Comment="TIM8 Break2"/>
+        <Description>
+            Break signal defines the signal to use when the threshold is reached.
+        </Description>
+  </RefParameter>
+  <RefParameter Name="MDF_DFLT3_OLDBreakSignal" DefaultValue="MDF_NO_BREAK_SIGNAL" Comment="Break Signal" Type="list">
         <Condition Expression="MDF_DFLT3_OLDActivation=ENABLE" Diagnostic=""/>
         <PossibleValue Value="MDF_NO_BREAK_SIGNAL" Comment="No Break"/>
-             <PossibleValue Value="MDF_TIM1_BREAK_SIGNAL" Comment="TIM1 Break"/>
+        <PossibleValue Value="MDF_TIM1_BREAK_SIGNAL" Comment="TIM1 Break"/>
         <PossibleValue Value="MDF_TIM1_BREAK2_SIGNAL" Comment="TIM1 Break2"/>
         <PossibleValue Value="MDF_TIM8_BREAK_SIGNAL" Comment="TIM8 Break"/>
         <PossibleValue Value="MDF_TIM8_BREAK2_SIGNAL" Comment="TIM8 Break2"/>
@@ -3026,6 +3114,17 @@
    </RefParameter>
     <RefParameter Name="MDF_DFLT4_SCDThreshold" Comment="Threshold" DefaultValue="__NULL" Type="integer" Min="2" Max="256" Visible="false"/>
     <RefParameter Name="MDF_DFLT4_SCDBreakSignal" Comment="Break Signal" DefaultValue="MDF_NO_BREAK_SIGNAL" Type="list">
+        <Condition Expression="(MDF_DFLT4_SCDActivation=ENABLE) &amp; (DIE47A)" Diagnostic=""/>
+        <PossibleValue Value="MDF_NO_BREAK_SIGNAL"    Comment="No Break"/>
+        <PossibleValue Value="MDF_TIM1_BREAK_TIM15_BREAK_SIGNALS"  Comment="TIM1 break"/>
+        <PossibleValue Value="MDF_TIM1_BREAK2_TIM16_BREAK_SIGNALS" Comment="TIM1 Break2"/>
+        <PossibleValue Value="MDF_TIM8_BREAK_TIM17_BREAK_SIGNALS"  Comment="TIM8 Break"/>
+        <PossibleValue Value="MDF_TIM8_BREAK2_SIGNAL" Comment="TIM8 break2"/>
+        <Description>
+            Break signal defines the signal to use when the threshold is reached.
+        </Description>
+    </RefParameter>
+    <RefParameter Name="MDF_DFLT4_SCDBreakSignal" Comment="Break Signal" DefaultValue="MDF_NO_BREAK_SIGNAL" Type="list">
         <Condition Expression="MDF_DFLT4_SCDActivation=ENABLE" Diagnostic=""/>
         <PossibleValue Value="MDF_NO_BREAK_SIGNAL"    Comment="No Break"/>
         <PossibleValue Value="MDF_TIM1_BREAK_SIGNAL"  Comment="TIM1 break"/>
@@ -3074,9 +3173,20 @@
   </RefParameter>
     <RefParameter Name="MDF_DFLT4_OLDEventConfig" DefaultValue="null" Comment="OutOff Limit Event Config" Type="list" Visible="false"/>    
     <RefParameter Name="MDF_DFLT4_OLDBreakSignal" DefaultValue="MDF_NO_BREAK_SIGNAL" Comment="Break Signal" Type="list">        
+        <Condition Expression="(MDF_DFLT4_OLDActivation=ENABLE) &amp; (DIE47A)" Diagnostic=""/>        
+        <PossibleValue Value="MDF_NO_BREAK_SIGNAL" Comment="No Break"/>        
+        <PossibleValue Value="MDF_TIM1_BREAK_TIM15_BREAK_SIGNALS" Comment="TIM1 Break"/>
+        <PossibleValue Value="MDF_TIM1_BREAK2_TIM16_BREAK_SIGNALS" Comment="TIM1 Break2"/>
+        <PossibleValue Value="MDF_TIM8_BREAK_TIM17_BREAK_SIGNALS" Comment="TIM8 Break"/>
+        <PossibleValue Value="MDF_TIM8_BREAK2_SIGNAL" Comment="TIM8 Break2"/>
+        <Description>
+            Break signal defines the signal to use when the threshold is reached.
+        </Description>
+  </RefParameter>
+  <RefParameter Name="MDF_DFLT4_OLDBreakSignal" DefaultValue="MDF_NO_BREAK_SIGNAL" Comment="Break Signal" Type="list">        
         <Condition Expression="MDF_DFLT4_OLDActivation=ENABLE" Diagnostic=""/>        
         <PossibleValue Value="MDF_NO_BREAK_SIGNAL" Comment="No Break"/>        
-            <PossibleValue Value="MDF_TIM1_BREAK_SIGNAL" Comment="TIM1 Break"/>
+        <PossibleValue Value="MDF_TIM1_BREAK_SIGNAL" Comment="TIM1 Break"/>
         <PossibleValue Value="MDF_TIM1_BREAK2_SIGNAL" Comment="TIM1 Break2"/>
         <PossibleValue Value="MDF_TIM8_BREAK_SIGNAL" Comment="TIM8 Break"/>
         <PossibleValue Value="MDF_TIM8_BREAK2_SIGNAL" Comment="TIM8 Break2"/>
@@ -3617,6 +3727,17 @@
     </RefParameter>
     <RefParameter Name="MDF_DFLT5_SCDThreshold" Comment="Threshold" DefaultValue="__NULL" Type="integer" Min="2" Max="256" Visible="false"/>          
     <RefParameter Name="MDF_DFLT5_SCDBreakSignal" Comment="Break Signal" DefaultValue="MDF_NO_BREAK_SIGNAL" Type="list">        
+        <Condition Expression="(MDF_DFLT5_SCDActivation=ENABLE) &amp; (DIE47A)" Diagnostic=""/>        
+        <PossibleValue Value="MDF_NO_BREAK_SIGNAL"    Comment="No Break"/>        
+        <PossibleValue Value="MDF_TIM1_BREAK_TIM15_BREAK_SIGNALS"  Comment="TIM1 break"/>        
+        <PossibleValue Value="MDF_TIM1_BREAK2_TIM16_BREAK_SIGNALS" Comment="TIM1 Break2"/>        
+        <PossibleValue Value="MDF_TIM8_BREAK_TIM17_BREAK_SIGNALS"  Comment="TIM8 Break"/>        
+        <PossibleValue Value="MDF_TIM8_BREAK2_SIGNAL" Comment="TIM8 break2"/>        
+             <Description>
+            Break signal defines the signal to use when the threshold is reached.
+        </Description>
+ </RefParameter>
+ <RefParameter Name="MDF_DFLT5_SCDBreakSignal" Comment="Break Signal" DefaultValue="MDF_NO_BREAK_SIGNAL" Type="list">        
         <Condition Expression="MDF_DFLT5_SCDActivation=ENABLE" Diagnostic=""/>        
         <PossibleValue Value="MDF_NO_BREAK_SIGNAL"    Comment="No Break"/>        
         <PossibleValue Value="MDF_TIM1_BREAK_SIGNAL"  Comment="TIM1 break"/>        
@@ -3664,6 +3785,17 @@
         </Description>
   </RefParameter>
     <RefParameter Name="MDF_DFLT5_OLDEventConfig" DefaultValue="null" Comment="OutOff Limit Event Config" Type="list" Visible="false"/>    
+    <RefParameter Name="MDF_DFLT5_OLDBreakSignal" DefaultValue="MDF_NO_BREAK_SIGNAL" Comment="Break Signal" Type="list">        
+        <Condition Expression="(MDF_DFLT5_OLDActivation=ENABLE) &amp;(DIE47A)" Diagnostic=""/>
+        <PossibleValue Value="MDF_NO_BREAK_SIGNAL" Comment="No Break"/>
+         <PossibleValue Value="MDF_TIM1_BREAK_TIM15_BREAK_SIGNALS" Comment="TIM1 Break"/>
+        <PossibleValue Value="MDF_TIM1_BREAK2_TIM16_BREAK_SIGNALS" Comment="TIM1 Break2"/>
+        <PossibleValue Value="MDF_TIM8_BREAK_TIM17_BREAK_SIGNALS" Comment="TIM8 Break"/>
+        <PossibleValue Value="MDF_TIM8_BREAK2_SIGNAL" Comment="TIM8 Break2"/>
+        <Description>
+            Break signal defines the signal to use when the threshold is reached.
+        </Description>
+    </RefParameter>
     <RefParameter Name="MDF_DFLT5_OLDBreakSignal" DefaultValue="MDF_NO_BREAK_SIGNAL" Comment="Break Signal" Type="list">        
         <Condition Expression="MDF_DFLT5_OLDActivation=ENABLE" Diagnostic=""/>
         <PossibleValue Value="MDF_NO_BREAK_SIGNAL" Comment="No Break"/>
@@ -3827,7 +3959,7 @@
     <RefParameter Name="MDF_COMPARAM_ActivationClockTrigger" DefaultValue="null" Comment="Output Clock Trigger Activation" Type="string" Visible="false"/>
 
     <RefParameter Name="MDF_COMPARAM_Clock_Source" DefaultValue="MDF_CLOCK_TRIG_TRGO" Comment="Trigger Source" Type="list" >
-        <Condition Expression="($IpInstance=ADF1)&amp;(MDF_COMPARAM_ActivationClockTrigger=ENABLE)&amp;(DIE454) " Diagnostic=""/>
+        <Condition Expression="($IpInstance=ADF1)&amp;(MDF_COMPARAM_ActivationClockTrigger=ENABLE)&amp;(DIE454|DIE42C) " Diagnostic=""/>
         <PossibleValue Value="MDF_CLOCK_TRIG_TRGO" Comment="TRGO"/>
         <PossibleValue Value="MDF_CLOCK_TRIG_EXTI15" Comment="EXTI15"/>
         <PossibleValue Value="MDF_CLOCK_TRIG_TIM1_TRGO" Comment="TIM1 TRGO" Condition="!TIM1_Used" Diagnostic="TIM1 has to be configured" Action="Disable"/>

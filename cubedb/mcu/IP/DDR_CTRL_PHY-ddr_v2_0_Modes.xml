@@ -21,10 +21,8 @@
     <!--############################# DDR SYSTEM PARAMETERS (VISIBLE TO USER) ###########################-->
     <!--#################################################################################################-->
 		
-	<RefParameter Name="RD-PRE" Comment="RD-PRE" DefaultValue="Static"  TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Advanced" Type="list">
+	<RefParameter Name="RD-PRE" Comment="RD-PRE" DefaultValue="Static"  TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Advanced" Type="String">
         <Condition Diagnostic="" Expression="LPDDR4"/>
-		<PossibleValue Comment="Static" Value="Static"/>
-        <PossibleValue Comment="Toggle" Value="Toggle"/>
         <Description></Description> 
     </RefParameter>
 	
@@ -34,17 +32,16 @@
         <Description>Programmable READ preamble tRPRE, can be set to either 1tCK or 2tCK via the MR3 register.</Description> 
     </RefParameter>
 
-    <RefParameter Name="tWPRE" Comment="WRITE Preamble (tWPRE)" DefaultValue="1" Unit="clock" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Advanced" Type="list">
-        <PossibleValue Comment="1" Value="1"/>
-        <PossibleValue Comment="2" Value="2"/>
-        <Description>Programmable WRITE preamble tWPRE, can either be set to 1tCK or 2 tCK via the MR3.</Description> 
+    <RefParameter Name="tWPRE" Comment="WRITE Preamble (tWPRE)" DefaultValue="1" Unit="clock" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Advanced" Type="integerReadOnly">
+        <Condition Diagnostic="" Expression="DDR4"/>
+        <Description>Programmable WRITE preamble tWPRE, can either be set to 1tCK or 2 tCK via the MR3 register.</Description>
     </RefParameter>
     
     <RefParameter Name="FGRM" Comment="Fine Granularity Refresh Mode (FGRM)" Type="String" DefaultValue="1x" TabName="Parameter Settings" Group="REFRESH TIMINGS" Mode="Advanced">
         <Description>Controls REFRESH cycle time and average refresh interval for the DDR4 SDRAM via the MR3, leave default 1x.</Description> 
     </RefParameter>
 
-    <RefParameter Name="VREF (%)" Comment="VREFDQ Training Value" DefaultValue="74.3" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Advanced" Type="doubleReadOnly">
+    <RefParameter Name="VREF (%)" Comment="VREFDQ Training Value" DefaultValue="74.3" Unit="%" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Advanced" Type="doubleReadOnly">
         <Description>VREFDQ Training Value: Fifty settings provided 0.65% of granularity steps sizes for both Range 1 and Range 2 of VREFDQ; Range 1 with 74.3% is set by default. (the optimal setting according to Impedance is determined during PHY Initialization).</Description> 
     </RefParameter>
     
@@ -53,14 +50,14 @@
         <PossibleValue Comment="reduced" Value="reduced"/>
         <PossibleValue Comment="extended" Value="extended"/>
         <PossibleValue Comment="auto" Value="auto"/>
-        <Description>SELF REFRESH operation over different temperature ranges can use this feature to optimize the IDD6 current for a given temperature range as specified in the MR2 Register.</Description> 
+        <Description>SELF REFRESH operation over different temperature ranges can use this feature to optimize the IDD6 current for a given temperature range as specified in the MR2 register.</Description>
     </RefParameter>
     
     <RefParameter Name="ODI" Comment="Output Driver Impedance Control (ODI)" DefaultValue="48" Unit="ohm" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Advanced" Type="list">
         <Condition Diagnostic="" Expression="DDR4"/>
 		<PossibleValue Comment="34" Value="34"/>
         <PossibleValue Comment="48" Value="48"/>
-		<Description>The output driver impedance of the DDR4 SDRAM device is selected via MR1.</Description>
+		<Description>The output driver impedance of the DDR4 SDRAM device is selected via MR1 register.</Description>
     </RefParameter>
     
     <RefParameter Name="RTT_NOM" Comment="DDR4 nominal termination (RTT_NOM)" DefaultValue="0" Unit="ohm" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Advanced" Type="list">
@@ -73,16 +70,19 @@
         <PossibleValue Comment="80" Value="80"/>
         <PossibleValue Comment="120" Value="120"/>
         <PossibleValue Comment="240" Value="240"/>
-		<Description>DDR4 nominal termination programmed via MR1.</Description>
+		<Description>DDR4 nominal termination programmed via MR1 register.</Description>
     </RefParameter>
+  
 	
-	<RefParameter Name="RTT_nom" Comment="DDR3 nominal termination (RTT_nom)" DefaultValue="0" Unit="ohm" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Advanced" Type="list">
+	<RefParameter Name="RTT_NOM" Comment="DDR3 nominal termination (RTT_NOM)" DefaultValue="0" Unit="ohm" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Advanced" Type="list">
         <Condition Diagnostic="" Expression="DDR3"/>
 		<PossibleValue Comment="0" Value="0"/>
+        <PossibleValue Comment="20" Value="20"/>
 		<PossibleValue Comment="34" Value="34"/>
+        <PossibleValue Comment="40" Value="40"/>
         <PossibleValue Comment="60" Value="60"/>
         <PossibleValue Comment="120" Value="120"/>
-		<Description>DDR3 nominal termination programmed via MR1.</Description>
+		<Description>DDR3 nominal termination programmed via MR1 register.</Description>
     </RefParameter>
 
 	<RefParameter Name="ASR" Comment="ASR" DefaultValue="0" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Advanced" Type="list">
@@ -104,24 +104,24 @@
 		<Description></Description>
     </RefParameter>
 
-    <RefParameter Name="RTT_WR" Comment="DDR4 termination during Write (RTT_WR)" DefaultValue="80" Unit="ohm" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Advanced" Type="list">
+    <RefParameter Name="RTT_WR" Comment="DDR4 termination during Write (RTT_WR)" DefaultValue="0" Unit="ohm" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Advanced" Type="list">
         <Condition Diagnostic="" Expression="DDR4"/>
 		<PossibleValue Comment="0" Value="0"/>
 		<PossibleValue Comment="80" Value="80"/>
         <PossibleValue Comment="120" Value="120"/>
         <PossibleValue Comment="240" Value="240"/>
-		<Description>DDR4  termination during Write programmed via MR2.</Description>
+		<Description>DDR4  termination during Write programmed via MR2 register.</Description>
     </RefParameter>
 
-    <RefParameter Name="RTT-wr" Comment="RTT-wr" DefaultValue="60" Unit="ohm" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Advanced" Type="list">
+    <RefParameter Name="RTT_WR" Comment="RTT_WR" DefaultValue="60" Unit="ohm" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Advanced" Type="list">
         <Condition Diagnostic="" Expression="DDR3"/>
 		<PossibleValue Comment="0" Value="0"/>
 		<PossibleValue Comment="60" Value="60"/>
         <PossibleValue Comment="120" Value="120"/>
-		<Description></Description>
+		<Description>DDR3 termination during write programmed via MR2 register.</Description>
     </RefParameter>
 
-    <RefParameter Name="CAS lat" Comment="CAS lat" DefaultValue="11" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Advanced" Type="IntregerReadOnly">
+    <RefParameter Name="CAS lat" Comment="CAS lat" DefaultValue="11" Unit="clock" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Advanced" Type="integerReadOnly">
         <Condition Diagnostic="" Expression="DDR3"/>
 		<Description></Description>
     </RefParameter>
@@ -136,7 +136,7 @@
         <PossibleValue Comment="80" Value="80"/>
         <PossibleValue Comment="120" Value="120"/>
         <PossibleValue Comment="240" Value="240"/>
-		<Description>DDR4 parked termination programmed via MR5.</Description>
+		<Description>DDR4 parked termination programmed via MR5 register.</Description>
     </RefParameter>
         
     <RefParameter Name="WR-RTP" Comment="Write recovery / READ to Precharge (WR-RTP)" DefaultValue="9" Unit="clock" TabName="Parameter Settings" Group="DISPLAY VALUE" Mode="Advanced" Type="integerReadOnly">
@@ -149,123 +149,128 @@
 		<Description></Description> 
     </RefParameter>
 
-    <RefParameter Name="WCL" Comment="WCL" DefaultValue="4" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Advanced" Type="integerReadOnly">
+    <RefParameter Name="WCL" Comment="WCL" DefaultValue="4" Unit="clock" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Advanced" Type="integerReadOnly">
         <Condition Diagnostic="" Expression="DDR4"/>	
         <Description>Write command latency applicable only when Write CRC and DM are enabled, leave default (4).</Description> 
     </RefParameter>
 
     <RefParameter Name="memclk" Comment="memclk" DefaultValue="1200" Min="625" Max="1200" Unit="MHz" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="double">
-		<Condition Diagnostic="Memclk is PLL2 frequency multiplied by 2. " Expression="DDR4"/>
-        <Description> This Parameter can be changed from the clock tree. </Description>
+        <Condition Diagnostic="Memclk is PLL2 frequency multiplied by 2." Expression="DIE505 &amp; DDR4"/>
+        <Description>This Parameter can be changed from the clock tree.</Description>
     </RefParameter>
 
-    <RefParameter Name="memclk" Comment="memclk" DefaultValue="1200" Min="625" Max="1200" Unit="MHz" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="double">
-		<Condition Diagnostic="Memclk is PLL2 frequency multiplied by 2. " Expression="LPDDR4"/>
-        <Description> This Parameter can be changed from the clock tree. </Description>
+    <RefParameter Name="memclk" Comment="memclk" DefaultValue="1200" Min="10" Max="1200" Unit="MHz" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="double">
+        <Condition Diagnostic="Memclk is PLL2 frequency multiplied by 2." Expression="DIE505 &amp; LPDDR4"/>
+        <Description>This Parameter can be changed from the clock tree.</Description>
     </RefParameter>
 
-    <RefParameter Name="version" Comment="version" DefaultValue="2" Unit="" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="list" Visible="true">
-        <PossibleValue Comment="1" Value="1"/>
-		<PossibleValue Comment="2" Value="2" Semaphore="version-2"/>
-		<Description>Platform and cut selection: &lt;br&gt; 1: Panther cut 1.x &lt;br&gt; 2: Panther cut 2.x</Description>
+    <RefParameter Name="memclk" Comment="memclk" DefaultValue="933" Min="300" Max="1066" Unit="MHz" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="double">
+        <Condition Diagnostic="Memclk is PLL2 frequency multiplied by 2." Expression="DIE505 &amp; DDR3"/>
+        <Description>This Parameter can be changed from the clock tree.</Description>
+    </RefParameter>
+    <RefParameter Name="memclk" Comment="memclk" DefaultValue="800" Min="625" Max="800" Unit="MHz" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="double">
+        <Condition Diagnostic="Memclk is PLL2 frequency multiplied by 2." Expression="DIE503 &amp; DDR4"/>
+        <Description>This Parameter can be changed from the clock tree.</Description>
     </RefParameter>
 
-	<RefParameter Name="memclk" Comment="memclk" DefaultValue="933" Min="300" Max="1066" Unit="MHz" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="double">
-		<Condition Diagnostic="Memclk is PLL2 frequency multiplied by 2. " Expression="DDR3"/>
-        <Description>Memory Clock frequency, used to detemine timings.</Description> 
+    <RefParameter Name="memclk" Comment="memclk" DefaultValue="800" Min="10" Max="800" Unit="MHz" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="double">
+        <Condition Diagnostic="Memclk is PLL2 frequency multiplied by 2." Expression="DIE503 &amp; LPDDR4"/>
+        <Description>This Parameter can be changed from the clock tree.</Description>
     </RefParameter>
-    <RefParameter Name="package" Comment="package" DefaultValue="2" Unit="" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="list" Visible="true">
-       <Condition Expression="VFBGA361" Diagnostic=""/>
+    <RefParameter Name="memclk" Comment="memclk" DefaultValue="800" Min="300" Max="800" Unit="MHz" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="double">
+        <Condition Diagnostic="Memclk is PLL2 frequency multiplied by 2." Expression="DIE503 &amp; DDR3"/>
+        <Description>This Parameter can be changed from the clock tree.</Description>
+    </RefParameter>
+
+    <RefParameter Name="version" Comment="version" DefaultValue="2" Unit="" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="integerReadOnly" Visible="true">
+        <Condition Diagnostic="" Expression="DIE505 &amp; DDR3"/>
+        <PossibleValue Comment="2" Value="2" Condition="!DIE505" />
+        <PossibleValue Comment="4" Value="4" />
+        <Description>Platform  selection: &lt;br&gt; 2: STM32MP25  &lt;br&gt; 3: STM32MP21  &lt;br&gt;4:  STM32MP23</Description>
+    </RefParameter>
+    <RefParameter Name="version" Comment="version" DefaultValue="2" Unit="" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="integerReadOnly" Visible="true">
+        <Condition Diagnostic="" Expression="DIE505 &amp; DDR4"/>
+        <PossibleValue Comment="2" Value="2"  />
+        <PossibleValue Comment="4" Value="4" />
+        <Description>Platform  selection: &lt;br&gt; 2: STM32MP25  &lt;br&gt; 3: STM32MP21  &lt;br&gt;4:  STM32MP23</Description>
+    </RefParameter>
+    <RefParameter Name="version" Comment="version" DefaultValue="2" Unit="" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="integerReadOnly" Visible="true">
+        <Condition Diagnostic="" Expression="DIE505 &amp; LPDDR4"/>
+        <PossibleValue Comment="2" Value="2"  />
+        <PossibleValue Comment="4" Value="4" />
+        <Description>Platform  selection: &lt;br&gt; 2: STM32MP25  &lt;br&gt; 3: STM32MP21  &lt;br&gt;4:  STM32MP23</Description>
+    </RefParameter>
+
+    <RefParameter Name="version" Comment="version" DefaultValue="3" Unit="" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="integerReadOnly" Visible="true">
+        <Condition Diagnostic="" Expression="DIE503 &amp; DDR3"/>
+        <PossibleValue Comment="3" Value="3" />
+        <Description>Platform  selection: &lt;br&gt; 2: STM32MP25  &lt;br&gt; 3: STM32MP21  &lt;br&gt;4:  STM32MP23</Description>
+    </RefParameter>
+    <RefParameter Name="version" Comment="version" DefaultValue="3" Unit="" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="integerReadOnly" Visible="true">
+        <Condition Diagnostic="" Expression="DIE503 &amp; DDR4"/>
+        <PossibleValue Comment="3" Value="3" />
+        <Description>Platform  selection: &lt;br&gt; 2: STM32MP25  &lt;br&gt; 3: STM32MP21  &lt;br&gt;4:  STM32MP23</Description>
+    </RefParameter>
+    <RefParameter Name="version" Comment="version" DefaultValue="3" Unit="" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="integerReadOnly" Visible="true">
+        <Condition Diagnostic="" Expression="DIE503 &amp; LPDDR4"/>
+        <PossibleValue Comment="3" Value="3" />
+        <Description>Platform  selection: &lt;br&gt; 2: STM32MP25  &lt;br&gt; 3: STM32MP21  &lt;br&gt;4:  STM32MP23</Description>
+    </RefParameter>
+
+    <RefParameter Name="package" Comment="package" DefaultValue="1" Unit="" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="list" Visible="true">
+        <Condition Expression="!(VFBGA361|(DIE503 &amp; DDR3)|(DIE503 &amp; DDR4))" Diagnostic=""/>
+        <PossibleValue Comment="1" Value="1" Semaphore="Package_only_32bits" />
         <PossibleValue Comment="2" Value="2"/>
     </RefParameter>
-    <RefParameter Name="package" Comment="package" DefaultValue="1" Unit="" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="list" Visible="true">
-		<PossibleValue Comment="1" Value="1" Semaphore="Package_only_32bits" />
-		<PossibleValue Comment="2" Value="2"/>
-    </RefParameter>
+    <RefParameter Name="package" Comment="package" DefaultValue="2" Unit="" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="list" Visible="true">
+       <Condition Expression="LPDDR4" Diagnostic=""/>
+        <PossibleValue Comment="1" Value="1"/>
+    </RefParameter>    <RefParameter Name="package" Comment="package" DefaultValue="2" Unit="" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="list" Visible="true">
+    <Condition Expression="VFBGA361|(DIE503 &amp; DDR3)|(DIE503 &amp; DDR4)|(STM32MP231 | STM32MP233 | STM32MP235)" Diagnostic=""/>
+    <PossibleValue Comment="2" Value="2"/>
+</RefParameter>
 
 
- <RefParameter Name="Speed_Bin" Comment="Speed_Bin" DefaultValue="Worse" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="list">
+	<RefParameter Name="Speed_Bin" Comment="Speed_Bin" DefaultValue="Worse" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="String">
 		 <Condition Diagnostic="" Expression="DDR4"/>
-         <PossibleValue Comment="Worse" Value="Worse"/>
-		 <PossibleValue Comment="DDR4-1600J 10-10-10" Value="DDR4 1600J 10 10 10" Condition = "2 * memclk &gt; 1600" Diagnostic="memclk must be lower than 1600J / 2 (l= 800 MHz)"/>
-		 <PossibleValue Comment="DDR4-1600K 11-11-11" Value="DDR4 1600K 11 11 11" Condition = "2 * memclk &gt; 1600" />
-		 <PossibleValue Comment="DDR4-1600L 12-12-12" Value="DDR4 1600L 12 12 12" Condition = "2 * memclk &gt; 1600" />
-		 <PossibleValue Comment="DDR4-1866L 12-12-12" Value="DDR4 1866L 12 12 12" Condition = "2 * memclk &gt; 1866" />
-		 <PossibleValue Comment="DDR4-1866M 13-13-13" Value="DDR4 1866M 13 13 13" Condition = "2 * memclk &gt; 1866" />
-		 <PossibleValue Comment="DDR4-1866N 14-14-14" Value="DDR4 1866N 14 14 14" Condition = "2 * memclk &gt; 1866" />
-		 <PossibleValue Comment="DDR4-2133N 14-14-14" Value="DDR4 2133N 14 14 14" Condition = "2 * memclk &gt; 2133" />
-		 <PossibleValue Comment="DDR4-2133P 15-15-15" Value="DDR4 2133P 15 15 15" Condition = "2 * memclk &gt; 2133" />
-		 <PossibleValue Comment="DDR4-2133R 16-16-16" Value="DDR4 2133R 16 16 16" Condition = "2 * memclk &gt; 2133" />
-		 <PossibleValue Comment="DDR4-2400P 15-15-15" Value="DDR4 2400P 15 15 15" Condition = "2 * memclk &gt; 2400" />
-		 <PossibleValue Comment="DDR4-2400R 16-16-16" Value="DDR4 2400R 16 16 16" Condition = "2 * memclk &gt; 2400" />
-		 <PossibleValue Comment="DDR4-2400T 17-17-17" Value="DDR4 2400T 17 17 17" Condition = "2 * memclk &gt; 2400" />
-		 <PossibleValue Comment="DDR4-2400U 18-18-18" Value="DDR4 2400U 18 18 18" Condition = "2 * memclk &gt; 2400" />
-		 <PossibleValue Comment="DDR4-2666T 17-17-17" Value="DDR4 2666T 17 17 17" Condition = "2 * memclk &gt; 2666" />
-		 <PossibleValue Comment="DDR4-2666U 18-18-18" Value="DDR4 2666U 18 1818" Condition = "2 * memclk &gt; 2666" />
-		 <PossibleValue Comment="DDR4-2666V 19-19-19" Value="DDR42666V 191919" Condition = "2 * memclk &gt; 2666" />
-		 <PossibleValue Comment="DDR4-2666W 20-20-20" Value="DDR4 2666W 20 20 20" Condition = "2 * memclk &gt; 2666" />
-		 <PossibleValue Comment="DDR4-2933V 19-19-19" Value="DDR4 2933V 19 19 19" Condition = "2 * memclk &gt; 2933" />
-		 <PossibleValue Comment="DDR4-2933W 20-20-20" Value="DDR4 2933W 20 20 20" Condition = "2 * memclk &gt; 2933" />
-		 <PossibleValue Comment="DDR4-2933Y 21-21-21" Value="DDR4 2933Y 21 21 21" Condition = "2 * memclk &gt; 2933" />
-		 <PossibleValue Comment="DDR4-2933AA 22-22-22" Value="DDR4 2933AA 22 22 22" Condition = "2 * memclk &gt; 2933" />
-		 <PossibleValue Comment="DDR4-3200W 20-20-20" Value="DDR4 3200W 20 20 20" Condition = "2 * memclk &gt; 3200" />
-		 <PossibleValue Comment="DDR4-3200AA 22-22-22" Value="DDR4 3200AA 22 22 22" Condition = "2 * memclk &gt; 3200"/>
-		 <PossibleValue Comment="DDR4-3200AC 24-24-24" Value="DDR4 3200AC 24 24 24" Condition = "2 * memclk &gt; 3200"/>
     </RefParameter>
 
 	<RefParameter Name="Speed_Bin" Comment="Speed_Bin" DefaultValue="" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="String" Visible="false">
 		 <Condition Diagnostic="N/A" Expression="LPDDR4"/>
     </RefParameter>
 
-	<RefParameter Name="Speed-Bin" Comment="Speed-Bin" DefaultValue="Worse" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="list">
+	<RefParameter Name="Speed_Bin" Comment="Speed_Bin" DefaultValue="Worse" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="String">
 		 <Condition Diagnostic="" Expression="DDR3"/>
-         <PossibleValue Comment="Worse" Value="Worse"/>
-		 <PossibleValue Comment="DDR3-1066E 6-6-6" Value="DDR3 1066E 6 6 6" Condition = "2 * memclk &gt; 1067" Diagnostic="memclk must be lower than 1066 / 2 (&lt;= 533 MHz)"/>
-		 <PossibleValue Comment="DDR3-1066F 7-7-7" Value="DDR3 1066F 7 7 7" Condition = "2 * memclk &gt; 1067" Diagnostic="memclk must be lower than 1066 / 2 (&lt;= 533 MHz)"/>
-		 <PossibleValue Comment="DDR3-1066G 8-8-8" Value="DDR3 1066G 8 8 8" Condition = "2 * memclk &gt; 1067" Diagnostic="memclk must be lower than 1066 / 2 (&lt;= 533 MHz)"/>
-		 <PossibleValue Comment="DDR3-1333F 7-7-7" Value="DDR3 1333F 7 7 7" Condition = "2 * memclk &gt; 1333" Diagnostic="memclk must be lower than 1333 / 2 (&lt;= 516 MHz)"/>
-		 <PossibleValue Comment="DDR3-1333G 8-8-8" Value="DDR3 1333G 8 8 8" Condition = "2 * memclk &gt; 1333" Diagnostic="memclk must be lower than 1333 / 2 (&lt;= 516 MHz)"/>
-		 <PossibleValue Comment="DDR3-1333H 9-9-9" Value="DDR3 1333H 9 9 9" Condition = "2 * memclk &gt; 1333" Diagnostic="memclk must be lower than 1333 / 2 (&lt;= 516 MHz)"/>
-		 <PossibleValue Comment="DDR3-1333J 10-10-10" Value="DDR3 1333J 10 10 10" Condition = "2 * memclk &gt; 1333" Diagnostic="memclk must be lower than 1333 / 2 (&lt;= 516 MHz)"/>
-		 <PossibleValue Comment="DDR3-1600G 8-8-8" Value="DDR3 1600G 8 8 8" Condition = "2 * memclk &gt; 1600" Diagnostic="memclk must be lower than 1600 / 2 (&lt;= 800 MHz)"/>
-		 <PossibleValue Comment="DDR3-1600H 9-9-9" Value="DDR3 1600H 9 9 9" Condition = "2 * memclk &gt; 1600" Diagnostic="memclk must be lower than 1600 / 2 (&lt;= 800 MHz)"/>
-		 <PossibleValue Comment="DDR3-1600J 10-10-10" Value="DDR3 1600J 10 10 10" Condition = "2 * memclk &gt; 1600" Diagnostic="memclk must be lower than 1600 / 2 (&lt;= 800 MHz)"/>
-		 <PossibleValue Comment="DDR3-1600K 11-11-11" Value="DDR3 1600K 11 11 11" Condition = "2 * memclk &gt; 1600" Diagnostic="memclk must be lower than 1600 / 2 (&lt;= 800 MHz)"/>
-		 <PossibleValue Comment="DDR3-1866J 10-10-10" Value="DDR3 1866J 10 10 10" Condition = "2 * memclk &gt; 1866" Diagnostic="memclk must be lower than 1866 / 2 (&lt;= 933 MHz)"/>
-		 <PossibleValue Comment="DDR3-1866K 11-11-11" Value="DDR3 1866K 11 11 11" Condition = "2 * memclk &gt; 1866" Diagnostic="memclk must be lower than 1866 / 2 (&lt;= 933 MHz)"/>
-		 <PossibleValue Comment="DDR3-1866L 12-12-12" Value="DDR3 1866L 12 12 12" Condition = "2 * memclk &gt; 1866" Diagnostic="memclk must be lower than 1866 / 2 (&lt;= 933 MHz)"/>
-		 <PossibleValue Comment="DDR3-1866M 13-13-13" Value="DDR3 1866M 13 13 13" Condition = "2 * memclk &gt; 1866" Diagnostic="memclk must be lower than 1866 / 2 (&lt;= 933 MHz)"/>
-		 <PossibleValue Comment="DDR3-2133K 11-11-11" Value="DDR3 2133K 11 11 11" Condition = "2 * memclk &gt; 2133" Diagnostic="memclk must be lower than 2133 / 2 (&lt;= 1066 MHz)"/>
-		 <PossibleValue Comment="DDR3-2133L 12-12-12" Value="DDR3 2133L 12 12 12" Condition = "2 * memclk &gt; 2133" Diagnostic="memclk must be lower than 2133 / 2 (&lt;= 1066 MHz)"/>
-		 <PossibleValue Comment="DDR3-2133M 13-13-13" Value="DDR3 2133M 13 13 13" Condition = "2 * memclk &gt; 2133" Diagnostic="memclk must be lower than 2133 / 2 (&lt;= 1066 MHz)"/>
-		 <PossibleValue Comment="DDR3-2133N 14-14-14" Value="DDR3 2133N 14 14 14" Condition = "2 * memclk &gt; 2133" Diagnostic="memclk must be lower than 2133 / 2 (&lt;= 1066 MHz)"/>
     </RefParameter>
 	
-    <RefParameter Name="BL" Comment="Burst Length (BL)" DefaultValue="8" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="integerReadOnly">
+    <RefParameter Name="BL" Comment="Burst Length (BL)" DefaultValue="8" Unit="bits" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="integerReadOnly">
         <Condition Diagnostic="" Expression="DDR4|DDR3"/>
 		<Description>Burst Length (BL8/BC4/BC4 or 8 on the fly) leave default (BL8).</Description> 
     </RefParameter>
 
-    <RefParameter Name="BL" Comment="Burst Length (BL)" DefaultValue="16" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="integerReadOnly">
+    <RefParameter Name="BL" Comment="Burst Length (BL)" DefaultValue="16" Unit="bits" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="integerReadOnly">
 		<Condition Diagnostic="" Expression="LPDDR4"/>
 		<Description>Burst Length.</Description> 
     </RefParameter>
 
-	<RefParameter Name="device_width" Comment="device_width" DefaultValue="16" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="String">
+	<RefParameter Name="device_width" Comment="device_width" DefaultValue="16" Unit="bits" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="String">
 		<Condition Diagnostic="" Expression="LPDDR4"/>
 		<Description></Description> 
     </RefParameter>
 
-	<RefParameter Name="device_width" Comment="device_width" DefaultValue="16" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="list">
-		<Condition Diagnostic="" Expression="DDR4|DDR3"/>
+    <RefParameter Name="device_width" Comment="device_width" DefaultValue="16" Unit="bits" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="String">
+        <Condition Diagnostic="" Expression="DDR3"/>
+        <Description></Description>
+    </RefParameter>
+
+	<RefParameter Name="device_width" Comment="device_width" DefaultValue="8" Unit="bits" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="list">
+		<Condition Diagnostic="" Expression="DDR4"/>
 		<PossibleValue Comment="8" Value="8"/>
 		<PossibleValue Comment="16" Value="16"/>
 		<Description></Description> 
     </RefParameter>
 
-    <RefParameter Name="ranks" Comment="Number of ranks" DefaultValue="1" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Advanced" Type="list">
-        <PossibleValue Comment="1" Value="1"/>
-        <PossibleValue Comment="2" Value="2"/>
+    <RefParameter Name="ranks" Comment="Number of ranks" DefaultValue="1" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Advanced" Type="integerReadOnly">
         <Description>Number of ranks (dual rank is improbable with 2 8Gbit with half width interface).</Description> 
     </RefParameter>
 
@@ -286,8 +291,10 @@
 		<Description>DDR4 supports a fixed postamble it is 1/2tCK.</Description> 
     </RefParameter>
 
-    <RefParameter Name="RPST" Comment="RPST" DefaultValue="1.5" Unit="clock" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="double">
+    <RefParameter Name="RPST" Comment="RPST" DefaultValue="1.5" Unit="clock" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="list">
 		<Condition Diagnostic="" Expression="LPDDR4"/>
+        <PossibleValue Comment="0.5" Value="0.5"/>
+        <PossibleValue Comment="1.5" Value="1.5"/>
 		<Description>LPDDR4 supports a fixed postamble it is 1/2tCK.</Description> 
     </RefParameter>
 
@@ -319,7 +326,7 @@
 		<Description></Description> 
     </RefParameter>
 
-    <RefParameter Name="PDDS" Comment="PDDS" DefaultValue="40" Unit="" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="String">
+    <RefParameter Name="PDDS" Comment="PDDS" DefaultValue="40" Unit="ohm" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="list">
 		<Condition Diagnostic="" Expression="LPDDR4"/>
         <PossibleValue Comment="40" Value="40"/>
         <PossibleValue Comment="48" Value="48"/>
@@ -330,19 +337,7 @@
 		<Description></Description> 
     </RefParameter>
 
-    <RefParameter Name="CA ODT" Comment="CA ODT" DefaultValue="40" Unit="" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="String">
-		<Condition Diagnostic="" Expression="LPDDR4"/>
-        <PossibleValue Comment="0" Value="0"/>		
-        <PossibleValue Comment="40" Value="40"/>
-        <PossibleValue Comment="48" Value="48"/>
-        <PossibleValue Comment="60" Value="60"/>
-        <PossibleValue Comment="80" Value="80"/>
-        <PossibleValue Comment="120" Value="120"/>
-        <PossibleValue Comment="240" Value="240"/>		
-		<Description></Description> 
-    </RefParameter>
-
-    <RefParameter Name="DQ ODT" Comment="DQ ODT" DefaultValue="40" Unit="" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="String">
+    <RefParameter Name="CA ODT" Comment="CA ODT" DefaultValue="40" Unit="ohm" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="String">
 		<Condition Diagnostic="" Expression="LPDDR4"/>
         <PossibleValue Comment="0" Value="0"/>		
         <PossibleValue Comment="40" Value="40"/>
@@ -354,7 +349,19 @@
 		<Description></Description> 
     </RefParameter>
 
-    <RefParameter Name="SoC ODT" Comment="SoC ODT" DefaultValue="60" Unit="" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="String">
+    <RefParameter Name="DQ ODT" Comment="DQ ODT" DefaultValue="40" Unit="ohm" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="list">
+	<Condition Diagnostic="" Expression="LPDDR4"/>
+        <PossibleValue Comment="0" Value="0"/>
+        <PossibleValue Comment="40" Value="40"/>
+        <PossibleValue Comment="48" Value="48"/>
+        <PossibleValue Comment="60" Value="60"/>
+        <PossibleValue Comment="80" Value="80"/>
+        <PossibleValue Comment="120" Value="120"/>
+        <PossibleValue Comment="240" Value="240"/>		
+       <Description></Description> 
+    </RefParameter>
+
+    <RefParameter Name="SoC ODT" Comment="SoC ODT" DefaultValue="60" Unit="ohm" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="String">
 		<Condition Diagnostic="" Expression="LPDDR4"/>
         <PossibleValue Comment="0" Value="0"/>		
         <PossibleValue Comment="40" Value="40"/>
@@ -366,62 +373,73 @@
 		<Description></Description> 
     </RefParameter>
 
-    <RefParameter Name="ATx Impedance" Comment="ATx Impedance" DefaultValue="40" Unit="" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="String">
-		<PossibleValue Comment="20" Value="20"/>		
-        <PossibleValue Comment="24" Value="24"/>
+    <RefParameter Name="ODT Impedance" Comment="ODT Impedance" DefaultValue="53" Unit="ohm" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="list">
+		<Condition Diagnostic="" Expression="LPDDR4"/>
+        <PossibleValue Comment="28" Value="28"/>
         <PossibleValue Comment="30" Value="30"/>
-        <PossibleValue Comment="40" Value="40"/>
-        <PossibleValue Comment="60" Value="60"/>
-        <PossibleValue Comment="120" Value="120"/>	
-		<Description></Description> 
-    </RefParameter>
-
-    <RefParameter Name="ODT Impedance" Comment="ODT Impedance" DefaultValue="53" Unit="" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="String">
-		<Condition Diagnostic="" Expression="LPDDR4"/>
-		<PossibleValue Comment="28" Value="28"/>		
-        <PossibleValue Comment="30" Value="30"/>
+        <PossibleValue Comment="32" Value="32"/>
         <PossibleValue Comment="34" Value="34"/>
         <PossibleValue Comment="37" Value="37"/>
         <PossibleValue Comment="40" Value="40"/>
         <PossibleValue Comment="44" Value="44"/>
         <PossibleValue Comment="48" Value="48"/>	
         <PossibleValue Comment="53" Value="53"/>
-		<PossibleValue Comment="60" Value="60"/>
-        <PossibleValue Comment="68" Value="68"/>		
+    	<PossibleValue Comment="60" Value="60"/>
+        <PossibleValue Comment="68" Value="68"/>
+        <PossibleValue Comment="80" Value="80"/>
+        <PossibleValue Comment="96" Value="96"/>
+        <PossibleValue Comment="120" Value="120"/>
+        <PossibleValue Comment="160" Value="160"/>
+        <PossibleValue Comment="240" Value="240"/>
+        <PossibleValue Comment="480" Value="480"/>
 		<Description></Description> 
     </RefParameter>
 
-    <RefParameter Name="ODT Impedance" Comment="ODT Impedance" DefaultValue="53" Unit="" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="String">
+    <RefParameter Name="ODT Impedance" Comment="ODT Impedance" DefaultValue="53" Unit="" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="list">
 		<Condition Diagnostic="" Expression="DDR4"/>
 		<PossibleValue Comment="28" Value="28"/>		
         <PossibleValue Comment="30" Value="30"/>
+        <PossibleValue Comment="32" Value="32"/>
         <PossibleValue Comment="34" Value="34"/>
         <PossibleValue Comment="37" Value="37"/>
         <PossibleValue Comment="40" Value="40"/>
         <PossibleValue Comment="44" Value="44"/>
         <PossibleValue Comment="48" Value="48"/>	
         <PossibleValue Comment="53" Value="53"/>
-		<PossibleValue Comment="60" Value="60"/>
-        <PossibleValue Comment="68" Value="68"/>		
-		<Description></Description> 
+	<PossibleValue Comment="60" Value="60"/>
+        <PossibleValue Comment="68" Value="68"/>
+        <PossibleValue Comment="80" Value="80"/>
+        <PossibleValue Comment="96" Value="96"/>
+        <PossibleValue Comment="120" Value="120"/>
+        <PossibleValue Comment="160" Value="160"/>
+        <PossibleValue Comment="240" Value="240"/>
+        <PossibleValue Comment="480" Value="480"/>
+        <Description></Description>
     </RefParameter>
 
-    <RefParameter Name="ODT Impedance" Comment="ODT Impedance" DefaultValue="60" Unit="" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="String">
+    <RefParameter Name="ODT Impedance" Comment="ODT Impedance" DefaultValue="60" Unit="ohm" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="list">
 		<Condition Diagnostic="" Expression="DDR3"/>
-		<PossibleValue Comment="28" Value="28"/>		
+         <PossibleValue Comment="28" Value="28"/>
         <PossibleValue Comment="30" Value="30"/>
+        <PossibleValue Comment="32" Value="32"/>
         <PossibleValue Comment="34" Value="34"/>
         <PossibleValue Comment="37" Value="37"/>
         <PossibleValue Comment="40" Value="40"/>
         <PossibleValue Comment="44" Value="44"/>
         <PossibleValue Comment="48" Value="48"/>	
         <PossibleValue Comment="53" Value="53"/>
-		<PossibleValue Comment="60" Value="60"/>
-        <PossibleValue Comment="68" Value="68"/>		
+	    <PossibleValue Comment="60" Value="60"/>
+        <PossibleValue Comment="68" Value="68"/>
+        <PossibleValue Comment="80" Value="80"/>
+        <PossibleValue Comment="96" Value="96"/>
+        <PossibleValue Comment="120" Value="120"/>
+        <PossibleValue Comment="160" Value="160"/>
+        <PossibleValue Comment="240" Value="240"/>
+        <PossibleValue Comment="480" Value="480"/>		
 		<Description></Description> 
     </RefParameter>
 
-    <RefParameter Name="Tx Impedance" Comment="Tx Impedance" DefaultValue="40" Unit="" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="String">
+    <RefParameter Name="Tx Impedance" Comment="Tx Impedance" DefaultValue="40" Unit="ohm" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="list">
 		<PossibleValue Comment="20" Value="20"/>		
         <PossibleValue Comment="24" Value="24"/>
         <PossibleValue Comment="30" Value="30"/>
@@ -447,12 +465,12 @@
 		<Description>% of VDDq</Description> 
     </RefParameter>
 	
-    <RefParameter Name="training_sequence" Comment="training_sequence" DefaultValue="131F" Unit="" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="String">
+    <RefParameter Name="training_sequence" Comment="training_sequence" DefaultValue="131F" Unit="hexa" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="String">
 		<Condition Diagnostic="" Expression="LPDDR4"/>	
 		<Description></Description> 
     </RefParameter>
 
-    <RefParameter Name="training_sequence" Comment="training_sequence" DefaultValue="31F" Unit="" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="String">
+    <RefParameter Name="training_sequence" Comment="training_sequence" DefaultValue="31F" Unit="hexa" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Basic" Type="String">
 		<Condition Diagnostic="" Expression="DDR4|DDR3"/>	
 		<Description></Description> 
     </RefParameter>
@@ -467,12 +485,12 @@
 		<Description>LPDDR4 supports a fixed postamble it is 1/2tCK.</Description> 
     </RefParameter>
 
-    <RefParameter Name="RL" Comment="RL" DefaultValue="20" Unit="" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Advanced" Type="integerReadOnly">
+    <RefParameter Name="RL" Comment="RL" DefaultValue="20" Unit="clock" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Advanced" Type="integerReadOnly">
     	<Condition Diagnostic="" Expression="LPDDR4"/>
 		<Description></Description> 
     </RefParameter>
 
-    <RefParameter Name="WL" Comment="WL" DefaultValue="10" Unit="" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Advanced" Type="integerReadOnly">
+    <RefParameter Name="WL" Comment="WL" DefaultValue="10" Unit="clock" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Advanced" Type="integerReadOnly">
     	<Condition Diagnostic="" Expression="LPDDR4"/>
 		<Description></Description> 
     </RefParameter>
@@ -486,22 +504,22 @@
 
     <RefParameter Name="CL" Comment="CAS Latency (CL)" DefaultValue="18" Unit="clock" TabName="Parameter Settings" Group="JEDEC CORE TIMINGS" Mode="Advanced" Type="integerReadOnly">
 		<Condition Diagnostic="" Expression="DDR4"/>
-        <Description>CAS latency according to freq, for timing and DDR4 MR0, calculated according to frequency. CAS latency according to frequency, for timing and DDR4 MR0, calculated according to frequency.</Description> 
+        <Description>CAS latency for timing and DDR4 MR0 registers, calculated according to frequency.</Description>
     </RefParameter>
 
 	<RefParameter Name="CL" Comment="CAS Latency (CL)" DefaultValue="11" Unit="clock" TabName="Parameter Settings" Group="JEDEC CORE TIMINGS" Mode="Advanced" Type="integerReadOnly">
 		<Condition Diagnostic="" Expression="DDR3"/>
-        <Description>CAS latency according to freq, for timing and DDR4 MR0, calculated according to frequency. CAS latency according to frequency, for timing and DDR4 MR0, calculated according to frequency.</Description> 
+        <Description>CAS latency for timing and DDR3 MR0 registers, calculated according to frequency.</Description>
     </RefParameter>
 
     <RefParameter Name="CWL" Comment="CAS Write Latency (CWL)" DefaultValue="12" Unit="clock" TabName="Parameter Settings" Group="JEDEC CORE TIMINGS" Mode="Advanced" Type="integerReadOnly">
 		<Condition Diagnostic="" Expression="DDR4"/>
-        <Description>CAS Write latency  according to freq, for timing and DDR4 MR2, calculated according to frequency.</Description> 
+        <Description>CAS Write latency for timing and DDR4 MR2 registers, calculated according to frequency.</Description>
     </RefParameter>
 	
     <RefParameter Name="CWL" Comment="CAS Write Latency (CWL)" DefaultValue="8" Unit="clock" TabName="Parameter Settings" Group="JEDEC CORE TIMINGS" Mode="Advanced" Type="integerReadOnly">
 		<Condition Diagnostic="" Expression="DDR3"/>
-        <Description>CAS Write latency  according to freq, for timing and DDR4 MR2, calculated according to frequency.</Description> 
+        <Description>CAS Write latency for timing and DDR3 MR2 registers, calculated according to frequency.</Description>
     </RefParameter>
 
     <RefParameter Name="nWR" Comment="nWR" DefaultValue="18" Unit="clock" TabName="Parameter Settings" Group="SYSTEM PARAMETERS" Mode="Advanced" Type="integerReadOnly">
@@ -551,17 +569,17 @@
 
     <RefParameter Name="tRAS" Comment="ACT to PRE command period (tRAS)" DefaultValue="35" Unit="ns" TabName="Parameter Settings" Group="JEDEC CORE TIMINGS" Mode="Advanced" Type="doubleReadOnly">
 		<Condition Diagnostic="" Expression="DDR4"/>	
-        <Description>JEDEC timings, according to Speed grade/ speed bins, used by DDR controller.</Description> 
+        <Description>JEDEC timings, according to speed grade / speed bins, used by DDR controller.</Description>
     </RefParameter>
 
     <RefParameter Name="tRAS" Comment="ACT to PRE command period (tRAS)" DefaultValue="42" Unit="ns" TabName="Parameter Settings" Group="JEDEC CORE TIMINGS" Mode="Advanced" Type="doubleReadOnly">
 		<Condition Diagnostic="" Expression="LPDDR4"/>	
-        <Description>JEDEC timings, according to Speed grade/ speed bins, used by DDR controller.</Description> 
+        <Description>JEDEC timings, used by DDR controller.</Description>
     </RefParameter>
 
     <RefParameter Name="tRAS" Comment="ACT to PRE command period (tRAS)" DefaultValue="37.5" Unit="ns" TabName="Parameter Settings" Group="JEDEC CORE TIMINGS" Mode="Advanced" Type="doubleReadOnly">
 		<Condition Diagnostic="" Expression="DDR3"/>	
-        <Description>JEDEC timings, according to Speed grade/ speed bins, used by DDR controller.</Description> 
+        <Description>JEDEC timings, according to speed grade / speed bins, used by DDR controller.</Description>
     </RefParameter>
 
     <RefParameter Name="tRAS_max" Comment="tRAS_max" DefaultValue="70200" Unit="µs" TabName="Parameter Settings" Group="JEDEC TIMINGS" Mode="Advanced" Type="integerReadOnly">
@@ -574,68 +592,64 @@
 		<Description>9*tRFI</Description> 
     </RefParameter>
 
-    <RefParameter Name="tRPab" Comment="tRPab" DefaultValue="21" Unit="" TabName="Parameter Settings" Group="JEDEC TIMINGS" Mode="Advanced" Type="integerReadOnly">
+    <RefParameter Name="tRPab" Comment="tRPab" DefaultValue="21" Unit="ns" TabName="Parameter Settings" Group="JEDEC TIMINGS" Mode="Advanced" Type="integerReadOnly">
 		<Condition Diagnostic="" Expression="LPDDR4"/>	        
 		<Description></Description> 
     </RefParameter>
 
-    <RefParameter Name="tRPpb" Comment="tRPpb" DefaultValue="18" Unit="" TabName="Parameter Settings" Group="JEDEC TIMINGS" Mode="Advanced" Type="integerReadOnly">
+    <RefParameter Name="tRPpb" Comment="tRPpb" DefaultValue="18" Unit="ns" TabName="Parameter Settings" Group="JEDEC TIMINGS" Mode="Advanced" Type="integerReadOnly">
 		<Condition Diagnostic="" Expression="LPDDR4"/>	        
 		<Description></Description> 
     </RefParameter>
 
     <RefParameter Name="tRP" Comment="Row Precharge Time (tRP)" DefaultValue="15" Unit="ns" TabName="Parameter Settings" Group="JEDEC CORE TIMINGS" Mode="Advanced" Type="doubleReadOnly">
         <Condition Diagnostic="" Expression="DDR4"/>
-		<Description>JEDEC timings, according to Speed grade / speed bins, used by DDR controller.</Description> 
+		<Description>JEDEC timings, according to speed grade / speed bins, used by DDR controller.</Description>
     </RefParameter>
 
     <RefParameter Name="tRP" Comment="Row Precharge Time (tRP)" DefaultValue="50" Unit="ns" TabName="Parameter Settings" Group="JEDEC CORE TIMINGS" Mode="Advanced" Type="doubleReadOnly">
         <Condition Diagnostic="" Expression="LPDDR4|DDR3"/>
-		<Description>JEDEC timings, according to Speed grade / speed bins, used by DDR controller.</Description> 
+		<Description>JEDEC timings, according to speed grade / speed bins, used by DDR controller.</Description>
     </RefParameter>
 
-    <RefParameter Name="tRC" Comment="Row Cycle Time (tRC)" DefaultValue="35" Unit="ns" TabName="Parameter Settings" Group="JEDEC CORE TIMINGS" Mode="Advanced" Type="doubleReadOnly">
-		<Condition Diagnostic="" Expression="DDR4"/>	
-        <Description>JEDEC timings, according to Speed grade / speed bins, used by DDR controller.</Description> 
-    </RefParameter>
 
     <RefParameter Name="tRC" Comment="Row Cycle Time (tRC)" DefaultValue="60" Unit="ns" TabName="Parameter Settings" Group="JEDEC CORE TIMINGS" Mode="Advanced" Type="doubleReadOnly">
 		<Condition Diagnostic="" Expression="LPDDR4"/>	
-        <Description>JEDEC timings, used by DDR controller.</Description> 
+        <Description>JEDEC timings, used by DDR controller.</Description>
     </RefParameter>
 	
     <RefParameter Name="tRC" Comment="Row Cycle Time (tRC)" DefaultValue="52.5" Unit="ns" TabName="Parameter Settings" Group="JEDEC CORE TIMINGS" Mode="Advanced" Type="doubleReadOnly">
 		<Condition Diagnostic="" Expression="DDR3"/>	
-        <Description>JEDEC timings, according to Speed grade / speed bins, used by DDR controller.</Description> 
+        <Description>JEDEC timings, according to speed grade / speed bins, used by DDR controller.</Description>
     </RefParameter>
 
     <RefParameter Name="tRC" Comment="Row Cycle Time (tRC)" DefaultValue="50" Unit="ns" TabName="Parameter Settings" Group="JEDEC CORE TIMINGS" Mode="Advanced" Type="doubleReadOnly">
 		<Condition Diagnostic="" Expression="DDR4"/>	
-        <Description>JEDEC timings, according to Speed grade / speed bins, used by DDR controller.</Description> 
+        <Description>JEDEC timings, according to speed grade / speed bins, used by DDR controller.</Description>
     </RefParameter>
 
     <RefParameter Name="tRC" Comment="Row Cycle Time (tRC)" DefaultValue="50" Unit="ns" TabName="Parameter Settings" Group="JEDEC CORE TIMINGS" Mode="Advanced" Type="doubleReadOnly">
 		<Condition Diagnostic="" Expression="LPDDR4|DDR3"/>	
-        <Description>JEDEC timings, according to Speed grade / speed bins, used by DDR controller.</Description> 
+        <Description>JEDEC timings, according to speed grade / speed bins, used by DDR controller.</Description>
     </RefParameter>
 
     <RefParameter Name="tXP" Comment="Power-Down Exit (tXP)" DefaultValue="6" Unit="ns" TabName="Parameter Settings" Group="POWER DOWN TIMINGS" Mode="Advanced" Type="doubleReadOnly">
 		<Condition Diagnostic="" Expression="DDR4"/>		
-        <Description>JEDEC timings, according to Speed grade / speed bins, used by DDR controller.</Description> 
+        <Description>JEDEC timings, according to speed grade / speed bins, used by DDR controller.</Description>
     </RefParameter>
 
     <RefParameter Name="tXP" Comment="Power-Down Exit (tXP)" DefaultValue="7.5" Unit="ns" TabName="Parameter Settings" Group="POWER DOWN TIMINGS" Mode="Advanced" Type="doubleReadOnly">
 		<Condition Diagnostic="" Expression="LPDDR4"/>		
-        <Description>JEDEC timings, according to Speed grade / speed bins, used by DDR controller.</Description> 
+        <Description>JEDEC timings, used by DDR controller.</Description>
     </RefParameter>
 
     <RefParameter Name="tXP" Comment="Power-Down Exit (tXP)" DefaultValue="7.5" Unit="ns" TabName="Parameter Settings" Group="POWER DOWN TIMINGS" Mode="Advanced" Type="doubleReadOnly">
 		<Condition Diagnostic="" Expression="DDR3"/>		
-        <Description>JEDEC timings, according to Speed grade / speed bins, used by DDR controller.</Description> 
+        <Description>JEDEC timings, according to speed grade / speed bins, used by DDR controller.</Description>
     </RefParameter>
 
     <RefParameter Name="tRTP" Comment="READ-to-PRECHARGE time (tRTP)" DefaultValue="7.5" Unit="ns" TabName="Parameter Settings" Group="JEDEC TIMINGS" Mode="Advanced" Type="doubleReadOnly">
-        <Description>JEDEC timings, according to Speed grade / speed bins, used by DDR controller.</Description> 
+        <Description>JEDEC timings, according to speed grade / speed bins, used by DDR controller.</Description>
     </RefParameter>
 
     <RefParameter Name="tWR" Comment="Write recovery time (tWR)" DefaultValue="15" Unit="ns" TabName="Parameter Settings" Group="JEDEC TIMINGS" Mode="Advanced" Type="doubleReadOnly">
@@ -661,26 +675,25 @@
     <RefParameter Name="tWTR" Comment="Internal write transaction to internal read command for different Bank Groups (tWTR)" DefaultValue="10" Unit="ns" TabName="Parameter Settings" Group="JEDEC TIMINGS" Mode="Advanced" Type="doubleReadOnly">
 		<Condition Diagnostic="" Expression="LPDDR4"/>	
         <Description>JEDEC timings, used by DDR controller.</Description> 
-    </RefParameter>	
-
-    <RefParameter Name="tCCD" Comment="tCCD" DefaultValue="8" Unit="clock" TabName="Parameter Settings" Group="JEDEC TIMINGS" Mode="Advanced" Type="integerReadOnly">
-		<Condition Diagnostic="" Expression="LPDDR4"/>
-        <Description>JEDEC timings, used by DDR controller.</Description> 
     </RefParameter>
 
-    <RefParameter Name="tCCD_S" Comment="CAS to CAS command delay for different Bang Group (tCCD_S)" DefaultValue="4" Unit="clock" TabName="Parameter Settings" Group="JEDEC TIMINGS" Mode="Advanced" Type="integerReadOnly">
-		<Condition Diagnostic="" Expression="DDR4"/>
-        <Description>JEDEC timings, used by DDR controller.</Description> 
+    <RefParameter Name="tCCD" Comment="CAS to CAS command delay for different Bank Groups (tCCD)" DefaultValue="8" Unit="clock" TabName="Parameter Settings" Group="JEDEC TIMINGS" Mode="Advanced" Type="integerReadOnly">
+        <Condition Diagnostic="" Expression="LPDDR4"/>
+        <Description>JEDEC timings, used by DDR controller.</Description>
+    </RefParameter>
+
+    <RefParameter Name="tCCD" Comment="CAS to CAS command delay for different Bank Groups (tCCD)" DefaultValue="4" Unit="clock" TabName="Parameter Settings" Group="JEDEC TIMINGS" Mode="Advanced" Type="integerReadOnly">
+        <Condition Diagnostic="" Expression="DDR3"/>
+        <Description>JEDEC timings, used by DDR controller.</Description>
+    </RefParameter>
+
+    <RefParameter Name="tCCD_S" Comment="CAS to CAS command delay for different Bank Groups (tCCD_S)" DefaultValue="4" Unit="clock" TabName="Parameter Settings" Group="JEDEC TIMINGS" Mode="Advanced" Type="integerReadOnly">
+        <Condition Diagnostic="" Expression="DDR4"/>
+        <Description>JEDEC timings, used by DDR controller.</Description>
     </RefParameter>
 
     <RefParameter Name="tPPD" Comment="tPPD" DefaultValue="4" Unit="clock" TabName="Parameter Settings" Group="JEDEC TIMINGS" Mode="Advanced" Type="integerReadOnly">
-		<Condition Diagnostic="" Expression="LPDDR4"/>
-        <Description></Description> 
-    </RefParameter>
-
-    <RefParameter Name="tCCD" Comment="CAS to CAS command delay for different Bang Group (tCCD)" DefaultValue="4" Unit="clock" TabName="Parameter Settings" Group="JEDEC TIMINGS" Mode="Advanced" Type="integerReadOnly">
-		<Condition Diagnostic="" Expression="DDR3"/>
-        <Description>JEDEC timings, used by DDR controller.</Description> 
+        <Condition Diagnostic="" Expression="LPDDR4"/>
     </RefParameter>
 
     <RefParameter Name="tRCD" Comment="Different bank group (tRCD)" DefaultValue="15" Unit="ns" TabName="Parameter Settings" Group="JEDEC CORE TIMINGS" Mode="Advanced" Type="doubleReadOnly">
@@ -690,7 +703,7 @@
 
     <RefParameter Name="tRCD" Comment="Different bank group (tRCD)" DefaultValue="18" Unit="ns" TabName="Parameter Settings" Group="JEDEC CORE TIMINGS" Mode="Advanced" Type="doubleReadOnly">
         <Condition Diagnostic="" Expression="LPDDR4"/>
-		<Description></Description> 
+		<Description>JEDEC timings, used by DDR controller.</Description>
     </RefParameter>
 
     <RefParameter Name="tRRD_S" Comment="ACTIVATE to ACTIVATE Command delay to different Bank Group for 2K page (tRRD_S)" DefaultValue="6" Unit="ns" TabName="Parameter Settings" Group="JEDEC TIMINGS" Mode="Advanced" Type="doubleReadOnly">
@@ -791,17 +804,17 @@
         <Description>Valid Clock Requirement before Self Refresh Entry or Power-Down Entry.</Description> 
     </RefParameter>
 
-    <RefParameter Name="tESCKE" Comment="tESCKE" DefaultValue="1.75" Unit="ns" TabName="Parameter Settings" Group="SELF REFRESH TIMINGS" Mode="Advanced" Type="doubeReadOnly">
+    <RefParameter Name="tESCKE" Comment="tESCKE" DefaultValue="1.75" Unit="ns" TabName="Parameter Settings" Group="SELF REFRESH TIMINGS" Mode="Advanced" Type="doubleReadOnly">
         <Condition Diagnostic="" Expression="LPDDR4"/>	  
 		<Description></Description> 
     </RefParameter>
 
-    <RefParameter Name="tCKCKEH" Comment="tCKCKEH" DefaultValue="1.75" Unit="ns" TabName="Parameter Settings" Group="SELF REFRESH TIMINGS" Mode="Advanced" Type="doubeReadOnly">
+    <RefParameter Name="tCKCKEH" Comment="tCKCKEH" DefaultValue="1.75" Unit="ns" TabName="Parameter Settings" Group="SELF REFRESH TIMINGS" Mode="Advanced" Type="doubleReadOnly">
         <Condition Diagnostic="" Expression="LPDDR4"/>	  
 		<Description></Description> 
     </RefParameter>
 
-    <RefParameter Name="tCKELCK" Comment="tCKELCK" DefaultValue="5" Unit="ns" TabName="Parameter Settings" Group="SELF REFRESH TIMINGS" Mode="Advanced" Type="doubeReadOnly">
+    <RefParameter Name="tCKELCK" Comment="tCKELCK" DefaultValue="5" Unit="ns" TabName="Parameter Settings" Group="SELF REFRESH TIMINGS" Mode="Advanced" Type="doubleReadOnly">
         <Condition Diagnostic="" Expression="LPDDR4"/>	  
 		<Description></Description> 
     </RefParameter>
@@ -907,6 +920,7 @@
         <Description>JEDEC timings, used by DDR controller.</Description> 
     </RefParameter>
 
+    <!-- ########################################### DDRCTRL parameters ##################################################### -->
 
 	<RefParameter Name="MSTR_REG" Comment="MSTR_REG" DefaultValue="0x01040001" TabName="Registers" Group="" Type="string" Visible="false">
 		<AdditionalItem Name="REGISTER" Value="" />
@@ -1332,6 +1346,14 @@
 		<AdditionalItem Name="REGISTER" Value="" />
 	</RefParameter>
 
+    <RefParameter Name="SCHED3_REG" Comment="SCHED3_REG" DefaultValue="" TabName="Registers"  Type="string" Visible="false">
+        <AdditionalItem Name="REGISTER" Value="" />
+    </RefParameter>
+
+    <RefParameter Name="SCHED4_REG" Comment="SCHED4_REG" DefaultValue="" TabName="Registers"  Type="string" Visible="false">
+        <AdditionalItem Name="REGISTER" Value="" />
+    </RefParameter>
+
 	<RefParameter Name="DBG0_REG" Comment="DBG0_REG" DefaultValue="" TabName="Registers"  Type="string" Visible="false">
 		<AdditionalItem Name="REGISTER" Value="" />
 	</RefParameter>
@@ -1488,7 +1510,7 @@
 		<AdditionalItem Name="REGISTER" Value="" />
 	</RefParameter>
 
-	<RefParameter Name="UIB_DIMODE_REG" Comment="UIB_DIMODE_REG" DefaultValue="" TabName="Registers"  Type="string" Visible="false">
+	<RefParameter Name="UIB_DFIMODE_REG" Comment="UIB_DFIMODE_REG" DefaultValue="" TabName="Registers"  Type="string" Visible="false">
 		<AdditionalItem Name="REGISTER" Value="" />
 	</RefParameter>
 
@@ -1710,7 +1732,6 @@
 		
 	<RefParameter Name="UIM_MR22_0_REG" Comment="UIM_MR22_0_REG" DefaultValue="0x00000000" TabName="Registers" Group="" Type="string" Visible="false">
 		<AdditionalItem Name="REGISTER" Value="" />
-		<AdditionalItem Name="REGISTER" Value="" />
 	</RefParameter>
 		
 	<RefParameter Name="UIS_SWIZZLE_0_REG" Comment="UIS_SWIZZLE_0_REG" DefaultValue="" TabName="Registers"  Type="string" Visible="false">
@@ -1888,90 +1909,6 @@
 	<RefParameter Name="UIS_SWIZZLE_43_REG" Comment="UIS_SWIZZLE_43_REG" DefaultValue="" TabName="Registers"  Type="string" Visible="false">
 		<AdditionalItem Name="REGISTER" Value="" />
 	</RefParameter>
-	
-	<RefParameter Name="PCCFG_REG" Comment="PCCFG_REG" DefaultValue="" TabName="Registers"  Type="string" Visible="false">
-		<AdditionalItem Name="REGISTER" Value="" />
-	</RefParameter>
-		
-	<RefParameter Name="PCFGQOS1_0_REG" Comment="PCFGQOS1_0_REG" DefaultValue="" TabName="Registers"  Type="string" Visible="false">
-		<AdditionalItem Name="REGISTER" Value="" />
-	</RefParameter>
-						
-	<RefParameter Name="PCFGQOS1_1_REG" Comment="PCFGQOS1_1_REG" DefaultValue="" TabName="Registers"  Type="string" Visible="false">
-		<AdditionalItem Name="REGISTER" Value="" />
-	</RefParameter>
-
-	<RefParameter Name="PCFGR_1_REG" Comment="PCFGR_1_REG" DefaultValue="" TabName="Registers"  Type="string" Visible="false">
-		<AdditionalItem Name="REGISTER" Value="" />
-	</RefParameter>
-							
-	<RefParameter Name="PCFGW_0_REG" Comment="PCFGW_0_REG" DefaultValue="" TabName="Registers"  Type="string" Visible="false">
-		<AdditionalItem Name="REGISTER" Value="" />
-	</RefParameter>
-							
-	<RefParameter Name="PCFGW_1_REG" Comment="PCFGW_1_REG" DefaultValue="" TabName="Registers"  Type="string" Visible="false">
-		<AdditionalItem Name="REGISTER" Value="" />
-	</RefParameter>
-					
-	<RefParameter Name="PCFGWQOS0_1_REG" Comment="PCFGWQOS0_1_REG" DefaultValue="" TabName="Registers"  Type="string" Visible="false">
-		<AdditionalItem Name="REGISTER" Value="" />
-	</RefParameter>
-							
-	<RefParameter Name="PCFGWQOS1_0_REG" Comment="PCFGWQOS1_0_REG" DefaultValue="" TabName="Registers"  Type="string" Visible="false">
-		<AdditionalItem Name="REGISTER" Value="" />
-	</RefParameter>
-							
-	<RefParameter Name="PCFGWQOS1_1_REG" Comment="PCFGWQOS1_1_REG" DefaultValue="" TabName="Registers"  Type="string" Visible="false">
-		<AdditionalItem Name="REGISTER" Value="" />
-	</RefParameter>
-			
-	<RefParameter Name="PERFLPR1_REG" Comment="PERFLPR1_REG" DefaultValue="" TabName="Registers"  Type="string" Visible="false">
-		<AdditionalItem Name="REGISTER" Value="" />
-	</RefParameter>
-								
-	<RefParameter Name="PERFWR1_REG" Comment="PERFWR1_REG" DefaultValue="" TabName="Registers"  Type="string" Visible="false">
-		<AdditionalItem Name="REGISTER" Value="" />
-	</RefParameter>
-
-	<RefParameter Name="SCHED3_REG" Comment="SCHED3_REG" DefaultValue="" TabName="Registers"  Type="string" Visible="false">
-		<AdditionalItem Name="REGISTER" Value="" />
-	</RefParameter>
-
-	<RefParameter Name="SCHED4_REG" Comment="SCHED4_REG" DefaultValue="" TabName="Registers"  Type="string" Visible="false">
-		<AdditionalItem Name="REGISTER" Value="" />
-	</RefParameter>
-	
-	<RefParameter Name="POISONCFG_REG" Comment="POISONCFG_REG" DefaultValue="" TabName="Registers"  Type="string" Visible="false">
-		<AdditionalItem Name="REGISTER" Value="" />
-	</RefParameter>
-									
-	<RefParameter Name="PWRCTL_REG" Comment="PWRCTL_REG" DefaultValue="" TabName="Registers"  Type="string" Visible="false">
-		<AdditionalItem Name="REGISTER" Value="" />
-	</RefParameter>
-								
-	<RefParameter Name="RANKCTL_REG" Comment="RANKCTL_REG" DefaultValue="" TabName="Registers"  Type="string" Visible="false">
-		<AdditionalItem Name="REGISTER" Value="" />
-	</RefParameter>
-									
-	<RefParameter Name="RFSHCTL0_REG" Comment="RFSHCTL0_REG" DefaultValue="" TabName="Registers"  Type="string" Visible="false">
-		<AdditionalItem Name="REGISTER" Value="" />
-	</RefParameter>
-						
-	<RefParameter Name="RFSHCTL3_REG" Comment="RFSHCTL3_REG" DefaultValue="" TabName="Registers"  Type="string" Visible="false">
-		<AdditionalItem Name="REGISTER" Value="" />
-	</RefParameter>
-
-	<RefParameter Name="ZQCTL0_REG" Comment="" DefaultValue="" TabName="Registers"  Type="string" Visible="false">
-		<AdditionalItem Name="REGISTER" Value="" />
-	</RefParameter>
-										
-	<RefParameter Name="ZQCTL1_REG" Comment="" DefaultValue="" TabName="Registers"  Type="string" Visible="false">
-		<AdditionalItem Name="REGISTER" Value="" />
-	</RefParameter>
-			
-	<RefParameter Name="ZQCTL2_REG" Comment="" DefaultValue="" TabName="Registers"  Type="string" Visible="false">
-		<AdditionalItem Name="REGISTER" Value="" />
-	</RefParameter>
 
     <!-- ########################################### user_input_basic #####################################################-->
     <RefParameter Name="DRAMTYPE" Comment="DRAMTYPE" DefaultValue="0" TabName="Parameter Settings" Group="USER INPUT BASIC" Mode="Basic" Type="String">
@@ -2074,17 +2011,17 @@
         <Description>Number of p-states used.</Description> 
     </RefParameter>
 	
-    <RefParameter Name="FREQUENCY_0" Comment="FREQUENCY_0" DefaultValue="4608" TabName="Parameter Settings" Group="USER INPUT BASIC" Mode="Basic" Type="String">
+    <RefParameter Name="FREQUENCY_0" Comment="FREQUENCY_0" DefaultValue="800" TabName="Parameter Settings" Group="USER INPUT BASIC" Mode="Basic" Type="integerReadOnly">
 	    <Condition Diagnostic="" Expression="DDR4"/>
         <Description>Memclk Frequency for each PState.</Description> 
     </RefParameter>
 		
-    <RefParameter Name="FREQUENCY_0" Comment="FREQUENCY_0" DefaultValue="800" TabName="Parameter Settings" Group="USER INPUT BASIC" Mode="Basic" Type="String">
+    <RefParameter Name="FREQUENCY_0" Comment="FREQUENCY_0" DefaultValue="800" TabName="Parameter Settings" Group="USER INPUT BASIC" Mode="Basic" Type="integerReadOnly">
 	    <Condition Diagnostic="" Expression="LPDDR4"/>
         <Description>Memclk Frequency for each PState.</Description> 
     </RefParameter>
 
-    <RefParameter Name="FREQUENCY_0" Comment="FREQUENCY_0" DefaultValue="800" TabName="Parameter Settings" Group="USER INPUT BASIC" Mode="Basic" Type="String">
+    <RefParameter Name="FREQUENCY_0" Comment="FREQUENCY_0" DefaultValue="800" TabName="Parameter Settings" Group="USER INPUT BASIC" Mode="Basic" Type="integerReadOnly">
 	    <Condition Diagnostic="" Expression="DDR3"/>
         <Description>Memclk Frequency for each PState.</Description> 
     </RefParameter>
@@ -2122,6 +2059,15 @@
     <RefParameter Name="HARDMACROVER" Comment="HARDMACROVER" DefaultValue="3" TabName="Parameter Settings" Group="USER INPUT BASIC" Mode="Basic" Type="String">
         <Description>Hard Macro Family version in use.</Description> 
     </RefParameter>
+
+    <RefParameter Name="READDBIENABLE_0" Comment="READDBIENABLE_0" DefaultValue="0" TabName="Parameter Settings" Group="USER INPUT BASIC" Mode="Basic" Type="String">
+        <Description>Obsolete, Not used.</Description>
+    </RefParameter>
+
+    <RefParameter Name="DFIMODE" Comment="DFIMODE" DefaultValue="0" TabName="Parameter Settings" Group="USER INPUT BASIC" Mode="Basic" Type="String">
+        <Description>Obsolete, Not used.</Description>
+    </RefParameter>
+
 	 <!-- ################################################################################################-->
 	 
 	 <!-- ########################################### user_input_advanced #####################################################-->
@@ -2143,16 +2089,17 @@
 	
     <RefParameter Name="LP4POSTAMBLEEXT_0" Comment="LP4POSTAMBLEEXT_0" DefaultValue="0" TabName="Parameter Settings" Group="USER INPUT ADVANCED" Mode="Advanced" Type="String" Visible="true">
         <Condition Diagnostic="" Expression="DDR4"/>
-		<Description> Extend write postamble in LPDDR4.</Description> 
+		<Description>Extend write postamble in LPDDR4.</Description>
     </RefParameter>
 	
     <RefParameter Name="LP4POSTAMBLEEXT_0" Comment="LP4POSTAMBLEEXT_0" DefaultValue="0" TabName="Parameter Settings" Group="USER INPUT ADVANCED" Mode="Advanced" Type="String" Visible="true">
         <Condition Diagnostic="" Expression="DDR3"/>
-		<Description> Extend write postamble in LPDDR4.</Description> 
+		<Description>Extend write postamble in LPDDR4.</Description>
     </RefParameter>
 
     <RefParameter Name="LP4POSTAMBLEEXT_0" Comment="LP4POSTAMBLEEXT_0" DefaultValue="1" TabName="Parameter Settings" Group="USER INPUT ADVANCED" Mode="Advanced" Type="String">
-        <Description> Extend write postamble in LPDDR4.</Description> 
+        <Condition Diagnostic="" Expression="LPDDR4"/>
+        <Description>Extend write postamble in LPDDR4.</Description>
     </RefParameter>
 
     <RefParameter Name="D4RXPREAMBLELENGTH_0" Comment="D4RXPREAMBLELENGTH_0" DefaultValue="0" TabName="Parameter Settings" Group="USER INPUT ADVANCED" Mode="Advanced" Type="String">
@@ -2172,7 +2119,7 @@
 
     <RefParameter Name="D4TXPREAMBLELENGTH_0" Comment="D4TXPREAMBLELENGTH_0" DefaultValue="0" TabName="Parameter Settings" Group="USER INPUT ADVANCED" Mode="Advanced" Type="String">
         <Condition Diagnostic="" Expression="DDR3"/>
-		<Description>Length of write preamble in DDR3 mode.</Description> 
+		<Description>Length of write preamble in DDR4 mode.</Description>
     </RefParameter>
 
     <RefParameter Name="D4TXPREAMBLELENGTH_0" Comment="D4TXPREAMBLELENGTH_0" DefaultValue="0" TabName="Parameter Settings" Group="USER INPUT ADVANCED" Mode="Advanced" Type="String">
@@ -4383,20 +4330,19 @@
         <Parameter Name="ASR"/>
         <Parameter Name="SRT"/>
         <Parameter Name="Ron"/>
-        <Parameter Name="RTT_nom"/>
-        <Parameter Name="RTT-wr"/>
+        <Parameter Name="RTT_NOM"/>
+        <Parameter Name="RTT_WR"/>
         <Parameter Name="CAS lat"/>
         <Parameter Name="WR"/>
         <Parameter Name="CWL"/>
 		<Parameter Name="version"/>
 		<Parameter Name="package"/>		
         <Parameter Name="memclk"/>
-		<Parameter Name="ATx Impedance"/>
 		<Parameter Name="ODT Impedance"/>		
 		<Parameter Name="Tx Impedance"/>
 		<Parameter Name="phyvref"/>
 		<Parameter Name="training_sequence"/>
-        <Parameter Name="Speed-Bin"/>
+        <Parameter Name="Speed_Bin"/>
         <Parameter Name="BL"/>
         <Parameter Name="device_width"/>
         <Parameter Name="ranks"/>
@@ -4487,6 +4433,8 @@
 		<Parameter Name="ENABLEDFICSPOLARITYFIX"/>
 		<Parameter Name="PHYVREF"/>
 		<Parameter Name="SEQUENCECTRL_0"/>
+        <Parameter Name="READDBIENABLE_0"/>
+        <Parameter Name="DFIMODE"/>
 		
 		<Parameter Name="MSTR_REG"/>
 		<Parameter Name="MRCTRL0_REG"/>
@@ -4607,7 +4555,7 @@
 		<Parameter Name="UIB_TRAIN2D_REG"/>
 		<Parameter Name="UIB_HARDMACROVER_REG"/>
 		<Parameter Name="UIB_READDBIENABLE_0_REG"/>
-		<Parameter Name="UIB_DIMODE_REG"/>
+		<Parameter Name="UIB_DFIMODE_REG"/>
 		<Parameter Name="UIA_LP4RXPREAMBLEMODE_0_REG"/>
 		<Parameter Name="UIA_LP4POSTAMBLEEXT_0_REG"/>
 		<Parameter Name="UIA_D4RXPREAMBLELENGTH_0_REG"/>
@@ -4750,7 +4698,6 @@
 		<Parameter Name="Speed_Bin"/>
         <Parameter Name="RTT_WR"/>
         <Parameter Name="RTT_PARK"/>
-		<Parameter Name="ATx Impedance"/>
 		<Parameter Name="ODT Impedance"/>		
 		<Parameter Name="Tx Impedance"/>
 		<Parameter Name="phyvref"/>
@@ -4918,7 +4865,7 @@
 		<Parameter Name="UIB_TRAIN2D_REG"/>
 		<Parameter Name="UIB_HARDMACROVER_REG"/>
 		<Parameter Name="UIB_READDBIENABLE_0_REG"/>
-		<Parameter Name="UIB_DIMODE_REG"/>		
+		<Parameter Name="UIB_DFIMODE_REG"/>		
 		<Parameter Name="UIA_LP4RXPREAMBLEMODE_0_REG"/>
 		<Parameter Name="UIA_LP4POSTAMBLEEXT_0_REG"/>
 		<Parameter Name="UIA_D4RXPREAMBLELENGTH_0_REG"/>
@@ -5079,7 +5026,9 @@
 		<Parameter Name="PHYINITSEQUENCENUM"/>
 		<Parameter Name="ENABLEDFICSPOLARITYFIX"/>
 		<Parameter Name="PHYVREF"/>
-		<Parameter Name="SEQUENCECTRL_0"/>		
+		<Parameter Name="SEQUENCECTRL_0"/>
+        <Parameter Name="READDBIENABLE_0"/>
+        <Parameter Name="DFIMODE"/>
 		
 		<!-- Swizzle / Mapping-->
 		<Parameter Name="Check"/>
@@ -5121,7 +5070,6 @@
 		<Parameter Name="CA ODT"/>	
 		<Parameter Name="DQ ODT"/>	
 		<Parameter Name="SoC ODT"/>
-		<Parameter Name="ATx Impedance"/>
 		<Parameter Name="ODT Impedance"/>		
 		<Parameter Name="Tx Impedance"/>
 		<Parameter Name="phyvref"/>
@@ -5237,7 +5185,9 @@
 		<Parameter Name="PHYINITSEQUENCENUM"/>
 		<Parameter Name="ENABLEDFICSPOLARITYFIX"/>
 		<Parameter Name="PHYVREF"/>
-		<Parameter Name="SEQUENCECTRL_0"/>		
+		<Parameter Name="SEQUENCECTRL_0"/>
+        <Parameter Name="READDBIENABLE_0"/>
+        <Parameter Name="DFIMODE"/>
 		
 		<Parameter Name="MSTR_REG"/>
 		<Parameter Name="MRCTRL0_REG"/>
@@ -5358,7 +5308,7 @@
 		<Parameter Name="UIB_TRAIN2D_REG"/>
 		<Parameter Name="UIB_HARDMACROVER_REG"/>
 		<Parameter Name="UIB_READDBIENABLE_0_REG"/>
-		<Parameter Name="UIB_DIMODE_REG"/>		
+		<Parameter Name="UIB_DFIMODE_REG"/>
 		<Parameter Name="UIA_LP4RXPREAMBLEMODE_0_REG"/>
 		<Parameter Name="UIA_LP4POSTAMBLEEXT_0_REG"/>
 		<Parameter Name="UIA_D4RXPREAMBLELENGTH_0_REG"/>
@@ -5543,7 +5493,7 @@
                         <Signal Name="VS_32BITS" />
 				    </SignalLogicalOp>
                 <Semaphore>S_DDR_32b</Semaphore>
-                    <Condition Diagnostic="Not available in this package" Expression="Package_only_32bits &amp; !VFBGA361 &amp; !(STM32MP231 | STM32MP233 | STM32MP235)"/>
+                <Condition Diagnostic="Not available in this package" Expression="Package_only_32bits &amp; !VFBGA361 &amp; !(STM32MP231 | STM32MP233 | STM32MP235) &amp; !(DIE503)"/>
                 </Mode>
             </ModeLogicOperator>
 			<Semaphore>WIDTH_SET</Semaphore>
@@ -5555,7 +5505,7 @@
                     <SignalLogicalOp Name="AND">
                         <Signal Name="VS_1Gb" />
                     </SignalLogicalOp>
-				<Condition Diagnostic="equals 128MB,Only for DDR3" Expression="DDR3"/>
+				<Condition Diagnostic="equals 128MB,only for DDR3" Expression="DDR3"/>
                 </Mode>							
                 <Mode Name="2Gb" UserName="">
                     <SignalLogicalOp Name="AND">
@@ -5567,7 +5517,7 @@
                     <SignalLogicalOp Name="AND">
                         <Signal Name="VS_3Gb" />
                     </SignalLogicalOp>
-				<Condition Diagnostic="equals 384GB,Only for LPDDR4" Expression="LPDDR4"/>
+				<Condition Diagnostic="equals 384MB,only for LPDDR4" Expression="LPDDR4"/>
                 </Mode>
                 <Mode Name="4Gb" UserName="">
                     <SignalLogicalOp Name="AND">
@@ -5580,7 +5530,7 @@
                     <SignalLogicalOp Name="AND">
                         <Signal Name="VS_6Gb" />
                     </SignalLogicalOp>
-				<Condition Diagnostic="equals 768MB,Only for LPDDR4" Expression="LPDDR4"/>
+				<Condition Diagnostic="equals 768MB,only for LPDDR4" Expression="LPDDR4"/>
                 </Mode>
                 <Mode Name="8Gb" UserName="">
                     <SignalLogicalOp Name="AND">
@@ -5594,14 +5544,14 @@
                         <Signal Name="VS_12Gb" />
                     </SignalLogicalOp>
                 <Semaphore>S_DDR_3Gb</Semaphore>
-				<Condition Diagnostic="equals 1.5GB,Only for LPDDR4" Expression="LPDDR4"/>
+				<Condition Diagnostic="equals 1.5GB,only for LPDDR4" Expression="LPDDR4"/>
                 </Mode>
 				<Mode Name="16Gb" UserName="">
                     <SignalLogicalOp Name="AND">
                         <Signal Name="VS_16Gb" />
                     </SignalLogicalOp>
                 <Semaphore>S_DDR_4Gb</Semaphore>			
-				<Condition Diagnostic="equals 2GB,Only for DDR4 and LPDDR4" Expression="DDR4|LPDDR4"/>
+				<Condition Diagnostic="equals 2GB,only for DDR4 and LPDDR4" Expression="DDR4|LPDDR4"/>
                 </Mode>	
 				
 

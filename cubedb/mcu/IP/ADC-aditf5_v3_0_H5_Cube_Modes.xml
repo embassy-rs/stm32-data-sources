@@ -40,11 +40,11 @@
 	 <!--  ########################################################################################ADC1_2 MultiMode parameters####################################################################################### -->
 		 
 		<RefParameter Comment="Mode" DefaultValue="null" Group="ADCsgroup" Name="Mode" Type="list" Visible="false">
-            <Condition Diagnostic="" Expression="(ADC1_Exist|ADC_Exist)&amp;(!ADC2_Exist)"/>
+            <Condition Diagnostic="" Expression="(ADC1_Exist|ADC_Exist)&amp;(!ADC2_Exist) | ($Index=3 &amp; DIE47C) "/>
         </RefParameter>
         
         <RefParameter Comment="Mode" DefaultValue="ADC_MODE_INDEPENDENT" Group="ADCsgroup" Name="Mode" Type="list">
-            <Condition Diagnostic="Regular simultanious mode should not be available for injected conversion" Expression="((($Index=1|$Index=2)&amp; USE_ADC1&amp;USE_ADC2)&amp;(ADC1:InjNumberOfConversion=0)&amp;(ADC2:InjNumberOfConversion=0))"/>
+            <Condition Diagnostic="Regular simultaneous mode should not be available for injected conversion" Expression="((($Index=1|$Index=2)&amp; USE_ADC1&amp;USE_ADC2)&amp;(ADC1:InjNumberOfConversion=0)&amp;(ADC2:InjNumberOfConversion=0))"/>
             <PossibleValue Comment="Independent mode" Value="ADC_MODE_INDEPENDENT"/>
             <PossibleValue Comment="Dual regular simultaneous + alternate trigger mode" Semaphore="DualMode1_$IpInstance" Value="ADC_DUALMODE_REGSIMULT_ALTERTRIG"/>
             <PossibleValue Comment="Dual regular simultaneous mode only" Semaphore="DualMode2_$IpInstance" Value="ADC_DUALMODE_REGSIMULT"/>
@@ -54,7 +54,7 @@
         </RefParameter>
        
         <RefParameter Comment="Mode" DefaultValue="ADC_MODE_INDEPENDENT" Group="ADCsgroup" Name="Mode" Type="list">
-            <Condition Diagnostic="Regular simultanious mode should not be available for injected conversion" Expression="((($Index=1|$Index=2)&amp;USE_ADC1&amp;USE_ADC2))"/>
+            <Condition Diagnostic="Regular simultaneous mode should not be available for injected conversion" Expression="((($Index=1|$Index=2)&amp;USE_ADC1&amp;USE_ADC2))"/>
             <PossibleValue Comment="Independent mode" Value="ADC_MODE_INDEPENDENT"/>
             <PossibleValue Comment="Dual combined regular simultaneous + injected simultaneous mode" Semaphore="DualMode0_$IpInstance" Value="ADC_DUALMODE_REGSIMULT_INJECSIMULT"/>
             <PossibleValue Comment="Dual regular simultaneous + alternate trigger mode" Semaphore="DualMode1_$IpInstance" Value="ADC_DUALMODE_REGSIMULT_ALTERTRIG"/>
@@ -183,6 +183,32 @@
 	    
 		  <!--  ########################################################################################ADCx Setting parameters####################################################################################### -->
 	        <!-- Possible value of Prescaler parameter -->
+        <RefParameter Comment="Clock Prescaler" DefaultValue="__NULL" Group="ADCsgroup" Name="ClockPrescalerADC3" Type="list"  Visible="false">
+            <Condition Diagnostic="" Expression="(!($Index=3) &amp; (DIE47C|DIE47A))|(!DIE47C &amp;!DIE47A)"/>
+        </RefParameter>
+        <RefParameter Comment="Clock Prescaler" DefaultValue="__NULL" Group="ADCsgroup" Name="ClockPrescaler" Type="list"  Visible="false">
+            <Condition Diagnostic="" Expression="($Index=3) &amp; (DIE47C|DIE47A)"/>
+        </RefParameter>
+        <RefParameter Comment="Clock Prescaler" DefaultValue="ADC_CLOCK_ASYNC_DIV1" Group="ADCsgroup" Name="ClockPrescalerADC3" Type="list">
+            <Condition Diagnostic="" Expression="($Index=3) &amp; (DIE47C|DIE47A)"/>
+            <PossibleValue Action="DISABLE" Condition="(!AHBCLKDivider1)|(FHzAsyncCLK &gt; 37500000)|(1500000 &gt; FHzAsyncCLK)" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 1" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV1"/>
+            <PossibleValue Action="DISABLE" Condition="((FHzAsyncCLK/2) &gt; 37500000)|(1500000 &gt; (FHzAsyncCLK/2))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 2" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV2"/>
+            <PossibleValue Action="DISABLE" Condition="((FHzAsyncCLK/4) &gt; 37500000)|(1500000 &gt; (FHzAsyncCLK/4))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 4" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV4"/>
+            <PossibleValue Action="DISABLE" Condition="((FHzAsyncCLK/6) &gt; 37500000)|(1500000 &gt; (FHzAsyncCLK/6))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 6" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV6"/>
+            <PossibleValue Action="DISABLE" Condition="((FHzAsyncCLK/8) &gt; 37500000)|(1500000 &gt; (FHzAsyncCLK/8))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 8" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV8"/>
+            <PossibleValue Action="DISABLE" Condition="((FHzAsyncCLK/10) &gt; 37500000)|(1500000 &gt; (FHzAsyncCLK/10))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 10" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV10"/>
+            <PossibleValue Action="DISABLE" Condition="((FHzAsyncCLK/12) &gt; 37500000)|(1500000 &gt; (FHzAsyncCLK/12))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 12" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV12"/>
+            <PossibleValue Action="DISABLE" Condition="((FHzAsyncCLK/16) &gt; 37500000)|(1500000 &gt; (FHzAsyncCLK/16))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 16" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV16"/>
+            <PossibleValue Action="DISABLE" Condition="((FHzAsyncCLK/32) &gt; 37500000)|(1500000 &gt; (FHzAsyncCLK/32))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 32" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV32"/>
+            <PossibleValue Action="DISABLE" Condition="((FHzAsyncCLK/64) &gt; 37500000)|(1500000 &gt; (FHzAsyncCLK/64))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 64" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV64"/>
+            <PossibleValue Action="DISABLE" Condition="((FHzAsyncCLK/128) &gt; 37500000)|(1500000 &gt; (FHzAsyncCLK/128))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 128" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV128"/>
+            <PossibleValue Action="DISABLE" Condition="((FHzAsyncCLK/256) &gt; 37500000)|(1500000 &gt; (FHzAsyncCLK/256))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 256" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV256"/>
+            <PossibleValue Action="DISABLE" Condition="(!AHBCLKDivider1)|(FHzSyncCLK &gt; 75000000)|(1500000 &gt; FHzSyncCLK)" Diagnostic="The Clock prescaler can't be set to synchronous DIV1 since the AHB prescaler is different from DIV1." Comment="Synchronous clock mode divided by 1" Semaphore="$IpInstanceUsedSynchronousCLK_ForRCC" Value="ADC_CLOCK_SYNC_PCLK_DIV1"/>
+            <PossibleValue Action="DISABLE" Condition="((FHzSyncCLK/2) &gt; 37500000)|(1500000 &gt; (FHzSyncCLK/2))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Synchronous clock mode divided by 2" Value="ADC_CLOCK_SYNC_PCLK_DIV2"/>
+            <PossibleValue Action="DISABLE" Condition="((FHzSyncCLK/4) &gt; 37500000)|(1500000 &gt; (FHzSyncCLK/4))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Synchronous clock mode divided by 4" Value="ADC_CLOCK_SYNC_PCLK_DIV4"/>
+            <Description>frequency of the clock to the ADC. The clock is common for all the ADCs.</Description>
+        </RefParameter>
+
         <RefParameter Comment="Clock Prescaler" DefaultValue="ADC_CLOCK_ASYNC_DIV1" Group="ADCsgroup" Name="ClockPrescaler" Type="list">
 		 <Condition Diagnostic="" Expression="DIE484"/>	
         	<PossibleValue Action="DISABLE" Condition="(!AHBCLKDivider1)|(FHzAsyncCLK &gt; 75000000)|(1500000 &gt; FHzAsyncCLK)" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 1" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV1"/>
@@ -201,26 +227,26 @@
 			<PossibleValue Action="DISABLE" Condition="((FHzSyncCLK/2) &gt; 75000000)|(1500000 &gt; (FHzSyncCLK/2))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Synchronous clock mode divided by 2" Value="ADC_CLOCK_SYNC_PCLK_DIV2"/>
 	        <PossibleValue Action="DISABLE" Condition="((FHzSyncCLK/4) &gt; 75000000)|(1500000 &gt; (FHzSyncCLK/4))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Synchronous clock mode divided by 4" Value="ADC_CLOCK_SYNC_PCLK_DIV4"/>
 	        <Description>frequency of the clock to the ADC. The clock is common for all the ADCs.</Description>
-	    </RefParameter>
-		
-        <RefParameter Comment="Clock Prescaler" DefaultValue="ADC_CLOCK_ASYNC_DIV1" Group="ADCsgroup" Name="ClockPrescaler" Type="list">
-        	<PossibleValue Action="DISABLE" Condition="(!AHBCLKDivider1)|(FHzAsyncCLK &gt; 37500000)|(1500000 &gt; FHzAsyncCLK)" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 1" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV1"/>
-			<PossibleValue Action="DISABLE" Condition="((FHzAsyncCLK/2) &gt; 37500000)|(1500000 &gt; (FHzAsyncCLK/2))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 2" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV2"/>
-			<PossibleValue Action="DISABLE" Condition="((FHzAsyncCLK/4) &gt; 37500000)|(1500000 &gt; (FHzAsyncCLK/4))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 4" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV4"/>
-			<PossibleValue Action="DISABLE" Condition="((FHzAsyncCLK/6) &gt; 37500000)|(1500000 &gt; (FHzAsyncCLK/6))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 6" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV6"/>
-			<PossibleValue Action="DISABLE" Condition="((FHzAsyncCLK/8) &gt; 37500000)|(1500000 &gt; (FHzAsyncCLK/8))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 8" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV8"/>
-			<PossibleValue Action="DISABLE" Condition="((FHzAsyncCLK/10) &gt; 37500000)|(1500000 &gt; (FHzAsyncCLK/10))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 10" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV10"/>		
-			<PossibleValue Action="DISABLE" Condition="((FHzAsyncCLK/12) &gt; 37500000)|(1500000 &gt; (FHzAsyncCLK/12))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 12" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV12"/>
-			<PossibleValue Action="DISABLE" Condition="((FHzAsyncCLK/16) &gt; 37500000)|(1500000 &gt; (FHzAsyncCLK/16))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 16" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV16"/>
-			<PossibleValue Action="DISABLE" Condition="((FHzAsyncCLK/32) &gt; 37500000)|(1500000 &gt; (FHzAsyncCLK/32))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 32" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV32"/>
-			<PossibleValue Action="DISABLE" Condition="((FHzAsyncCLK/64) &gt; 37500000)|(1500000 &gt; (FHzAsyncCLK/64))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 64" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV64"/>
-			<PossibleValue Action="DISABLE" Condition="((FHzAsyncCLK/128) &gt; 37500000)|(1500000 &gt; (FHzAsyncCLK/128))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 128" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV128"/>
-			<PossibleValue Action="DISABLE" Condition="((FHzAsyncCLK/256) &gt; 37500000)|(1500000 &gt; (FHzAsyncCLK/256))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 256" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV256"/>
-			<PossibleValue Action="DISABLE" Condition="(!AHBCLKDivider1)|(FHzSyncCLK &gt; 75000000)|(1500000 &gt; FHzSyncCLK)" Diagnostic="The Clock prescaler can't be set to synchronous DIV1 since the AHB prescaler is different from DIV1." Comment="Synchronous clock mode divided by 1" Semaphore="$IpInstanceUsedSynchronousCLK_ForRCC" Value="ADC_CLOCK_SYNC_PCLK_DIV1"/>
-			<PossibleValue Action="DISABLE" Condition="((FHzSyncCLK/2) &gt; 37500000)|(1500000 &gt; (FHzSyncCLK/2))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Synchronous clock mode divided by 2" Value="ADC_CLOCK_SYNC_PCLK_DIV2"/>
-	        <PossibleValue Action="DISABLE" Condition="((FHzSyncCLK/4) &gt; 37500000)|(1500000 &gt; (FHzSyncCLK/4))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Synchronous clock mode divided by 4" Value="ADC_CLOCK_SYNC_PCLK_DIV4"/>
-	        <Description>frequency of the clock to the ADC. The clock is common for all the ADCs.</Description>
-	    </RefParameter>
+            </RefParameter>
+
+            <RefParameter Comment="Clock Prescaler" DefaultValue="ADC_CLOCK_ASYNC_DIV1" Group="ADCsgroup" Name="ClockPrescaler" Type="list">
+                <PossibleValue Action="DISABLE" Condition="(!AHBCLKDivider1)|(FHzAsyncCLK &gt; 37500000)|(1500000 &gt; FHzAsyncCLK)" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 1" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV1"/>
+                <PossibleValue Action="DISABLE" Condition="((FHzAsyncCLK/2) &gt; 37500000)|(1500000 &gt; (FHzAsyncCLK/2))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 2" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV2"/>
+                <PossibleValue Action="DISABLE" Condition="((FHzAsyncCLK/4) &gt; 37500000)|(1500000 &gt; (FHzAsyncCLK/4))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 4" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV4"/>
+                <PossibleValue Action="DISABLE" Condition="((FHzAsyncCLK/6) &gt; 37500000)|(1500000 &gt; (FHzAsyncCLK/6))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 6" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV6"/>
+                <PossibleValue Action="DISABLE" Condition="((FHzAsyncCLK/8) &gt; 37500000)|(1500000 &gt; (FHzAsyncCLK/8))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 8" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV8"/>
+                <PossibleValue Action="DISABLE" Condition="((FHzAsyncCLK/10) &gt; 37500000)|(1500000 &gt; (FHzAsyncCLK/10))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 10" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV10"/>
+                <PossibleValue Action="DISABLE" Condition="((FHzAsyncCLK/12) &gt; 37500000)|(1500000 &gt; (FHzAsyncCLK/12))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 12" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV12"/>
+                <PossibleValue Action="DISABLE" Condition="((FHzAsyncCLK/16) &gt; 37500000)|(1500000 &gt; (FHzAsyncCLK/16))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 16" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV16"/>
+                <PossibleValue Action="DISABLE" Condition="((FHzAsyncCLK/32) &gt; 37500000)|(1500000 &gt; (FHzAsyncCLK/32))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 32" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV32"/>
+                <PossibleValue Action="DISABLE" Condition="((FHzAsyncCLK/64) &gt; 37500000)|(1500000 &gt; (FHzAsyncCLK/64))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 64" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV64"/>
+                <PossibleValue Action="DISABLE" Condition="((FHzAsyncCLK/128) &gt; 37500000)|(1500000 &gt; (FHzAsyncCLK/128))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 128" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV128"/>
+                <PossibleValue Action="DISABLE" Condition="((FHzAsyncCLK/256) &gt; 37500000)|(1500000 &gt; (FHzAsyncCLK/256))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 256" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV256"/>
+                <PossibleValue Action="DISABLE" Condition="(!AHBCLKDivider1)|(FHzSyncCLK &gt; 75000000)|(1500000 &gt; FHzSyncCLK)" Diagnostic="The Clock prescaler can't be set to synchronous DIV1 since the AHB prescaler is different from DIV1." Comment="Synchronous clock mode divided by 1" Semaphore="$IpInstanceUsedSynchronousCLK_ForRCC" Value="ADC_CLOCK_SYNC_PCLK_DIV1"/>
+                <PossibleValue Action="DISABLE" Condition="((FHzSyncCLK/2) &gt; 37500000)|(1500000 &gt; (FHzSyncCLK/2))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Synchronous clock mode divided by 2" Value="ADC_CLOCK_SYNC_PCLK_DIV2"/>
+                <PossibleValue Action="DISABLE" Condition="((FHzSyncCLK/4) &gt; 37500000)|(1500000 &gt; (FHzSyncCLK/4))" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Synchronous clock mode divided by 4" Value="ADC_CLOCK_SYNC_PCLK_DIV4"/>
+                <Description>frequency of the clock to the ADC. The clock is common for all the ADCs.</Description>
+            </RefParameter>
 		
 	    <!-- Possible Value of Resolution parameter -->
             
@@ -526,6 +552,8 @@
         <PossibleValue Action="Remove" Comment="Timer 3 Capture Compare 4 event" Condition="!TIM3_Exist" Diagnostic="" Value="ADC_EXTERNALTRIG_T3_CC4"/>
         <PossibleValue Action="Remove" Comment="LPTIM 1 Out event" Condition="!LPTIM1_Exist" Diagnostic="" Value="ADC_EXTERNALTRIG_LPTIM1_CH1"/>
         <PossibleValue Action="Remove" Comment="LPTIM 2 Out event" Condition="!LPTIM2_Exist" Diagnostic="" Value="ADC_EXTERNALTRIG_LPTIM2_CH1"/>
+        <PossibleValue Action="Remove" Comment="Play Out 7 event" Condition="!LPTIM2_Exist" Diagnostic="" Value="ADC_EXTERNALTRIG_PLAY_OUT7"/>
+        <PossibleValue Action="Remove" Comment="Play Out 9 event" Condition="!PLAY1_Exist" Diagnostic="" Value="ADC_EXTERNALTRIG_PLAY_OUT9"/>
         <Description>Select the external event used to trigger the start of conversion of a regular group</Description>
     </RefParameter>
 	
@@ -590,6 +618,10 @@
         <Condition Diagnostic="" Expression="ADC_RESOLUTION8b_$IpInstance"/>
         <Description>Data offset for regular channel</Description>
     </RefParameter>
+    <RefParameter Comment="Offset" DefaultValue="0" Group="ADCgroup" Max="63" Min="0" Name="Offset" Type="integer">
+        <Condition Diagnostic="" Expression="ADC_RESOLUTION6b_$IpInstance"/>
+        <Description>Data offset for regular channel</Description>
+    </RefParameter>
 
     <RefParameter Comment="Offset" DefaultValue="0" Group="ADCgroup" Max="65535" Min="0" Name="Offset" Type="integer" Visible="false">
         <Description>Data offset for regular channel</Description>
@@ -609,8 +641,6 @@
         <PossibleValue Comment="92.5 Cycles" Value="ADC_SAMPLETIME_92CYCLES_5"/>
         <PossibleValue Comment="247.5 Cycles" Value="ADC_SAMPLETIME_247CYCLES_5"/>
         <PossibleValue Comment="640.5 Cycles" Value="ADC_SAMPLETIME_640CYCLES_5"/>
-        <PossibleValue Comment="3.5 Cycles" Value="ADC_SAMPLETIME_3CYCLES_5"/>
-
         <Description>Regular Channel x sampling time selection</Description>
     </RefParameter>		    
 		  
@@ -808,6 +838,8 @@
         <PossibleValue Action="Remove" Comment="Timer 15 Trigger Out event" Condition="!TIM15_Exist" Diagnostic="" Value="ADC_EXTERNALTRIGINJEC_T15_TRGO"/>
         <PossibleValue Action="Remove" Comment="LPTIM 1 Out event" Condition="!LPTIM1_Exist" Diagnostic="" Value="ADC_EXTERNALTRIGINJEC_LPTIM1_CH2"/>
         <PossibleValue Action="Remove" Comment="LPTIM 2 Out event" Condition="!LPTIM2_Exist" Diagnostic="" Value="ADC_EXTERNALTRIGINJEC_LPTIM2_CH2"/>
+        <PossibleValue Action="Remove" Comment="Play Out 7 event" Condition="!LPTIM2_Exist" Diagnostic="" Value="ADC_EXTERNALTRIG_PLAY_OUT7"/>
+        <PossibleValue Action="Remove" Comment="Play Out 9 event" Condition="!PLAY1_Exist" Diagnostic="" Value="ADC_EXTERNALTRIG_PLAY_OUT9"/>
         <Description>Select the external event used to trigger the start of conversion of an injected group</Description>
     </RefParameter>
     <!-- Possible Value of ExternalTrigInjecConvEdge parameter -->
@@ -943,6 +975,10 @@
     </RefParameter>
     <RefParameter Comment="Injected Offset" DefaultValue="0" Group="ADCgroup" Max="255" Min="0" Name="InjectedOffset" Type="integer">
         <Condition Diagnostic="" Expression="ADC_RESOLUTION8b_$IpInstance"/>
+        <Description>Data offset for Injected channel</Description>
+    </RefParameter>
+    <RefParameter Comment="Injected Offset" DefaultValue="0" Group="ADCgroup" Max="63" Min="0" Name="InjectedOffset" Type="integer">
+        <Condition Diagnostic="" Expression="ADC_RESOLUTION6b_$IpInstance"/>
         <Description>Data offset for Injected channel</Description>
     </RefParameter>
     <RefParameter Comment="Injected Offset" DefaultValue="0" Group="ADCgroup" Max="65535" Min="0" Name="InjectedOffset" Type="integer" Visible="false">
@@ -1085,7 +1121,9 @@
         <PossibleValue Comment="Channel VrefInt" Value="ADC_CHANNEL_VREFINT"/>
         <PossibleValue Comment="Channel 18" Value="ADC_CHANNEL_18"/>
         <PossibleValue Comment="Channel 19" Value="ADC_CHANNEL_19"/>
-        
+        <PossibleValue Comment="channel DAC1 channel 1" Value="ADC_CHANNEL_DAC1_CH1"/>
+        <PossibleValue Comment="channel DAC1 channel 2" Value="ADC_CHANNEL_DAC1_CH2"/>
+        <PossibleValue Comment="channel OPAMP1 output" Value="ADC_CHANNEL_OPAMP1"/>
     </RefParameter>	
    
    
@@ -1121,6 +1159,9 @@
         <PossibleValue Comment="Channel VrefInt" Value="ADC_CHANNEL_VREFINT"/>
         <PossibleValue Comment="Channel 18" Value="ADC_CHANNEL_18"/>
         <PossibleValue Comment="Channel 19" Value="ADC_CHANNEL_19"/>
+        <PossibleValue Comment="Channel DAC1 channel 1" Value="ADC_CHANNEL_DAC1_CH1"/>
+        <PossibleValue Comment="Channel DAC1 channel 2" Value="ADC_CHANNEL_DAC1_CH2"/>
+        <PossibleValue Comment="Channel OPAMP1 output" Value="ADC_CHANNEL_OPAMP1"/>
 
     </RefParameter>	
   
@@ -1256,6 +1297,9 @@
         <PossibleValue Comment="Channel VrefInt" Value="ADC_CHANNEL_VREFINT"/>
         <PossibleValue Comment="Channel 18" Value="ADC_CHANNEL_18"/>
         <PossibleValue Comment="Channel 19" Value="ADC_CHANNEL_19"/>
+        <PossibleValue Comment="Channel DAC1 channel 1" Value="ADC_CHANNEL_DAC1_CH1"/>
+        <PossibleValue Comment="Channel DAC1 channel 2" Value="ADC_CHANNEL_DAC1_CH2"/>
+        <PossibleValue Comment="Channel OPAMP1 output" Value="ADC_CHANNEL_OPAMP1"/>
         <Description>ADC channel for the analog watchdog</Description> 
     </RefParameter>	
    
@@ -1290,6 +1334,9 @@
         <PossibleValue Comment="Channel VrefInt" Value="ADC_CHANNEL_VREFINT"/>
         <PossibleValue Comment="Channel 18" Value="ADC_CHANNEL_18"/>
         <PossibleValue Comment="Channel 19" Value="ADC_CHANNEL_19"/>
+        <PossibleValue Comment="Channel DAC1 channel 1" Value="ADC_CHANNEL_DAC1_CH1"/>
+        <PossibleValue Comment="Channel DAC1 channel 2" Value="ADC_CHANNEL_DAC1_CH2"/>
+        <PossibleValue Comment="Channel OPAMP1 output" Value="ADC_CHANNEL_OPAMP1"/>
         <Description>ADC channel for the analog watchdog</Description>    
     </RefParameter>	
    
@@ -1320,7 +1367,9 @@
         <PossibleValue Comment="Channel VrefInt" Value="ADC_CHANNEL_VREFINT"/>
         <PossibleValue Comment="Channel 18" Value="ADC_CHANNEL_18"/>
         <PossibleValue Comment="Channel 19" Value="ADC_CHANNEL_19"/>
-
+        <PossibleValue Comment="Channel DAC1 channel 1" Value="ADC_CHANNEL_DAC1_CH1"/>
+        <PossibleValue Comment="Channel DAC1 channel 2" Value="ADC_CHANNEL_DAC1_CH2"/>
+        <PossibleValue Comment="Channel OPAMP1 output" Value="ADC_CHANNEL_OPAMP1"/>
         <Description>ADC channel for the analog watchdog</Description> 
     </RefParameter>	
    
@@ -1370,27 +1419,30 @@
     <RefParameter Comment="High Threshold" DefaultValue="null" Group="ADCgroup" Name="AWD3HighThreshold" Type="list" Visible="false">
         <Condition Diagnostic="" Expression="EnableAnalogWatchDog3=false"/>
     </RefParameter>
-    <RefParameter Comment="High Threshold" DefaultValue="0" Group="ADCgroup" Max="67108863" Min="=AWD3LowThreshold" Name="AWD3HighThreshold" Type="integer">
+    <RefParameter Comment="High Threshold" DefaultValue="0" Group="ADCgroup" Max="65535" Min="=AWD3LowThreshold" Name="AWD3HighThreshold" Type="integer">
         <Condition Diagnostic="" Expression="ADC_RESOLUTION16b_$IpInstance"/>
         <Description>Configures the ADC analog watchdog High threshold value.</Description>
     </RefParameter>
-    <RefParameter Comment="High Threshold" DefaultValue="0" Group="ADCgroup" Max="16777215" Min="=AWD3LowThreshold" Name="AWD3HighThreshold" Type="integer">
+    <RefParameter Comment="High Threshold" DefaultValue="0" Group="ADCgroup" Max="16383" Min="=AWD3LowThreshold" Name="AWD3HighThreshold" Type="integer">
         <Condition Diagnostic="" Expression="ADC_RESOLUTION14b_$IpInstance"/>
         <Description>Configures the ADC analog watchdog High threshold value.</Description>
     </RefParameter>
-    <RefParameter Comment="High Threshold" DefaultValue="0" Group="ADCgroup" Max="4194303" Min="=AWD3LowThreshold" Name="AWD3HighThreshold" Type="integer">
+    <RefParameter Comment="High Threshold" DefaultValue="0" Group="ADCgroup" Max="4095" Min="=AWD3LowThreshold" Name="AWD3HighThreshold" Type="integer">
         <Condition Diagnostic="" Expression="ADC_RESOLUTION12b_$IpInstance"/>
         <Description>Configures the ADC analog watchdog High threshold value.</Description>
     </RefParameter>
-    <RefParameter Comment="High Threshold" DefaultValue="0" Group="ADCgroup" Max="1048575" Min="=AWD3LowThreshold" Name="AWD3HighThreshold" Type="integer">
+    <RefParameter Comment="High Threshold" DefaultValue="0" Group="ADCgroup" Max="1023" Min="=AWD3LowThreshold" Name="AWD3HighThreshold" Type="integer">
         <Condition Diagnostic="" Expression="ADC_RESOLUTION10b_$IpInstance"/>
         <Description>Configures the ADC analog watchdog High threshold value.</Description>
     </RefParameter>
-    <RefParameter Comment="High Threshold" DefaultValue="0" Group="ADCgroup" Max="262143" Min="=AWD3LowThreshold" Name="AWD3HighThreshold" Type="integer">
+    <RefParameter Comment="High Threshold" DefaultValue="0" Group="ADCgroup" Max="255" Min="=AWD3LowThreshold" Name="AWD3HighThreshold" Type="integer">
         <Condition Diagnostic="" Expression="ADC_RESOLUTION8b_$IpInstance"/>
         <Description>Configures the ADC analog watchdog High threshold value.</Description>
     </RefParameter>
-	
+    <RefParameter Comment="High Threshold" DefaultValue="0" Group="ADCgroup" Max="63" Min="=AWD3LowThreshold" Name="AWD3HighThreshold" Type="integer">
+        <Condition Diagnostic="" Expression="ADC_RESOLUTION6b_$IpInstance"/>
+        <Description>Configures the ADC analog watchdog High threshold value.</Description>
+    </RefParameter>
 
     <!-- Possible value of LowThreshold parameter -->
     <RefParameter Comment="Low Threshold" DefaultValue="null" Group="ADCgroup" Name="AWD3LowThreshold" Type="list" Visible="false">
@@ -1425,33 +1477,37 @@
         <PossibleValue Comment="WatchDog 2" Value="ADC_ANALOGWATCHDOG_2"/>
         <Description>Number of used watchDogs.</Description>
     </RefParameter>
-	
+
 
     <!-- Possible Value of HighThreshold parameters: Min and Max of this parameter depend on ADC resolution -->
     <RefParameter Comment="High Threshold" DefaultValue="null" Group="ADCgroup" Name="AWD2HighThreshold" Type="list" Visible="false">
         <Condition Diagnostic="" Expression="EnableAnalogWatchDog2=false"/>
     </RefParameter>
-    <RefParameter Comment="High Threshold" DefaultValue="0" Group="ADCgroup" Max="67108863" Min="=AWD2LowThreshold" Name="AWD2HighThreshold" Type="integer">
+    <RefParameter Comment="High Threshold" DefaultValue="0" Group="ADCgroup" Max="65535" Min="=AWD2LowThreshold" Name="AWD2HighThreshold" Type="integer">
         <Condition Diagnostic="" Expression="ADC_RESOLUTION16b_$IpInstance"/>
         <Description>Configures the ADC analog watchdog High threshold value.</Description>
     </RefParameter>
-    <RefParameter Comment="High Threshold" DefaultValue="0" Group="ADCgroup" Max="16777215" Min="=AWD2LowThreshold" Name="AWD2HighThreshold" Type="integer">
+    <RefParameter Comment="High Threshold" DefaultValue="0" Group="ADCgroup" Max="16383" Min="=AWD2LowThreshold" Name="AWD2HighThreshold" Type="integer">
         <Condition Diagnostic="" Expression="ADC_RESOLUTION14b_$IpInstance"/>
         <Description>Configures the ADC analog watchdog High threshold value.</Description>
     </RefParameter>
-    <RefParameter Comment="High Threshold" DefaultValue="0" Group="ADCgroup" Max="4194303" Min="=AWD2LowThreshold" Name="AWD2HighThreshold" Type="integer">
+    <RefParameter Comment="High Threshold" DefaultValue="0" Group="ADCgroup" Max="4095" Min="=AWD2LowThreshold" Name="AWD2HighThreshold" Type="integer">
         <Condition Diagnostic="" Expression="ADC_RESOLUTION12b_$IpInstance"/>
         <Description>Configures the ADC analog watchdog High threshold value.</Description>
     </RefParameter>
-    <RefParameter Comment="High Threshold" DefaultValue="0" Group="ADCgroup" Max="1048575" Min="=AWD2LowThreshold" Name="AWD2HighThreshold" Type="integer">
+    <RefParameter Comment="High Threshold" DefaultValue="0" Group="ADCgroup" Max="1023" Min="=AWD2LowThreshold" Name="AWD2HighThreshold" Type="integer">
         <Condition Diagnostic="" Expression="ADC_RESOLUTION10b_$IpInstance"/>
         <Description>Configures the ADC analog watchdog High threshold value.</Description>
     </RefParameter>
-    <RefParameter Comment="High Threshold" DefaultValue="0" Group="ADCgroup" Max="262143" Min="=AWD2LowThreshold" Name="AWD2HighThreshold" Type="integer">
+    <RefParameter Comment="High Threshold" DefaultValue="0" Group="ADCgroup" Max="255" Min="=AWD2LowThreshold" Name="AWD2HighThreshold" Type="integer">
         <Condition Diagnostic="" Expression="ADC_RESOLUTION8b_$IpInstance"/>
         <Description>Configures the ADC analog watchdog High threshold value.</Description>
     </RefParameter>
-	
+    <RefParameter Comment="High Threshold" DefaultValue="0" Group="ADCgroup" Max="63" Min="=AWD2LowThreshold" Name="AWD2HighThreshold" Type="integer">
+        <Condition Diagnostic="" Expression="ADC_RESOLUTION6b_$IpInstance"/>
+        <Description>Configures the ADC analog watchdog High threshold value.</Description>
+    </RefParameter>
+
 		    
     <!-- Possible value of LowThreshold parameter -->
     <RefParameter Comment="Low Threshold" DefaultValue="null" Group="ADCgroup" Name="AWD2LowThreshold" Type="list" Visible="false">
@@ -1550,36 +1606,44 @@
         <PossibleValue Comment="Channel VrefInt" Value="ADC_CHANNEL_VREFINT"/>
         <PossibleValue Comment="Channel 18" Value="ADC_CHANNEL_18"/>
         <PossibleValue Comment="Channel 19" Value="ADC_CHANNEL_19"/>
-    </RefParameter>	
-    
+        <PossibleValue Comment="Channel DAC1 channel 1" Value="ADC_CHANNEL_DAC1_CH1"/>
+        <PossibleValue Comment="Channel DAC1 channel 2" Value="ADC_CHANNEL_DAC1_CH2"/>
+        <PossibleValue Comment="Channel OPAMP1 output" Value="ADC_CHANNEL_OPAMP1"/>
+    </RefParameter>
+
     <!-- Possible Value of HighThreshold parameters: Min and Max of this parameter depend on ADC resolution -->
     <RefParameter Comment="High Threshold" DefaultValue="null" Group="ADCgroup" Name="AWD1HighThreshold" Type="list" Visible="false">
         <Condition Diagnostic="" Expression="EnableAnalogWatchDog1=false"/>
     </RefParameter>
-    <RefParameter Comment="High Threshold" DefaultValue="0" Group="ADCgroup" Max="67108863" Min="=AWD1LowThreshold" Name="AWD1HighThreshold" Type="integer">
+    <RefParameter Comment="High Threshold" DefaultValue="0" Group="ADCgroup" Max="65535" Min="=AWD1LowThreshold" Name="AWD1HighThreshold" Type="integer">
         <Condition Diagnostic="" Expression="ADC_RESOLUTION16b_$IpInstance"/>
         <Description>Configures the ADC analog watchdog High threshold value.</Description>
     </RefParameter>
-    <RefParameter Comment="High Threshold" DefaultValue="0" Group="ADCgroup" Max="16777215" Min="=AWD1LowThreshold" Name="AWD1HighThreshold" Type="integer">
+    <RefParameter Comment="High Threshold" DefaultValue="0" Group="ADCgroup" Max="16383" Min="=AWD1LowThreshold" Name="AWD1HighThreshold" Type="integer">
         <Condition Diagnostic="" Expression="ADC_RESOLUTION14b_$IpInstance"/>
         <Description>Configures the ADC analog watchdog High threshold value.</Description>
     </RefParameter>
-    <RefParameter Comment="High Threshold" DefaultValue="0" Group="ADCgroup" Max="4194303" Min="=AWD1LowThreshold" Name="AWD1HighThreshold" Type="integer">
+    <RefParameter Comment="High Threshold" DefaultValue="0" Group="ADCgroup" Max="4095" Min="=AWD1LowThreshold" Name="AWD1HighThreshold" Type="integer">
         <Condition Diagnostic="" Expression="ADC_RESOLUTION12b_$IpInstance"/>
         <Description>Configures the ADC analog watchdog High threshold value.</Description>
     </RefParameter>
-    <RefParameter Comment="High Threshold" DefaultValue="0" Group="ADCgroup" Max="1048575" Min="=AWD1LowThreshold" Name="AWD1HighThreshold" Type="integer">
+
+    <RefParameter Comment="High Threshold" DefaultValue="0" Group="ADCgroup" Max="1023" Min="=AWD1LowThreshold" Name="AWD1HighThreshold" Type="integer">
         <Condition Diagnostic="" Expression="ADC_RESOLUTION10b_$IpInstance"/>
         <Description>Configures the ADC analog watchdog High threshold value.</Description>
     </RefParameter>
-    <RefParameter Comment="High Threshold" DefaultValue="0" Group="ADCgroup" Max="262143" Min="=AWD1LowThreshold" Name="AWD1HighThreshold" Type="integer">
+    <RefParameter Comment="High Threshold" DefaultValue="0" Group="ADCgroup" Max="255" Min="=AWD1LowThreshold" Name="AWD1HighThreshold" Type="integer">
         <Condition Diagnostic="" Expression="ADC_RESOLUTION8b_$IpInstance"/>
         <Description>Configures the ADC analog watchdog High threshold value.</Description>
     </RefParameter>
-    
-     <RefParameter Visible="false" Comment="High Threshold" DefaultValue="null" Group="ADCgroup"  Name="AWD1HighThreshold" Type="integer">
+    <RefParameter Comment="High Threshold" DefaultValue="0" Group="ADCgroup" Max="63" Min="=AWD1LowThreshold" Name="AWD1HighThreshold" Type="integer">
+        <Condition Diagnostic="" Expression="ADC_RESOLUTION6b_$IpInstance"/>
+        <Description>Configures the ADC analog watchdog High threshold value.</Description>
     </RefParameter>
-		 	
+
+    <RefParameter Visible="false" Comment="High Threshold" DefaultValue="null" Group="ADCgroup"  Name="AWD1HighThreshold" Type="integer">
+    </RefParameter>
+
     <!-- Possible value of LowThreshold parameter -->	
     <RefParameter Comment="Low Threshold" DefaultValue="null" Group="ADCgroup" Name="AWD1LowThreshold" Type="list" Visible="false">
         <Condition Diagnostic="" Expression="EnableAnalogWatchDog1=false"/>
@@ -1654,6 +1718,9 @@
         <PossibleValue Comment="Channel VrefInt" Value="ADC_CHANNEL_VREFINT"/>
         <PossibleValue Comment="Channel 18" Value="ADC_CHANNEL_18"/>
         <PossibleValue Comment="Channel 19" Value="ADC_CHANNEL_19"/>
+        <PossibleValue Comment="Channel DAC1 channel 1" Value="ADC_CHANNEL_DAC1_CH1"/>
+        <PossibleValue Comment="Channel DAC1 channel 2" Value="ADC_CHANNEL_DAC1_CH2"/>
+        <PossibleValue Comment="Channel OPAMP1 output" Value="ADC_CHANNEL_OPAMP1"/>
     </RefParameter>	
    
     <!--Internal channels-->
@@ -1695,27 +1762,28 @@
 	
     <!-- ADC settings -->
     <RefMode Comment="ADCx Settings" Group="ADC_Settings" Name="ADC_Settings">
-        <ConfigForMode>ADC_RegularConfig</ConfigForMode>
-        <Parameter Name="ClockPrescaler"/>
-        <Parameter Name="Resolution"/>
-        <Parameter Name="ScanConvMode"/>
-        <Parameter Name="DataAlign"/>
-        <Parameter Name="ContinuousConvMode"/>
-        <Parameter Name="DiscontinuousConvMode"/>
-        <Parameter Name="NbrOfDiscConversion"/>
-        <Parameter Name="DMAContinuousRequests"/>
-        <Parameter Name="EOCSelection"/>
-        <Parameter Name="Overrun"/>
-        <Parameter Name="ChannelVREF"/>
-        <Parameter Name="ChannelVBAT"/>
-        <Parameter Name="ChannelTS"/>
-        <Parameter Name="ConversionDataManagement"/>
+            <ConfigForMode>ADC_RegularConfig</ConfigForMode>
+            <Parameter Name="ClockPrescaler"/>
+            <Parameter Name="ClockPrescalerADC3"/>
+            <Parameter Name="Resolution"/>
+            <Parameter Name="ScanConvMode"/>
+            <Parameter Name="DataAlign"/>
+            <Parameter Name="ContinuousConvMode"/>
+            <Parameter Name="DiscontinuousConvMode"/>
+            <Parameter Name="NbrOfDiscConversion"/>
+            <Parameter Name="DMAContinuousRequests"/>
+            <Parameter Name="EOCSelection"/>
+            <Parameter Name="Overrun"/>
+            <Parameter Name="ChannelVREF"/>
+            <Parameter Name="ChannelVBAT"/>
+            <Parameter Name="ChannelTS"/>
+            <Parameter Name="ConversionDataManagement"/>
 
 
-        <!--        <Parameter Name="BoostMode"/>-->
-        <Parameter Name="LowPowerAutoWait"/>
+            <!--        <Parameter Name="BoostMode"/>-->
+            <Parameter Name="LowPowerAutoWait"/>
     </RefMode>
-	
+
     <!-- RefMode of ADC_Regular_ConversionMode -->
     <RefMode Abstract="true" Comment="Regular Conversion Settings" Group="ADC_Regular_ConversionMode" Name="ADC_Regular_ConversionMode">
         <Parameter Name="EnableRegularConversion"/> 
@@ -2079,8 +2147,16 @@
             <PossibleValue>ADC_CHANNEL_19</PossibleValue>
         </Parameter>
     </RefMode>
-
-
+    <RefMode Comment="" Name="IN-DAC1-OUT1">
+        <Parameter Name="Channel">
+            <PossibleValue>ADC_CHANNEL_DAC1_CH1</PossibleValue>
+        </Parameter>
+    </RefMode>
+    <RefMode Comment="" Name="IN-DAC1-OUT2">
+        <Parameter Name="Channel">
+            <PossibleValue>ADC_CHANNEL_DAC1_CH2</PossibleValue>
+        </Parameter>
+    </RefMode>
     <!-- RefModes-DAC-InternalChannel-->
  
     <RefMode Comment="" Name="IN-TempSens">
@@ -2098,8 +2174,6 @@
             <PossibleValue>ADC_CHANNEL_VBAT</PossibleValue>
         </Parameter>
     </RefMode>
-    
-    
     
 	
     
@@ -2144,22 +2218,9 @@
                 </Mode>           
             </ModeLogicOperator>
             <Semaphore>channelSelected$IpInstance</Semaphore>
-                        <Semaphore>SHANNEL1ISSELECTED</Semaphore>
+            <Semaphore>SHANNEL1ISSELECTED</Semaphore>
+        </Mode>
 
-        </Mode>
-        
-       
-    <Mode Name="IN-Vbat" UserName="Vbat/4 Channel" RemoveCondition="DIE484" >       
-     <ModeLogicOperator Name="XOR">
-               <Mode Name="IN-Vbat" UserName="Vbat/4 Channel">
-                    <SignalLogicalOp Name="AND">
-                        <Signal Name="Vbat_Input"/>
-                    </SignalLogicalOp>                 
-                    <Semaphore>VbatfTSelected$IpInstance</Semaphore>
-                </Mode>
-            </ModeLogicOperator>
-            <Semaphore>channelSelected$IpInstance</Semaphore>
-        </Mode>
         <Mode Name="IN2" RemoveCondition="LQFP100|VFQFPN68|LQFP100|LQFP64">
             <ModeLogicOperator Name="XOR">
                 <Mode Name="IN2-Differential" UserName="IN2 Differential">
@@ -2257,23 +2318,6 @@
         </Mode>
         <!-- Internal channels -->  
       
-        <Mode Name="IN-Vcore" UserName="Vddcore Channel" RemoveCondition="DIE484">
-            <ModeLogicOperator Name="XOR">
-                <Mode Name="IN-Vcore" UserName="IN6">
-                    <SignalLogicalOp Name="AND">
-                        <Signal Name="Vcore_Input"/>
-                    </SignalLogicalOp>  
-                    <Semaphore>VcorefTSelected$IpInstance</Semaphore>
-                                                     
-                </Mode>
-            </ModeLogicOperator>
-
-            <Semaphore>channelSelected</Semaphore>
-            <Semaphore>SHANNELVCOREISSELECTED</Semaphore>
-
-        </Mode>  
-      
-        
         <Mode Name="IN7">
             <ModeLogicOperator Name="XOR">
                 <Mode Name="IN7-Single-Ended" UserName="IN7 Single-ended">
@@ -2435,6 +2479,17 @@
             <Semaphore>channelSelected$IpInstance</Semaphore>
             <Condition Diagnostic="Channel15 is already used" Expression="!IN14DiffUsed_$IpInstance"/>
         </Mode>
+        <Mode Name="IN-Vbat" UserName="Vbat/4 Channel" RemoveCondition="$Index=1 " >
+            <ModeLogicOperator Name="XOR">
+                <Mode Name="IN-Vbat" UserName="Vbat/4 Channel">
+                    <SignalLogicalOp Name="AND">
+                        <Signal Name="Vbat_Input"/>
+                    </SignalLogicalOp>
+                    <Semaphore>VbatfTSelected$IpInstance</Semaphore>
+                </Mode>
+            </ModeLogicOperator>
+            <Semaphore>channelSelected$IpInstance</Semaphore>
+        </Mode>
         <Mode Name="IN-TempSens" UserName="Temperature Sensor Channel" RemoveCondition="$Index=2">
             <ModeLogicOperator Name="XOR">
                	
@@ -2460,20 +2515,7 @@
             <Semaphore>VrefTSelected$IpInstance</Semaphore>
 
         </Mode>
-		<Mode Name="IN-Vbat" UserName="Vbat/4 Channel" RemoveCondition="$Index=1">
-            <ModeLogicOperator Name="XOR">
-                <Mode Name="IN-Vbat" UserName="Vbat/4 Channel">
-                    <SignalLogicalOp Name="AND">
-                        <Signal Name="Vbat_Input"/>
-                    </SignalLogicalOp>                 
-                    <Semaphore>VbatfTSelected$IpInstance</Semaphore>
-                </Mode>
-            </ModeLogicOperator>
-            <Semaphore>channelSelected</Semaphore>
-            <Semaphore>SHANNELVBATISSELECTED</Semaphore>
-
-        </Mode>
-        <Mode Name="IN-Vcore" UserName="Vddcore Channel" RemoveCondition="$Index=1">
+	        <Mode Name="IN-Vcore" UserName="Vddcore Channel" RemoveCondition="$Index=1">
             <ModeLogicOperator Name="XOR">
                 <Mode Name="IN-Vcore" UserName="Vcore Channel">
                     <SignalLogicalOp Name="AND">
@@ -2524,8 +2566,31 @@
             <Semaphore>channelSelected$IpInstance</Semaphore>
             <Condition Diagnostic="Channel19 is already used" Expression="!IN18DiffUsed_$IpInstance"/>
         </Mode>
-        
-        
+        <Mode Name="IN-DAC1-OUT1" UserName="VDAC_OUT1 Channel" RemoveCondition="$Index=2|$Index=1">
+            <ModeLogicOperator Name="XOR">
+                <Mode Name="IN-DAC1-OUT1" UserName="VDAC1_OUT1 Channel">
+                    <SignalLogicalOp Name="AND">
+                        <Signal Name="VS_DAC1_OUT1"/>
+                    </SignalLogicalOp>
+                </Mode>
+            </ModeLogicOperator>
+            <Condition Diagnostic="Available only if DAC_OUT1 is used" Expression="DAC1_OUT1_Int | DAC1_OUT1_ExtAndInt"/>
+            <Semaphore>channelSelected$IpInstance</Semaphore>
+            <Semaphore>SHANNELDAC1OU1ISSELECTED</Semaphore>
+        </Mode>
+        <Mode Name="IN-DAC1-OUT2" UserName="VDAC_OUT2 Channel">
+            <ModeLogicOperator Name="XOR">
+                <Mode Name="IN-DAC1-OUT2" UserName="VDAC1_OUT2 Channel" RemoveCondition="$Index=2|$Index=1">
+                    <SignalLogicalOp Name="AND">
+                        <Signal Name="VS_DAC1_OUT2"/>
+                    </SignalLogicalOp>
+                </Mode>
+            </ModeLogicOperator>
+            <Condition Diagnostic="Available only if DAC_OUT1 is used" Expression="DAC1_OUT1_Int | DAC1_OUT1_ExtAndInt"/>
+            <Semaphore>channelSelected$IpInstance</Semaphore>
+            <Semaphore>SHANNELDAC1OU1ISSELECTED</Semaphore>
+        </Mode>
+
         <!-- Triggers Mode -->
         <Mode Name="Conversion-Trigger" UserName="EXTI Conversion Trigger">
             <ModeLogicOperator Name="XOR">
@@ -2599,12 +2664,12 @@
     <RefSignal IOMode="AnalogForADC" Name="INP18" ShareableGroupName="ADCx_INP18:ADC1,ADC2" />
     <RefSignal IOMode="AnalogForADC" Name="INN18" ShareableGroupName="ADCx_INN18:ADC1,ADC2" />
     <RefSignal IOMode="AnalogForADC" Name="INP19" ShareableGroupName="ADCx_INP19:ADC1,ADC2" />
-    
-    
+    <RefSignal IOMode="Analog" Name="OPAMP_INTERNAL1" Virtual="true"/>
     <RefSignal IOMode="AnalogForADC" Name="TempSens_Input" Virtual="true"/>
     <RefSignal IOMode="AnalogForADC" Name="Vref_Input" Virtual="true"/>
     <RefSignal IOMode="AnalogForADC" Name="Vbat_Input" Virtual="true"/>
     <RefSignal IOMode="AnalogForADC" Name="Vcore_Input" Virtual="true"/>
-
+    <RefSignal IOMode="Analog" Name="VS_DAC1_OUT1" Virtual="true"/>
+    <RefSignal IOMode="Analog" Name="VS_DAC1_OUT2" Virtual="true"/>
     <Semaphore>USE_$IpInstance</Semaphore>
 </IP>

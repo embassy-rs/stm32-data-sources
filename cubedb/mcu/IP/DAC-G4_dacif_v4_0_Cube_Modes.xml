@@ -1539,11 +1539,23 @@
             </ModeLogicOperator>
             <Semaphore>$IpInstance_Channel2_Used</Semaphore>
         </Mode>
+		<Mode Name="VCMBUFF" UserName="Activate VCMBUFF">
+            <ModeLogicOperator Name="XOR">
+                <Mode Name="VCMBUFF_Activate" UserName="Activate VCMBUFF">
+                    <SignalLogicalOp Name="AND">
+                        <Signal IOMode="System" Name="VCMBUFF"/>
+                    </SignalLogicalOp>
+                    <!-- <Condition Diagnostic="Active only if: &lt;br&gt; HSE clock is activated in RCC &lt;br&gt; CPU2 and HSE frequencies should be equal to 32MHz" Expression="(HSEByPass|HSEOscillator)"/>   -->
+                    <Semaphore>S_VCMBUFF</Semaphore>
+                </Mode>
+            </ModeLogicOperator>
+        </Mode>
 	
         <Mode Name="External-Trigger" UserName="External Trigger">
             <ModeLogicOperator Name="OR">
                 <Mode Name="External-Trigger">
                     <SignalLogicalOp Name="AND">
+						<Signal Name="EXTI8"/>
                         <Signal Name="EXTI9"/>
                         <Signal Name="EXTI10"/>
                     </SignalLogicalOp>
@@ -1555,12 +1567,14 @@
         </Mode>
     </ModeLogicOperator>
     <!--	<RefSignal IOMode="EXTI" Name="EXTI9"/>-->
+	<RefSignal IOMode="EXTI" Name="EXTI8" ShareableGroupName="GPXTI8" /> <!-- GPXTI is a keyword -->
     <RefSignal IOMode="EXTI" Name="EXTI9" ShareableGroupName="GPXTI9" /> <!-- GPXTI is a keyword -->
     <RefSignal IOMode="EXTI" Name="EXTI10" ShareableGroupName="GPXTI10" /> <!-- GPXTI is a keyword -->
     <RefSignal IOMode="Analog" Name="OUT1" ShareableGroupName="COMP_$IpInstance1_group"/>
     <RefSignal IOMode="Analog" Name="OUT2" ShareableGroupName="COMP_$IpInstance2_group"/>
     <RefSignal Name="VS_DACI1" Virtual="true"/>
     <RefSignal Name="VS_DACI2" Virtual="true"/>
+	<RefSignal IOMode="System" Name="VCMBUFF"/>
         
 
 </IP>

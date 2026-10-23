@@ -33,12 +33,12 @@
         </IFCondition>
 
         <!--voltage scaling configuration-->
-        <IFCondition Expression ="!PWR_Regulator_Voltage_Scale=PWR_REGULATOR_VOLTAGE_SCALE1">
+        <IFCondition Expression ="!PWR_Regulator_Voltage_Scale=PWR_REGULATOR_VOLTAGE_SCALE1 &amp; !STM32WBx0_Value_Line">
             <CallLibMethod Name="LL_PWR_SetRegulVoltageScaling">
                 <MethodArg Name="VoltageScaling" ParameterName="PWR_Regulator_Voltage_Scale"/>           
             </CallLibMethod>
         </IFCondition>
-        <IFCondition Expression ="!PWR_Regulator_Voltage_Scale=PWR_REGULATOR_VOLTAGE_SCALE1">
+        <IFCondition Expression ="!PWR_Regulator_Voltage_Scale=PWR_REGULATOR_VOLTAGE_SCALE1 &amp; !STM32WBx0_Value_Line">
             <CallLibMethod Name="" Type="HardCode">
                 <HardCode Text="#twhile (LL_PWR_IsActiveFlag_VOS() != 0)#n#t{#n#t}"/>
             </CallLibMethod>
@@ -493,7 +493,6 @@
     </RefConfig>
     <RefConfig Name="RCC_PeriphClockConfig">
         <!-- RTC Begin____ -->
-        
         <IFCondition Expression ="(CodegenConfigPeriph=true) &amp; RTCUsed_ForRCC &amp; RTCClockSelection=RCC_RTCCLKSOURCE_LSI">
             <CallLibMethod Name="HardCode:RTC" Type="HardCode">
                 <HardCode Text="#tif(LL_RCC_GetRTCClockSource() != LL_RCC_RTC_CLKSOURCE_LSI)#n#t{"/>
@@ -501,12 +500,26 @@
         <Else>
             <IFCondition Expression ="(CodegenConfigPeriph=true) &amp; RTCUsed_ForRCC &amp; RTCClockSelection=RCC_RTCCLKSOURCE_LSE">
                 <CallLibMethod Name="HardCode:RTC" Type="HardCode">
-                    <HardCode Text="#tif(LL_RCC_GetRTCClockSource() != LL_RCC_RTC_CLKSOURCE_LSE)#n#t{"/>
+                <HardCode Text="#t#t  uint32_t rtcclocksource = LL_RCC_GetRTCClockSource(); #n#n#t#t/* Configure the clock source only if a different source is expected */"/>
+                </CallLibMethod>
+                <CallLibMethod Name="HardCode:RTC" Type="HardCode">
+                    <HardCode Text="#t#tif(rtcclocksource != LL_RCC_RTC_CLKSOURCE_LSE)#n#t#t{
+                      #n#t#t#tLL_PWR_EnableBkUpAccess();
+                      #n#t#t#tif(rtcclocksource == LL_RCC_RTC_CLKSOURCE_NONE)#n#t#t#t{
+                      #n#t#t#t#t/* Directly set the configuration of the clock source selection */
+                      #n#t#t#t#tLL_RCC_SetRTCClockSource(LL_RCC_RTC_CLKSOURCE_LSE);        
+                      #n#t#t#t}
+                      #n#t#t else
+                      #n#t#t {
+
+                      #n#t#t#t/* Store the content of BDCR register before the reset of Backup Domain */
+                      #n#t#t#tuint32_t bdcr = LL_RCC_ReadReg(BDCR);
+                      #n#n#t#t#t/* RTC Clock selection can be changed only if the Backup Domain is reset */"/>
                 </CallLibMethod>
                 <Else>
                     <IFCondition Expression ="(CodegenConfigPeriph=true) &amp; RTCUsed_ForRCC &amp; RTCClockSelection=RCC_RTCCLKSOURCE_HSE_DIV32">
                         <CallLibMethod Name="HardCode:RTC" Type="HardCode">
-                            <HardCode Text="#tif(LL_RCC_GetRTCClockSource() != LL_RCC_RTC_CLKSOURCE_HSE_DIV32)#n#t{"/>
+                            <HardCode Text="#tif(rtcclocksource != LL_RCC_RTC_CLKSOURCE_HSE_DIV32)#n#t{"/>
                         </CallLibMethod>
                     </IFCondition>
                 </Else>
@@ -516,12 +529,29 @@
 
         <IFCondition Expression ="(CodegenConfigPeriph=true) &amp; RTCUsed_ForRCC">
             <CallLibMethod Name="HardCode:RTC" Type="HardCode">
-                <HardCode Text="#t#tLL_RCC_ForceBackupDomainReset();"/>
+                <HardCode Text="#t#t#tLL_RCC_ForceBackupDomainReset();"/>
             </CallLibMethod>
 
             <CallLibMethod Name="HardCode:RTC" Type="HardCode">
-                <HardCode Text="#t#tLL_RCC_ReleaseBackupDomainReset();"/>
+                <HardCode Text="#t#t#tLL_RCC_ReleaseBackupDomainReset();"/>
             </CallLibMethod>
+            <IFCondition Expression ="(CodegenConfigPeriph=true)  &amp; RTCUsed_ForRCC &amp; RTCClockSelection=RCC_RTCCLKSOURCE_LSE">
+            <CallLibMethod Name="HardCode:RTC" Type="HardCode">
+                <HardCode Text="#n#t#t#t/* Set the value of the clock source selection */
+                      #n#t#t#tMODIFY_REG(bdcr, RCC_BDCR_RTCSEL, LL_RCC_RTC_CLKSOURCE_LSE);
+
+                      #n#n#t#t#t/* Restore the content of BDCR register */
+                      #n#t#t#tLL_RCC_WriteReg(BDCR, bdcr);
+
+                      #n#n#t#t#t/* Wait for LSE reactivation if LSE was enable prior to Backup Domain reset */
+                      #n#t#t#tif (LL_RCC_LSE_IsEnabled() == 1U)
+                      #n#t#t#t{
+                        #n#t#t#t#t/* Wait till LSE is ready */
+                        #n#t#t#t#twhile (LL_RCC_LSE_IsReady() != 1U);
+                        #n#t#t#t}
+                      #n#t#t}"/>
+            </CallLibMethod>
+             </IFCondition>
         </IFCondition>
 
         <IFCondition Expression ="(CodegenConfigPeriph=true) &amp; (RTCUsed_ForRCC) &amp; !RTCClockSelection=RCC_RTCCLKSOURCE_LSE">
@@ -530,23 +560,6 @@
             </CallLibMethod>        
         </IFCondition>
         <IFCondition Expression ="(CodegenConfigPeriph=true) &amp; RTCUsed_ForRCC">
-            <CallLibMethod Name="HardCode:RTC" Type="HardCode">
-                <HardCode Text="#t}"/>
-            </CallLibMethod>
-        </IFCondition>
-        
-        <IFCondition Expression ="(CodegenConfigPeriph=true) &amp; RTCUsed_ForRCC &amp; RTCClockSelection=RCC_RTCCLKSOURCE_LSE">
-            <CallLibMethod Name="HardCode:RTC" Type="HardCode">
-                <HardCode Text="#tif(LL_RCC_GetRTCClockSource() != LL_RCC_RTC_CLKSOURCE_LSE)#n#t{"/>
-            </CallLibMethod>
-        </IFCondition>
-
-        <IFCondition Expression ="(CodegenConfigPeriph=true) &amp; (RTCUsed_ForRCC) &amp; RTCClockSelection=RCC_RTCCLKSOURCE_LSE">
-            <CallLibMethod Name="#tLL_RCC_SetRTCClockSource">
-                <MethodArg Name="Source" ParameterName="RTCClockSelection"/>
-            </CallLibMethod>
-        </IFCondition>
-        <IFCondition Expression ="(CodegenConfigPeriph=true) &amp; RTCUsed_ForRCC &amp; RTCClockSelection=RCC_RTCCLKSOURCE_LSE">
             <CallLibMethod Name="HardCode:RTC" Type="HardCode">
                 <HardCode Text="#t}"/>
             </CallLibMethod>

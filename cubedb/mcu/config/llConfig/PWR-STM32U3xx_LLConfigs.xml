@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
 <IP xmlns="http://mcd.rou.st.com/modules.php?name=mcu" xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance"
-	DBVersion="V4.0" Name="PWR" Version="STM32Cube_FW_U3_V0.4.0" IncludeFile="stm32u3xx_ll_pwr.h"
+	DBVersion="V4.0" Name="PWR" Version="STM32Cube_FW_U3_V1.1.0RC1" IncludeFile="stm32u3xx_ll_pwr.h"
 	ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../../../../doc/V4/Development/Specifications/db/IP_Configs.xsd">
 	<!-- PVD Configuration -->
 	<RefConfig Comment="PVD Configuration" Name="PVDConfig">
@@ -40,6 +40,19 @@
 		<IFCondition Expression="!(Mode = PWR_PVD_MODE_NORMAL)">
 			<CallLibMethod Name="EXTI_INIT" Type="HardCode">
 				<HardCode Text="#n#tLL_EXTI_Init( &amp;exti_initstruct);" />
+			</CallLibMethod>
+		</IFCondition>
+	</RefConfig>
+	<RefConfig Comment="Switch to SMPS regulator instead of LDO" Name="Configsmps">
+		<CallLibMethod Name="LL_PWR_SetRegulatorSupply" ReturnHAL="false">
+			<MethodArg Name="PowerMode" ParameterName="PowerMode" />
+		</CallLibMethod>
+		<CallLibMethod Name="" Type="HardCode">
+			<HardCode Text="#n#twhile(LL_PWR_IsActiveFlag_REGULATOR()!=1) #n#t{#n#t}" />
+		</CallLibMethod>
+		<IFCondition Expression="S_LPBAM_CONF">
+			<CallLibMethod Name="LL_PWR_SetRegulatorSupply" ReturnHAL="false">
+				<MethodArg Name="PowerMode" ParameterName="PowerMode" />
 			</CallLibMethod>
 		</IFCondition>
 	</RefConfig>
@@ -87,12 +100,12 @@
 				<MethodArg Name="Item" ParameterName="ItemWKUP8" />
 			</CallLibMethod>
 		</IFCondition>
-	    <IFCondition Expression="S_SECURE  &amp; SEM_M33S &amp; (PWR_WKUP9=WKUP9_SECURE_YES)">
+		<IFCondition Expression="S_SECURE  &amp; SEM_M33S &amp; (PWR_WKUP9=WKUP9_SECURE_YES)">
 			<CallLibMethod Name="LL_PWR_ConfigSecure" ReturnHAL="false">
 				<MethodArg Name="Item" ParameterName="ItemWKUP9" />
 			</CallLibMethod>
 		</IFCondition>
-				<IFCondition Expression="S_SECURE  &amp; SEM_M33S &amp; (PWR_WKUP10=WKUP10_SECURE_YES)">
+		<IFCondition Expression="S_SECURE  &amp; SEM_M33S &amp; (PWR_WKUP10=WKUP10_SECURE_YES)">
 			<CallLibMethod Name="LL_PWR_ConfigSecure" ReturnHAL="false">
 				<MethodArg Name="Item" ParameterName="ItemWKUP10" />
 			</CallLibMethod>
@@ -123,8 +136,14 @@
 	<LibMethod Comment="Configure the voltage threshold detected by the Power Voltage Detector" Name="LL_PWR_SetPVDLevel">
 		<Argument AddressOf="false" GenericType="simple" Name="PVDLevel" OptimizationCondition="equal" />
 	</LibMethod>
+	<LibMethod Comment="" Name="LL_PWR_SetRegulatorSupply">
+		<Argument AddressOf="false" GenericType="simple" Name="PowerMode" OptimizationCondition="equal" />
+	</LibMethod>
 	<LibMethod Comment="" Name="LL_PWR_ConfigSecure">
 		<Argument AddressOf="false" GenericType="simple" Name="Item" OptimizationCondition="equal" />
+	</LibMethod>
+	  <LibMethod Comment="Switch to SMPS regulator instead of LDO" Name="LL_PWR_SetRegulatorSupply">
+		<Argument AddressOf="false" GenericType="simple" Name="PowerMode" OptimizationCondition="equal" />
 	</LibMethod>
 	<!-- power LL-->
 	<RefConfig Comment="Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral" Name="DisableDeadBatterySignals">

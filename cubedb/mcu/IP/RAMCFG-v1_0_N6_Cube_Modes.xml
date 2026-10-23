@@ -15,12 +15,20 @@
     
     
     <!-- Error code correction (ECC) -->
+    <RefParameter Comment="Config I-TCM" DefaultValue="SYSCFG_ITCM_64K" Name="SYSCFG_ITCM_size" Type="list">
+        <PossibleValue Comment="SYSCFG_ITCM_64K" Value="SYSCFG_ITCM_64K" Semaphore="ITCM_64K"/>
+        <PossibleValue Comment="SYSCFG_ITCM_128K" Value="SYSCFG_ITCM_128K" Semaphore="ITCM_128K"/>
+        <PossibleValue Comment="SYSCFG_ITCM_256K" Value="SYSCFG_ITCM_256K" Semaphore="ITCM_256K"/>
+    </RefParameter>
+    <RefParameter Comment="Config D-TCM" DefaultValue="SYSCFG_DTCM_128K" Name="SYSCFG_DTCM_size" Type="list">
+        <PossibleValue Comment="SYSCFG_DTCM_128K" Value="SYSCFG_DTCM_128K" Semaphore="DTCM_128K"/>
+        <PossibleValue Comment="SYSCFG_DTCM_256K" Value="SYSCFG_DTCM_256K" Semaphore="DTCM_256K"/>
+    </RefParameter>
     <RefParameter Comment="Error code correction (ECC)" DefaultValue="ECC_DISABLE" Name="ErrorCodeCorrection" Type="list">
         <PossibleValue Comment="Disable" Value="ECC_DISABLE"/>
         <PossibleValue Comment="StartECC" Value="START_ECC"/>
         <PossibleValue Comment="StopECC" Value="STOP_ECC"/>
     </RefParameter>
-
     <!-- Write Protection -->
     <!-- I Removed the Write Protection parameter (according to Intropack Owner this parameter should not be initialized, let user define it.) -->
     <!--
@@ -133,6 +141,8 @@
         </Parameter>
         <Parameter Name="HardwareErase"/>
         <Parameter Name="ErrorCodeCorrection"/>
+        <Parameter Name="SYSCFG_DTCM_size"/>
+        <Parameter Name="SYSCFG_ITCM_size"/>
     </RefMode>
     <!-- RefMode RAMCFG VENCRAM -->
     <RefMode Comment="RAMCFG VENCRAM" Group="VENCRAM" Name="VENCRAM_Activate">

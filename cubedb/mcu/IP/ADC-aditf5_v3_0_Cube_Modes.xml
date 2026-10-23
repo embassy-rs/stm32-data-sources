@@ -51,7 +51,7 @@
             <Condition Diagnostic="" Expression="(ADC1_Exist|ADC_Exist)&amp;(!ADC2_Exist)&amp; (DIE483)"/>
         </RefParameter>
         <RefParameter Comment="Mode" DefaultValue="ADC_MODE_INDEPENDENT" Group="ADCsgroup" Name="Mode" Type="list">
-            <Condition Diagnostic="Regular simultanious mode should not be available for injected conversion" Expression="((($Index=1|$Index=2)&amp;USE_ADC1&amp;USE_ADC2))"/>
+            <Condition Diagnostic="Regular simultaneous mode should not be available for injected conversion" Expression="((($Index=1|$Index=2)&amp;USE_ADC1&amp;USE_ADC2))"/>
             <PossibleValue Comment="Independent mode" Value="ADC_MODE_INDEPENDENT"/>
             <PossibleValue Comment="Dual combined regular simultaneous + injected simultaneous mode" Semaphore="DualMode0_$IpInstance" Value="ADC_DUALMODE_REGSIMULT_INJECSIMULT"/>
             <PossibleValue Comment="Dual regular simultaneous + alternate trigger mode" Semaphore="DualMode1_$IpInstance" Value="ADC_DUALMODE_REGSIMULT_ALTERTRIG"/>
@@ -62,7 +62,7 @@
             <PossibleValue Comment="Dual alternate trigger mode only" Semaphore="DualMode3_$IpInstance" Value="ADC_DUALMODE_ALTERTRIG"/>
         </RefParameter>
          <RefParameter Comment="Mode" DefaultValue="ADC_MODE_INDEPENDENT" Group="ADCsgroup" Name="Mode" Type="list">
-            <Condition Diagnostic="Regular simultanious mode should not be available for injected conversion" Expression="(DIE483) &amp; ((($Index=1|$Index=2)&amp; USE_ADC1&amp;USE_ADC2)&amp;(ADC1:InjNumberOfConversion=0)&amp;(ADC2:InjNumberOfConversion=0))"/>
+            <Condition Diagnostic="Regular simultaneous mode should not be available for injected conversion" Expression="(DIE483) &amp; ((($Index=1|$Index=2)&amp; USE_ADC1&amp;USE_ADC2)&amp;(ADC1:InjNumberOfConversion=0)&amp;(ADC2:InjNumberOfConversion=0))"/>
             <PossibleValue Comment="Independent mode" Value="ADC_MODE_INDEPENDENT"/>
             <PossibleValue Comment="Dual regular simultaneous + alternate trigger mode" Semaphore="DualMode1_$IpInstance" Value="ADC_DUALMODE_REGSIMULT_ALTERTRIG"/>
             <PossibleValue Comment="Dual regular simultaneous mode only" Semaphore="DualMode2_$IpInstance" Value="ADC_DUALMODE_REGSIMULT"/>
@@ -73,7 +73,7 @@
             <PossibleValue Comment="Dual injected simultaneous mode only" Semaphore="DualModeInjected_$IpInstance" Value="ADC_DUALMODE_INJECSIMULT"/>
         </RefParameter>
         <RefParameter Comment="Mode" DefaultValue="ADC_MODE_INDEPENDENT" Group="ADCsgroup" Name="Mode" Type="list">
-            <Condition Diagnostic="Regular simultanious mode should not be available for injected conversion" Expression="((($Index=1|$Index=2)&amp; USE_ADC1&amp;USE_ADC2)&amp;(ADC1:InjNumberOfConversion=0)&amp;(ADC2:InjNumberOfConversion=0))"/>
+            <Condition Diagnostic="Regular simultaneous mode should not be available for injected conversion" Expression="((($Index=1|$Index=2)&amp; USE_ADC1&amp;USE_ADC2)&amp;(ADC1:InjNumberOfConversion=0)&amp;(ADC2:InjNumberOfConversion=0))"/>
             <PossibleValue Comment="Independent mode" Value="ADC_MODE_INDEPENDENT"/>
             <PossibleValue Comment="Dual regular simultaneous + alternate trigger mode" Semaphore="DualMode1_$IpInstance" Value="ADC_DUALMODE_REGSIMULT_ALTERTRIG"/>
             <PossibleValue Comment="Dual regular simultaneous mode only" Semaphore="DualMode2_$IpInstance" Value="ADC_DUALMODE_REGSIMULT"/>
@@ -83,7 +83,7 @@
         </RefParameter>
        
         <RefParameter Comment="Mode" DefaultValue="ADC_MODE_INDEPENDENT" Group="ADCsgroup" Name="Mode" Type="list">
-            <Condition Diagnostic="Regular simultanious mode should not be available for injected conversion" Expression="((($Index=1|$Index=2)&amp;USE_ADC1&amp;USE_ADC2))"/>
+            <Condition Diagnostic="Regular simultaneous mode should not be available for injected conversion" Expression="((($Index=1|$Index=2)&amp;USE_ADC1&amp;USE_ADC2))"/>
             <PossibleValue Comment="Independent mode" Value="ADC_MODE_INDEPENDENT"/>
             <PossibleValue Comment="Dual combined regular simultaneous + injected simultaneous mode" Semaphore="DualMode0_$IpInstance" Value="ADC_DUALMODE_REGSIMULT_INJECSIMULT"/>
             <PossibleValue Comment="Dual regular simultaneous + alternate trigger mode" Semaphore="DualMode1_$IpInstance" Value="ADC_DUALMODE_REGSIMULT_ALTERTRIG"/>
@@ -187,13 +187,13 @@
 		  <!--  ########################################################################################ADCx Setting parameters####################################################################################### -->
 	        <!-- Possible value of Prescaler parameter -->
                 <RefParameter Comment="Clock Prescaler" DefaultValue="ADC_CLOCK_ASYNC_DIV1" Group="ADCsgroup" Name="ClockPrescalerADC3" Type="list">
-		 <Condition Diagnostic="" Expression="!AHBCLKDivider1 &amp; (DIE483|DIE450) &amp;(!$IpNumber=1 &amp; !$IpNumber=2 )"/>	
+		 <Condition Diagnostic="" Expression="!AHBCLKDivider1 &amp; (DIE483|DIE450) &amp;(!$IpNumber=1 &amp; !$IpNumber=2  )"/>
         	<PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV1_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 1" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV1"/>
 			<PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV2_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 2" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV2"/>
 			<PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV4_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 4" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV4"/>
 			<PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV6_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 6" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV6"/>
 			<PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV8_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 8" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV8"/>
-			<PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV10_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 10" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV10"/>		
+			<PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV10_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 10" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV10"/>
 			<PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV12_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 12" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV12"/>
 			<PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV16_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 16" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV16"/>
 			<PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV32_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 32" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV32"/>
@@ -204,16 +204,16 @@
 			<PossibleValue Action="DISABLE" Condition="ADC_CLOCK_SYNC_PCLK_DIV2_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Synchronous clock mode divided by 2" Value="ADC_CLOCK_SYNC_PCLK_DIV2"/>
 	        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_SYNC_PCLK_DIV4_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Synchronous clock mode divided by 4" Value="ADC_CLOCK_SYNC_PCLK_DIV4"/>
 	        <Description>frequency of the clock to the ADC. The clock is common for all the ADCs.</Description>
-	    </RefParameter> 
-            <RefParameter Comment="Clock Prescaler" DefaultValue="ADC_CLOCK_ASYNC_DIV1" Group="ADCsgroup" Name="ClockPrescalerADC3" Type="list">	
-                <Condition Diagnostic="" Expression="(DIE483|DIE450) &amp;(!$IpNumber=1 &amp; !$IpNumber=2 )"/>	
+	    </RefParameter>
+            <RefParameter Comment="Clock Prescaler" DefaultValue="ADC_CLOCK_ASYNC_DIV1" Group="ADCsgroup" Name="ClockPrescalerADC3" Type="list">
+                <Condition Diagnostic="" Expression="(DIE483|DIE450) &amp;(!$IpNumber=1 &amp; !$IpNumber=2 )"/>
 
                 <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV1_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 1" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV1"/>
                 <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV2_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 2" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV2"/>
                 <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV4_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 4" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV4"/>
                 <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV6_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 6" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV6"/>
                 <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV8_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 8" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV8"/>
-                <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV10_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 10" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV10"/>		
+                <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV10_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 10" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV10"/>
                 <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV12_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 12" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV12"/>
                 <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV16_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 16" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV16"/>
                 <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV32_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 32" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV32"/>
@@ -224,21 +224,20 @@
                 <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_SYNC_PCLK_DIV2_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Synchronous clock mode divided by 2" Value="ADC_CLOCK_SYNC_PCLK_DIV2"/>
                 <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_SYNC_PCLK_DIV4_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Synchronous clock mode divided by 4" Value="ADC_CLOCK_SYNC_PCLK_DIV4"/>
                 <Description>frequency of the clock to the ADC. The clock is common for all the ADCs.</Description>
-            </RefParameter> 
-            <RefParameter Comment="Clock Prescaler" DefaultValue="__NULL" Group="ADCgroup" Name="ClockPrescalerADC3" Type="list" Visible="false" >  
             </RefParameter>
-            <RefParameter Comment="Clock Prescaler" DefaultValue="__NULL" Group="ADCgroup" Name="ClockPrescaler" Type="list" Visible="false" >  
-                <Condition Diagnostic="" Expression="($IpNumber=3)"/>	
-
+            <RefParameter Comment="Clock Prescaler" DefaultValue="__NULL" Group="ADCgroup" Name="ClockPrescalerADC3" Type="list" Visible="false" >
             </RefParameter>
+            <RefParameter Comment="Clock Prescaler" DefaultValue="__NULL" Group="ADCgroup" Name="ClockPrescaler" Type="list" Visible="false" >
+                 <Condition Diagnostic="" Expression="($IpNumber=3)"/>
+             </RefParameter>
             <RefParameter Comment="Clock Prescaler" DefaultValue="ADC_CLOCK_ASYNC_DIV1" Group="ADCsgroup" Name="ClockPrescaler" Type="list">
-		 <Condition Diagnostic="" Expression="!AHBCLKDivider1 &amp; ((DIE483|DIE480|DIE450) &amp;($IpNumber=1 | $IpNumber=2 ))"/>	
-        	<PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV1_$IpInstance" Diagnostic="testPrescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 1" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV1"/>
+		 <Condition Diagnostic="" Expression="!AHBCLKDivider1 &amp; ((DIE483|DIE480|DIE450) &amp;($IpNumber=1 | $IpNumber=2 ))"/>
+        	<PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV1_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 1" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV1"/>
 			<PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV2_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 2" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV2"/>
 			<PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV4_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 4" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV4"/>
 			<PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV6_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 6" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV6"/>
 			<PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV8_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 8" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV8"/>
-			<PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV10_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 10" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV10"/>		
+			<PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV10_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 10" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV10"/>
 			<PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV12_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 12" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV12"/>
 			<PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV16_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 16" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV16"/>
 			<PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV32_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 32" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV32"/>
@@ -249,15 +248,15 @@
 			<PossibleValue Action="DISABLE" Condition="ADC_CLOCK_SYNC_PCLK_DIV2_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Synchronous clock mode divided by 2" Value="ADC_CLOCK_SYNC_PCLK_DIV2"/>
 	        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_SYNC_PCLK_DIV4_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Synchronous clock mode divided by 4" Value="ADC_CLOCK_SYNC_PCLK_DIV4"/>
 	        <Description>frequency of the clock to the ADC. The clock is common for all the ADCs.</Description>
-	    </RefParameter>  
-	    
-            <RefParameter Comment="Clock Prescaler" DefaultValue="ADC_CLOCK_ASYNC_DIV1" Group="ADCsgroup" Name="ClockPrescaler" Type="list">	
-                <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV1_$IpInstance" Diagnostic="test1 Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 1" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV1"/>
+	    </RefParameter>
+
+            <RefParameter Comment="Clock Prescaler" DefaultValue="ADC_CLOCK_ASYNC_DIV1" Group="ADCsgroup" Name="ClockPrescaler" Type="list">
+                <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV1_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 1" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV1"/>
                 <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV2_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 2" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV2"/>
                 <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV4_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 4" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV4"/>
                 <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV6_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 6" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV6"/>
                 <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV8_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 8" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV8"/>
-                <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV10_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 10" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV10"/>		
+                <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV10_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 10" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV10"/>
                 <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV12_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 12" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV12"/>
                 <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV16_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 16" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV16"/>
                 <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV32_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 32" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_ASYNC_DIV32"/>
@@ -268,8 +267,8 @@
                 <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_SYNC_PCLK_DIV2_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Synchronous clock mode divided by 2" Value="ADC_CLOCK_SYNC_PCLK_DIV2"/>
                 <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_SYNC_PCLK_DIV4_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Synchronous clock mode divided by 4" Value="ADC_CLOCK_SYNC_PCLK_DIV4"/>
                 <Description>frequency of the clock to the ADC. The clock is common for all the ADCs.</Description>
-            </RefParameter>  
-            
+            </RefParameter>
+
 	    <!-- Possible Value of Resolution parameter -->
 	    <RefParameter Comment="Resolution" DefaultValue="ADC_RESOLUTION_12B" Group="ADCgroup" Name="ResolutionADC3" Type="list">
         <Condition Diagnostic="" Expression="(DIE485)"/>
@@ -433,8 +432,8 @@
     <!-- Possible values of ConversionDataManagement parameters -->
          
     <RefParameter Comment="Conversion Data Management Mode" DefaultValue="ADC_CONVERSIONDATA_DR" Group="ADCgroup" Name="ConversionDataManagement" Type="list">
-        <PossibleValue    Comment="Regular Conversion data stored in DR register only" Value="ADC_CONVERSIONDATA_DR" />
-        <PossibleValue    Comment="DFSDM Mode" Value="ADC_CONVERSIONDATA_DFSDM"/>
+        <PossibleValue    Comment="Regular Conversion data stored in DR register only" Value="ADC_CONVERSIONDATA_DR" Condition="DMARequest_$IpInstance" Diagnostic="Could not be set while DMA request is used"/>
+        <PossibleValue    Comment="DFSDM Mode" Value="ADC_CONVERSIONDATA_DFSDM" Condition="DMARequest_$IpInstance" Diagnostic="Could not be set while DMA request is used"/>
         <PossibleValue    Comment="DMA One Shot Mode" Value="ADC_CONVERSIONDATA_DMA_ONESHOT" Action="Disable" Condition="!DMARequest_$IpInstance" Diagnostic="A DMA Request in Normal Mode must be configured in DMA Settings Tab for this ADC instance"/>
         <PossibleValue    Comment="DMA Circular Mode" Value="ADC_CONVERSIONDATA_DMA_CIRCULAR" Action="Disable" Condition="!DMARequest_$IpInstance" Diagnostic="A DMA Request in Circular Mode must be configured in DMA Settings Tab for this ADC instance"/>
         <Description>This mode specifies whether the Data conversion data is managed: using the DMA (oneshot or circular), or stored in the DR register or transfered to DFSDM register</Description>

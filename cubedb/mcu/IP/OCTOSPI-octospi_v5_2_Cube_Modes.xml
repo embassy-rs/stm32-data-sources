@@ -1314,6 +1314,19 @@
                     <Semaphore>Sem_Port1NCS_$IpInstance_NCS2</Semaphore>
                     <Semaphore>Sem_OSPI1_NCS2_Port1</Semaphore>
                 </Mode>
+                <Mode Name="OCTOSPI1_Port1_NCS12" UserName="NCS1_NCS2 -- Port1 --">
+                    <Condition Expression="
+								(XSPIM_Direct_allcontext|(XSPIM_Multiplexed1_allcontext &amp; !Sem_OSPI2_NCS1_Port1 &amp; !Sem_OSPI2_NCS2_Port1)) &amp; DIE505 &amp; Sem_$IpInstance_Quad"
+                                Diagnostic="Enabled with Port 1 or already in use" />
+                    <SignalLogicalOp Name="AND">
+                        <Signal Name="$SingleInstanceOCTOSPIM_P1_NCS1"/>
+                        <Signal Name="$SingleInstanceOCTOSPIM_P1_NCS2"/>
+                    </SignalLogicalOp>
+                    <Semaphore>Sem_Port1NCS_$IpInstance_NCS1</Semaphore>
+                    <Semaphore>Sem_Port1NCS_$IpInstance_NCS2</Semaphore>
+                    <Semaphore>Sem_OSPI1_NCS1_Port1</Semaphore>
+                    <Semaphore>Sem_OSPI1_NCS2_Port1</Semaphore>
+                </Mode>
                 <Mode Name="OCTOSPI1_Port2_NCS1" UserName="NCS1 -- Port2 --">
 					<Condition Expression="
 								(XSPIM_Swapped_allcontext|(XSPIM_Multiplexed2_allcontext &amp; !Sem_OSPI2_NCS1_Port2)) &amp;
@@ -1369,8 +1382,7 @@
 				</Mode>
             </ModeLogicOperator>
 			<Semaphore>Sem_$IpInstance_NCS</Semaphore>
-        </Mode>                      
-        
+        </Mode>
 		<!-- OCTOSPI2 modes -->
 		<Mode Name="OCTOSPI2_Port" UserName="Port" RemoveCondition="$Index=1" RemoveDisable="true">
 			<ModeLogicOperator Name="XOR">
@@ -1672,6 +1684,50 @@
             </ModeLogicOperator>
             <Semaphore>Sem_$IpInstance_NCS</Semaphore>
         </Mode>
+        <Mode Name="" UserName="Boot Memory Flash Configuration">
+            <Condition Expression="(Sem_$IpInstance_Used | $IpInstance_Used)" Diagnostic="[$IpInstance] 'Mode' has to be set" />
+            <ModeLogicOperator Name="OR">
+                <Mode Name="BootDevice" UserName="Type">
+                    <ModeLogicOperator Name="XOR">
+                        <Mode Name="HYPERFLASH" UserName="Hyperflash">
+                            <SignalLogicalOp Name="AND">
+                                <Signal Name="VS_FlashMemoryTypeSig"/>
+                            </SignalLogicalOp>
+                        </Mode>
+                        <Mode Name="NOR" UserName="NOR">
+                            <SignalLogicalOp Name="AND">
+                                <Signal Name="VS_FlashMemoryTypeSig"/>
+                            </SignalLogicalOp>
+                            <Semaphore>Memory_Flash_NOR_PlatformTFM</Semaphore>
+                        </Mode>
+                        <Mode Name="NAND" UserName="NAND">
+                            <SignalLogicalOp Name="AND">
+                                <Signal Name="VS_FlashMemoryTypeSig"/>
+                            </SignalLogicalOp>
+
+                        </Mode>
+                    </ModeLogicOperator>
+                    <Semaphore>Memory_Flash_Type</Semaphore>
+                </Mode>
+                <Mode Name="PageSize" UserName="Page Size"  RemoveCondition="$Index&gt;1">
+                    <ModeLogicOperator Name="XOR">
+                        <Mode Name="256B" UserName="256 Bytes">
+                            <SignalLogicalOp Name="AND">
+                                <Signal Name="VS_FlashMemoryPageSizeSig"/>
+                            </SignalLogicalOp>
+                        </Mode>
+                        <Mode Name="512B" UserName="512 Bytes">
+                            <SignalLogicalOp Name="AND">
+                                <Signal Name="VS_FlashMemoryPageSizeSig"/>
+                            </SignalLogicalOp>
+                        </Mode>
+                    </ModeLogicOperator>
+                    <Semaphore>BootDevicePageSize</Semaphore>
+                </Mode>
+            </ModeLogicOperator>
+            <Semaphore>BootDeviceTypeConfigured</Semaphore>
+        </Mode>
+
 
     </ModeLogicOperator>
 
@@ -1702,7 +1758,8 @@
     <RefSignal IOMode="AlternateFunctionPushPullHighSpeedDefault" Name="$SingleInstanceOCTOSPIM_P2_CLK"/>
     <RefSignal IOMode="AlternateFunctionPushPullHighSpeedDefault" Name="$SingleInstanceOCTOSPIM_P2_DQS"/>
     <RefSignal IOMode="AlternateFunctionPushPullHighSpeedDefault" Name="$SingleInstanceOCTOSPIM_P2_NCLK"/>
-
+    <RefSignal Name="VS_FlashMemoryPageSizeSig" Virtual="true"/>
+    <RefSignal Name="VS_FlashMemoryTypeSig" Virtual="true"/>
     <RefSignal Name="VS_dualsingle" Virtual="true"/>
     <RefSignal Name="VS_dualsingle_mx" Virtual="true"/>
     <RefSignal Name="VS_dualdual_mx" Virtual="true"/>

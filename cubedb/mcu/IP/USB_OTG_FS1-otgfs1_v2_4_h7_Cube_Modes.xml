@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<IP DBVersion="V4.0" 
+	IPType="peripheral" 
+	Name="USB_OTG_FS1" 
+	Version="otgfs1_v2_4_h7_Cube" xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance" 
+	ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../../../doc/V4/Development/Specifications/db/IP_Modes.xsd" 
+	xmlns="http://mcd.rou.st.com/modules.php?name=mcu">
+  <About>USB_OTG_FS: Universal Serial Bus On-The-Go Full-Speed</About>
+	
+	<!-- Generic RefParameters for USB Full Speed Host & Device Modes -->
+	<RefParameter Name="Instance" DefaultValue="USB_OTG_FS" Comment="Instance" Type="" Visible="false"/>	
+		
+	<RefParameter Comment="Host Channels" DefaultValue="16" Name="Host_channels" Min="1" Max="16" Type="integer" Group="">	
+	</RefParameter>
+	
+	<RefParameter Comment="Speed" DefaultValue="HCD_SPEED_FULL" Name="speed" Type="List" Group="Host">		
+		<Condition Expression="SEM_HCD_SPEED_FULL_FS" Diagnostic=""/>
+		<PossibleValue Comment="Full Speed 12MBit/s" Value="HCD_SPEED_FULL"/>
+	</RefParameter>
+	<RefParameter Comment="Speed" DefaultValue="HCD_SPEED_LOW" Name="speed" Type="List" Group="Host">		
+		<Condition Expression="SEM_HCD_SPEED_LOW_FS" Diagnostic=""/>
+		<PossibleValue Comment="Low Speed 1.5MBit/s" Value="HCD_SPEED_LOW"/>	
+	</RefParameter>
+	
+	<RefParameter Comment="Enable internal IP DMA" DefaultValue="DISABLE" Name="dma_enable" Type="List" Group="Host" Visible="true">
+		<Condition Expression="SEM_FS_USE_BUFF_WO_ALIGNMENT_DISABLE" Diagnostic=""/>
+		<PossibleValue Value="DISABLE" Comment="Disabled"/>		
+	</RefParameter>
+	<RefParameter Comment="Enable internal IP DMA" DefaultValue="ENABLE" Name="dma_enable" Type="List" Group="Host" Visible="true">
+		<PossibleValue Value="ENABLE" Comment="Enabled"/>
+		<Condition Expression="SEM_FS_USE_BUFF_WO_ALIGNMENT" Diagnostic=""/>
+	</RefParameter>
+	
+	<RefParameter Comment="Signal start of frame " DefaultValue="DISABLE" Name="Sof_enable" Type="List" Group="" Visible="true">
+		<Condition Expression="Sof_enable" Diagnostic=""/>
+		<PossibleValue Value="ENABLE" Comment="Enabled"/>
+	</RefParameter>	
+	<RefParameter Comment="Signal start of frame " DefaultValue="DISABLE" Name="Sof_enable" Type="List" Group="" Visible="true">
+		<Condition Expression="Sof_disable" Diagnostic=""/>
+		<PossibleValue Value="DISABLE" Comment="Disabled"/>					
+	</RefParameter>	
+	
+	<RefParameter Comment="Physical interface" DefaultValue="HCD_PHY_EMBEDDED" Name="phy_itface" Type="List" Group="Host" Visible="false">		
+		<PossibleValue Value="HCD_PHY_EMBEDDED" Comment="Internal Phy"/>		
+	</RefParameter>
+	
+	<RefMode Name="activate_FS" HalMode="HCD">
+        <ConfigForMode>HCD_Init_FS</ConfigForMode>
+		<Parameter Name="Host_channels"/>					
+		<Parameter Name="speed"/>		
+		<Parameter Name="dma_enable"/>
+		<Parameter Name="Sof_enable"/>			
+		<Parameter Name="phy_itface">
+			<PossibleValue>HCD_PHY_EMBEDDED</PossibleValue>
+		</Parameter>
+	</RefMode>
+
+	<ModeLogicOperator Name="OR">			
+		<Mode Name="activate_FS" UserName="activate_FS" RemoveDisable="true">
+			<ModeLogicOperator Name="NONE">
+				<Mode Name="activate_FS">
+					<SignalLogicalOp Name="AND">
+						<Signal Name="USB_OTG_FS_DRD" />
+					</SignalLogicalOp>
+				</Mode>
+			</ModeLogicOperator>
+			<Condition Expression="DUAL_ROLE_DEVICE_FS" Diagnostic=""/>
+			<Semaphore>MW_USB_OTG_FS1_MW_HOST</Semaphore>
+		</Mode>
+	</ModeLogicOperator>
+	
+    <RefSignal Name="USB_OTG_FS_DRD" Virtual="true"/>	
+	
+</IP>

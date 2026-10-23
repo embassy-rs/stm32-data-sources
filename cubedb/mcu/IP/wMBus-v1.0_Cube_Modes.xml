@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<IP xmlns="http://mcd.rou.st.com/modules.php?name=mcu"
+    xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance"
+    ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../../../doc/V4/Development/Specifications/db/IP_Modes.xsd"
+    DBVersion="V4.0"
+    IPType="middleware"
+    IpGroup="Middleware"
+    Name="wMBus"
+    Version="v1.0_Cube">
+    <About>Middleware enabling wMBus, open standard developed for very power efficient smart metering and Advanced Metering Infrastructure (AMI) applications and it is quickly spreading in Europe for electricity, gas, water and heat metering.
+    &lt;br&gt;A Wireless M-Bus network (wM-Bus) is based on a star topology network with master and slave devices described in the EN 13757 standard which comprises a number of different operating modes: S, T, R and C (868 MHz), F (433 MHz) and N (169 MHz). </About>
+
+    <RefParameter Name="ST_WMB_TYPE" Comment="ST_WMB_TYPE" DefaultValue="METER" Type="list" TabName="Configuration" Group="Application configuration">
+        <Description>&lt;font color=&quot;blue&quot;&gt;&lt;b&gt;wMBus device type:&lt;/b&gt;&lt;/font&gt;&lt;&gt;&lt;br&gt;
+        &lt;font color=&quot;blue&quot;&gt;&lt;b&gt;Meter:&lt;/b&gt;&lt;/font&gt;&lt;&gt; a remote device which measures and records consumption data, and periodically transmits them using wM-Bus frames to collector devices&lt;br&gt;
+        &lt;font color=&quot;blue&quot;&gt;&lt;b&gt;Concentrator:&lt;/b&gt;&lt;/font&gt;&lt;&gt; device collecting data from meters (like readout devices, stationary receivers, data collectors, multi-utility concentrators or system network components)</Description>
+        <PossibleValue Value="METER" Comment="ST_WMB_METER" Semaphore ="S_ST_WMB_METER"/>
+        <PossibleValue Value="OTHER" Comment="ST_WMB_CONCENTRATOR" Semaphore ="S_ST_WMB_CONCENTRATOR"/>
+    </RefParameter>
+
+    <RefParameter Name="ST_WMB_MODE" Comment="ST_WMB_MODE" DefaultValue="ST_WMB_T1" Type="list" TabName="Configuration" Group="Application configuration">
+        <Description>
+        &lt;font color=&quot;blue&quot;&gt;&lt;b&gt;wMBus modes:&lt;/b&gt;&lt;/font&gt;&lt;&gt;&lt;br&gt;
+        &lt;font color=&quot;blue&quot;&gt;&lt;b&gt;T1: &lt;/b&gt;&lt;/font&gt;&lt;&gt;Frequent transmit unidirectional. Send data every few seconds. Configurable interval. 100 kbps.&lt;br&gt;
+        &lt;font color=&quot;blue&quot;&gt;&lt;b&gt;T2: &lt;/b&gt;&lt;/font&gt;&lt;&gt;Frequent transmit bidirectional. Send data every few seconds. Configurable interval. 100 kbps.&lt;br&gt;
+        &lt;font color=&quot;blue&quot;&gt;&lt;b&gt;C1: &lt;/b&gt;&lt;/font&gt;&lt;&gt;Compact unidirectional. Unidirectional communication using NRZ coding. Similar to T1 but higher data-rate, 50 kbps. Stationary operation.&lt;br&gt;
+        &lt;font color=&quot;blue&quot;&gt;&lt;b&gt;C2: &lt;/b&gt;&lt;/font&gt;&lt;&gt;Compact bidirectional. Unidirectional communication using NRZ coding. Similar to T1 but higher data-rate, 50 kbps. Stationary operation.&lt;br&gt;
+        &lt;font color=&quot;blue&quot;&gt;&lt;b&gt;S1: &lt;/b&gt;&lt;/font&gt;&lt;&gt;Stationary unidirectional. Send data a few times per day. Optimized for battery operation and stationary operation. 32.7 kbps.&lt;br&gt;
+        &lt;font color=&quot;blue&quot;&gt;&lt;b&gt;S2: &lt;/b&gt;&lt;/font&gt;&lt;&gt;Stationary bidirectional. Send data a few times per day. Optimized for battery operation and stationary operation. 32.7 kbps.
+        </Description>
+        <PossibleValue Value="ST_WMB_T1" Comment="ST_WMB_T1 (Frequent transmit unidirectional)" Semaphore ="S_ST_WMB_T1"/>
+        <PossibleValue Value="ST_WMB_T2" Comment="ST_WMB_T2 (Frequent transmit bidirectional)" Semaphore ="S_ST_WMB_T2" Condition="!S_MRSUBG_TIMER" Action="Disable" Diagnostic="MRSUBG_TIMER shall be enabled"/>
+        <PossibleValue Value="ST_WMB_C1" Comment="ST_WMB_C1 (Compact unidirectional)" Semaphore ="S_ST_WMB_C1"/>
+        <PossibleValue Value="ST_WMB_C2" Comment="ST_WMB_C2 (Compact bidirectional)" Semaphore ="S_ST_WMB_C2" Condition="!S_MRSUBG_TIMER" Action="Disable" Diagnostic="MRSUBG_TIMER shall be enabled"/>
+        <PossibleValue Value="ST_WMB_S1" Comment="ST_WMB_S1 (Stationary unidirectional)" Semaphore ="S_ST_WMB_S1"/>
+        <PossibleValue Value="ST_WMB_S2" Comment="ST_WMB_S2 (Stationary bidirectional)" Semaphore ="S_ST_WMB_S2" Condition="!S_MRSUBG_TIMER" Action="Disable" Diagnostic="MRSUBG_TIMER shall be enabled"/>
+    </RefParameter>
+
+    <RefParameter Name="ST_ACTIVE_MODE" Comment="ST_ACTIVE_MODE" DefaultValue="T_MODE" Type="UniqueElementList" TabName="Configuration" Group="Application configuration" Visible = "false">
+        <Description></Description>
+        <Condition Diagnostic="" Expression="S_ST_WMB_T1 | S_ST_WMB_T2"/>
+        <PossibleValue Value="T_MODE" Comment="T_Mode active"/>
+    </RefParameter>
+    <RefParameter Name="ST_ACTIVE_MODE" Comment="ST_ACTIVE_MODE" DefaultValue="C_MODE" Type="UniqueElementList" TabName="Configuration" Group="Application configuration" Visible = "false">
+        <Description></Description>
+        <Condition Diagnostic="" Expression="S_ST_WMB_C1 | S_ST_WMB_C2"/>
+        <PossibleValue Value="C_MODE" Comment="C_Mode active"/>
+    </RefParameter>
+    <RefParameter Name="ST_ACTIVE_MODE" Comment="ST_ACTIVE_MODE" DefaultValue="S_MODE" Type="UniqueElementList" TabName="Configuration" Group="Application configuration" Visible = "false">
+        <Description></Description>
+        <Condition Diagnostic="" Expression="S_ST_WMB_S1 | S_ST_WMB_S2"/>
+        <PossibleValue Value="S_MODE" Comment="S_Mode active"/>
+    </RefParameter>
+   <RefParameter Name="ST_WMB_TX_Trigger" Comment="ST_WMB_TX_Trigger" DefaultValue="Periodic" Type="List" TabName="Configuration" Group="Application configuration" Visible = "true">
+        <Description></Description>
+        <Condition Diagnostic="" Expression="(S_ST_WMB_T1 | S_ST_WMB_C1 | S_ST_WMB_S1) &amp; S_ST_WMB_METER"/>
+        <PossibleValue Value="Periodic (SW delay)" Comment="Periodic (SW delay)" Semaphore="S_Periodic"/>
+        <PossibleValue Value="Periodic (RadioTimer)" Comment="Periodic (RadioTimer)" Condition="!S_MRSUBG_TIMER"  Diagnostic="MRSUBG_TIMER has to be configured" Semaphore="S_Periodic_RadioTimer"/>
+        <PossibleValue Value="PushButton" Comment="PushButton"  Semaphore="S_PushButton"/>
+    </RefParameter>
+
+    <RefParameter Name="ST_WMB_APP_TYPE" Comment="ST_WMB_App_Type" DefaultValue="Phy_Meter" Type="UniqueElementList" TabName="Configuration" Group="Application configuration" Visible = "true">
+        <Description></Description>
+        <Condition Diagnostic="" Expression="S_Periodic"/>
+        <PossibleValue Value="Phy_Meter" Comment="Phy_Meter" Semaphore="S_Phy_Meter"/>
+    </RefParameter>
+    <RefParameter Name="ST_WMB_APP_TYPE" Comment="ST_WMB_App_Type" DefaultValue="Phy_Meter_Button" Type="UniqueElementList" TabName="Configuration" Group="Application configuration" Visible = "true">
+        <Description></Description>
+        <Condition Diagnostic="" Expression="S_PushButton"/>
+        <PossibleValue Value="Phy_Meter_Button" Comment="Phy_Meter_Button" Semaphore="S_Phy_Meter_Button"/>
+    </RefParameter>
+    <RefParameter Name="ST_WMB_APP_TYPE" Comment="ST_WMB_App_Type" DefaultValue="Phy_Meter_RadioTimer" Type="UniqueElementList" TabName="Configuration" Group="Application configuration" Visible = "true">
+        <Description></Description>
+        <Condition Diagnostic="" Expression="S_Periodic_RadioTimer"/>
+        <PossibleValue Value="Phy_Meter_RadioTimer" Comment="Phy_Meter_RadioTimer" Semaphore="S_Phy_Meter_RadioTimer" />
+    </RefParameter>
+    <RefParameter Name="ST_WMB_APP_TYPE" Comment="ST_WMB_App_Type" DefaultValue="Phy_Concentrator" Type="UniqueElementList" TabName="Configuration" Group="Application configuration" Visible = "true">
+        <Description></Description>
+        <Condition Diagnostic="" Expression="(S_ST_WMB_T1 | S_ST_WMB_C1 | S_ST_WMB_S1) &amp; S_ST_WMB_CONCENTRATOR"/>
+        <PossibleValue Value="Phy_Concentrator" Comment="Phy_Concentrator" Semaphore="S_Phy_Concentrator"/>
+    </RefParameter>
+    <RefParameter Name="ST_WMB_APP_TYPE" Comment="ST_WMB_App_Type" DefaultValue="DataLink_Meter" Type="UniqueElementList" TabName="Configuration" Group="Application configuration" Visible = "true">
+        <Description></Description>
+        <Condition Diagnostic="" Expression="(S_ST_WMB_T2 | S_ST_WMB_C2 | S_ST_WMB_S2) &amp; S_ST_WMB_METER"/>
+        <PossibleValue Value="DataLink_Meter" Comment="DataLink_Meter" Semaphore="S_DataLink_Meter"/>
+    </RefParameter>
+    <RefParameter Name="ST_WMB_APP_TYPE" Comment="ST_WMB_App_Type" DefaultValue="DataLink_Concentrator" Type="UniqueElementList" TabName="Configuration" Group="Application configuration" Visible = "true">
+        <Description></Description>
+        <Condition Diagnostic="" Expression="(S_ST_WMB_T2 | S_ST_WMB_C2 | S_ST_WMB_S2) &amp; S_ST_WMB_CONCENTRATOR"/>
+        <PossibleValue Value="DataLink_Concentrator" Comment="DataLink_Concentrator" Semaphore="S_DataLink_Concentrator"/>
+    </RefParameter>
+
+    <RefParameter Name="ST_WMB_FORMAT" Comment="ST_WMB_FORMAT" DefaultValue="WMBUS_FORMAT_A" Type="list" TabName="Configuration" Group="Application configuration">
+        <Description>
+        &lt;font color=&quot;blue&quot;&gt;&lt;b&gt;Frame formats&lt;/b&gt;&lt;/font&gt;&lt;&gt;&lt;br&gt;
+        &lt;font color=&quot;blue&quot;&gt;&lt;b&gt;2 types: &lt;/b&gt;&lt;/font&gt;&lt;&gt;A and B&lt;br&gt;
+        The standard EN 13757-4:2013 specifies different packet formats
+        </Description>
+        <PossibleValue Value="WMBUS_FORMAT_A" Comment="ST_WMB_FORMAT_A (frame format A)"/>
+        <PossibleValue Value="WMBUS_FORMAT_B" Comment="ST_WMB_FORMAT_B (frame format B)"/>
+    </RefParameter>
+
+    <RefParameter Name="CFG_LPM_SUPPORTED" Comment="CFG_LPM_SUPPORTED" DefaultValue="0" Type="UniqueElementList" Group="Application configuration - Low Power" TabName="Configuration">
+        <Condition Diagnostic="" Expression="(S_Phy_Meter | S_Phy_Concentrator | S_DataLink_Meter | S_DataLink_Concentrator) &amp; !(S_PushButton|S_Periodic_RadioTimer)"/>
+        <Description> Low Power mode</Description>
+        <PossibleValue Value="0" Comment="Disabled"/>
+    </RefParameter>
+    <RefParameter Name="CFG_LPM_SUPPORTED" Comment="CFG_LPM_SUPPORTED" DefaultValue="1" Type="UniqueElementList" Group="Application configuration - Low Power" TabName="Configuration">
+         <Condition Diagnostic="" Expression="(S_PushButton|S_Periodic_RadioTimer)"/>
+        <Description> Low Power mode</Description>
+        <PossibleValue Value="1" Comment="Enabled"/>
+    </RefParameter>
+
+
+     <RefMode Name="wMBus_Enabled">
+         <ConfigForMode>wMBus_Init</ConfigForMode>
+         <Parameter Name="ST_WMB_TYPE"/>
+         <Parameter Name="ST_WMB_MODE"/>
+         <Parameter Name="ST_WMB_FORMAT"/>
+         <Parameter Name="ST_ACTIVE_MODE"/>
+         <Parameter Name="ST_WMB_TX_Trigger"/>
+         <Parameter Name="ST_WMB_APP_TYPE"/>
+         <Parameter Name="CFG_LPM_SUPPORTED"/>
+        
+    </RefMode>
+
+    <!-- ModeLogicOperator for wMBus -->
+    <ModeLogicOperator Name="OR">
+        <Mode Name="Enabled">
+            <ModeLogicOperator Name="XOR">
+                <Mode Name="wMBus_Enabled">
+                    <SignalLogicalOp Name="AND">
+                        <Signal IOMode="Basic" Name="VS_wMBusWL3"/>
+                    </SignalLogicalOp>
+                    <Semaphore>S_wMBusWL3</Semaphore>
+                </Mode>
+            </ModeLogicOperator>
+            <Condition Diagnostic="wMBus mode is active only if MRSUBG enabled" Expression="S_MRSUBG"/>
+            <!-- <Condition Diagnostic="Sigfox mode is active only if MRSUBG_TIMER is enabled" Expression="S_MRSUBG_TIMER"/> -->
+        </Mode>
+    </ModeLogicOperator>
+
+    <!-- RefSignal for wMBus -->
+    <RefSignal Name="VS_wMBusWL3" Virtual="true"/>
+</IP>

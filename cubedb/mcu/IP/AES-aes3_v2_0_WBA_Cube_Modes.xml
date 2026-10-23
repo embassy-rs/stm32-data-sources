@@ -147,16 +147,19 @@
     <RefParameter Comment="Key and IV configuration skip" DefaultValue="CRYP_KEYIVCONFIG_ALWAYS" Name="KeyIVConfigSkip" Type="list" Group="Parameters">
         <Description>CRYP key and IV Configuration Skip Mode:&lt;br&gt;
 		This parameter can be a value of @ref CRYP_Configuration_Skip.&lt;br&gt;Possible values are:&lt;br&gt;
-		CRYP_KEYIVCONFIG_ALWAYS: Peripheral Key and IV configuration to do systematically&lt;br&gt;
-		CRYP_KEYIVCONFIG_ONCE: Peripheral Key and IV configuration to do only once&lt;br&gt;
-		CRYP_KEYNOCONFIG: Peripheral Key configuration to not do&lt;br&gt;
+		CRYP_KEYIVCONFIG_ALWAYS: Peripheral Key and IV configuration to do systematically.&lt;br&gt;
+		CRYP_KEYIVCONFIG_ONCE: Peripheral Key and IV configuration to do only once.&lt;br&gt;
+		CRYP_KEYNOCONFIG: Peripheral Key configuration to not do.&lt;br&gt;
+        CRYP_IVCONFIG_ONCE : Peripheral IV configuration do once for interleave mode.
 		</Description>
-        <PossibleValue Comment="Always" Value="CRYP_KEYIVCONFIG_ALWAYS" Semaphore="Semaphore_CRYP_AES_KEYIVCONFIG_ALWAYS$IpInstance"/>
-        <PossibleValue Comment="Only once" Value="CRYP_KEYIVCONFIG_ONCE" Semaphore="Semaphore_CRYP_AES_KEYIVCONFIG_ONCE$IpInstance"/>
-        <PossibleValue Comment="Not" Value="CRYP_KEYNOCONFIG" Semaphore="Semaphore_CRYP_AES_KEYNOCONFIG$IpInstance"/>
+        <PossibleValue Comment="KEY/IV Config Always" Value="CRYP_KEYIVCONFIG_ALWAYS" Semaphore="Semaphore_CRYP_AES_KEYIVCONFIG_ALWAYS$IpInstance"/>
+        <PossibleValue Comment="KEY/IV Config Once" Value="CRYP_KEYIVCONFIG_ONCE" Semaphore="Semaphore_CRYP_AES_KEYIVCONFIG_ONCE$IpInstance"/>
+        <PossibleValue Comment="KEY No Config" Value="CRYP_KEYNOCONFIG" Semaphore="Semaphore_CRYP_AES_KEYNOCONFIG$IpInstance"/>
+        <PossibleValue Comment="IV Config Once" Value="CRYP_IVCONFIG_ONCE" Semaphore="Semaphore_CRYP_AES_IVCONFIG$IpInstance"/>
     </RefParameter>
 
     <RefParameter Comment="Key mode" DefaultValue="CRYP_KEYMODE_NORMAL" Name="KeyMode" Type="list" Group="Parameters">
+        <Condition Expression="!DIE4B2" Diagnostic=""/>
         <Description>CRYP key Mode:&lt;br&gt;
 		This parameter can be a value of @ref CRYP_Key_Mode.&lt;br&gt;Possible values are:&lt;br&gt;
 		CRYP_KEYMODE_NORMAL: Normal key usage, Key registers are freely useable&lt;br&gt;

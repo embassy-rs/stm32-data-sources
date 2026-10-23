@@ -785,16 +785,16 @@
 	<!-- Parameters used by usbd_conf.c -->
 	<!-- USB_OTG HS ip -->	
 	<RefParameter Name="USBD_HandleTypeDef_FS" Comment="" DefaultValue="hUsbDevice_OTG_FS" Type="list" Visible="false">
-		<Condition Expression="MW_USB_OTG_FS_MW_DEVICE" Diagnostic=""/>
+		<Condition Expression="MW_USB_OTG_FS_MW_DEVICE | OTG_DUAL_ROL_DEVICE_FS_DRD" Diagnostic=""/>
 		<PossibleValue Comment="" Value="hUsbDevice_OTG_FS"/>	
 	</RefParameter>
 	
 	<RefParameter Name="USBD_HandleTypeDef_HS" Comment="" DefaultValue="hUsbDevice_OTG_HS" Type="list" Visible="false">	
-		<Condition Expression="MW_USB_OTG_HS_MW_DEVICE" Diagnostic=""/>
+		<Condition Expression="OTG_DUAL_ROL_DEVICE_HS_FS | MW_USB_OTG_HS_MW_FS_DEVICE" Diagnostic=""/>
 		<PossibleValue Comment="" Value="hUsbDevice_OTG_HS"/>	
 	</RefParameter>
 	
-	<RefParameter Name="USBD_HandleTypeDef_HS" Comment="" DefaultValue="hUsbDevice_OTG_HS" Type="list" Visible="false">	
+	<RefParameter Name="USBD_HandleTypeDef_HS" Comment="" DefaultValue="hUsbDevice_OTG_HS" Type="list" Visible="false">
 		<Condition Expression="MW_USB_OTG_HS_MW_FS_DEVICE" Diagnostic=""/>
 		<PossibleValue Comment="" Value="hUsbDevice_OTG_HS"/>	
 	</RefParameter>
@@ -926,8 +926,6 @@
 	<RefParameter Name="USBD_DFU_fops_HS" Comment="" DefaultValue="0" Max="10" Min="0"  Type="integer" Visible="false">
 		<PossibleValue Comment="" Value="USBD_DFU_fops_HS"/>	
 	</RefParameter>	
-	
-	
 
 	<!-- RefMode for USB DEVICE : Support AUDIO Class-->
 	<RefMode Name="AUDIO_HS" Abstract="false">
@@ -1212,7 +1210,7 @@
 		</Parameter>
 		<Parameter Name="APP_TX_DATA_SIZE">
 			<Condition Expression="(USB_DEVICE_HS_CLASSES) | (USB_DEVICE_FS_CLASSES)" Diagnostic=""/>
-		</Parameter>		
+		</Parameter>
 	</RefMode>
 	<RefMode Name="CDC_FS" Abstract="false">
 		<ConfigForMode>USB_DEVICE_CDC_FS</ConfigForMode>
@@ -2010,7 +2008,7 @@
 			<!--<Condition Expression="(MW_USB_OTG_HS_MW_DEVICE | MW_USB_OTG_HS_MW_FS_DEVICE) &amp; (!USB_DEVICE_FS_CLASSES)" Diagnostic="Active only when USB_OTG_HS IP is configured in Device mode"/>-->
 			<!-- Tracker 306857 -->			
 			<Condition Expression="(!S_AzureRTOS)" Diagnostic="Active only when the AzureRTOS (ThreadX,FileX,..) are deactivated"/>
-			<Condition Expression="(MW_USB_OTG_HS_MW_DEVICE | MW_USB_OTG_HS_MW_FS_DEVICE)" Diagnostic="Active only when USB_OTG_HS IP is configured in Device mode and no AzureRTOS MW activated"/>	
+			<Condition Expression="(MW_USB_OTG_HS_MW_DEVICE | MW_USB_OTG_HS_MW_FS_DEVICE | OTG_DUAL_ROL_DEVICE_HS_FS)" Diagnostic="Active only when USB_OTG_HS IP is configured in Device mode and no AzureRTOS MW activated"/>
 			<Condition Expression="!USB_DEVICE_FS_CLASSES" Diagnostic=""/>		
 			<!--<Condition Expression="(MW_USB_OTG_HS_MW_DEVICE | MW_USB_OTG_HS_MW_FS_DEVICE) &amp; (!S_AzureRTOS)" Diagnostic="Active only when USB_OTG_HS IP is configured in Device mode and no AzureRTOS MW activated"/>-->
 		</Mode>
@@ -2078,7 +2076,7 @@
 			<!--<Condition Expression="(MW_USB_OTG_FS_MW_DEVICE | MW_USB_MW_DEVICE)&amp; (!USB_DEVICE_HS_CLASSES)" Diagnostic="Active only when USB_OTG_FS IP is configured in Device mode"/>-->
 			<!-- Tracker 306857 -->
 			<Condition Expression="(!S_AzureRTOS)" Diagnostic="Active only when the AzureRTOS (ThreadX,FileX,..) are deactivated"/>
-			<Condition Expression="(MW_USB_OTG_FS_MW_DEVICE | MW_USB_MW_DEVICE)" Diagnostic="Active only when USB_OTG_FS IP is configured in Device mode"/>
+			<Condition Expression="(MW_USB_OTG_FS_MW_DEVICE | MW_USB_MW_DEVICE | OTG_DUAL_ROLE_DEVICE)" Diagnostic="Active only when USB_OTG_FS IP is configured in Device mode"/>
 			<Condition Expression="!USB_DEVICE_HS_CLASSES" Diagnostic=""/>
 			<!--<Condition Expression="(MW_USB_OTG_FS_MW_DEVICE | MW_USB_MW_DEVICE) &amp; (!S_AzureRTOS)" Diagnostic="Active only when USB_OTG_FS IP is configured in Device mode and no AzureRTOS MW activated"/>-->			
 		</Mode>

@@ -85,8 +85,9 @@
 				</Mode>
 			</ModeLogicOperator>
 			<Condition Expression="(EXTMEM_MANAGER_APPLI_APP &amp; (XSPI1_APP | XSPI2_APP | XSPI3_APP))|
-								   (EXTMEM_MANAGER_APPLI_APPS &amp; (XSPI1_APPS | XSPI2_APPS | XSPI3_APPS | SDMMC1_APPS | SDMMC2_APPS))| 
-								   (EXTMEM_MANAGER_APPLI_APPNS &amp; (XSPI1_APPNS | XSPI2_APPNS | XSPI3_APPNS | SDMMC1_APPNS | SDMMC2_APPNS))" Diagnostic="Active only if XSPI or SDMMC is enbaled"/>
+								   (EXTMEM_MANAGER_APPLI_APPS &amp; (XSPI1_APPS | XSPI2_APPS | XSPI3_APPS | SDMMC1_APPS | SDMMC2_APPS)&amp; !EXTMEM_MANAGER_APPLI_APPNS)| 
+								   (EXTMEM_MANAGER_APPLI_APPNS &amp; (XSPI1_APPNS | XSPI2_APPNS | XSPI3_APPNS | SDMMC1_APPNS | SDMMC2_APPNS)&amp; !EXTMEM_MANAGER_APPLI_APPS)|
+								   (EXTMEM_MANAGER_APPLI_APPS &amp; EXTMEM_MANAGER_APPLI_APPNS &amp; ((XSPI1_APPS | XSPI2_APPS | XSPI3_APPS | SDMMC1_APPS | SDMMC2_APPS) &amp; (XSPI1_APPNS | XSPI2_APPNS | XSPI3_APPNS | SDMMC1_APPNS | SDMMC2_APPNS)))" Diagnostic="Active only if XSPI or SDMMC is enbaled in the same context(s) as this Middleware"/>
 		</Mode>
 	</ModeLogicOperator>
 
@@ -190,29 +191,64 @@
 		<Condition Expression="!(RefParam_MEMORY_1_Driver_Selection=EXTMEM_USER)" Diagnostic=""/>
 	</RefParameter>
 
-  <RefParameter Added="true" Comment="Number of memory data line" DefaultValue="EXTMEM_LINK_CONFIG_1LINE" Group="Configuration" Name="RefParam_MEMORY_1_ConfigType" TabName="Memory 1" Type="list" Unit="">
-	<Description>select the number of memory data line</Description>
-	<PossibleValue Comment="EXTMEM_LINK_CONFIG_1LINE" Value="EXTMEM_LINK_CONFIG_1LINE"/>
-	<PossibleValue Comment="EXTMEM_LINK_CONFIG_4LINES" Value="EXTMEM_LINK_CONFIG_4LINES" 
-	Condition="(RefParam_MEMORY_1_Instance=XSPI1 &amp; (!Sem_XSPI1_Quad &amp; !Sem_XSPI1_quadmx &amp; !Sem_XSPI1_Octo &amp; !Sem_XSPI1_octomx &amp; !Sem_XSPI1_HyperBus &amp; !Sem_XSPI1_hyperbusmx)) | 
-	(RefParam_MEMORY_1_Instance=XSPI2 &amp; (!Sem_XSPI2_Quad &amp; !Sem_XSPI2_quadmx &amp; !Sem_XSPI2_Octo &amp; !Sem_XSPI2_octomx &amp; !Sem_XSPI2_HyperBus &amp; !Sem_XSPI2_hyperbusmx))|
-	(RefParam_MEMORY_1_Instance=XSPI3 &amp; (!Sem_XSPI3_Quad &amp; !Sem_XSPI3_quadmx &amp; !Sem_XSPI3_Octo &amp; !Sem_XSPI3_octomx &amp; !Sem_XSPI3_HyperBus &amp; !Sem_XSPI3_hyperbusmx))" 
-	Diagnostic="Active only when XSPI enabled in Quad SPI mode" Action="EXTMEM_LINK_CONFIG_1LINE"/>
-	<PossibleValue Comment="EXTMEM_LINK_CONFIG_8LINES" Value="EXTMEM_LINK_CONFIG_8LINES" 
-	Condition="(RefParam_MEMORY_1_Instance=XSPI1 &amp; (!Sem_XSPI1_Octo &amp; !Sem_XSPI1_octomx &amp; !Sem_XSPI1_HyperBus &amp; !Sem_XSPI1_hyperbusmx)) | 
-	(RefParam_MEMORY_1_Instance=XSPI2 &amp; (!Sem_XSPI2_Octo &amp; !Sem_XSPI2_octomx &amp; !Sem_XSPI2_HyperBus &amp; !Sem_XSPI2_hyperbusmx))|
-	(RefParam_MEMORY_1_Instance=XSPI3 &amp; (!Sem_XSPI3_Octo &amp; !Sem_XSPI3_octomx &amp; !Sem_XSPI3_HyperBus &amp; !Sem_XSPI3_hyperbusmx))" 
-	Diagnostic="Active only when XSPI enabled in Octo SPI mode" Action="EXTMEM_LINK_CONFIG_1LINE"/>
-	<PossibleValue Comment="EXTMEM_LINK_CONFIG_16LINES" Value="EXTMEM_LINK_CONFIG_16LINES" 
-	Condition="(RefParam_MEMORY_1_Instance=XSPI1 &amp; !Sem_XSPI1_HyperBus &amp; !Sem_XSPI1_hyperbusmx) | 
-	(RefParam_MEMORY_1_Instance=XSPI2 &amp; !Sem_XSPI2_HyperBus &amp; !Sem_XSPI2_hyperbusmx) |
-	(RefParam_MEMORY_1_Instance=XSPI3 &amp; !Sem_XSPI3_HyperBus &amp; !Sem_XSPI3_hyperbusmx)" 
-	Diagnostic="Active only when XSPI enabled in Hexa SPI mode" Action="EXTMEM_LINK_CONFIG_1LINE"/>
-	  <Condition Expression="!(RefParam_MEMORY_1_Driver_Selection=EXTMEM_USER)" Diagnostic=""/>
-  </RefParameter>
+    <RefParameter Added="true" Comment="Number of memory data lines" DefaultValue="EXTMEM_LINK_CONFIG_1LINE" Group="Configuration" Name="RefParam_MEMORY_1_ConfigType" TabName="Memory 1" Type="list" Unit="">
+        <Description>Number of data lines</Description>
+        <PossibleValue Comment="EXTMEM_LINK_CONFIG_1LINE" Value="EXTMEM_LINK_CONFIG_1LINE"/>
+        <PossibleValue Comment="EXTMEM_LINK_CONFIG_4LINES" Value="EXTMEM_LINK_CONFIG_4LINES" 
+        Condition="(RefParam_MEMORY_1_Instance=XSPI1 &amp; (!Sem_XSPI1_Quad       &amp; !Sem_XSPI1_quadmx &amp;
+                                                            !Sem_XSPI1_DualDual   &amp; !Sem_XSPI1_dualdualmx &amp;    
+                                                            !Sem_XSPI1_DualQuad   &amp; !Sem_XSPI1_dualquadmx &amp;    
+                                                            !Sem_XSPI1_Octo       &amp; !Sem_XSPI1_octomx &amp; 
+                                                            !Sem_XSPI1_Hexa       &amp; !Sem_XSPI1_hexamx &amp; 
+                                                            !Sem_XSPI1_HyperBus   &amp; !Sem_XSPI1_hyperbusmx &amp; 
+                                                            !Sem_XSPI1_HyperBus16 &amp; !Sem_XSPI1_hyperbus16mx)) | 
+                   (RefParam_MEMORY_1_Instance=XSPI2 &amp; (!Sem_XSPI2_Quad       &amp; !Sem_XSPI2_quadmx &amp;
+                                                            !Sem_XSPI2_DualDual   &amp; !Sem_XSPI2_dualdualmx &amp;    
+                                                            !Sem_XSPI2_DualQuad   &amp; !Sem_XSPI2_dualquadmx &amp;    
+                                                            !Sem_XSPI2_Octo       &amp; !Sem_XSPI2_octomx &amp; 
+                                                            !Sem_XSPI2_Hexa       &amp; !Sem_XSPI2_hexamx &amp; 
+                                                            !Sem_XSPI2_HyperBus   &amp; !Sem_XSPI2_hyperbusmx &amp; 
+                                                            !Sem_XSPI2_HyperBus16 &amp; !Sem_XSPI2_hyperbus16mx))|
+                   (RefParam_MEMORY_1_Instance=XSPI3 &amp; (!Sem_XSPI3_Quad       &amp; !Sem_XSPI3_quadmx &amp;
+                                                            !Sem_XSPI3_DualDual   &amp; !Sem_XSPI3_dualdualmx &amp;    
+                                                            !Sem_XSPI3_DualQuad   &amp; !Sem_XSPI3_dualquadmx &amp;    
+                                                            !Sem_XSPI3_Octo       &amp; !Sem_XSPI3_octomx &amp; 
+                                                            !Sem_XSPI3_Hexa       &amp; !Sem_XSPI3_hexamx &amp; 
+                                                            !Sem_XSPI3_HyperBus   &amp; !Sem_XSPI3_hyperbusmx &amp; 
+                                                            !Sem_XSPI3_HyperBus16 &amp; !Sem_XSPI3_hyperbus16mx))" 
+        Diagnostic="Active only when XSPI enabled in Quad, DualDual, DualQuad, Octo, Hexa or HyperBus mode" Action="EXTMEM_LINK_CONFIG_1LINE"/>
+
+        <PossibleValue Comment="EXTMEM_LINK_CONFIG_8LINES" Value="EXTMEM_LINK_CONFIG_8LINES" 
+        Condition="(RefParam_MEMORY_1_Instance=XSPI1 &amp; (!Sem_XSPI1_Octo       &amp; !Sem_XSPI1_octomx &amp; 
+                                                            !Sem_XSPI1_Hexa       &amp; !Sem_XSPI1_hexamx &amp; 
+                                                            !Sem_XSPI1_HyperBus   &amp; !Sem_XSPI1_hyperbusmx &amp; 
+                                                            !Sem_XSPI1_HyperBus16 &amp; !Sem_XSPI1_hyperbus16mx)) | 
+                   (RefParam_MEMORY_1_Instance=XSPI2 &amp; (!Sem_XSPI2_Octo       &amp; !Sem_XSPI2_octomx &amp; 
+                                                            !Sem_XSPI2_Hexa       &amp; !Sem_XSPI2_hexamx &amp; 
+                                                            !Sem_XSPI2_HyperBus   &amp; !Sem_XSPI2_hyperbusmx &amp; 
+                                                            !Sem_XSPI2_HyperBus16 &amp; !Sem_XSPI2_hyperbus16mx))|
+                   (RefParam_MEMORY_1_Instance=XSPI3 &amp; (!Sem_XSPI3_Octo       &amp; !Sem_XSPI3_octomx &amp; 
+                                                            !Sem_XSPI3_Hexa       &amp; !Sem_XSPI3_hexamx &amp; 
+                                                            !Sem_XSPI3_HyperBus   &amp; !Sem_XSPI3_hyperbusmx &amp; 
+                                                            !Sem_XSPI3_HyperBus16 &amp; !Sem_XSPI3_hyperbus16mx))" 
+        Diagnostic="Active only when XSPI enabled in Octo, Hexa or HyperBus mode" Action="EXTMEM_LINK_CONFIG_1LINE"/>
+
+        <PossibleValue Comment="EXTMEM_LINK_CONFIG_16LINES" Value="EXTMEM_LINK_CONFIG_16LINES" 
+        Condition="(RefParam_MEMORY_1_Instance=XSPI1 &amp; (!Sem_XSPI1_Hexa       &amp; !Sem_XSPI1_hexamx &amp; 
+                                                            !Sem_XSPI1_HyperBus   &amp; !Sem_XSPI1_hyperbusmx &amp; 
+                                                            !Sem_XSPI1_HyperBus16 &amp; !Sem_XSPI1_hyperbus16mx)) | 
+                   (RefParam_MEMORY_1_Instance=XSPI2 &amp; (!Sem_XSPI2_Hexa       &amp; !Sem_XSPI2_hexamx &amp; 
+                                                            !Sem_XSPI2_HyperBus   &amp; !Sem_XSPI2_hyperbusmx &amp; 
+                                                            !Sem_XSPI2_HyperBus16 &amp; !Sem_XSPI2_hyperbus16mx))|
+                   (RefParam_MEMORY_1_Instance=XSPI3 &amp; (!Sem_XSPI3_Hexa       &amp; !Sem_XSPI3_hexamx &amp; 
+                                                            !Sem_XSPI3_HyperBus   &amp; !Sem_XSPI3_hyperbusmx &amp; 
+                                                            !Sem_XSPI3_HyperBus16 &amp; !Sem_XSPI3_hyperbus16mx))"
+        Diagnostic="Active only when XSPI enabled in Hexa SPI mode" Action="EXTMEM_LINK_CONFIG_1LINE"/>
+        <Condition Expression="!(RefParam_MEMORY_1_Driver_Selection=EXTMEM_USER)" Diagnostic=""/>
+    </RefParameter>
 
   <RefParameter Added="true" Comment="Memory Size" DefaultValue="HAL_XSPI_SIZE_256MB" Group="Memory Info" Name="RefParam_MEMORY_1_Size" TabName="Memory 1" Type="list" Unit="">
-	<Description>select the memory size</Description>
+	<Description>Memory size expressed in bits</Description>
 	<PossibleValue Comment="HAL_XSPI_SIZE_16MB" Value="HAL_XSPI_SIZE_16MB" />
 	<PossibleValue Comment="HAL_XSPI_SIZE_32MB" Value="HAL_XSPI_SIZE_32MB" />
 	<PossibleValue Comment="HAL_XSPI_SIZE_64MB" Value="HAL_XSPI_SIZE_64MB" />
@@ -221,103 +257,143 @@
 		<PossibleValue Comment="HAL_XSPI_SIZE_512MB" Value="HAL_XSPI_SIZE_512MB" />
 		<PossibleValue Comment="HAL_XSPI_SIZE_1GB" Value="HAL_XSPI_SIZE_1GB" />
 		<PossibleValue Comment="HAL_XSPI_SIZE_2GB" Value="HAL_XSPI_SIZE_2GB" />
-		<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM" Diagnostic="requires the selection of a second memory"/>
+		<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM" Diagnostic=""/>
 	</RefParameter>
 
-	<RefParameter Added="true" Comment="Memory Maximun Frequency" DefaultValue="200" Group="Memory Info" Name="RefParam_MEMORY_1_FreqMax" TabName="Memory 1" Type="integer" Unit="Mhz">
-		<Description>selection of the driver type</Description>
-		<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM" Diagnostic="requires the selection of a second memory"/>
+    <RefParameter Added="true" Comment="Memory Maximum Frequency" DefaultValue="200" Min="1" Max="200" Group="Memory Info" Name="RefParam_MEMORY_1_FreqMax" TabName="Memory 1" Type="integer" Unit="Mhz">
+		<Description>Maximum frequency at which memory is expected to operate</Description>
+		<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM" Diagnostic=""/>
 	</RefParameter>
 
-	<RefParameter Added="true" Comment="Read Register command" DefaultValue="0x40" Group="Memory Command" Name="RefParam_MEMORY_1_ReadReg" TabName="Memory 1" Type="integer" Unit="hex">
-		<Description>selection of the driver type</Description>
-		<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM" Diagnostic="requires the selection of a second memory"/>
+	<RefParameter Added="true" Comment="Read Register command" DefaultValue="0x40" Max="0xffffffff" Min="0x0" Group="Memory Command" Name="RefParam_MEMORY_1_ReadReg" TabName="Memory 1" Type="hex">
+		<Description>Command used to read register</Description>
+		<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM" Diagnostic=""/>
 	</RefParameter>
 
-	<RefParameter Added="true" Comment="Write Register command" DefaultValue="0xC0" Group="Memory Command" Name="RefParam_MEMORY_1_WriteReg" TabName="Memory 1" Type="integer" Unit="hex">
-		<Description>selection of the driver type</Description>
-		<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM" Diagnostic="requires the selection of a second memory"/>
+	<RefParameter Added="true" Comment="Write Register command" DefaultValue="0xC0" Max="0xffffffff" Min="0x0" Group="Memory Command" Name="RefParam_MEMORY_1_WriteReg" TabName="Memory 1" Type="hex">
+		<Description>Command used to write register</Description>
+		<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM" Diagnostic=""/>
 	</RefParameter>
 
-	<RefParameter Added="true" Comment="Register Size"         DefaultValue="2" Group="Memory Command" Name="RefParam_MEMORY_1_RegSize" TabName="Memory 1" Type="integer">
-		<Description>selection of the driver type</Description>
-		<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM" Diagnostic="requires the selection of a second memory"/>
+	<RefParameter Added="true" Comment="Register Size" DefaultValue="2" Group="Memory Command" Name="RefParam_MEMORY_1_RegSize" TabName="Memory 1" Type="integer">
+		<Description>Size of memory registers (expressed in bytes)</Description>
+		<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM" Diagnostic=""/>
 	</RefParameter>
 
-	<RefParameter Added="true" Comment="Register Dummy Cycle" DefaultValue="4" Group="Memory Command" Name="RefParam_MEMORY_1_RegDummyCycle" TabName="Memory 1" Type="integer" Unit="">
-		<Description>selection of the driver type</Description>
-		<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM" Diagnostic="requires the selection of a second memory"/>
+    <RefParameter Added="true" Comment="Register Dummy Cycles" DefaultValue="6" Group="Memory Command" Name="RefParam_MEMORY_1_RegDummyCycle" TabName="Memory 1" Type="integer" Unit="">
+        <Description>Number of dummy cycles used on Read Register command</Description>
+        <Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_1_FreqMax &gt; 133" Diagnostic=""/>
+    </RefParameter>
+	<RefParameter Added="true" Comment="Register Dummy Cycles" DefaultValue="4" Group="Memory Command" Name="RefParam_MEMORY_1_RegDummyCycle" TabName="Memory 1" Type="integer" Unit="">
+		<Description>Number of dummy cycles used on Read Register command</Description>
+		<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM" Diagnostic=""/>
 	</RefParameter>
 
-	<RefParameter Added="true" Comment="Write Command" DefaultValue="0xA0" Group="Memory Command" Name="RefParam_MEMORY_1_WriteCommand" TabName="Memory 1" Type="integer" Unit="hex">
-		<Description>selection of the driver type</Description>
-		<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM" Diagnostic="requires the selection of a second memory"/>
+	<RefParameter Added="true" Comment="Write Command" DefaultValue="0xA0" Max="0xffffffff" Min="0x0" Group="Memory Command" Name="RefParam_MEMORY_1_WriteCommand" TabName="Memory 1" Type="hex">
+		<Description>Command used to write data</Description>
+		<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM" Diagnostic=""/>
 	</RefParameter>
 
-	<RefParameter Added="true" Comment="Write Dummy Cycle" DefaultValue="4" Group="Memory Command" Name="RefParam_MEMORY_1_WriteDummyCycle" TabName="Memory 1" Type="integer" Unit="">
-		<Description>selection of the driver type</Description>
-		<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM" Diagnostic="requires the selection of a second memory"/>
+    <RefParameter Added="true" Comment="Write Dummy Cycles" DefaultValue="6" Group="Memory Command" Name="RefParam_MEMORY_1_WriteDummyCycle" TabName="Memory 1" Type="integer" Unit="">
+        <Description>Number of dummy cycles used on Write command</Description>
+        <Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_1_FreqMax &gt; 133" Diagnostic=""/>
+    </RefParameter>
+	<RefParameter Added="true" Comment="Write Dummy Cycles" DefaultValue="4" Group="Memory Command" Name="RefParam_MEMORY_1_WriteDummyCycle" TabName="Memory 1" Type="integer" Unit="">
+		<Description>Number of dummy cycles used on Write command</Description>
+		<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM" Diagnostic=""/>
 	</RefParameter>
 
-	<RefParameter Added="true" Comment="Read Command" DefaultValue="0x20" Group="Memory Command" Name="RefParam_MEMORY_1_ReadCommand" TabName="Memory 1" Type="integer" Unit="hex">
-		<Description>selection of the driver type</Description>
-		<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM" Diagnostic="requires the selection of a second memory"/>
+	<RefParameter Added="true" Comment="Read Command" DefaultValue="0x20" Max="0xffffffff" Min="0x0" Group="Memory Command" Name="RefParam_MEMORY_1_ReadCommand" TabName="Memory 1" Type="hex">
+		<Description>Command used to read data</Description>
+		<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM" Diagnostic=""/>
 	</RefParameter>
 
-	<RefParameter Added="true" Comment="Wrap Read Command" DefaultValue="0x00" Group="Memory Command" Name="RefParam_MEMORY_1_WrapReadCommand" TabName="Memory 1" Type="integer" Unit="hex">
-		<Description>selection of the driver type</Description>
-		<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM" Diagnostic="requires the selection of a second memory"/>
+	<RefParameter Added="true" Comment="Wrap Read Command" DefaultValue="0x00" Max="0xffffffff" Min="0x0" Group="Memory Command" Name="RefParam_MEMORY_1_WrapReadCommand" TabName="Memory 1" Type="hex">
+		<Description>Command used to read data in Wrap mode</Description>
+		<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM" Diagnostic=""/>
 	</RefParameter>
 
-	<RefParameter Added="true" Comment="Read Dummy Cycle" DefaultValue="4" Group="Memory Command" Name="RefParam_MEMORY_1_ReadDummyCycle" TabName="Memory 1" Type="integer" Unit="">
-		<Description>selection of the driver type</Description>
-		<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM" Diagnostic="valid only for PSRAM memory"/>
+    <RefParameter Added="true" Comment="Read Dummy Cycles" DefaultValue="13" Group="Memory Command" Name="RefParam_MEMORY_1_ReadDummyCycle" TabName="Memory 1" Type="integer" Unit="">
+        <Description>Number of dummy cycles used on Read command</Description>
+        <Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_1_FreqMax &gt; 133" Diagnostic=""/>
+    </RefParameter>
+	<RefParameter Added="true" Comment="Read Dummy Cycles" DefaultValue="4" Group="Memory Command" Name="RefParam_MEMORY_1_ReadDummyCycle" TabName="Memory 1" Type="integer" Unit="">
+		<Description>Number of dummy cycles used on Read command</Description>
+		<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM" Diagnostic=""/>
 	</RefParameter>
 
 	<!-- Manage the memory configuration : PSRAM -->
-	<RefParameter Added="true" Comment="Number of Config" DefaultValue="0" Group="Memory Configuration" Name="RefParam_MEMORY_1_NumberOfConfig" TabName="Memory 1" Type="integer" Unit="">
-		<Description>selection the number of configuration</Description>
+	<RefParameter Added="true" Comment="Number of Configuration Steps" DefaultValue="0" Min="0" Max="3" Group="Memory Configuration" Name="RefParam_MEMORY_1_NumberOfConfig" TabName="Memory 1" Type="integer" Unit="">
+		<Description>Number of required configuration steps in memory registers</Description>
 		<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM" Diagnostic=""/>
 	</RefParameter>
 	
 	<!-- config 1 -->
-		<RefParameter Added="true" Comment="Write Mask" DefaultValue="0x00" Group="Configuration 1" Max="255" Min="0" Name="RefParam_MEMORY_1_Config1_WriteMask" TabName="Memory 1" Type="integer" Unit="hex">
-			<Description>selection the write mask</Description>
-			<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_1_NumberOfConfig &gt;= 1" Diagnostic="requires minimun 1 configuration selected"/>
+        <RefParameter Added="true" Comment="Write Mask" DefaultValue="0x47" Group="Configuration 1" Max="0xff" Min="0x00" Name="RefParam_MEMORY_1_Config1_WriteMask" TabName="Memory 1" Type="hex">
+			<Description>Mask applied to the Write Value to select bits to be written into the memory register</Description>
+            <Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_1_NumberOfConfig &gt;= 1 &amp; RefParam_MEMORY_1_FreqMax &gt; 133" Diagnostic=""/>
+        </RefParameter>
+        <RefParameter Added="true" Comment="Write Mask" DefaultValue="0x40" Group="Configuration 1" Max="0xff" Min="0x00" Name="RefParam_MEMORY_1_Config1_WriteMask" TabName="Memory 1" Type="hex">
+            <Description>Mask applied to the Write Value to select bits to be written into the memory register</Description>
+			<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_1_NumberOfConfig &gt;= 1" Diagnostic=""/>
 		</RefParameter>
-		<RefParameter Added="true" Comment="Write Value" DefaultValue="0x00" Group="Configuration 1" Max="255" Min="0" Name="RefParam_MEMORY_1_Config1_WriteValue" TabName="Memory 1" Type="integer" Unit="hex">
-			<Description>selection the write value</Description>
-			<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_1_NumberOfConfig &gt;= 1" Diagnostic="requires minimun 1 configuration selected"/>
+		<RefParameter Added="true" Comment="Write Value" DefaultValue="0x46" Group="Configuration 1" Max="0xff" Min="0x00" Name="RefParam_MEMORY_1_Config1_WriteValue" TabName="Memory 1" Type="hex">
+			<Description>Value to be written into the memory register after applying the Write Mask</Description>
+            <Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_1_NumberOfConfig &gt;= 1 &amp; RefParam_MEMORY_1_FreqMax &gt; 133" Diagnostic=""/>
+        </RefParameter>
+        <RefParameter Added="true" Comment="Write Value" DefaultValue="0x40" Group="Configuration 1" Max="0xff" Min="0x00" Name="RefParam_MEMORY_1_Config1_WriteValue" TabName="Memory 1" Type="hex">
+            <Description>Value to be written into the memory register after applying the Write Mask</Description>
+			<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_1_NumberOfConfig &gt;= 1" Diagnostic=""/>
 		</RefParameter>
-		<RefParameter Added="true" Comment="Register Address" DefaultValue="0x00" Group="Configuration 1" Max="255" Min="0" Name="RefParam_MEMORY_1_Config1_RegAddress" TabName="Memory 1" Type="integer" Unit="hex">
-			<Description>selection of the driver type</Description>
-			<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_1_NumberOfConfig &gt;= 1" Diagnostic="requires minimun 1 configuration selected"/>
+        <RefParameter Added="true" Comment="Register Address" DefaultValue="0x08" Group="Configuration 1" Max="0xff" Min="0x00" Name="RefParam_MEMORY_1_Config1_RegAddress" TabName="Memory 1" Type="hex">
+			<Description>Address of memory register where value is written</Description>
+			<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_1_NumberOfConfig &gt;= 1" Diagnostic=""/>
 		</RefParameter>
 		<!-- config 2 -->
-		<RefParameter Added="true" Comment="Write Mask" DefaultValue="0x00" Group="Configuration 2" Max="255" Min="0" Name="RefParam_MEMORY_1_Config2_WriteMask" TabName="Memory 1" Type="integer" Unit="hex">
-			<Description>selection of the driver type</Description>
-			<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_1_NumberOfConfig &gt;= 2" Diagnostic="requires minimun 1 configuration selected"/>
+        <RefParameter Added="true" Comment="Write Mask" DefaultValue="0xE0" Group="Configuration 2" Max="0xff" Min="0x00" Name="RefParam_MEMORY_1_Config2_WriteMask" TabName="Memory 1" Type="hex">
+            <Description>Mask applied to the Write Value to select bits to be written into the memory register</Description>
+            <Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_1_NumberOfConfig &gt;= 2  &amp; RefParam_MEMORY_1_FreqMax &gt; 133" Diagnostic=""/>
+        </RefParameter>
+		<RefParameter Added="true" Comment="Write Mask" DefaultValue="0x00" Group="Configuration 2" Max="0xff" Min="0x00" Name="RefParam_MEMORY_1_Config2_WriteMask" TabName="Memory 1" Type="hex">
+			<Description>Mask applied to the Write Value to select bits to be written into the memory register</Description>
+			<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_1_NumberOfConfig &gt;= 2" Diagnostic=""/>
 		</RefParameter>
-		<RefParameter Added="true" Comment="Write Value" DefaultValue="0x00" Group="Configuration 2" Max="255" Min="0" Name="RefParam_MEMORY_1_Config2_WriteValue" TabName="Memory 1" Type="integer" Unit="hex">
-			<Description>selection of the driver type</Description>
-			<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_1_NumberOfConfig &gt;= 2" Diagnostic="requires minimun 1 configuration selected"/>
+        <RefParameter Added="true" Comment="Write Value" DefaultValue="0x20" Group="Configuration 2" Max="0xff" Min="0x00" Name="RefParam_MEMORY_1_Config2_WriteValue" TabName="Memory 1" Type="hex">
+            <Description>Value to be written into the memory register after applying the Write Mask</Description>
+            <Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_1_NumberOfConfig &gt;= 2  &amp; RefParam_MEMORY_1_FreqMax &gt; 133" Diagnostic=""/>
+        </RefParameter>
+		<RefParameter Added="true" Comment="Write Value" DefaultValue="0x00" Group="Configuration 2" Max="0xff" Min="0x00" Name="RefParam_MEMORY_1_Config2_WriteValue" TabName="Memory 1" Type="hex">
+			<Description>Value to be written into the memory register after applying the Write Mask</Description>
+			<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_1_NumberOfConfig &gt;= 2" Diagnostic=""/>
 		</RefParameter>
-		<RefParameter Added="true" Comment="Register Address" DefaultValue="0x00" Group="Configuration 2" Max="255" Min="0" Name="RefParam_MEMORY_1_Config2_RegAddress" TabName="Memory 1" Type="integer" Unit="hex">
-			<Description>selection of the driver type</Description>
-			<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_1_NumberOfConfig &gt;= 2" Diagnostic="requires minimun 1 configuration selected"/>
+        <RefParameter Added="true" Comment="Register Address" DefaultValue="0x04" Group="Configuration 2" Max="0xff" Min="0x00" Name="RefParam_MEMORY_1_Config2_RegAddress" TabName="Memory 1" Type="hex">
+            <Description>Address of memory register where value is written</Description>
+            <Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_1_NumberOfConfig &gt;= 2  &amp; RefParam_MEMORY_1_FreqMax &gt; 133" Diagnostic=""/>
+        </RefParameter>
+		<RefParameter Added="true" Comment="Register Address" DefaultValue="0x00" Group="Configuration 2" Max="0xff" Min="0x00" Name="RefParam_MEMORY_1_Config2_RegAddress" TabName="Memory 1" Type="hex">
+			<Description>Address of memory register where value is written</Description>
+			<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_1_NumberOfConfig &gt;= 2" Diagnostic=""/>
 		</RefParameter>
-		<!-- config 1 -->
-		<RefParameter Added="true" Comment="Write Mask" DefaultValue="0x00" Group="Configuration 3" Max="255" Min="0" Name="RefParam_MEMORY_1_Config3_WriteMask" TabName="Memory 1" Type="integer" Unit="hex">
-			<Description>selection of the driver type</Description>
-			<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_1_NumberOfConfig &gt;= 3" Diagnostic="requires minimun 1 configuration selected"/>
+		<!-- config 3 -->
+        <RefParameter Added="true" Comment="Write Mask" DefaultValue="0x3F" Group="Configuration 3" Max="0xff" Min="0x00" Name="RefParam_MEMORY_1_Config3_WriteMask" TabName="Memory 1" Type="hex">
+            <Description>Mask applied to the Write Value to select bits to be written into the memory register</Description>
+            <Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_1_NumberOfConfig &gt;= 3 &amp; RefParam_MEMORY_1_FreqMax &gt; 133" Diagnostic=""/>
+        </RefParameter>
+		<RefParameter Added="true" Comment="Write Mask" DefaultValue="0x00" Group="Configuration 3" Max="0xff" Min="0x00" Name="RefParam_MEMORY_1_Config3_WriteMask" TabName="Memory 1" Type="hex">
+			<Description>Mask applied to the Write Value to select bits to be written into the memory register</Description>
+			<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_1_NumberOfConfig &gt;= 3" Diagnostic=""/>
 		</RefParameter>
-		<RefParameter Added="true" Comment="Write Value" DefaultValue="0x00" Group="Configuration 3" Max="255" Min="0" Name="RefParam_MEMORY_1_Config3_WriteValue" TabName="Memory 1" Type="integer" Unit="hex">
-			<Description>selection of the driver type</Description>
-			<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_1_NumberOfConfig &gt;= 3" Diagnostic="requires minimun 1 configuration selected"/>
+        <RefParameter Added="true" Comment="Write Value" DefaultValue="0x31" Group="Configuration 3" Max="0xff" Min="0x00" Name="RefParam_MEMORY_1_Config3_WriteValue" TabName="Memory 1" Type="hex">
+            <Description>Value to be written into the memory register after applying the Write Mask</Description>
+            <Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_1_NumberOfConfig &gt;= 3 &amp; RefParam_MEMORY_1_FreqMax &gt; 133" Diagnostic=""/>
+        </RefParameter>
+		<RefParameter Added="true" Comment="Write Value" DefaultValue="0x00" Group="Configuration 3" Max="0xff" Min="0x00" Name="RefParam_MEMORY_1_Config3_WriteValue" TabName="Memory 1" Type="hex">
+			<Description>Value to be written into the memory register after applying the Write Mask</Description>
+			<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_1_NumberOfConfig &gt;= 3" Diagnostic=""/>
 		</RefParameter>
-		<RefParameter Added="true" Comment="Register Address" DefaultValue="0x00" Group="Configuration 3" Max="255" Min="0" Name="RefParam_MEMORY_1_Config3_RegAddress" TabName="Memory 1" Type="integer" Unit="hex">
-			<Description>selection of the driver type</Description>
-			<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_1_NumberOfConfig &gt;= 3" Diagnostic="requires minimun 1 configuration selected"/>
+		<RefParameter Added="true" Comment="Register Address" DefaultValue="0x00" Group="Configuration 3" Max="0xff" Min="0x00" Name="RefParam_MEMORY_1_Config3_RegAddress" TabName="Memory 1" Type="hex">
+			<Description>Address of memory register where value is written</Description>
+			<Condition Expression="RefParam_MEMORY_1_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_1_NumberOfConfig &gt;= 3" Diagnostic=""/>
 		</RefParameter>
 
 	<!-- Memu Memory 2 configuration -->
@@ -335,36 +411,72 @@
 	    <Description>selection of the HW instance</Description>
 		<PossibleValue Comment="XSPI1" Value="XSPI1" Condition="!XSPI1_Used | RefParam_MEMORY_1_Instance=XSPI1 | RefParam_MEMORY_2_Driver_Selection=EXTMEM_SDCARD" Diagnostic="Active only when XSPI1 is enabled and not used by Memory 1 and EXTMEM_SFDP or EXTMEM_PSRAM driver is selected" Action="XSPI2" Semaphore="Memory2_XSPI1"/>
 	    <PossibleValue Comment="XSPI2" Value="XSPI2" Condition="!XSPI2_Used | RefParam_MEMORY_1_Instance=XSPI2 | RefParam_MEMORY_2_Driver_Selection=EXTMEM_SDCARD" Diagnostic="Active only when XSPI2 is enabled and not used by Memory 1 and EXTMEM_SFDP or EXTMEM_PSRAM driver is selected" Action="XSPI1" Semaphore="Memory2_XSPI2"/>
-	    <PossibleValue Comment="XSPI3" Value="XSPI3" Condition="!XSPI2_Used | RefParam_MEMORY_1_Instance=XSPI3 | RefParam_MEMORY_2_Driver_Selection=EXTMEM_SDCARD" Diagnostic="Active only when XSPI3 is enabled and not used by Memory 1 and EXTMEM_SFDP or EXTMEM_PSRAM driver is selected" Action="XSPI1" Semaphore="Memory2_XSPI3"/>
+        <PossibleValue Comment="XSPI3" Value="XSPI3" Condition="!XSPI3_Used | RefParam_MEMORY_1_Instance=XSPI3 | RefParam_MEMORY_2_Driver_Selection=EXTMEM_SDCARD" Diagnostic="Active only when XSPI3 is enabled and not used by Memory 1 and EXTMEM_SFDP or EXTMEM_PSRAM driver is selected" Action="XSPI1" Semaphore="Memory2_XSPI3"/>
 		<PossibleValue Comment="SDMMC1" Value="SDMMC1" Condition="!SDMMC1_Used | RefParam_MEMORY_1_Instance=SDMMC1 | !RefParam_MEMORY_2_Driver_Selection=EXTMEM_SDCARD" Diagnostic="Active only when SDMMC1 is enabled and not used by Memory 1 and EXTMEM_SDCARD driver is selected" Action="SDMMC1"/>
 	    <PossibleValue Comment="SDMMC2" Value="SDMMC2" Condition="!SDMMC2_Used | RefParam_MEMORY_1_Instance=SDMMC2 | !RefParam_MEMORY_2_Driver_Selection=EXTMEM_SDCARD" Diagnostic="Active only when SDMMC2 is enabled and not used by Memory 1  and EXTMEM_SDCARD driver is selected" Action="SDMMC2"/>
 		<Condition Expression="RefParam_EXTMEM_Number_of_Memory&gt;=2 &amp; (RefParam_MEMORY_2_Driver_Selection=EXTMEM_SDCARD | RefParam_MEMORY_2_Driver_Selection=EXTMEM_PSRAM |
 							   RefParam_MEMORY_2_Driver_Selection=EXTMEM_NOR_SFDP)" Diagnostic="requires the selection of a second memory"/>
 	</RefParameter>
 
-  <RefParameter Added="true" Comment="Number of memory data line" DefaultValue="EXTMEM_LINK_CONFIG_1LINE" Group="Configuration" Name="RefParam_MEMORY_2_ConfigType" TabName="Memory 2" Type="list" Unit="">
-	<Description>select the number of memory data line</Description>
-	<PossibleValue Comment="EXTMEM_LINK_CONFIG_1LINE" Value="EXTMEM_LINK_CONFIG_1LINE"/>
-	<PossibleValue Comment="EXTMEM_LINK_CONFIG_4LINES" Value="EXTMEM_LINK_CONFIG_4LINES" 
-	Condition="(RefParam_MEMORY_2_Instance=XSPI1 &amp; (!Sem_XSPI1_Quad &amp; !Sem_XSPI1_quadmx &amp; !Sem_XSPI1_Octo &amp; !Sem_XSPI1_octomx &amp; !Sem_XSPI1_HyperBus &amp; !Sem_XSPI1_hyperbusmx)) | 
-	(RefParam_MEMORY_2_Instance=XSPI2 &amp; (!Sem_XSPI2_Quad &amp; !Sem_XSPI2_quadmx &amp; !Sem_XSPI2_Octo &amp; !Sem_XSPI2_octomx &amp; !Sem_XSPI2_HyperBus &amp; !Sem_XSPI2_hyperbusmx))|
-	(RefParam_MEMORY_2_Instance=XSPI3 &amp; (!Sem_XSPI3_Quad &amp; !Sem_XSPI3_quadmx &amp; !Sem_XSPI3_Octo &amp; !Sem_XSPI3_octomx &amp; !Sem_XSPI3_HyperBus &amp; !Sem_XSPI3_hyperbusmx))" 
-	Diagnostic="Active only when XSPI enabled in Quad SPI mode" Action="EXTMEM_LINK_CONFIG_1LINE"/>
-	<PossibleValue Comment="EXTMEM_LINK_CONFIG_8LINES" Value="EXTMEM_LINK_CONFIG_8LINES" 
-	Condition="(RefParam_MEMORY_2_Instance=XSPI1 &amp; (!Sem_XSPI1_Octo &amp; !Sem_XSPI1_octomx &amp; !Sem_XSPI1_HyperBus &amp; !Sem_XSPI1_hyperbusmx)) | 
-	(RefParam_MEMORY_2_Instance=XSPI2 &amp; (!Sem_XSPI2_Octo &amp; !Sem_XSPI2_octomx &amp; !Sem_XSPI2_HyperBus &amp; !Sem_XSPI2_hyperbusmx))|
-	(RefParam_MEMORY_2_Instance=XSPI3 &amp; (!Sem_XSPI3_Octo &amp; !Sem_XSPI3_octomx &amp; !Sem_XSPI3_HyperBus &amp; !Sem_XSPI3_hyperbusmx))" 
-	Diagnostic="Active only when XSPI enabled in Octo SPI mode" Action="EXTMEM_LINK_CONFIG_1LINE"/>
-	<PossibleValue Comment="EXTMEM_LINK_CONFIG_16LINES" Value="EXTMEM_LINK_CONFIG_16LINES" 
-	Condition="(RefParam_MEMORY_2_Instance=XSPI1 &amp; !Sem_XSPI1_Hexa &amp; !Sem_XSPI1_hexamx) | 
-	(RefParam_MEMORY_2_Instance=XSPI2 &amp; !Sem_XSPI2_Hexa &amp; !Sem_XSPI2_hexamx) | 
-	(RefParam_MEMORY_2_Instance=XSPI3 &amp; !Sem_XSPI3_Hexa &amp; !Sem_XSPI3_hexamx)" Diagnostic="Active only when XSPI enabled in Hexa SPI mode" Action="EXTMEM_LINK_CONFIG_1LINE"/>
-	<Condition Expression="RefParam_EXTMEM_Number_of_Memory&gt;=2 &amp; (RefParam_MEMORY_2_Driver_Selection=EXTMEM_SDCARD | RefParam_MEMORY_2_Driver_Selection=EXTMEM_PSRAM |
-							   RefParam_MEMORY_2_Driver_Selection=EXTMEM_NOR_SFDP)" Diagnostic="requires the selection of a second memory"/>
-  </RefParameter>
+    <RefParameter Added="true" Comment="Number of memory data lines" DefaultValue="EXTMEM_LINK_CONFIG_1LINE" Group="Configuration" Name="RefParam_MEMORY_2_ConfigType" TabName="Memory 2" Type="list" Unit="">
+    <Description>Number of data lines</Description>
+    <PossibleValue Comment="EXTMEM_LINK_CONFIG_1LINE" Value="EXTMEM_LINK_CONFIG_1LINE"/>
+    <PossibleValue Comment="EXTMEM_LINK_CONFIG_4LINES" Value="EXTMEM_LINK_CONFIG_4LINES" 
+    Condition="(RefParam_MEMORY_2_Instance=XSPI1 &amp; (!Sem_XSPI1_Quad       &amp; !Sem_XSPI1_quadmx &amp;
+                                                            !Sem_XSPI1_DualDual   &amp; !Sem_XSPI1_dualdualmx &amp;    
+                                                            !Sem_XSPI1_DualQuad   &amp; !Sem_XSPI1_dualquadmx &amp;    
+                                                            !Sem_XSPI1_Octo       &amp; !Sem_XSPI1_octomx &amp; 
+                                                            !Sem_XSPI1_Hexa       &amp; !Sem_XSPI1_hexamx &amp; 
+                                                            !Sem_XSPI1_HyperBus   &amp; !Sem_XSPI1_hyperbusmx &amp; 
+                                                            !Sem_XSPI1_HyperBus16 &amp; !Sem_XSPI1_hyperbus16mx)) | 
+                   (RefParam_MEMORY_2_Instance=XSPI2 &amp; (!Sem_XSPI2_Quad       &amp; !Sem_XSPI2_quadmx &amp;
+                                                            !Sem_XSPI2_DualDual   &amp; !Sem_XSPI2_dualdualmx &amp;    
+                                                            !Sem_XSPI2_DualQuad   &amp; !Sem_XSPI2_dualquadmx &amp;    
+                                                            !Sem_XSPI2_Octo       &amp; !Sem_XSPI2_octomx &amp; 
+                                                            !Sem_XSPI2_Hexa       &amp; !Sem_XSPI2_hexamx &amp; 
+                                                            !Sem_XSPI2_HyperBus   &amp; !Sem_XSPI2_hyperbusmx &amp; 
+                                                            !Sem_XSPI2_HyperBus16 &amp; !Sem_XSPI2_hyperbus16mx))|
+                   (RefParam_MEMORY_2_Instance=XSPI3 &amp; (!Sem_XSPI3_Quad       &amp; !Sem_XSPI3_quadmx &amp;
+                                                            !Sem_XSPI3_DualDual   &amp; !Sem_XSPI3_dualdualmx &amp;    
+                                                            !Sem_XSPI3_DualQuad   &amp; !Sem_XSPI3_dualquadmx &amp;    
+                                                            !Sem_XSPI3_Octo       &amp; !Sem_XSPI3_octomx &amp; 
+                                                            !Sem_XSPI3_Hexa       &amp; !Sem_XSPI3_hexamx &amp; 
+                                                            !Sem_XSPI3_HyperBus   &amp; !Sem_XSPI3_hyperbusmx &amp; 
+                                                            !Sem_XSPI3_HyperBus16 &amp; !Sem_XSPI3_hyperbus16mx))" 
+        Diagnostic="Active only when XSPI enabled in Quad, DualDual, DualQuad, Octo, Hexa or HyperBus mode" Action="EXTMEM_LINK_CONFIG_1LINE"/>
 
-	<RefParameter Added="true" Comment="Memory Size" DefaultValue="HAL_XSPI_SIZE_256MB" Group="Memory Info" Name="RefParam_MEMORY_2_Size" TabName="Memory 2" Type="list" Unit="">
-	<Description>select the memory size</Description>
+        <PossibleValue Comment="EXTMEM_LINK_CONFIG_8LINES" Value="EXTMEM_LINK_CONFIG_8LINES" 
+        Condition="(RefParam_MEMORY_2_Instance=XSPI1 &amp; (!Sem_XSPI1_Octo       &amp; !Sem_XSPI1_octomx &amp; 
+                                                            !Sem_XSPI1_Hexa       &amp; !Sem_XSPI1_hexamx &amp; 
+                                                            !Sem_XSPI1_HyperBus   &amp; !Sem_XSPI1_hyperbusmx &amp; 
+                                                            !Sem_XSPI1_HyperBus16 &amp; !Sem_XSPI1_hyperbus16mx)) | 
+                   (RefParam_MEMORY_2_Instance=XSPI2 &amp; (!Sem_XSPI2_Octo       &amp; !Sem_XSPI2_octomx &amp; 
+                                                            !Sem_XSPI2_Hexa       &amp; !Sem_XSPI2_hexamx &amp; 
+                                                            !Sem_XSPI2_HyperBus   &amp; !Sem_XSPI2_hyperbusmx &amp; 
+                                                            !Sem_XSPI2_HyperBus16 &amp; !Sem_XSPI2_hyperbus16mx))|
+                   (RefParam_MEMORY_2_Instance=XSPI3 &amp; (!Sem_XSPI3_Octo       &amp; !Sem_XSPI3_octomx &amp; 
+                                                            !Sem_XSPI3_Hexa       &amp; !Sem_XSPI3_hexamx &amp; 
+                                                            !Sem_XSPI3_HyperBus   &amp; !Sem_XSPI3_hyperbusmx &amp; 
+                                                            !Sem_XSPI3_HyperBus16 &amp; !Sem_XSPI3_hyperbus16mx))" 
+        Diagnostic="Active only when XSPI enabled in Octo, Hexa or HyperBus mode" Action="EXTMEM_LINK_CONFIG_1LINE"/>
+
+        <PossibleValue Comment="EXTMEM_LINK_CONFIG_16LINES" Value="EXTMEM_LINK_CONFIG_16LINES" 
+        Condition="(RefParam_MEMORY_2_Instance=XSPI1 &amp; (!Sem_XSPI1_Hexa       &amp; !Sem_XSPI1_hexamx &amp; 
+                                                            !Sem_XSPI1_HyperBus   &amp; !Sem_XSPI1_hyperbusmx &amp; 
+                                                            !Sem_XSPI1_HyperBus16 &amp; !Sem_XSPI1_hyperbus16mx)) | 
+                   (RefParam_MEMORY_2_Instance=XSPI2 &amp; (!Sem_XSPI2_Hexa       &amp; !Sem_XSPI2_hexamx &amp; 
+                                                            !Sem_XSPI2_HyperBus   &amp; !Sem_XSPI2_hyperbusmx &amp; 
+                                                            !Sem_XSPI2_HyperBus16 &amp; !Sem_XSPI2_hyperbus16mx))|
+                   (RefParam_MEMORY_2_Instance=XSPI3 &amp; (!Sem_XSPI3_Hexa       &amp; !Sem_XSPI3_hexamx &amp; 
+                                                            !Sem_XSPI3_HyperBus   &amp; !Sem_XSPI3_hyperbusmx &amp; 
+                                                            !Sem_XSPI3_HyperBus16 &amp; !Sem_XSPI3_hyperbus16mx))"
+        Diagnostic="Active only when XSPI enabled in Hexa SPI mode" Action="EXTMEM_LINK_CONFIG_1LINE"/>
+        <Condition Expression="RefParam_EXTMEM_Number_of_Memory&gt;=2 &amp; (RefParam_MEMORY_2_Driver_Selection=EXTMEM_SDCARD | RefParam_MEMORY_2_Driver_Selection=EXTMEM_PSRAM |
+                                   RefParam_MEMORY_2_Driver_Selection=EXTMEM_NOR_SFDP)" Diagnostic="requires the selection of a second memory"/>
+    </RefParameter>
+
+	<RefParameter Added="true" Comment="Memory Size" DefaultValue="HAL_XSPI_SIZE_256MB" Group="Memory Info" Name="RefParam_MEMORY_2_Size" TabName="Memory 2" Type="list">
+	<Description>Memory size expressed in bits</Description>
 		<PossibleValue Comment="HAL_XSPI_SIZE_16MB" Value="HAL_XSPI_SIZE_16MB" />
 		<PossibleValue Comment="HAL_XSPI_SIZE_32MB" Value="HAL_XSPI_SIZE_32MB" />
 		<PossibleValue Comment="HAL_XSPI_SIZE_64MB" Value="HAL_XSPI_SIZE_64MB" />
@@ -373,101 +485,145 @@
 		<PossibleValue Comment="HAL_XSPI_SIZE_512MB" Value="HAL_XSPI_SIZE_512MB" />
 		<PossibleValue Comment="HAL_XSPI_SIZE_1GB" Value="HAL_XSPI_SIZE_1GB" />
 		<PossibleValue Comment="HAL_XSPI_SIZE_2GB" Value="HAL_XSPI_SIZE_2GB" />
-		<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM" Diagnostic="requires the selection of a second memory"/>
+		<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM" Diagnostic=""/>
 	</RefParameter>
 
-	<RefParameter Added="true" Comment="Memory Maximun Frequency" DefaultValue="200" Group="Memory Info" Name="RefParam_MEMORY_2_FreqMax" TabName="Memory 2" Type="integer" Unit="Mhz">
-		<Description>selection of the driver type</Description>
-		<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM" Diagnostic="requires the selection of a second memory"/>
+    <RefParameter Added="true" Comment="Memory Maximum Frequency" DefaultValue="200" Min="1" Max="200" Group="Memory Info" Name="RefParam_MEMORY_2_FreqMax" TabName="Memory 2" Type="integer" Unit="Mhz">
+		<Description>Maximum frequency at which memory is expected to operate</Description>
+		<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM" Diagnostic=""/>
 	</RefParameter>
 
-	<RefParameter Added="true" Comment="Read Register command" DefaultValue="0x40" Group="Memory Command" Name="RefParam_MEMORY_2_ReadReg" TabName="Memory 2" Type="integer" Unit="hex">
-		<Description>selection of the driver type</Description>
-		<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM" Diagnostic="requires the selection of a second memory"/>
+	<RefParameter Added="true" Comment="Read Register command" DefaultValue="0x40" Min="0x00000000" Max="0xffffffff" Group="Memory Command" Name="RefParam_MEMORY_2_ReadReg" TabName="Memory 2" Type="hex">
+		<Description>Command used to read register</Description>
+		<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM" Diagnostic=""/>
 	</RefParameter>
 
-	<RefParameter Added="true" Comment="Write Register command" DefaultValue="0xC0" Group="Memory Command" Name="RefParam_MEMORY_2_WriteReg" TabName="Memory 2" Type="integer" Unit="hex">
-		<Description>selection of the driver type</Description>
-		<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM" Diagnostic="requires the selection of a second memory"/>
+	<RefParameter Added="true" Comment="Write Register command" DefaultValue="0xC0" Min="0x00000000" Max="0xffffffff" Group="Memory Command" Name="RefParam_MEMORY_2_WriteReg" TabName="Memory 2" Type="hex">
+		<Description>Command used to write register</Description>
+		<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM" Diagnostic=""/>
 	</RefParameter>
 
 	<RefParameter Added="true" Comment="Register Size" DefaultValue="2" Group="Memory Command" Name="RefParam_MEMORY_2_RegSize" TabName="Memory 2" Type="integer" Unit="">
-		<Description>selection of the driver type</Description>
-		<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM" Diagnostic="requires the selection of a second memory"/>
+		<Description>Size of memory registers (expressed in bytes)</Description>
+		<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM" Diagnostic=""/>
 	</RefParameter>
 
-	<RefParameter Added="true" Comment="MEMORY_1_RegDummyCycle" DefaultValue="4" Group="Memory Command" Name="RefParam_MEMORY_2_RegDummyCycle" TabName="Memory 2" Type="integer" Unit="">
-		<Description>selection of the driver type</Description>
-		<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM" Diagnostic="requires the selection of a second memory"/>
+    <RefParameter Added="true" Comment="Register Dummy Cycles" DefaultValue="6" Group="Memory Command" Name="RefParam_MEMORY_2_RegDummyCycle" TabName="Memory 2" Type="integer" Unit="">
+        <Description>Number of dummy cycles used on Read Register command</Description>
+        <Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM  &amp; RefParam_MEMORY_2_FreqMax &gt; 133" Diagnostic=""/>
+    </RefParameter>
+	<RefParameter Added="true" Comment="Register Dummy Cycles" DefaultValue="4" Group="Memory Command" Name="RefParam_MEMORY_2_RegDummyCycle" TabName="Memory 2" Type="integer" Unit="">
+		<Description>Number of dummy cycles used on Read Register command</Description>
+		<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM" Diagnostic=""/>
 	</RefParameter>
-	<RefParameter Added="true" Comment="Write Command" DefaultValue="0xA0" Group="Memory Command" Name="RefParam_MEMORY_2_WriteCommand" TabName="Memory 2" Type="integer" Unit="hex">
-		<Description>selection of the driver type</Description>
-		<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM" Diagnostic="requires the selection of a second memory"/>
-	</RefParameter>
-
-	<RefParameter Added="true" Comment="Write Dummy Cycle" DefaultValue="4" Group="Memory Command" Name="RefParam_MEMORY_2_WriteDummyCycle" TabName="Memory 2" Type="integer" Unit="">
-		<Description>selection of the driver type</Description>
-		<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM" Diagnostic="requires the selection of a second memory"/>
-	</RefParameter>
-
-	<RefParameter Added="true" Comment="Read Command" DefaultValue="0x20" Group="Memory Command" Name="RefParam_MEMORY_2_ReadCommand" TabName="Memory 2" Type="integer" Unit="hex">
-		<Description>selection of the driver type</Description>
-		<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM" Diagnostic="requires the selection of a second memory"/>
+	<RefParameter Added="true" Comment="Write Command" DefaultValue="0xA0" Min="0x00000000" Max="0xffffffff" Group="Memory Command" Name="RefParam_MEMORY_2_WriteCommand" TabName="Memory 2" Type="hex">
+		<Description>Command used to write data</Description>
+		<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM" Diagnostic=""/>
 	</RefParameter>
 
-	<RefParameter Added="true" Comment="Wrap Read Command" DefaultValue="0x00" Group="Memory Command" Name="RefParam_MEMORY_2_WrapReadCommand" TabName="Memory 2" Type="integer" Unit="hex">
-		<Description>selection of the driver type</Description>
-		<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM" Diagnostic="requires the selection of a second memory"/>
+    <RefParameter Added="true" Comment="Write Dummy Cycles" DefaultValue="6" Group="Memory Command" Name="RefParam_MEMORY_2_WriteDummyCycle" TabName="Memory 2" Type="integer" Unit="">
+        <Description>Number of dummy cycles used on Write command</Description>
+        <Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM  &amp; RefParam_MEMORY_2_FreqMax &gt; 133" Diagnostic=""/>
+    </RefParameter>
+	<RefParameter Added="true" Comment="Write Dummy Cycles" DefaultValue="4" Group="Memory Command" Name="RefParam_MEMORY_2_WriteDummyCycle" TabName="Memory 2" Type="integer" Unit="">
+		<Description>Number of dummy cycles used on Write command</Description>
+		<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM" Diagnostic=""/>
 	</RefParameter>
 
-	<RefParameter Added="true" Comment="Read Dummy Cycle" DefaultValue="4" Group="Memory Command" Name="RefParam_MEMORY_2_ReadDummyCycle" TabName="Memory 2" Type="integer" Unit="">
-		<Description>selection of the driver type</Description>
-		<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM" Diagnostic="requires the selection of a second memory"/>
+	<RefParameter Added="true" Comment="Read Command" DefaultValue="0x20" Min="0x00000000" Max="0xffffffff" Group="Memory Command" Name="RefParam_MEMORY_2_ReadCommand" TabName="Memory 2" Type="hex">
+		<Description>Command used to read data</Description>
+		<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM" Diagnostic=""/>
+	</RefParameter>
+
+	<RefParameter Added="true" Comment="Wrap Read Command" DefaultValue="0x00" Min="0x00000000" Max="0xffffffff" Group="Memory Command" Name="RefParam_MEMORY_2_WrapReadCommand" TabName="Memory 2" Type="hex">
+		<Description>Command used to read data in Wrap mode</Description>
+		<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM" Diagnostic=""/>
+	</RefParameter>
+
+    <RefParameter Added="true" Comment="Read Dummy Cycles" DefaultValue="13" Group="Memory Command" Name="RefParam_MEMORY_2_ReadDummyCycle" TabName="Memory 2" Type="integer" Unit="">
+        <Description>Number of dummy cycles used on Read command</Description>
+        <Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_2_FreqMax &gt; 133" Diagnostic=""/>
+    </RefParameter>
+	<RefParameter Added="true" Comment="Read Dummy Cycles" DefaultValue="4" Group="Memory Command" Name="RefParam_MEMORY_2_ReadDummyCycle" TabName="Memory 2" Type="integer" Unit="">
+		<Description>Number of dummy cycles used on Read command</Description>
+		<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM" Diagnostic=""/>
 	</RefParameter>
 
 	<!-- Manage the memory configuration : PSRAM -->
-	<RefParameter Added="true" Comment="Number of Config" DefaultValue="0" Group="Memory Configuration" Max="3" Min="0" Name="RefParam_MEMORY_2_NumberOfConfig" TabName="Memory 2" Type="integer" Unit="">
-		<Description>selection of the driver type</Description>
-		<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM" Diagnostic="requires the selection of a second memory"/>
+    <RefParameter Added="true" Comment="Number of Configuration Steps" DefaultValue="3" Group="Memory Configuration" Name="RefParam_MEMORY_2_NumberOfConfig" TabName="Memory 2" Type="string" Unit="">
+        <Description>Number of required configuration steps in memory registers</Description>
+        <Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_2_FreqMax &gt; 133" Diagnostic=""/>
+    </RefParameter>
+	<RefParameter Added="true" Comment="Number of Configuration Steps" DefaultValue="0" Group="Memory Configuration" Max="3" Min="0" Name="RefParam_MEMORY_2_NumberOfConfig" TabName="Memory 2" Type="integer" Unit="">
+		<Description>Number of required configuration steps in memory registers</Description>
+		<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM" Diagnostic=""/>
 	</RefParameter>
 		<!-- config 1 -->
-		<RefParameter Added="true" Comment="Write Mask" DefaultValue="0x40" Group="Configuration 1" Max="255" Min="0" Name="RefParam_MEMORY_2_Config1_WriteMask" TabName="Memory 2" Type="integer" Unit="hex">
-			<Description>selection of the driver type</Description>
-			<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_2_NumberOfConfig &gt;= 1" Diagnostic="requires minimun 1 configuration selected"/>
+        <RefParameter Added="true" Comment="Write Mask" DefaultValue="0x47" Group="Configuration 1" Max="0xff" Min="0x00" Name="RefParam_MEMORY_2_Config1_WriteMask" TabName="Memory 2" Type="hex">
+            <Description>Mask applied to the Write Value to select bits to be written into the memory register</Description>
+            <Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_2_NumberOfConfig &gt;= 1 &amp; RefParam_MEMORY_2_FreqMax &gt; 133" Diagnostic=""/>
+        </RefParameter>
+		<RefParameter Added="true" Comment="Write Mask" DefaultValue="0x40" Group="Configuration 1" Max="0xff" Min="0x00" Name="RefParam_MEMORY_2_Config1_WriteMask" TabName="Memory 2" Type="hex">
+			<Description>Mask applied to the Write Value to select bits to be written into the memory register</Description>
+			<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_2_NumberOfConfig &gt;= 1" Diagnostic=""/>
 		</RefParameter>
-		<RefParameter Added="true" Comment="Write Value" DefaultValue="0x40" Group="Configuration 1" Max="255" Min="0" Name="RefParam_MEMORY_2_Config1_WriteValue" TabName="Memory 2" Type="integer" Unit="hex">
-			<Description>selection of the driver type</Description>
-			<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_2_NumberOfConfig &gt;= 1" Diagnostic="requires minimun 1 configuration selected"/>
+        <RefParameter Added="true" Comment="Write Value" DefaultValue="0x46" Group="Configuration 1" Max="0xff" Min="0x00" Name="RefParam_MEMORY_2_Config1_WriteValue" TabName="Memory 2" Type="hex">
+            <Description>Value to be written into the memory register after applying the Write Mask</Description>
+            <Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_2_NumberOfConfig &gt;= 1 &amp; RefParam_MEMORY_2_FreqMax &gt; 133" Diagnostic=""/>
+        </RefParameter>
+		<RefParameter Added="true" Comment="Write Value" DefaultValue="0x40" Group="Configuration 1" Max="0xff" Min="0x00" Name="RefParam_MEMORY_2_Config1_WriteValue" TabName="Memory 2" Type="hex">
+			<Description>Value to be written into the memory register after applying the Write Mask</Description>
+			<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_2_NumberOfConfig &gt;= 1" Diagnostic=""/>
 		</RefParameter>
-		<RefParameter Added="true" Comment="Register Address" DefaultValue="0x08" Group="Configuration 1" Max="255" Min="0" Name="RefParam_MEMORY_2_Config1_RegAddress" TabName="Memory 2" Type="integer" Unit="hex">
-			<Description>selection of the driver type</Description>
-			<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_2_NumberOfConfig &gt;= 1" Diagnostic="requires minimun 1 configuration selected"/>
+		<RefParameter Added="true" Comment="Register Address" DefaultValue="0x08" Group="Configuration 1" Max="0xff" Min="0x00" Name="RefParam_MEMORY_2_Config1_RegAddress" TabName="Memory 2" Type="hex">
+			<Description>Address of memory register where value is written</Description>
+			<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_2_NumberOfConfig &gt;= 1" Diagnostic=""/>
 		</RefParameter>
 		<!-- config 2 -->
-		<RefParameter Added="true" Comment="Write Mask" DefaultValue="0x00" Group="Configuration 2" Max="255" Min="0" Name="RefParam_MEMORY_2_Config2_WriteMask" TabName="Memory 2" Type="integer" Unit="hex">
-			<Description>selection of the driver type</Description>
-			<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_2_NumberOfConfig &gt;= 2" Diagnostic="requires minimun 1 configuration selected"/>
+        <RefParameter Added="true" Comment="Write Mask" DefaultValue="0xE0" Group="Configuration 2" Max="0xff" Min="0x00" Name="RefParam_MEMORY_2_Config2_WriteMask" TabName="Memory 2" Type="hex">
+            <Description>Mask applied to the Write Value to select bits to be written into the memory register</Description>
+            <Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_2_NumberOfConfig &gt;= 2 &amp; RefParam_MEMORY_2_FreqMax &gt; 133" Diagnostic=""/>
+        </RefParameter>
+		<RefParameter Added="true" Comment="Write Mask" DefaultValue="0x00" Group="Configuration 2" Max="0xff" Min="0x00" Name="RefParam_MEMORY_2_Config2_WriteMask" TabName="Memory 2" Type="hex">
+			<Description>Mask applied to the Write Value to select bits to be written into the memory register</Description>
+			<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_2_NumberOfConfig &gt;= 2" Diagnostic=""/>
 		</RefParameter>
-		<RefParameter Added="true" Comment="Write Value" DefaultValue="0x00" Group="Configuration 2" Max="255" Min="0" Name="RefParam_MEMORY_2_Config2_WriteValue" TabName="Memory 2" Type="integer" Unit="hex">
-			<Description>selection of the driver type</Description>
-			<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_2_NumberOfConfig &gt;= 2" Diagnostic="requires minimun 1 configuration selected"/>
+        <RefParameter Added="true" Comment="Write Value" DefaultValue="0x20" Group="Configuration 2" Max="0xff" Min="0x00" Name="RefParam_MEMORY_2_Config2_WriteValue" TabName="Memory 2" Type="hex">
+            <Description>Value to be written into the memory register after applying the Write Mask</Description>
+            <Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_2_NumberOfConfig &gt;= 2 &amp; RefParam_MEMORY_2_FreqMax &gt; 133" Diagnostic=""/>
+        </RefParameter>
+		<RefParameter Added="true" Comment="Write Value" DefaultValue="0x00" Group="Configuration 2" Max="0xff" Min="0x00" Name="RefParam_MEMORY_2_Config2_WriteValue" TabName="Memory 2" Type="hex">
+			<Description>Value to be written into the memory register after applying the Write Mask</Description>
+			<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_2_NumberOfConfig &gt;= 2" Diagnostic=""/>
 		</RefParameter>
-		<RefParameter Added="true" Comment="Register Address" DefaultValue="0x00" Group="Configuration 2" Max="255" Min="0" Name="RefParam_MEMORY_2_Config2_RegAddress" TabName="Memory 2" Type="integer" Unit="hex">
-			<Description>selection of the driver type</Description>
-			<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_2_NumberOfConfig &gt;= 2" Diagnostic="requires minimun 1 configuration selected"/>
+        <RefParameter Added="true" Comment="Register Address" DefaultValue="0x04" Group="Configuration 2" Max="0xff" Min="0x00" Name="RefParam_MEMORY_2_Config2_RegAddress" TabName="Memory 2" Type="hex">
+            <Description>Address of memory register where value is written</Description>
+            <Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_2_NumberOfConfig &gt;= 2 &amp; RefParam_MEMORY_2_FreqMax &gt; 133" Diagnostic=""/>
+        </RefParameter>
+		<RefParameter Added="true" Comment="Register Address" DefaultValue="0x00" Group="Configuration 2" Max="0xff" Min="0x00" Name="RefParam_MEMORY_2_Config2_RegAddress" TabName="Memory 2" Type="hex">
+			<Description>Address of memory register where value is written</Description>
+			<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_2_NumberOfConfig &gt;= 2" Diagnostic=""/>
 		</RefParameter>
-		<!-- config 1 -->
-		<RefParameter Added="true" Comment="Write Mask" DefaultValue="0x00" Group="Configuration 3" Max="255" Min="0" Name="RefParam_MEMORY_2_Config3_WriteMask" TabName="Memory 2" Type="integer" Unit="hex">
-			<Description>selection of the driver type</Description>
-			<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_2_NumberOfConfig &gt;= 3" Diagnostic="requires minimun 1 configuration selected"/>
+		<!-- config 3 -->
+        <RefParameter Added="true" Comment="Write Mask" DefaultValue="0x3F" Group="Configuration 3" Max="0xff" Min="0x00" Name="RefParam_MEMORY_2_Config3_WriteMask" TabName="Memory 2" Type="hex">
+            <Description>Mask applied to the Write Value to select bits to be written into the memory register</Description>
+            <Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_2_NumberOfConfig &gt;= 3  &amp; RefParam_MEMORY_2_FreqMax &gt; 133" Diagnostic=""/>
+        </RefParameter>
+		<RefParameter Added="true" Comment="Write Mask" DefaultValue="0x00" Group="Configuration 3" Max="0xff" Min="0x00" Name="RefParam_MEMORY_2_Config3_WriteMask" TabName="Memory 2" Type="hex">
+			<Description>Mask applied to the Write Value to select bits to be written into the memory register</Description>
+			<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_2_NumberOfConfig &gt;= 3" Diagnostic=""/>
 		</RefParameter>
-		<RefParameter Added="true" Comment="Write Value" DefaultValue="0x00" Group="Configuration 3" Max="255" Min="0" Name="RefParam_MEMORY_2_Config3_WriteValue" TabName="Memory 2" Type="integer" Unit="hex">
-			<Description>selection of the driver type</Description>
-			<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_2_NumberOfConfig &gt;= 3" Diagnostic="requires minimun 1 configuration selected"/>
+        <RefParameter Added="true" Comment="Write Value" DefaultValue="0x31" Group="Configuration 3" Max="0xff" Min="0x00" Name="RefParam_MEMORY_2_Config3_WriteValue" TabName="Memory 2" Type="hex">
+            <Description>Value to be written into the memory register after applying the Write Mask</Description>
+            <Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_2_NumberOfConfig &gt;= 3 &amp; RefParam_MEMORY_2_FreqMax &gt; 133" Diagnostic=""/>
+        </RefParameter>
+		<RefParameter Added="true" Comment="Write Value" DefaultValue="0x00" Group="Configuration 3" Max="0xff" Min="0x00" Name="RefParam_MEMORY_2_Config3_WriteValue" TabName="Memory 2" Type="hex">
+			<Description>Value to be written into the memory register after applying the Write Mask</Description>
+			<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_2_NumberOfConfig &gt;= 3" Diagnostic=""/>
 		</RefParameter>
-		<RefParameter Added="true" Comment="Register Address" DefaultValue="0x00" Group="Configuration 3" Max="255" Min="0" Name="RefParam_MEMORY_2_Config3_RegAddress" TabName="Memory 2" Type="integer" Unit="hex">
-			<Description>selection of the driver type</Description>
-			<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_2_NumberOfConfig &gt;= 3" Diagnostic="requires minimun 1 configuration selected"/>
+		<RefParameter Added="true" Comment="Register Address" DefaultValue="0x00" Group="Configuration 3" Max="0xff" Min="0x00" Name="RefParam_MEMORY_2_Config3_RegAddress" TabName="Memory 2" Type="hex">
+			<Description>Address of memory register where value is written</Description>
+			<Condition Expression="RefParam_EXTMEM_Number_of_Memory &gt;= 2 &amp; RefParam_MEMORY_2_Driver_Selection = EXTMEM_PSRAM &amp; RefParam_MEMORY_2_NumberOfConfig &gt;= 3" Diagnostic=""/>
 		</RefParameter>
 
 	<RefParameter Comment="RefParam_ClockProtection" Name="RefParam_ClockProtection" DefaultValue="+RCC_CP_XSPI+|RCC_CP_FMC" Type="string" Visible="false" >

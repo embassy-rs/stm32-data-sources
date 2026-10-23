@@ -274,8 +274,10 @@
             <CallLibMethod Name="HAL_RTCEx_PrivilegeModeSet">	        	
             </CallLibMethod>       
             
-        </IFCondition>  
-          
+        </IFCondition>
+        <IFCondition Expression="SSRU_Underflow_Interrupt=Enable &amp; ! (RTC_CALENDAR)">
+            <CallLibMethod Name="HAL_RTCEx_SetSSRU_IT"/>
+        </IFCondition>
 
             <ImplementCallBack Name="HAL_RTC_MspInit" />
             <ImplementCallBack Name="HAL_RTC_MspDeInit" />
@@ -339,7 +341,7 @@
             </CallLibMethod>
         </IFCondition> 
        
-         <IFCondition Expression="SSRU_Underflow_Interrupt=Enable">
+         <IFCondition Expression="SSRU_Underflow_Interrupt=Enable &amp; (RTC_CALENDAR)">
             <CallLibMethod Name="HAL_RTCEx_SetSSRU_IT"/>
 
         </IFCondition>
@@ -359,7 +361,8 @@
             <MethodArg Name="sAlarm.AlarmTime.Seconds" ParameterName="SecondsARG_A" />
             <MethodArg Name="sAlarm.AlarmTime.SubSeconds" ParameterName="SubSecondsARG_A" />
             <MethodArg Name="AlarmDateWeekDay" ParameterName="AlarmDateWeekDayARG" />
-            <MethodArg Name="sAlarm.BinaryAutoClr" ParameterName="BinaryAutoClr_A" />     
+            <MethodArg Name="sAlarm.BinaryAutoClr" ParameterName="BinaryAutoClr_A" />
+            <MethodArg Name="FlagAutoClr" ParameterName="FlagAutoClr_A" />			
         </CallLibMethod>
         </IFCondition>
          <IFCondition Expression ="(S_SECURE  &amp; (SEM_M33S) &amp; (RTC_NONSECURE_FEATURE_ALRA=__NULL) )" >
@@ -370,7 +373,8 @@
             <MethodArg Name="sAlarm.AlarmTime.Seconds" ParameterName="SecondsARG_A" />
             <MethodArg Name="sAlarm.AlarmTime.SubSeconds" ParameterName="SubSecondsARG_A" />
             <MethodArg Name="AlarmDateWeekDay" ParameterName="AlarmDateWeekDayARG" />
-            <MethodArg Name="sAlarm.BinaryAutoClr" ParameterName="BinaryAutoClr_A" />     
+            <MethodArg Name="sAlarm.BinaryAutoClr" ParameterName="BinaryAutoClr_A" />
+            <MethodArg Name="FlagAutoClr" ParameterName="FlagAutoClr_A" />			
         </CallLibMethod>
         </IFCondition>
          <IFCondition Expression ="(S_SECURE  &amp; (SEM_M33NS) &amp;   (rtcSecureFull=RTC_SECURE_FULL_NO)&amp;(RTC_NONSECURE_FEATURE_ALRA=!__NULL) )" >
@@ -381,7 +385,8 @@
             <MethodArg Name="sAlarm.AlarmTime.Seconds" ParameterName="SecondsARG_A" />
             <MethodArg Name="sAlarm.AlarmTime.SubSeconds" ParameterName="SubSecondsARG_A" />
             <MethodArg Name="AlarmDateWeekDay" ParameterName="AlarmDateWeekDayARG" />
-            <MethodArg Name="sAlarm.BinaryAutoClr" ParameterName="BinaryAutoClr_A" />     
+            <MethodArg Name="sAlarm.BinaryAutoClr" ParameterName="BinaryAutoClr_A" />
+            <MethodArg Name="FlagAutoClr" ParameterName="FlagAutoClr_A" />			
         </CallLibMethod>
         </IFCondition>
         <IFCondition Expression ="(!S_SECURE )" >
@@ -392,7 +397,8 @@
             <MethodArg Name="sAlarm.AlarmTime.Seconds" ParameterName="SecondsARG_A" />
             <MethodArg Name="sAlarm.AlarmTime.SubSeconds" ParameterName="SubSecondsARG_A" />
             <MethodArg Name="AlarmDateWeekDay" ParameterName="AlarmDateWeekDayARG" />
-            <MethodArg Name="sAlarm.BinaryAutoClr" ParameterName="BinaryAutoClr_A" />     
+            <MethodArg Name="sAlarm.BinaryAutoClr" ParameterName="BinaryAutoClr_A" />
+            <MethodArg Name="FlagAutoClr" ParameterName="FlagAutoClr_A" />			
         </CallLibMethod>
         </IFCondition>
     </RefConfig>
@@ -405,7 +411,8 @@
             <MethodArg Name="sAlarm.AlarmTime.Seconds" ParameterName="SecondsARG_A" />
             <MethodArg Name="sAlarm.AlarmTime.SubSeconds" ParameterName="SubSecondsARG_A" />
             <MethodArg Name="AlarmDateWeekDay" ParameterName="AlarmDateWeekDayARG" />
-            <MethodArg Name="sAlarm.BinaryAutoClr" ParameterName="BinaryAutoClr_A" />     
+            <MethodArg Name="sAlarm.BinaryAutoClr" ParameterName="BinaryAutoClr_A" />
+            <MethodArg Name="FlagAutoClr" ParameterName="FlagAutoClr_A" />			
         </CallLibMethod>
         </IFCondition>
          <IFCondition Expression ="(S_SECURE  &amp; (SEM_M33S) &amp; (RTC_NONSECURE_FEATURE_ALRA=__NULL) )" >
@@ -416,7 +423,8 @@
             <MethodArg Name="sAlarm.AlarmTime.Seconds" ParameterName="SecondsARG_A" />
             <MethodArg Name="sAlarm.AlarmTime.SubSeconds" ParameterName="SubSecondsARG_A" />
             <MethodArg Name="AlarmDateWeekDay" ParameterName="AlarmDateWeekDayARG" />
-            <MethodArg Name="sAlarm.BinaryAutoClr" ParameterName="BinaryAutoClr_A" />     
+            <MethodArg Name="sAlarm.BinaryAutoClr" ParameterName="BinaryAutoClr_A" />
+            <MethodArg Name="FlagAutoClr" ParameterName="FlagAutoClr_A" />			
         </CallLibMethod>
         </IFCondition>
          <IFCondition Expression ="(S_SECURE  &amp; (SEM_M33NS) &amp;   (rtcSecureFull=RTC_SECURE_FULL_NO)&amp;(RTC_NONSECURE_FEATURE_ALRA=!__NULL) )" >
@@ -427,7 +435,8 @@
             <MethodArg Name="sAlarm.AlarmTime.Seconds" ParameterName="SecondsARG_A" />
             <MethodArg Name="sAlarm.AlarmTime.SubSeconds" ParameterName="SubSecondsARG_A" />
             <MethodArg Name="AlarmDateWeekDay" ParameterName="AlarmDateWeekDayARG" />
-            <MethodArg Name="sAlarm.BinaryAutoClr" ParameterName="BinaryAutoClr_A" />     
+            <MethodArg Name="sAlarm.BinaryAutoClr" ParameterName="BinaryAutoClr_A" />
+            <MethodArg Name="FlagAutoClr" ParameterName="FlagAutoClr_A" />			
         </CallLibMethod>
         </IFCondition>
         <IFCondition Expression ="(!S_SECURE )" >
@@ -438,7 +447,8 @@
             <MethodArg Name="sAlarm.AlarmTime.Seconds" ParameterName="SecondsARG_A" />
             <MethodArg Name="sAlarm.AlarmTime.SubSeconds" ParameterName="SubSecondsARG_A" />
             <MethodArg Name="AlarmDateWeekDay" ParameterName="AlarmDateWeekDayARG" />
-            <MethodArg Name="sAlarm.BinaryAutoClr" ParameterName="BinaryAutoClr_A" />     
+            <MethodArg Name="sAlarm.BinaryAutoClr" ParameterName="BinaryAutoClr_A" />
+            <MethodArg Name="FlagAutoClr" ParameterName="FlagAutoClr_A" />			
         </CallLibMethod>
         </IFCondition>
     </RefConfig>
@@ -457,6 +467,7 @@
             <MethodArg Name="AlarmDateWeekDaySel" ParameterName="AlarmDateWeekDaySel_B" />
             <MethodArg Name="AlarmDateWeekDay" ParameterName="AlarmDateWeekDayARG_B" />
             <MethodArg Name="Alarm" ParameterName="Alarm_B" />
+			<MethodArg Name="FlagAutoClr" ParameterName="FlagAutoClr_B" />
         </CallLibMethod>
         </IFCondition>
          <IFCondition Expression ="(S_SECURE  &amp; (SEM_M33S) &amp; (RTC_NONSECURE_FEATURE_ALRB=__NULL) )" >
@@ -472,6 +483,7 @@
             <MethodArg Name="AlarmDateWeekDaySel" ParameterName="AlarmDateWeekDaySel_B" />
             <MethodArg Name="AlarmDateWeekDay" ParameterName="AlarmDateWeekDayARG_B" />
             <MethodArg Name="Alarm" ParameterName="Alarm_B" />
+			<MethodArg Name="FlagAutoClr" ParameterName="FlagAutoClr_B" />
         </CallLibMethod>
         </IFCondition>
          <IFCondition Expression ="(S_SECURE  &amp; (SEM_M33NS) &amp; (rtcSecureFull=RTC_SECURE_FULL_NO)&amp;(RTC_NONSECURE_FEATURE_ALRB=!__NULL) )" >
@@ -487,6 +499,7 @@
             <MethodArg Name="AlarmDateWeekDaySel" ParameterName="AlarmDateWeekDaySel_B" />
             <MethodArg Name="AlarmDateWeekDay" ParameterName="AlarmDateWeekDayARG_B" />
             <MethodArg Name="Alarm" ParameterName="Alarm_B" />
+			<MethodArg Name="FlagAutoClr" ParameterName="FlagAutoClr_B" />
         </CallLibMethod>
         </IFCondition>
         <IFCondition Expression ="(!S_SECURE )" >
@@ -501,6 +514,7 @@
                 <MethodArg Name="AlarmDateWeekDaySel" ParameterName="AlarmDateWeekDaySel_B" />
                 <MethodArg Name="AlarmDateWeekDay" ParameterName="AlarmDateWeekDayARG_B" />
                 <MethodArg Name="Alarm" ParameterName="Alarm_B" />
+				<MethodArg Name="FlagAutoClr" ParameterName="FlagAutoClr_B" />
             </CallLibMethod>
         </IFCondition>
     </RefConfig>
@@ -519,6 +533,7 @@
             <MethodArg Name="AlarmDateWeekDaySel" ParameterName="AlarmDateWeekDaySel_B" />
             <MethodArg Name="AlarmDateWeekDay" ParameterName="AlarmDateWeekDayARG_B" />
             <MethodArg Name="Alarm" ParameterName="Alarm_B" />
+			<MethodArg Name="FlagAutoClr" ParameterName="FlagAutoClr_B" />
         </CallLibMethod>
         </IFCondition>
          <IFCondition Expression ="(S_SECURE  &amp; (SEM_M33S) &amp; (RTC_NONSECURE_FEATURE_ALRB=__NULL) )" >
@@ -534,6 +549,7 @@
             <MethodArg Name="AlarmDateWeekDaySel" ParameterName="AlarmDateWeekDaySel_B" />
             <MethodArg Name="AlarmDateWeekDay" ParameterName="AlarmDateWeekDayARG_B" />
             <MethodArg Name="Alarm" ParameterName="Alarm_B" />
+			<MethodArg Name="FlagAutoClr" ParameterName="FlagAutoClr_B" />
         </CallLibMethod>
         </IFCondition>
          <IFCondition Expression ="(S_SECURE  &amp; (SEM_M33NS) &amp; (rtcSecureFull=RTC_SECURE_FULL_NO)&amp;(RTC_NONSECURE_FEATURE_ALRB=!__NULL) )" >
@@ -549,6 +565,7 @@
             <MethodArg Name="AlarmDateWeekDaySel" ParameterName="AlarmDateWeekDaySel_B" />
             <MethodArg Name="AlarmDateWeekDay" ParameterName="AlarmDateWeekDayARG_B" />
             <MethodArg Name="Alarm" ParameterName="Alarm_B" />
+			<MethodArg Name="FlagAutoClr" ParameterName="FlagAutoClr_B" />
         </CallLibMethod>
         </IFCondition>
         <IFCondition Expression ="(!S_SECURE )" >
@@ -563,6 +580,7 @@
                 <MethodArg Name="AlarmDateWeekDaySel" ParameterName="AlarmDateWeekDaySel_B" />
                 <MethodArg Name="AlarmDateWeekDay" ParameterName="AlarmDateWeekDayARG_B" />
                 <MethodArg Name="Alarm" ParameterName="Alarm_B" />
+				<MethodArg Name="FlagAutoClr" ParameterName="FlagAutoClr_B" />
             </CallLibMethod>
         </IFCondition>
     </RefConfig>
@@ -1252,13 +1270,13 @@
         <IFCondition Expression ="(S_SECURE  &amp; ((SEM_M33S))  &amp; ((rtcSecureFull=RTC_SECURE_FULL_YES)))" >
             <CallLibMethod Name="HAL_RTCEx_SetCalibrationOutPut"/>
         </IFCondition>
-         <IFCondition Expression ="(S_SECURE  &amp; (SEM_M33S) &amp; (RTC_SECURE_FEATURE_CAL=__NULL) )" >
+         <IFCondition Expression ="(S_SECURE  &amp; (SEM_M33S) &amp; (RTC_NONSECURE_FEATURE_CAL=__NULL) )" >
             <CallLibMethod Name="HAL_RTCEx_SetCalibrationOutPut"/>
         </IFCondition>
         <IFCondition Expression ="!S_SECURE">         
             <CallLibMethod Name="HAL_RTCEx_SetCalibrationOutPut"/>
         </IFCondition>
-         <IFCondition Expression ="S_SECURE  &amp; SEM_M33NS &amp;(rtcSecureFull=RTC_SECURE_FULL_NO)&amp; (RTC_SECURE_FEATURE_CAL=!__NULL)" >
+         <IFCondition Expression ="S_SECURE  &amp; SEM_M33NS &amp;(rtcSecureFull=RTC_SECURE_FULL_NO)&amp; (RTC_NONSECURE_FEATURE_CAL=!__NULL)" >
             <CallLibMethod Name="HAL_RTCEx_SetCalibrationOutPut"/>
         </IFCondition>
       
@@ -1485,6 +1503,7 @@
             <Argument AddressOf="false" GenericType="simple" Name="AlarmDateWeekDay" OptimizationCondition="equal"/>
             <Argument AddressOf="false" GenericType="simple" Name="Alarm" OptimizationCondition="equal"/>
             <Argument AddressOf="false" GenericType="simple" Name="BinaryAutoClr" OptimizationCondition="equal"/>
+			<Argument AddressOf="false" GenericType="simple" Name="FlagAutoClr" OptimizationCondition="equal"/>
 
         </Argument>
         <Argument AddressOf="false" GenericType="simple" Name="Format" OptimizationCondition="equal"/>
@@ -1520,6 +1539,7 @@
             <Argument AddressOf="false" GenericType="simple" Name="AlarmDateWeekDaySel" OptimizationCondition="equal"/>
             <Argument AddressOf="false" GenericType="simple" Name="AlarmDateWeekDay" OptimizationCondition="equal"/>
             <Argument AddressOf="false" GenericType="simple" Name="Alarm" OptimizationCondition="equal"/>
+			<Argument AddressOf="false" GenericType="simple" Name="FlagAutoClr" OptimizationCondition="equal"/>
         </Argument>
         <Argument AddressOf="false" GenericType="simple" Name="Format" OptimizationCondition="equal"/>
     </LibMethod>

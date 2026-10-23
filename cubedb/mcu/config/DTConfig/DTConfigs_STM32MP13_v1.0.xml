@@ -27,7 +27,7 @@
 		<Device MatcherMxDM="HASH1" MatchToName="HASH"/>
 
 		<Device MatcherMxDM="(GPIO)" MatchToName="$1" SetterMatcherCtxt="(^CortexA7S|CortexA7NS$)" />
-
+		<Device MatcherMxDM="" MatchToName="GPIOSEC" SetterMatcherCtxt="(^CortexA7S$)" Type= "IP"/>
 		<Device MatcherMxDM="RNG1" MatchToName="RNG"/>
 
 		<Device MatcherMxDM="(^USBH_HS1|USBH_HS2$)" MatchToName="USBH_EHCI"/>
@@ -133,7 +133,11 @@
 
 			<Bind MatcherFw="(^.+$)" />
 		</DTGenCfg>
-
+		<DTGenCfg MatcherDevice="GPIOSEC" MatchToName="">
+			<Binding  MatcherFw="(^.+$)" Name="st-stm32-gpiosc_v1.0_Binding">
+			</Binding>
+			<Bind MatcherFw="(^OP-TEE$)" />
+		</DTGenCfg>
 		 <DTGenCfg  MatcherDevice="LPTIM(.+)" MatchToName="">
 			<Binding MatcherFw="(^.+$)" Name="stm32-lptimer_v1.0_Binding">
 				<NodeDef 	MatcherNode="" 				MatchToLabel=""			MatchToNodeName="lptimer$mxDeviceInstance" 	MatchToUnitAddress=""/>

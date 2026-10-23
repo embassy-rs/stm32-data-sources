@@ -118,6 +118,10 @@
         <PossibleValue Value="GPIO_PULLUP" Comment="Pull-up"/>
         <PossibleValue Value="GPIO_PULLDOWN" Comment="Pull-down"/>
     </RefParameter>
+    <RefParameter Name="GPIO_Pd" Comment="GPIO Pull-up/Pull-down" Type="list" DefaultValue="GPIO_NOPULL">
+        <PossibleValue Value="GPIO_NOPULL" Comment="No pull-up and no pull-down"/>
+        <PossibleValue Value="GPIO_PULLDOWN" Comment="Pull-down"/>
+    </RefParameter>
     <RefParameter Name="GPIO_Pu" Comment="GPIO Pull-up/Pull-down" Type="list" DefaultValue="GPIO_NOPULL">
         <PossibleValue Value="GPIO_NOPULL" Comment="No pull-up and no pull-down"/>
         <PossibleValue Value="GPIO_PULLUP" Comment="Pull-up"/>
@@ -703,10 +707,8 @@
         <Parameter Name="PinAttribute"/>
     </RefMode>
     <RefMode Name="Analog">
-        <ConfigForMode>GPIO</ConfigForMode>
-        <Parameter Name="GPIO_PuPd">
-            <PossibleValue>GPIO_NOPULL</PossibleValue>
-        </Parameter>
+        <ConfigForMode>Analog</ConfigForMode>
+        <Parameter Name="GPIO_Pd"/>
         <Parameter Name="GPIOx"/>
         <Parameter Name="GPIO_Mode">
             <PossibleValue>GPIO_MODE_ANALOG</PossibleValue>
@@ -715,10 +717,8 @@
         <Parameter Name="PinAttribute"/>
     </RefMode>
     <RefMode Name="AnalogForADC">
-        <ConfigForMode>GPIO</ConfigForMode>
-        <Parameter Name="GPIO_PuPd">
-            <PossibleValue>GPIO_NOPULL</PossibleValue>
-        </Parameter>
+        <ConfigForMode>Analog</ConfigForMode>
+        <Parameter Name="GPIO_Pd"/>
         <Parameter Name="GPIOx"/>
         <Parameter Name="GPIO_Mode">
             <PossibleValue>GPIO_MODE_ANALOG</PossibleValue>
@@ -1669,7 +1669,7 @@
             </SpecificParameter>
         </PinSignal>
     </GPIO_Pin>
-    <GPIO_Pin PortName="PA" Name="PA13(JTSM/SWDIO)">
+    <GPIO_Pin PortName="PA" Name="PA13(JTMS/SWDIO)">
         <SpecificParameter Name="EXTI_Line">
             <PossibleValue>EXTI_LINE_13</PossibleValue>
         </SpecificParameter>
@@ -2697,7 +2697,7 @@
             </SpecificParameter>
         </PinSignal>
     </GPIO_Pin>
-    <GPIO_Pin PortName="PB" Name="PB4(NJRST)">
+    <GPIO_Pin PortName="PB" Name="PB4(NJTRST)">
         <SpecificParameter Name="EXTI_Line">
             <PossibleValue>EXTI_LINE_4</PossibleValue>
         </SpecificParameter>

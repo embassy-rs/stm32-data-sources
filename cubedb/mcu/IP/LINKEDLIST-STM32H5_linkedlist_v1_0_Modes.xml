@@ -2,7 +2,7 @@
 <IP DBVersion="V3.0" IPType="service" IpGroup="" Name="LINKEDLIST" Version="STM32H5_linkedlist_v1_0" xmlns="http://mcd.rou.st.com/modules.php?name=mcu">
 <About>MDMA: Master Direct Memory Access</About>
 
-<!-- for mustang and little mustang -->
+	<!-- for mustang and little mustang -->
 
 <!-- LINKEDLIST PARAMETERS BEGIN -->
  <RefParameter Name="LL_NAME" Comment="Define the name of your Queue" Group=""  DefaultValue="YourQueueName" TabName="LinkedList" Type="StringRW" >
@@ -77,10 +77,11 @@
 
 
 <RefParameter Comment="Request as a parameter" DefaultValue=""  Group="Request Configuration"  Name="Requestforcodegen" Type="list">
-	 <Condition Diagnostic="not configurable" Expression="(LL_MASTERDMA=GPDMA1)| (LL_MASTERDMA=GPDMA1_2D)"/>
+	 <Condition Diagnostic="not configurable" Expression="(LL_MASTERDMA=GPDMA1)| (LL_MASTERDMA=GPDMA1_2D) &amp; !DIE47A"/>
 <PossibleValue Comment="GPDMA1_REQUEST_SW" Value="DMA_REQUEST_SW" />
 <PossibleValue Comment="GPDMA1_REQUEST_ADC1" Value="GPDMA1_REQUEST_ADC1" />
-<PossibleValue Comment="GPDMA1_REQUEST_ADC2" Value="GPDMA1_REQUEST_ADC2" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_ADC2" Value="GPDMA1_REQUEST_ADC2" Condition="!ADC2_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_ADC3" Value="GPDMA1_REQUEST_ADC3" Condition="!ADC3_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
 <PossibleValue Comment="GPDMA1_REQUEST_DAC1_CH1" Value="GPDMA1_REQUEST_DAC1_CH1"/>
 <PossibleValue Comment="GPDMA1_REQUEST_DAC1_CH2" Value="GPDMA1_REQUEST_DAC1_CH2" />
 <PossibleValue Comment="GPDMA1_REQUEST_TIM6_UP" Value="GPDMA1_REQUEST_TIM6_UP" />
@@ -91,20 +92,20 @@
 <PossibleValue Comment="GPDMA1_REQUEST_SPI2_TX" Value="GPDMA1_REQUEST_SPI2_TX" />
 <PossibleValue Comment="GPDMA1_REQUEST_SPI3_RX" Value="GPDMA1_REQUEST_SPI3_RX" />
 <PossibleValue Comment="GPDMA1_REQUEST_SPI3_TX" Value="GPDMA1_REQUEST_SPI3_TX" />
-<PossibleValue Comment="GPDMA1_REQUEST_SPI4_RX" Value="GPDMA1_REQUEST_SPI4_RX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_SPI4_TX" Value="GPDMA1_REQUEST_SPI4_TX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_SPI5_RX" Value="GPDMA1_REQUEST_SPI5_RX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_SPI5_TX" Value="GPDMA1_REQUEST_SPI5_TX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_SPI6_RX" Value="GPDMA1_REQUEST_SPI6_RX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_SPI6_TX" Value="GPDMA1_REQUEST_SPI6_TX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_SPI4_RX" Value="GPDMA1_REQUEST_SPI4_RX" Condition="!SPI4_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_SPI4_TX" Value="GPDMA1_REQUEST_SPI4_TX" Condition="!SPI4_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_SPI5_RX" Value="GPDMA1_REQUEST_SPI5_RX" Condition="!SPI5_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_SPI5_TX" Value="GPDMA1_REQUEST_SPI5_TX" Condition="!SPI5_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_SPI6_RX" Value="GPDMA1_REQUEST_SPI6_RX" Condition="!SPI6_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_SPI6_TX" Value="GPDMA1_REQUEST_SPI6_TX" Condition="!SPI6_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
 <PossibleValue Comment="GPDMA1_REQUEST_I3C1_RX" Value="GPDMA1_REQUEST_I3C1_RX" />
 <PossibleValue Comment="GPDMA1_REQUEST_I3C1_TX" Value="GPDMA1_REQUEST_I3C1_TX" />
 <PossibleValue Comment="GPDMA1_REQUEST_I3C1_TC" Value="GPDMA1_REQUEST_I3C1_TC" />
 <PossibleValue Comment="GPDMA1_REQUEST_I3C1_RS" Value="GPDMA1_REQUEST_I3C1_RS" />
-<PossibleValue Comment="GPDMA1_REQUEST_I3C1_RX" Value="GPDMA1_REQUEST_I3C2_RX" Condition="DIE484" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_I3C1_TX" Value="GPDMA1_REQUEST_I3C2_TX" Condition="DIE484" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_I3C1_TC" Value="GPDMA1_REQUEST_I3C2_TC" Condition="DIE484" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_I3C1_RS" Value="GPDMA1_REQUEST_I3C2_RS" Condition="DIE484" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_I3C2_RX" Value="GPDMA1_REQUEST_I3C2_RX" Condition="!I3C2_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_I3C2_TX" Value="GPDMA1_REQUEST_I3C2_TX" Condition="!I3C2_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_I3C2_TC" Value="GPDMA1_REQUEST_I3C2_TC" Condition="!I3C2_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_I3C2_RS" Value="GPDMA1_REQUEST_I3C2_RS" Condition="!I3C2_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
 
 <PossibleValue Comment="GPDMA1_REQUEST_I2C1_RX" Value="GPDMA1_REQUEST_I2C1_RX" />
 <PossibleValue Comment="GPDMA1_REQUEST_I2C1_TX" Value="GPDMA1_REQUEST_I2C1_TX" />
@@ -112,48 +113,50 @@
 <PossibleValue Comment="GPDMA1_REQUEST_I2C2_RX" Value="GPDMA1_REQUEST_I2C2_RX" />
 <PossibleValue Comment="GPDMA1_REQUEST_I2C2_TX" Value="GPDMA1_REQUEST_I2C2_TX" />
 <!--<PossibleValue Comment="GPDMA1_REQUEST_I2C2_EVC" Value="GPDMA1_REQUEST_I2C2_EVC" />-->
-<PossibleValue Comment="GPDMA1_REQUEST_I2C3_RX" Value="GPDMA1_REQUEST_I2C3_RX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_I2C3_TX" Value="GPDMA1_REQUEST_I2C3_TX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_I2C3_RX" Value="GPDMA1_REQUEST_I2C3_RX" Condition="!I2C3_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_I2C3_TX" Value="GPDMA1_REQUEST_I2C3_TX" Condition="!I2C3_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
 <!--<PossibleValue Comment="GPDMA1_REQUEST_I2C3_EVC" Value="GPDMA1_REQUEST_I2C3_EVC" />-->
-<PossibleValue Comment="GPDMA1_REQUEST_I2C4_RX" Value="GPDMA1_REQUEST_I2C4_RX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_I2C4_TX" Value="GPDMA1_REQUEST_I2C4_TX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_I2C4_RX" Value="GPDMA1_REQUEST_I2C4_RX" Condition="!I2C4_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_I2C4_TX" Value="GPDMA1_REQUEST_I2C4_TX" Condition="!I2C4_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
 <!--<PossibleValue Comment="GPDMA1_REQUEST_I2C4_EVC" Value="GPDMA1_REQUEST_I2C4_EVC" />-->
+<PossibleValue Comment="GPDMA1_REQUEST_JPEG_RX" Value="GPDMA1_REQUEST_JPEG_RX" Condition="!JPEG_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_JPEG_TX" Value="GPDMA1_REQUEST_JPEG_TX" Condition="!JPEG_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
 <PossibleValue Comment="GPDMA1_REQUEST_USART1_RX" Value="GPDMA1_REQUEST_USART1_RX" />
 <PossibleValue Comment="GPDMA1_REQUEST_USART1_TX" Value="GPDMA1_REQUEST_USART1_TX" />
 <PossibleValue Comment="GPDMA1_REQUEST_USART2_RX" Value="GPDMA1_REQUEST_USART2_RX" />
 <PossibleValue Comment="GPDMA1_REQUEST_USART2_TX" Value="GPDMA1_REQUEST_USART2_TX" />
 <PossibleValue Comment="GPDMA1_REQUEST_USART3_RX" Value="GPDMA1_REQUEST_USART3_RX" />
 <PossibleValue Comment="GPDMA1_REQUEST_USART3_TX" Value="GPDMA1_REQUEST_USART3_TX" />
-<PossibleValue Comment="GPDMA1_REQUEST_UART4_RX" Value="GPDMA1_REQUEST_UART4_RX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_UART4_TX" Value="GPDMA1_REQUEST_UART4_TX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_UART5_RX" Value="GPDMA1_REQUEST_UART5_RX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_UART5_TX" Value="GPDMA1_REQUEST_UART5_TX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_USART6_RX" Value="GPDMA1_REQUEST_USART6_RX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_USART6_TX" Value="GPDMA1_REQUEST_USART6_TX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_UART7_RX" Value="GPDMA1_REQUEST_UART7_RX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_UART7_TX" Value="GPDMA1_REQUEST_UART7_TX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_UART8_RX" Value="GPDMA1_REQUEST_UART8_RX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_UART8_TX" Value="GPDMA1_REQUEST_UART8_TX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_UART9_RX" Value="GPDMA1_REQUEST_UART9_RX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_UART9_TX" Value="GPDMA1_REQUEST_UART9_TX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_UART10_RX" Value="GPDMA1_REQUEST_UART10_RX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_UART10_TX" Value="GPDMA1_REQUEST_UART10_TX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_UART11_RX" Value="GPDMA1_REQUEST_UART11_RX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_UART11_TX" Value="GPDMA1_REQUEST_UART11_TX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_USART10_RX" Value="GPDMA1_REQUEST_USART10_RX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_USART10_TX" Value="GPDMA1_REQUEST_USART10_TX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_USART11_RX" Value="GPDMA1_REQUEST_USART11_RX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_USART11_TX" Value="GPDMA1_REQUEST_USART11_TX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_UART12_RX" Value="GPDMA1_REQUEST_UART12_RX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_UART12_TX" Value="GPDMA1_REQUEST_UART12_TX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_UART4_RX" Value="GPDMA1_REQUEST_UART4_RX" Condition="!UART4_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_UART4_TX" Value="GPDMA1_REQUEST_UART4_TX" Condition="!UART4_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_UART5_RX" Value="GPDMA1_REQUEST_UART5_RX" Condition="!UART5_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_UART5_TX" Value="GPDMA1_REQUEST_UART5_TX" Condition="!UART5_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_USART6_RX" Value="GPDMA1_REQUEST_USART6_RX" Condition="!USART6_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_USART6_TX" Value="GPDMA1_REQUEST_USART6_TX" Condition="!USART6_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_UART7_RX" Value="GPDMA1_REQUEST_UART7_RX" Condition="!UART7_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_UART7_TX" Value="GPDMA1_REQUEST_UART7_TX" Condition="!UART7_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_UART8_RX" Value="GPDMA1_REQUEST_UART8_RX" Condition="!UART8_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_UART8_TX" Value="GPDMA1_REQUEST_UART8_TX" Condition="!UART8_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_UART9_RX" Value="GPDMA1_REQUEST_UART9_RX" Condition="!UART9_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_UART9_TX" Value="GPDMA1_REQUEST_UART9_TX" Condition="!UART9_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_UART10_RX" Value="GPDMA1_REQUEST_UART10_RX" Condition="!UART10_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_UART10_TX" Value="GPDMA1_REQUEST_UART10_TX" Condition="!UART10_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_UART11_RX" Value="GPDMA1_REQUEST_UART11_RX" Condition="!UART11_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_UART11_TX" Value="GPDMA1_REQUEST_UART11_TX" Condition="!UART11_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_USART10_RX" Value="GPDMA1_REQUEST_USART10_RX" Condition="!USART10_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_USART10_TX" Value="GPDMA1_REQUEST_USART10_TX" Condition="!USART10_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_USART11_RX" Value="GPDMA1_REQUEST_USART11_RX" Condition="!USART11_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_USART11_TX" Value="GPDMA1_REQUEST_USART11_TX" Condition="!USART11_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_UART12_RX" Value="GPDMA1_REQUEST_UART12_RX" Condition="!UART12_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_UART12_TX" Value="GPDMA1_REQUEST_UART12_TX" Condition="!UART12_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
 <PossibleValue Comment="GPDMA1_REQUEST_LPUART1_RX" Value="GPDMA1_REQUEST_LPUART1_RX" />
 <PossibleValue Comment="GPDMA1_REQUEST_LPUART1_TX" Value="GPDMA1_REQUEST_LPUART1_TX" />
-<PossibleValue Comment="GPDMA1_REQUEST_SAI1_A" Value="GPDMA1_REQUEST_SAI1_A" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_SAI1_B" Value="GPDMA1_REQUEST_SAI1_B" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_SAI2_A" Value="GPDMA1_REQUEST_SAI2_A" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_SAI2_B" Value="GPDMA1_REQUEST_SAI2_B" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_OCTOSPI1" Value="GPDMA1_REQUEST_OCTOSPI1" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<!--<PossibleValue Comment="GPDMA1_REQUEST_OCTOSPI2" Value="GPDMA1_REQUEST_OCTOSPI2" />-->
+<PossibleValue Comment="GPDMA1_REQUEST_SAI1_A" Value="GPDMA1_REQUEST_SAI1_A" Condition="!SAI1_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_SAI1_B" Value="GPDMA1_REQUEST_SAI1_B" Condition="!SAI1_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_SAI2_A" Value="GPDMA1_REQUEST_SAI2_A" Condition="!SAI2_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_SAI2_B" Value="GPDMA1_REQUEST_SAI2_B" Condition="!SAI2_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_OCTOSPI1" Value="GPDMA1_REQUEST_OCTOSPI1" Condition="!OCTOSPI1_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_OCTOSPI2" Value="GPDMA1_REQUEST_OCTOSPI2" Condition="!OCTOSPI2_Exist" Diagnostic="not available on this MCU" />
 <PossibleValue Comment="GPDMA1_REQUEST_TIM1_CH1" Value="GPDMA1_REQUEST_TIM1_CH1" />
 <PossibleValue Comment="GPDMA1_REQUEST_TIM1_CH2" Value="GPDMA1_REQUEST_TIM1_CH2" />
 <PossibleValue Comment="GPDMA1_REQUEST_TIM1_CH3" Value="GPDMA1_REQUEST_TIM1_CH3" />
@@ -161,13 +164,13 @@
 <PossibleValue Comment="GPDMA1_REQUEST_TIM1_UP" Value="GPDMA1_REQUEST_TIM1_UP" />
 <PossibleValue Comment="GPDMA1_REQUEST_TIM1_TRIG" Value="GPDMA1_REQUEST_TIM1_TRIG" />
 <PossibleValue Comment="GPDMA1_REQUEST_TIM1_COM" Value="GPDMA1_REQUEST_TIM1_COM" />
-<PossibleValue Comment="GPDMA1_REQUEST_TIM8_CH1" Value="GPDMA1_REQUEST_TIM8_CH1" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_TIM8_CH2" Value="GPDMA1_REQUEST_TIM8_CH2" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_TIM8_CH3" Value="GPDMA1_REQUEST_TIM8_CH3" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_TIM8_CH4" Value="GPDMA1_REQUEST_TIM8_CH4" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_TIM8_UP" Value="GPDMA1_REQUEST_TIM8_UP" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_TIM8_TRIG" Value="GPDMA1_REQUEST_TIM8_TRIG" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_TIM8_COM" Value="GPDMA1_REQUEST_TIM8_COM" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM8_CH1" Value="GPDMA1_REQUEST_TIM8_CH1" Condition="!TIM8_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM8_CH2" Value="GPDMA1_REQUEST_TIM8_CH2" Condition="!TIM8_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM8_CH3" Value="GPDMA1_REQUEST_TIM8_CH3" Condition="!TIM8_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM8_CH4" Value="GPDMA1_REQUEST_TIM8_CH4" Condition="!TIM8_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM8_UP" Value="GPDMA1_REQUEST_TIM8_UP" Condition="!TIM8_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM8_TRIG" Value="GPDMA1_REQUEST_TIM8_TRIG" Condition="!TIM8_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM8_COM" Value="GPDMA1_REQUEST_TIM8_COM" Condition="!TIM8_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
 <PossibleValue Comment="GPDMA1_REQUEST_TIM2_CH1" Value="GPDMA1_REQUEST_TIM2_CH1" />
 <PossibleValue Comment="GPDMA1_REQUEST_TIM2_CH2" Value="GPDMA1_REQUEST_TIM2_CH2" />
 <PossibleValue Comment="GPDMA1_REQUEST_TIM2_CH3" Value="GPDMA1_REQUEST_TIM2_CH3" />
@@ -179,31 +182,31 @@
 <PossibleValue Comment="GPDMA1_REQUEST_TIM3_CH4" Value="GPDMA1_REQUEST_TIM3_CH4" />
 <PossibleValue Comment="GPDMA1_REQUEST_TIM3_UP" Value="GPDMA1_REQUEST_TIM3_UP" />
 <PossibleValue Comment="GPDMA1_REQUEST_TIM3_TRIG" Value="GPDMA1_REQUEST_TIM3_TRIG" />
-<PossibleValue Comment="GPDMA1_REQUEST_TIM4_CH1" Value="GPDMA1_REQUEST_TIM4_CH1" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_TIM4_CH2" Value="GPDMA1_REQUEST_TIM4_CH2" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_TIM4_CH3" Value="GPDMA1_REQUEST_TIM4_CH3" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_TIM4_CH4" Value="GPDMA1_REQUEST_TIM4_CH4" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_TIM4_UP" Value="GPDMA1_REQUEST_TIM4_UP" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_TIM5_CH1" Value="GPDMA1_REQUEST_TIM5_CH1" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_TIM5_CH2" Value="GPDMA1_REQUEST_TIM5_CH2" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_TIM5_CH3" Value="GPDMA1_REQUEST_TIM5_CH3" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_TIM5_CH4" Value="GPDMA1_REQUEST_TIM5_CH4" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_TIM5_UP" Value="GPDMA1_REQUEST_TIM5_UP" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_TIM5_TRIG" Value="GPDMA1_REQUEST_TIM5_TRIG" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_TIM15_CH1" Value="GPDMA1_REQUEST_TIM15_CH1" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_TIM15_UP" Value="GPDMA1_REQUEST_TIM15_UP" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_TIM15_TRIG" Value="GPDMA1_REQUEST_TIM15_TRIG" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_TIM15_COM" Value="GPDMA1_REQUEST_TIM15_COM" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_TIM16_CH1" Value="GPDMA1_REQUEST_TIM16_CH1" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_TIM16_UP" Value="GPDMA1_REQUEST_TIM16_UP" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_TIM17_CH1" Value="GPDMA1_REQUEST_TIM17_CH1" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_TIM17_UP" Value="GPDMA1_REQUEST_TIM17_UP" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_DCMI" Value="GPDMA1_REQUEST_DCMI" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_AES_IN" Value="GPDMA1_REQUEST_AES_IN" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_AES_OUT" Value="GPDMA1_REQUEST_AES_OUT" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_HASH_IN" Value="GPDMA1_REQUEST_HASH_IN"	Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_UCPD1_TX" Value="GPDMA1_REQUEST_UCPD1_TX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_UCPD1_RX" Value="GPDMA1_REQUEST_UCPD1_RX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM4_CH1" Value="GPDMA1_REQUEST_TIM4_CH1" Condition="!TIM4_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM4_CH2" Value="GPDMA1_REQUEST_TIM4_CH2" Condition="!TIM4_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM4_CH3" Value="GPDMA1_REQUEST_TIM4_CH3" Condition="!TIM4_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM4_CH4" Value="GPDMA1_REQUEST_TIM4_CH4" Condition="!TIM4_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM4_UP" Value="GPDMA1_REQUEST_TIM4_UP" Condition="!TIM4_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM5_CH1" Value="GPDMA1_REQUEST_TIM5_CH1" Condition="!TIM5_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM5_CH2" Value="GPDMA1_REQUEST_TIM5_CH2" Condition="!TIM5_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM5_CH3" Value="GPDMA1_REQUEST_TIM5_CH3" Condition="!TIM5_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM5_CH4" Value="GPDMA1_REQUEST_TIM5_CH4" Condition="!TIM5_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM5_UP" Value="GPDMA1_REQUEST_TIM5_UP" Condition="!TIM5_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM5_TRIG" Value="GPDMA1_REQUEST_TIM5_TRIG" Condition="!TIM5_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM15_CH1" Value="GPDMA1_REQUEST_TIM15_CH1" Condition="!TIM15_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM15_UP" Value="GPDMA1_REQUEST_TIM15_UP" Condition="!TIM15_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM15_TRIG" Value="GPDMA1_REQUEST_TIM15_TRIG" Condition="!TIM15_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM15_COM" Value="GPDMA1_REQUEST_TIM15_COM" Condition="!TIM15_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM16_CH1" Value="GPDMA1_REQUEST_TIM16_CH1" Condition="!TIM16_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM16_UP" Value="GPDMA1_REQUEST_TIM16_UP" Condition="!TIM16_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM17_CH1" Value="GPDMA1_REQUEST_TIM17_CH1" Condition="!TIM17_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM17_UP" Value="GPDMA1_REQUEST_TIM17_UP" Condition="!TIM17_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_DCMI" Value="GPDMA1_REQUEST_DCMI" Condition="!DCMI_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_AES_IN" Value="GPDMA1_REQUEST_AES_IN" Condition="!AES_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_AES_OUT" Value="GPDMA1_REQUEST_AES_OUT" Condition="!AES_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_HASH_IN" Value="GPDMA1_REQUEST_HASH_IN"/>
+<PossibleValue Comment="GPDMA1_REQUEST_UCPD1_TX" Value="GPDMA1_REQUEST_UCPD1_TX" Condition="!UCPD1_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_UCPD1_RX" Value="GPDMA1_REQUEST_UCPD1_RX" Condition="!UCPD1_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
 <!--<PossibleValue Comment="GPDMA1_REQUEST_MDF1_FLT0" Value="GPDMA1_REQUEST_MDF1_FLT0" />
 <PossibleValue Comment="GPDMA1_REQUEST_MDF1_FLT1" Value="GPDMA1_REQUEST_MDF1_FLT1" />
 <PossibleValue Comment="GPDMA1_REQUEST_MDF1_FLT2" Value="GPDMA1_REQUEST_MDF1_FLT2" />
@@ -211,36 +214,359 @@
 <PossibleValue Comment="GPDMA1_REQUEST_MDF1_FLT4" Value="GPDMA1_REQUEST_MDF1_FLT4" />
 <PossibleValue Comment="GPDMA1_REQUEST_MDF1_FLT5" Value="GPDMA1_REQUEST_MDF1_FLT5" />
 <PossibleValue Comment="GPDMA1_REQUEST_ADF1_FLT0" Value="GPDMA1_REQUEST_ADF1_FLT0" />-->
-<PossibleValue Comment="GPDMA1_REQUEST_FMAC_READ" Value="GPDMA1_REQUEST_FMAC_READ" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_FMAC_WRITE" Value="GPDMA1_REQUEST_FMAC_WRITE" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_CORDIC_READ" Value="GPDMA1_REQUEST_CORDIC_READ" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_CORDIC_WRITE" Value="GPDMA1_REQUEST_CORDIC_WRITE" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_SAES_IN" Value="GPDMA1_REQUEST_SAES_IN" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_SAES_OUT" Value="GPDMA1_REQUEST_SAES_OUT" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_FMAC_READ" Value="GPDMA1_REQUEST_FMAC_READ" Condition="!FMAC_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_FMAC_WRITE" Value="GPDMA1_REQUEST_FMAC_WRITE" Condition="!FMAC_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_CORDIC_READ" Value="GPDMA1_REQUEST_CORDIC_READ" Condition="!CORDIC_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_CORDIC_WRITE" Value="GPDMA1_REQUEST_CORDIC_WRITE" Condition="!CORDIC_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_SAES_IN" Value="GPDMA1_REQUEST_SAES_IN" Condition="!SAES_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_SAES_OUT" Value="GPDMA1_REQUEST_SAES_OUT" Condition="!SAES_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
 <PossibleValue Comment="GPDMA1_REQUEST_LPTIM1_IC1" Value="GPDMA1_REQUEST_LPTIM1_IC1" />
 <PossibleValue Comment="GPDMA1_REQUEST_LPTIM1_IC2" Value="GPDMA1_REQUEST_LPTIM1_IC2" />
 <PossibleValue Comment="GPDMA1_REQUEST_LPTIM1_UE" Value="GPDMA1_REQUEST_LPTIM1_UE" />
 <PossibleValue Comment="GPDMA1_REQUEST_LPTIM2_IC1" Value="GPDMA1_REQUEST_LPTIM2_IC1" />
 <PossibleValue Comment="GPDMA1_REQUEST_LPTIM2_IC2" Value="GPDMA1_REQUEST_LPTIM2_IC2" />
 <PossibleValue Comment="GPDMA1_REQUEST_LPTIM2_UE" Value="GPDMA1_REQUEST_LPTIM2_UE" />
-<PossibleValue Comment="GPDMA1_REQUEST_LPTIM3_IC1" Value="GPDMA1_REQUEST_LPTIM3_IC1" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_LPTIM3_IC2" Value="GPDMA1_REQUEST_LPTIM3_IC2" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_LPTIM3_UE" Value="GPDMA1_REQUEST_LPTIM3_UE" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_LPTIM5_IC1" Value="GPDMA1_REQUEST_LPTIM5_IC1" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_LPTIM5_IC2" Value="GPDMA1_REQUEST_LPTIM5_IC2" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_LPTIM5_UE" Value="GPDMA1_REQUEST_LPTIM5_UE" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_LPTIM6_IC1" Value="GPDMA1_REQUEST_LPTIM6_IC1" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_LPTIM6_IC2" Value="GPDMA1_REQUEST_LPTIM6_IC2" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_LPTIM6_UE" Value="GPDMA1_REQUEST_LPTIM6_UE" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_LPTIM3_IC1" Value="GPDMA1_REQUEST_LPTIM3_IC1" Condition="!LPTIM3_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_LPTIM3_IC2" Value="GPDMA1_REQUEST_LPTIM3_IC2" Condition="!LPTIM3_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_LPTIM3_UE" Value="GPDMA1_REQUEST_LPTIM3_UE" Condition="!LPTIM3_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_LPTIM5_IC1" Value="GPDMA1_REQUEST_LPTIM5_IC1" Condition="!LPTIM5_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_LPTIM5_IC2" Value="GPDMA1_REQUEST_LPTIM5_IC2" Condition="!LPTIM5_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_LPTIM5_UE" Value="GPDMA1_REQUEST_LPTIM5_UE" Condition="!LPTIM5_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_LPTIM6_IC1" Value="GPDMA1_REQUEST_LPTIM6_IC1" Condition="!LPTIM6_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_LPTIM6_IC2" Value="GPDMA1_REQUEST_LPTIM6_IC2" Condition="!LPTIM6_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_LPTIM6_UE" Value="GPDMA1_REQUEST_LPTIM6_UE" Condition="!LPTIM6_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+</RefParameter>
+ <RefParameter Comment="Request as a parameter" DefaultValue=""  Group="Request Configuration"  Name="Requestforcodegen" Type="list">
+	 <Condition Diagnostic="not configurable" Expression="(LL_MASTERDMA=GPDMA1)| (LL_MASTERDMA=GPDMA1_2D) &amp; DIE47A"/>
+<PossibleValue Comment="GPDMA1_REQUEST_SW" Value="DMA_REQUEST_SW" />
+<PossibleValue Comment="GPDMA1_REQUEST_ADC1" Value="GPDMA1_REQUEST_ADC1" />
+<PossibleValue Comment="GPDMA1_REQUEST_ADC2" Value="GPDMA1_REQUEST_ADC2" />
+<PossibleValue Comment="GPDMA1_REQUEST_ADC3" Value="GPDMA1_REQUEST_ADC3"/>
+<PossibleValue Comment="GPDMA1_REQUEST_DAC1_CH1" Value="GPDMA1_REQUEST_DAC1_CH1"/>
+<PossibleValue Comment="GPDMA1_REQUEST_DAC1_CH2" Value="GPDMA1_REQUEST_DAC1_CH2" />
+<PossibleValue Comment="GPDMA1_REQUEST_HSPI1" Value="GPDMA1_REQUEST_HSPI1" />
+<PossibleValue Comment="GPDMA1_REQUEST_TIM6_UP" Value="GPDMA1_REQUEST_TIM6_UP" />
+<PossibleValue Comment="GPDMA1_REQUEST_TIM7_UP" Value="GPDMA1_REQUEST_TIM7_UP" />
+<PossibleValue Comment="GPDMA1_REQUEST_SPI1_RX" Value="GPDMA1_REQUEST_SPI1_RX" />
+<PossibleValue Comment="GPDMA1_REQUEST_SPI1_TX" Value="GPDMA1_REQUEST_SPI1_TX" />
+<PossibleValue Comment="GPDMA1_REQUEST_SPI2_RX" Value="GPDMA1_REQUEST_SPI2_RX" />
+<PossibleValue Comment="GPDMA1_REQUEST_SPI2_TX" Value="GPDMA1_REQUEST_SPI2_TX" />
+<PossibleValue Comment="GPDMA1_REQUEST_SPI3_RX" Value="GPDMA1_REQUEST_SPI3_RX" />
+<PossibleValue Comment="GPDMA1_REQUEST_SPI3_TX" Value="GPDMA1_REQUEST_SPI3_TX" />
+<PossibleValue Comment="GPDMA1_REQUEST_SPI4_RX" Value="GPDMA1_REQUEST_SPI4_RX" Condition="!SPI4_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_SPI4_TX" Value="GPDMA1_REQUEST_SPI4_TX" Condition="!SPI4_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_SPI5_RX" Value="GPDMA1_REQUEST_SPI5_RX" Condition="!SPI5_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_SPI5_TX" Value="GPDMA1_REQUEST_SPI5_TX" Condition="!SPI5_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_SPI6_RX" Value="GPDMA1_REQUEST_SPI6_RX" Condition="!SPI6_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_SPI6_TX" Value="GPDMA1_REQUEST_SPI6_TX" Condition="!SPI6_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_I3C1_RX" Value="GPDMA1_REQUEST_I3C1_RX" />
+<PossibleValue Comment="GPDMA1_REQUEST_I3C1_TX" Value="GPDMA1_REQUEST_I3C1_TX" />
+<PossibleValue Comment="GPDMA1_REQUEST_I3C1_TC" Value="GPDMA1_REQUEST_I3C1_TC" />
+<PossibleValue Comment="GPDMA1_REQUEST_I3C1_RS" Value="GPDMA1_REQUEST_I3C1_RS" />
+<PossibleValue Comment="GPDMA1_REQUEST_I3C2_RX" Value="GPDMA1_REQUEST_I3C2_RX" Condition="!I3C2_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_I3C2_TX" Value="GPDMA1_REQUEST_I3C2_TX" Condition="!I3C2_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_I3C2_TC" Value="GPDMA1_REQUEST_I3C2_TC" Condition="!I3C2_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_I3C2_RS" Value="GPDMA1_REQUEST_I3C2_RS" Condition="!I3C2_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_AES_IN" Value="GPDMA1_REQUEST_AES_IN" Condition="!AES_Exist"/>
+<PossibleValue Comment="GPDMA1_REQUEST_AES_OUT" Value="GPDMA1_REQUEST_AES_OUT" Condition="!AES_Exist" />
+<PossibleValue Comment="GPDMA1_REQUEST_I2C1_RX" Value="GPDMA1_REQUEST_I2C1_RX" />
+<PossibleValue Comment="GPDMA1_REQUEST_I2C1_TX" Value="GPDMA1_REQUEST_I2C1_TX" />
+<!--<PossibleValue Comment="GPDMA1_REQUEST_I2C1_EVC" Value="GPDMA1_REQUEST_I2C1_EVC" />-->
+<PossibleValue Comment="GPDMA1_REQUEST_I2C2_RX" Value="GPDMA1_REQUEST_I2C2_RX" />
+<PossibleValue Comment="GPDMA1_REQUEST_I2C2_TX" Value="GPDMA1_REQUEST_I2C2_TX" />
+<!--<PossibleValue Comment="GPDMA1_REQUEST_I2C2_EVC" Value="GPDMA1_REQUEST_I2C2_EVC" />-->
+<PossibleValue Comment="GPDMA1_REQUEST_I2C3_RX" Value="GPDMA1_REQUEST_I2C3_RX" Condition="!I2C3_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_I2C3_TX" Value="GPDMA1_REQUEST_I2C3_TX" Condition="!I2C3_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<!--<PossibleValue Comment="GPDMA1_REQUEST_I2C3_EVC" Value="GPDMA1_REQUEST_I2C3_EVC" />-->
+<PossibleValue Comment="GPDMA1_REQUEST_I2C4_RX" Value="GPDMA1_REQUEST_I2C4_RX" Condition="!I2C4_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_I2C4_TX" Value="GPDMA1_REQUEST_I2C4_TX" Condition="!!I2C4_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<!--<PossibleValue Comment="GPDMA1_REQUEST_I2C4_EVC" Value="GPDMA1_REQUEST_I2C4_EVC" />-->
+<PossibleValue Comment="GPDMA1_REQUEST_USART1_RX" Value="GPDMA1_REQUEST_USART1_RX" />
+<PossibleValue Comment="GPDMA1_REQUEST_USART1_TX" Value="GPDMA1_REQUEST_USART1_TX" />
+<PossibleValue Comment="GPDMA1_REQUEST_USART2_RX" Value="GPDMA1_REQUEST_USART2_RX" />
+<PossibleValue Comment="GPDMA1_REQUEST_USART2_TX" Value="GPDMA1_REQUEST_USART2_TX" />
+<PossibleValue Comment="GPDMA1_REQUEST_USART3_RX" Value="GPDMA1_REQUEST_USART3_RX" />
+<PossibleValue Comment="GPDMA1_REQUEST_USART3_TX" Value="GPDMA1_REQUEST_USART3_TX" />
+<PossibleValue Comment="GPDMA1_REQUEST_UART4_RX" Value="GPDMA1_REQUEST_UART4_RX" Condition="!UART4_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_UART4_TX" Value="GPDMA1_REQUEST_UART4_TX" Condition="!UART4_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_UART5_RX" Value="GPDMA1_REQUEST_UART5_RX" Condition="!UART5_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_UART5_TX" Value="GPDMA1_REQUEST_UART5_TX" Condition="!UART5_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_USART6_RX" Value="GPDMA1_REQUEST_USART6_RX" Condition="!USART6_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_USART6_TX" Value="GPDMA1_REQUEST_USART6_TX" Condition="!USART6_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_UART7_RX" Value="GPDMA1_REQUEST_UART7_RX" Condition="!UART7_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_UART7_TX" Value="GPDMA1_REQUEST_UART7_TX" Condition="!UART7_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_UART8_RX" Value="GPDMA1_REQUEST_UART8_RX" Condition="!UART8_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_UART8_TX" Value="GPDMA1_REQUEST_UART8_TX" Condition="!UART8_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_UART9_RX" Value="GPDMA1_REQUEST_UART9_RX" Condition="!UART9_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_UART9_TX" Value="GPDMA1_REQUEST_UART9_TX" Condition="!UART9_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_UART10_RX" Value="GPDMA1_REQUEST_UART10_RX" Condition="!UART10_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_UART10_TX" Value="GPDMA1_REQUEST_UART10_TX" Condition="!UART10_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_UART11_RX" Value="GPDMA1_REQUEST_UART11_RX" Condition="!UART11_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_UART11_TX" Value="GPDMA1_REQUEST_UART11_TX" Condition="!UART11_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_USART10_RX" Value="GPDMA1_REQUEST_USART10_RX" Condition="!USART10_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_USART10_TX" Value="GPDMA1_REQUEST_USART10_TX" Condition="!USART10_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_USART11_RX" Value="GPDMA1_REQUEST_USART11_RX" Condition="!USART11_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_USART11_TX" Value="GPDMA1_REQUEST_USART11_TX" Condition="!USART11_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_UART12_RX" Value="GPDMA1_REQUEST_UART12_RX" Condition="!UART12_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_UART12_TX" Value="GPDMA1_REQUEST_UART12_TX" Condition="!UART12_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_LPUART1_RX" Value="GPDMA1_REQUEST_LPUART1_RX" />
+<PossibleValue Comment="GPDMA1_REQUEST_LPUART1_TX" Value="GPDMA1_REQUEST_LPUART1_TX" />
+<PossibleValue Comment="GPDMA1_REQUEST_SAI1_A" Value="GPDMA1_REQUEST_SAI1_A" Condition="!SAI1_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_SAI1_B" Value="GPDMA1_REQUEST_SAI1_B" Condition="!SAI1_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_SAI2_A" Value="GPDMA1_REQUEST_SAI2_A" Condition="!SAI2_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_SAI2_B" Value="GPDMA1_REQUEST_SAI2_B" Condition="!SAI2_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_OCTOSPI1" Value="GPDMA1_REQUEST_OCTOSPI1" />
+<PossibleValue Comment="GPDMA1_REQUEST_OCTOSPI2" Value="GPDMA1_REQUEST_OCTOSPI2" />
+<PossibleValue Comment="GPDMA1_REQUEST_JPEG_RX" Value="GPDMA1_REQUEST_JPEG_RX" />
+<PossibleValue Comment="GPDMA1_REQUEST_JPEG_TX" Value="GPDMA1_REQUEST_JPEG_TX" />
+<PossibleValue Comment="GPDMA1_REQUEST_TIM1_CH1" Value="GPDMA1_REQUEST_TIM1_CH1" />
+<PossibleValue Comment="GPDMA1_REQUEST_TIM1_CH2" Value="GPDMA1_REQUEST_TIM1_CH2" />
+<PossibleValue Comment="GPDMA1_REQUEST_TIM1_CH3" Value="GPDMA1_REQUEST_TIM1_CH3" />
+<PossibleValue Comment="GPDMA1_REQUEST_TIM1_CH4" Value="GPDMA1_REQUEST_TIM1_CH4" />
+<PossibleValue Comment="GPDMA1_REQUEST_TIM1_UP" Value="GPDMA1_REQUEST_TIM1_UP" />
+<PossibleValue Comment="GPDMA1_REQUEST_TIM1_TRIG" Value="GPDMA1_REQUEST_TIM1_TRIG" />
+<PossibleValue Comment="GPDMA1_REQUEST_TIM1_COM" Value="GPDMA1_REQUEST_TIM1_COM" />
+<PossibleValue Comment="GPDMA1_REQUEST_TIM8_CH1" Value="GPDMA1_REQUEST_TIM8_CH1" Condition="!TIM8_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM8_CH2" Value="GPDMA1_REQUEST_TIM8_CH2" Condition="!TIM8_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM8_CH3" Value="GPDMA1_REQUEST_TIM8_CH3" Condition="!TIM8_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM8_CH4" Value="GPDMA1_REQUEST_TIM8_CH4" Condition="!TIM8_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM8_UP" Value="GPDMA1_REQUEST_TIM8_UP" Condition="!TIM8_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM8_TRIG" Value="GPDMA1_REQUEST_TIM8_TRIG" Condition="!TIM8_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM8_COM" Value="GPDMA1_REQUEST_TIM8_COM" Condition="!TIM8_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM2_CH1" Value="GPDMA1_REQUEST_TIM2_CH1" />
+<PossibleValue Comment="GPDMA1_REQUEST_TIM2_CH2" Value="GPDMA1_REQUEST_TIM2_CH2" />
+<PossibleValue Comment="GPDMA1_REQUEST_TIM2_CH3" Value="GPDMA1_REQUEST_TIM2_CH3" />
+<PossibleValue Comment="GPDMA1_REQUEST_TIM2_CH4" Value="GPDMA1_REQUEST_TIM2_CH4" />
+<PossibleValue Comment="GPDMA1_REQUEST_TIM2_UP" Value="GPDMA1_REQUEST_TIM2_UP" />
+<PossibleValue Comment="GPDMA1_REQUEST_TIM3_CH1" Value="GPDMA1_REQUEST_TIM3_CH1" />
+<PossibleValue Comment="GPDMA1_REQUEST_TIM3_CH2" Value="GPDMA1_REQUEST_TIM3_CH2" />
+<PossibleValue Comment="GPDMA1_REQUEST_TIM3_CH3" Value="GPDMA1_REQUEST_TIM3_CH3" />
+<PossibleValue Comment="GPDMA1_REQUEST_TIM3_CH4" Value="GPDMA1_REQUEST_TIM3_CH4" />
+<PossibleValue Comment="GPDMA1_REQUEST_TIM3_UP" Value="GPDMA1_REQUEST_TIM3_UP" />
+<PossibleValue Comment="GPDMA1_REQUEST_TIM3_TRIG" Value="GPDMA1_REQUEST_TIM3_TRIG" />
+<PossibleValue Comment="GPDMA1_REQUEST_TIM4_CH1" Value="GPDMA1_REQUEST_TIM4_CH1" Condition="!TIM4_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM4_CH2" Value="GPDMA1_REQUEST_TIM4_CH2" Condition="!TIM4_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM4_CH3" Value="GPDMA1_REQUEST_TIM4_CH3" Condition="!TIM4_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM4_CH4" Value="GPDMA1_REQUEST_TIM4_CH4" Condition="!TIM4_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM4_UP" Value="GPDMA1_REQUEST_TIM4_UP" Condition="!TIM4_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM5_CH1" Value="GPDMA1_REQUEST_TIM5_CH1" Condition="!TIM5_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM5_CH2" Value="GPDMA1_REQUEST_TIM5_CH2" Condition="!TIM5_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM5_CH3" Value="GPDMA1_REQUEST_TIM5_CH3" Condition="!TIM5_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM5_CH4" Value="GPDMA1_REQUEST_TIM5_CH4" Condition="!TIM5_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM5_UP" Value="GPDMA1_REQUEST_TIM5_UP" Condition="!TIM5_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM5_TRIG" Value="GPDMA1_REQUEST_TIM5_TRIG" Condition="!TIM5_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM15_CH1" Value="GPDMA1_REQUEST_TIM15_CH1" Condition="!TIM15_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM15_UP" Value="GPDMA1_REQUEST_TIM15_UP" Condition="!TIM15_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM15_TRIG" Value="GPDMA1_REQUEST_TIM15_TRIG" Condition="!TIM15_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM15_COM" Value="GPDMA1_REQUEST_TIM15_COM" Condition="!TIM15_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM16_CH1" Value="GPDMA1_REQUEST_TIM16_CH1" Condition="!TIM16_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM16_UP" Value="GPDMA1_REQUEST_TIM16_UP" Condition="!TIM6_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM17_CH1" Value="GPDMA1_REQUEST_TIM17_CH1" Condition="!TIM17_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_TIM17_UP" Value="GPDMA1_REQUEST_TIM17_UP" Condition="!TIM17_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_DCMI" Value="GPDMA1_REQUEST_DCMI" Condition="!DCMI_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_HASH_IN" Value="GPDMA1_REQUEST_HASH_IN"/>
+<PossibleValue Comment="GPDMA1_REQUEST_UCPD1_TX" Value="GPDMA1_REQUEST_UCPD1_TX" Condition="!UCPD1_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_UCPD1_RX" Value="GPDMA1_REQUEST_UCPD1_RX" Condition="!UCPD1_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_MDF1_FLT0" Value="GPDMA1_REQUEST_MDF1_FLT0" />
+<PossibleValue Comment="GPDMA1_REQUEST_MDF1_FLT1" Value="GPDMA1_REQUEST_MDF1_FLT1" />
+<PossibleValue Comment="GPDMA1_REQUEST_MDF1_FLT2" Value="GPDMA1_REQUEST_MDF1_FLT2" />
+<PossibleValue Comment="GPDMA1_REQUEST_MDF1_FLT3" Value="GPDMA1_REQUEST_MDF1_FLT3" />
+<PossibleValue Comment="GPDMA1_REQUEST_MDF1_FLT4" Value="GPDMA1_REQUEST_MDF1_FLT4" />
+<PossibleValue Comment="GPDMA1_REQUEST_MDF1_FLT5" Value="GPDMA1_REQUEST_MDF1_FLT5" />
+<PossibleValue Comment="GPDMA1_REQUEST_ADF1_FLT0" Value="GPDMA1_REQUEST_ADF1_FLT0" />
+<PossibleValue Comment="GPDMA1_REQUEST_FMAC_READ" Value="GPDMA1_REQUEST_FMAC_READ" Condition="!FMAC_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_FMAC_WRITE" Value="GPDMA1_REQUEST_FMAC_WRITE" Condition="!FMAC_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_CORDIC_READ" Value="GPDMA1_REQUEST_CORDIC_READ" Condition="!CORDIC_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_CORDIC_WRITE" Value="GPDMA1_REQUEST_CORDIC_WRITE" Condition="!CORDIC_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_SAES_IN" Value="GPDMA1_REQUEST_SAES_IN" Condition="DIE474"/>
+<PossibleValue Comment="GPDMA1_REQUEST_SAES_OUT" Value="GPDMA1_REQUEST_SAES_OUT" Condition="DIE474"/>
+<PossibleValue Comment="GPDMA1_REQUEST_LPTIM1_IC1" Value="GPDMA1_REQUEST_LPTIM1_IC1" />
+<PossibleValue Comment="GPDMA1_REQUEST_LPTIM1_IC2" Value="GPDMA1_REQUEST_LPTIM1_IC2" />
+<PossibleValue Comment="GPDMA1_REQUEST_LPTIM1_UE" Value="GPDMA1_REQUEST_LPTIM1_UE" />
+<PossibleValue Comment="GPDMA1_REQUEST_LPTIM2_IC1" Value="GPDMA1_REQUEST_LPTIM2_IC1" />
+<PossibleValue Comment="GPDMA1_REQUEST_LPTIM2_IC2" Value="GPDMA1_REQUEST_LPTIM2_IC2" />
+<PossibleValue Comment="GPDMA1_REQUEST_LPTIM2_UE" Value="GPDMA1_REQUEST_LPTIM2_UE" />
+<PossibleValue Comment="GPDMA1_REQUEST_LPTIM3_IC1" Value="GPDMA1_REQUEST_LPTIM3_IC1" Condition="!LPTIM3_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_LPTIM3_IC2" Value="GPDMA1_REQUEST_LPTIM3_IC2" Condition="!LPTIM3_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_LPTIM3_UE" Value="GPDMA1_REQUEST_LPTIM3_UE" Condition="!LPTIM3_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_LPTIM5_IC1" Value="GPDMA1_REQUEST_LPTIM5_IC1" Condition="!LPTIM6_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_LPTIM5_IC2" Value="GPDMA1_REQUEST_LPTIM5_IC2" Condition="!LPTIM6_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_LPTIM5_UE" Value="GPDMA1_REQUEST_LPTIM5_UE" Condition="!LPTIM6_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_LPTIM6_IC1" Value="GPDMA1_REQUEST_LPTIM6_IC1" Condition="!LPTIM6_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_LPTIM6_IC2" Value="GPDMA1_REQUEST_LPTIM6_IC2" Condition="!LPTIM6_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA1_REQUEST_LPTIM6_UE" Value="GPDMA1_REQUEST_LPTIM6_UE" Condition="!LPTIM6_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
 </RefParameter>
 
 <RefParameter Comment="Request as a parameter" DefaultValue=""  Group="Request Configuration"  Name="Requestforcodegen" Type="list">
-     <Condition Diagnostic="not configurable" Expression="(LL_MASTERDMA=GPDMA2)| (LL_MASTERDMA=GPDMA2_2D)"/>
+	 <Condition Diagnostic="not configurable" Expression="(LL_MASTERDMA=GPDMA2)| (LL_MASTERDMA=GPDMA2_2D) &amp; !DIE47A"/>
+<PossibleValue Comment="GPDMA2_REQUEST_SW" Value="DMA_REQUEST_SW" />
+<PossibleValue Comment="GPDMA2_REQUEST_ADC1" Value="GPDMA2_REQUEST_ADC1" />
+<PossibleValue Comment="GPDMA2_REQUEST_ADC2" Value="GPDMA2_REQUEST_ADC2" Condition="!ADC2_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_ADC3" Value="GPDMA2_REQUEST_ADC3" Condition="!ADC3_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_DAC1_CH1" Value="GPDMA2_REQUEST_DAC1_CH1"/>
+<PossibleValue Comment="GPDMA2_REQUEST_DAC1_CH2" Value="GPDMA2_REQUEST_DAC1_CH2" />
+<PossibleValue Comment="GPDMA2_REQUEST_TIM6_UP" Value="GPDMA2_REQUEST_TIM6_UP" />
+<PossibleValue Comment="GPDMA2_REQUEST_TIM7_UP" Value="GPDMA2_REQUEST_TIM7_UP" />
+<PossibleValue Comment="GPDMA2_REQUEST_SPI1_RX" Value="GPDMA2_REQUEST_SPI1_RX" />
+<PossibleValue Comment="GPDMA2_REQUEST_SPI1_TX" Value="GPDMA2_REQUEST_SPI1_TX" />
+<PossibleValue Comment="GPDMA2_REQUEST_SPI2_RX" Value="GPDMA2_REQUEST_SPI2_RX" />
+<PossibleValue Comment="GPDMA2_REQUEST_SPI2_TX" Value="GPDMA2_REQUEST_SPI2_TX" />
+<PossibleValue Comment="GPDMA2_REQUEST_SPI3_RX" Value="GPDMA2_REQUEST_SPI3_RX" />
+<PossibleValue Comment="GPDMA2_REQUEST_SPI3_TX" Value="GPDMA2_REQUEST_SPI3_TX" />
+<PossibleValue Comment="GPDMA2_REQUEST_SPI4_RX" Value="GPDMA2_REQUEST_SPI4_RX" Condition="!SPI4_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_SPI4_TX" Value="GPDMA2_REQUEST_SPI4_TX" Condition="!SPI4_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_SPI5_RX" Value="GPDMA2_REQUEST_SPI5_RX" Condition="!SPI5_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_SPI5_TX" Value="GPDMA2_REQUEST_SPI5_TX" Condition="!SPI5_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_SPI6_RX" Value="GPDMA2_REQUEST_SPI6_RX" Condition="!SPI6_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_SPI6_TX" Value="GPDMA2_REQUEST_SPI6_TX" Condition="!SPI6_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_I3C1_RX" Value="GPDMA2_REQUEST_I3C1_RX" />
+<PossibleValue Comment="GPDMA2_REQUEST_I3C1_TX" Value="GPDMA2_REQUEST_I3C1_TX" />
+<PossibleValue Comment="GPDMA2_REQUEST_I3C1_TC" Value="GPDMA2_REQUEST_I3C1_TC" />
+<PossibleValue Comment="GPDMA2_REQUEST_I3C1_RS" Value="GPDMA2_REQUEST_I3C1_RS" />
+<PossibleValue Comment="GPDMA2_REQUEST_I3C2_RX" Value="GPDMA2_REQUEST_I3C2_RX" Condition="!I3C2_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_I3C2_TX" Value="GPDMA2_REQUEST_I3C2_TX" Condition="!I3C2_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_I3C2_TC" Value="GPDMA2_REQUEST_I3C2_TC" Condition="!I3C2_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_I3C2_RS" Value="GPDMA2_REQUEST_I3C2_RS" Condition="!I3C2_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+
+<PossibleValue Comment="GPDMA2_REQUEST_I2C1_RX" Value="GPDMA2_REQUEST_I2C1_RX" />
+<PossibleValue Comment="GPDMA2_REQUEST_I2C1_TX" Value="GPDMA2_REQUEST_I2C1_TX" />
+<!--<PossibleValue Comment="GPDMA2_REQUEST_I2C1_EVC" Value="GPDMA2_REQUEST_I2C1_EVC" />-->
+<PossibleValue Comment="GPDMA2_REQUEST_I2C2_RX" Value="GPDMA2_REQUEST_I2C2_RX" />
+<PossibleValue Comment="GPDMA2_REQUEST_I2C2_TX" Value="GPDMA2_REQUEST_I2C2_TX" />
+<!--<PossibleValue Comment="GPDMA2_REQUEST_I2C2_EVC" Value="GPDMA2_REQUEST_I2C2_EVC" />-->
+<PossibleValue Comment="GPDMA2_REQUEST_I2C3_RX" Value="GPDMA2_REQUEST_I2C3_RX" Condition="!I2C3_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_I2C3_TX" Value="GPDMA2_REQUEST_I2C3_TX" Condition="!I2C3_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<!--<PossibleValue Comment="GPDMA2_REQUEST_I2C3_EVC" Value="GPDMA2_REQUEST_I2C3_EVC" />-->
+<PossibleValue Comment="GPDMA2_REQUEST_I2C4_RX" Value="GPDMA2_REQUEST_I2C4_RX" Condition="!I2C4_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_I2C4_TX" Value="GPDMA2_REQUEST_I2C4_TX" Condition="!I2C4_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<!--<PossibleValue Comment="GPDMA2_REQUEST_I2C4_EVC" Value="GPDMA2_REQUEST_I2C4_EVC" />-->
+<PossibleValue Comment="GPDMA2_REQUEST_JPEG_RX" Value="GPDMA2_REQUEST_JPEG_RX" Condition="!JPEG_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_JPEG_TX" Value="GPDMA2_REQUEST_JPEG_TX" Condition="!JPEG_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_USART1_RX" Value="GPDMA2_REQUEST_USART1_RX" />
+<PossibleValue Comment="GPDMA2_REQUEST_USART1_TX" Value="GPDMA2_REQUEST_USART1_TX" />
+<PossibleValue Comment="GPDMA2_REQUEST_USART2_RX" Value="GPDMA2_REQUEST_USART2_RX" />
+<PossibleValue Comment="GPDMA2_REQUEST_USART2_TX" Value="GPDMA2_REQUEST_USART2_TX" />
+<PossibleValue Comment="GPDMA2_REQUEST_USART3_RX" Value="GPDMA2_REQUEST_USART3_RX" />
+<PossibleValue Comment="GPDMA2_REQUEST_USART3_TX" Value="GPDMA2_REQUEST_USART3_TX" />
+<PossibleValue Comment="GPDMA2_REQUEST_UART4_RX" Value="GPDMA2_REQUEST_UART4_RX" Condition="!UART4_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_UART4_TX" Value="GPDMA2_REQUEST_UART4_TX" Condition="!UART4_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_UART5_RX" Value="GPDMA2_REQUEST_UART5_RX" Condition="!UART5_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_UART5_TX" Value="GPDMA2_REQUEST_UART5_TX" Condition="!UART5_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_USART6_RX" Value="GPDMA2_REQUEST_USART6_RX" Condition="!USART6_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_USART6_TX" Value="GPDMA2_REQUEST_USART6_TX" Condition="!USART6_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_UART7_RX" Value="GPDMA2_REQUEST_UART7_RX" Condition="!UART7_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_UART7_TX" Value="GPDMA2_REQUEST_UART7_TX" Condition="!UART7_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_UART8_RX" Value="GPDMA2_REQUEST_UART8_RX" Condition="!UART8_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_UART8_TX" Value="GPDMA2_REQUEST_UART8_TX" Condition="!UART8_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_UART9_RX" Value="GPDMA2_REQUEST_UART9_RX" Condition="!UART9_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_UART9_TX" Value="GPDMA2_REQUEST_UART9_TX" Condition="!UART9_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_UART10_RX" Value="GPDMA2_REQUEST_UART10_RX" Condition="!UART10_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_UART10_TX" Value="GPDMA2_REQUEST_UART10_TX" Condition="!UART10_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_UART11_RX" Value="GPDMA2_REQUEST_UART11_RX" Condition="!UART11_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_UART11_TX" Value="GPDMA2_REQUEST_UART11_TX" Condition="!UART11_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_USART10_RX" Value="GPDMA2_REQUEST_USART10_RX" Condition="!USART10_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_USART10_TX" Value="GPDMA2_REQUEST_USART10_TX" Condition="!USART10_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_USART11_RX" Value="GPDMA2_REQUEST_USART11_RX" Condition="!USART11_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_USART11_TX" Value="GPDMA2_REQUEST_USART11_TX" Condition="!USART11_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_UART12_RX" Value="GPDMA2_REQUEST_UART12_RX" Condition="!UART12_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_UART12_TX" Value="GPDMA2_REQUEST_UART12_TX" Condition="!UART12_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_LPUART1_RX" Value="GPDMA2_REQUEST_LPUART1_RX" />
+<PossibleValue Comment="GPDMA2_REQUEST_LPUART1_TX" Value="GPDMA2_REQUEST_LPUART1_TX" />
+<PossibleValue Comment="GPDMA2_REQUEST_SAI1_A" Value="GPDMA2_REQUEST_SAI1_A" Condition="!SAI1_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_SAI1_B" Value="GPDMA2_REQUEST_SAI1_B" Condition="!SAI1_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_SAI2_A" Value="GPDMA2_REQUEST_SAI2_A" Condition="!SAI2_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_SAI2_B" Value="GPDMA2_REQUEST_SAI2_B" Condition="!SAI2_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_OCTOSPI1" Value="GPDMA2_REQUEST_OCTOSPI1" Condition="!OCTOSPI1_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_OCTOSPI2" Value="GPDMA2_REQUEST_OCTOSPI2" Condition="!OCTOSPI2_Exist" Diagnostic="not available on this MCU" />
+<PossibleValue Comment="GPDMA2_REQUEST_TIM1_CH1" Value="GPDMA2_REQUEST_TIM1_CH1" />
+<PossibleValue Comment="GPDMA2_REQUEST_TIM1_CH2" Value="GPDMA2_REQUEST_TIM1_CH2" />
+<PossibleValue Comment="GPDMA2_REQUEST_TIM1_CH3" Value="GPDMA2_REQUEST_TIM1_CH3" />
+<PossibleValue Comment="GPDMA2_REQUEST_TIM1_CH4" Value="GPDMA2_REQUEST_TIM1_CH4" />
+<PossibleValue Comment="GPDMA2_REQUEST_TIM1_UP" Value="GPDMA2_REQUEST_TIM1_UP" />
+<PossibleValue Comment="GPDMA2_REQUEST_TIM1_TRIG" Value="GPDMA2_REQUEST_TIM1_TRIG" />
+<PossibleValue Comment="GPDMA2_REQUEST_TIM1_COM" Value="GPDMA2_REQUEST_TIM1_COM" />
+<PossibleValue Comment="GPDMA2_REQUEST_TIM8_CH1" Value="GPDMA2_REQUEST_TIM8_CH1" Condition="!TIM8_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_TIM8_CH2" Value="GPDMA2_REQUEST_TIM8_CH2" Condition="!TIM8_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_TIM8_CH3" Value="GPDMA2_REQUEST_TIM8_CH3" Condition="!TIM8_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_TIM8_CH4" Value="GPDMA2_REQUEST_TIM8_CH4" Condition="!TIM8_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_TIM8_UP" Value="GPDMA2_REQUEST_TIM8_UP" Condition="!TIM8_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_TIM8_TRIG" Value="GPDMA2_REQUEST_TIM8_TRIG" Condition="!TIM8_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_TIM8_COM" Value="GPDMA2_REQUEST_TIM8_COM" Condition="!TIM8_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_TIM2_CH1" Value="GPDMA2_REQUEST_TIM2_CH1" />
+<PossibleValue Comment="GPDMA2_REQUEST_TIM2_CH2" Value="GPDMA2_REQUEST_TIM2_CH2" />
+<PossibleValue Comment="GPDMA2_REQUEST_TIM2_CH3" Value="GPDMA2_REQUEST_TIM2_CH3" />
+<PossibleValue Comment="GPDMA2_REQUEST_TIM2_CH4" Value="GPDMA2_REQUEST_TIM2_CH4" />
+<PossibleValue Comment="GPDMA2_REQUEST_TIM2_UP" Value="GPDMA2_REQUEST_TIM2_UP" />
+<PossibleValue Comment="GPDMA2_REQUEST_TIM3_CH1" Value="GPDMA2_REQUEST_TIM3_CH1" />
+<PossibleValue Comment="GPDMA2_REQUEST_TIM3_CH2" Value="GPDMA2_REQUEST_TIM3_CH2" />
+<PossibleValue Comment="GPDMA2_REQUEST_TIM3_CH3" Value="GPDMA2_REQUEST_TIM3_CH3" />
+<PossibleValue Comment="GPDMA2_REQUEST_TIM3_CH4" Value="GPDMA2_REQUEST_TIM3_CH4" />
+<PossibleValue Comment="GPDMA2_REQUEST_TIM3_UP" Value="GPDMA2_REQUEST_TIM3_UP" />
+<PossibleValue Comment="GPDMA2_REQUEST_TIM3_TRIG" Value="GPDMA2_REQUEST_TIM3_TRIG" />
+<PossibleValue Comment="GPDMA2_REQUEST_TIM4_CH1" Value="GPDMA2_REQUEST_TIM4_CH1" Condition="!TIM4_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_TIM4_CH2" Value="GPDMA2_REQUEST_TIM4_CH2" Condition="!TIM4_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_TIM4_CH3" Value="GPDMA2_REQUEST_TIM4_CH3" Condition="!TIM4_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_TIM4_CH4" Value="GPDMA2_REQUEST_TIM4_CH4" Condition="!TIM4_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_TIM4_UP" Value="GPDMA2_REQUEST_TIM4_UP" Condition="!TIM4_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_TIM5_CH1" Value="GPDMA2_REQUEST_TIM5_CH1" Condition="!TIM5_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_TIM5_CH2" Value="GPDMA2_REQUEST_TIM5_CH2" Condition="!TIM5_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_TIM5_CH3" Value="GPDMA2_REQUEST_TIM5_CH3" Condition="!TIM5_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_TIM5_CH4" Value="GPDMA2_REQUEST_TIM5_CH4" Condition="!TIM5_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_TIM5_UP" Value="GPDMA2_REQUEST_TIM5_UP" Condition="!TIM5_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_TIM5_TRIG" Value="GPDMA2_REQUEST_TIM5_TRIG" Condition="!TIM5_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_TIM15_CH1" Value="GPDMA2_REQUEST_TIM15_CH1" Condition="!TIM15_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_TIM15_UP" Value="GPDMA2_REQUEST_TIM15_UP" Condition="!TIM15_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_TIM15_TRIG" Value="GPDMA2_REQUEST_TIM15_TRIG" Condition="!TIM15_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_TIM15_COM" Value="GPDMA2_REQUEST_TIM15_COM" Condition="!TIM15_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_TIM16_CH1" Value="GPDMA2_REQUEST_TIM16_CH1" Condition="!TIM16_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_TIM16_UP" Value="GPDMA2_REQUEST_TIM16_UP" Condition="!TIM16_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_TIM17_CH1" Value="GPDMA2_REQUEST_TIM17_CH1" Condition="!TIM17_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_TIM17_UP" Value="GPDMA2_REQUEST_TIM17_UP" Condition="!TIM17_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_DCMI" Value="GPDMA2_REQUEST_DCMI" Condition="!DCMI_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_AES_IN" Value="GPDMA2_REQUEST_AES_IN" Condition="!AES_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_AES_OUT" Value="GPDMA2_REQUEST_AES_OUT" Condition="!AES_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_HASH_IN" Value="GPDMA2_REQUEST_HASH_IN"/>
+<PossibleValue Comment="GPDMA2_REQUEST_UCPD1_TX" Value="GPDMA2_REQUEST_UCPD1_TX" Condition="!UCPD1_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_UCPD1_RX" Value="GPDMA2_REQUEST_UCPD1_RX" Condition="!UCPD1_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<!--<PossibleValue Comment="GPDMA2_REQUEST_MDF1_FLT0" Value="GPDMA2_REQUEST_MDF1_FLT0" />
+<PossibleValue Comment="GPDMA2_REQUEST_MDF1_FLT1" Value="GPDMA2_REQUEST_MDF1_FLT1" />
+<PossibleValue Comment="GPDMA2_REQUEST_MDF1_FLT2" Value="GPDMA2_REQUEST_MDF1_FLT2" />
+<PossibleValue Comment="GPDMA2_REQUEST_MDF1_FLT3" Value="GPDMA2_REQUEST_MDF1_FLT3" />
+<PossibleValue Comment="GPDMA2_REQUEST_MDF1_FLT4" Value="GPDMA2_REQUEST_MDF1_FLT4" />
+<PossibleValue Comment="GPDMA2_REQUEST_MDF1_FLT5" Value="GPDMA2_REQUEST_MDF1_FLT5" />
+<PossibleValue Comment="GPDMA2_REQUEST_ADF1_FLT0" Value="GPDMA2_REQUEST_ADF1_FLT0" />-->
+<PossibleValue Comment="GPDMA2_REQUEST_FMAC_READ" Value="GPDMA2_REQUEST_FMAC_READ" Condition="!FMAC_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_FMAC_WRITE" Value="GPDMA2_REQUEST_FMAC_WRITE" Condition="!FMAC_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_CORDIC_READ" Value="GPDMA2_REQUEST_CORDIC_READ" Condition="!CORDIC_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_CORDIC_WRITE" Value="GPDMA2_REQUEST_CORDIC_WRITE" Condition="!CORDIC_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_SAES_IN" Value="GPDMA2_REQUEST_SAES_IN" Condition="!SAES_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_SAES_OUT" Value="GPDMA2_REQUEST_SAES_OUT" Condition="!SAES_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_LPTIM1_IC1" Value="GPDMA2_REQUEST_LPTIM1_IC1" />
+<PossibleValue Comment="GPDMA2_REQUEST_LPTIM1_IC2" Value="GPDMA2_REQUEST_LPTIM1_IC2" />
+<PossibleValue Comment="GPDMA2_REQUEST_LPTIM1_UE" Value="GPDMA2_REQUEST_LPTIM1_UE" />
+<PossibleValue Comment="GPDMA2_REQUEST_LPTIM2_IC1" Value="GPDMA2_REQUEST_LPTIM2_IC1" />
+<PossibleValue Comment="GPDMA2_REQUEST_LPTIM2_IC2" Value="GPDMA2_REQUEST_LPTIM2_IC2" />
+<PossibleValue Comment="GPDMA2_REQUEST_LPTIM2_UE" Value="GPDMA2_REQUEST_LPTIM2_UE" />
+<PossibleValue Comment="GPDMA2_REQUEST_LPTIM3_IC1" Value="GPDMA2_REQUEST_LPTIM3_IC1" Condition="!LPTIM3_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_LPTIM3_IC2" Value="GPDMA2_REQUEST_LPTIM3_IC2" Condition="!LPTIM3_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_LPTIM3_UE" Value="GPDMA2_REQUEST_LPTIM3_UE" Condition="!LPTIM3_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_LPTIM5_IC1" Value="GPDMA2_REQUEST_LPTIM5_IC1" Condition="!LPTIM5_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_LPTIM5_IC2" Value="GPDMA2_REQUEST_LPTIM5_IC2" Condition="!LPTIM5_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_LPTIM5_UE" Value="GPDMA2_REQUEST_LPTIM5_UE" Condition="!LPTIM5_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_LPTIM6_IC1" Value="GPDMA2_REQUEST_LPTIM6_IC1" Condition="!LPTIM6_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_LPTIM6_IC2" Value="GPDMA2_REQUEST_LPTIM6_IC2" Condition="!LPTIM6_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_LPTIM6_UE" Value="GPDMA2_REQUEST_LPTIM6_UE" Condition="!LPTIM6_Exist" Diagnostic="not available on this MCU" Action="Disable"/>
+</RefParameter>
+
+<RefParameter Comment="Request as a parameter" DefaultValue=""  Group="Request Configuration"  Name="Requestforcodegen" Type="list">
+	 <Condition Diagnostic="not configurable" Expression="(LL_MASTERDMA=GPDMA2)| (LL_MASTERDMA=GPDMA2_2D) &amp; DIE47A"/>
 <PossibleValue Comment="GPDMA2_REQUEST_SW" Value="DMA_REQUEST_SW" />
 <PossibleValue Comment="GPDMA2_REQUEST_ADC1" Value="GPDMA2_REQUEST_ADC1" />
 <PossibleValue Comment="GPDMA2_REQUEST_ADC2" Value="GPDMA2_REQUEST_ADC2" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_ADC3" Value="GPDMA2_REQUEST_ADC3" />
 <PossibleValue Comment="GPDMA2_REQUEST_DAC1_CH1" Value="GPDMA2_REQUEST_DAC1_CH1"/>
 <PossibleValue Comment="GPDMA2_REQUEST_DAC1_CH2" Value="GPDMA2_REQUEST_DAC1_CH2" />
+<PossibleValue Comment="GPDMA2_REQUEST_HSPI1" Value="GPDMA2_REQUEST_HSPI1" />
 <PossibleValue Comment="GPDMA2_REQUEST_TIM6_UP" Value="GPDMA2_REQUEST_TIM6_UP" />
 <PossibleValue Comment="GPDMA2_REQUEST_TIM7_UP" Value="GPDMA2_REQUEST_TIM7_UP" />
 <PossibleValue Comment="GPDMA2_REQUEST_SPI1_RX" Value="GPDMA2_REQUEST_SPI1_RX" />
@@ -259,11 +585,12 @@
 <PossibleValue Comment="GPDMA2_REQUEST_I3C1_TX" Value="GPDMA2_REQUEST_I3C1_TX" />
 <PossibleValue Comment="GPDMA2_REQUEST_I3C1_TC" Value="GPDMA2_REQUEST_I3C1_TC" />
 <PossibleValue Comment="GPDMA2_REQUEST_I3C1_RS" Value="GPDMA2_REQUEST_I3C1_RS" />
-<PossibleValue Comment="GPDMA2_REQUEST_I3C1_RX" Value="GPDMA2_REQUEST_I3C2_RX" Condition="DIE484" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA2_REQUEST_I3C1_TX" Value="GPDMA2_REQUEST_I3C2_TX" Condition="DIE484" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA2_REQUEST_I3C1_TC" Value="GPDMA2_REQUEST_I3C2_TC" Condition="DIE484" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA2_REQUEST_I3C1_RS" Value="GPDMA2_REQUEST_I3C2_RS" Condition="DIE484" Diagnostic="not available on this MCU" Action="Disable"/>
-
+<PossibleValue Comment="GPDMA2_REQUEST_I3C2_RX" Value="GPDMA2_REQUEST_I3C2_RX" Condition="DIE484" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_I3C2_TX" Value="GPDMA2_REQUEST_I3C2_TX" Condition="DIE484" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_I3C2_TC" Value="GPDMA2_REQUEST_I3C2_TC" Condition="DIE484" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_I3C2_RS" Value="GPDMA2_REQUEST_I3C2_RS" Condition="DIE484" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_AES_IN" Value="GPDMA2_REQUEST_AES_IN" Condition="!AES_Exist" />
+<PossibleValue Comment="GPDMA2_REQUEST_AES_OUT" Value="GPDMA2_REQUEST_AES_OUT" Condition="!AES_Exist" />
 <PossibleValue Comment="GPDMA2_REQUEST_I2C1_RX" Value="GPDMA2_REQUEST_I2C1_RX" />
 <PossibleValue Comment="GPDMA2_REQUEST_I2C1_TX" Value="GPDMA2_REQUEST_I2C1_TX" />
 <!--<PossibleValue Comment="GPDMA2_REQUEST_I2C1_EVC" Value="GPDMA2_REQUEST_I2C1_EVC" />-->
@@ -294,9 +621,10 @@
 <PossibleValue Comment="GPDMA2_REQUEST_UART8_TX" Value="GPDMA2_REQUEST_UART8_TX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
 <PossibleValue Comment="GPDMA2_REQUEST_UART9_RX" Value="GPDMA2_REQUEST_UART9_RX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
 <PossibleValue Comment="GPDMA2_REQUEST_UART9_TX" Value="GPDMA2_REQUEST_UART9_TX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_UART10_RX" Value="GPDMA1_REQUEST_UART10_RX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_UART10_TX" Value="GPDMA1_REQUEST_UART10_TX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA1_REQUEST_UART11_RX" Value="GPDMA1_REQUEST_UART11_RX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_UART10_RX" Value="GPDMA2_REQUEST_UART10_RX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_UART10_TX" Value="GPDMA2_REQUEST_UART10_TX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_UART11_RX" Value="GPDMA2_REQUEST_UART11_RX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_UART11_TX" Value="GPDMA2_REQUEST_UART11_TX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
 <PossibleValue Comment="GPDMA2_REQUEST_USART10_RX" Value="GPDMA2_REQUEST_USART10_RX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
 <PossibleValue Comment="GPDMA2_REQUEST_USART10_TX" Value="GPDMA2_REQUEST_USART10_TX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
 <PossibleValue Comment="GPDMA2_REQUEST_USART11_RX" Value="GPDMA2_REQUEST_USART11_RX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
@@ -305,12 +633,14 @@
 <PossibleValue Comment="GPDMA2_REQUEST_UART12_TX" Value="GPDMA2_REQUEST_UART12_TX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
 <PossibleValue Comment="GPDMA2_REQUEST_LPUART1_RX" Value="GPDMA2_REQUEST_LPUART1_RX" />
 <PossibleValue Comment="GPDMA2_REQUEST_LPUART1_TX" Value="GPDMA2_REQUEST_LPUART1_TX" />
+<PossibleValue Comment="GPDMA2_REQUEST_OCTOSPI1" Value="GPDMA2_REQUEST_OCTOSPI1" />
+<PossibleValue Comment="GPDMA2_REQUEST_OCTOSPI2" Value="GPDMA2_REQUEST_OCTOSPI2" />
+<PossibleValue Comment="GPDMA2_REQUEST_JPEG_RX" Value="GPDMA2_REQUEST_JPEG_RX" />
+<PossibleValue Comment="GPDMA2_REQUEST_JPEG_TX" Value="GPDMA2_REQUEST_JPEG_TX" />
 <PossibleValue Comment="GPDMA2_REQUEST_SAI1_A" Value="GPDMA2_REQUEST_SAI1_A" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
 <PossibleValue Comment="GPDMA2_REQUEST_SAI1_B" Value="GPDMA2_REQUEST_SAI1_B" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
 <PossibleValue Comment="GPDMA2_REQUEST_SAI2_A" Value="GPDMA2_REQUEST_SAI2_A" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
 <PossibleValue Comment="GPDMA2_REQUEST_SAI2_B" Value="GPDMA2_REQUEST_SAI2_B" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA2_REQUEST_OCTOSPI1" Value="GPDMA2_REQUEST_OCTOSPI1" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<!--<PossibleValue Comment="GPDMA2_REQUEST_OCTOSPI2" Value="GPDMA2_REQUEST_OCTOSPI2" />-->
 <PossibleValue Comment="GPDMA2_REQUEST_TIM1_CH1" Value="GPDMA2_REQUEST_TIM1_CH1" />
 <PossibleValue Comment="GPDMA2_REQUEST_TIM1_CH2" Value="GPDMA2_REQUEST_TIM1_CH2" />
 <PossibleValue Comment="GPDMA2_REQUEST_TIM1_CH3" Value="GPDMA2_REQUEST_TIM1_CH3" />
@@ -356,24 +686,22 @@
 <PossibleValue Comment="GPDMA2_REQUEST_TIM17_CH1" Value="GPDMA2_REQUEST_TIM17_CH1" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
 <PossibleValue Comment="GPDMA2_REQUEST_TIM17_UP" Value="GPDMA2_REQUEST_TIM17_UP" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
 <PossibleValue Comment="GPDMA2_REQUEST_DCMI" Value="GPDMA2_REQUEST_DCMI" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA2_REQUEST_AES_IN" Value="GPDMA2_REQUEST_AES_IN" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA2_REQUEST_AES_OUT" Value="GPDMA2_REQUEST_AES_OUT" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA2_REQUEST_HASH_IN" Value="GPDMA2_REQUEST_HASH_IN" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_HASH_IN" Value="GPDMA2_REQUEST_HASH_IN"/>
 <PossibleValue Comment="GPDMA2_REQUEST_UCPD1_TX" Value="GPDMA2_REQUEST_UCPD1_TX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
 <PossibleValue Comment="GPDMA2_REQUEST_UCPD1_RX" Value="GPDMA2_REQUEST_UCPD1_RX" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<!--<PossibleValue Comment="GPDMA2_REQUEST_MDF1_FLT0" Value="GPDMA2_REQUEST_MDF1_FLT0" />
+<PossibleValue Comment="GPDMA2_REQUEST_MDF1_FLT0" Value="GPDMA2_REQUEST_MDF1_FLT0" />
 <PossibleValue Comment="GPDMA2_REQUEST_MDF1_FLT1" Value="GPDMA2_REQUEST_MDF1_FLT1" />
 <PossibleValue Comment="GPDMA2_REQUEST_MDF1_FLT2" Value="GPDMA2_REQUEST_MDF1_FLT2" />
 <PossibleValue Comment="GPDMA2_REQUEST_MDF1_FLT3" Value="GPDMA2_REQUEST_MDF1_FLT3" />
 <PossibleValue Comment="GPDMA2_REQUEST_MDF1_FLT4" Value="GPDMA2_REQUEST_MDF1_FLT4" />
 <PossibleValue Comment="GPDMA2_REQUEST_MDF1_FLT5" Value="GPDMA2_REQUEST_MDF1_FLT5" />
-<PossibleValue Comment="GPDMA2_REQUEST_ADF1_FLT0" Value="GPDMA2_REQUEST_ADF1_FLT0" />-->
+<PossibleValue Comment="GPDMA2_REQUEST_ADF1_FLT0" Value="GPDMA2_REQUEST_ADF1_FLT0" />
 <PossibleValue Comment="GPDMA2_REQUEST_FMAC_READ" Value="GPDMA2_REQUEST_FMAC_READ" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
 <PossibleValue Comment="GPDMA2_REQUEST_FMAC_WRITE" Value="GPDMA2_REQUEST_FMAC_WRITE" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
 <PossibleValue Comment="GPDMA2_REQUEST_CORDIC_READ" Value="GPDMA2_REQUEST_CORDIC_READ" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
 <PossibleValue Comment="GPDMA2_REQUEST_CORDIC_WRITE" Value="GPDMA2_REQUEST_CORDIC_WRITE" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA2_REQUEST_SAES_IN" Value="GPDMA2_REQUEST_SAES_IN" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
-<PossibleValue Comment="GPDMA2_REQUEST_SAES_OUT" Value="GPDMA2_REQUEST_SAES_OUT" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
+<PossibleValue Comment="GPDMA2_REQUEST_SAES_IN" Value="GPDMA2_REQUEST_SAES_IN" Condition="!SAES_Exist"/>
+<PossibleValue Comment="GPDMA2_REQUEST_SAES_OUT" Value="GPDMA2_REQUEST_SAES_OUT" Condition="!SAES_Exist"/>
 <PossibleValue Comment="GPDMA2_REQUEST_LPTIM1_IC1" Value="GPDMA2_REQUEST_LPTIM1_IC1" />
 <PossibleValue Comment="GPDMA2_REQUEST_LPTIM1_IC2" Value="GPDMA2_REQUEST_LPTIM1_IC2" />
 <PossibleValue Comment="GPDMA2_REQUEST_LPTIM1_UE" Value="GPDMA2_REQUEST_LPTIM1_UE" />
@@ -390,8 +718,6 @@
 <PossibleValue Comment="GPDMA2_REQUEST_LPTIM6_IC2" Value="GPDMA2_REQUEST_LPTIM6_IC2" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
 <PossibleValue Comment="GPDMA2_REQUEST_LPTIM6_UE" Value="GPDMA2_REQUEST_LPTIM6_UE" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
 </RefParameter>
-
-
 <RefParameter Name="BlkHWRequest" Comment="Block HW request protocol" Group="Request Configuration"  DefaultValue="DMA_BREQ_BLOCK"   Type="list" >
         <Condition Diagnostic="not configurable" Expression="((Requestforcodegen=GPDMA2_REQUEST_LPTIM3_UE)|(Requestforcodegen=GPDMA2_REQUEST_LPTIM2_UE) | (Requestforcodegen=GPDMA2_REQUEST_LPTIM1_UE) | (Requestforcodegen=GPDMA1_REQUEST_LPTIM1_UE)| (Requestforcodegen=GPDMA1_REQUEST_LPTIM2_UE)| (Requestforcodegen=GPDMA1_REQUEST_LPTIM3_UE))"/>
         <PossibleValue Comment="Block Level" Value="DMA_BREQ_BLOCK"/>
@@ -426,13 +752,13 @@
 
 
 <RefParameter  Name="Mode" Comment="Transaction Mode" Group="Channel configuration"    DefaultValue="DMA_NORMAL" Type="list">
-        <Condition  Diagnostic="" Expression="((SEM_LINKEDLIST_GPDMA1CH0|SEM_LINKEDLIST_GPDMA1CH7|SEM_LINKEDLIST_GPDMA2CH0|SEM_LINKEDLIST_GPDMA2CH7) &amp; ((Requestforcodegen=GPDMA1_REQUEST_I3C1_RX)| (Requestforcodegen=GPDMA2_REQUEST_I3C1_RX)))"/>
+        <Condition  Diagnostic="" Expression="((SEM_LINKEDLIST_GPDMA1CH0|SEM_LINKEDLIST_GPDMA1CH1|SEM_LINKEDLIST_GPDMA1CH11|SEM_LINKEDLIST_GPDMA2CH0|SEM_LINKEDLIST_GPDMA2CH1|SEM_LINKEDLIST_GPDMA2CH11) &amp; ((Requestforcodegen=GPDMA1_REQUEST_I3C1_RX)| (Requestforcodegen=GPDMA1_REQUEST_I3C2_RX)| (Requestforcodegen=GPDMA1_REQUEST_JPEG_RX)|(Requestforcodegen=GPDMA2_REQUEST_I3C1_RX)| (Requestforcodegen=GPDMA2_REQUEST_I3C2_RX)| (Requestforcodegen=GPDMA2_REQUEST_JPEG_RX)))"/>
 		<PossibleValue Comment="Peripheral control" Value="DMA_PFCTRL"/>
 		<PossibleValue Comment="Normal" Value="DMA_NORMAL"/>
 </RefParameter>
 
 <RefParameter Name="Mode" Comment="Transaction Mode" Group="Channel configuration"   DefaultValue="DMA_NORMAL"  Type="list">
-        <Condition  Diagnostic="" Expression="!((SEM_LINKEDLIST_GPDMA1CH0|SEM_LINKEDLIST_GPDMA1CH7|SEM_LINKEDLIST_GPDMA2CH0|SEM_LINKEDLIST_GPDMA2CH7) &amp; ((Requestforcodegen=GPDMA1_REQUEST_I3C1_RX)| (Requestforcodegen=GPDMA2_REQUEST_I3C1_RX)))"/>
+        <Condition  Diagnostic="" Expression="!((SEM_LINKEDLIST_GPDMA1CH0|SEM_LINKEDLIST_GPDMA1CH1|SEM_LINKEDLIST_GPDMA1CH11|SEM_LINKEDLIST_GPDMA2CH0|SEM_LINKEDLIST_GPDMA2CH1|SEM_LINKEDLIST_GPDMA2CH11) &amp; ((Requestforcodegen=GPDMA1_REQUEST_I3C1_RX)| (Requestforcodegen=GPDMA1_REQUEST_I3C2_RX)| (Requestforcodegen=GPDMA1_REQUEST_JPEG_RX)|(Requestforcodegen=GPDMA2_REQUEST_I3C1_RX)| (Requestforcodegen=GPDMA2_REQUEST_I3C2_RX)| (Requestforcodegen=GPDMA2_REQUEST_JPEG_RX)))"/>
 		<PossibleValue Comment="Normal" Value="DMA_NORMAL"/>
 </RefParameter>
 
@@ -593,6 +919,8 @@
   
  
 
+
+
 <RefParameter Name="DataAlignment"  Comment="Data Alignment" Group="Data Handling"  DefaultValue="DMA_DATA_RIGHTALIGN_ZEROPADDED"  Type="list">
     <Condition Diagnostic="" Expression="(DataHandling=ENABLE)"/>
     <!-- value to be conditionned with src and dest data size-->
@@ -672,6 +1000,9 @@
         <PossibleValue Comment="TIM15 TRGO" Value="GPDMA1_TRIGGER_TIM15_TRGO" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
         <PossibleValue Comment="COMP1 OUT" Value="GPDMA1_TRIGGER_COMP1_OUT" Condition="DIE484" Diagnostic="not available on this MCU" Action="Disable"/>
         <PossibleValue Comment="EVENTOUT" Value="GPDMA1_TRIGGER_EVENTOUT" Condition="DIE484" Diagnostic="not available on this MCU" Action="Disable"/>
+        <PossibleValue Comment="COMP2 OUT" Value="GPDMA1_TRIGGER_COMP2_OUT" Condition="!DIE47C" Diagnostic="not available on this MCU" Action="Disable"/>
+        <PossibleValue Comment="PLAY1 OUT15" Value="GPDMA1_TRIGGER_PLAY1_OUT15" Condition="!DIE47C" Diagnostic="not available on this MCU" Action="Disable"/>
+
 </RefParameter>
 
 <RefParameter Name="TriggerSelection" Comment="Trigger Selection"  Group="Trigger"  DefaultValue="GPDMA2_TRIGGER_EXTI_LINE0"  Type="list" >
@@ -722,6 +1053,9 @@
         <PossibleValue Comment="TIM15 TRGO" Value="GPDMA2_TRIGGER_TIM15_TRGO" Condition="DIE474" Diagnostic="not available on this MCU" Action="Disable"/>
         <PossibleValue Comment="COMP1 OUT" Value="GPDMA2_TRIGGER_COMP1_OUT" Condition="DIE484" Diagnostic="not available on this MCU" Action="Disable"/>
         <PossibleValue Comment="EVENTOUT" Value="GPDMA2_TRIGGER_EVENTOUT" Condition="DIE484" Diagnostic="not available on this MCU" Action="Disable"/>
+        <PossibleValue Comment="COMP2 OUT" Value="GPDMA2_TRIGGER_COMP2_OUT" Condition="!DIE47C" Diagnostic="not available on this MCU" Action="Disable"/>
+        <PossibleValue Comment="PLAY1 OUT15" Value="GPDMA2_TRIGGER_PLAY1_OUT15" Condition="!DIE47C" Diagnostic="not available on this MCU" Action="Disable"/>
+
 </RefParameter>
 
 <RefParameter Name="TriggerSelection" Comment="Trigger Selection"  Group="Trigger"  DefaultValue="null"  Type="list" Visible="false">
@@ -965,4 +1299,4 @@
          </ModeLogicOperator>
      </Mode>
  </ModeLogicOperator>
-</IP>
+</IP>	

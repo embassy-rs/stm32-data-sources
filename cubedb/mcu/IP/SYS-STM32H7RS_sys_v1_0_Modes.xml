@@ -4,7 +4,6 @@
 	<RefParameter Name="Instance" DefaultValue="SYS" Comment="Instance" Type="" Visible="false" />
 	<RefParameter Name="instance" DefaultValue="TIM1" Comment="" Type="list" Visible="false">
 		<Condition Expression="SYS_TIM1" Diagnostic="" />
-
 		<PossibleValue Value="TIM1" Comment="" />
 	</RefParameter>
 	<RefParameter Name="instance" DefaultValue="TIM2" Comment="" Type="list" Visible="false">
@@ -102,8 +101,6 @@
 	<RefParameter Name="instance" DefaultValue="SysTick" Comment="" Type="list" Visible="false">
 		<PossibleValue Value="SysTick" Comment="" />
 	</RefParameter>
-
-
 	<RefParameter Comment="PVD detection Level" DefaultValue="PWR_PVDLEVEL_7" Name="PVDLevel" Type="list" Visible="false">
 		<Condition Expression="Sem_ExternalAnalogVoltage" Diagnostic="" />
 		<PossibleValue Comment="PWR PVD LEVEL 7" Value="PWR_PVDLEVEL_7" />
@@ -118,7 +115,6 @@
 		<PossibleValue Comment="PWR PVD LEVEL 5 (2.7 V)" Value="PWR_PVDLEVEL_5" />
 		<PossibleValue Comment="PWR PVD LEVEL 6 (2.85 V)" Value="PWR_PVDLEVEL_6" />
 	</RefParameter>
-
 	<RefParameter Comment="PWR PVD Mode" DefaultValue="PWR_PVM_MODE_NORMAL" Name="Mode" Type="list">
 		<Description>Mode: Specifies the PVD trigger mode.</Description>
 		<PossibleValue Comment="basic mode is used" Value="PWR_PVD_MODE_NORMAL" />
@@ -129,19 +125,15 @@
 		<PossibleValue Comment="Event Mode with Falling edge trigger detection" Value="PWR_PVD_MODE_EVENT_FALLING" />
 		<PossibleValue Comment="Event Mode with Rising/Falling edge trigger detection" Value="PWR_PVD_MODE_EVENT_RISING_FALLING" />
 	</RefParameter>
-
 	<RefParameter Comment="High impedance mode" DefaultValue="SYSCFG_VREFBUF_HIGH_IMPEDANCE_ENABLE" Name="HighImpedanceMode" Type="list" Visible="false">
 		<Condition Expression="Sem_ExternalMode | Sem_HoldMode" Diagnostic="" />
 		<PossibleValue Comment="Enable" Value="SYSCFG_VREFBUF_HIGH_IMPEDANCE_ENABLE" />
 	</RefParameter>
-
 	<RefParameter Comment="High impedance mode" DefaultValue="SYSCFG_VREFBUF_HIGH_IMPEDANCE_DISABLE" Name="HighImpedanceMode" Type="list" Visible="false">
 		<Condition Expression="Sem_VREFBUFOFF | Sem_InternalMode" Diagnostic="" />
 		<PossibleValue Comment="Disable" Value="SYSCFG_VREFBUF_HIGH_IMPEDANCE_DISABLE" />
 	</RefParameter>
-
 	<RefParameter Comment="High impedance mode" DefaultValue="null" Name="HighImpedanceMode" Type="list" Visible="false" />
-
 	<RefParameter Comment="Internal Voltage reference scale" DefaultValue="SYSCFG_VREFBUF_VOLTAGE_SCALE0" Name="VoltageScaling" Type="list">
 		<Condition Expression="Sem_InternalMode" Diagnostic="" />
 		<PossibleValue Comment="SCALE 0: around 2.5 V" Value="SYSCFG_VREFBUF_VOLTAGE_SCALE0" />
@@ -149,24 +141,17 @@
 		<PossibleValue Comment="SCALE 2: around 1.8 V" Value="SYSCFG_VREFBUF_VOLTAGE_SCALE2" />
 		<PossibleValue Comment="SCALE 3: around 1.5 V" Value="SYSCFG_VREFBUF_VOLTAGE_SCALE3" />
 	</RefParameter>
-
 	<RefParameter Comment="Internal Voltage reference scale" DefaultValue="null" Name="VoltageScaling" Type="list" Visible="false" />
-
 	<RefParameter Comment="Trimming Mode" DefaultValue="__NULL" Name="TrimmingMode" Type="list">
 		<Condition Expression="Sem_InternalMode" Diagnostic="" />
 		<PossibleValue Comment="Factory Trimming" Value="__NULL" />
 		<PossibleValue Comment="User Trimming" Value="USER_TRIMMING" />
 	</RefParameter>
-
 	<RefParameter Comment="Trimming Mode" DefaultValue="null" Name="TrimmingMode" Type="list" Visible="false" />
-
 	<RefParameter Comment="Trimming Value" DefaultValue="0" Max="63" Min="0" Name="TrimmingValue" Type="integer">
 		<Condition Expression="TrimmingMode = USER_TRIMMING &amp; Sem_InternalMode" Diagnostic="" />
 	</RefParameter>
-
 	<RefParameter Comment="Trimming Value" DefaultValue="null" Max="63" Min="0" Name="TrimmingValue" Type="integer" Visible="false" />
-
-
 	<RefMode Name="Mode_PVD_Ext" Group="Programmable_Voltage_Detector_Settings">
 		<ConfigForMode>PVDConfig</ConfigForMode>
 		<ConfigForMode>PVDEnable</ConfigForMode>
@@ -179,8 +164,6 @@
 		<Parameter Name="PVDLevel" />
 		<Parameter Name="Mode" />
 	</RefMode>
-
-
 	<RefMode Name="TIM">
 		<ConfigForMode>TimSource</ConfigForMode>
 	</RefMode>
@@ -213,19 +196,16 @@
 	<RefMode Name="RTC_ALARM">
 		<ConfigForMode>RTCALARMSource</ConfigForMode>
 	</RefMode>
-
 	<RefMode Name="VREFBUFOFFMode" Group="Voltage_Reference_Buffer_Settings">
 		<ConfigForMode>VREFBUFMODEConfigDisable</ConfigForMode>
 		<ConfigForMode>HighImpedanceModeConfig</ConfigForMode>
 		<Parameter Name="HighImpedanceMode" />
 	</RefMode>
-
 	<RefMode Name="ExternalMode" Group="Voltage_Reference_Buffer_Settings">
 		<ConfigForMode>VREFBUFMODEConfigDisable</ConfigForMode>
 		<ConfigForMode>HighImpedanceModeConfig</ConfigForMode>
 		<Parameter Name="HighImpedanceMode" />
 	</RefMode>
-
 	<RefMode Name="InternalMode" Group="Voltage_Reference_Buffer_Settings">
 		<ConfigForMode>TrimmingValueConfig</ConfigForMode>
 		<ConfigForMode>InternalVoltageReferenceScaleConfig</ConfigForMode>
@@ -236,13 +216,11 @@
 		<Parameter Name="TrimmingValue" />
 		<Parameter Name="VoltageScaling" />
 	</RefMode>
-
 	<RefMode Name="HoldMode" Group="Voltage_Reference_Buffer_Settings">
 		<ConfigForMode>VREFBUFMODEConfigEnable</ConfigForMode>
 		<ConfigForMode>HighImpedanceModeConfig</ConfigForMode>
 		<Parameter Name="HighImpedanceMode" />
 	</RefMode>
-
 	<!-- Modes for Debug (JTAG and Trace) -->
 	<ModeLogicOperator Name="OR">
 		<Mode Name="TimeBase" UserName="Timebase Source" RemoveDisable="true">
@@ -256,433 +234,199 @@
 					<Semaphore>S_SysTick$noContext</Semaphore>
 					<Semaphore>S_SysTick$context</Semaphore>
 				</Mode>
-
-				<Mode Name="TIM1" RemoveCondition="!TIM1_Exist | (STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM1" Diagnostic="This IP instance is already used." />
+				<Mode Name="TIM1" RemoveCondition="!TIM1_Exist">
+					<Condition Expression="!TIM1 &amp; (( TIM1_APPLI &amp;SYS_APPLI )|( TIM1_BOOT &amp;SYS_BOOT ))" Diagnostic="This IP instance is already used." />
 					<SignalLogicalOp Name="AND">
 						<Signal Name="VS_tim1" />
 					</SignalLogicalOp>
 					<Semaphore>SYS_TIM1$noContext</Semaphore>
-					<Semaphore>SYS_TIM1$Context</Semaphore>
-
-
+					<Semaphore>SYS_TIM1$context</Semaphore>
 				</Mode>
-				<Mode Name="TIM2" RemoveCondition="!TIM2_Exist | (STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM2" Diagnostic="This IP instance is already used." />
+				<Mode Name="TIM2" RemoveCondition="!TIM2_Exist">
+					<Condition Expression="!TIM2  &amp; (( TIM2_APPLI &amp;SYS_APPLI )|( TIM2_BOOT &amp;SYS_BOOT ))" Diagnostic="This IP instance is already used." />
 					<SignalLogicalOp Name="AND">
 						<Signal Name="VS_tim2" />
 					</SignalLogicalOp>
 					<Semaphore>SYS_TIM2$noContext</Semaphore>
 					<Semaphore>SYS_TIM2$context</Semaphore>
-
 				</Mode>
-				<Mode Name="TIM3" RemoveCondition="!TIM3_Exist | (STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM3" Diagnostic="This IP instance is already used." />
+				<Mode Name="TIM3" RemoveCondition="!TIM3_Exist ">
+					<Condition Expression="!TIM3 &amp; (( TIM3_APPLI &amp;SYS_APPLI )|( TIM3_BOOT &amp;SYS_BOOT ))" Diagnostic="This IP instance is already used." />
 					<SignalLogicalOp Name="AND">
 						<Signal Name="VS_tim3" />
 					</SignalLogicalOp>
 					<Semaphore>SYS_TIM3$noContext</Semaphore>
 					<Semaphore>SYS_TIM3$context</Semaphore>
-
 				</Mode>
-				<Mode Name="TIM4" RemoveCondition="!TIM4_Exist | (STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM4" Diagnostic="This IP instance is already used." />
+				<Mode Name="TIM4" RemoveCondition="!TIM4_Exist">
+					<Condition Expression="!TIM4 &amp; (( TIM4_APPLI &amp;SYS_APPLI )|( TIM4_BOOT &amp;SYS_BOOT ))" Diagnostic="This IP instance is already used." />
 					<SignalLogicalOp Name="AND">
 						<Signal Name="VS_tim4" />
 					</SignalLogicalOp>
 					<Semaphore>SYS_TIM4$noContext</Semaphore>
 					<Semaphore>SYS_TIM4$context</Semaphore>
-
 				</Mode>
-				<Mode Name="TIM5" RemoveCondition="!TIM5_Exist | (STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM5" Diagnostic="This IP instance is already used." />
+				<Mode Name="TIM5" RemoveCondition="!TIM5_Exist">
+					<Condition Expression="!TIM5 &amp; (( TIM5_APPLI &amp;SYS_APPLI )|( TIM5_BOOT &amp;SYS_BOOT ))" Diagnostic="This IP instance is already used." />
 					<SignalLogicalOp Name="AND">
 						<Signal Name="VS_tim5" />
 					</SignalLogicalOp>
 					<Semaphore>SYS_TIM5$noContext</Semaphore>
 					<Semaphore>SYS_TIM5$context</Semaphore>
-
 				</Mode>
-				<Mode Name="TIM6" RemoveCondition="!TIM6_Exist | (STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM6" Diagnostic="This IP instance is already used." />
+				<Mode Name="TIM6" RemoveCondition="!TIM6_Exist">
+					<Condition Expression="!TIM6 &amp; (( TIM6_APPLI &amp;SYS_APPLI )|( TIM6_BOOT &amp;SYS_BOOT ))" Diagnostic="This IP instance is already used." />
 					<SignalLogicalOp Name="AND">
 						<Signal Name="VS_tim6" />
 					</SignalLogicalOp>
 					<Semaphore>SYS_TIM6$noContext</Semaphore>
 					<Semaphore>SYS_TIM6$context</Semaphore>
-
 				</Mode>
-				<Mode Name="TIM7" RemoveCondition="!TIM7_Exist | (STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM7" Diagnostic="This IP instance is already used." />
+				<Mode Name="TIM7" RemoveCondition="!TIM7_Exist">
+					<Condition Expression="!TIM7 &amp; (( TIM7_APPLI &amp;SYS_APPLI )|( TIM7_BOOT &amp;SYS_BOOT ))" Diagnostic="This IP instance is already used." />
 					<SignalLogicalOp Name="AND">
 						<Signal Name="VS_tim7" />
 					</SignalLogicalOp>
 					<Semaphore>SYS_TIM7$noContext</Semaphore>
 					<Semaphore>SYS_TIM7$context</Semaphore>
-
 				</Mode>
-				<Mode Name="TIM8" RemoveCondition="!TIM8_Exist | (STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM8" Diagnostic="This IP instance is already used." />
+				<Mode Name="TIM8" RemoveCondition="!TIM8_Exist">
+					<Condition Expression="!TIM8 &amp; (( TIM8_APPLI &amp;SYS_APPLI )|( TIM8_BOOT &amp;SYS_BOOT ))" Diagnostic="This IP instance is already used." />
 					<SignalLogicalOp Name="AND">
 						<Signal Name="VS_tim8" />
 					</SignalLogicalOp>
 					<Semaphore>SYS_TIM8$noContext</Semaphore>
 					<Semaphore>SYS_TIM8$context</Semaphore>
-
 				</Mode>
-				<Mode Name="TIM9" RemoveCondition="!TIM9_Exist | (STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM9" Diagnostic="This IP instance is already used." />
+				<Mode Name="TIM9" RemoveCondition="!TIM9_Exist ">
+					<Condition Expression="!TIM9 &amp; (( TIM9_APPLI &amp;SYS_APPLI )|( TIM9_BOOT &amp;SYS_BOOT ))" Diagnostic="This IP instance is already used." />
 					<SignalLogicalOp Name="AND">
 						<Signal Name="VS_tim9" />
 					</SignalLogicalOp>
 					<Semaphore>SYS_TIM9$noContext</Semaphore>
 					<Semaphore>SYS_TIM9$context</Semaphore>
-
 				</Mode>
-				<Mode Name="TIM10" RemoveCondition="!TIM10_Exist | (STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM10" Diagnostic="This IP instance is already used." />
+				<Mode Name="TIM10" RemoveCondition="!TIM10_Exist">
+					<Condition Expression="!TIM10 &amp; (( TIM10_APPLI &amp;SYS_APPLI )|( TIM10_BOOT &amp;SYS_BOOT ))" Diagnostic="This IP instance is already used." />
 					<SignalLogicalOp Name="AND">
 						<Signal Name="VS_tim10" />
 					</SignalLogicalOp>
 					<Semaphore>SYS_TIM10$noContext</Semaphore>
 					<Semaphore>SYS_TIM10$context</Semaphore>
-
 				</Mode>
-				<Mode Name="TIM11" RemoveCondition="!TIM11_Exist | (STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM11" Diagnostic="This IP instance is already used." />
+				<Mode Name="TIM11" RemoveCondition="!TIM11_Exist">
+					<Condition Expression="!TIM11 &amp; (( TIM11_APPLI &amp;SYS_APPLI )|( TIM11_BOOT &amp;SYS_BOOT ))" Diagnostic="This IP instance is already used." />
 					<SignalLogicalOp Name="AND">
 						<Signal Name="VS_tim11" />
 					</SignalLogicalOp>
 					<Semaphore>SYS_TIM11$noContext</Semaphore>
 					<Semaphore>SYS_TIM11$context</Semaphore>
-
 				</Mode>
-				<Mode Name="TIM12" RemoveCondition="!TIM12_Exist | (STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM12" Diagnostic="This IP instance is already used." />
+				<Mode Name="TIM12" RemoveCondition="!TIM12_Exist">
+					<Condition Expression="!TIM12 &amp; (( TIM12_APPLI &amp;SYS_APPLI )|( TIM12_BOOT &amp;SYS_BOOT ))" Diagnostic="This IP instance is already used." />
 					<SignalLogicalOp Name="AND">
 						<Signal Name="VS_tim12" />
 					</SignalLogicalOp>
 					<Semaphore>SYS_TIM12$noContext</Semaphore>
 					<Semaphore>SYS_TIM12$context</Semaphore>
-
 				</Mode>
-				<Mode Name="TIM13" RemoveCondition="!TIM13_Exist | (STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM13" Diagnostic="This IP instance is already used." />
+				<Mode Name="TIM13" RemoveCondition="!TIM13_Exist">
+					<Condition Expression="!TIM13 &amp; (( TIM13_APPLI &amp;SYS_APPLI )|( TIM13_BOOT &amp;SYS_BOOT ))" Diagnostic="This IP instance is already used." />
 					<SignalLogicalOp Name="AND">
 						<Signal Name="VS_tim13" />
 					</SignalLogicalOp>
 					<Semaphore>SYS_TIM13$noContext</Semaphore>
 					<Semaphore>SYS_TIM13$context</Semaphore>
-
 				</Mode>
-				<Mode Name="TIM14" RemoveCondition="!TIM14_Exist | (STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM14" Diagnostic="This IP instance is already used." />
+				<Mode Name="TIM14" RemoveCondition="!TIM14_Exist ">
+					<Condition Expression="!TIM14 &amp; (( TIM14_APPLI &amp;SYS_APPLI )|( TIM14_BOOT &amp;SYS_BOOT ))" Diagnostic="This IP instance is already used." />
 					<SignalLogicalOp Name="AND">
 						<Signal Name="VS_tim14" />
 					</SignalLogicalOp>
 					<Semaphore>SYS_TIM14$noContext</Semaphore>
 					<Semaphore>SYS_TIM14$context</Semaphore>
-
 				</Mode>
-				<Mode Name="TIM15" RemoveCondition="!TIM15_Exist | (STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM15" Diagnostic="This IP instance is already used." />
+				<Mode Name="TIM15" RemoveCondition="!TIM15_Exist ">
+					<Condition Expression="!TIM15 &amp; (( TIM15_APPLI &amp;SYS_APPLI )|( TIM15_BOOT &amp;SYS_BOOT ))" Diagnostic="This IP instance is already used." />
 					<SignalLogicalOp Name="AND">
 						<Signal Name="VS_tim15" />
 					</SignalLogicalOp>
 					<Semaphore>SYS_TIM15$noContext</Semaphore>
 					<Semaphore>SYS_TIM15$context</Semaphore>
-
 				</Mode>
-				<Mode Name="TIM16" RemoveCondition="!TIM16_Exist | (STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM16" Diagnostic="This IP instance is already used." />
+				<Mode Name="TIM16" RemoveCondition="!TIM16_Exist">
+					<Condition Expression="!TIM16 &amp; (( TIM16_APPLI &amp;SYS_APPLI )|( TIM16_BOOT &amp;SYS_BOOT ))" Diagnostic="This IP instance is already used." />
 					<SignalLogicalOp Name="AND">
 						<Signal Name="VS_tim16" />
 					</SignalLogicalOp>
 					<Semaphore>SYS_TIM16$noContext</Semaphore>
 					<Semaphore>SYS_TIM16$context</Semaphore>
-
 				</Mode>
-				<Mode Name="TIM17" RemoveCondition="!TIM17_Exist | (STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM17" Diagnostic="This IP instance is already used." />
+				<Mode Name="TIM17" RemoveCondition="!TIM17_Exist">
+					<Condition Expression="!TIM17 &amp; (( TIM17_APPLI &amp;SYS_APPLI )|( TIM17_BOOT &amp;SYS_BOOT ))" Diagnostic="This IP instance is already used." />
 					<SignalLogicalOp Name="AND">
 						<Signal Name="VS_tim17" />
 					</SignalLogicalOp>
 					<Semaphore>SYS_TIM17$noContext</Semaphore>
 					<Semaphore>SYS_TIM17$context</Semaphore>
-
 				</Mode>
-				<Mode Name="TIM18" RemoveCondition="!TIM18_Exist | (STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM18" Diagnostic="This IP instance is already used." />
+				<Mode Name="TIM18" RemoveCondition="!TIM18_Exist">
+					<Condition Expression="!TIM18&amp; (( TIM18_APPLI &amp;SYS_APPLI )|( TIM18_BOOT &amp;SYS_BOOT ))" Diagnostic="This IP instance is already used." />
 					<SignalLogicalOp Name="AND">
 						<Signal Name="VS_tim18" />
 					</SignalLogicalOp>
 					<Semaphore>SYS_TIM18$noContext</Semaphore>
 					<Semaphore>SYS_TIM18$context</Semaphore>
-
 				</Mode>
-				<Mode Name="TIM19" RemoveCondition="!TIM19_Exist | (STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM19" Diagnostic="This IP instance is already used." />
+				<Mode Name="TIM19" RemoveCondition="!TIM19_Exist">
+					<Condition Expression="!TIM19 &amp; (( TIM19_APPLI &amp;SYS_APPLI )|( TIM19_BOOT &amp;SYS_BOOT ))" Diagnostic="This IP instance is already used." />
 					<SignalLogicalOp Name="AND">
 						<Signal Name="VS_tim19" />
 					</SignalLogicalOp>
 					<Semaphore>SYS_TIM19$noContext</Semaphore>
 					<Semaphore>SYS_TIM19$context</Semaphore>
-
 				</Mode>
-				<Mode Name="TIM20" RemoveCondition="!TIM20_Exist | (STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM20" Diagnostic="This IP instance is already used." />
+				<Mode Name="TIM20" RemoveCondition="!TIM20_Exist">
+					<Condition Expression="!TIM20 &amp; (( TIM20_APPLI &amp;SYS_APPLI )|( TIM20_BOOT &amp;SYS_BOOT ))" Diagnostic="This IP instance is already used." />
 					<SignalLogicalOp Name="AND">
 						<Signal Name="VS_tim20" />
 					</SignalLogicalOp>
 					<Semaphore>SYS_TIM20$noContext</Semaphore>
 					<Semaphore>SYS_TIM20$context</Semaphore>
-
 				</Mode>
-				<Mode Name="TIM21" RemoveCondition="!TIM21_Exist | (STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM21" Diagnostic="This IP instance is already used." />
+				<Mode Name="TIM21" RemoveCondition="!TIM21_Exist">
+					<Condition Expression="!TIM21 &amp; (( TIM21_APPLI &amp;SYS_APPLI )|( TIM21_BOOT &amp;SYS_BOOT ))" Diagnostic="This IP instance is already used." />
 					<SignalLogicalOp Name="AND">
 						<Signal Name="VS_tim21" />
 					</SignalLogicalOp>
 					<Semaphore>SYS_TIM21$noContext</Semaphore>
 					<Semaphore>SYS_TIM21$context</Semaphore>
-
 				</Mode>
-				<Mode Name="TIM22" RemoveCondition="!TIM22_Exist | (STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM22" Diagnostic="This IP instance is already used." />
+				<Mode Name="TIM22" RemoveCondition="!TIM22_Exist">
+					<Condition Expression="!TIM22 &amp; (( TIM22_APPLI &amp;SYS_APPLI )|( TIM22_BOOT &amp;SYS_BOOT ))" Diagnostic="This IP instance is already used." />
 					<SignalLogicalOp Name="AND">
 						<Signal Name="VS_tim22" />
 					</SignalLogicalOp>
 					<Semaphore>SYS_TIM22$noContext</Semaphore>
 					<Semaphore>SYS_TIM22$context</Semaphore>
-
 				</Mode>
-				<Mode Name="TIM23" RemoveCondition="!TIM23_Exist | (STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM23" Diagnostic="This IP instance is already used." />
+				<Mode Name="TIM23" RemoveCondition="!TIM23_Exist">
+					<Condition Expression="!TIM23 &amp; (( TIM23_APPLI &amp;SYS_APPLI )|( TIM23_BOOT &amp;SYS_BOOT ))" Diagnostic="This IP instance is already used." />
 					<SignalLogicalOp Name="AND">
 						<Signal Name="VS_tim23" />
 					</SignalLogicalOp>
 					<Semaphore>SYS_TIM23$context</Semaphore>
 					<Semaphore>SYS_TIM23$noContext</Semaphore>
-
 				</Mode>
-
-
-				<!-- Modes For dual core-->
-
-				<Mode Name="TIM1" RemoveCondition="!TIM1_Exist | !(STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM1 &amp; !SYS_M4_TIM1 &amp; TIM1_Cortex_M7 " Diagnostic="This IP instance is already used or not assigned to M7." />
+				<Mode Name="None">
 					<SignalLogicalOp Name="AND">
-						<Signal Name="VS_tim1" />
+						<Signal Name="VS_None" />
 					</SignalLogicalOp>
-					<Semaphore>SYS_TIM1$noContext</Semaphore>
-					<Semaphore>SYS_TIM1$Context</Semaphore>
-
-
-				</Mode>
-				<Mode Name="TIM2" RemoveCondition="!TIM2_Exist | !(STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM2 &amp; !SYS_M4_TIM2 &amp; TIM2_Cortex_M7" Diagnostic="This IP instance is already used or not assigned to M7." />
-					<SignalLogicalOp Name="AND">
-						<Signal Name="VS_tim2" />
-					</SignalLogicalOp>
-					<Semaphore>SYS_TIM2$noContext</Semaphore>
-					<Semaphore>SYS_TIM2$context</Semaphore>
-
-				</Mode>
-				<Mode Name="TIM3" RemoveCondition="!TIM3_Exist | !(STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM3 &amp; !SYS_M4_TIM3 &amp; TIM3_Cortex_M7" Diagnostic="This IP instance is already used or not assigned to M7." />
-					<SignalLogicalOp Name="AND">
-						<Signal Name="VS_tim3" />
-					</SignalLogicalOp>
-					<Semaphore>SYS_TIM3$noContext</Semaphore>
-					<Semaphore>SYS_TIM3$context</Semaphore>
-
-				</Mode>
-				<Mode Name="TIM4" RemoveCondition="!TIM4_Exist | !(STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM4 &amp; !SYS_M4_TIM4 &amp; TIM4_Cortex_M7" Diagnostic="This IP instance is already used or not assigned to M7." />
-					<SignalLogicalOp Name="AND">
-						<Signal Name="VS_tim4" />
-					</SignalLogicalOp>
-					<Semaphore>SYS_TIM4$noContext</Semaphore>
-					<Semaphore>SYS_TIM4$context</Semaphore>
-
-				</Mode>
-				<Mode Name="TIM5" RemoveCondition="!TIM5_Exist | !(STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM5 &amp; !SYS_M4_TIM5 &amp; TIM5_Cortex_M7" Diagnostic="This IP instance is already used or not assigned to M7." />
-					<SignalLogicalOp Name="AND">
-						<Signal Name="VS_tim5" />
-					</SignalLogicalOp>
-					<Semaphore>SYS_TIM5$noContext</Semaphore>
-					<Semaphore>SYS_TIM5$context</Semaphore>
-
-				</Mode>
-				<Mode Name="TIM6" RemoveCondition="!TIM6_Exist | !(STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM6 &amp; !SYS_M4_TIM6 &amp; TIM6_Cortex_M7" Diagnostic="This IP instance is already used or not assigned to M7." />
-					<SignalLogicalOp Name="AND">
-						<Signal Name="VS_tim6" />
-					</SignalLogicalOp>
-					<Semaphore>SYS_TIM6$noContext</Semaphore>
-					<Semaphore>SYS_TIM6$context</Semaphore>
-
-				</Mode>
-				<Mode Name="TIM7" RemoveCondition="!TIM7_Exist | !(STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM7 &amp; !SYS_M4_TIM7 &amp; TIM7_Cortex_M7" Diagnostic="This IP instance is already used or not assigned to M7." />
-					<SignalLogicalOp Name="AND">
-						<Signal Name="VS_tim7" />
-					</SignalLogicalOp>
-					<Semaphore>SYS_TIM7$noContext</Semaphore>
-					<Semaphore>SYS_TIM7$context</Semaphore>
-
-				</Mode>
-				<Mode Name="TIM8" RemoveCondition="!TIM8_Exist | !(STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM8 &amp; !SYS_M4_TIM8 &amp; TIM8_Cortex_M7" Diagnostic="This IP instance is already used or not assigned to M7." />
-					<SignalLogicalOp Name="AND">
-						<Signal Name="VS_tim8" />
-					</SignalLogicalOp>
-					<Semaphore>SYS_TIM8$noContext</Semaphore>
-					<Semaphore>SYS_TIM8$context</Semaphore>
-
-				</Mode>
-				<Mode Name="TIM9" RemoveCondition="!TIM9_Exist | !(STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM9 &amp; !SYS_M4_TIM9 &amp; TIM9_Cortex_M7" Diagnostic="This IP instance is already used or not assigned to M7." />
-					<SignalLogicalOp Name="AND">
-						<Signal Name="VS_tim9" />
-					</SignalLogicalOp>
-					<Semaphore>SYS_TIM9$noContext</Semaphore>
-					<Semaphore>SYS_TIM9$context</Semaphore>
-
-				</Mode>
-				<Mode Name="TIM10" RemoveCondition="!TIM10_Exist | !(STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM10 &amp; !SYS_M4_TIM10 &amp; TIM10_Cortex_M7" Diagnostic="This IP instance is already used or not assigned to M7." />
-					<SignalLogicalOp Name="AND">
-						<Signal Name="VS_tim10" />
-					</SignalLogicalOp>
-					<Semaphore>SYS_TIM10$noContext</Semaphore>
-					<Semaphore>SYS_TIM10$context</Semaphore>
-
-				</Mode>
-				<Mode Name="TIM11" RemoveCondition="!TIM11_Exist | !(STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM11 &amp; !SYS_M4_TIM11 &amp; TIM11_Cortex_M7" Diagnostic="This IP instance is already used or not assigned to M7." />
-					<SignalLogicalOp Name="AND">
-						<Signal Name="VS_tim11" />
-					</SignalLogicalOp>
-					<Semaphore>SYS_TIM11$noContext</Semaphore>
-					<Semaphore>SYS_TIM11$context</Semaphore>
-
-				</Mode>
-				<Mode Name="TIM12" RemoveCondition="!TIM12_Exist | !(STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM12 &amp; !SYS_M4_TIM12 &amp; TIM12_Cortex_M7" Diagnostic="This IP instance is already used or not assigned to M7." />
-					<SignalLogicalOp Name="AND">
-						<Signal Name="VS_tim12" />
-					</SignalLogicalOp>
-					<Semaphore>SYS_TIM12$noContext</Semaphore>
-					<Semaphore>SYS_TIM12$context</Semaphore>
-
-				</Mode>
-				<Mode Name="TIM13" RemoveCondition="!TIM13_Exist | !(STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM13 &amp; !SYS_M4_TIM13 &amp; TIM13_Cortex_M7" Diagnostic="This IP instance is already used or not assigned to M7." />
-					<SignalLogicalOp Name="AND">
-						<Signal Name="VS_tim13" />
-					</SignalLogicalOp>
-					<Semaphore>SYS_TIM13$noContext</Semaphore>
-					<Semaphore>SYS_TIM13$context</Semaphore>
-
-				</Mode>
-				<Mode Name="TIM14" RemoveCondition="!TIM14_Exist | !(STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM14 &amp; !SYS_M4_TIM14 &amp; TIM14_Cortex_M7" Diagnostic="This IP instance is already used or not assigned to M7." />
-					<SignalLogicalOp Name="AND">
-						<Signal Name="VS_tim14" />
-					</SignalLogicalOp>
-					<Semaphore>SYS_TIM14$noContext</Semaphore>
-					<Semaphore>SYS_TIM14$context</Semaphore>
-
-				</Mode>
-				<Mode Name="TIM15" RemoveCondition="!TIM15_Exist | !(STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM15 &amp; !SYS_M4_TIM15 &amp; TIM15_Cortex_M7" Diagnostic="This IP instance is already used or not assigned to M7." />
-					<SignalLogicalOp Name="AND">
-						<Signal Name="VS_tim15" />
-					</SignalLogicalOp>
-					<Semaphore>SYS_TIM15$noContext</Semaphore>
-					<Semaphore>SYS_TIM15$context</Semaphore>
-
-				</Mode>
-				<Mode Name="TIM16" RemoveCondition="!TIM16_Exist | !(STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM16 &amp; !SYS_M4_TIM16 &amp; TIM16_Cortex_M7" Diagnostic="This IP instance is already used or not assigned to M7." />
-					<SignalLogicalOp Name="AND">
-						<Signal Name="VS_tim16" />
-					</SignalLogicalOp>
-					<Semaphore>SYS_TIM16$noContext</Semaphore>
-					<Semaphore>SYS_TIM16$context</Semaphore>
-
-				</Mode>
-				<Mode Name="TIM17" RemoveCondition="!TIM17_Exist | !(STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM17 &amp; !SYS_M4_TIM17 &amp; TIM17_Cortex_M7" Diagnostic="This IP instance is already used or not assigned to M7." />
-					<SignalLogicalOp Name="AND">
-						<Signal Name="VS_tim17" />
-					</SignalLogicalOp>
-					<Semaphore>SYS_TIM17$noContext</Semaphore>
-					<Semaphore>SYS_TIM17$context</Semaphore>
-
-				</Mode>
-				<Mode Name="TIM18" RemoveCondition="!TIM18_Exist | !(STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM18 &amp; !SYS_M4_TIM18 &amp; TIM18_Cortex_M7" Diagnostic="This IP instance is already used or not assigned to M7." />
-					<SignalLogicalOp Name="AND">
-						<Signal Name="VS_tim18" />
-					</SignalLogicalOp>
-					<Semaphore>SYS_TIM18$noContext</Semaphore>
-					<Semaphore>SYS_TIM18$context</Semaphore>
-
-				</Mode>
-				<Mode Name="TIM19" RemoveCondition="!TIM19_Exist | !(STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM19 &amp; !SYS_M4_TIM19 &amp; TIM19_Cortex_M7" Diagnostic="This IP instance is already used or not assigned to M7." />
-					<SignalLogicalOp Name="AND">
-						<Signal Name="VS_tim19" />
-					</SignalLogicalOp>
-					<Semaphore>SYS_TIM19$noContext</Semaphore>
-					<Semaphore>SYS_TIM19$context</Semaphore>
-
-				</Mode>
-				<Mode Name="TIM20" RemoveCondition="!TIM20_Exist | !(STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM20 &amp; !SYS_M4_TIM20 &amp; TIM20_Cortex_M7" Diagnostic="This IP instance is already used or not assigned to M7." />
-					<SignalLogicalOp Name="AND">
-						<Signal Name="VS_tim20" />
-					</SignalLogicalOp>
-					<Semaphore>SYS_TIM20$noContext</Semaphore>
-					<Semaphore>SYS_TIM20$context</Semaphore>
-
-				</Mode>
-				<Mode Name="TIM21" RemoveCondition="!TIM21_Exist | !(STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM21 &amp; !SYS_M4_TIM21 &amp; TIM21_Cortex_M7" Diagnostic="This IP instance is already used or not assigned to M7." />
-					<SignalLogicalOp Name="AND">
-						<Signal Name="VS_tim21" />
-					</SignalLogicalOp>
-					<Semaphore>SYS_TIM21$noContext</Semaphore>
-					<Semaphore>SYS_TIM21$context</Semaphore>
-
-				</Mode>
-				<Mode Name="TIM22" RemoveCondition="!TIM22_Exist | !(STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM22 &amp; !SYS_M4_TIM22 &amp; TIM22_Cortex_M7" Diagnostic="This IP instance is already used or not assigned to M7." />
-					<SignalLogicalOp Name="AND">
-						<Signal Name="VS_tim22" />
-					</SignalLogicalOp>
-					<Semaphore>SYS_TIM22$noContext</Semaphore>
-					<Semaphore>SYS_TIM22$context</Semaphore>
-
-				</Mode>
-				<Mode Name="TIM23" RemoveCondition="!TIM23_Exist | !(STM32H745_755|STM32H747_757)">
-					<Condition Expression="!TIM23 &amp; !SYS_M4_TIM23 &amp; TIM23_Cortex_M7" Diagnostic="This IP instance is already used or not assigned to M7." />
-					<SignalLogicalOp Name="AND">
-						<Signal Name="VS_tim23" />
-					</SignalLogicalOp>
-					<Semaphore>SYS_TIM23$context</Semaphore>
-					<Semaphore>SYS_TIM23$noContext</Semaphore>
-
-				</Mode>
+					<Semaphore>SYS_None</Semaphore>
+				</Mode>            
 			</ModeLogicOperator>
 		</Mode>
-
-
 	</ModeLogicOperator>
-
 	<!-- RefSignal for System -->
 	<!--RefSignal IOMode="System" Name="JTCK-SWCLK" /-->
 	<!--RefSignal IOMode="System" Name="JTDI" /-->
@@ -728,7 +472,7 @@
 	<RefSignal Name="VS_tim23" Virtual="true" />
 	<RefSignal Name="VS_RTC" Virtual="true" />
 	<RefSignal Name="VS_Systick" Virtual="true" />
+	<RefSignal Name="VS_None" Virtual="true" />
 	<RefSignal IOMode="Analog" Name="PVD_IN" />
 	<RefSignal IOMode="Analog" Name="V_PVD_IN" Virtual="true" />
-
 </IP>
