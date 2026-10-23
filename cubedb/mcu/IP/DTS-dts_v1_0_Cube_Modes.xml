@@ -65,6 +65,31 @@
         <PossibleValue Condition="!GPIO_EXTI13_SEM" Value="DTS_TRIGGER_EXTI13" Comment="External Interrupt Mode with EXTI13 trigger detection" Diagnostic="Associate the GPIO_EXTI13 state to one among of pin numbered 13 in the pinout view"/>
     </RefParameter>
     <RefParameter Name="TriggerInput" Comment="Input Trigger Selection" DefaultValue="DTS_TRIGGER_HW_NONE" Type="list" Group="Basic parameters"  Visible="true">
+        <Condition Expression="DIE47A" Diagnostic=""/>
+        <Description>
+            The temperature measurement can be triggered either by software or by an external event which can be &lt;br/&gt;
+            a Low Power Timer (LPTIM) or the EXTernal Interrupt (EXTI13)
+        </Description>
+        <PossibleValue Value="DTS_TRIGGER_HW_NONE" Comment="No Hardware trigger detection" Diagnostic="Measurement trigger done by software"/>
+        <PossibleValue Condition="!Semaphore_ModeSelectedLPTIM1" Value="DTS_TRIGGER_LPTIMER1" Comment="External Interrupt Mode with LPTIMER1 trigger detection" Diagnostic="Activate LPTIM1 IP"/>
+        <PossibleValue Condition="!Semaphore_ModeSelectedLPTIM2" Value="DTS_TRIGGER_LPTIMER2" Comment="External Interrupt Mode with LPTIMER2 trigger detection" Diagnostic="Activate LPTIM2 IP"/>
+        <PossibleValue Condition="!Semaphore_ModeSelectedLPTIM3" Value="DTS_TRIGGER_LPTIMER3" Comment="External Interrupt Mode with LPTIMER3 trigger detection" Diagnostic="Activate LPTIM3 IP"/>
+        <PossibleValue Condition="!GPIO_EXTI13_SEM" Value="DTS_TRIGGER_EXTI13" Comment="External Interrupt Mode with EXTI13 trigger detection" Diagnostic="Associate the GPIO_EXTI13 state to one among of pin numbered 13 in the pinout view"/>
+        <PossibleValue Condition="!S_MODE_PLAY_OUT13" Value="DTS_TRIGGER_PLAY_OUT13" Comment="External Interrupt Mode with PLAY_OUT13 trigger detection" Diagnostic="Activate PLAY1 IP"/>
+    </RefParameter>
+    <RefParameter Name="TriggerInput" Comment="Input Trigger Selection" DefaultValue="DTS_TRIGGER_HW_NONE" Type="list" Group="Basic parameters"  Visible="true">
+        <Condition Expression="DIE47C" Diagnostic=""/>
+        <Description>
+            The temperature measurement can be triggered either by software or by an external event which can be &lt;br/&gt;
+            a Low Power Timer (LPTIM) or the EXTernal Interrupt (EXTI13)
+        </Description>
+        <PossibleValue Value="DTS_TRIGGER_HW_NONE" Comment="No Hardware trigger detection" Diagnostic="Measurement trigger done by software"/>
+        <PossibleValue Condition="!Semaphore_ModeSelectedLPTIM1" Value="DTS_TRIGGER_LPTIMER1" Comment="External Interrupt Mode with LPTIMER1 trigger detection" Diagnostic="Activate LPTIM1 IP"/>
+        <PossibleValue Condition="!Semaphore_ModeSelectedLPTIM2" Value="DTS_TRIGGER_LPTIMER2" Comment="External Interrupt Mode with LPTIMER2 trigger detection" Diagnostic="Activate LPTIM2 IP"/>
+        <PossibleValue Condition="!GPIO_EXTI13_SEM" Value="DTS_TRIGGER_EXTI13" Comment="External Interrupt Mode with EXTI13 trigger detection" Diagnostic="Associate the GPIO_EXTI13 state to one among of pin numbered 13 in the pinout view"/>
+        <PossibleValue Condition="!S_MODE_PLAY_OUT13" Value="DTS_TRIGGER_PLAY_OUT13" Comment="External Interrupt Mode with PLAY_OUT13 trigger detection" Diagnostic="Activate PLAY1 IP"/>
+    </RefParameter>
+    <RefParameter Name="TriggerInput" Comment="Input Trigger Selection" DefaultValue="DTS_TRIGGER_HW_NONE" Type="list" Group="Basic parameters"  Visible="true">
         <Description>
             The temperature measurement can be triggered either by software or by an external event which can be &lt;br/&gt;
             a Low Power Timer (LPTIM) or the EXTernal Interrupt (EXTI13)
@@ -100,7 +125,7 @@
         <PossibleValue Value="DTS_SMP_TIME_15_CYCLE" Comment="15 cycles for the sampling time"/>
     </RefParameter>
 
-    <RefParameter Name="Divider" Comment="Divider" DefaultValue="0" Type="integer" Group="Basic parameters"  Visible="true" Min="0" Max="0" >
+    <RefParameter Name="Divider" Comment="Divider" DefaultValue="0" Type="integer" Group="Basic parameters"  Visible="false" Min="0" Max="0" >
         <Condition Expression="DTS_REFCLK_LSE" Diagnostic="Divider available only on PCLK clock reference"/>
         <Description>
             The divider is used to divide PCLK reference clock for calibration phase &lt;br/&gt;
@@ -108,10 +133,10 @@
         </Description>
     </RefParameter>
 
-    <RefParameter Name="Divider" Comment="Divider" DefaultValue="0" Type="integer" Group="Basic parameters"  Visible="true" Min="0" Max="127">
+    <RefParameter Name="Divider" Comment="Divider" DefaultValue="1" Type="integer" Group="Basic parameters"  Visible="true" Min="1" Max="127">
         <Description>
             The divider is used to divide PCLK reference clock for calibration phase &lt;br/&gt;
-            When the LSE reference clock is selected, the divider is not used and has to be set to 0
+            When the LSE reference clock is selected, the divider is not used.
         </Description>
     </RefParameter>
 

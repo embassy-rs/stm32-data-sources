@@ -56,7 +56,7 @@
 	<RefParameter Name="USBH_USE_OS" Comment="USBH_USE_OS (Enable the support of an RTOS) " DefaultValue="1" Type="list" Group="CMSIS_RTOS" >
 		<!-- Bug 80015 -->
 		<!--<Condition Expression="S_FREERTOS = 1" Diagnostic=""/>-->
-		<Condition Expression="S_FREERTOS$context" Diagnostic=""/>		
+		<Condition Expression="S_FREERTOS" Diagnostic=""/>
 		<PossibleValue Comment="Enabled" Value="1"/>
 		<Description>Enable RTOS support</Description>
 	</RefParameter>	
@@ -253,12 +253,12 @@
 	<RefParameter Name="gState" Comment="gState" DefaultValue="HOST_IDLE"  Max="HOST_ABORT_STATE" Min="HOST_IDLE" Type="integer" Group="" Visible="false"/>
 	
 	<RefParameter Name="USBH_HandleTypeDef_FS" Comment="" DefaultValue="hUsbHostFS" Type="list" Visible="false">
-		<Condition Expression="MW_USB_OTG_FS_MW_HOST" Diagnostic=""/>
+		<Condition Expression="(MW_USB_OTG_FS_MW_HOST) | (MW_USB_OTG_FS1_MW_HOST)" Diagnostic=""/>
 		<PossibleValue Comment="" Value="hUsbHostFS"/>	
 	</RefParameter>
 	
 	<RefParameter Name="USBH_HandleTypeDef_HS" Comment="" DefaultValue="hUsbHostHS" Type="list" Visible="false">	
-		<Condition Expression="MW_USB_OTG_HS_MW_HOST" Diagnostic=""/>
+		<Condition Expression="(MW_USB_OTG_HS_MW_HOST) | (MW_USB_OTG_HS1_MW_HOST)" Diagnostic=""/>
 		<PossibleValue Comment="" Value="hUsbHostHS"/>	
 	</RefParameter>
 	
@@ -1066,11 +1066,11 @@
 			<Semaphore>USB_HOST_HS_CLASSES</Semaphore>
 			<!--<Condition Expression="(MW_USB_OTG_HS_MW_HOST | MW_USB_OTG_HS_MW_FS_HOST) &amp; (!USB_HOST_FS_CLASSES)" Diagnostic="Activate only when configuring USB_OTG_HS in Host mode"/>-->
 			<Condition Expression="(!S_AzureRTOS$context)" Diagnostic="Active only when the AzureRTOS (ThreadX,FileX,..) are deactivated"/>
-			<Condition Expression="(MW_USB_OTG_HS_MW_HOST | MW_USB_OTG_HS_MW_FS_HOST)" Diagnostic="Active only when USB_OTG_HS IP is configured in host mode"/>
+			<Condition Expression="(MW_USB_OTG_HS_MW_HOST | MW_USB_OTG_HS1_MW_HOST | MW_USB_OTG_HS_MW_FS_HOST | OTG_DUAL_ROL_DEVICE_HS_FS)" Diagnostic="Active only when USB_OTG_HS IP is configured in host mode"/>
 			<!--<Condition Expression="(MW_USB_OTG_HS_MW_HOST | MW_USB_OTG_HS_MW_FS_HOST) &amp; (!S_AzureRTOS$context)" Diagnostic="Active only when USB_OTG_HS IP is configured in host mode"/>-->
 		</Mode>
 	
-		<Mode Name="ClassFS" UserName="Class for FS IP">
+		<Mode Name="ClassFS" UserName="Class For FS IP">
 			<ModeLogicOperator Name="XOR">
 				<Mode Name="AUDIO_FS" UserName="Audio Host Class">
 					<SignalLogicalOp Name="AND">
@@ -1118,7 +1118,7 @@
 			<Semaphore>USB_HOST_FS_CLASSES</Semaphore>
 			<!--<Condition Expression="(MW_USB_OTG_FS_MW_HOST) &amp; (!USB_HOST_HS_CLASSES)" Diagnostic="Activate only when configuring USB_OTG_FS in Host mode"/>-->
 			<Condition Expression="(!S_AzureRTOS$context)" Diagnostic="Active only when the AzureRTOS (ThreadX,FileX,..) are deactivated"/>
-			<Condition Expression="(MW_USB_OTG_FS_MW_HOST)" Diagnostic="Active only when USB_OTG_FS IP is configured in host mode"/>
+			<Condition Expression="(MW_USB_OTG_FS_MW_HOST | MW_USB_OTG_FS1_MW_HOST | OTG_DUAL_ROLE_DEVICE)" Diagnostic="Active only when USB_OTG_FS IP is configured in host mode"/>
 			<!--<Condition Expression="(MW_USB_OTG_FS_MW_HOST) &amp; (!S_AzureRTOS$context)" Diagnostic="Active only when USB_OTG_FS IP is configured in host mode"/>-->
 		</Mode>	
 	</ModeLogicOperator>

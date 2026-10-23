@@ -18,12 +18,22 @@
             <MethodArg Name="RCC_MCOSource" ParameterName="RCC_MCO1Source"/>
             <MethodArg Name="RCC_MCODiv" ParameterName="RCC_MCODiv1"/>
         </CallLibMethod>
+        <CallLibMethod Name="__HAL_RCC_IC_CONFIG" ReturnHAL="false">
+            <MethodArg Name="__ICSEL__" ParameterName="ICSEL_MCO1"/>
+            <MethodArg Name="__ICCLKSRC__" ParameterName="ICCLKSRC_MCO1"/>
+            <MethodArg Name="__ICCLKDIV__" ParameterName="ICCLKDIV_MCO1"/>
+        </CallLibMethod>
     </RefConfig>
     <RefConfig Name="RCC_MCO2Config">
         <CallLibMethod Name="HAL_RCC_MCOConfig" ReturnHAL="false">
             <MethodArg Name="RCC_MCOSource" ParameterName="RCC_MCO2Source"/>
             <MethodArg Name="RCC_MCOx" ParameterName="RCC_MCO2"/>
             <MethodArg Name="RCC_MCODiv" ParameterName="RCC_MCODiv2"/>
+        </CallLibMethod>
+        <CallLibMethod Name="__HAL_RCC_IC_CONFIG" ReturnHAL="false">
+            <MethodArg Name="__ICSEL__" ParameterName="ICSEL_MCO2"/>
+            <MethodArg Name="__ICCLKSRC__" ParameterName="ICCLKSRC_MCO2"/>
+            <MethodArg Name="__ICCLKDIV__" ParameterName="ICCLKDIV_MCO2"/>
         </CallLibMethod>
     </RefConfig>
 
@@ -64,10 +74,104 @@
             <MethodArg Name="SupplySource" ParameterName="SupplySource"/>
         </CallLibMethod>
     </RefConfig>
+	
+	<RefConfig Comment="Initializes TIMPRE when TIM is used as Systick Clock Source" Name="RCC_TIMPRE_Init">
+        <CallLibMethod Name="HAL_RCCEx_PeriphCLKConfig">
+            <MethodArg Name="PeriphClockSelection" ParameterName="SYS_PeriphClockSelectionARG"/>
+            <MethodArg Name="FmcClockSelection" ParameterName=""/>
+            <MethodArg Name="Xspi1ClockSelection" ParameterName=""/>
+            <MethodArg Name="Xspi2ClockSelection" ParameterName=""/>
+            <MethodArg Name="Xspi3ClockSelection" ParameterName=""/>
+            <MethodArg Name="CkperClockSelection" ParameterName=""/>
+            <MethodArg Name="AdcClockSelection" ParameterName=""/>
+            <MethodArg Name="Adf1ClockSelection" ParameterName=""/>
+            <MethodArg Name="DcmippClockSelection" ParameterName=""/>
+            <MethodArg Name="Eth1ClockSelection" ParameterName=""/>
+            <MethodArg Name="FdcanClockSelection" ParameterName=""/>
+            <MethodArg Name="I2c1ClockSelection" ParameterName=""/>
+            <MethodArg Name="I2c2ClockSelection" ParameterName=""/>
+            <MethodArg Name="I2c3ClockSelection" ParameterName=""/>
+            <MethodArg Name="I2c4ClockSelection" ParameterName=""/>
+            <MethodArg Name="I3c1ClockSelection" ParameterName=""/>
+            <MethodArg Name="I3c2ClockSelection" ParameterName=""/>
+            <MethodArg Name="Lptim1ClockSelection" ParameterName=""/>
+            <MethodArg Name="Lptim2ClockSelection" ParameterName=""/>
+            <MethodArg Name="Lptim3ClockSelection" ParameterName=""/>
+            <MethodArg Name="Lptim4ClockSelection" ParameterName=""/>
+            <MethodArg Name="Lptim5ClockSelection" ParameterName=""/>
+            <MethodArg Name="Lpuart1ClockSelection" ParameterName=""/>
+            <MethodArg Name="LtdcClockSelection" ParameterName=""/>
+            <MethodArg Name="Mdf1ClockSelection" ParameterName=""/>
+            <MethodArg Name="PssiClockSelection" ParameterName=""/>
+            <MethodArg Name="Sai1ClockSelection" ParameterName=""/>
+            <MethodArg Name="Sai2ClockSelection" ParameterName=""/>
+            <MethodArg Name="Sdmmc1ClockSelection" ParameterName=""/>
+            <MethodArg Name="Sdmmc2ClockSelection" ParameterName=""/>
+            <MethodArg Name="Spi1ClockSelection" ParameterName=""/>         
+            <MethodArg Name="Spi2ClockSelection" ParameterName=""/>
+            <MethodArg Name="Spi3ClockSelection" ParameterName=""/>
+            <MethodArg Name="Spi4ClockSelection" ParameterName=""/>
+            <MethodArg Name="Spi5ClockSelection" ParameterName=""/>
+            <MethodArg Name="Spi6ClockSelection" ParameterName=""/>
+            <MethodArg Name="Spdifrx1ClockSelection" ParameterName=""/>   
+            <MethodArg Name="Usart1ClockSelection" ParameterName=""/>   
+            <MethodArg Name="Usart2ClockSelection" ParameterName=""/>   
+            <MethodArg Name="Usart3ClockSelection" ParameterName=""/>   
+            <MethodArg Name="Uart4ClockSelection" ParameterName=""/>   
+            <MethodArg Name="Uart5ClockSelection" ParameterName=""/>   
+            <MethodArg Name="Usart6ClockSelection" ParameterName=""/>   
+            <MethodArg Name="Uart7ClockSelection" ParameterName=""/>   
+            <MethodArg Name="Uart8ClockSelection" ParameterName=""/>   
+            <MethodArg Name="Uart9ClockSelection" ParameterName=""/>   
+            <MethodArg Name="Usart10ClockSelection" ParameterName=""/>   
+            <MethodArg Name="UsbPhy1ClockSelection" ParameterName=""/>   
+            <MethodArg Name="UsbOtgHs1ClockSelection" ParameterName=""/>
+            <MethodArg Name="UsbPhy2ClockSelection" ParameterName=""/>   
+            <MethodArg Name="UsbOtgHs2ClockSelection" ParameterName=""/> 			
+            <MethodArg Name="RTCClockSelection" ParameterName=""/> 			
+            <MethodArg Name="TIMPresSelection" ParameterName="TIMPresSelectionSYS"/>
+            <MethodArg Name="ICSelection[RCC_IC3].ClockSelection" ParameterName=""/>
+            <MethodArg Name="ICSelection[RCC_IC3].ClockDivider" ParameterName=""/>
+            <MethodArg Name="ICSelection[RCC_IC4].ClockSelection" ParameterName=""/>
+            <MethodArg Name="ICSelection[RCC_IC4].ClockDivider" ParameterName=""/>
+            <MethodArg Name="ICSelection[RCC_IC5].ClockSelection" ParameterName=""/>
+            <MethodArg Name="ICSelection[RCC_IC5].ClockDivider" ParameterName=""/>
+            <MethodArg Name="ICSelection[RCC_IC7].ClockSelection" ParameterName=""/>
+            <MethodArg Name="ICSelection[RCC_IC7].ClockDivider" ParameterName=""/>
+            <MethodArg Name="ICSelection[RCC_IC8].ClockSelection" ParameterName=""/>
+            <MethodArg Name="ICSelection[RCC_IC8].ClockDivider" ParameterName=""/>
+            <MethodArg Name="ICSelection[RCC_IC9].ClockSelection" ParameterName=""/>
+            <MethodArg Name="ICSelection[RCC_IC9].ClockDivider" ParameterName=""/>
+            <MethodArg Name="ICSelection[RCC_IC10].ClockSelection" ParameterName=""/>
+            <MethodArg Name="ICSelection[RCC_IC10].ClockDivider" ParameterName=""/>
+            <MethodArg Name="ICSelection[RCC_IC12].ClockSelection" ParameterName=""/>
+            <MethodArg Name="ICSelection[RCC_IC12].ClockDivider" ParameterName=""/>
+            <MethodArg Name="ICSelection[RCC_IC14].ClockSelection" ParameterName=""/>
+            <MethodArg Name="ICSelection[RCC_IC14].ClockDivider" ParameterName=""/>
+            <MethodArg Name="ICSelection[RCC_IC15].ClockSelection" ParameterName=""/>
+            <MethodArg Name="ICSelection[RCC_IC15].ClockDivider" ParameterName=""/>
+            <MethodArg Name="ICSelection[RCC_IC16].ClockSelection" ParameterName=""/>
+            <MethodArg Name="ICSelection[RCC_IC16].ClockDivider" ParameterName=""/>
+            <MethodArg Name="ICSelection[RCC_IC17].ClockSelection" ParameterName=""/>
+            <MethodArg Name="ICSelection[RCC_IC17].ClockDivider" ParameterName=""/>
+            <MethodArg Name="ICSelection[RCC_IC18].ClockSelection" ParameterName=""/>
+            <MethodArg Name="ICSelection[RCC_IC18].ClockDivider" ParameterName=""/>
+            <MethodArg Name="ICSelection[RCC_IC19].ClockSelection" ParameterName=""/>
+            <MethodArg Name="ICSelection[RCC_IC19].ClockDivider" ParameterName=""/>
+            <MethodArg Name="ICSelection[RCC_IC20].ClockSelection" ParameterName=""/>
+            <MethodArg Name="ICSelection[RCC_IC20].ClockDivider" ParameterName=""/>
+        </CallLibMethod>
+    </RefConfig>
 
     <RefConfig Comment="Enables the Clock Security System" Name="RCC_CSS_Enable">
         <CallLibMethod Name="HAL_RCC_EnableCSS" ReturnHAL="false"/>
     </RefConfig>
+    <RefConfig Comment="Configure the main internal regulator output voltage" Name="RCC_ConfigVoltageScaling">
+        <CallLibMethod Name="HAL_PWREx_ControlVoltageScaling">
+            <MethodArg Name="REGULATOR" ParameterName="PWR_Regulator_Voltage_Scale"/>
+        </CallLibMethod>
+    </RefConfig>
+
     <RefConfig Comment="Enables the Clock Security System" Name="RCC_CSS_EnableLSE">
         <CallLibMethod Name="HAL_RCCEx_EnableLSECSS" ReturnHAL="false"/>
     </RefConfig>
@@ -139,7 +243,7 @@
             <MethodArg Name="Xspi1ClockSelection" ParameterName="Xspi1ClockSelectionARG"/>
             <MethodArg Name="Xspi2ClockSelection" ParameterName="Xspi2ClockSelectionARG"/>
             <MethodArg Name="Xspi3ClockSelection" ParameterName="Xspi3ClockSelectionARG"/>
-            <MethodArg Name="CkperClockSelection" ParameterName="CkperClockSelectionARG"/>
+            <MethodArg Name="CkperClockSelection" ParameterName=""/>
             <MethodArg Name="AdcClockSelection" ParameterName="AdcClockSelectionARG"/>
             <MethodArg Name="AdcDivider" ParameterName="AdcDividerARG"/>
             <MethodArg Name="Adf1ClockSelection" ParameterName="Adf1ClockSelectionARG"/>
@@ -221,13 +325,14 @@
         </CallLibMethod>
     </RefConfig>
     <RefConfig Comment="Initializes the peripherals clock" Name="RCC_CommonPeriphClockConfig">
+	<IFCondition Expression="!(RCC_PERIPHCLK_TIMSYS=RCC_PERIPHCLK_TIM)|cKPerUsed=1" >
         <CallLibMethod Name="HAL_RCCEx_PeriphCLKConfig">
             <MethodArg Name="PeriphClockSelection" ParameterName="C_PeriphClockSelectionARG"/>
             <MethodArg Name="FmcClockSelection" ParameterName=""/>
             <MethodArg Name="Xspi1ClockSelection" ParameterName=""/>
             <MethodArg Name="Xspi2ClockSelection" ParameterName=""/>
             <MethodArg Name="Xspi3ClockSelection" ParameterName=""/>
-            <MethodArg Name="CkperClockSelection" ParameterName=""/>
+            <MethodArg Name="CkperClockSelection" ParameterName="CkperClockSelectionARG"/>
             <MethodArg Name="AdcClockSelection" ParameterName=""/>
             <MethodArg Name="Adf1ClockSelection" ParameterName=""/>
             <MethodArg Name="DcmippClockSelection" ParameterName=""/>
@@ -273,39 +378,40 @@
             <MethodArg Name="UsbOtgHs1ClockSelection" ParameterName=""/>
             <MethodArg Name="UsbPhy2ClockSelection" ParameterName=""/>   
             <MethodArg Name="UsbOtgHs2ClockSelection" ParameterName=""/> 			
-            <MethodArg Name="RTCClockSelection" ParameterName=""/> 			
+            <MethodArg Name="RTCClockSelection" ParameterName=""/>	
             <MethodArg Name="TIMPresSelection" ParameterName="TIMPresSelectionARG"/>
             <MethodArg Name="ICSelection[RCC_IC3].ClockSelection" ParameterName=""/>
             <MethodArg Name="ICSelection[RCC_IC3].ClockDivider" ParameterName=""/>
             <MethodArg Name="ICSelection[RCC_IC4].ClockSelection" ParameterName=""/>
             <MethodArg Name="ICSelection[RCC_IC4].ClockDivider" ParameterName=""/>
-            <MethodArg Name="ICSelection[RCC_IC5].ClockSelection" ParameterName=""/>
-            <MethodArg Name="ICSelection[RCC_IC5].ClockDivider" ParameterName=""/>
+            <MethodArg Name="ICSelection[RCC_IC5].ClockSelection" ParameterName="C_IC5ClockSelection"/>
+            <MethodArg Name="ICSelection[RCC_IC5].ClockDivider" ParameterName="C_IC5ClockDivider"/>
             <MethodArg Name="ICSelection[RCC_IC7].ClockSelection" ParameterName=""/>
             <MethodArg Name="ICSelection[RCC_IC7].ClockDivider" ParameterName=""/>
             <MethodArg Name="ICSelection[RCC_IC8].ClockSelection" ParameterName=""/>
             <MethodArg Name="ICSelection[RCC_IC8].ClockDivider" ParameterName=""/>
             <MethodArg Name="ICSelection[RCC_IC9].ClockSelection" ParameterName=""/>
             <MethodArg Name="ICSelection[RCC_IC9].ClockDivider" ParameterName=""/>
-            <MethodArg Name="ICSelection[RCC_IC10].ClockSelection" ParameterName=""/>
-            <MethodArg Name="ICSelection[RCC_IC10].ClockDivider" ParameterName=""/>
+            <MethodArg Name="ICSelection[RCC_IC10].ClockSelection" ParameterName="C_IC10ClockSelection"/>
+            <MethodArg Name="ICSelection[RCC_IC10].ClockDivider" ParameterName="C_IC10ClockDivider"/>
             <MethodArg Name="ICSelection[RCC_IC12].ClockSelection" ParameterName=""/>
             <MethodArg Name="ICSelection[RCC_IC12].ClockDivider" ParameterName=""/>
             <MethodArg Name="ICSelection[RCC_IC14].ClockSelection" ParameterName=""/>
             <MethodArg Name="ICSelection[RCC_IC14].ClockDivider" ParameterName=""/>
-            <MethodArg Name="ICSelection[RCC_IC15].ClockSelection" ParameterName=""/>
-            <MethodArg Name="ICSelection[RCC_IC15].ClockDivider" ParameterName=""/>
+            <MethodArg Name="ICSelection[RCC_IC15].ClockSelection" ParameterName="C_IC15ClockSelection"/>
+            <MethodArg Name="ICSelection[RCC_IC15].ClockDivider" ParameterName="C_IC15ClockDivider"/>
             <MethodArg Name="ICSelection[RCC_IC16].ClockSelection" ParameterName=""/>
             <MethodArg Name="ICSelection[RCC_IC16].ClockDivider" ParameterName=""/>
             <MethodArg Name="ICSelection[RCC_IC17].ClockSelection" ParameterName=""/>
             <MethodArg Name="ICSelection[RCC_IC17].ClockDivider" ParameterName=""/>
             <MethodArg Name="ICSelection[RCC_IC18].ClockSelection" ParameterName=""/>
             <MethodArg Name="ICSelection[RCC_IC18].ClockDivider" ParameterName=""/>
-            <MethodArg Name="ICSelection[RCC_IC19].ClockSelection" ParameterName=""/>
-            <MethodArg Name="ICSelection[RCC_IC19].ClockDivider" ParameterName=""/>
-            <MethodArg Name="ICSelection[RCC_IC20].ClockSelection" ParameterName=""/>
-            <MethodArg Name="ICSelection[RCC_IC20].ClockDivider" ParameterName=""/>
+            <MethodArg Name="ICSelection[RCC_IC19].ClockSelection" ParameterName="C_IC19ClockSelection"/>
+            <MethodArg Name="ICSelection[RCC_IC19].ClockDivider" ParameterName="C_IC19ClockDivider"/>
+            <MethodArg Name="ICSelection[RCC_IC20].ClockSelection" ParameterName="C_IC20ClockSelection"/>
+            <MethodArg Name="ICSelection[RCC_IC20].ClockDivider" ParameterName="C_IC20ClockDivider"/>
         </CallLibMethod>
+	</IFCondition>
     </RefConfig>
     <RefConfig Comment=" Enables PLL2P clock output" Name="PLL2P_FOR_MCO">
         <IFCondition Expression="PLL2Used=1 &amp; ((pll2usage=1) &amp; ((MCO2SOURCE_PLL2PCLK)&amp; (MCO2Config)))" >
@@ -440,6 +546,11 @@
         <Argument AddressOf="false" GenericType="simple" Name="RCC_MCOSource" OptimizationCondition="equal"/>
         <Argument AddressOf="false" GenericType="simple" Name="RCC_MCODiv" OptimizationCondition="equal"/>
     </LibMethod>
+    <LibMethod Comment="" Name="__HAL_RCC_IC_CONFIG">
+        <Argument AddressOf="false" GenericType="simple" Name="__ICSEL__" OptimizationCondition="equal"/>
+        <Argument AddressOf="false" GenericType="simple" Name="__ICCLKSRC__" OptimizationCondition="equal"/>
+        <Argument AddressOf="false" GenericType="simple" Name="__ICCLKDIV__" OptimizationCondition="equal"/>
+    </LibMethod>
     <LibMethod Comment="" Name="HAL_RCCEx_PeriphCLKConfig">
         <Argument AddressOf="true" GenericType="struct" Name="PeriphClkInitStruct" TypeName="RCC_PeriphCLKInitTypeDef">
             <Argument AddressOf="false" GenericType="simple" Name="PeriphClockSelection" OptimizationCondition="equal"/>
@@ -526,6 +637,10 @@
             <Argument AddressOf="false" GenericType="simple" Name="ICSelection[RCC_IC20].ClockSelection" OptimizationCondition="equal"/>
             <Argument AddressOf="false" GenericType="simple" Name="ICSelection[RCC_IC20].ClockDivider"   OptimizationCondition="equal"/>
         </Argument>
+    </LibMethod>
+    
+    <LibMethod Comment="" Name="HAL_PWREx_ControlVoltageScaling">
+        <Argument AddressOf="false" GenericType="simple" Name="REGULATOR" OptimizationCondition="equal"/>
     </LibMethod>
     
     <RefComponent Cclass="HAL" Cgroup="RCC" Cversion="0.1.0">        

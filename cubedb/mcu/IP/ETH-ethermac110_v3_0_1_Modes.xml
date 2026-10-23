@@ -18,7 +18,9 @@
 	<RefParameter Comment="Note" DefaultValue="N/A" Name="Note" Group="General : Ethernet Configuration" Type="string" Visible="false"/>
 
 	<!-- ST MicroElectronics prefixe Adress -->
-	<RefParameter Comment="Ethernet MAC Address" ArraySize="6" ArrayTypeElement="uint8_t;16" Name="MACAddr" Type="Array" Separator=":" Group="General : Ethernet Configuration" DefaultValue="00:80:E1:00:00:00"/>
+	<RefParameter Comment="Ethernet MAC Address" ArraySize="6" ArrayTypeElement="uint8_t;16" Name="MACAddr" Type="Array" Separator=":" Group="General : Ethernet Configuration" DefaultValue="00:80:E1:00:00:00">
+		<Description>Ethernet MAC address: A 48-bit (6 bytes) hardware identifier, in a 12 hexadecimal digits format, separated by colons.</Description>
+	</RefParameter>
 	<RefParameter Comment="Rx Mode" DefaultValue="ETH_RXINTERRUPT_MODE" Name="RxMode" Type="list" Group="General : Ethernet Configuration">
 		<Condition Diagnostic="" Expression="!STM32H7 &amp; !STM32H5 &amp; S_FREERTOS &amp; S_LWIP"/>
 		<PossibleValue Comment="Interrupt Mode" Value="ETH_RXINTERRUPT_MODE" Semaphore="ETH_RX_INTERRUPT_ON"/>
@@ -38,8 +40,9 @@
 	<RefParameter Name="RxMode" Comment="Rx Mode" Type="list" Group="General : Ethernet Configuration" DefaultValue="ETH_RXPOLLING_MODE" Visible="false">
 		<PossibleValue Comment="Polling Mode" Value="ETH_RXPOLLING_MODE"/>
         <Description>Polling mode is supported without FreeRTOS.&lt;br&gt;Interrupt mode is supported with FreeRTOS.&lt;br&gt;Tx mode is the same as Rx mode.</Description>
-	</RefParameter>	
-	<RefParameter Comment="Rx Descriptor Length" DefaultValue="4" Max="256" Min="0" Type="integer" Name="ETH_RX_DESC_CNT" Group="General : Ethernet Configuration">
+	</RefParameter>
+
+	<RefParameter Comment="Rx Descriptor Length" DefaultValue="4" Max="1024" Min="0" Type="integer" Name="ETH_RX_DESC_CNT" Group="General : Ethernet Configuration">
 		<Description>Rx Descriptor Length value must be modulo 4. Rx descriptor length must be set in a way that Rx descriptor contents must not exceed max value and must not overlap with Rx buffer and Tx descriptor.</Description>
 		<ValueCondition Diagnostic="Value must be modulo 4" Expression="MOD(Value,4) = 0"/>
 	</RefParameter>
@@ -49,7 +52,7 @@
 	</RefParameter>
 	<RefParameter Name="TxDesc" Comment="Tx Desc" Type="string" Group="General : Ethernet Configuration" DefaultValue="DMATxDscrTab"  Visible="false"/>
 
-	<RefParameter Comment="Tx Descriptor Length" DefaultValue="4" Max="256" Min="0" Type="integer" Name="ETH_TX_DESC_CNT" Group="General : Ethernet Configuration">
+	<RefParameter Comment="Tx Descriptor Length" DefaultValue="4" Max="1024" Min="0" Type="integer" Name="ETH_TX_DESC_CNT" Group="General : Ethernet Configuration">
 		<Description>Tx Descriptor Length value must be modulo 4. Tx descriptor length must be set in a way that Tx descriptor contents must not exceed max value and must not overlap with Rx descriptor and buffer.</Description>
 		<ValueCondition Diagnostic="Value must be modulo 4" Expression="MOD(Value,4) = 0"/>
 	</RefParameter>
@@ -351,7 +354,7 @@
 					<!--<Semaphore>MII_PTP_Synchro</Semaphore>-->
 					<Semaphore>MII</Semaphore>	
 					<Semaphore>MW_ETH_MW</Semaphore>
-					<Condition Expression="IF(STM32H7,((Semaphore_TriggerSourceITR4TIM2 &amp; Semaphore_ETH_ControllerModeTIM2) | (Semaphore_TriggerSourceITR4TIM3 &amp; Semaphore_ETH_ControllerModeTIM3)) | ((DIE450 &amp; (FDCAN1Used_ForRCC | FDCAN2Used_ForRCC)) | (DIE483 &amp; !FDCAN2Used_ForRCC &amp; (FDCAN1Used_ForRCC | FDCAN3Used_ForRCC))),IF(STM32H5,(Semaphore_TIM_TIM2_ETR_ETH_PTP_PPS_O | Semaphore_TIM_TIM3_ETR_ETH_PTP_PPS_O | Semaphore_TIM_TIM2_TI1_ETH_PTP_PPS_O | Semaphore_TIM_TIM3_TI1_ETH_PTP_PPS_O),Semaphore_TriggerSourceITR1TIM2 &amp; Semaphore_ETH_ControllerModeTIM2))" Diagnostic="Only active when TIM2(H7/F7)/TIM3(H7) has an enabled Slave Mode with ITR4(H7)/ITR1(F7) as trigger source or if FDCAN(H7) is enabled.&lt;br&gt;For H5 : Active when TIM2/TIM3 is enabled with trigger source 'ETR1 through Remap' and 'ETR remap capabilities for TIMx' parameter is set to 'TIMx ETR is connected to ETH_PTP_PPS_O'&lt;br&gt;or when TIM2/TIM3 is enabled with Channel1 set to 'Input Capture direct mode from Remap' and 'TI1 remap capabilities for TIMx' parameter is set to 'TIMx Channel 1 is connected to ETH_PTP_PPs_O'"/>
+					<Condition Expression="IF(STM32H7,((Semaphore_TriggerSourceITR4TIM2 &amp; Semaphore_ETH_ControllerModeTIM2) | (Semaphore_TriggerSourceITR4TIM3 &amp; Semaphore_ETH_ControllerModeTIM3)) | ((DIE450 &amp; (FDCAN1Used_ForRCC | FDCAN2Used_ForRCC)) | (DIE483 &amp; !FDCAN2Used_ForRCC &amp; (FDCAN1Used_ForRCC | FDCAN3Used_ForRCC))),IF(STM32H5,(Semaphore_TIM_TIM2_ETR_ETH_PTP_PPS_OTIM2 | Semaphore_TIM_TIM3_ETR_ETH_PTP_PPS_OTIM3 | Semaphore_TIM_TIM2_TI1_ETH_PTP_PPS_OTIM2 | Semaphore_TIM_TIM3_TI1_ETH_PTP_PPS_OTIM3),Semaphore_TriggerSourceITR1TIM2 &amp; Semaphore_ETH_ControllerModeTIM2))" Diagnostic="Only active when TIM2(H7/F7)/TIM3(H7) has an enabled Slave Mode with ITR4(H7)/ITR1(F7) as trigger source or if FDCAN(H7) is enabled.&lt;br&gt;For H5 : Active when TIM2/TIM3 is enabled with trigger source 'ETR1 through Remap' and 'ETR remap capabilities for TIMx' parameter is set to 'TIMx ETR is connected to ETH_PTP_PPS_O'&lt;br&gt;or when TIM2/TIM3 is enabled with Channel1 set to 'Input Capture direct mode from Remap' and 'TI1 remap capabilities for TIMx' parameter is set to 'TIMx Channel 1 is connected to ETH_PTP_PPs_O'"/>
 				</Mode>	
 				<Mode Name="MII_PTP_Synchro" RemoveCondition="!(STM32H563VITxQ | STM32H563ZITxQ | STM32H573VITxQ | STM32H573ZITxQ)">				
 					<SignalLogicalOp Name="AND">
@@ -374,7 +377,7 @@
 					<!--<Semaphore>MII_PTP_Synchro</Semaphore>-->
 					<Semaphore>MII</Semaphore>	
 					<Semaphore>MW_ETH_MW</Semaphore>
-					<Condition Expression="IF(STM32H7,((Semaphore_TriggerSourceITR4TIM2 &amp; Semaphore_ETH_ControllerModeTIM2) | (Semaphore_TriggerSourceITR4TIM3 &amp; Semaphore_ETH_ControllerModeTIM3)) | ((DIE450 &amp; (FDCAN1Used_ForRCC | FDCAN2Used_ForRCC)) | (DIE483 &amp; !FDCAN2Used_ForRCC &amp; (FDCAN1Used_ForRCC | FDCAN3Used_ForRCC))),IF(STM32H5,(Semaphore_TIM_TIM2_ETR_ETH_PTP_PPS_O | Semaphore_TIM_TIM3_ETR_ETH_PTP_PPS_O | Semaphore_TIM_TIM2_TI1_ETH_PTP_PPS_O | Semaphore_TIM_TIM3_TI1_ETH_PTP_PPS_O),Semaphore_TriggerSourceITR1TIM2 &amp; Semaphore_ETH_ControllerModeTIM2))" Diagnostic="Only active when TIM2(H7/F7)/TIM3(H7) has an enabled Slave Mode with ITR4(H7)/ITR1(F7) as trigger source or if FDCAN(H7) is enabled.&lt;br&gt;For H5 : Active when TIM2/TIM3 is enabled with trigger source 'ETR1 through Remap' and 'ETR remap capabilities for TIMx' parameter is set to 'TIMx ETR is connected to ETH_PTP_PPS_O'&lt;br&gt;or when TIM2/TIM3 is enabled with Channel1 set to 'Input Capture direct mode from Remap' and 'TI1 remap capabilities for TIMx' parameter is set to 'TIMx Channel 1 is connected to ETH_PTP_PPs_O'"/>
+					<Condition Expression="IF(STM32H7,((Semaphore_TriggerSourceITR4TIM2 &amp; Semaphore_ETH_ControllerModeTIM2) | (Semaphore_TriggerSourceITR4TIM3 &amp; Semaphore_ETH_ControllerModeTIM3)) | ((DIE450 &amp; (FDCAN1Used_ForRCC | FDCAN2Used_ForRCC)) | (DIE483 &amp; !FDCAN2Used_ForRCC &amp; (FDCAN1Used_ForRCC | FDCAN3Used_ForRCC))),IF(STM32H5,(Semaphore_TIM_TIM2_ETR_ETH_PTP_PPS_OTIM2 | Semaphore_TIM_TIM3_ETR_ETH_PTP_PPS_OTIM3 | Semaphore_TIM_TIM2_TI1_ETH_PTP_PPS_OTIM2 | Semaphore_TIM_TIM3_TI1_ETH_PTP_PPS_OTIM3),Semaphore_TriggerSourceITR1TIM2 &amp; Semaphore_ETH_ControllerModeTIM2))" Diagnostic="Only active when TIM2(H7/F7)/TIM3(H7) has an enabled Slave Mode with ITR4(H7)/ITR1(F7) as trigger source or if FDCAN(H7) is enabled.&lt;br&gt;For H5 : Active when TIM2/TIM3 is enabled with trigger source 'ETR1 through Remap' and 'ETR remap capabilities for TIMx' parameter is set to 'TIMx ETR is connected to ETH_PTP_PPS_O'&lt;br&gt;or when TIM2/TIM3 is enabled with Channel1 set to 'Input Capture direct mode from Remap' and 'TI1 remap capabilities for TIMx' parameter is set to 'TIMx Channel 1 is connected to ETH_PTP_PPs_O'"/>
 				</Mode>
 				<Mode Name="MII Half Duplex Only_PTP_Synchro" RemoveCondition="STM32H563VITxQ | STM32H563ZITxQ | STM32H573VITxQ | STM32H573ZITxQ">				
 					<SignalLogicalOp Name="AND">
@@ -399,7 +402,7 @@
 					<!--<Semaphore>MII_PTP_Synchro</Semaphore>-->
 					<Semaphore>MII</Semaphore>	
 					<Semaphore>MW_ETH_MW</Semaphore>
-					<Condition Expression="(Semaphore_ETH_TriggerSourceITR1TIM2)&amp;(Semaphore_ETH_ControllerModeTIM2)" Diagnostic="Only active when TIM2 has an enabled Slave Mode with ITR1 as trigger source"/>
+					<Condition Expression="IF(DIE484,Semaphore_TIM_TIM2_ETR_ETH_PTP_PPS_OTIM2 | Semaphore_TIM_TIM3_ETR_ETH_PTP_PPS_OTIM3 | Semaphore_TIM_TIM2_TI1_ETH_PTP_PPS_OTIM2 | Semaphore_TIM_TIM3_TI1_ETH_PTP_PPS_OTIM3,(Semaphore_ETH_TriggerSourceITR1TIM2)&amp;(Semaphore_ETH_ControllerModeTIM2))" Diagnostic="For H5 : Active when TIM2/TIM3 is enabled with trigger source 'ETR1 through Remap' and 'ETR remap capabilities for TIMx' parameter is set to 'TIMx ETR is connected to ETH_PTP_PPS_O'&lt;br&gt;or when TIM2/TIM3 is enabled with Channel1 set to 'Input Capture direct mode from Remap' and 'TI1 remap capabilities for TIMx' parameter is set to 'TIMx Channel 1 is connected to ETH_PTP_PPs_O'"/>
 				</Mode>
 				<Mode Name="MII Half Duplex Only_PTP_Synchro" RemoveCondition="!(STM32H563VITxQ |  STM32H563ZITxQ | STM32H573VITxQ | STM32H573ZITxQ)">				
 					<SignalLogicalOp Name="AND">
@@ -422,7 +425,7 @@
 					<!--<Semaphore>MII_PTP_Synchro</Semaphore>-->
 					<Semaphore>MII</Semaphore>	
 					<Semaphore>MW_ETH_MW</Semaphore>
-					<Condition Expression="(Semaphore_ETH_TriggerSourceITR1TIM2)&amp;(Semaphore_ETH_ControllerModeTIM2)" Diagnostic="Only active when TIM2 has an enabled Slave Mode with ITR1 as trigger source"/>
+					<Condition Expression="IF(DIE484,Semaphore_TIM_TIM2_ETR_ETH_PTP_PPS_OTIM2 | Semaphore_TIM_TIM3_ETR_ETH_PTP_PPS_OTIM3 | Semaphore_TIM_TIM2_TI1_ETH_PTP_PPS_OTIM2 | Semaphore_TIM_TIM3_TI1_ETH_PTP_PPS_OTIM3,(Semaphore_ETH_TriggerSourceITR1TIM2)&amp;(Semaphore_ETH_ControllerModeTIM2))" Diagnostic="For H5 : Active when TIM2/TIM3 is enabled with trigger source 'ETR1 through Remap' and 'ETR remap capabilities for TIMx' parameter is set to 'TIMx ETR is connected to ETH_PTP_PPS_O'&lt;br&gt;or when TIM2/TIM3 is enabled with Channel1 set to 'Input Capture direct mode from Remap' and 'TI1 remap capabilities for TIMx' parameter is set to 'TIMx Channel 1 is connected to ETH_PTP_PPs_O'"/>
 				</Mode>
 				<Mode Name="MII Full Duplex Only_PTP_Synchro" RemoveCondition="STM32H563VITxQ | STM32H563ZITxQ | STM32H573VITxQ | STM32H573ZITxQ">				
 					<SignalLogicalOp Name="AND">					
@@ -445,7 +448,7 @@
 					<!--<Semaphore>MII_PTP_Synchro</Semaphore>-->
 					<Semaphore>MII</Semaphore>	
 					<Semaphore>MW_ETH_MW</Semaphore>
-					<Condition Expression="(Semaphore_ETH_TriggerSourceITR1TIM2)&amp;(Semaphore_ETH_ControllerModeTIM2)" Diagnostic="Only active when TIM2 has an enabled Slave Mode with ITR1 as trigger source"/>
+					<Condition Expression="IF(DIE484,Semaphore_TIM_TIM2_ETR_ETH_PTP_PPS_OTIM2 | Semaphore_TIM_TIM3_ETR_ETH_PTP_PPS_OTIM3 | Semaphore_TIM_TIM2_TI1_ETH_PTP_PPS_OTIM2 | Semaphore_TIM_TIM3_TI1_ETH_PTP_PPS_OTIM3,(Semaphore_ETH_TriggerSourceITR1TIM2)&amp;(Semaphore_ETH_ControllerModeTIM2))" Diagnostic="For H5 : Active when TIM2/TIM3 is enabled with trigger source 'ETR1 through Remap' and 'ETR remap capabilities for TIMx' parameter is set to 'TIMx ETR is connected to ETH_PTP_PPS_O'&lt;br&gt;or when TIM2/TIM3 is enabled with Channel1 set to 'Input Capture direct mode from Remap' and 'TI1 remap capabilities for TIMx' parameter is set to 'TIMx Channel 1 is connected to ETH_PTP_PPs_O'"/>
 				</Mode>
 				<Mode Name="MII Full Duplex Only_PTP_Synchro" RemoveCondition="!(STM32H563VITxQ | STM32H563ZITxQ | STM32H573VITxQ | STM32H573ZITxQ)">				
 					<SignalLogicalOp Name="AND">					
@@ -466,7 +469,7 @@
 					<!--<Semaphore>MII_PTP_Synchro</Semaphore>-->
 					<Semaphore>MII</Semaphore>	
 					<Semaphore>MW_ETH_MW</Semaphore>
-					<Condition Expression="(Semaphore_ETH_TriggerSourceITR1TIM2)&amp;(Semaphore_ETH_ControllerModeTIM2)" Diagnostic="Only active when TIM2 has an enabled Slave Mode with ITR1 as trigger source"/>
+					<Condition Expression="IF(DIE484,Semaphore_TIM_TIM2_ETR_ETH_PTP_PPS_OTIM2 | Semaphore_TIM_TIM3_ETR_ETH_PTP_PPS_OTIM3 | Semaphore_TIM_TIM2_TI1_ETH_PTP_PPS_OTIM2 | Semaphore_TIM_TIM3_TI1_ETH_PTP_PPS_OTIM3,(Semaphore_ETH_TriggerSourceITR1TIM2)&amp;(Semaphore_ETH_ControllerModeTIM2))" Diagnostic="For H5 : Active when TIM2/TIM3 is enabled with trigger source 'ETR1 through Remap' and 'ETR remap capabilities for TIMx' parameter is set to 'TIMx ETR is connected to ETH_PTP_PPS_O'&lt;br&gt;or when TIM2/TIM3 is enabled with Channel1 set to 'Input Capture direct mode from Remap' and 'TI1 remap capabilities for TIMx' parameter is set to 'TIMx Channel 1 is connected to ETH_PTP_PPs_O'"/>
 				</Mode>
 				<Mode Name="RMII" RemoveCondition="STM32H563VITxQ | STM32H563ZITxQ | STM32H573VITxQ | STM32H573ZITxQ">				
 					<SignalLogicalOp Name="AND">
@@ -514,7 +517,7 @@
 					<!--<Semaphore>RMII_PTP_Synchro</Semaphore>-->
 					<Semaphore>RMII</Semaphore>
 					<Semaphore>MW_ETH_MW</Semaphore>
-					<Condition Expression="IF(STM32H7,((Semaphore_TriggerSourceITR4TIM2 &amp; Semaphore_ETH_ControllerModeTIM2) | (Semaphore_TriggerSourceITR4TIM3 &amp; Semaphore_ETH_ControllerModeTIM3)) | ((DIE450 &amp; (FDCAN1Used_ForRCC | FDCAN2Used_ForRCC)) | (DIE483 &amp; !FDCAN2Used_ForRCC &amp; (FDCAN1Used_ForRCC | FDCAN3Used_ForRCC))),IF(STM32H5,(Semaphore_TIM_TIM2_ETR_ETH_PTP_PPS_O | Semaphore_TIM_TIM3_ETR_ETH_PTP_PPS_O | Semaphore_TIM_TIM2_TI1_ETH_PTP_PPS_O | Semaphore_TIM_TIM3_TI1_ETH_PTP_PPS_O),Semaphore_TriggerSourceITR1TIM2 &amp; Semaphore_ETH_ControllerModeTIM2))" Diagnostic="Only active when TIM2(H7/F7)/TIM3(H7) has an enabled Slave Mode with ITR4(H7)/ITR1(F7) as trigger source or if FDCAN(H7) is enabled.&lt;br&gt;For H5 : Active when TIM2/TIM3 is enabled with trigger source 'ETR1 through Remap' and 'ETR remap capabilities for TIMx' parameter is set to 'TIMx ETR is connected to ETH_PTP_PPS_O'&lt;br&gt;or when TIM2/TIM3 is enabled with Channel1 set to 'Input Capture direct mode from Remap' and 'TI1 remap capabilities for TIMx' parameter is set to 'TIMx Channel 1 is connected to ETH_PTP_PPs_O'"/>
+					<Condition Expression="IF(STM32H7,((Semaphore_TriggerSourceITR4TIM2 &amp; Semaphore_ETH_ControllerModeTIM2) | (Semaphore_TriggerSourceITR4TIM3 &amp; Semaphore_ETH_ControllerModeTIM3)) | ((DIE450 &amp; (FDCAN1Used_ForRCC | FDCAN2Used_ForRCC)) | (DIE483 &amp; !FDCAN2Used_ForRCC &amp; (FDCAN1Used_ForRCC | FDCAN3Used_ForRCC))),IF(STM32H5,(Semaphore_TIM_TIM2_ETR_ETH_PTP_PPS_OTIM2 | Semaphore_TIM_TIM3_ETR_ETH_PTP_PPS_OTIM3 | Semaphore_TIM_TIM2_TI1_ETH_PTP_PPS_OTIM2 | Semaphore_TIM_TIM3_TI1_ETH_PTP_PPS_OTIM3),Semaphore_TriggerSourceITR1TIM2 &amp; Semaphore_ETH_ControllerModeTIM2))" Diagnostic="Only active when TIM2(H7/F7)/TIM3(H7) has an enabled Slave Mode with ITR4(H7)/ITR1(F7) as trigger source or if FDCAN(H7) is enabled.&lt;br&gt;For H5 : Active when TIM2/TIM3 is enabled with trigger source 'ETR1 through Remap' and 'ETR remap capabilities for TIMx' parameter is set to 'TIMx ETR is connected to ETH_PTP_PPS_O'&lt;br&gt;or when TIM2/TIM3 is enabled with Channel1 set to 'Input Capture direct mode from Remap' and 'TI1 remap capabilities for TIMx' parameter is set to 'TIMx Channel 1 is connected to ETH_PTP_PPs_O'"/>
 				</Mode>
 				<Mode Name="RMII_PTP_Synchro" RemoveCondition="!(STM32H563VITxQ | STM32H563ZITxQ | STM32H573VITxQ | STM32H573ZITxQ)">				
 					<SignalLogicalOp Name="AND">
@@ -530,7 +533,7 @@
 					<!--<Semaphore>RMII_PTP_Synchro</Semaphore>-->
 					<Semaphore>RMII</Semaphore>
 					<Semaphore>MW_ETH_MW</Semaphore>
-					<Condition Expression="IF(STM32H7,((Semaphore_TriggerSourceITR4TIM2 &amp; Semaphore_ETH_ControllerModeTIM2) | (Semaphore_TriggerSourceITR4TIM3 &amp; Semaphore_ETH_ControllerModeTIM3)) | ((DIE450 &amp; (FDCAN1Used_ForRCC | FDCAN2Used_ForRCC)) | (DIE483 &amp; !FDCAN2Used_ForRCC &amp; (FDCAN1Used_ForRCC | FDCAN3Used_ForRCC))),IF(STM32H5,(Semaphore_TIM_TIM2_ETR_ETH_PTP_PPS_O | Semaphore_TIM_TIM3_ETR_ETH_PTP_PPS_O | Semaphore_TIM_TIM2_TI1_ETH_PTP_PPS_O | Semaphore_TIM_TIM3_TI1_ETH_PTP_PPS_O),Semaphore_TriggerSourceITR1TIM2 &amp; Semaphore_ETH_ControllerModeTIM2))" Diagnostic="Only active when TIM2(H7/F7)/TIM3(H7) has an enabled Slave Mode with ITR4(H7)/ITR1(F7) as trigger source or if FDCAN(H7) is enabled.&lt;br&gt;For H5 : Active when TIM2/TIM3 is enabled with trigger source 'ETR1 through Remap' and 'ETR remap capabilities for TIMx' parameter is set to 'TIMx ETR is connected to ETH_PTP_PPS_O'&lt;br&gt;or when TIM2/TIM3 is enabled with Channel1 set to 'Input Capture direct mode from Remap' and 'TI1 remap capabilities for TIMx' parameter is set to 'TIMx Channel 1 is connected to ETH_PTP_PPs_O'"/>
+					<Condition Expression="IF(STM32H7,((Semaphore_TriggerSourceITR4TIM2 &amp; Semaphore_ETH_ControllerModeTIM2) | (Semaphore_TriggerSourceITR4TIM3 &amp; Semaphore_ETH_ControllerModeTIM3)) | ((DIE450 &amp; (FDCAN1Used_ForRCC | FDCAN2Used_ForRCC)) | (DIE483 &amp; !FDCAN2Used_ForRCC &amp; (FDCAN1Used_ForRCC | FDCAN3Used_ForRCC))),IF(STM32H5,(Semaphore_TIM_TIM2_ETR_ETH_PTP_PPS_OTIM2  | Semaphore_TIM_TIM3_ETR_ETH_PTP_PPS_OTIM3 | Semaphore_TIM_TIM2_TI1_ETH_PTP_PPS_OTIM2 | Semaphore_TIM_TIM3_TI1_ETH_PTP_PPS_OTIM3),Semaphore_TriggerSourceITR1TIM2 &amp; Semaphore_ETH_ControllerModeTIM2))" Diagnostic="Only active when TIM2(H7/F7)/TIM3(H7) has an enabled Slave Mode with ITR4(H7)/ITR1(F7) as trigger source or if FDCAN(H7) is enabled.&lt;br&gt;For H5 : Active when TIM2/TIM3 is enabled with trigger source 'ETR1 through Remap' and 'ETR remap capabilities for TIMx' parameter is set to 'TIMx ETR is connected to ETH_PTP_PPS_O'&lt;br&gt;or when TIM2/TIM3 is enabled with Channel1 set to 'Input Capture direct mode from Remap' and 'TI1 remap capabilities for TIMx' parameter is set to 'TIMx Channel 1 is connected to ETH_PTP_PPs_O'"/>
 				</Mode>
 				<Mode Name="GMII"> <!-- Mode not supported by H7 so far ... -->		
 					<SignalLogicalOp Name="AND">

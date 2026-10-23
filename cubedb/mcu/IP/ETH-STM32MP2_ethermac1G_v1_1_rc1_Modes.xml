@@ -24,7 +24,9 @@
 	<RefParameter Comment="Note" DefaultValue="N/A" Name="Note" Group="General : Ethernet Configuration" Type="string" Visible="false"/>
 
     <!-- ST MicroElectronics prefixe Adress -->
-    <RefParameter Comment="Ethernet MAC Address" ArraySize="6" ArrayTypeElement="uint8_t;16" Name="MACAddr" Type="Array" Separator=":" Group="General : Ethernet Configuration" DefaultValue="00:80:E1:00:00:00"/>
+    <RefParameter Comment="Ethernet MAC Address" ArraySize="6" ArrayTypeElement="uint8_t;16" Name="MACAddr" Type="Array" Separator=":" Group="General : Ethernet Configuration" DefaultValue="00:80:E1:00:00:00">
+        <Description>Ethernet MAC address: A 48-bit (6 bytes) hardware identifier, in a 12 hexadecimal digits format, separated by colons.</Description>
+    </RefParameter>
     <RefParameter Comment="Rx Mode" DefaultValue="ETH_RXINTERRUPT_MODE" Name="RxMode" Type="list" Group="General : Ethernet Configuration">
         <Condition Diagnostic="" Expression="$Index=1 &amp; S_FREERTOS &amp; S_LWIP"/>
         <PossibleValue Comment="Interrupt Mode" Value="ETH_RXINTERRUPT_MODE" Semaphore="ETH1_RX_INTERRUPT_ON"/>
@@ -114,6 +116,42 @@
         <Parameter Name="RxMode"/>
         <Parameter Name="MediaInterface">
             <PossibleValue>HAL_ETH_MII_MODE</PossibleValue>
+        </Parameter>
+        <Parameter Name="Instance"/>
+    </RefMode>
+    <RefMode Name="RMII (Reduced MII)" HalMode="ETH">
+        <ConfigForMode>Init</ConfigForMode>
+        <Parameter Name="Warning"/>
+        <Parameter Name="Note"/>
+        <Parameter Name="MACAddr"/>
+        <Parameter Name="ETH_TX_DESC_CNT"/>
+        <Parameter Name="TxDescAddress"/>
+        <Parameter Name="TxDesc"/>
+        <Parameter Name="ETH_RX_DESC_CNT"/>
+        <Parameter Name="RxDescAddress"/>
+        <Parameter Name="RxDesc"/>
+        <Parameter Name="RxBuffLen"/>
+        <Parameter Name="RxMode"/>
+        <Parameter Name="MediaInterface">
+            <PossibleValue>HAL_ETH_RMII_MODE</PossibleValue>
+        </Parameter>
+        <Parameter Name="Instance"/>
+    </RefMode>
+    <RefMode Name="RMII (Reduced MII)" HalMode="ETH">
+        <ConfigForMode>Init</ConfigForMode>
+        <Parameter Name="Warning"/>
+        <Parameter Name="Note"/>
+        <Parameter Name="MACAddr"/>
+        <Parameter Name="ETH_TX_DESC_CNT"/>
+        <Parameter Name="TxDescAddress"/>
+        <Parameter Name="TxDesc"/>
+        <Parameter Name="ETH_RX_DESC_CNT"/>
+        <Parameter Name="RxDescAddress"/>
+        <Parameter Name="RxDesc"/>
+        <Parameter Name="RxBuffLen"/>
+        <Parameter Name="RxMode"/>
+        <Parameter Name="MediaInterface">
+            <PossibleValue>HAL_ETH_RMII_MODE</PossibleValue>
         </Parameter>
         <Parameter Name="Instance"/>
     </RefMode>
@@ -415,13 +453,12 @@
             <Condition Expression="$IpNumber=1 | $IpNumber=2" Diagnostic="Enabling ETH1 requires ETHSW to be disabled." />
             <ModeLogicOperator Name="XOR"> <!-- PTP: Precision Time Protocol -->
                 <Mode Name="ETH PPS Output">
-                    <Condition Diagnostic="Available only if one ETH Mode is enabled and if TIM2 or TIM3 is enabled with Slave Mode enabled and ETR as Trigger Source or if FDCAN is enabled" Expression="$IpInstance_Semaphore_PPS_OUT_and_PHY_INTN  &amp; ((Semaphore_TriggerSourceETRTIM2 &amp; Semaphore_ETH_ControllerModeTIM2) | (Semaphore_TriggerSourceETRTIM3 &amp; Semaphore_ETH_ControllerModeTIM3) | (FDCAN1_Used | FDCAN2_Used | FDCAN3_Used))"/>
+                    <Condition Diagnostic="Available only if one ETH Mode is enabled and if TIM2 or TIM3 is enabled with Slave Mode enabled and ETR as Trigger Source or if FDCAN is enabled" Expression="((!S_ETHSW &amp; $IpInstance_Semaphore_PPS_OUT_and_PHY_INTN) | S_ETHSW)  &amp; ((Semaphore_TriggerSourceETRTIM2 &amp; Semaphore_ETH_ControllerModeTIM2) | (Semaphore_TriggerSourceETRTIM3 &amp; Semaphore_ETH_ControllerModeTIM3) | (FDCAN1_Used | FDCAN2_Used | FDCAN3_Used))"/>
                     <SignalLogicalOp Name="AND">
                         <Signal Name="PPS_OUT"/>
                         <Signal Name="PTP_AUX_TS"/>
                     </SignalLogicalOp>
                     <Semaphore>MW_ETH_MW</Semaphore>
-                    <Semaphore>MW_$IpInstance_MW</Semaphore>
                 </Mode>
             </ModeLogicOperator>
         </Mode>
@@ -445,8 +482,6 @@
                     <SignalLogicalOp Name="AND">
                         <Signal Name="MDIO"/> <!-- Input only -->
                         <Signal IOMode="AlternateFunctionPushPullMediumSpeedDefault" Name="MDC"/> <!-- Input only -->
-                        <Signal Name="PPS_OUT"/>
-                        <Signal Name="PTP_AUX_TS"/>
                     </SignalLogicalOp>
                 </Mode>
             </ModeLogicOperator>

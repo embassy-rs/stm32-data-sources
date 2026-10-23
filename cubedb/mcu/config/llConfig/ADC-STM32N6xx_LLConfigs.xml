@@ -235,25 +235,7 @@
             <MethodArg Name="Channel" ParameterName="Channel" />
             <MethodArg Name="SingleDiff" ParameterName="SingleDiff" />
         </CallLibMethod>
-        <IFCondition Expression="!(OffsetNumber = ADC_OFFSET_NONE)">
-            <CallLibMethod Name="LL_ADC_SetOffset">
-                <MethodArg Name="ADCx" ParameterName="Instance" />
-                <MethodArg Name="Offsety" ParameterName="OffsetNumber" />
-                <MethodArg Name="Channel" ParameterName="Channel" />
-                <MethodArg Name="OffsetLevel" ParameterName="Offset" />
-            </CallLibMethod>
-		
-            <CallLibMethod Name="LL_ADC_SetOffsetSignedSaturation">
-                <MethodArg Name="ADCx" ParameterName="Instance" />
-                <MethodArg Name="Offsety" ParameterName="OffsetNumber" />
-                <MethodArg Name="OffsetSignedSaturation" ParameterName="SignedSaturation" />
-            </CallLibMethod>
-               <CallLibMethod Name="LL_ADC_SetDataRightShift">
-                <MethodArg Name="ADCx" ParameterName="Instance" />
-                <MethodArg Name="Offsety" ParameterName="OffsetNumber" />
-                <MethodArg Name="RigthShift" ParameterName="RightOffsetShift" />
-            </CallLibMethod>
-        </IFCondition>
+
        
     </RefConfig>
 
@@ -280,24 +262,6 @@
         </CallLibMethod>
    
 
-        <IFCondition Expression="!(InjectedOffsetNumber = ADC_OFFSET_NONE)">
-            <CallLibMethod Name="LL_ADC_SetOffset">
-                <MethodArg Name="ADCx" ParameterName="Instance" />
-                <MethodArg Name="Offsety" ParameterName="InjectedOffsetNumber" />
-                <MethodArg Name="Channel" ParameterName="InjectedChannel" />
-                <MethodArg Name="OffsetLevel" ParameterName="InjectedOffset" />
-            </CallLibMethod>
-            <CallLibMethod Name="LL_ADC_SetOffsetSignedSaturation">
-                <MethodArg Name="ADCx" ParameterName="Instance" />
-                <MethodArg Name="Offsety" ParameterName="InjectedOffsetNumber" />
-                <MethodArg Name="OffsetSignedSaturation" ParameterName="InjectedSignedSaturation" />
-            </CallLibMethod>
-            <CallLibMethod Name="LL_ADC_SetDataRightShift">
-                <MethodArg Name="ADCx" ParameterName="Instance" />
-                <MethodArg Name="Offsety" ParameterName="InjectedOffsetNumber" />
-                <MethodArg Name="RigthShift" ParameterName="InjectedOffsetRightShift" />
-            </CallLibMethod>
-        </IFCondition>
     </RefConfig>
     
     <RefConfig Name="ADC_InjectedQueueEnable" Comment="Configure injected channel ADC_JSQR register">
@@ -1391,20 +1355,7 @@
         <Argument AddressOf="false" GenericType="simple" Name="LinearityWord"
                   OptimizationCondition="equal" />
     </LibMethod>
-    <LibMethod Comment="" Name="LL_ADC_SetDataRightShift">
-        <Argument AddressOf="false" GenericType="baseaddress" Name="ADCx"
-                  TypeName="ADC_TypeDef" />
-        <Argument AddressOf="false" GenericType="simple" Name="Offsety"
-                  OptimizationCondition="equal" />
-        <Argument AddressOf="false" GenericType="simple" Name="RigthShift"
-                  OptimizationCondition="equal" />
-    </LibMethod>
-    <LibMethod Comment="" Name="LL_ADC_GetDataRightShift">
-        <Argument AddressOf="false" GenericType="baseaddress" Name="ADCx"
-                  TypeName="ADC_TypeDef" />
-        <Argument AddressOf="false" GenericType="simple" Name="Offsety"
-                  OptimizationCondition="equal" />
-    </LibMethod>
+
     <LibMethod Comment="" Name="LL_ADC_GetOffsetSignedSaturation">
         <Argument AddressOf="false" GenericType="baseaddress" Name="ADCx"
                   TypeName="ADC_TypeDef" />

@@ -6,18 +6,32 @@
 ../../../../../../../../doc/V4/Development/Specifications/db/IP_Configs.xsd">
 
     <RefConfig Name="multiMode" Comment="Configure the ADC multi-mode">
+        <IFCondition Expression="($Index=3) &amp; (DIE47C|DIE47A)">
         <CallLibMethod Name="LL_ADC_CommonInit">
                 <MethodArg Name="ADCxy_COMMON">
                     <CallLibMethod Name="__LL_ADC_COMMON_INSTANCE">
                         <MethodArg Name="ADCx" ParameterName="Instance" />
                     </CallLibMethod>
                 </MethodArg>
-                <MethodArg Name="CommonClock" ParameterName="ClockPrescaler" />
+                <MethodArg Name="CommonClock" ParameterName="ClockPrescalerADC3" />
                  <MethodArg Name="Multimode" ParameterName="Mode" />
                 <MethodArg Name="MultiDMATransfer" ParameterName="DMAContinuousRequests,DMAAccessMode" />
                 <MethodArg Name="MultiTwoSamplingDelay" ParameterName="TwoSamplingDelay" />
-
             </CallLibMethod>
+        </IFCondition>
+        <IFCondition Expression="(!($Index=3) &amp; (DIE47C|DIE47A))|(!DIE47C &amp;!DIE47A)">
+            <CallLibMethod Name="LL_ADC_CommonInit">
+                <MethodArg Name="ADCxy_COMMON">
+                    <CallLibMethod Name="__LL_ADC_COMMON_INSTANCE">
+                        <MethodArg Name="ADCx" ParameterName="Instance" />
+                    </CallLibMethod>
+                </MethodArg>
+                <MethodArg Name="CommonClock" ParameterName="ClockPrescaler" />
+                <MethodArg Name="Multimode" ParameterName="Mode" />
+                <MethodArg Name="MultiDMATransfer" ParameterName="DMAContinuousRequests,DMAAccessMode" />
+                <MethodArg Name="MultiTwoSamplingDelay" ParameterName="TwoSamplingDelay" />
+            </CallLibMethod>
+        </IFCondition>
     </RefConfig>
 
     <RefConfig Name="ADC_RegularConfig" Comment="Common config">
@@ -195,7 +209,7 @@
             <MethodArg Name="Channel" ParameterName="Channel" />
             <MethodArg Name="SingleDiff" ParameterName="SingleDiff" />
         </CallLibMethod>
-        <IFCondition Expression="ENABLE_Channel0">
+        <IFCondition Expression="SHANNEL0ISSELECTED">
             <CallLibMethod Name="LL_ADC_EnableChannel0_GPIO">
                 <MethodArg Name="ADCx" ParameterName="Instance" />
             </CallLibMethod>
@@ -270,6 +284,12 @@
                 <MethodArg Name="OffsetSaturation" ParameterName="InjectedOffsetSaturation" />
             </CallLibMethod>
         </IFCondition>
+        <IFCondition Expression="SHANNEL0ISSELECTED">
+            <CallLibMethod Name="LL_ADC_EnableChannel0_GPIO">
+                <MethodArg Name="ADCx" ParameterName="Instance" />
+            </CallLibMethod>
+        </IFCondition>
+
         <!-- PathInternal Depend on selected channel -->
         
             <CallLibMethod Name="LL_ADC_SetCommonPathInternalCh">

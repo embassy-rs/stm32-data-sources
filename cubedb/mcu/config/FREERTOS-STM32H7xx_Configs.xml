@@ -54,7 +54,7 @@
         <Argument Context="local" GenericType="baseaddress" Name="argument" TypeName="void *"/>
     </LibMethod>
 
-    <RefComponent Cclass="Middleware" Cgroup="FREERTOS" Cversion="10.3.1">
+    <RefComponent Cclass="Middleware" Cgroup="FREERTOS" Cversion="10.6.2">
         <!-- <File Category="header" Name="Source/include/*.h"/>  -->
         <File Category="header" Name="Source/include/croutine.h"/>
         <File Category="header" Name="Source/include/deprecated_definitions.h"/>
@@ -64,6 +64,7 @@
         <File Category="header" Name="Source/include/message_buffer.h"/>
         <File Category="header" Name="Source/include/mpu_prototypes.h"/>
         <File Category="header" Name="Source/include/mpu_wrappers.h"/>
+        <File Category="header" Name="Source/include/mpu_syscall_numbers.h"/>
         <File Category="header" Name="Source/include/portable.h"/>
         <File Category="header" Name="Source/include/projdefs.h"/>
         <File Category="header" Name="Source/include/queue.h"/>
@@ -73,7 +74,10 @@
         <File Category="header" Name="Source/include/stream_buffer.h"/>
         <File Category="header" Name="Source/include/task.h"/>
         <File Category="header" Name="Source/include/timers.h"/>
-        <!-- New with FreeRTOS 10.3.1  -->
+        <File Category="header" Name="Source/include/newlib-freertos.h"/>
+        <File Category="header" Name="Source/include/picolibc-freertos.h"/>
+        <File Category="source" Name="Source/portable/Common/mpu_wrappers_v2.c"/>
+        <!-- New with FreeRTOS 10.6.2  -->
         <File Category="header" Name="Source/include/atomic.h"/>
 
         <!-- <File Category="source" Name="Source/*.c"/> -->
@@ -81,7 +85,7 @@
         <File Category="source" Name="Source/event_groups.c"/>
         <File Category="source" Name="Source/list.c"/>
         <File Category="source" Name="Source/queue.c"/>
-        <File Category="source" Name="Source/stream_buffer.c"/>
+        <File Category="source" Name="Source/stream_buffer.c" Condition="!configUSE_TASK_NOTIFICATIONS_DISABLED"/>
         <File Category="source" Name="Source/tasks.c"/>
         <File Category="source" Name="Source/timers.c"/>
 
@@ -92,7 +96,7 @@
         <File Category="header" Name="Source/CMSIS_RTOS_V2/cmsis_os2.h" Condition="S_CMSIS_RTOS_V2$context"/>
         <File Category="header" Name="Source/CMSIS_RTOS_V2/cmsis_os.h" Condition="S_CMSIS_RTOS_V2$context"/>
         <File Category="source" Name="Source/portable/Common/mpu_wrappers.c" Condition="S_FREERTOS_WITH_MPU$context"/>     
-        <!-- New with FreeRTOS 10.3.1  -->
+        <!-- New with FreeRTOS 10.6.2  -->
         <File Category="header" Name="Source/CMSIS_RTOS_V2/freertos_mpool.h" Condition="S_CMSIS_RTOS_V2$context"/>
         <File Category="header" Name="Source/CMSIS_RTOS_V2/freertos_os2.h" Condition="S_CMSIS_RTOS_V2$context"/>
         
@@ -117,6 +121,7 @@
             <File Category="source" Name="Source/portable/IAR/ARM_CM4F/port.c" Condition="!S_FREERTOS_WITH_MPU$context"/>
             <File Category="source" Name="Source/portable/IAR/ARM_CM4F/portasm.s" Condition="!S_FREERTOS_WITH_MPU$context"/>
             <File Category="header" Name="Source/portable/IAR/ARM_CM4F/portmacro.h" Condition="!S_FREERTOS_WITH_MPU$context"/>
+            <File Category="source" Name="Source/portable/IAR/ARM_CM4_MPU/portasmmpu_wrappers_v2_asm.S" Condition="S_FREERTOS_WITH_MPU$context"/>
             <File Category="source" Name="Source/portable/IAR/ARM_CM4_MPU/port.c" Condition="S_FREERTOS_WITH_MPU$context"/>
             <File Category="source" Name="Source/portable/IAR/ARM_CM4_MPU/portasm.s" Condition="S_FREERTOS_WITH_MPU$context"/>
             <File Category="header" Name="Source/portable/IAR/ARM_CM4_MPU/portmacro.h" Condition="S_FREERTOS_WITH_MPU$context"/>
@@ -142,15 +147,15 @@
     </RefComponent>
 
     <RefConfigFile Description="Heap for user choice" Name="HEAP_USER" Template="freertos_heap_user.ftl">
-        <File Category="source" Name="heap_user.c" Version="10.3.1" Condition="S_HEAP_USER"/>
+        <File Category="source" Name="heap_user.c" Version="10.6.2" Condition="S_HEAP_USER"/>
     </RefConfigFile>
 
-    <RefConfigFile Description="Header file for #include" Name="INC" Template="freertos_inc.ftl">
-        <File Category="source" Condition="all" Name="rtos_inc.tmp" Version="10.3.1"/>
+    <RefConfigFile Description="Header file for #include" Name="INC" Template="freertos_inc_10_5_1.ftl">
+        <File Category="source" Condition="all" Name="rtos_inc.tmp" Version="10.6.2"/>
     </RefConfigFile>
 
     <RefConfigFile Description="Variable declarations for FreeRTOS" Name="VARS" Template="freertos_vars.ftl">
-        <File Category="source" Condition="all" Name="rtos_vars.tmp" Version="10.3.1"/>
+        <File Category="source" Condition="all" Name="rtos_vars.tmp" Version="10.6.2"/>
         <Argument Comment="User threads" GenericType="rtos_list" Name="Threads"/>
         <Argument Comment="User queues" GenericType="rtos_list" Name="Queues"/>
         <Argument Comment="User timers" GenericType="rtos_list" Name="Timers"/>
@@ -161,13 +166,13 @@
     </RefConfigFile>
 
     <RefConfigFile Description="Private Functions Prototypes for FreeRTOS" Name="PFP" Template="freertos_pfp.ftl">
-        <File Category="source" Condition="all" Name="rtos_pfp.tmp" Version="10.3.1"/>
+        <File Category="source" Condition="all" Name="rtos_pfp.tmp" Version="10.6.2"/>
         <Argument Comment="User threads" GenericType="rtos_list" Name="Threads"/>
         <Argument Comment="User timers" GenericType="rtos_list" Name="Timers"/>
     </RefConfigFile>
 
     <RefConfigFile Description="Variable creation then launch the RTOS" Name="CREATION" Template="freertos_init_c.ftl">
-        <File Category="source" Condition="all" Name="rtos_obj_creat.tmp" Version="10.3.1"/>
+        <File Category="source" Condition="all" Name="rtos_obj_creat.tmp" Version="10.6.2"/>
         <Argument Comment="User threads" GenericType="rtos_list" Name="Threads"/>
         <Argument Comment="User queues" GenericType="rtos_list" Name="Queues"/>
         <Argument Comment="User timers" GenericType="rtos_list" Name="Timers"/>
@@ -179,27 +184,27 @@
 
     <!-- NEW template for kernel init code -->
     <RefConfigFile Description="Code to init the kernel" Name="RTOS_INIT" Template="freertos_init_kernel.ftl">
-        <File Category="source" Condition="all" Name="rtos_kernelInit.tmp" Version="10.3.1"/>
+        <File Category="source" Condition="all" Name="rtos_kernelInit.tmp" Version="10.6.2"/>
     </RefConfigFile>
 
     <RefConfigFile Description="Code to start the kernel" Name="RTOS_START" Template="freertos_start.ftl">
-        <File Category="source" Condition="all" Name="rtos_kernelStart.tmp" Version="10.3.1"/>
+        <File Category="source" Condition="all" Name="rtos_kernelStart.tmp" Version="10.6.2"/>
     </RefConfigFile>
 
     <RefConfigFile Description="FreeRTOS default thread" Name="DEFAULT_THREAD" Template="freertos_body_default_thread_cmsis_v1.ftl">
-        <File Category="source" Condition="all" Name="rtos_default_thread.tmp" Version="10.3.1"/>
+        <File Category="source" Condition="all" Name="rtos_default_thread.tmp" Version="10.6.2"/>
         <Argument Comment="User threads" GenericType="rtos_list" Name="Threads"/>
     </RefConfigFile>
 
     <RefConfigFile Description="FreeRTOS user threads" Name="USER_THREADS" Template="freertos_body_user_threads_cmsis_v1.ftl">
-        <File Category="source" Condition="all" Name="rtos_threads.tmp" Version="10.3.1"/>
+        <File Category="source" Condition="all" Name="rtos_threads.tmp" Version="10.6.2"/>
         <Argument Comment="User threads" GenericType="rtos_list" Name="Threads"/>
         <Argument Comment="User timers" GenericType="rtos_list" Name="Timers"/>
     </RefConfigFile>
 
     <!-- use specific template file to generate header file containing #define -->
-    <RefConfigFile Description="Header file for #define" Name="CONFIG" Template="freertos_conf_v10_3_1.ftl">
-        <File Category="header" Condition="all" Name="FreeRTOSConfig.h" Version="10.3.1"/>
+    <RefConfigFile Description="Header file for #define" Name="CONFIG" Template="freertos_conf_v10_6_2_cmsis_v2.ftl">
+        <File Category="header" Condition="all" Name="FreeRTOSConfig.h" Version="10.6.2"/>
         <!-- Parameters for FReeRTOS -->
         <Argument Comment="Set to 1 to use the preemptive RTOS scheduler, or 0 to use the cooperative RTOS scheduler. " GenericType="simple" Name="configUSE_PREEMPTION"/>
         <Argument Comment="Frequency in Hz of the internal CPU clock" GenericType="simple" Name="configCPU_CLOCK_HZ"/>
@@ -298,7 +303,7 @@
 
     <!-- Putting it at the end of the file (as the last one to deal with) allows to include all tmp files previously generated in freertos.c -->
     <RefConfigFile Description="Optional hook functions" Name="HOOKS" Template="freertos_c_v10_3_1.ftl">
-        <File Category="source" Condition="all" Name="freertos.c" Version="10.3.1"/>
+        <File Category="source" Condition="all" Name="freertos.c" Version="10.6.2"/>
         <Argument Comment="When set to 1, a collection of run time statistics is enabled" GenericType="simple" Name="configGENERATE_RUN_TIME_STATS"/>
         <Argument Comment="Set to 1 if you wish to use an idle hook, or 0 to omit it" GenericType="simple" Name="configUSE_IDLE_HOOK"/>
         <Argument Comment="Set to 1 if you wish to use a tick hook, or 0 to omit it" GenericType="simple" Name="configUSE_TICK_HOOK"/>
@@ -317,7 +322,7 @@
     <!-- Specific for CMSIS V2 -->
 
     <RefConfigFile Description="Variable declarations for FreeRTOS" Name="TYPEDEFS_V2" Template="freertos_typedefs_cmsis_v2.ftl">
-        <File Category="source" Condition="all" Name="rtos_typedefs.tmp" Version="10.3.1"/>
+        <File Category="source" Condition="all" Name="rtos_typedefs.tmp" Version="10.6.2"/>
         <Argument Comment="User threads" GenericType="rtos_list" Name="Threads"/>
         <Argument Comment="User queues" GenericType="rtos_list" Name="Queues"/>
         <Argument Comment="User timers" GenericType="rtos_list" Name="Timers"/>
@@ -329,7 +334,7 @@
     </RefConfigFile>
 
     <RefConfigFile Description="Variable declarations for FreeRTOS" Name="VARS_V2" Template="freertos_vars_cmsis_v2.ftl">
-        <File Category="source" Condition="all" Name="rtos_vars.tmp" Version="10.3.1"/>
+        <File Category="source" Condition="all" Name="rtos_vars.tmp" Version="10.6.2"/>
         <Argument Comment="User threads" GenericType="rtos_list" Name="Threads"/>
         <Argument Comment="User queues" GenericType="rtos_list" Name="Queues"/>
         <Argument Comment="User timers" GenericType="rtos_list" Name="Timers"/>
@@ -341,13 +346,13 @@
     </RefConfigFile>
 
     <RefConfigFile Description="Private Functions Prototypes for FreeRTOS" Name="PFP_V2" Template="freertos_pfp_cmsis_v2.ftl">
-        <File Category="source" Condition="all" Name="rtos_pfp.tmp" Version="10.3.1"/>
+        <File Category="source" Condition="all" Name="rtos_pfp.tmp" Version="10.6.2"/>
         <Argument Comment="User threads" GenericType="rtos_list" Name="Threads"/>
         <Argument Comment="User timers" GenericType="rtos_list" Name="Timers"/>
     </RefConfigFile>
 
     <RefConfigFile Description="Variable creation then launch the RTOS" Name="CREATION_V2" Template="freertos_init_c_cmsis_v2.ftl">
-        <File Category="source" Condition="all" Name="rtos_obj_creat.tmp" Version="10.3.1"/>
+        <File Category="source" Condition="all" Name="rtos_obj_creat.tmp" Version="10.6.2"/>
         <Argument Comment="User threads" GenericType="rtos_list" Name="Threads"/>
         <Argument Comment="User queues" GenericType="rtos_list" Name="Queues"/>
         <Argument Comment="User timers" GenericType="rtos_list" Name="Timers"/>
@@ -360,20 +365,20 @@
     </RefConfigFile>
 
     <RefConfigFile Description="FreeRTOS default thread" Name="DEFAULT_THREAD_V2" Template="freertos_body_default_thread_cmsis_v2.ftl">
-        <File Category="source" Condition="all" Name="rtos_default_thread.tmp" Version="10.3.1"/>
+        <File Category="source" Condition="all" Name="rtos_default_thread.tmp" Version="10.6.2"/>
         <Argument Comment="User threads" GenericType="rtos_list" Name="Threads"/>
         <Argument Comment="" GenericType="simple" Name="FreeRTOS_API"/>   <!--  need to distinguish CMSIS v1 and v2 -->
     </RefConfigFile>
 
     <RefConfigFile Description="FreeRTOS user threads" Name="USER_THREADS_V2" Template="freertos_body_user_threads_cmsis_v2.ftl">
-        <File Category="source" Condition="all" Name="rtos_threads.tmp" Version="10.3.1"/>
+        <File Category="source" Condition="all" Name="rtos_threads.tmp" Version="10.6.2"/>
         <Argument Comment="User threads" GenericType="rtos_list" Name="Threads"/>
         <Argument Comment="User timers" GenericType="rtos_list" Name="Timers"/>
     </RefConfigFile>
 
     <!-- use specific template file to generate header file containing #define -->
-    <RefConfigFile Description="Header file for #define" Name="CONFIG_V2" Template="freertos_conf_v10_3_1_cmsis_v2.ftl">
-        <File Category="header" Condition="all" Name="FreeRTOSConfig.h" Version="10.3.1"/>
+    <RefConfigFile Description="Header file for #define" Name="CONFIG_V2" Template="freertos_conf_v10_6_2_cmsis_v2.ftl">
+        <File Category="header" Condition="all" Name="FreeRTOSConfig.h" Version="10.6.2"/>
         <!-- Parameters for FReeRTOS -->
         <Argument Comment="Set to 1 to use the preemptive RTOS scheduler, or 0 to use the cooperative RTOS scheduler. " GenericType="simple" Name="configUSE_PREEMPTION"/>
         <Argument Comment="Frequency in Hz of the internal CPU clock" GenericType="simple" Name="configCPU_CLOCK_HZ"/>
@@ -381,8 +386,11 @@
         <Argument Comment="The number of priorities available to the application tasks" GenericType="simple" Name="configMAX_PRIORITIES"/>
         <Argument Comment="The size of the stack used by the idle task" GenericType="simple" Name="configMINIMAL_STACK_SIZE"/>
         <Argument Comment="The total amount of RAM available to the RTOS kernel" GenericType="simple" Name="configTOTAL_HEAP_SIZE"/>
+        <Argument Comment="Set to 1 to use APIs for message buffer, or 0 to invoke default callbacks and macros" GenericType="simple" Name="configUSE_SB_COMPLETED_CALLBACK"/>
+        <Argument Comment="Set to 1 to make ListItem_t and MiniLitItem_t remain separate types, or 0 to make MiniLitItem_t and ListItem_t both typedefs of the same struct xLIST_ITEM." GenericType="simple" Name="configUSE_MINI_LIST_ITEM"/>
         <Argument Comment="The maximum permissible length of the descriptive name given to a task when the task is created" GenericType="simple" Name="configMAX_TASK_NAME_LEN"/>
         <Argument Comment="" GenericType="simple" Name="configUSE_16_BIT_TICKS"/>
+        <Argument Comment="When set in FreeRTOSConfig.h, the memory freed using vPortFree() is automatically cleared to zero" GenericType="simple" Name="configHEAP_CLEAR_MEMORY_ON_FREE"/>
         <Argument Comment="This parameter controls the behaviour of tasks at the idle priority" GenericType="simple" Name="configIDLE_SHOULD_YIELD"/>
         <Argument Comment="Set to 1 to include mutex functionality, or 0 to omit it" GenericType="simple" Name="configUSE_MUTEXES"/>
         <Argument Comment="Set to 1 to include recursive mutex functionality, or 0 to omit it" GenericType="simple" Name="configUSE_RECURSIVE_MUTEXES"/>  
@@ -416,7 +424,6 @@
         <Argument Comment="" GenericType="simple" Name="configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY"/>
         
         <Argument Comment="" GenericType="simple" Name="configPRIO_BITS"/>
-        
         <Argument Comment="" GenericType="simple" Name="INCLUDE_vTaskPrioritySet"/>
         <Argument Comment="" GenericType="simple" Name="INCLUDE_uxTaskPriorityGet"/>
         <Argument Comment="" GenericType="simple" Name="INCLUDE_vTaskDelete"/>
@@ -481,8 +488,8 @@
     </RefConfigFile>
 
     <!-- Putting it at the end of the file (as the last one to deal with) allows to include all tmp files previously generated in freertos.c -->
-    <RefConfigFile Description="Optional hook functions" Name="HOOKS_V2" Template="freertos_c_v10_3_1_cmsis_v2.ftl">
-        <File Category="source" Condition="all" Name="freertos.c" Version="10.3.1"/>
+    <RefConfigFile Description="Optional hook functions" Name="HOOKS_V2" Template="freertos_c_v10_6_2_cmsis_v2.ftl">
+        <File Category="source" Condition="all" Name="freertos.c" Version="10.6.2"/>
         <Argument Comment="When set to 1, a collection of run time statistics is enabled" GenericType="simple" Name="configGENERATE_RUN_TIME_STATS"/>
         <Argument Comment="Set to 1 if you wish to use an idle hook, or 0 to omit it" GenericType="simple" Name="configUSE_IDLE_HOOK"/>
         <Argument Comment="Set to 1 if you wish to use a tick hook, or 0 to omit it" GenericType="simple" Name="configUSE_TICK_HOOK"/>
@@ -503,11 +510,11 @@
     <!-- Specific for Native API -->
 
     <RefConfigFile Description="Header file for #include" Name="INC_NATIVE" Template="freertos_inc_native.ftl">
-        <File Category="source" Condition="all" Name="rtos_inc.tmp" Version="10.3.1"/>
+        <File Category="source" Condition="all" Name="rtos_inc.tmp" Version="10.6.2"/>
     </RefConfigFile>
 
     <RefConfigFile Description="Variable declarations for FreeRTOS" Name="VARS_NATIVE" Template="freertos_vars_native.ftl"> <!-- maybe a custom ftl for F7? -->
-        <File Category="source" Condition="all" Name="rtos_vars.tmp" Version="10.3.1"/>
+        <File Category="source" Condition="all" Name="rtos_vars.tmp" Version="10.6.2"/>
         <Argument Comment="User threads" GenericType="rtos_list" Name="Threads"/>
         <Argument Comment="User queues" GenericType="rtos_list" Name="Queues"/>
         <Argument Comment="User timers" GenericType="rtos_list" Name="Timers"/>
@@ -519,14 +526,14 @@
     </RefConfigFile>
 
     <RefConfigFile Description="Private Functions Prototypes for FreeRTOS" Name="PFP_NATIVE" Template="freertos_pfp_native.ftl">
-        <File Category="source" Condition="all" Name="rtos_pfp.tmp" Version="10.3.1"/>
+        <File Category="source" Condition="all" Name="rtos_pfp.tmp" Version="10.6.2"/>
         <Argument Comment="User threads" GenericType="rtos_list" Name="Threads"/>
         <Argument Comment="User timers" GenericType="rtos_list" Name="Timers"/>
         <Argument Comment="" GenericType="simple" Name="configENABLE_MPU"/>
     </RefConfigFile>
 
     <RefConfigFile Description="Variable creation then launch the RTOS" Name="CREATION_NATIVE" Template="freertos_init_c_native.ftl">
-        <File Category="source" Condition="all" Name="rtos_obj_creat.tmp" Version="10.3.1"/>
+        <File Category="source" Condition="all" Name="rtos_obj_creat.tmp" Version="10.6.2"/>
         <Argument Comment="User threads" GenericType="rtos_list" Name="Threads"/>
         <Argument Comment="User queues" GenericType="rtos_list" Name="Queues"/>
         <Argument Comment="User timers" GenericType="rtos_list" Name="Timers"/>
@@ -538,18 +545,41 @@
     </RefConfigFile>
 
     <RefConfigFile Description="Code to start the kernel" Name="RTOS_START_NATIVE" Template="freertos_start_native.ftl">
-        <File Category="source" Condition="all" Name="rtos_kernelStart.tmp" Version="10.3.1"/>
+        <File Category="source" Condition="all" Name="rtos_kernelStart.tmp" Version="10.6.2"/>
     </RefConfigFile>
 
     <RefConfigFile Description="FreeRTOS default thread" Name="DEFAULT_THREAD_NATIVE" Template="freertos_body_default_thread_native.ftl">
-        <File Category="source" Condition="all" Name="rtos_default_thread.tmp" Version="10.3.1"/>
+        <File Category="source" Condition="all" Name="rtos_default_thread.tmp" Version="10.6.2"/>
         <Argument Comment="User threads" GenericType="rtos_list" Name="Threads"/>
     </RefConfigFile>
 
     <RefConfigFile Description="FreeRTOS user threads" Name="USER_THREADS_NATIVE" Template="freertos_body_user_threads_native.ftl">
-        <File Category="source" Condition="all" Name="rtos_threads.tmp" Version="10.3.1"/>
+        <File Category="source" Condition="all" Name="rtos_threads.tmp" Version="10.6.2"/>
         <Argument Comment="User threads" GenericType="rtos_list" Name="Threads"/>
         <Argument Comment="User timers" GenericType="rtos_list" Name="Timers"/>
     </RefConfigFile>
-
+    <RefComponent Cclass="HAL" Cgroup="FREERTOS" Cversion="0.3.0">
+        <SubComponent Csub="IAR">
+            <File Category="header" Name="Drivers/CMSIS/RTOS2/Include/cmsis_os2.h"  />
+            <File Category="header" Name="Drivers/CMSIS/RTOS2/Include/os_tick.h"  />
+        </SubComponent>
+    </RefComponent>
+    <RefComponent Cclass="HAL" Cgroup="FREERTOS" Cversion="0.3.0">
+        <SubComponent Csub="Keil">
+            <File Category="header" Name="Drivers/CMSIS/RTOS2/Include/cmsis_os2.h"  />
+            <File Category="header" Name="Drivers/CMSIS/RTOS2/Include/os_tick.h"  />
+        </SubComponent>
+    </RefComponent>
+    <RefComponent Cclass="HAL" Cgroup="FREERTOS" Cversion="0.3.0">
+        <SubComponent Csub="RVDS">
+            <File Category="header" Name="Drivers/CMSIS/RTOS2/Include/cmsis_os2.h"  />
+            <File Category="header" Name="Drivers/CMSIS/RTOS2/Include/os_tick.h"  />
+        </SubComponent>
+    </RefComponent>
+    <RefComponent Cclass="HAL" Cgroup="FREERTOS" Cversion="0.3.0">
+        <SubComponent Csub="GCC">
+            <File Category="header" Name="Drivers/CMSIS/RTOS2/Include/cmsis_os2.h"  />
+            <File Category="header" Name="Drivers/CMSIS/RTOS2/Include/os_tick.h"  />
+        </SubComponent>
+    </RefComponent>
 </IP>

@@ -19,17 +19,14 @@
         <PossibleValue Comment="" Value="VM_SMARTCARD"/>
     </RefParameter>
 	
-	
-	
     <RefParameter Comment="Auto Baudrate Mode arg" DefaultValue="UART_ADVFEATURE_AUTOBAUDRATE_ENABLE" Group="Advanced Features" Name="AutoBaudRateEnable" Type="list" Visible="false">
         <Condition Diagnostic="" Expression="$IpInstance_UART_AutoBaudRate_Enable"/>
         <PossibleValue Comment="Enable" Value="UART_ADVFEATURE_AUTOBAUDRATE_ENABLE"/>
     </RefParameter>
     <RefParameter Comment="Auto Baudrate Mode arg" DefaultValue="null" Group="Advanced Features" Name="AutoBaudRateEnable" Type="list" Visible="false"/>
     
-	
     <RefParameter Comment="Auto Baudrate" DefaultValue="UART_ADVFEATURE_AUTOBAUDRATE_DISABLE" Group="Advanced Features" Name="AutoBaudRateEnableParam" Type="list">
-        <Condition Diagnostic="" Expression="!(DIE460 &amp; (($IpNumber=4)|($IpNumber=3))) &amp; !(DIE466 &amp; ($IpNumber=2)) &amp; !(DIE443 &amp; ($IpNumber=2)) &amp; !(DIE453 &amp; ($IpNumber=2)) &amp; !(DIE467 &amp; ($IpNumber=4|$IpNumber=5|$IpNumber=6)) &amp; !(DIE456 &amp; ($IpNumber=2))&amp; !(DIE44D &amp; ($IpNumber=2|$IpNumber=3|$IpNumber=4))"/>
+        <Condition Diagnostic="" Expression="!(DIE493 &amp; ($IpNumber=2)) &amp; !(DIE44C &amp; ($IpNumber=2)) &amp; !(DIE460 &amp; (($IpNumber=4)|($IpNumber=3))) &amp; !(DIE466 &amp; ($IpNumber=2)) &amp; !(DIE443 &amp; ($IpNumber=2)) &amp; !(DIE453 &amp; ($IpNumber=2)) &amp; !(DIE467 &amp; ($IpNumber=4|$IpNumber=5|$IpNumber=6)) &amp; !(DIE456 &amp; ($IpNumber=2))&amp; !(DIE44D &amp; ($IpNumber=2|$IpNumber=3|$IpNumber=4))"/>
         <PossibleValue Comment="Disable" Value="UART_ADVFEATURE_AUTOBAUDRATE_DISABLE"/>
         <PossibleValue Comment="Enable" Semaphore="$IpInstance_UART_AutoBaudRate_Enable" Value="UART_ADVFEATURE_AUTOBAUDRATE_ENABLE"/>
     </RefParameter>
@@ -38,8 +35,6 @@
         <PossibleValue Comment="" Value="UART_ADVFEATURE_AUTOBAUDRATE_INIT"/>
     </RefParameter>
     <RefParameter Comment="" DefaultValue="" Group="Advanced Features" Name="IsAutoBaudRateMode" Type="list" Visible="false"/>
-	
-	
 	
     <!-- BaudRate Parameters ; based on Uart Instance (AHB Clock), and if IrDa Mode on a Small maximum. -->
     <!-- BaudRate Parameters ; based on Uart Instance (AHB Clock), and if IrDa Mode on a Small maximum. -->
@@ -51,10 +46,6 @@
     </RefParameter>
     <RefParameter Comment="Baud Rate" DefaultValue="115200" Group="Basic Parameters" Max="10500000" Min="110" Name="BaudRate" Type="integer" Unit="Bits/s" Visible="true"/>
    
-	
-	
-	
-	
     <!-- Word Length Parameters for Synchronous, IrDa, SmartCard and Others (based on Asyncronous). -->
 	
     <RefParameter Comment="Word Length" DefaultValue="WORDLENGTH_8B" Group="Basic Parameters" Name="WordLength" Type="list">
@@ -136,8 +127,20 @@
         <PossibleValue Comment="9 Bits (including Parity)" Value="SMARTCARD_WORDLENGTH_9B"/>
     </RefParameter>
 	
-	
     <!-- Stop Bits Parameters for Synchronous, SmartCard and Others (based on Asyncronous). N.B. IrDa do not have Stop Bits -->
+    <!-- WL3R -->
+    <RefParameter Comment="Stop Bits" DefaultValue="STOPBITS_1" Group="Basic Parameters" Name="StopBits" Type="list">
+        <Condition Diagnostic="" Expression="VirtualMode = VM_SYNC &amp; (DIE122|DIE49A|STM32WB0|STM32G4) "/>
+
+        <PossibleValue Comment="1" Value="STOPBITS_1"/>
+        <PossibleValue Comment="2" Value="STOPBITS_2"/>
+    </RefParameter>
+    <RefParameter Comment="Stop Bits" DefaultValue="STOPBITS_1" Group="Basic Parameters" Name="StopBits" Type="list">
+        <Condition Diagnostic="" Expression="$IpInstance_Asynchronous &amp; (DIE122|DIE49A|STM32WB0|STM32G4)"/>
+        <PossibleValue Comment="1" Value="STOPBITS_1"/>
+        <PossibleValue Comment="2" Value="STOPBITS_2"/>
+    </RefParameter>
+    <!-- -->
     <RefParameter Comment="Stop Bits" DefaultValue="STOPBITS_1" Group="Basic Parameters" Name="StopBits" Type="list">
         <Condition Diagnostic="" Expression="VirtualMode = VM_SYNC"/>
         <PossibleValue Comment="1" Value="STOPBITS_1"/>
@@ -249,11 +252,11 @@
         <PossibleValue Comment="Odd" Value="IRDA_PARITY_ODD"/>
     </RefParameter>
     <RefParameter Comment="Parity" DefaultValue="SMARTCARD_PARITY_EVEN" Group="Basic Parameters" Name="SmartCardParity" Type="list">
-        <Condition Diagnostic="" Expression="(VirtualMode = VM_SMARTCARD) &amp; $IpInstance_PARITY_EVEN"/>
+        <Condition Diagnostic="" Expression="(VirtualMode = VM_SMARTCARD) &amp; Parity = PARITY_EVEN"/>
         <PossibleValue Comment="Even" Value="SMARTCARD_PARITY_EVEN"/>
     </RefParameter>
     <RefParameter Comment="Parity" DefaultValue="SMARTCARD_PARITY_ODD" Group="Basic Parameters" Name="SmartCardParity" Type="list">
-        <Condition Diagnostic="" Expression="(VirtualMode = VM_SMARTCARD) &amp; $IpInstance_PARITY_ODD"/>
+        <Condition Diagnostic="" Expression="(VirtualMode = VM_SMARTCARD) &amp; Parity = PARITY_ODD"/>
         <PossibleValue Comment="Odd" Value="SMARTCARD_PARITY_ODD"/>
     </RefParameter>
     <RefParameter Comment="Parity" DefaultValue="UART_PARITY_NONE" Group="Basic Parameters" Name="UartParity" Type="list">
@@ -687,9 +690,7 @@
         <PossibleValue Comment="7 Bits" Value="UART_ADDRESS_DETECT_7B"/>
     </RefParameter>
     <RefParameter Comment="Wake-Up Method" DefaultValue="null" Group="Advanced Parameters" Name="AddressLength" Type="list" Visible="false"/>
-	
-	
-	
+    	
     <!--Specifics RefParameters for LIN. Line BreakLength -->
     <RefParameter Comment="Break Detect Length" DefaultValue="UART_LINBREAKDETECTLENGTH_10B" Group="Advanced Parameters" Name="BreakDetectLength" Type="list">
         <PossibleValue Comment="10 Bits" Value="UART_LINBREAKDETECTLENGTH_10B"/>
@@ -704,7 +705,6 @@
     <RefParameter Comment="Assertion Time" DefaultValue="0" Group="Advanced Parameters" Max="31" Min="0" Name="UART_DEAssertionTime" Type="integer" Unit="Sample Time Unit"/>
     <RefParameter Comment="Deassertion Time" DefaultValue="0" Group="Advanced Parameters" Max="31" Min="0" Name="UART_DEDeassertionTime" Type="integer" Unit="Sample Time Unit"/>
 
-    
     <!--Specifics RefParameters for UART and SMARTCARD -->
     <RefParameter Comment="Single Sample" DefaultValue="SMARTCARD_ONE_BIT_SAMPLE_DISABLE" Group="Advanced Parameters" Name="OneBitSampling" Type="list">
         <Condition Diagnostic="" Expression="VirtualMode = VM_SMARTCARD"/>
@@ -809,8 +809,7 @@
         <PossibleValue Comment="Enable" Value="UART_ADVFEATURE_RXINV_ENABLE"/>
     </RefParameter>
     <RefParameter Comment="RX Pin Active Level Is Inverted arg" DefaultValue="null" Group="Advanced Features" Name="RxPinLevelInvert" Type="list" Visible="false"/>
-	
-    
+	 
     <RefParameter Comment="RX Pin Active Level Inversion" DefaultValue="ADVFEATURE_RXINV_DISABLE" Group="Advanced Features" Name="RxPinLevelInvertParam" Type="list">
         <PossibleValue Comment="Disable" Value="ADVFEATURE_RXINV_DISABLE"/>
         <PossibleValue Comment="Enable"  Value="ADVFEATURE_RXINV_ENABLE"/>
@@ -985,7 +984,6 @@
     </RefParameter>
     <RefParameter Comment="Overrun State arg" DefaultValue="null" Group="Advanced Features" Name="OverrunDisable" Type="list" Visible="false"/>
 	
-    
     <RefParameter Comment="Overrun" DefaultValue="ADVFEATURE_OVERRUN_ENABLE" Group="Advanced Features" Name="OverrunDisableParam" Type="list">
         <PossibleValue Comment="Disable" Value="ADVFEATURE_OVERRUN_DISABLE"/>
         <PossibleValue Comment="Enable" Value="ADVFEATURE_OVERRUN_ENABLE"/>
@@ -1180,12 +1178,9 @@
         <Condition Diagnostic="" Expression="$IpInstance_Synchronous_Master"/>
         <PossibleValue Comment="Disable " Value="USART_SLAVEMODE_DISABLE"/>
     </RefParameter>
-
-
-
-           
+    
     <RefParameter Comment="Fifo Mode" DefaultValue="FIFOMODE_DISABLE" Group="Advanced Parameters" Name="FIFOMode" Type="list">
-        <Condition Diagnostic="" Expression="!(DIE460 &amp; (($IpNumber=4)|($IpNumber=3))) &amp; !(DIE466 &amp; ($IpNumber=2)) &amp; !(DIE443 &amp; ($IpNumber=2)) &amp; !(DIE453 &amp; ($IpNumber=2)) &amp; !(DIE467 &amp; ($IpNumber=4|$IpNumber=5|$IpNumber=6)) &amp; !(DIE456 &amp; ($IpNumber=2))&amp; !(DIE44D &amp; ($IpNumber=2|$IpNumber=3|$IpNumber=4))"/>
+        <Condition Diagnostic="" Expression="!(DIE493 &amp; ($IpNumber=2)) &amp; !(DIE44C &amp; ($IpNumber=2)) &amp;!(DIE460 &amp; (($IpNumber=4)|($IpNumber=3))) &amp; !(DIE466 &amp; ($IpNumber=2)) &amp; !(DIE443 &amp; ($IpNumber=2)) &amp; !(DIE453 &amp; ($IpNumber=2)) &amp; !(DIE467 &amp; ($IpNumber=4|$IpNumber=5|$IpNumber=6)) &amp; !(DIE456 &amp; ($IpNumber=2))&amp; !(DIE44D &amp; ($IpNumber=2|$IpNumber=3|$IpNumber=4))"/>
         <PossibleValue Comment="Disable " Value="FIFOMODE_DISABLE"/>
         <PossibleValue Comment="Enable " Value="FIFOMODE_ENABLE"/>
     </RefParameter>
@@ -1217,7 +1212,7 @@
     </RefParameter>
 
     <RefParameter Comment="Txfifo Threshold" DefaultValue="TXFIFO_THRESHOLD_1EIGHTHFULL" Group="Advanced Parameters" Name="TXFIFOThreshold" Type="list">
-        <Condition Diagnostic="" Expression="!(DIE460 &amp; (($IpNumber=4)|($IpNumber=3))) &amp; !(DIE466 &amp; ($IpNumber=2)) &amp; !(DIE443 &amp; ($IpNumber=2)) &amp; !(DIE453 &amp; ($IpNumber=2)) &amp; !(DIE467 &amp; ($IpNumber=4|$IpNumber=5|$IpNumber=6)) &amp; !(DIE456 &amp; ($IpNumber=2))&amp; !(DIE44D &amp; ($IpNumber=2|$IpNumber=3|$IpNumber=4))"/>
+        <Condition Diagnostic="" Expression="!(DIE493 &amp; ($IpNumber=2)) &amp; !(DIE44C &amp; ($IpNumber=2)) &amp; !(DIE460 &amp; (($IpNumber=4)|($IpNumber=3))) &amp; !(DIE466 &amp; ($IpNumber=2)) &amp; !(DIE443 &amp; ($IpNumber=2)) &amp; !(DIE453 &amp; ($IpNumber=2)) &amp; !(DIE467 &amp; ($IpNumber=4|$IpNumber=5|$IpNumber=6)) &amp; !(DIE456 &amp; ($IpNumber=2))&amp; !(DIE44D &amp; ($IpNumber=2|$IpNumber=3|$IpNumber=4))"/>
         <PossibleValue Comment="1 eighth full configuration " Value="TXFIFO_THRESHOLD_1EIGHTHFULL"/>
         <PossibleValue Comment="1 quart full configuration "  Value="TXFIFO_THRESHOLD_1QUARTERFULL"/>
         <PossibleValue Comment="half full configuration "     Value="TXFIFO_THRESHOLD_HALFFULL"/>
@@ -1301,7 +1296,7 @@
     </RefParameter>
 
     <RefParameter Comment="Rxfifo Threshold" DefaultValue="RXFIFO_THRESHOLD_1EIGHTHFULL" Group="Advanced Parameters" Name="RXFIFOThreshold" Type="list">
-        <Condition Diagnostic="" Expression="!(DIE460 &amp; (($IpNumber=4)|($IpNumber=3))) &amp; !(DIE466 &amp; ($IpNumber=2)) &amp; !(DIE443 &amp; ($IpNumber=2)) &amp; !(DIE453 &amp; ($IpNumber=2)) &amp; !(DIE467 &amp; ($IpNumber=4|$IpNumber=5|$IpNumber=6)) &amp; !(DIE456 &amp; ($IpNumber=2))&amp; !(DIE44D &amp; ($IpNumber=2|$IpNumber=3|$IpNumber=4))"/>
+        <Condition Diagnostic="" Expression="!(DIE493 &amp; ($IpNumber=2)) &amp; !(DIE44C &amp; ($IpNumber=2)) &amp; !(DIE460 &amp; (($IpNumber=4)|($IpNumber=3))) &amp; !(DIE466 &amp; ($IpNumber=2)) &amp; !(DIE443 &amp; ($IpNumber=2)) &amp; !(DIE453 &amp; ($IpNumber=2)) &amp; !(DIE467 &amp; ($IpNumber=4|$IpNumber=5|$IpNumber=6)) &amp; !(DIE456 &amp; ($IpNumber=2))&amp; !(DIE44D &amp; ($IpNumber=2|$IpNumber=3|$IpNumber=4))"/>
         <PossibleValue Comment="1 eighth full configuration " Value="RXFIFO_THRESHOLD_1EIGHTHFULL"/>
         <PossibleValue Comment="1 quart full configuration " Value="RXFIFO_THRESHOLD_1QUARTERFULL"/>
         <PossibleValue Comment="half full configuration " Value="RXFIFO_THRESHOLD_HALFFULL"/>
@@ -1383,11 +1378,108 @@
         <Condition Diagnostic="" Expression="(VirtualMode = VM_ASYNC | VirtualMode = VM_LIN) &amp; RXFIFOThreshold=RXFIFO_THRESHOLD_FULL"/>
         <PossibleValue Comment="RXFIFO becomes Full " Value="UART_RXFIFO_THRESHOLD_8_8"/>
     </RefParameter>
+    
+       <!-- Autonomous Mode with Parameters __begin -->
+       
+    <RefParameter Comment="Autonomous Mode" DefaultValue="AUTONOMOUS_MODE_DISABLE" Group="Advanced Parameters" Name="AutonomousMode" Type="list">
+        <Condition Diagnostic="" Expression="DIE49A &amp; ($IpInstance_Asynchronous | $IpInstance_Synchronous_Master) &amp; !$IpInstance_FlowControl"/>
+        <PossibleValue Comment="Disable " Value="AUTONOMOUS_MODE_DISABLE"/>
+        <PossibleValue Comment="Enable " Value="AUTONOMOUS_MODE_ENABLE"/>
+    </RefParameter>
+    <RefParameter Comment="Autonomous Mode" DefaultValue="null" Group="Advanced Parameters" Name="AutonomousMode" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="!DIE49A"/>
+    </RefParameter>
+        
+    <RefParameter Comment="Autonomous Mode" DefaultValue="AUTONOMOUS_MODE_DISABLE" Group="Advanced Parameters" Name="AutonomousModeState" Type="list">
+        <Condition Diagnostic="" Expression="AutonomousMode = AUTONOMOUS_MODE_ENABLE &amp; $IpInstance_Synchronous_Master"/>
+        <PossibleValue Comment="Enable " Value="USART_AUTONOMOUS_MODE_ENABLE"/>
+    </RefParameter>
+    <RefParameter Comment="Autonomous Mode" DefaultValue="AUTONOMOUS_MODE_DISABLE" Group="Advanced Parameters" Name="AutonomousModeState" Type="list">
+        <Condition Diagnostic="" Expression="AutonomousMode = AUTONOMOUS_MODE_ENABLE &amp; $IpInstance_Asynchronous"/>
+        <PossibleValue Comment="Enable " Value="UART_AUTONOMOUS_MODE_ENABLE"/>
+    </RefParameter>    
+    <RefParameter Comment="Autonomous Mode" DefaultValue="null" Name="AutonomousModeState" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="!DIE49A | (AutonomousMode = AUTONOMOUS_MODE_DISABLE)"/>
+    </RefParameter>
+    
+    <RefParameter Comment="Trigger Polarity" DefaultValue="null" Group="Advanced Parameters" Name="TriggerPolarity" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="!DIE49A| (AutonomousMode = AUTONOMOUS_MODE_DISABLE)"/>
+    </RefParameter>  
+    <RefParameter Comment="Trigger Polarity" DefaultValue="USART_TRIG_POLARITY_RISING" Group="Advanced Parameters" Name="TriggerPolarity" Type="list">
+        <Condition Diagnostic="" Expression="AutonomousMode = AUTONOMOUS_MODE_ENABLE &amp; $IpInstance_Synchronous_Master"/>
+        <PossibleValue Comment="RISING" Value="USART_TRIG_POLARITY_RISING"/>
+        <PossibleValue Comment="FALLING" Value="USART_TRIG_POLARITY_FALLING"/>
+    </RefParameter>
+    <RefParameter Comment="Trigger Polarity" DefaultValue="UART_TRIG_POLARITY_RISING" Group="Advanced Parameters" Name="TriggerPolarity" Type="list">
+        <Condition Diagnostic="" Expression="AutonomousMode = AUTONOMOUS_MODE_ENABLE &amp; $IpInstance_Asynchronous"/>
+        <PossibleValue Comment="RISING" Value="UART_TRIG_POLARITY_RISING"/>
+        <PossibleValue Comment="FALLING" Value="UART_TRIG_POLARITY_FALLING"/>
+    </RefParameter>
+    
+    <RefParameter Comment="Trigger Selection" DefaultValue="null" Group="Advanced Parameters" Name="TriggerSelection" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="!DIE49A | (AutonomousMode = AUTONOMOUS_MODE_DISABLE)"/>
+    </RefParameter>
+
+    <!-- WBA2 -->
+    <RefParameter Comment="Trigger Selection" DefaultValue="USART_LPDMA1_CH0_TCF_TRG" Group="Advanced Parameters" Name="TriggerSelection" Type="list">
+        <Condition Diagnostic="" Expression="AutonomousMode = AUTONOMOUS_MODE_ENABLE &amp; $IpInstance_Synchronous_Master &amp; DIE49A " />
+        <PossibleValue Comment="USART LPDMA1 channel0" Value="USART_LPDMA1_CH0_TCF_TRG"/>
+        <PossibleValue Comment="USART LPDMA1 channel1" Value="USART_LPDMA1_CH1_TCF_TRG"/>
+        <PossibleValue Comment="USART LPDMA1 channel2" Value="USART_LPDMA1_CH2_TCF_TRG"/>
+        <PossibleValue Comment="USART LPDMA1 channel3" Value="USART_LPDMA1_CH3_TCF_TRG"/>
+        <PossibleValue Comment="USART EXTI line 6" Value="USART_EXTI_LINE6_TRG"/>
+        <PossibleValue Comment="USART EXTI line 9" Value="USART_EXTI_LINE9_TRG"/>
+        <PossibleValue Comment="USART LPTIM1 out" Value="USART_LPTIM1_OUT_TRG"/>
+        <PossibleValue Comment="USART LPTIM2 out" Value="USART_LPTIM2_OUT_TRG"/>
+         <PossibleValue Comment="USART COMP1 out" Value="USART_COMP1_OUT_TRG"/>
+          <PossibleValue Comment="USART COMP2 out" Value="USART_COMP2_OUT_TRG"/>
+        <PossibleValue Comment="USART RTC alarm" Value="USART_RTC_ALRA_TRG"/>
+        <PossibleValue Comment="USART RTC wakeup" Value="USART_RTC_WUT_TRG"/>
+    </RefParameter>
+    <RefParameter Comment="Trigger Selection" DefaultValue="UART_LPDMA1_CH0_TCF_TRG" Group="Advanced Parameters" Name="TriggerSelection" Type="list">
+        <Condition Diagnostic="" Expression="AutonomousMode = AUTONOMOUS_MODE_ENABLE &amp; $IpInstance_Asynchronous &amp; DIE49A"/>
+        <PossibleValue Comment="UART LPDMA1 channel0" Value="UART_LPDMA1_CH0_TCF_TRG"/>
+        <PossibleValue Comment="UART LPDMA1 channel1" Value="UART_LPDMA1_CH1_TCF_TRG"/>
+        <PossibleValue Comment="UART LPDMA1 channel2" Value="UART_LPDMA1_CH2_TCF_TRG"/>
+        <PossibleValue Comment="UART LPDMA1 channel3" Value="UART_LPDMA1_CH3_TCF_TRG"/>
+        <PossibleValue Comment="UART EXTI line 6" Value="UART_EXTI_LINE6_TRG"/>
+        <PossibleValue Comment="UART EXTI line 9" Value="UART_EXTI_LINE8_TRG"/>
+        <PossibleValue Comment="UART LPTIM1 out" Value="UART_LPTIM1_OUT_TRG"/>
+        <PossibleValue Comment="UART COMP1 out" Value="UART_COMP1_OUT_TRG"/>
+        <PossibleValue Comment="UART COMP2 out" Value="UART_COMP2_OUT_TRG"/> 
+        <PossibleValue Comment="UART RTC alarm" Value="UART_RTC_ALRA_TRG"/>
+        <PossibleValue Comment="UART RTC wakeup" Value="UART_RTC_WUT_TRG"/>
+    </RefParameter>
+
+    <RefParameter Comment="Data Size" DefaultValue="null" Group="Advanced Parameters" Name="DataSize" Type="integer" Visible="false">
+        <Condition Diagnostic="" Expression="!DIE49A | (AutonomousMode = AUTONOMOUS_MODE_DISABLE)"/>
+    </RefParameter> 
+    <RefParameter Comment="Data Size" DefaultValue="0" Group="Advanced Parameters" Name="DataSize" Min="0" Type="integer">
+        <Condition Diagnostic="" Expression="AutonomousMode = AUTONOMOUS_MODE_ENABLE &amp; $IpInstance_Synchronous_Master"/>
+    </RefParameter>
+    <RefParameter Comment="Data Size" DefaultValue="0" Group="Advanced Parameters" Name="DataSize" Min="0" Type="integer">
+        <Condition Diagnostic="" Expression="AutonomousMode = AUTONOMOUS_MODE_ENABLE &amp; $IpInstance_Asynchronous"/>
+    </RefParameter>
+
+    <RefParameter Comment="Idle Frame" DefaultValue="null" Group="Advanced Parameters" Name="IdleFrame" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="!DIE49A | (AutonomousMode = AUTONOMOUS_MODE_DISABLE)"/>
+    </RefParameter>     
+    <RefParameter Comment="Idle Frame" DefaultValue="USART_IDLE_FRAME_DISABLE" Group="Advanced Parameters" Name="IdleFrame" Type="list">
+        <Condition Diagnostic="" Expression="AutonomousMode = AUTONOMOUS_MODE_ENABLE &amp; $IpInstance_Synchronous_Master"/>
+        <PossibleValue Comment="Enable" Value="USART_IDLE_FRAME_ENABLE"/>
+        <PossibleValue Comment="Disable" Value="USART_IDLE_FRAME_DISABLE"/>
+    </RefParameter>
+    <RefParameter Comment="Idle Frame" DefaultValue="UART_IDLE_FRAME_DISABLE" Group="Advanced Parameters" Name="IdleFrame" Type="list">
+        <Condition Diagnostic="" Expression="AutonomousMode = AUTONOMOUS_MODE_ENABLE &amp; $IpInstance_Asynchronous"/>
+        <PossibleValue Comment="Enable" Value="UART_IDLE_FRAME_ENABLE"/>
+        <PossibleValue Comment="Disable" Value="UART_IDLE_FRAME_DISABLE"/>
+    </RefParameter>
+    <!-- Autonomous Mode  __end. -->
+    
 
     <RefMode Abstract="true" Name="usartBasic">
         <Parameter Name="BaudRate"/>
     </RefMode>
-	
 	
     <!-- RefMode for Asynchronous UART -->
     <RefMode BaseMode="usartBasic" HalMode="UART" Name="Asynchronous">
@@ -1450,6 +1542,12 @@
         <Parameter Name="OverrunDisableParam"/>
         <Parameter Name="DMADisableonRxErrorParam"/>
         <Parameter Name="MSBFirstParam"/>
+         <!--Autonomous Mode-->
+        <Parameter Name="AutonomousMode"/>
+        <Parameter Name="TriggerPolarity"/>
+        <Parameter Name="TriggerSelection"/>
+        <Parameter Name="DataSize"/>
+        <Parameter Name="IdleFrame"/>
     </RefMode>
 	
     <!-- RefMode for 'Synchronous' USART -->
@@ -1470,6 +1568,12 @@
         <Parameter Name="FIFOMode"/>
         <Parameter Name="TXFIFOThreshold"/>
         <Parameter Name="RXFIFOThreshold"/>
+        <!--Autonomous Mode-->
+        <Parameter Name="AutonomousMode"/>
+        <Parameter Name="TriggerPolarity"/>
+        <Parameter Name="TriggerSelection"/>
+        <Parameter Name="DataSize"/>
+        <Parameter Name="IdleFrame"/>
         <!-- Clock Parameters -->
         <Parameter Name="CLKPolarity"/>
         <Parameter Name="CLKPhase"/>
@@ -1705,7 +1809,6 @@
         <Parameter Name="IsSmartCardMSBFirst"/>
     </RefMode>
 	
-	
     <!-- RefModes for SmartCard with Clock -->
     <RefMode BaseMode="usartBasic" HalMode="SMARTCARD" Name="SmartCard_With_Clock">
         <ConfigForMode>SmartCard_Init</ConfigForMode>
@@ -1756,7 +1859,6 @@
         <Parameter Name="IsClockMSBFirst"/>
     </RefMode>
 	
-	
     <!-- RefModes for Harwdware Flow Control -->
     <RefMode Name="CTS_Only"/>
 	
@@ -1796,6 +1898,7 @@
                     <SignalLogicalOp Name="AND">
                         <Signal IOMode="AlternateFunctionOpenDrainAndPushPullDefaultOD" Name="TX"/>
                     </SignalLogicalOp>
+                    <Semaphore>$IpInstance_Single_Wire</Semaphore>
                 </Mode>
                 <Mode Name="Multiprocessor_communication" UserName="Multiprocessor Communication">
                     <SignalLogicalOp Name="AND">
@@ -1803,30 +1906,30 @@
                         <Signal IOMode="AlternateFunctionOpenDrainAndPushPullDefaultOD" Name="TX"/>
                     </SignalLogicalOp>
                 </Mode>
-                <Mode Name="IrDA" RemoveCondition="DIE467 &amp; ($IpNumber=4|$IpNumber=5|$IpNumber=6)|DIE460 &amp; (($IpNumber=4)|($IpNumber=3))| DIE466 &amp; ($IpNumber=2) | DIE456 &amp; ($IpNumber=2) |(DIE443 &amp; ($IpNumber=2))|(DIE453 &amp; ($IpNumber=2))|(DIE44C &amp; ($IpNumber=2)|(DIE44D &amp; ($IpNumber=2|$IpNumber=3|$IpNumber=4)))">
+                <Mode Name="IrDA" RemoveCondition="(STM32C0 &amp; !$IpNumber=1) | DIE467 &amp; ($IpNumber=4|$IpNumber=5|$IpNumber=6)|DIE460 &amp; (($IpNumber=4)|($IpNumber=3))| DIE466 &amp; ($IpNumber=2) | DIE456 &amp; ($IpNumber=2) |(DIE443 &amp; ($IpNumber=2))|(DIE453 &amp; ($IpNumber=2))|(DIE44C &amp; ($IpNumber=2)|(DIE44D &amp; ($IpNumber=2|$IpNumber=3|$IpNumber=4)))">
                     <SignalLogicalOp Name="AND">
                         <Signal Name="RX"/>
                         <Signal Name="TX"/>
                     </SignalLogicalOp>
                 </Mode>
-                <Mode Name="LIN" RemoveCondition="DIE467 &amp; ($IpNumber=4|$IpNumber=5|$IpNumber=6)|DIE460 &amp; (($IpNumber=4)|($IpNumber=3)) | DIE466 &amp; ($IpNumber=2) | DIE456 &amp; ($IpNumber=2) |(DIE443 &amp; ($IpNumber=2))|(DIE453 &amp; ($IpNumber=2))|(DIE44C &amp; ($IpNumber=2)|(DIE44D &amp; ($IpNumber=2|$IpNumber=3|$IpNumber=4)))">
+                <Mode Name="LIN" RemoveCondition="(STM32C0 &amp; !$IpNumber=1) | DIE467 &amp; ($IpNumber=4|$IpNumber=5|$IpNumber=6)|DIE460 &amp; (($IpNumber=4)|($IpNumber=3)) | DIE466 &amp; ($IpNumber=2) | DIE456 &amp; ($IpNumber=2) |(DIE443 &amp; ($IpNumber=2))|(DIE453 &amp; ($IpNumber=2))|(DIE44C &amp; ($IpNumber=2)|(DIE44D &amp; ($IpNumber=2|$IpNumber=3|$IpNumber=4)))">
                     <SignalLogicalOp Name="AND">
                         <Signal Name="RX"/>
                         <Signal Name="TX"/>
                     </SignalLogicalOp>
                 </Mode>
-                <Mode Name="SmartCard" RemoveCondition="DIE467 &amp; ($IpNumber=4|$IpNumber=5|$IpNumber=6)|DIE460 &amp; (($IpNumber=4)|($IpNumber=3)) | DIE466 &amp; ($IpNumber=2) | DIE456 &amp; ($IpNumber=2) |(DIE443 &amp; ($IpNumber=2))|(DIE453 &amp; ($IpNumber=2))|(DIE44C &amp; ($IpNumber=2)|(DIE44D &amp; ($IpNumber=2|$IpNumber=3|$IpNumber=4)))">
+                <Mode Name="SmartCard" RemoveCondition="(STM32C0 &amp; !$IpNumber=1) | DIE467 &amp; ($IpNumber=4|$IpNumber=5|$IpNumber=6)|DIE460 &amp; (($IpNumber=4)|($IpNumber=3)) | DIE466 &amp; ($IpNumber=2) | DIE456 &amp; ($IpNumber=2) |(DIE443 &amp; ($IpNumber=2))|(DIE453 &amp; ($IpNumber=2))|(DIE44C &amp; ($IpNumber=2)|(DIE44D &amp; ($IpNumber=2|$IpNumber=3|$IpNumber=4)))">
                     <SignalLogicalOp Name="AND">
                         <Signal IOMode="AlternateFunctionOpenDrainAndPushPullDefaultOD" Name="TX"/>
                     </SignalLogicalOp>
                 </Mode>
-                <Mode Name="SmartCard_With_Clock" UserName="SmartCard with Card Clock" RemoveCondition="DIE467 &amp; ($IpNumber=4|$IpNumber=5|$IpNumber=6)|DIE460 &amp; (($IpNumber=4)|($IpNumber=3))| DIE466 &amp; ($IpNumber=2) | DIE456 &amp; ($IpNumber=2) |(DIE443 &amp; ($IpNumber=2))|(DIE453 &amp; ($IpNumber=2))|(DIE44C &amp; ($IpNumber=2)|(DIE44D &amp; ($IpNumber=2|$IpNumber=3|$IpNumber=4)))">
+                <Mode Name="SmartCard_With_Clock" UserName="SmartCard with Card Clock" RemoveCondition="(STM32C0 &amp; !$IpNumber=1) | DIE467 &amp; ($IpNumber=4|$IpNumber=5|$IpNumber=6)|DIE460 &amp; (($IpNumber=4)|($IpNumber=3))| DIE466 &amp; ($IpNumber=2) | DIE456 &amp; ($IpNumber=2) |(DIE443 &amp; ($IpNumber=2))|(DIE453 &amp; ($IpNumber=2))|(DIE44C &amp; ($IpNumber=2)|(DIE44D &amp; ($IpNumber=2|$IpNumber=3|$IpNumber=4)))">
                     <SignalLogicalOp Name="AND">
                         <Signal IOMode="AlternateFunctionOpenDrainAndPushPullDefaultOD" Name="TX"/>
                         <Signal Name="CK"/>
                     </SignalLogicalOp>
                 </Mode>
-                <Mode Name="ModbusCommunication" UserName="Modbus Communication" RemoveCondition="DIE467 &amp; ($IpNumber=4|$IpNumber=5|$IpNumber=6)|DIE460 &amp; (($IpNumber=4)|($IpNumber=3))| DIE466 &amp; ($IpNumber=2) | DIE456 &amp; ($IpNumber=2) |(DIE443 &amp; ($IpNumber=2))|(DIE453 &amp; ($IpNumber=2))|(DIE44C &amp; ($IpNumber=2)|(DIE44D &amp; ($IpNumber=2|$IpNumber=3|$IpNumber=4)))">
+                <Mode Name="ModbusCommunication" UserName="Modbus Communication" RemoveCondition="(STM32C0 &amp; !$IpNumber=1) | DIE467 &amp; ($IpNumber=4|$IpNumber=5|$IpNumber=6)|DIE460 &amp; (($IpNumber=4)|($IpNumber=3))| DIE466 &amp; ($IpNumber=2) | DIE456 &amp; ($IpNumber=2) |(DIE443 &amp; ($IpNumber=2))|(DIE453 &amp; ($IpNumber=2))|(DIE44C &amp; ($IpNumber=2)|(DIE44D &amp; ($IpNumber=2|$IpNumber=3|$IpNumber=4)))">
                     <SignalLogicalOp Name="AND">
                         <Signal Name="TX"/>
                     </SignalLogicalOp>
@@ -1881,7 +1984,7 @@
                     </SignalLogicalOp>
                 </Mode>
             </ModeLogicOperator>
-            <Condition Diagnostic="Active only with Asynchronous Mode" Expression="!$IpInstance_FlowControl &amp; $IpInstance_Asynchronous"/>
+            <Condition Diagnostic="Active only with Asynchronous Mode" Expression="!$IpInstance_FlowControl &amp;($IpInstance_Asynchronous|($IpInstance_Single_Wire &amp; STM32G0))"/>
             <Semaphore>$IpInstance_HardwareControl</Semaphore>
             <Semaphore>S_USART</Semaphore>
         </Mode>
@@ -1907,7 +2010,6 @@
         </Mode>
 		
     </ModeLogicOperator>
-
     <!-- RefSignal for USART/UART/IRDA/SmartCard -->
     <RefSignal IOMode="AlternateFunctionPushPull" Name="CK"/>
     <RefSignal IOMode="AlternateFunctionPushPull" Name="NSS"/>

@@ -150,10 +150,12 @@
 		CRYP_KEYIVCONFIG_ALWAYS: Peripheral Key and IV configuration to do systematically&lt;br&gt;
 		CRYP_KEYIVCONFIG_ONCE: Peripheral Key and IV configuration to do only once&lt;br&gt;
 		CRYP_KEYNOCONFIG: Peripheral Key configuration to not do&lt;br&gt;
+		CRYP_IVCONFIG_ONCE: Peripheral IV configuration do once for interleave mode &lt;br&gt;
 		</Description>
-        <PossibleValue Comment="Always" Value="CRYP_KEYIVCONFIG_ALWAYS" Semaphore="Semaphore_CRYP_SAES_KEYIVCONFIG_ALWAYS$IpInstance"/>
-        <PossibleValue Comment="Only once" Value="CRYP_KEYIVCONFIG_ONCE" Semaphore="Semaphore_CRYP_SAES_KEYIVCONFIG_ONCE$IpInstance"/>
-        <PossibleValue Comment="Not" Value="CRYP_KEYNOCONFIG" Semaphore="Semaphore_CRYP_SAES_KEYNOCONFIG$IpInstance"/>
+        <PossibleValue Comment="Key/IV config Always" Value="CRYP_KEYIVCONFIG_ALWAYS" Semaphore="Semaphore_CRYP_SAES_KEYIVCONFIG_ALWAYS$IpInstance"/>
+        <PossibleValue Comment="Key/IV config Once" Value="CRYP_KEYIVCONFIG_ONCE" Semaphore="Semaphore_CRYP_SAES_KEYIVCONFIG_ONCE$IpInstance"/>
+        <PossibleValue Comment="Key config Not" Value="CRYP_KEYNOCONFIG" Semaphore="Semaphore_CRYP_SAES_KEYNOCONFIG$IpInstance"/>
+        <PossibleValue Comment="IV config Once" Value="CRYP_IVCONFIG_ONCE" Semaphore="SemaphoreCRYP_SAES_IVCONFIG_ONCE$IpInstance"/>
     </RefParameter>
 
     <RefParameter Comment="Key mode" DefaultValue="CRYP_KEYMODE_NORMAL" Name="KeyMode" Type="list" Group="Parameters">
@@ -223,7 +225,7 @@
 					<Semaphore>S_SAES</Semaphore>
 				</Mode>
 			</ModeLogicOperator>
-			<Condition Diagnostic="Active only if RNGis enabled" Expression="S_RNG"/>
+			<Condition Diagnostic="Active only if RNG is enabled" Expression="S_RNG &amp; ((DIE47A &amp;!CCB_Used ) | !DIE47A)"/>
 		</Mode>
 	</ModeLogicOperator>
 

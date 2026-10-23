@@ -771,34 +771,6 @@
         <Description>Define Bonding modes</Description>
     </RefParameter>
 
-    <RefParameter Name="CFG_USED_FIXED_PIN" Comment="CFG_USED_FIXED_PIN" DefaultValue="0" Type="list" TabName="BLE Pairing" Group="Pairing parameters">
-        <Description>Define Fixed Pin option, if set to 1 then CFG_FIXED_PIN will be ignored</Description>
-        <Condition Diagnostic="" Expression="Semaphore_PAIRING_PARAMETERS"/>
-        <PossibleValue Value="0" Comment="Use a fixed pin (0x00)"/>
-        <PossibleValue Value="1" Comment="Do not use a fixed pin (0x01)" Semaphore="Semaphore_CFG_USED_FIXED_PIN_REQUIRED"/>
-    </RefParameter>
-    <RefParameter Name="CFG_USED_FIXED_PIN" Comment="CFG_USED_FIXED_PIN" DefaultValue="0" Type="list" TabName="Configuration" Group="Pairing parameters">
-        <Condition Diagnostic="" Expression="S_BLE_HOST &amp; !Semaphore_CUSTOM_TEMPLATE"/>
-        <PossibleValue Value="0" Comment="Use a fixed pin (0x00)"/>
-        <PossibleValue Value="1" Comment="Do not use a fixed pin (0x01)" Semaphore="Semaphore_CFG_USED_FIXED_PIN_REQUIRED"/>
-        <Description>Define Fixed Pin option, if set to 1 then CFG_FIXED_PIN will be ignored</Description>
-    </RefParameter>
-    <RefParameter Name="CFG_USED_FIXED_PIN" Comment="CFG_USED_FIXED_PIN" DefaultValue="0" Type="UniqueElementList" TabName="Configuration" Group="Pairing parameters" Visible="false">
-        <Description>Define Fixed Pin option, if set to 1 then CFG_FIXED_PIN will be ignored</Description>
-    </RefParameter>
-
-    <RefParameter Name="CFG_FIXED_PIN" Comment="CFG_FIXED_PIN" DefaultValue="111111" Min="0" Max="999999" Type="integer" TabName="BLE Pairing" Group="Pairing parameters">
-        <Description>Any random value between 0 and 999999</Description>
-        <Condition Diagnostic="" Expression="Semaphore_PAIRING_PARAMETERS"/>
-    </RefParameter>
-    <RefParameter Name="CFG_FIXED_PIN" Comment="CFG_FIXED_PIN" DefaultValue="111111" Min="0" Max="999999" Type="integer" TabName="Configuration" Group="Pairing parameters">
-        <Condition Diagnostic="" Expression="S_BLE_HOST &amp; !Semaphore_CUSTOM_TEMPLATE"/>
-        <Description>Any random value between 0 and 999999</Description>
-    </RefParameter>
-    <RefParameter Name="CFG_FIXED_PIN" Comment="CFG_FIXED_PIN" DefaultValue="111111" Type="UniqueElementList" TabName="Configuration" Group="Pairing parameters" Visible="false">
-        <Description>Any random value between 0 and 999999</Description>
-    </RefParameter>
-
     <RefParameter Name="CFG_ENCRYPTION_KEY_SIZE_MAX" Comment="CFG_ENCRYPTION_KEY_SIZE_MAX" DefaultValue="16" Min="=CFG_ENCRYPTION_KEY_SIZE_MIN" Max="16" Type="integer" TabName="BLE Pairing" Group="Pairing parameters">
         <Description>Encryption key maximum size</Description>
         <Condition Diagnostic="" Expression="Semaphore_PAIRING_PARAMETERS"/>
@@ -1784,6 +1756,42 @@
         <Description>Maximum transmit power in dBm supported by the Controller.</Description>
     </RefParameter>
 
+    <RefParameter Name="CFG_BLE_MAX_ADD_EATT_BEARERS" Comment="CFG_BLE_MAX_ADD_EATT_BEARERS" DefaultValue="4" Min="0" Max="4" Type="integer" TabName="Configuration" Group="Application parameters">
+        <Condition Diagnostic="" Expression="S_BLE_HOST"/>
+        <Description>BLE stack Maximum number of created Enhanced ATT bearers to be configured
+        &lt;br&gt; in addition to the number of links
+        &lt;br&gt;     - Range: 0 __ 4
+        </Description>
+    </RefParameter>
+    <RefParameter Name="CFG_BLE_MAX_ADD_EATT_BEARERS" Comment="CFG_BLE_MAX_ADD_EATT_BEARERS" DefaultValue="4" Min="0" Max="4" Type="integer" TabName="Configuration" Group="Application parameters" Visible="false">
+        <Description>BLE stack Maximum number of created Enhanced ATT bearers to be configured
+        &lt;br&gt; in addition to the number of links
+        &lt;br&gt;     - Range: 0 __ 4
+        </Description>
+    </RefParameter>
+
+    <RefParameter Name="CFG_BLE_EXTRA_DATA_BUFFER_SIZE" Comment="CFG_BLE_EXTRA_DATA_BUFFER_SIZE" DefaultValue="500" Min="0" Max="500" Type="Integer" TabName="Configuration" Group="Application parameters">
+         <Condition Diagnostic="" Expression="Semaphore_BLE_TRANSPARENT_MODE &amp; !STM32WB5MMGHx" />
+         <Description>Size of the RAM buffer extra_data_buffer allocated for the extension of Host commands&lt;br&gt;
+            - Range: 0..500 (at least >250)
+         </Description>
+    </RefParameter>
+    <RefParameter Name="CFG_BLE_EXTRA_DATA_BUFFER_SIZE" Comment="CFG_BLE_EXTRA_DATA_BUFFER_SIZE" DefaultValue="500" Min="0" Max="500" Type="Integer" TabName="Configuration" Group="Application parameters" Visible="false">
+          <Description>Size of the RAM buffer extra_data_buffer allocated for the extension of Host commands&lt;br&gt;
+            - Range: 0..500 (at least >250)
+          </Description>
+    </RefParameter>
+ 
+	<RefParameter Name="CFG_BLE_EXTRA_DATA_STATUS" Comment="CFG_BLE_EXTRA_DATA_STATUS" DefaultValue="1" Type="UniqueElementList" TabName="Configuration" Group="Application parameters" Visible="false">
+          <Description></Description>
+          <Condition Diagnostic="" Expression="Semaphore_BLE_TRANSPARENT_MODE &amp; !STM32WB5MMGHx"/>
+          <PossibleValue Value="1" Comment="Enabled"/>
+    </RefParameter>
+    <RefParameter Name="CFG_BLE_EXTRA_DATA_STATUS" Comment="CFG_BLE_EXTRA_DATA_STATUS" DefaultValue="0" Type="UniqueElementList" TabName="Configuration" Group="Application parameters" Visible="false">
+          <Description></Description>
+          <Condition Diagnostic="" Expression="Semaphore_BLE_TRANSPARENT_MODE &amp; STM32WB5MMGHx"/>
+          <PossibleValue Value="0" Comment="Disabled"/>
+    </RefParameter>
 
     <RefParameter Name="CFG_BLE_RX_MODEL_CONFIG" Comment="CFG_BLE_RX_MODEL_CONFIG" DefaultValue="SHCI_C2_BLE_INIT_RX_MODEL_AGC_RSSI_LEGACY" Type="list" TabName="Configuration" Group="Application parameters">
         <Condition Diagnostic="" Expression="S_BLE_HOST"/>
@@ -2744,7 +2752,7 @@
 		<PossibleValue Value="1"  Comment="Enabled" Semaphore="Semaphore_CFG_HW_LPUART1_ENABLED"/>
         <Condition Diagnostic="" Expression="S_LPUART"/>
 		<Description>Enable or Disable LPUART1  (LPUART1 Mode must be set to Asynchronous with Hardware Flow Control set to CTS only)
-        &lt;br&gt;&lt;font color=&quot;red&quot;&gt; Please ensure that in ProjectManager Advanced Settings panel MX_LPUART1_UART_Init Not Generate Function call is ticked and that Vibility is unticked &lt;/font&gt;</Description>
+        &lt;br&gt;&lt;font color=&quot;red&quot;&gt; Please ensure that in ProjectManager Advanced Settings panel MX_LPUART1_UART_Init Not Generate Function call is ticked and that Visibility is unticked &lt;/font&gt;</Description>
 	</RefParameter>
 	<RefParameter Name="CFG_HW_LPUART1_ENABLED" Comment="CFG_HW_LPUART1_ENABLED" DefaultValue="0" Type="UniqueElementList" Group="HW UART" TabName="Configuration">
 		<PossibleValue Value="0" Comment="Disabled"/>
@@ -2770,7 +2778,7 @@
 		<PossibleValue Value="1"  Comment="Enabled"  Semaphore="Semaphore_CFG_HW_USART1_ENABLED"/>
         <Condition Diagnostic="" Expression="S_USART"/>
 		<Description>Enable or Disable traces USART1 (USART1 Mode must be set to Asynchronous with Hardware Flow Control set to CTS only)
-        &lt;br&gt;&lt;font color=&quot;red&quot;&gt; Please ensure that in ProjectManager Advanced Settings panel MX_USART1_UART_Init Not Generate Function call is ticked and that Vibility is unticked &lt;/font&gt;</Description>
+        &lt;br&gt;&lt;font color=&quot;red&quot;&gt; Please ensure that in ProjectManager Advanced Settings panel MX_USART1_UART_Init Not Generate Function call is ticked and that Visibility is unticked &lt;/font&gt;</Description>
 	</RefParameter>
 	<RefParameter Name="CFG_HW_USART1_ENABLED" Comment="CFG_HW_USART1_ENABLED" DefaultValue="0" Type="UniqueElementList" Group="HW UART" TabName="Configuration">
 		<PossibleValue Value="0" Comment="Disabled"/>
@@ -8566,8 +8574,6 @@
         <Parameter Name="PAIRING_PARAMETERS"/>
         <Parameter Name="CFG_IO_CAPABILITY"/>
         <Parameter Name="CFG_BONDING_MODE"/>
-        <Parameter Name="CFG_USED_FIXED_PIN"/>
-        <Parameter Name="CFG_FIXED_PIN"/>
         <Parameter Name="CFG_ENCRYPTION_KEY_SIZE_MAX"/>
         <Parameter Name="CFG_ENCRYPTION_KEY_SIZE_MIN"/>
         <Parameter Name="CFG_MITM_PROTECTION"/>
@@ -8760,8 +8766,6 @@
         <Parameter Name="PAIRING_PARAMETERS"/>
         <Parameter Name="CFG_IO_CAPABILITY"/>
         <Parameter Name="CFG_BONDING_MODE"/>
-        <Parameter Name="CFG_USED_FIXED_PIN"/>
-        <Parameter Name="CFG_FIXED_PIN"/>
         <Parameter Name="CFG_ENCRYPTION_KEY_SIZE_MAX"/>
         <Parameter Name="CFG_ENCRYPTION_KEY_SIZE_MIN"/>
         <Parameter Name="CFG_MITM_PROTECTION"/>
@@ -11920,6 +11924,9 @@
         <Parameter Name="CFG_BLE_MAX_COC_INITIATOR_NBR"/>
         <Parameter Name="CFG_BLE_MIN_TX_POWER"/>
         <Parameter Name="CFG_BLE_MAX_TX_POWER"/>
+        <Parameter Name="CFG_BLE_MAX_ADD_EATT_BEARERS"/>
+        <Parameter Name="CFG_BLE_EXTRA_DATA_BUFFER_SIZE"/>
+        <Parameter Name="CFG_BLE_EXTRA_DATA_STATUS"/>
         <Parameter Name="CFG_BLE_RX_MODEL_CONFIG"/>
         <Parameter Name="CFG_BLE_MAX_ADV_SET_NBR"/>
         <Parameter Name="CFG_BLE_MAX_ADV_DATA_LEN"/>

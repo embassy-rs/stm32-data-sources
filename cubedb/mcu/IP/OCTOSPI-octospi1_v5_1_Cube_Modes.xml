@@ -153,11 +153,9 @@
 
     <!-- DelayBlockBypass -->
     <RefParameter Comment="Status (DLYB)" DefaultValue="HAL_XSPI_DELAY_BLOCK_BYPASS" Name="DelayBlockBypass" Type="list" Group="Delay Block Settings">
-        <Condition Diagnostic="" Expression="(Sem_$IpInstance_OctoDs|Sem_$IpInstance_HyperBus)"/>
         <PossibleValue Comment="Bypassed" Value="HAL_XSPI_DELAY_BLOCK_BYPASS"/>
         <PossibleValue Comment="Used" Value="HAL_XSPI_DELAY_BLOCK_ON"/>
     </RefParameter>
-    <RefParameter Comment="Delay Block (DLYB)" DefaultValue="HAL_XSPI_DELAY_BLOCK_BYPASS" Name="DelayBlockBypass" Type="list" Group="Delay Block Settings" Visible="false"/>
 
     <!-- DlyB Units (LL) -->
     <RefParameter Comment="Unit Delay Cell" DefaultValue="0" Max="128" Min="0" Name="Units" Type="integer" Group="Delay Block Settings">
@@ -176,7 +174,7 @@
 	
     <!-- MaxTran -->
     <RefParameter Comment="Maximum Transfer" DefaultValue="0" Max="255" Min="0" Name="MaxTran" Type="integer" Group="Generic">
-        <Condition Diagnostic="" Expression="DIE454"/>
+        <Condition Diagnostic="" Expression="DIE454|DIE42B"/>
     </RefParameter>
 
     <!-- *********************************************** -->
@@ -796,7 +794,7 @@
                     <Semaphore>Sem_$IpInstance_DualSingle</Semaphore>
                 </Mode>
                 <Mode Name="dual_dual_mode" UserName="Dual-Dual SPI">
-				<Condition Diagnostic="Not available in this package" Expression="!((LQFP48|UFQFPN48|WLCSP39|WLCSP52|UQFN32) &amp; (DIE478|DIE454))"/>
+				<Condition Diagnostic="Not available in this package" Expression="!((LQFP48|UFQFPN48|WLCSP39|WLCSP52|UQFN32) &amp; (DIE478|DIE454|DIE42B))"/>
                     <SignalLogicalOp Name="AND">
                         <Signal Name="NCS"/>
                         <Signal Name="CLK"/>
@@ -804,7 +802,7 @@
                     <Semaphore>Sem_$IpInstance_DualDual</Semaphore>
                 </Mode>
                 <Mode Name="dual_quad_mode" UserName="Dual-Quad SPI">
-				<Condition Diagnostic="Not available in this package" Expression="!((LQFP48|UFQFPN48|WLCSP39|WLCSP52|UQFN32) &amp; (DIE478|DIE454))"/>
+				<Condition Diagnostic="Not available in this package" Expression="!((LQFP48|UFQFPN48|WLCSP39|WLCSP52|UQFN32) &amp; (DIE478|DIE454|DIE42B))"/>
                     <SignalLogicalOp Name="AND">
                         <Signal Name="NCS"/>
                         <Signal Name="CLK"/>
@@ -812,7 +810,7 @@
                     <Semaphore>Sem_$IpInstance_DualQuad</Semaphore>
                 </Mode>
                 <Mode Name="octo_mode" UserName="Octo SPI">
-				<Condition Diagnostic="Not available in this package" Expression="!((LQFP48|UFQFPN48|WLCSP39|WLCSP52|UQFN32) &amp; (DIE478|DIE454))"/>
+				<Condition Diagnostic="Not available in this package" Expression="!((LQFP48|UFQFPN48|WLCSP39|WLCSP52|UQFN32) &amp; (DIE478|DIE454|DIE42B))"/>
                     <SignalLogicalOp Name="AND">
                         <Signal Name="NCS"/>
                         <Signal Name="CLK"/>
@@ -820,7 +818,7 @@
                     <Semaphore>Sem_$IpInstance_Octo</Semaphore>
                 </Mode>
                 <Mode Name="octods_mode" UserName="Octo SPI with Data Strobe">
-				<Condition Diagnostic="Not available in this package" Expression="!((LQFP48|UFQFPN48|WLCSP39|WLCSP52|UQFN32) &amp; (DIE478|DIE454))"/>
+				<Condition Diagnostic="Not available in this package" Expression="!((LQFP48|UFQFPN48|WLCSP39|WLCSP52|UQFN32) &amp; (DIE478|DIE454|DIE42B))"/>
                     <SignalLogicalOp Name="AND">
                         <Signal Name="DQS"/>
                         <Signal Name="NCS"/>
@@ -829,7 +827,7 @@
                     <Semaphore>Sem_$IpInstance_OctoDs</Semaphore>
                 </Mode>
                 <Mode Name="hyperbus_mode" UserName="HyperBus(TM)">
-				<Condition Diagnostic="Not available in this package" Expression="!((LQFP48|UFQFPN48|WLCSP39|WLCSP52|UQFN32) &amp; (DIE478|DIE454))"/>
+				<Condition Diagnostic="Not available in this package" Expression="!((LQFP48|UFQFPN48|WLCSP39|WLCSP52|UQFN32) &amp; (DIE478|DIE454|DIE42B))"/>
                     <SignalLogicalOp Name="AND">
 						<Signal Name="DQS"/>
                         <Signal Name="NCS"/>

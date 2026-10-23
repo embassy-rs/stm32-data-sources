@@ -59,7 +59,7 @@
         <PossibleValue Comment="RTC Alarm B" Value="LPTIM_TRIGSOURCE_2"/>
         <PossibleValue Comment="RTC TAMP1 Input Detection" Value="LPTIM_TRIGSOURCE_3"/>
         <PossibleValue Comment="RTC TAMP2 Input Detection" Value="LPTIM_TRIGSOURCE_4"/>
-        <PossibleValue Comment="LPDMA CH2 transfer complete" Value="LPTIM_TRIGSOURCE_5"/>
+        <PossibleValue Comment="GPDMA CH2 transfer complete" Value="LPTIM_TRIGSOURCE_5"/>
         <PossibleValue Comment="COMP1 OUT" Value="LPTIM_TRIGSOURCE_6"/>
         <PossibleValue Comment="COMP2 OUT" Value="LPTIM_TRIGSOURCE_7" Condition="!(COMP2_Exist)" Action="Remove"/>
     </RefParameter>
@@ -70,7 +70,7 @@
         <PossibleValue Comment="RTC Alarm B" Value="LPTIM_TRIGSOURCE_2"/>
         <PossibleValue Comment="RTC TAMP1 Input Detection" Value="LPTIM_TRIGSOURCE_3"/>
         <PossibleValue Comment="RTC TAMP2 Input Detection" Value="LPTIM_TRIGSOURCE_4"/>
-        <PossibleValue Comment="LPDMA CH2 transfer complete" Value="LPTIM_TRIGSOURCE_5"/>
+        <PossibleValue Comment="GPDMA CH2 transfer complete" Value="LPTIM_TRIGSOURCE_5"/>
         <PossibleValue Comment="COMP1 OUT" Value="LPTIM_TRIGSOURCE_6"/>
         <PossibleValue Comment="COMP2 OUT" Value="LPTIM_TRIGSOURCE_7" Condition="!(COMP2_Exist)" Action="Remove"/>
     </RefParameter>
@@ -104,7 +104,7 @@
         <PossibleValue Comment="RTC Alarm A" Value="LPTIM_TRIGSOURCE_1"/>
         <PossibleValue Comment="RTC Alarm B" Value="LPTIM_TRIGSOURCE_2"/>
         <PossibleValue Comment="RTC TAMP1 Input Detection" Value="LPTIM_TRIGSOURCE_3"/>
-        <PossibleValue Comment="LPDMA CH1 transfer complete" Value="LPTIM_TRIGSOURCE_4"/>
+        <PossibleValue Comment="GPDMA CH1 transfer complete" Value="LPTIM_TRIGSOURCE_4"/>
         <PossibleValue Comment="RTC TAMP3 Input Detection" Value="LPTIM_TRIGSOURCE_5"/>
         <PossibleValue Comment="COMP1 OUT" Value="LPTIM_TRIGSOURCE_6"/>
         <PossibleValue Comment="COMP2 OUT" Value="LPTIM_TRIGSOURCE_7" Condition="!(COMP2_Exist)" Action="Remove"/>
@@ -115,7 +115,7 @@
         <PossibleValue Comment="RTC Alarm A" Value="LPTIM_TRIGSOURCE_1"/>
         <PossibleValue Comment="RTC Alarm B" Value="LPTIM_TRIGSOURCE_2"/>
         <PossibleValue Comment="RTC TAMP1 Input Detection" Value="LPTIM_TRIGSOURCE_3"/>
-        <PossibleValue Comment="LPDMA CH1 transfer complete" Value="LPTIM_TRIGSOURCE_4"/>
+        <PossibleValue Comment="GPDMA CH1 transfer complete" Value="LPTIM_TRIGSOURCE_4"/>
         <PossibleValue Comment="RTC TAMP3 Input Detection" Value="LPTIM_TRIGSOURCE_5"/>
         <PossibleValue Comment="COMP1 OUT" Value="LPTIM_TRIGSOURCE_6"/>
         <PossibleValue Comment="COMP2 OUT" Value="LPTIM_TRIGSOURCE_7" Condition="!(COMP2_Exist)" Action="Remove"/>
@@ -126,7 +126,7 @@
         <PossibleValue Comment="LPTIM2_ETR IO" Value="LPTIM_TRIGSOURCE_0"/>
         <PossibleValue Comment="RTC Alarm A" Value="LPTIM_TRIGSOURCE_1"/>
         <PossibleValue Comment="RTC Alarm B" Value="LPTIM_TRIGSOURCE_2"/>
-        <PossibleValue Comment="LPDMA CH0 transfer complete" Value="LPTIM_TRIGSOURCE_3"/>
+        <PossibleValue Comment="GPDMA CH3 transfer complete" Value="LPTIM_TRIGSOURCE_3"/>
         <PossibleValue Comment="RTC TAMP2 Input Detection" Value="LPTIM_TRIGSOURCE_4"/>
         <PossibleValue Comment="RTC TAMP3 Input Detection" Value="LPTIM_TRIGSOURCE_5"/>
         <PossibleValue Comment="COMP1 OUT" Value="LPTIM_TRIGSOURCE_6"/>
@@ -137,7 +137,7 @@
         <PossibleValue Comment="Software Trigger" Value="LPTIM_TRIGSOURCE_SOFTWARE" Semaphore="Semaphore_SWTrigger_$IpInstance"/>
         <PossibleValue Comment="RTC Alarm A" Value="LPTIM_TRIGSOURCE_1"/>
         <PossibleValue Comment="RTC Alarm B" Value="LPTIM_TRIGSOURCE_2"/>
-        <PossibleValue Comment="LPDMA CH0 transfer complete" Value="LPTIM_TRIGSOURCE_3"/>
+        <PossibleValue Comment="GPDMA CH3 transfer complete" Value="LPTIM_TRIGSOURCE_3"/>
         <PossibleValue Comment="RTC TAMP2 Input Detection" Value="LPTIM_TRIGSOURCE_4"/>
         <PossibleValue Comment="RTC TAMP3 Input Detection" Value="LPTIM_TRIGSOURCE_5"/>
         <PossibleValue Comment="COMP1 OUT" Value="LPTIM_TRIGSOURCE_6"/>
@@ -201,7 +201,7 @@
         <Condition Diagnostic="external or standalone" Expression="Semaphore_Input1_gpio$IpInstance"/>
         <PossibleValue Comment="GPIO" Value="LPTIM_INPUT1SOURCE_GPIO"/>
     </RefParameter>
-    <RefParameter Comment="Input1 Source" DefaultValue="LPTIM_INPUT1SOURCE_COMP1" Name="Input1Source" Type="list" Visible="false">
+    <RefParameter Comment="Input1 Source" DefaultValue="LPTIM_INPUT1SOURCE_COMP1" Name="Input1Source" Type="list">
         <Condition Diagnostic="external or standalone" Expression="Semaphore_Input1_comp1$IpInstance"/>
         <PossibleValue Comment="COMP1" Value="LPTIM_INPUT1SOURCE_COMP1"/>
     </RefParameter>
@@ -213,18 +213,19 @@
         <Condition Diagnostic="external or standalone" Expression="Semaphore_Input1_comp1comp2$IpInstance"/>
         <PossibleValue Comment="COMP1 OR COMP2 " Value="LPTIM_INPUT1SOURCE_COMP1_COMP2"/>
     </RefParameter>
-    <RefParameter Comment="Input2 Source" DefaultValue="LPTIM_INPUT2SOURCE_GPIO" Name="Input2Source" Type="list" Visible="false">
+<!--     <RefParameter Comment="Input2 Source" DefaultValue="LPTIM_INPUT2SOURCE_GPIO" Name="Input2Source" Type="list">
          <Condition Diagnostic="external or standalone" Expression="Semaphore_Input2_gpio$IpInstance"/>
         <PossibleValue Comment="GPIO" Value="LPTIM_INPUT2SOURCE_GPIO"/>
-    </RefParameter>
-    <RefParameter Comment="Input2 Source" DefaultValue="LPTIM_INPUT2SOURCE_COMP2" Name="Input2Source" Type="list" Visible="false">
-         <Condition Diagnostic="external or standalone" Expression="Semaphore_Input2_comp2$IpInstance"/>
+    </RefParameter> -->
+    <RefParameter Comment="Input2 Source" DefaultValue="LPTIM_INPUT2SOURCE_COMP2" Name="Input2Source" Type="list">
+         <Condition Diagnostic="external or standalone" Expression="Semaphore_Input2_comp2$IpInstance &amp;(($IpNumber=1)|($IpNumber=2))"/>
         <PossibleValue Comment="COMP2" Value="LPTIM_INPUT2SOURCE_COMP2"/>
     </RefParameter>
     <RefParameter Name="ICInputSource_1" Comment="InputCapture1 Source" DefaultValue="LPTIM_IC1SOURCE_COMP1" Type="list" Group="Channel 1">
         <Condition Diagnostic="IO input is not selected" Expression="($IpNumber=1) &amp; Semaphore_input_int_ch1_$IpInstance"/>
         <PossibleValue Value="LPTIM_IC1SOURCE_COMP1" Comment="COMP1"/>
         <PossibleValue Value="LPTIM_IC1SOURCE_COMP2" Comment="COMP2" Condition="!COMP2_Exist" Action="Remove"/>
+        <PossibleValue Value="LPTIM_IC1SOURCE_I3C2_IBIACK"  Comment="I3C2" Condition="!I3C2_Exist" Action="Remove"/>
     </RefParameter>
     <RefParameter Name="ICInputSource_1" Comment="InputCapture1 Source" DefaultValue="LPTIM_IC1SOURCE_GPIO" Type="list" Visible="false">
         <Condition Diagnostic="IO input is selected" Expression="($IpNumber=1) &amp; !Semaphore_input_int_ch1_$IpInstance"/>
@@ -243,6 +244,7 @@
         <Condition Diagnostic="IO input is not selected" Expression="($IpNumber=2) &amp; Semaphore_input_int_ch1_$IpInstance"/>
         <PossibleValue Value="LPTIM_IC1SOURCE_COMP1" Comment="COMP1"/>
         <PossibleValue Value="LPTIM_IC1SOURCE_COMP2" Comment="COMP2" Condition="!COMP2_Exist" Action="Remove"/>
+        <PossibleValue Value="LPTIM_IC1SOURCE_I3C1_IBIACK"  Comment="I3C1" Condition="!I3C1_Exist" Action="Remove"/>
     </RefParameter>
     <RefParameter Name="ICInputSource_1" Comment="InputCapture1 Source" DefaultValue="LPTIM_IC1SOURCE_GPIO" Type="list" Visible="false">
         <Condition Diagnostic="IO input is selected" Expression="($IpNumber=2) &amp; !Semaphore_input_int_ch1_$IpInstance"/>
@@ -251,8 +253,8 @@
     <RefParameter Name="ICInputSource_2" Comment="InputCapture2 Source" DefaultValue="LPTIM_IC2SOURCE_HSI_256" Type="list" Group="Channel 2">
         <Condition Diagnostic="IO input is not selected" Expression="($IpNumber=2) &amp;  Semaphore_input_int_ch2_$IpInstance"/>
         <PossibleValue Value="LPTIM_IC2SOURCE_HSI_256" Comment="HSI_256" />
-        <PossibleValue Value="LPTIM_IC2SOURCE_MSI_1024" Comment="MSI_1024" />
-        <PossibleValue Value="LPTIM_IC2SOURCE_MSI_4" Comment="MSI_4" />
+        <PossibleValue Value="LPTIM_IC2SOURCE_MSIS_1024" Comment="MSIS_1024" />
+        <PossibleValue Value="LPTIM_IC2SOURCE_MSIS_4" Comment="MSIS_4" />
     </RefParameter>
     <RefParameter Name="ICInputSource_2" Comment="InputCapture2 Source" DefaultValue="LPTIM_IC2SOURCE_GPIO" Type="list" Visible="false">
         <Condition Diagnostic="IO input is selected" Expression="($IpNumber=2) &amp;  !Semaphore_input_int_ch1_$IpInstance"/>
@@ -262,13 +264,16 @@
         <Condition Diagnostic="IO input is not selected" Expression="($IpNumber=3) &amp; Semaphore_input_int_ch1_$IpInstance"/>
         <PossibleValue Value="LPTIM_IC1SOURCE_COMP1" Comment="COMP1"/>
         <PossibleValue Value="LPTIM_IC1SOURCE_COMP2" Comment="COMP2" Condition="!COMP2_Exist" Action="Remove"/>
+        <PossibleValue Value="LPTIM_IC1SOURCE_I3C1_IBIACK"  Comment="I3C1" Condition="!I3C1_Exist" Action="Remove"/>
     </RefParameter>
     <RefParameter Name="ICInputSource_1" Comment="InputCapture1 Source" DefaultValue="LPTIM_IC1SOURCE_GPIO" Type="list" Visible="false">
         <Condition Diagnostic="IO input is selected" Expression="($IpNumber=3) &amp; !Semaphore_input_int_ch1_$IpInstance"/>
         <PossibleValue Value="LPTIM_IC1SOURCE_GPIO" Comment="GPIO"/>
     </RefParameter>
-    <RefParameter Name="ICInputSource_2" Comment="InputCapture2 Source" DefaultValue="null" Type="list" Group="Channel 2">
-        <Condition Diagnostic="IO input is not selected" Expression="($IpNumber=3) &amp;  Semaphore_input_int_ch2_$IpInstance"/>
+    <RefParameter Name="ICInputSource_2" Comment="InputCapture2 Source" DefaultValue="LPTIM_IC2SOURCE_I3C2_IBIACK" Type="list" Group="Channel 2">
+        <Condition Diagnostic="IO input is not selected" Expression="($IpNumber=3) &amp; !(DIE42B) &amp; !(DIE42C) &amp; Semaphore_input_int_ch2_$IpInstance"/>
+        <PossibleValue Value="LPTIM_IC2SOURCE_I3C2_IBIACK" Comment="I3C2" Condition="!I3C2_Exist" Action="Remove"/>
+        <PossibleValue Value="LPTIM_IC2SOURCE_I3C2_IBIACK" Comment="I3C2" Condition="!I3C2_Exist" Action="Remove"/>
     </RefParameter>
     <RefParameter Name="ICInputSource_2" Comment="InputCapture2 Source" DefaultValue="LPTIM_IC2SOURCE_GPIO" Type="list" Visible="false">
         <Condition Diagnostic="IO input is selected" Expression="($IpNumber=3) &amp;  !Semaphore_input_int_ch2_$IpInstance"/>
@@ -326,14 +331,14 @@
         <PossibleValue Value="UI_output" Comment="Compare on CH1 IO"/>
     </RefParameter>
     <RefParameter Name="Capture_Compare_Selection_2" Comment="Capture-Compare Selection" DefaultValue="UI_input" Type="list" Group="Channel 2" Visible="true">
-        <Condition Diagnostic="Internal signals" Expression="(($IpNumber=1)|($IpNumber=2)) &amp; !(Semaphore_CH2_Input$IpInstance|Semaphore_CH2_Output$IpInstance)"/>
+        <Condition Diagnostic="Internal signals" Expression="(($IpNumber=1)|($IpNumber=2)|($IpNumber=3)) &amp; !(Semaphore_CH2_Input$IpInstance|Semaphore_CH2_Output$IpInstance)"/>
         <PossibleValue Value="UI_input" Comment="Capture" Semaphore="Semaphore_input_int_ch2_$IpInstance"/>
         <PossibleValue Value="UI_output" Comment="Compare" Semaphore="Semaphore_output_int_ch2_$IpInstance"/>
     </RefParameter>
-    <RefParameter Name="Capture_Compare_Selection_2" Comment="Capture-Compare Selection" DefaultValue="UI_output" Type="list" Group="Channel 2" Visible="true">
+<!--    <RefParameter Name="Capture_Compare_Selection_2" Comment="Capture-Compare Selection" DefaultValue="UI_output" Type="list" Group="Channel 2" Visible="true">
         <Condition Diagnostic="Internal signals" Expression="($IpNumber=3) &amp; !(Semaphore_CH2_Input$IpInstance|Semaphore_CH2_Output$IpInstance)"/>
         <PossibleValue Value="UI_output" Comment="Compare" Semaphore="Semaphore_output_int_ch2_$IpInstance"/>
-    </RefParameter>
+    </RefParameter>-->
     <RefParameter Name="Capture_Compare_Selection_2" Comment="Capture-Compare Selection" DefaultValue="UI_input" Type="list" Group="Channel 2" Visible="true">
         <Condition Diagnostic="Internal signals" Expression="Semaphore_CH2_Input$IpInstance"/>
         <PossibleValue Value="UI_input" Comment="Capture from CH2 IO"/>

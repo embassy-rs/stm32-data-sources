@@ -11,6 +11,7 @@
             <MethodArg Name="TransferDirection" ParameterName="Mode"/>
             <MethodArg Name="HardwareFlowControl" ParameterName="HwFlowCtl"/>
             <MethodArg Name="OverSampling" ParameterName="OverSampling"/>
+            <MethodArg Name="PrescalerValue" ParameterName="UartPrescaler"/>
         </CallLibMethod>
         <IFCondition Expression="(OneBitSampling = UART_ONE_BIT_SAMPLE_ENABLE)">
             <CallLibMethod Name="LL_USART_EnableOneBitSamp">
@@ -74,7 +75,7 @@
         </IFCondition>
         
         <!--Autonomous Mode-->
-        <IFCondition Expression="(AutonomousModeState=UART_AUTONOMOUS_MODE_ENABLE)">          
+        <IFCondition Expression="(AutonomousModeState=UART_AUTONOMOUS_MODE_ENABLE)">
             <CallLibMethod Name="LL_USART_Enable_SelectedTrigger">
                 <MethodArg Name="USARTx" ParameterName="Instance"/>
             </CallLibMethod>
@@ -91,12 +92,12 @@
                 <MethodArg Name="Nbdata" ParameterName="DataSize"/>
             </CallLibMethod>
         </IFCondition>
-        <IFCondition Expression="(IdleFrame=UART_IDLE_FRAME_ENABLE)">          
+        <IFCondition Expression="(IdleFrame=UART_IDLE_FRAME_ENABLE)">
             <CallLibMethod Name="LL_USART_Enable_AutonomousSendIdleFrame">
                 <MethodArg Name="USARTx" ParameterName="Instance"/>
             </CallLibMethod>
         </IFCondition>
-        <IFCondition Expression="(IdleFrame=UART_IDLE_FRAME_DISABLE)">          
+        <IFCondition Expression="(IdleFrame=UART_IDLE_FRAME_DISABLE)">
             <CallLibMethod Name="LL_USART_Disable_AutonomousSendIdleFrame">
                 <MethodArg Name="USARTx" ParameterName="Instance"/>
             </CallLibMethod>
@@ -117,6 +118,7 @@
     <RefConfig Name="IrDa_Init">
         <CallLibMethod Name="LL_USART_Init">
             <MethodArg Name="UARTx" ParameterName="Instance"/>
+            <MethodArg Name="PrescalerValue" ParameterName="UartPrescaler"/>
             <MethodArg Name="BaudRate" ParameterName="BaudRate"/>
             <MethodArg Name="DataWidth" ParameterName="WordLength"/>
             <MethodArg Name="Parity" ParameterName="Parity"/>
@@ -152,6 +154,7 @@
             <MethodArg Name="TransferDirection" ParameterName="Mode"/>
             <MethodArg Name="HardwareFlowControl" ParameterName="HwFlowCtl"/>
             <MethodArg Name="OverSampling" ParameterName="OverSampling"/>
+            <MethodArg Name="PrescalerValue" ParameterName="UartPrescaler"/>
         </CallLibMethod>
         <IFCondition Expression="(OneBitSampling = UART_ONE_BIT_SAMPLE_ENABLE)">
             <CallLibMethod Name="LL_USART_EnableOneBitSamp">
@@ -251,6 +254,7 @@
             <MethodArg Name="Parity" ParameterName="Parity"/>
             <MethodArg Name="TransferDirection" ParameterName="Mode"/>
             <MethodArg Name="OverSampling" ParameterName="OverSampling"/>
+            <MethodArg Name="PrescalerValue" ParameterName="UartPrescaler"/>
         </CallLibMethod>
 
         <IFCondition Expression="(OneBitSampling = UART_ONE_BIT_SAMPLE_ENABLE)">
@@ -336,6 +340,7 @@
             <MethodArg Name="Parity" ParameterName="Parity"/>
             <MethodArg Name="TransferDirection" ParameterName="Mode"/>
             <MethodArg Name="OverSampling" ParameterName="OverSampling"/>
+            <MethodArg Name="PrescalerValue" ParameterName="UartPrescaler"/>
         </CallLibMethod>
         
         <IFCondition Expression="(OneBitSampling = UART_ONE_BIT_SAMPLE_ENABLE)">
@@ -427,6 +432,7 @@
             <MethodArg Name="Parity" ParameterName="Parity"/>
             <MethodArg Name="TransferDirection" ParameterName="Mode"/>
             <MethodArg Name="OverSampling" ParameterName="OverSampling"/>
+            <MethodArg Name="PrescalerValue" ParameterName="UartPrescaler"/>
         </CallLibMethod>
         <IFCondition Expression="(OneBitSampling = UART_ONE_BIT_SAMPLE_ENABLE)">
             <CallLibMethod Name="LL_USART_EnableOneBitSamp">
@@ -513,6 +519,7 @@
             <MethodArg Name="Parity" ParameterName="Parity"/>
             <MethodArg Name="TransferDirection" ParameterName="Mode"/>
             <MethodArg Name="OverSampling" ParameterName="OverSampling"/>
+            <MethodArg Name="PrescalerValue" ParameterName="UartPrescaler"/>
         </CallLibMethod>
         <IFCondition Expression="(OneBitSampling = UART_ONE_BIT_SAMPLE_ENABLE)">
             <CallLibMethod Name="LL_USART_EnableOneBitSamp">
@@ -1165,6 +1172,7 @@
     <LibMethod Comment="" Name="LL_USART_Init">
         <Argument AddressOf="false" GenericType="baseaddress" Name="UARTx" TypeName="USART_TypeDef"/>
         <Argument AddressOf="true" GenericType="struct" Name="UART_InitStruct" TypeName="LL_USART_InitTypeDef">
+			<Argument AddressOf="false" GenericType="simple" Name="PrescalerValue" OptimizationCondition="equal"/>
             <Argument AddressOf="false" GenericType="simple" Name="BaudRate" OptimizationCondition="equal"/>
             <Argument AddressOf="false" GenericType="simple" Name="DataWidth" OptimizationCondition="equal"/>
             <Argument AddressOf="false" GenericType="simple" Name="StopBits" OptimizationCondition="equal"/>

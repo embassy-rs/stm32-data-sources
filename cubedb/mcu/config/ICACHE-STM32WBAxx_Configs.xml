@@ -16,6 +16,47 @@
     <RefConfig Name="ICACHE_DeInit">
         <CallLibMethod Name="HAL_ICACHE_DeInit"/>
     </RefConfig>
+
+    <RefConfig Comment="Configure and enable region 0 for memory remapping" Name="ICACHE_EnableRemapRegion">
+        <CallLibMethod Name="HAL_ICACHE_EnableRemapRegion">
+            <MethodArg Name="Region" ParameterName="Region" />
+            <MethodArg Name="BaseAddress" ParameterName="BaseAddress" />
+            <MethodArg Name="RemapAddress" ParameterName="RemapAddress" />
+            <MethodArg Name="Size" ParameterName="Size" />
+            <MethodArg Name="TrafficRoute" ParameterName="TrafficRoute" />
+            <MethodArg Name="OutputBurstType" ParameterName="OutputBurstType" />
+        </CallLibMethod>
+    </RefConfig>
+    <RefConfig Comment="Configure and enable region 1 for memory remapping" Name="ICACHE_EnableRemapRegion1">
+        <CallLibMethod Name="HAL_ICACHE_EnableRemapRegion">
+            <MethodArg Name="Region" ParameterName="Region1" />
+            <MethodArg Name="BaseAddress" ParameterName="BaseAddress1" />
+            <MethodArg Name="RemapAddress" ParameterName="RemapAddress1" />
+            <MethodArg Name="Size" ParameterName="Size1" />
+            <MethodArg Name="TrafficRoute" ParameterName="TrafficRoute1" />
+            <MethodArg Name="OutputBurstType" ParameterName="OutputBurstType1" />
+        </CallLibMethod>
+    </RefConfig>
+    <RefConfig Comment="Configure and enable region 2 for memory remapping" Name="ICACHE_EnableRemapRegion2">
+        <CallLibMethod Name="HAL_ICACHE_EnableRemapRegion">
+            <MethodArg Name="Region" ParameterName="Region2" />
+            <MethodArg Name="BaseAddress" ParameterName="BaseAddress2" />
+            <MethodArg Name="RemapAddress" ParameterName="RemapAddress2" />
+            <MethodArg Name="Size" ParameterName="Size2" />
+            <MethodArg Name="TrafficRoute" ParameterName="TrafficRoute2" />
+            <MethodArg Name="OutputBurstType" ParameterName="OutputBurstType2" />
+        </CallLibMethod>
+    </RefConfig>
+    <RefConfig Comment="Configure and enable region 3 for memory remapping" Name="ICACHE_EnableRemapRegion3">
+        <CallLibMethod Name="HAL_ICACHE_EnableRemapRegion">
+            <MethodArg Name="Region" ParameterName="Region3" />
+            <MethodArg Name="BaseAddress" ParameterName="BaseAddress3" />
+            <MethodArg Name="RemapAddress" ParameterName="RemapAddress3" />
+            <MethodArg Name="Size" ParameterName="Size3" />
+            <MethodArg Name="TrafficRoute" ParameterName="TrafficRoute3" />
+            <MethodArg Name="OutputBurstType" ParameterName="OutputBurstType3" />
+        </CallLibMethod>
+    </RefConfig>
     
     <LibMethod Comment="" Name="HAL_ICACHE_Enable">
     </LibMethod>
@@ -27,6 +68,17 @@
     <LibMethod Comment="" Name="HAL_ICACHE_DeInit">        
         <Argument AddressOf="false" GenericType="simple" Name="Lock" OptimizationCondition="equal"/>
         <Argument AddressOf="false" GenericType="simple" Name="State" OptimizationCondition="equal"/>
+    </LibMethod>
+
+    <LibMethod Comment="" Name="HAL_ICACHE_EnableRemapRegion">
+        <Argument AddressOf="false" GenericType="simple" Name="Region" OptimizationCondition="equal"/>
+        <Argument AddressOf="true"  GenericType="struct" Name="pRegionConfig" TypeName="ICACHE_RegionConfigTypeDef">
+            <Argument AddressOf="false" GenericType="simple" Name="BaseAddress" OptimizationCondition="equal"/>
+            <Argument AddressOf="false" GenericType="simple" Name="RemapAddress" OptimizationCondition="equal"/>
+            <Argument AddressOf="false" GenericType="simple" Name="Size" OptimizationCondition="equal" />
+            <Argument AddressOf="false" GenericType="simple" Name="TrafficRoute" OptimizationCondition="equal"/>
+            <Argument AddressOf="false" GenericType="simple" Name="OutputBurstType" OptimizationCondition="equal"/>
+        </Argument>
     </LibMethod>
   
     <RefComponent Cclass="HAL" Cgroup="ICACHE" Cversion="0.2.0">

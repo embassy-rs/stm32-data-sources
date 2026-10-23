@@ -19,7 +19,7 @@
 								 &amp; !SEM_FLASH_OB_WMSEC &amp; !SEM_FLASH_OB_WRPB &amp; !SEM_FLASH_OB_WRPA
 								 &amp; ((OB_User_Configuration_active=true &amp; (!SEM_OB_NRST_STOP_NULL |!SEM_OB_NRST_STDBY_NULL
 								 | !SEM_OB_SRAM1_RST_NULL | !SEM_OB_IWDGSW_NULL | !SEM_OB_IWDG_STOP_NULL | !SEM_OB_IWDG_STDBY_NULL
-								 | !SEM_OB_WWDGSW_NULL | !SEM_OB_SRAM2_PARITY_NULL | !SEM_OB_SRAM2_RST_NULL | !SEM_OB_BOOT0_FROM_NULL
+								 | (!SEM_OB_WWDGSW_NULL &amp; !DIE4B2)| !SEM_OB_SRAM2_PARITY_NULL | !SEM_OB_SRAM2_RST_NULL | !SEM_OB_BOOT0_FROM_NULL
 								 | !SEM_OB_NBOOT0_NULL))
 								 | SEM_FLASH_OB_RDP |(OB_BOR_Level_active=true)|SEM_FLASH_OB_BOOTADDR_BOOTLOCK|SEM_FLASH_OB_RDPKEY)">
 			<CallLibMethod Name="HAL_FLASH_OB_Unlock" />
@@ -34,7 +34,7 @@
 		<!-- WRP -->
 		<IFCondition Expression="SEM_FLASH_OB_WRPA">
 			<CallLibMethod Name="HAL_FLASHEx_OBProgram">
-				<MethodArg Name="WRPArea" ParameterName="OB_WRPAREA_BANK_AREAA" />
+				<MethodArg Name="WRPArea" ParameterName="OB_WRPAREA_BANK1_AREAA" />
 				<MethodArg Name="WRPStartOffset" ParameterName="OB_WRPA_PSTR_Value" />
 				<MethodArg Name="WRPEndOffset" ParameterName="OB_WRPA_PEND_Value" />
 				<MethodArg Name="WRPLock" ParameterName="OB_UNLOCK_A" />
@@ -42,7 +42,7 @@
 		</IFCondition>
 		<IFCondition Expression="SEM_FLASH_OB_WRPB">
 			<CallLibMethod Name="HAL_FLASHEx_OBProgram">
-				<MethodArg Name="WRPArea" ParameterName="OB_WRPAREA_BANK_AREAB" />
+				<MethodArg Name="WRPArea" ParameterName="OB_WRPAREA_BANK1_AREAB" />
 				<MethodArg Name="WRPStartOffset" ParameterName="OB_WRPB_PSTR_Value" />
 				<MethodArg Name="WRPEndOffset" ParameterName="OB_WRPB_PEND_Value" />
 				<MethodArg Name="WRPLock" ParameterName="OB_UNLOCK_B" />
@@ -198,9 +198,9 @@
 	<LibMethod Comment="" Name="HAL_FLASH_OB_Lock" />
 
 	<RefComponent Cclass="System Core" Cgroup="Flash" Cversion="1Gg0Gg0">
-		<File Category="header" Name="Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_flash.h" />
-		<File Category="header" Name="Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_flash_ex.h" />
-		<File Category="source" Name="Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_flash.c" />
-		<File Category="source" Name="Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_flash_ex.c" />
+		<File Category="header" Name="Drivers/STM32WBAxx_HAL_Driver/Inc/stm32wbaxx_hal_flash.h" />
+		<File Category="header" Name="Drivers/STM32WBAxx_HAL_Driver/Inc/stm32wbaxx_hal_flash_ex.h" />
+		<File Category="source" Name="Drivers/STM32WBAxx_HAL_Driver/Src/stm32wbaxx_hal_flash.c" />
+		<File Category="source" Name="Drivers/STM32WBAxx_HAL_Driver/Src/stm32wbaxx_hal_flash_ex.c" />
 	</RefComponent>
 </IP>

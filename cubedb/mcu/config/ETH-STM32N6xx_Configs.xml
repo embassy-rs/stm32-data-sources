@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
 <IP xmlns="http://mcd.rou.st.com/modules.php?name=mcu" DBVersion="V4.0" Name="ETH" Version="STM32Cube_FW_N6_V0.2.0" xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance" ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../../../doc/V4/Development/Specifications/db/IP_Configs.xsd">
     <RefConfig Name="Init">
-        <CallLibMethod Name="HAL_ETH_Init"/>
+        <IFCondition Expression="SEM_AppS | SEM_FSBL | SEM_Appli">
+            <CallLibMethod Name="HAL_ETH_Init"/>
+        </IFCondition>
+        <IFCondition Expression="SEM_AppNS">
+            <CallLibMethod Name="HAL_ETH_Init">
+                <MethodArg Name="RxBuffLen" ParameterName="RxBuffLen_nonsecure"/>
+            </CallLibMethod>
+        </IFCondition>
         <ImplementCallBack Name="HAL_ETH_MspInit"/>
         <ImplementCallBack Name="HAL_ETH_MspDeInit"/>
-		<CallLibMethod Name="" Type="HardCode">
-		    <HardCode Text="#n#tmemset(&amp;TxConfig, 0 , sizeof(ETH_TxPacketConfig));#n#tTxConfig.Attributes = ETH_TX_PACKETS_FEATURES_CSUM | ETH_TX_PACKETS_FEATURES_CRCPAD;#n#tTxConfig.ChecksumCtrl = ETH_CHECKSUM_IPHDR_PAYLOAD_INSERT_PHDR_CALC;#n#tTxConfig.CRCPadCtrl = ETH_CRC_PAD_INSERT;"/>
-        </CallLibMethod>
+        <IFCondition Expression="!SEMNetXDuoCcNetworkJjNetXDuoJjNXOoCore">
+		    <CallLibMethod Name="" Type="HardCode">
+		        <HardCode Text="#n#tmemset(&amp;TxConfig, 0 , sizeof(ETH_TxPacketConfig));#n#tTxConfig.Attributes = ETH_TX_PACKETS_FEATURES_CSUM | ETH_TX_PACKETS_FEATURES_CRCPAD;#n#tTxConfig.ChecksumCtrl = ETH_CHECKSUM_IPHDR_PAYLOAD_INSERT_PHDR_CALC;#n#tTxConfig.CRCPadCtrl = ETH_CRC_PAD_INSERT;"/>
+            </CallLibMethod>
+        </IFCondition>
     </RefConfig>
     <RefConfig Name="DeInit">
       <CallLibMethod Name="HAL_ETH_DeInit"/>

@@ -265,38 +265,6 @@
     </RefParameter>
     <RefParameter Name="DAC_RefreshTime" Comment="Refresh Time" DefaultValue="__NULL" Type="string"  Visible="false"/>
 
-    <!-- LPBAM specific configuration -->
-
-
-    <RefParameter Name="Interrupt1" Comment="DMA underrun error for DAC1_CH1"   DefaultValue="DISABLE"  Type="list" Group="IP Internal Interrupt" TabName="Advanced Settings for LPBAM">
-        <Description>description</Description>
-        <PossibleValue Comment="Enable" Value="DAC_IT_DMAUDR1"/>
-        <PossibleValue Comment="Disable" Value="DISABLE"/>
-    </RefParameter>
-
-    <RefParameter Name="Interrupt2" Comment="DMA underrun error for DAC1_CH2"   DefaultValue="DISABLE"  Type="list" Group="IP Internal Interrupt" TabName="Advanced Settings for LPBAM">
-        <Description>description</Description>
-        <PossibleValue Comment="Enable" Value="DAC_IT_DMAUDR2"/>
-        <PossibleValue Comment="Disable" Value="DISABLE"/>
-    </RefParameter>
-
-
-    <RefParameter Comment="Interrupt parameter for code generation __HAL_DAC_ENABLE_IT" DefaultValue="/+Interrupt1+|Interrupt2/\|DISABLE//DISABLE\|//"  Type="list"  Name="ORingInterrupt"  Visible="false">
-        <Condition Diagnostic="" Expression="!((Interrupt1=DISABLE) &amp; (Interrupt2=DISABLE))"/>
-    </RefParameter>
-    <RefParameter  Comment="Interrupt parameter for code generation __HAL_DAC_ENABLE_IT" DefaultValue="__NULL" Name="ORingInterrupt" Type="String" >
-        <Condition Diagnostic="" Expression="(Interrupt1=DISABLE) &amp; (Interrupt2=DISABLE)"/>
-    </RefParameter>
-
-
-    <RefMode Name="LPBAMSPECIFIC">
-        <ConfigForMode>LPBAM_ADD_HALCONFIG</ConfigForMode>
-        <Parameter Name="Interrupt1"/>
-        <Parameter Name="Interrupt2"/>
-    </RefMode>
-
-    <!-- LPBAM specific configuration -->
-
     <RefMode Name="DAC_COMMON" Comment="DAC_COMMON" Group="Common DAC Settings" Abstract="true">
         <Parameter Name="DAC_HighFrequency"/>
     </RefMode>
@@ -593,19 +561,6 @@
             </ModeLogicOperator>
         </Mode>
 
-        <!-- LPBAM specific -->
-        <Mode Name="LPBAMSPECIFICTOP" UserName="LPBAM Advanced Settings" RemoveDisable="true" RemoveCondition="!($Index=1)"> <!-- only DAC1 is managed by LPBAM-->
-
-            <Condition Diagnostic="only available when configurring IP from LPBAM context" Expression="S_LPBAM_CONF &amp; ($IpInstance_External_Trigger|$IpInstance_Channel2_Used|$IpInstance_Channel1_Used)"/>
-            <ModeLogicOperator Name="XOR">
-                <Mode Name="LPBAMSPECIFIC" UserName="">
-                    <SignalLogicalOp Name="AND">
-                        <Signal Name="VS_DAC_LPBAM"/>
-                    </SignalLogicalOp>
-                </Mode>
-            </ModeLogicOperator>
-        </Mode>
-        <!-- LPBAM specific -->
     </ModeLogicOperator>
     <!--	<RefSignal IOMode="EXTI" Name="EXTI9"/>-->
     <RefSignal IOMode="EXTI" Name="EXTI9" ShareableGroupName="GPXTI9" /> <!-- GPXTI is a keyword -->
@@ -613,7 +568,6 @@
     <RefSignal IOMode="Analog" Name="OUT2" ShareableGroupName="COMP_$IpInstance2_group"/>
     <RefSignal Name="VS_DACI1" Virtual="true"/>
     <RefSignal Name="VS_DACI2" Virtual="true"/>
-    <RefSignal Name="VS_DAC_LPBAM" Virtual="true"/> <!-- LPBAM specific -->
 
 
 </IP>

@@ -56,7 +56,7 @@
                 <MethodArg Name="hramcfg" ParameterName="hramcfg_SRAM2"/>
             </CallLibMethod>
         </IFCondition>
-        <!--
+
         <IFCondition Expression="(WriteProtection=WP_ENABLE)">
             <CallLibMethod Name="HAL_RAMCFG_EnableWriteProtection">
                 <MethodArg Name="hramcfg" ParameterName="hramcfg_SRAM2"/>
@@ -64,7 +64,6 @@
                 <MethodArg Name="PageNb" ParameterName="PageNb"/>
             </CallLibMethod>
         </IFCondition>
-        -->
         <IFCondition Expression="(WaitState=RAMCFG_WAITSTATE_0) | (WaitState=RAMCFG_WAITSTATE_1) | (WaitState=RAMCFG_WAITSTATE_2) | (WaitState=RAMCFG_WAITSTATE_3) | (WaitState=RAMCFG_WAITSTATE_4) | (WaitState=RAMCFG_WAITSTATE_5) | (WaitState=RAMCFG_WAITSTATE_6) | (WaitState=RAMCFG_WAITSTATE_7)">
             <CallLibMethod Name="HAL_RAMCFG_ConfigWaitState">
                 <MethodArg Name="hramcfg" ParameterName="hramcfg_SRAM2"/>
@@ -187,6 +186,13 @@
         <IFCondition Expression="(ErrorCodeCorrection=STOP_ECC)">
             <CallLibMethod Name="HAL_RAMCFG_StopECC">
                 <MethodArg Name="hramcfg" ParameterName="hramcfg_BKPRAM"/>
+            </CallLibMethod>
+        </IFCondition>
+        <IFCondition Expression="(WriteProtection=WP_ENABLE)">
+            <CallLibMethod Name="HAL_RAMCFG_EnableWriteProtection">
+                <MethodArg Name="hramcfg" ParameterName="hramcfg_BKPRAM"/>
+                <MethodArg Name="StartPage" ParameterName="StartPage"/>
+                <MethodArg Name="PageNb" ParameterName="PageNb"/>
             </CallLibMethod>
         </IFCondition>
         <IFCondition Expression="(WaitState=RAMCFG_WAITSTATE_0) | (WaitState=RAMCFG_WAITSTATE_1) | (WaitState=RAMCFG_WAITSTATE_2) | (WaitState=RAMCFG_WAITSTATE_3) | (WaitState=RAMCFG_WAITSTATE_4) | (WaitState=RAMCFG_WAITSTATE_5) | (WaitState=RAMCFG_WAITSTATE_6) | (WaitState=RAMCFG_WAITSTATE_7)">

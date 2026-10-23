@@ -61,7 +61,7 @@
         <PossibleValue Comment="None" Value="DAC_TRIGGER_NONE"/>
         <PossibleValue Comment="Timer 1 Trigger Out event "   Value="DAC_TRIGGER_T1_TRGO"    Condition="!TIM1_Exist"   Diagnostic="available only if TIMx exists" Action="Remove"/>
         <PossibleValue Comment="Timer 2 Trigger Out event "   Value="DAC_TRIGGER_T2_TRGO"    Condition="!TIM2_Exist"   Diagnostic="available only if TIMx exists" Action="Remove"/>
-        <PossibleValue Comment="Timer 3 Trigger Out event "   Value="DAC_TRIGGER_T3_TRGO"    Condition="!TIM3_Exist|DIE484|DIE478"   Diagnostic="available only if TIMx exists" Action="Remove"/>
+        <PossibleValue Comment="Timer 3 Trigger Out event "   Value="DAC_TRIGGER_T3_TRGO"    Condition="!TIM3_Exist|DIE484|DIE478|DIE47A"   Diagnostic="available only if TIMx exists" Action="Remove"/>
         <PossibleValue Comment="Timer 4 Trigger Out event "   Value="DAC_TRIGGER_T4_TRGO"    Condition="!TIM4_Exist"   Diagnostic="available only if TIMx exists" Action="Remove"/>
         <PossibleValue Comment="Timer 5 Trigger Out event "   Value="DAC_TRIGGER_T5_TRGO"    Condition="!TIM5_Exist"   Diagnostic="available only if TIMx exists" Action="Remove"/>
         <PossibleValue Comment="Timer 6 Trigger Out event "   Value="DAC_TRIGGER_T6_TRGO"    Condition="!TIM6_Exist"   Diagnostic="available only if TIMx exists" Action="Remove"/>
@@ -70,6 +70,8 @@
         <PossibleValue Comment="Timer 15 Trigger Out event "  Value="DAC_TRIGGER_T15_TRGO"   Condition="!TIM15_Exist"  Diagnostic="available only if TIMx exists" Action="Remove"/>
         <PossibleValue Comment="LPTimer1 Channel 1"           Value="DAC_TRIGGER_LPTIM1_CH1" Condition="!LPTIM1_Exist" Diagnostic="available only if TIMx exists" Action="Remove"/>
         <PossibleValue Comment="LPTimer2 Channel 1"           Value="DAC_TRIGGER_LPTIM2_CH1" Condition="!LPTIM2_Exist" Diagnostic="available only if TIMx exists" Action="Remove"/>
+        <PossibleValue Comment="PLAY1_OUT11"           Value="DAC_TRIGGER_PLAY1_OUT11" Condition="!S_MODE_PLAY_OUT11" Diagnostic="available only if PLAY1_OUT11 is activated" Action="Remove"/>
+        <PossibleValue Comment="PLAY1_OUT12"           Value="DAC_TRIGGER_PLAY1_OUT12" Condition="!S_MODE_PLAY_OUT12" Diagnostic="available only if PLAY1_OUT12 is activated" Action="Remove"/>
         <PossibleValue Comment="Software trigger "            Value="DAC_TRIGGER_SOFTWARE"/>
         <PossibleValue Comment="External Line 9"              Value="DAC_TRIGGER_EXT_IT9"    Condition="!($IpInstance_External_Trigger)" Diagnostic="Activate External Trigger in Mode windows to enable this choice"/>
         <Description>
@@ -232,22 +234,6 @@
     </RefParameter>	
     <RefParameter Name="DAC_RefreshTime" Comment="Refresh Time" DefaultValue="__NULL" Type="string"  Visible="false"/>
 
-<!-- LPBAM specific configuration -->  
- 
-
-<RefParameter Name="Interrupt1" Comment="DMA underrun error for DAC1_CH1"   DefaultValue="DISABLE"  Type="list" Group="IP Internal Interrupt" TabName="Advanced Settings for LPBAM">
-        <Description>description</Description>
-        <PossibleValue Comment="Enable" Value="DAC_IT_DMAUDR1"/>
-        <PossibleValue Comment="Disable" Value="DISABLE"/>
-</RefParameter>
-
-<RefParameter Name="Interrupt2" Comment="DMA underrun error for DAC1_CH2"   DefaultValue="DISABLE"  Type="list" Group="IP Internal Interrupt" TabName="Advanced Settings for LPBAM">
-        <Description>description</Description>
-        <PossibleValue Comment="Enable" Value="DAC_IT_DMAUDR2"/>
-        <PossibleValue Comment="Disable" Value="DISABLE"/>
-</RefParameter>
-
-
 <RefParameter Comment="Interrupt parameter for code generation __HAL_DAC_ENABLE_IT" DefaultValue="/+Interrupt1+|Interrupt2/\|DISABLE//DISABLE\|//"  Type="list"  Name="ORingInterrupt"  Visible="false">
       <Condition Diagnostic="" Expression="!((Interrupt1=DISABLE) &amp; (Interrupt2=DISABLE))"/> 
 </RefParameter>
@@ -255,14 +241,6 @@
                <Condition Diagnostic="" Expression="(Interrupt1=DISABLE) &amp; (Interrupt2=DISABLE)"/> 
  </RefParameter>
 
-
-<RefMode Name="LPBAMSPECIFIC">
-        <ConfigForMode>LPBAM_ADD_HALCONFIG</ConfigForMode>
-        <Parameter Name="Interrupt1"/>
-        <Parameter Name="Interrupt2"/>
- </RefMode>
-
-<!-- LPBAM specific configuration -->     
     
     <RefMode Name="DAC_COMMON" Comment="DAC_COMMON" Group="Common DAC Settings" Abstract="true">
         <Parameter Name="DAC_HighFrequency"/>
@@ -413,20 +391,6 @@
                 </Mode>
             </ModeLogicOperator>
         </Mode>
-
-<!-- LPBAM specific -->
-         <Mode Name="LPBAMSPECIFICTOP" UserName="LPBAM Advanced Settings" RemoveDisable="true" RemoveCondition="!($Index=1)"> <!-- only DAC1 is managed by LPBAM-->
-
-             <Condition Diagnostic="only available when configurring IP from LPBAM context" Expression="S_LPBAM_CONF &amp; ($IpInstance_External_Trigger|$IpInstance_Channel2_Used|$IpInstance_Channel1_Used)"/>
-              <ModeLogicOperator Name="XOR">
-                 <Mode Name="LPBAMSPECIFIC" UserName="">
-            <SignalLogicalOp Name="AND">
-                        <Signal Name="VS_DAC_LPBAM"/>
-            </SignalLogicalOp>
-            </Mode>
-            </ModeLogicOperator>
-        </Mode>
-<!-- LPBAM specific -->
     </ModeLogicOperator>
     <!--	<RefSignal IOMode="EXTI" Name="EXTI9"/>-->
     <RefSignal IOMode="EXTI" Name="EXTI9" ShareableGroupName="GPXTI9" /> <!-- GPXTI is a keyword -->
@@ -434,7 +398,6 @@
     <RefSignal IOMode="Analog" Name="OUT2" ShareableGroupName="COMP_$IpInstance2_group"/>
     <RefSignal Name="VS_DACI1" Virtual="true"/>
     <RefSignal Name="VS_DACI2" Virtual="true"/>
-    <RefSignal Name="VS_DAC_LPBAM" Virtual="true"/> <!-- LPBAM specific -->
         
 
 </IP>

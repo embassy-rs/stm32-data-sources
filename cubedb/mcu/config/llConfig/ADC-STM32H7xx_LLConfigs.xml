@@ -31,6 +31,7 @@
                     <MethodArg Name="ADCx" ParameterName="Instance" />
                     <MethodArg Name="Resolution" ParameterName="Resolution" />
                     <MethodArg Name="LowPowerMode" ParameterName="LowPowerAutoWait" />
+                    <MethodArg Name="LeftBitShift" ParameterName="LeftBitShift" />
                 </CallLibMethod>
             </IFCondition>
         </IFCondition>
@@ -276,7 +277,7 @@
             <MethodArg Name="Rank" ParameterName="Rank" />
             <MethodArg Name="Channel" ParameterName="Channel" />
         </CallLibMethod>
-        <IFCondition Expression="(DIE483) &amp; ($Index=1|$Index=2)">
+        <IFCondition Expression="(DIE483|DIE450) &amp; ($Index=1|$Index=2)">
         <CallLibMethod Name="LL_ADC_SetChannelPreselection">
             <MethodArg Name="ADCx" ParameterName="Instance" />
             <MethodArg Name="Channel" ParameterName="Channel" />
@@ -342,6 +343,12 @@
             <MethodArg Name="Channel" ParameterName="InjectedChannel" />
         </CallLibMethod>
 
+        <IFCondition Expression="(DIE483|DIE450) &amp; ($Index=1|$Index=2)">
+        <CallLibMethod Name="LL_ADC_SetChannelPreselection">
+            <MethodArg Name="ADCx" ParameterName="Instance" />
+            <MethodArg Name="Channel" ParameterName="InjectedChannel" />
+        </CallLibMethod>
+        </IFCondition>
         <CallLibMethod Name="LL_ADC_SetChannelSamplingTime">
             <MethodArg Name="ADCx" ParameterName="Instance" />
             <MethodArg Name="Channel" ParameterName="InjectedChannel" />
@@ -1245,6 +1252,8 @@
                       OptimizationCondition="equal" />
             <Argument AddressOf="false" GenericType="simple" Name="LowPowerMode"
                       OptimizationCondition="equal" />
+            <Argument AddressOf="false" GenericType="simple" Name="LeftBitShift"
+                      OptimizationCondition="equal" />
         </Argument>
     </LibMethod>
     <LibMethod Comment="" Name="LL_ADC_StructInit">
@@ -1255,6 +1264,8 @@
             <Argument AddressOf="false" GenericType="simple" Name="DataAlignment"
                       OptimizationCondition="equal" />
             <Argument AddressOf="false" GenericType="simple" Name="LowPowerMode"
+                      OptimizationCondition="equal" />
+            <Argument AddressOf="false" GenericType="simple" Name="LeftBitShift"
                       OptimizationCondition="equal" />
         </Argument>
     </LibMethod>
@@ -1275,6 +1286,7 @@
                       OptimizationCondition="equal" />
             <Argument AddressOf="false" GenericType="simple" Name="Overrun"
                       OptimizationCondition="equal" />
+
         </Argument>
     </LibMethod>
     <LibMethod Comment="" Name="LL_ADC_REG_StructInit">
@@ -1291,6 +1303,8 @@
             <Argument AddressOf="false" GenericType="simple" Name="DMATransfer"
                       OptimizationCondition="equal" />
             <Argument AddressOf="false" GenericType="simple" Name="Overrun"
+                      OptimizationCondition="equal" />
+            <Argument AddressOf="false" GenericType="simple" Name="LeftBitShift"
                       OptimizationCondition="equal" />
         </Argument>
     </LibMethod>

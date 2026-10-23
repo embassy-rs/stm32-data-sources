@@ -342,7 +342,7 @@
 		<PossibleValue Comment="Channel 0" Value="ADC_CHANNEL_0"/>
 	</RefParameter>
 	<!-- InjNumberOfConversion -->
-	<!--injected conversion not autorized for regular simultanious mode AND for ADC2 if Mode!=Independent mode AND for ADC3 if Triple mode-->
+	<!--injected conversion not autorized for regular simultaneous mode AND for ADC2 if Mode!=Independent mode AND for ADC3 if Triple mode-->
 	<RefParameter Comment="Number Of Conversions" DefaultValue="0" Group="ADCgroup" Max="0" Min="0" Name="InjNumberOfConversion" Type="integer" Visible="false">
 		<Condition Diagnostic="The injected conversion should be disabled in regular simultaneous mode" Expression="($IpNumber=3)&amp;(TripleMode_REGSIMULT)"/>
 	</RefParameter>
@@ -507,7 +507,7 @@
 		<Description>Multi ADC mode selection</Description>
 	</RefParameter>
 	<RefParameter Comment="Mode" DefaultValue="__NULL" Group="ADCsgroup" Name="Mode" Type="list">
-		<Condition Diagnostic="Regular simultanious mode should not be available for injected conversion" Expression="USE_ADC1&amp;USE_ADC2&amp;USE_ADC3"/>
+		<Condition Diagnostic="Regular simultaneous mode should not be available for injected conversion" Expression="USE_ADC1&amp;USE_ADC2&amp;USE_ADC3"/>
 		<PossibleValue Comment="Independent mode" Value="__NULL"/>
 		<PossibleValue Comment="Dual combined regular simultaneous + injected simultaneous mode" Semaphore="DualMode0" Value="ADC_DUALMODE_REGSIMULT_INJECSIMULT"/>
                 <PossibleValue Comment="Dual combined regular simultaneous + alternate trigger mode" Semaphore="DualMode_REGSIMULT1" Value="ADC_DUALMODE_REGSIMULT_ALTERTRIG"/>
@@ -522,7 +522,7 @@
 		<Description>Multi ADC mode selection</Description>
 	</RefParameter>
 	<RefParameter Comment="Mode" DefaultValue="__NULL" Group="ADCsgroup" Name="Mode" Type="list">
-		<Condition Diagnostic="Regular simultanious mode should not be available for injected conversion" Expression="USE_ADC1&amp;USE_ADC2"/>
+		<Condition Diagnostic="Regular simultaneous mode should not be available for injected conversion" Expression="USE_ADC1&amp;USE_ADC2"/>
 		<PossibleValue Comment="Independent mode" Value="__NULL"/>
 		<PossibleValue Comment="Dual combined regular simultaneous + injected simultaneous mode" Semaphore="DualMode0" Value="ADC_DUALMODE_REGSIMULT_INJECSIMULT"/>
                 <PossibleValue Comment="Dual combined regular simultaneous + alternate trigger mode" Semaphore="DualMode_REGSIMULT1" Value="ADC_DUALMODE_REGSIMULT_ALTERTRIG"/>
@@ -542,24 +542,24 @@
 	</RefParameter>
 	
 	<RefParameter Comment="DMA Access Mode" DefaultValue="ADC_DMAACCESSMODE_2" Group="ADCsgroup" Name="DMAAccessMode" Type="list">
-		<Condition Diagnostic="DMA access mode should be available only if multi mode is used in regular simultanious" Expression="(DMARequest_$IpInstance)&amp;(DualMode_REGSIMULT|DualMode0|DualMode_REGSIMULT1)"/>
+		<Condition Diagnostic="DMA access mode should be available only if multi mode is used in regular simultaneous" Expression="(DMARequest_$IpInstance)&amp;(DualMode_REGSIMULT|DualMode0|DualMode_REGSIMULT1)"/>
 		<!-- <PossibleValue Comment="DMA access mode disabled" Value="ADC_DMAACCESSMODE_DISABLED"/> -->
 		<PossibleValue Comment="DMA access mode 2" Semaphore="Semaphore_DMAAccessMode2_Enable$IpInstance" Value="ADC_DMAACCESSMODE_2"/>
 	</RefParameter>
 	<RefParameter Comment="DMA Access Mode" DefaultValue="ADC_DMAACCESSMODE_DISABLED" Group="ADCsgroup" Name="DMAAccessMode" Type="list">
-		<Condition Diagnostic="DMA access mode should be available only if multi mode is used in regular simultanious" Expression="DualMode_REGSIMULT|DualMode0|DualMode_REGSIMULT1"/>
+		<Condition Diagnostic="DMA access mode should be available only if multi mode is used in regular simultaneous" Expression="DualMode_REGSIMULT|DualMode0|DualMode_REGSIMULT1"/>
 		<PossibleValue Comment="DMA access mode disabled" Value="ADC_DMAACCESSMODE_DISABLED"/>
 		<!--PossibleValue Comment="DMA access mode 1" Value="ADC_DMAACCESSMODE_1"/-->
 		<PossibleValue Comment="DMA access mode 2" Semaphore="Semaphore_DMAAccessMode2_Enable$IpInstance" Value="ADC_DMAACCESSMODE_2"/>
 	</RefParameter>
 	
 	<RefParameter Comment="DMA Access Mode" DefaultValue="ADC_DMAACCESSMODE_1" Group="ADCsgroup" Name="DMAAccessMode" Type="list">
-		<Condition Diagnostic="DMA access mode should be available only if multi mode is used in regular simultanious" Expression="(DMARequest_$IpInstance)&amp;(TripleMode_REGSIMULT|TripleMode_REGSIMULT1|TripleMode0)"/>
+		<Condition Diagnostic="DMA access mode should be available only if multi mode is used in regular simultaneous" Expression="(DMARequest_$IpInstance)&amp;(TripleMode_REGSIMULT|TripleMode_REGSIMULT1|TripleMode0)"/>
 		<!-- <PossibleValue Comment="DMA access mode disabled" Value="ADC_DMAACCESSMODE_DISABLED"/> -->
 		<PossibleValue Comment="DMA access mode 1" Semaphore="Semaphore_DMAAccessMode1_Enable$IpInstance" Value="ADC_DMAACCESSMODE_1"/>
 	</RefParameter>
 	<RefParameter Comment="DMA Access Mode" DefaultValue="ADC_DMAACCESSMODE_DISABLED" Group="ADCsgroup" Name="DMAAccessMode" Type="list">
-		<Condition Diagnostic="DMA access mode should be available only if multi mode is used in regular simultanious" Expression="TripleMode_REGSIMULT|TripleMode_REGSIMULT1|TripleMode0"/>
+		<Condition Diagnostic="DMA access mode should be available only if multi mode is used in regular simultaneous" Expression="TripleMode_REGSIMULT|TripleMode_REGSIMULT1|TripleMode0"/>
 		<PossibleValue Comment="DMA access mode disabled" Value="ADC_DMAACCESSMODE_DISABLED"/>
 		<PossibleValue Comment="DMA access mode 1" Semaphore="Semaphore_DMAAccessMode1_Enable$IpInstance" Value="ADC_DMAACCESSMODE_1"/>
 	</RefParameter>
@@ -778,9 +778,17 @@
 	<RefParameter Comment="Injected Conversion Mode" DefaultValue="null" Name="InjectedConvMode" Type="list" Visible="false">
 		<Condition Diagnostic="" Expression="InjNumberOfConversion=0"/>
 	</RefParameter>
+
+	<RefParameter Comment="Injected Conversion Mode" DefaultValue="AutoInjected" Name="InjectedConvMode" Type="list">
+		<Condition Expression="(Mode=ADC_DUALMODE_REGSIMULT_INJECSIMULT | Mode=ADC_DUALMODE_INJECSIMULT | Mode=ADC_TRIPLEMODE_INJECSIMULT) &amp; ($Index=2|$Index=3)" Diagnostic=""/>
+		<PossibleValue Comment="None" Value="None" Semaphore="InjectedConvMode_$IpInstance" />
+		<PossibleValue Comment="Discontinuous Mode" Semaphore="InjectedDiscontinuous_$IpInstance" Value="Discontinuous"/>
+		<PossibleValue Action="Disable" Comment="Auto Injected Mode" Condition="Mode=ADC_DUALMODE_REGSIMULT_INJECSIMULT | Mode=ADC_DUALMODE_INJECSIMULT | Mode=ADC_TRIPLEMODE_INJECSIMULT" Diagnostic="It is not possible to use both auto-injected mode and injected simultaneous mode" Value="AutoInjected"/>
+	</RefParameter>
+
 	<RefParameter Comment="Injected Conversion Mode" DefaultValue="AutoInjected" Name="InjectedConvMode" Type="list">
                 <Condition Expression="ExternalTrigInjecConvEdge=!ADC_EXTERNALTRIGINJECCONVEDGE_NONE" Diagnostic=""/>
-		<PossibleValue Comment="Auto Injetcted Mode" Value="AutoInjected"/>
+		<PossibleValue Comment="Auto Injected Mode" Value="AutoInjected"/>
 	</RefParameter>	
 	<RefParameter Comment="Injected Conversion Mode" DefaultValue="None" Group="ADCgroup" Name="InjectedConvMode" Type="list">
         <PossibleValue Comment="None" Value="None" Semaphore="InjectedConvMode_$IpInstance" />

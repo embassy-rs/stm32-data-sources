@@ -17,7 +17,9 @@
 	<RefParameter Comment="Note" DefaultValue="N/A" Name="Note" Group="General : Ethernet Configuration" Type="string" Visible="false"/>
 
 	<!-- ST MicroElectronics prefixe Adress -->
-	<RefParameter Comment="Ethernet MAC Address" ArraySize="6" ArrayTypeElement="uint8_t;16" Name="MACAddr" Type="Array" Separator=":" Group="General : Ethernet Configuration" DefaultValue="00:80:E1:00:00:00"/>
+	<RefParameter Comment="Ethernet MAC Address" ArraySize="6" ArrayTypeElement="uint8_t;16" Name="MACAddr" Type="Array" Separator=":" Group="General : Ethernet Configuration" DefaultValue="00:80:E1:00:00:00">
+		<Description>Ethernet MAC address: A 48-bit (6 bytes) hardware identifier, in a 12 hexadecimal digits format, separated by colons.</Description>
+	</RefParameter>
 	<RefParameter Name="RxMode" Comment="Rx Mode" Type="list" Group="General : Ethernet Configuration" DefaultValue="ETH_RXPOLLING_MODE" Visible="false">
 		<PossibleValue Comment="Polling Mode" Value="ETH_RXPOLLING_MODE"/>
         <Description>Polling mode is supported without FreeRTOS.&lt;br&gt;Interrupt mode is supported with FreeRTOS.&lt;br&gt;Tx mode is the same as Rx mode.</Description>
@@ -54,7 +56,7 @@
 		<ValueCondition Diagnostic="Value must be modulo 4" Expression="MOD(Value,4) = 0"/>
 	</RefParameter>
 	<!-- BZ 97589 End -->
-	<RefParameter Comment="Descriptor Size Unit" DefaultValue="32"  Type="integer" Name="DESC_SIZE_UNIT" Group="General : Ethernet Configuration" Visible="false">
+	<RefParameter Comment="Descriptor Size Unit" DefaultValue="24"  Type="integer" Name="DESC_SIZE_UNIT" Group="General : Ethernet Configuration" Visible="false">
         <Condition Expression="STM32H7" Diagnostic=""/>
     </RefParameter>
 	<RefParameter Comment="Media Interface" DefaultValue="HAL_ETH_MII_MODE" Name="MediaInterface" Type="list" Group="General : Ethernet Configuration" Visible="false">

@@ -126,6 +126,10 @@
         <PossibleValue Value="GPIO_MODE_EVT_FALLING" Comment="External Event Mode with Falling edge trigger detection"/>
         <PossibleValue Value="GPIO_MODE_EVT_RISING_FALLING" Comment="External Event Mode with Rising/Falling edge trigger detection"/>
     </RefParameter>
+    <RefParameter Name="GPIO_Pd" Comment="GPIO Pull-up/Pull-down" Type="list" DefaultValue="GPIO_NOPULL">
+        <PossibleValue Value="GPIO_NOPULL" Comment="No pull-up and no pull-down"/>
+        <PossibleValue Value="GPIO_PULLDOWN" Comment="Pull-down"/>
+    </RefParameter>
     <RefParameter Name="GPIO_PuPd" Comment="GPIO Pull-up/Pull-down" Type="list" DefaultValue="GPIO_NOPULL">
         <PossibleValue Value="GPIO_NOPULL" Comment="No pull-up and no pull-down"/>
         <PossibleValue Value="GPIO_PULLUP" Comment="Pull-up"/>
@@ -720,10 +724,8 @@
         <Parameter Name="PinAttribute"/>
     </RefMode>
     <RefMode Name="Analog">
-        <ConfigForMode>GPIO</ConfigForMode>
-        <Parameter Name="GPIO_PuPd">
-            <PossibleValue>GPIO_NOPULL</PossibleValue>
-        </Parameter>
+        <ConfigForMode>Analog</ConfigForMode>
+        <Parameter Name="GPIO_Pd"/>
         <Parameter Name="GPIOx"/>
         <Parameter Name="GPIO_Mode">
             <PossibleValue>GPIO_MODE_ANALOG</PossibleValue>
@@ -732,10 +734,8 @@
         <Parameter Name="PinAttribute"/>
     </RefMode>
     <RefMode Name="AnalogForADC">
-        <ConfigForMode>GPIO</ConfigForMode>
-        <Parameter Name="GPIO_PuPd">
-            <PossibleValue>GPIO_NOPULL</PossibleValue>
-        </Parameter>
+        <ConfigForMode>Analog</ConfigForMode>
+        <Parameter Name="GPIO_Pd"/>
         <Parameter Name="GPIOx"/>
         <Parameter Name="GPIO_Mode">
             <PossibleValue>GPIO_MODE_ANALOG</PossibleValue>
@@ -744,6 +744,7 @@
         <Parameter Name="PinAttribute"/>
     </RefMode>
     <RefMode Name="Input">
+        <Condition Diagnostic="" Expression="!(PA11|PA12)"/>
         <ConfigForMode>GPIO</ConfigForMode>
         <Parameter Name="GPIO_PuPd"/>
         <Parameter Name="GPIOx"/>
@@ -754,7 +755,33 @@
         <Parameter Name="PinAttribute"/>
     </RefMode>
     <RefMode Name="Output">
+        <Condition Diagnostic="" Expression="!(PA11|PA12)"/>
         <ConfigForMode>GPIODefaultOutputPP</ConfigForMode>
+        <Parameter Name="GPIO_Speed"/>
+        <Parameter Name="GPIO_PuPd"/>
+        <Parameter Name="GPIOx"/>
+        <Parameter Name="GPIO_ModeDefaultOutputPP">
+            <PossibleValue>GPIO_MODE_OUTPUT_PP</PossibleValue>
+            <PossibleValue>GPIO_MODE_OUTPUT_OD</PossibleValue>
+        </Parameter>
+        <Parameter Name="GPIO_Pin"/>
+        <Parameter Name="PinState"/>
+        <Parameter Name="PinAttribute"/>
+    </RefMode>
+    <RefMode Name="Input">
+        <Condition Diagnostic="" Expression="PA11|PA12"/>
+        <ConfigForMode>GPIO_PWR</ConfigForMode>
+        <Parameter Name="GPIO_PuPd"/>
+        <Parameter Name="GPIOx"/>
+        <Parameter Name="GPIO_Mode">
+            <PossibleValue>GPIO_MODE_INPUT</PossibleValue>
+        </Parameter>
+        <Parameter Name="GPIO_Pin"/>
+        <Parameter Name="PinAttribute"/>
+    </RefMode>
+    <RefMode Name="Output">
+        <Condition Diagnostic="" Expression="PA11|PA12"/>
+        <ConfigForMode>GPIODefaultOutputPP_PWR</ConfigForMode>
         <Parameter Name="GPIO_Speed"/>
         <Parameter Name="GPIO_PuPd"/>
         <Parameter Name="GPIOx"/>
@@ -3141,7 +3168,7 @@
                 <PossibleValue>GPIO_AF10_DCMI</PossibleValue>
             </SpecificParameter>
         </PinSignal>
-        <PinSignal Name="DEBUG_JTRST">
+        <PinSignal Name="DEBUG_NJTRST">
             <SpecificParameter Name="GPIO_AF">
                 <PossibleValue>GPIO_AF0_TRACE</PossibleValue>
             </SpecificParameter>

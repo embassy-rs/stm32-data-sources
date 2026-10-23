@@ -1278,13 +1278,13 @@
         <IFCondition Expression ="(S_SECURE  &amp; ((SEM_M33S))  &amp; ((rtcSecureFull=RTC_SECURE_FULL_YES)))" >
             <CallLibMethod Name="HAL_RTCEx_SetCalibrationOutPut"/>
         </IFCondition>
-         <IFCondition Expression ="(S_SECURE  &amp; (SEM_M33S) &amp; (RTC_SECURE_FEATURE_CAL=__NULL) )" >
+         <IFCondition Expression ="(S_SECURE  &amp; (SEM_M33S) &amp; (RTC_NONSECURE_FEATURE_CAL=__NULL) )" >
             <CallLibMethod Name="HAL_RTCEx_SetCalibrationOutPut"/>
         </IFCondition>
-        <IFCondition Expression ="!S_SECURE">         
+        <IFCondition Expression ="!S_SECURE | S_LPBAM_CONF">         
             <CallLibMethod Name="HAL_RTCEx_SetCalibrationOutPut"/>
         </IFCondition>
-         <IFCondition Expression ="S_SECURE  &amp; SEM_M33NS &amp;(rtcSecureFull=RTC_SECURE_FULL_NO)&amp; (RTC_SECURE_FEATURE_CAL=!__NULL)" >
+         <IFCondition Expression ="S_SECURE  &amp; SEM_M33NS &amp;(rtcSecureFull=RTC_SECURE_FULL_NO)&amp; (RTC_NONSECURE_FEATURE_CAL=!__NULL)" >
             <CallLibMethod Name="HAL_RTCEx_SetCalibrationOutPut"/>
         </IFCondition>
       

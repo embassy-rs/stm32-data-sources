@@ -142,12 +142,6 @@
 		<PossibleValue Comment="Half Cycle" Value="HAL_XSPI_SAMPLE_SHIFT_HALFCYCLE" />
 	</RefParameter>
 
-	<!-- DelayHoldQuarterCycle -->
-	<RefParameter Comment="Delay Hold Quarter Cycle" DefaultValue="HAL_XSPI_DHQC_DISABLE" Name="DelayHoldQuarterCycle" Type="list" Group="Generic">
-		<PossibleValue Comment="Disable" Value="HAL_XSPI_DHQC_DISABLE" />
-		<PossibleValue Comment="Enable" Value="HAL_XSPI_DHQC_ENABLE" />
-	</RefParameter>
-
 	<!-- ChipSelectBoundary -->
 	<RefParameter Comment="Chip Select Boundary" DefaultValue="HAL_XSPI_BONDARYOF_NONE" Name="ChipSelectBoundary" Type="list" Group="Generic">
 		<PossibleValue Comment="Disabled" Value="HAL_XSPI_BONDARYOF_NONE" />
@@ -232,28 +226,10 @@
 	<!-- Multiplexed mode -->
 	<!-- Req2AckTime -->
 	<RefParameter Comment="Switching Duration Clock Number" DefaultValue="=(XSPI1:Req2AckTime)" Name="Req2AckTime" Type="integer" Group="Multiplexed" Visible="false">
-		<Condition Diagnostic="" Expression="($Index=2) &amp;
-		    					(s_o2_singlemx|
-		    					s_o2_dualmx |
-							s_o2_quadmx |
-							s_o2_dualsinglemx |
-							s_o2_dualdualmx |
-							s_o2_dualquadmx |
-							s_o2_octomx |
-							s_o2_hyperbusmx
-		    					)" />
+		<Condition Diagnostic="" Expression="($Index=2)" />
 	</RefParameter>
 	<RefParameter Comment="Switching Duration Clock Number" DefaultValue="1" Max="256" Min="1" Name="Req2AckTime" Type="integer" Group="Multiplexed">
-		<Condition Diagnostic="" Expression="($Index=1) &amp;
-		    					(s_o1_singlemx|
-		    					s_o1_dualmx |
-							s_o1_quadmx |
-							s_o1_dualsinglemx |
-							s_o1_dualdualmx |
-							s_o1_dualquadmx |
-							s_o1_octomx |
-							s_o1_hyperbusmx 
-							)" />
+		<Condition Diagnostic="" Expression="($Index=1)" />
 	</RefParameter>
 	<!-- nCSOverride-->
 	<RefParameter Comment="Memory Select Override" DefaultValue="HAL_XSPI_CSSEL_OVR_NCS1" Name="nCSOverride" Type="string" Visible="false">
@@ -442,6 +418,10 @@
 	<RefMode Name="single_mode" HalMode="">
 		<ConfigForMode>XSPI_Init</ConfigForMode>
 		<ConfigForMode>IOManager_Config</ConfigForMode>
+		<!-- Multiplexed -->
+		<Parameter Name="Req2AckTime" />
+		<Parameter Name="nCSOverride" />
+		<Parameter Name="IOPort" />
 		<!-- Initialization -->
 		<Parameter Name="FifoThresholdByte" />
 		<Parameter Name="MemoryMode" />
@@ -454,7 +434,6 @@
 		<Parameter Name="ClockPrescaler" />
 		<Parameter Name="SampleShifting" />
 		<Parameter Name="DeviceType" />
-		<Parameter Name="DelayHoldQuarterCycle" />
 		<Parameter Name="ChipSelectBoundary" />
 		<Parameter Name="MaxTran" />
 		<Parameter Name="Refresh" />
@@ -480,7 +459,6 @@
 		<Parameter Name="ClockPrescaler" />
 		<Parameter Name="SampleShifting" />
 		<Parameter Name="DeviceType" />
-		<Parameter Name="DelayHoldQuarterCycle" />
 		<Parameter Name="ChipSelectBoundary" />
 		<Parameter Name="MaxTran" />
 		<Parameter Name="Refresh" />
@@ -490,6 +468,10 @@
 	<RefMode Name="dual_mode" HalMode="">
 		<ConfigForMode>XSPI_Init</ConfigForMode>
 		<ConfigForMode>IOManager_Config</ConfigForMode>
+		<!-- Multiplexed -->
+		<Parameter Name="Req2AckTime" />
+		<Parameter Name="nCSOverride" />
+		<Parameter Name="IOPort" />
 		<!-- Initialization -->
 		<Parameter Name="FifoThresholdByte" />
 		<Parameter Name="MemoryMode" />
@@ -502,7 +484,6 @@
 		<Parameter Name="ClockPrescaler" />
 		<Parameter Name="SampleShifting" />
 		<Parameter Name="DeviceType" />
-		<Parameter Name="DelayHoldQuarterCycle" />
 		<Parameter Name="ChipSelectBoundary" />
 		<Parameter Name="MaxTran" />
 		<Parameter Name="Refresh" />
@@ -528,7 +509,6 @@
 		<Parameter Name="ClockPrescaler" />
 		<Parameter Name="SampleShifting" />
 		<Parameter Name="DeviceType" />
-		<Parameter Name="DelayHoldQuarterCycle" />
 		<Parameter Name="ChipSelectBoundary" />
 		<Parameter Name="MaxTran" />
 		<Parameter Name="Refresh" />
@@ -538,6 +518,10 @@
 	<RefMode Name="quad_mode" HalMode="">
 		<ConfigForMode>XSPI_Init</ConfigForMode>
 		<ConfigForMode>IOManager_Config</ConfigForMode>
+		<!-- Multiplexed -->
+		<Parameter Name="Req2AckTime" />
+		<Parameter Name="nCSOverride" />
+		<Parameter Name="IOPort" />
 		<!-- Initialization -->
 		<Parameter Name="FifoThresholdByte" />
 		<Parameter Name="MemoryMode" />
@@ -550,7 +534,6 @@
 		<Parameter Name="ClockPrescaler" />
 		<Parameter Name="SampleShifting" />
 		<Parameter Name="DeviceType" />
-		<Parameter Name="DelayHoldQuarterCycle" />
 		<Parameter Name="ChipSelectBoundary" />
 		<Parameter Name="MaxTran" />
 		<Parameter Name="Refresh" />
@@ -576,7 +559,6 @@
 		<Parameter Name="ClockPrescaler" />
 		<Parameter Name="SampleShifting" />
 		<Parameter Name="DeviceType" />
-		<Parameter Name="DelayHoldQuarterCycle" />
 		<Parameter Name="ChipSelectBoundary" />
 		<Parameter Name="MaxTran" />
 		<Parameter Name="Refresh" />
@@ -586,6 +568,10 @@
 	<RefMode Name="dual_single_mode" HalMode="">
 		<ConfigForMode>XSPI_Init</ConfigForMode>
 		<ConfigForMode>IOManager_Config</ConfigForMode>
+		<!-- Multiplexed -->
+		<Parameter Name="Req2AckTime" />
+		<Parameter Name="nCSOverride" />
+		<Parameter Name="IOPort" />
 		<!-- Initialization -->
 		<Parameter Name="FifoThresholdByte" />
 		<Parameter Name="MemoryMode" />
@@ -598,7 +584,6 @@
 		<Parameter Name="ClockPrescaler" />
 		<Parameter Name="SampleShifting" />
 		<Parameter Name="DeviceType" />
-		<Parameter Name="DelayHoldQuarterCycle" />
 		<Parameter Name="ChipSelectBoundary" />
 		<Parameter Name="MaxTran" />
 		<Parameter Name="Refresh" />
@@ -624,7 +609,6 @@
 		<Parameter Name="ClockPrescaler" />
 		<Parameter Name="SampleShifting" />
 		<Parameter Name="DeviceType" />
-		<Parameter Name="DelayHoldQuarterCycle" />
 		<Parameter Name="ChipSelectBoundary" />
 		<Parameter Name="MaxTran" />
 		<Parameter Name="Refresh" />
@@ -634,6 +618,10 @@
 	<RefMode Name="dual_dual_mode" HalMode="">
 		<ConfigForMode>XSPI_Init</ConfigForMode>
 		<ConfigForMode>IOManager_Config</ConfigForMode>
+		<!-- Multiplexed -->
+		<Parameter Name="Req2AckTime" />
+		<Parameter Name="nCSOverride" />
+		<Parameter Name="IOPort" />
 		<!-- Initialization -->
 		<Parameter Name="FifoThresholdByte" />
 		<Parameter Name="MemoryMode" />
@@ -646,7 +634,6 @@
 		<Parameter Name="ClockPrescaler" />
 		<Parameter Name="SampleShifting" />
 		<Parameter Name="DeviceType" />
-		<Parameter Name="DelayHoldQuarterCycle" />
 		<Parameter Name="ChipSelectBoundary" />
 		<Parameter Name="MaxTran" />
 		<Parameter Name="Refresh" />
@@ -672,7 +659,6 @@
 		<Parameter Name="ClockPrescaler" />
 		<Parameter Name="SampleShifting" />
 		<Parameter Name="DeviceType" />
-		<Parameter Name="DelayHoldQuarterCycle" />
 		<Parameter Name="ChipSelectBoundary" />
 		<Parameter Name="MaxTran" />
 		<Parameter Name="Refresh" />
@@ -682,6 +668,10 @@
 	<RefMode Name="dual_quad_mode" HalMode="">
 		<ConfigForMode>XSPI_Init</ConfigForMode>
 		<ConfigForMode>IOManager_Config</ConfigForMode>
+		<!-- Multiplexed -->
+		<Parameter Name="Req2AckTime" />
+		<Parameter Name="nCSOverride" />
+		<Parameter Name="IOPort" />
 		<!-- Initialization -->
 		<Parameter Name="FifoThresholdByte" />
 		<Parameter Name="MemoryMode" />
@@ -694,7 +684,6 @@
 		<Parameter Name="ClockPrescaler" />
 		<Parameter Name="SampleShifting" />
 		<Parameter Name="DeviceType" />
-		<Parameter Name="DelayHoldQuarterCycle" />
 		<Parameter Name="ChipSelectBoundary" />
 		<Parameter Name="MaxTran" />
 		<Parameter Name="Refresh" />
@@ -720,7 +709,6 @@
 		<Parameter Name="ClockPrescaler" />
 		<Parameter Name="SampleShifting" />
 		<Parameter Name="DeviceType" />
-		<Parameter Name="DelayHoldQuarterCycle" />
 		<Parameter Name="ChipSelectBoundary" />
 		<Parameter Name="MaxTran" />
 		<Parameter Name="Refresh" />
@@ -730,6 +718,10 @@
 	<RefMode Name="octo_mode" HalMode="">
 		<ConfigForMode>XSPI_Init</ConfigForMode>
 		<ConfigForMode>IOManager_Config</ConfigForMode>
+		<!-- Multiplexed -->
+		<Parameter Name="Req2AckTime" />
+		<Parameter Name="nCSOverride" />
+		<Parameter Name="IOPort" />
 		<!-- Initialization -->
 		<Parameter Name="FifoThresholdByte" />
 		<Parameter Name="MemoryMode" />
@@ -742,7 +734,6 @@
 		<Parameter Name="ClockPrescaler" />
 		<Parameter Name="SampleShifting" />
 		<Parameter Name="DeviceType" />
-		<Parameter Name="DelayHoldQuarterCycle" />
 		<Parameter Name="ChipSelectBoundary" />
 		<Parameter Name="MaxTran" />
 		<Parameter Name="Refresh" />
@@ -768,7 +759,6 @@
 		<Parameter Name="ClockPrescaler" />
 		<Parameter Name="SampleShifting" />
 		<Parameter Name="DeviceType" />
-		<Parameter Name="DelayHoldQuarterCycle" />
 		<Parameter Name="ChipSelectBoundary" />
 		<Parameter Name="MaxTran" />
 		<Parameter Name="Refresh" />
@@ -778,6 +768,10 @@
 	<RefMode Name="hexa_mode" HalMode="">
 		<ConfigForMode>XSPI_Init</ConfigForMode>
 		<ConfigForMode>IOManager_Config</ConfigForMode>
+		<!-- Multiplexed -->
+		<Parameter Name="Req2AckTime" />
+		<Parameter Name="nCSOverride" />
+		<Parameter Name="IOPort" />
 		<!-- Initialization -->
 		<Parameter Name="FifoThresholdByte" />
 		<Parameter Name="MemoryMode" />
@@ -790,7 +784,6 @@
 		<Parameter Name="ClockPrescaler" />
 		<Parameter Name="SampleShifting" />
 		<Parameter Name="DeviceType" />
-		<Parameter Name="DelayHoldQuarterCycle" />
 		<Parameter Name="ChipSelectBoundary" />
 		<Parameter Name="MaxTran" />
 		<Parameter Name="Refresh" />
@@ -816,7 +809,6 @@
 		<Parameter Name="ClockPrescaler" />
 		<Parameter Name="SampleShifting" />
 		<Parameter Name="DeviceType" />
-		<Parameter Name="DelayHoldQuarterCycle" />
 		<Parameter Name="ChipSelectBoundary" />
 		<Parameter Name="MaxTran" />
 		<Parameter Name="Refresh" />
@@ -828,6 +820,10 @@
 		<ConfigForMode>XSPI_Init</ConfigForMode>
 		<ConfigForMode>IOManager_Config</ConfigForMode>
 		<ConfigForMode>HyperBus</ConfigForMode>
+		<!-- Multiplexed -->
+		<Parameter Name="Req2AckTime" />
+		<Parameter Name="nCSOverride" />
+		<Parameter Name="IOPort" />
 		<!-- Initialization -->
 		<Parameter Name="FifoThresholdByte" />
 		<Parameter Name="MemoryMode" />
@@ -840,7 +836,6 @@
 		<Parameter Name="ClockPrescaler" />
 		<Parameter Name="SampleShifting" />
 		<Parameter Name="DeviceType" />
-		<Parameter Name="DelayHoldQuarterCycle" />
 		<Parameter Name="ChipSelectBoundary" />
 		<Parameter Name="MaxTran" />
 		<Parameter Name="Refresh" />
@@ -872,7 +867,6 @@
 		<Parameter Name="ClockPrescaler" />
 		<Parameter Name="SampleShifting" />
 		<Parameter Name="DeviceType" />
-		<Parameter Name="DelayHoldQuarterCycle" />
 		<Parameter Name="ChipSelectBoundary" />
 		<Parameter Name="MaxTran" />
 		<Parameter Name="Refresh" />
@@ -888,6 +882,10 @@
 		<ConfigForMode>XSPI_Init</ConfigForMode>
 		<ConfigForMode>IOManager_Config</ConfigForMode>
 		<ConfigForMode>HyperBus</ConfigForMode>
+		<!-- Multiplexed -->
+		<Parameter Name="Req2AckTime" />
+		<Parameter Name="nCSOverride" />
+		<Parameter Name="IOPort" />
 		<!-- Initialization -->
 		<Parameter Name="FifoThresholdByte" />
 		<Parameter Name="MemoryMode" />
@@ -900,7 +898,6 @@
 		<Parameter Name="ClockPrescaler" />
 		<Parameter Name="SampleShifting" />
 		<Parameter Name="DeviceType" />
-		<Parameter Name="DelayHoldQuarterCycle" />
 		<Parameter Name="ChipSelectBoundary" />
 		<Parameter Name="MaxTran" />
 		<Parameter Name="Refresh" />
@@ -932,7 +929,6 @@
 		<Parameter Name="ClockPrescaler" />
 		<Parameter Name="SampleShifting" />
 		<Parameter Name="DeviceType" />
-		<Parameter Name="DelayHoldQuarterCycle" />
 		<Parameter Name="ChipSelectBoundary" />
 		<Parameter Name="MaxTran" />
 		<Parameter Name="Refresh" />
@@ -1074,6 +1070,7 @@
 						<Signal Name="VS_octo_mx" />
 					</SignalLogicalOp>
 					<Semaphore>s_o1_hyperbusmx</Semaphore>
+                    <Semaphore>Sem_$IpInstance_hyperbusmx</Semaphore>
 				</Mode>
 				<Mode Name="hyperbus16_mode" UserName="HyperBus16 (TM)">
 					<Condition Expression="TFBGA225_HEXA_SMPS&amp; !Sem_Port1CLK_XSPI2_Port &amp; !VFQFPN68" Diagnostic="Available only with TFBGA225HEXA Package OR Port1 is already used" />
@@ -1088,6 +1085,7 @@
 						<Signal Name="VS_hexa_mx" />
 					</SignalLogicalOp>
 					<Semaphore>s_o1_hyperbus16mx</Semaphore>
+                    <Semaphore>Sem_$IpInstance_hyperbus16mx</Semaphore>
 				</Mode>
 			</ModeLogicOperator>
 			<Semaphore>$IpInstance_Used</Semaphore>

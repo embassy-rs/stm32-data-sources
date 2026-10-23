@@ -19,6 +19,43 @@
             </CallLibMethod>
         </IFCondition>             
     </RefConfig>
+    <RefConfig Name="GPIO_PWR">
+        <IFCondition Expression="GENERATE_GPIO_CONFIG">
+            <CallLibMethod Name="LL_GPIO_Init" >
+                <MethodArg Name="Pin" ParameterName="GPIO_Pin"/>
+                <MethodArg Name="Mode" ParameterName="GPIO_Mode"/>
+                <MethodArg Name="Speed" ParameterName="GPIO_Speed"/>
+                <MethodArg Name="Pull" ParameterName="GPIO_PuPd"/>
+                <MethodArg Name="Alternate" ParameterName="GPIO_AF"/>
+            </CallLibMethod>
+        </IFCondition>
+        <IFCondition Expression="NS_PIN">
+            <CallLibMethod Name="LL_GPIO_DisablePinSecure" ReturnHAL="false">
+                <MethodArg Name="Pin" ParameterName="GPIO_Pin"/>
+                <MethodArg  Name="GPIOx" ParameterName="GPIOx" />
+            </CallLibMethod>
+        </IFCondition>
+        <CallLibMethod Name="LL_PWR_EnableVddUSB" ReturnHAL="false"/>
+        <CallLibMethod Name="LL_PWR_EnableUSBPowerSupply" ReturnHAL="false"/>
+        <CallLibMethod Name="LL_PWR_DisableVDD11USB" ReturnHAL="false"/>
+    </RefConfig>
+    <RefConfig Name="Analog">
+        <IFCondition Expression="GENERATE_GPIO_CONFIG">
+            <CallLibMethod Name="LL_GPIO_Init" >
+                <MethodArg Name="Pin" ParameterName="GPIO_Pin"/>
+                <MethodArg Name="Mode" ParameterName="GPIO_Mode"/>
+                <MethodArg Name="Speed" ParameterName="GPIO_Speed"/>
+                <MethodArg Name="Pull" ParameterName="GPIO_Pd"/>
+                <MethodArg Name="Alternate" ParameterName="GPIO_AF"/>
+            </CallLibMethod>
+        </IFCondition>
+        <IFCondition Expression="NS_PIN">
+            <CallLibMethod Name="LL_GPIO_DisablePinSecure" ReturnHAL="false">
+                <MethodArg Name="Pin" ParameterName="GPIO_Pin"/>
+                <MethodArg  Name="GPIOx" ParameterName="GPIOx" />
+            </CallLibMethod>
+        </IFCondition>
+    </RefConfig>
     <RefConfig Name="LPGPIO">
         <IFCondition Expression="GENERATE_GPIO_CONFIG">
             <CallLibMethod Name="LL_GPIO_Init" ReturnHAL="false">
@@ -121,6 +158,53 @@
                 <MethodArg  Name="GPIOx" ParameterName="GPIOx" />
             </CallLibMethod>
         </IFCondition> 
+    </RefConfig>
+    <RefConfig Name="GPIODefaultOutputPP_PWR">
+        <IFCondition Expression="GENERATE_GPIO_CONFIG">
+            <CallLibMethod Name="LL_GPIO_Init" >
+                <MethodArg Name="Pin" ParameterName="GPIO_Pin"/>
+                <MethodArg Name="Mode" ParameterName="GPIO_ModeDefaultOutputPP"/>
+                <MethodArg Name="Speed" ParameterName="GPIO_Speed"/>
+                <MethodArg Name="OutputType" ParameterName="GPIO_ModeDefaultOutputPP"/>
+                <MethodArg Name="Pull" ParameterName="GPIO_PuPd"/>
+                <MethodArg Name="Alternate" ParameterName="GPIO_AF"/>
+            </CallLibMethod>
+            <IFCondition Expression="PinState=GPIO_PIN_RESET">
+                <CallLibMethod Name="LL_GPIO_ResetOutputPin">
+                    <MethodArg Name="PinMask" ParameterName="GPIO_Pin"/>
+                </CallLibMethod>
+            </IFCondition>
+            <IFCondition Expression="PinState=GPIO_PIN_SET">
+                <CallLibMethod Name="LL_GPIO_SetOutputPin">
+                    <MethodArg Name="PinMask" ParameterName="GPIO_Pin"/>
+                </CallLibMethod>
+            </IFCondition>
+
+            <CallLibMethod Name="LL_SYSCFG_EnableFastModePlus" >
+                <MethodArg Name="Parametre" ParameterName="GPIO_FM9"/>
+            </CallLibMethod>
+            <CallLibMethod Name="LL_SYSCFG_EnableFastModePlus" >
+                <MethodArg Name="Parametre" ParameterName="GPIO_FM8"/>
+            </CallLibMethod>
+            <CallLibMethod Name="LL_SYSCFG_EnableFastModePlus" >
+                <MethodArg Name="Parametre" ParameterName="GPIO_FM7"/>
+            </CallLibMethod>
+            <CallLibMethod Name="LL_SYSCFG_EnableFastModePlus" >
+                <MethodArg Name="Parametre" ParameterName="GPIO_FM6"/>
+            </CallLibMethod>
+            <CallLibMethod Name="LL_SYSCFG_EnableFastModePlus" >
+                <MethodArg Name="Parametre" ParameterName="GPIO_FMA9"/>
+            </CallLibMethod>
+        </IFCondition>
+        <IFCondition Expression="NS_PIN">
+            <CallLibMethod Name="LL_GPIO_DisablePinSecure" ReturnHAL="false">
+                <MethodArg Name="Pin" ParameterName="GPIO_Pin"/>
+                <MethodArg  Name="GPIOx" ParameterName="GPIOx" />
+            </CallLibMethod>
+        </IFCondition>
+            <CallLibMethod Name="LL_PWR_EnableVddUSB" ReturnHAL="false"/>
+            <CallLibMethod Name="LL_PWR_EnableUSBPowerSupply" ReturnHAL="false"/>
+            <CallLibMethod Name="LL_PWR_DisableVDD11USB" ReturnHAL="false"/>
     </RefConfig>
     <RefConfig Name="AlternateFunctionH">
         <IFCondition Expression="GENERATE_GPIO_CONFIG">
@@ -659,7 +743,10 @@
     </LibMethod>
     <LibMethod Comment="" Name="LL_EXTI_EnablePrivilege_0_31">
         <Argument AddressOf="false" GenericType="simple" Name="ExtiLine" OptimizationCondition="equal"/>
-    </LibMethod>         
+    </LibMethod>
+    <LibMethod Comment="Enable the independent USB supply." Name="LL_PWR_EnableVddUSB" Optimizable="true"/>
+    <LibMethod Comment="Enable the USB power supply." Name="LL_PWR_EnableUSBPowerSupply" Optimizable="true"/>
+    <LibMethod Comment="Disable the VDD11USB." Name="LL_PWR_DisableVDD11USB" Optimizable="true"/>
     <RefComponent Cclass="HAL" Cgroup="GPIO__LL" Cversion="1.5.0">
         <File Category="header" Name="Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_ll_gpio.h" />
         <File Category="source" Name="Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_ll_gpio.c" />
@@ -668,6 +755,8 @@
         <File Category="header" Name="Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_ll_exti.c" />
         <File Category="header" Name="Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_ll_lpgpio.h" />
         <File Category="source" Name="Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_ll_lpgpio.c" />
+        <File Category="header" Name="Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_ll_pwr.h" />
+        <File Category="header" Name="Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_ll_pwr.c" />
     </RefComponent>
     
 </IP>

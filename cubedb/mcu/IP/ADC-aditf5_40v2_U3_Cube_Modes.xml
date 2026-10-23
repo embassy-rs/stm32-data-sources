@@ -19,7 +19,7 @@
         <Condition Diagnostic="" Expression="(ADC1_Exist|ADC_Exist)&amp;(!ADC2_Exist)"/>
     </RefParameter>
      <RefParameter Comment="Mode" DefaultValue="ADC_MODE_INDEPENDENT" Group="ADCs_Common_Settings" Name="Mode" Type="list">
-            <Condition Diagnostic="Regular simultanious mode should not be available for injected conversion" Expression="((($Index=1|$Index=2)&amp; USE_ADC1&amp;USE_ADC2)&amp;(ADC1:InjNumberOfConversion=0)&amp;(ADC2:InjNumberOfConversion=0))"/>
+            <Condition Diagnostic="Regular simultaneous mode should not be available for injected conversion" Expression="((($Index=1|$Index=2)&amp; USE_ADC1&amp;USE_ADC2)&amp;(ADC1:InjNumberOfConversion=0)&amp;(ADC2:InjNumberOfConversion=0))"/>
             <PossibleValue Comment="Independent mode" Value="ADC_MODE_INDEPENDENT"/>
             <PossibleValue Comment="Dual regular simultaneous + alternate trigger mode" Semaphore="DualMode1_$IpInstance" Value="ADC_DUALMODE_REGSIMULT_ALTERTRIG"/>
             <PossibleValue Comment="Dual regular simultaneous mode only" Semaphore="DualMode2_$IpInstance" Value="ADC_DUALMODE_REGSIMULT"/>
@@ -30,7 +30,7 @@
             <PossibleValue Comment="Dual injected simultaneous mode only" Semaphore="DualModeInjected_$IpInstance" Value="ADC_DUALMODE_INJECSIMULT"/>
         </RefParameter>
     <RefParameter Comment="Mode" DefaultValue="ADC_MODE_INDEPENDENT" Group="ADCs_Common_Settings" Name="Mode" Type="list">
-        <Condition Diagnostic="Regular simultanious mode should not be available for injected conversion" Expression="((($Index=1|$Index=2)&amp; USE_ADC1&amp;USE_ADC2)&amp;(ADC1:InjNumberOfConversion=0)&amp;(ADC2:InjNumberOfConversion=0))"/>
+        <Condition Diagnostic="Regular simultaneous mode should not be available for injected conversion" Expression="((($Index=1|$Index=2)&amp; USE_ADC1&amp;USE_ADC2)&amp;(ADC1:InjNumberOfConversion=0)&amp;(ADC2:InjNumberOfConversion=0))"/>
          <PossibleValue Comment="Independent mode" Value="ADC_MODE_INDEPENDENT"/>
             <PossibleValue Comment="Dual regular simultaneous + alternate trigger mode" Semaphore="DualMode1_$IpInstance" Value="ADC_DUALMODE_REGSIMULT_ALTERTRIG"/>
             <PossibleValue Comment="Dual regular simultaneous mode only" Semaphore="DualMode2_$IpInstance" Value="ADC_DUALMODE_REGSIMULT"/>
@@ -41,7 +41,7 @@
             <PossibleValue Comment="Dual injected simultaneous mode only" Semaphore="DualModeInjected_$IpInstance" Value="ADC_DUALMODE_INJECSIMULT"/>
     </RefParameter>
     <RefParameter Comment="Mode" DefaultValue="ADC_MODE_INDEPENDENT" Group="ADCs_Common_Settings" Name="Mode" Type="list">
-        <Condition Diagnostic="Regular simultanious mode should not be available for injected conversion" Expression="((($Index=1|$Index=2)&amp;USE_ADC1&amp;USE_ADC2))"/>
+        <Condition Diagnostic="Regular simultaneous mode should not be available for injected conversion" Expression="((($Index=1|$Index=2)&amp;USE_ADC1&amp;USE_ADC2))"/>
         <PossibleValue Comment="Independent mode" Value="ADC_MODE_INDEPENDENT"/>
         <PossibleValue Comment="Dual combined regular simultaneous + injected simultaneous mode" Semaphore="DualMode0_$IpInstance" Value="ADC_DUALMODE_REGSIMULT_INJECSIMULT"/>
         <PossibleValue Comment="Dual regular simultaneous + alternate trigger mode" Semaphore="DualMode1_$IpInstance" Value="ADC_DUALMODE_REGSIMULT_ALTERTRIG"/>       
@@ -84,8 +84,7 @@
     </RefParameter>
     
      <RefParameter Comment="Conversion Data Management Mode" DefaultValue="ADC_CONVERSIONDATA_DR" Group="ADCgroup" Name="ConversionDataManagement" Type="list">
-        <PossibleValue    Comment="Regular Conversion data stored in DR register only" Value="ADC_CONVERSIONDATA_DR" />  
-        <PossibleValue    Comment="DFSDM Mode" Value="ADC_CONVERSIONDATA_DFSDM" Condition="MDF1_Exist"    Action="Remove"/>
+        <PossibleValue    Comment="Regular Conversion data stored in DR register only" Value="ADC_CONVERSIONDATA_DR" />
         <PossibleValue    Comment="MDF Mode"   Value="ADC_CONVERSIONDATA_MDF"   Condition="!(MDF1_Exist)" Action="Remove" Semaphore="S_$IpInstance_MDF1_ConversionDataManagement"/>      
         <PossibleValue    Comment="DMA One Shot Mode" Value="ADC_CONVERSIONDATA_DMA_ONESHOT" />
         <PossibleValue    Comment="DMA Circular Mode" Value="ADC_CONVERSIONDATA_DMA_CIRCULAR" />
@@ -376,8 +375,7 @@
         <PossibleValue Comment="7 bit shift for oversampling" Semaphore="REG_RIGHTBITSHIFT7_$IpInstance" Value="ADC_RIGHTBITSHIFT_7"/>
         <PossibleValue Comment="8 bit shift for oversampling" Semaphore="REG_RIGHTBITSHIFT8_$IpInstance" Value="ADC_RIGHTBITSHIFT_8"/>
         <PossibleValue Comment="9 bit shift for oversampling" Semaphore="INJ_RIGHTBITSHIFT8_$IpInstance" Value="ADC_RIGHTBITSHIFT_9"/>	 
-        <PossibleValue Comment="10 bit shift for oversampling" Semaphore="INJ_RIGHTBITSHIFT8_$IpInstance" Value="ADC_RIGHTBITSHIFT_10"/>	 
-        <PossibleValue Comment="11 bit shift for oversampling" Semaphore="INJ_RIGHTBITSHIFT8_$IpInstance" Value="ADC_RIGHTBITSHIFT_11"/>
+        <PossibleValue Comment="10 bit shift for oversampling" Semaphore="INJ_RIGHTBITSHIFT8_$IpInstance" Value="ADC_RIGHTBITSHIFT_10"/>
 		 
     </RefParameter>		
 			
@@ -390,7 +388,7 @@
     <RefParameter Comment="Oversampling Ratio" DefaultValue="null" Group="ADCgroup" Name="Ratio" Type="list" Visible="false">
         <Condition Diagnostic="" Expression="OversamplingMode=DISABLE | EnableRegularConversion=DISABLE"/>
     </RefParameter>
-    <RefParameter Comment="Oversampling Ratio" DefaultValue ="=Ratio1-1" Group="ADCgroup" Max="1023" Min="0" Name="Ratio" Type="integer" Visible="false"></RefParameter>
+    <RefParameter Comment="Oversampling Ratio" DefaultValue ="=Ratio1" Group="ADCgroup" Max="1023" Min="0" Name="Ratio" Type="integer" Visible="false"></RefParameter>
     <RefParameter Comment="Regular Oversampling Mode" DefaultValue="null" Group="ADCgroup" Name="OversamplingStopReset" Type="list" Visible="false">
         <Condition Diagnostic="" Expression="OversamplingMode=DISABLE | EnableRegularConversion=DISABLE"/>
     </RefParameter>
@@ -751,8 +749,7 @@
         <PossibleValue Comment="7 bit shift for oversampling" Semaphore="INJ_RIGHTBITSHIFT7_$IpInstance" Value="ADC_RIGHTBITSHIFT_7"/>
         <PossibleValue Comment="8 bit shift for oversampling" Semaphore="INJ_RIGHTBITSHIFT8_$IpInstance" Value="ADC_RIGHTBITSHIFT_8"/>	 
         <PossibleValue Comment="9 bit shift for oversampling" Semaphore="INJ_RIGHTBITSHIFT8_$IpInstance" Value="ADC_RIGHTBITSHIFT_9"/>	 
-        <PossibleValue Comment="10 bit shift for oversampling" Semaphore="INJ_RIGHTBITSHIFT8_$IpInstance" Value="ADC_RIGHTBITSHIFT_10"/>	 
-        <PossibleValue Comment="11 bit shift for oversampling" Semaphore="INJ_RIGHTBITSHIFT8_$IpInstance" Value="ADC_RIGHTBITSHIFT_11"/>	 
+        <PossibleValue Comment="10 bit shift for oversampling" Semaphore="INJ_RIGHTBITSHIFT8_$IpInstance" Value="ADC_RIGHTBITSHIFT_10"/>
 
     </RefParameter>		
 			
@@ -1127,6 +1124,7 @@
         <PossibleValue Comment="Channel Vbat" Value="ADC_CHANNEL_VBAT"/>
         <PossibleValue Comment="Channel Temperature Sensor" Value="ADC_CHANNEL_TEMPSENSOR"/>
         <PossibleValue Comment="Channel Vssa" Value="ADC_CHANNEL_VSSA"/>
+        <PossibleValue Comment="Channel VddCore" Value="ADC_CHANNEL_VDDCORE"/>
 
     </RefParameter>
     
@@ -1154,8 +1152,9 @@
         <PossibleValue Comment="Channel Vrefint" Value="ADC_CHANNEL_VREFINT"/>
         <PossibleValue Comment="Channel Vbat" Value="ADC_CHANNEL_VBAT"/>
         <PossibleValue Comment="Channel Temperature Sensor" Value="ADC_CHANNEL_TEMPSENSOR"/>
-        <PossibleValue Comment="Channel Vssa" Value="ADC_CHANNEL_VSSA"/>       
- 
+        <PossibleValue Comment="Channel Vssa" Value="ADC_CHANNEL_VSSA"/>
+        <PossibleValue Comment="Channel VddCore" Value="ADC_CHANNEL_VDDCORE"/>
+
     </RefParameter>
 
     <!--  ########################################################################################Injected Channel parameters######################################################################################## -->
@@ -1187,7 +1186,8 @@
         <PossibleValue Comment="Channel Vbat" Value="ADC_CHANNEL_VBAT"/>
         <PossibleValue Comment="Channel Temperature Sensor" Value="ADC_CHANNEL_TEMPSENSOR"/>
         <PossibleValue Comment="Channel Vssa" Value="ADC_CHANNEL_VSSA"/>
-    
+        <PossibleValue Comment="Channel VddCore" Value="ADC_CHANNEL_VDDCORE"/>
+
     </RefParameter>
     
     <RefParameter Comment="Channel_Rank1" DefaultValue="ADC_CHANNEL_0" Group="ADCChannel" Name="Rank1_Channel" Type="String" Visible="false"/>
@@ -1306,7 +1306,7 @@
         <PossibleValue Comment="Channel DAC1_OUT2" Value="ADC_CHANNEL_DACCH2"/>
         <PossibleValue Comment="Channel Vrefint" Value="ADC_CHANNEL_VREFINT"/>
         <PossibleValue Comment="Channel Vbat" Value="ADC_CHANNEL_VBAT"/>
-        <PossibleValue Comment="Channel VddCore" Value="ADC_CHANNEL_VCORE"/>
+        <PossibleValue Comment="Channel VddCore" Value="ADC_CHANNEL_VDDCORE"/>
         <PossibleValue Comment="Channel Vsense" Value="ADC_CHANNEL_VSENSE"/>
         <PossibleValue Comment="Channel Temperature Sensor" Value="ADC_CHANNEL_TEMPSENSOR"/>
         <PossibleValue Comment="Channel Vssa" Value="ADC_CHANNEL_VSSA"/>
@@ -1648,7 +1648,7 @@
         <PossibleValue Comment="Channel DAC1_OUT2" Value="ADC_CHANNEL_DACCH2"/>
         <PossibleValue Comment="Channel Vrefint" Value="ADC_CHANNEL_VREFINT"/>
         <PossibleValue Comment="Channel Vbat" Value="ADC_CHANNEL_VBAT"/>
-        <PossibleValue Comment="Channel VddCore" Value="ADC_CHANNEL_VCORE"/>
+        <PossibleValue Comment="Channel VddCore" Value="ADC_CHANNEL_VDDCORE"/>
         <PossibleValue Comment="Channel Vsense" Value="ADC_CHANNEL_VSENSE"/>
         <PossibleValue Comment="Channel Temperature Sensor" Value="ADC_CHANNEL_TEMPSENSOR"/>
         <PossibleValue Comment="Channel Vssa" Value="ADC_CHANNEL_VSSA"/>
@@ -1656,7 +1656,7 @@
       
     </RefParameter>	
    
-	
+
     <!-- Possible Value of HighThreshold parameters: Min and Max of this parameter depend on ADC resolution -->
     <RefParameter Comment="High Threshold" DefaultValue="null" Group="ADCgroup" Name="AWD1HighThreshold" Type="list" Visible="false">
         <Condition Diagnostic="" Expression="EnableAnalogWatchDog1=false"/>
@@ -1921,7 +1921,7 @@
         <Condition Expression="VbatfTSelected$IpInstance" Diagnostic=""/>
         <PossibleValue Comment="ADC_CHANNEL_VBAT" Value="ADC_CHANNEL_VBAT"/>
     </RefParameter>
-    
+
 		
                 
                 
@@ -2296,12 +2296,7 @@
    
     
     <!-- RefModes-Single-Ended -->
-     <RefMode Comment="" Name="IN-Vrefint">
-        <Parameter Name="Channel">
-            <PossibleValue>ADC_CHANNEL_VREFINT</PossibleValue>
-        </Parameter>
-        <!--Parameter Name="Rank"/--> 
-    </RefMode>
+
     <RefMode Comment="" Name="IN0-Single-Ended">
         <Parameter Name="Channel" RefParameter="Channel">
             <PossibleValue>ADC_CHANNEL_0</PossibleValue>
@@ -2403,7 +2398,13 @@
             <PossibleValue>ADC_CHANNEL_VBAT</PossibleValue>
         </Parameter>
         <!--Parameter Name="Rank"/--> 
-    </RefMode> 
+    </RefMode>
+    <RefMode Comment="" Name="IN-VddCore">
+        <Parameter Name="Channel">
+            <PossibleValue>ADC_CHANNEL_VDDCORE</PossibleValue>
+        </Parameter>
+        <!--Parameter Name="Rank"/-->
+    </RefMode>
     <RefMode Comment="" Name="IN-TempSens">
         <Parameter Name="Channel">
             <PossibleValue>ADC_CHANNEL_TEMPSENSOR</PossibleValue>
@@ -2421,23 +2422,18 @@
         </Parameter>
         <!--Parameter Name="Rank"/--> 
     </RefMode>
-   
-  
+
+    <RefMode Comment="" Name="IN-Vrefint">
+        <Parameter Name="Channel">
+            <PossibleValue>ADC_CHANNEL_VREFINT</PossibleValue>
+        </Parameter>
+        <!--Parameter Name="Rank"/-->
+    </RefMode>
 
     
     <!--  ########################################################################################Modes List######################################################################################## -->
     <ModeLogicOperator Name="OR">
-        <Mode Name="IN-Vrefint" UserName="Vrefint Channel">
-            <ModeLogicOperator Name="XOR">
-                <Mode Name="IN-Vrefint" UserName="Vrefint Channel">
-                    <SignalLogicalOp Name="AND">
-                        <Signal Name="Vref_Input"/>
-                    </SignalLogicalOp>
-                </Mode>
-            </ModeLogicOperator>
-            <Semaphore>VrefTSelected$IpInstance</Semaphore>
-            <Semaphore>channelSelected$IpInstance</Semaphore>
-        </Mode>
+
        <!-- External channels -->
         <Mode Name="IN1">
             <ModeLogicOperator Name="XOR">
@@ -2649,7 +2645,18 @@
             <Semaphore>VtsATSelected$IpInstance</Semaphore>
  
         </Mode>
-           
+
+        <Mode Name="IN-Vrefint" UserName="Vrefint Channel">
+            <ModeLogicOperator Name="XOR">
+                <Mode Name="IN-Vrefint" UserName="Vrefint Channel">
+                    <SignalLogicalOp Name="AND">
+                        <Signal Name="Vref_Input"/>
+                    </SignalLogicalOp>
+                </Mode>
+            </ModeLogicOperator>
+            <Semaphore>VrefTSelected$IpInstance</Semaphore>
+            <Semaphore>channelSelected$IpInstance</Semaphore>
+        </Mode>
    <!-- Triggers Mode -->
         <Mode Name="Conversion-Trigger" UserName="Conversion Trigger">
             <ModeLogicOperator Name="XOR">

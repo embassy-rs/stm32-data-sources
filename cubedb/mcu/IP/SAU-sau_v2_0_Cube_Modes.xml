@@ -9,6 +9,12 @@
             Activate the region initialisation. If no initialisation all fields are forced to 0x00
         </Description>
     </RefParameter>
+    <RefParameter Name="SAU0_INIT_START" Comment="Start Address" DefaultValue="0x0C1FE000" Min="0x00000000" Max ="0xFFFFFFFF" Type="hex">
+        <Condition Expression="S_SAU0_Activated &amp; (DIE47A)" Diagnostic=""/>
+        <Description>
+            Start address of this region
+        </Description>
+    </RefParameter>
     <RefParameter Name="SAU0_INIT_START" Comment="Start Address" DefaultValue="0x0C0FE000" Min="0x00000000" Max ="0xFFFFFFFF" Type="hex">
         <Condition Expression="S_SAU0_Activated &amp; (DIE484)" Diagnostic=""/>
         <Description>
@@ -44,7 +50,7 @@
             - Secure with Non-Secure Callable &lt;br&gt; 
         </Description>
     </RefParameter>
-    <RefParameter Name="SAU0_INIT_NSC" Comment="Secure Attribute" DefaultValue="0" Type="list" Visible="false">
+    <RefParameter Name="SAU0_INIT_NSC" Comment="Secure Attribute" DefaultValue="1" Type="list" Visible="false">
         <PossibleValue Value="0" Comment="Non-Secure"/>
         <PossibleValue Value="1" Comment="Non-Secure Callable"/>
     </RefParameter>
@@ -55,6 +61,12 @@
         <PossibleValue Value="0" Comment="No"/>
         <Description>
             Activate the region initialisation. If no initialisation all fields are forced to 0x00
+        </Description>
+    </RefParameter>
+    <RefParameter Name="SAU1_INIT_START" Comment="Start Address" DefaultValue="0x08200000" Min="0x00000000" Max ="0xFFFFFFE0" Type="hex">
+        <Condition Expression="S_SAU1_Activated &amp; (DIE47A)" Diagnostic=""/>
+        <Description>
+            Start address of this region
         </Description>
     </RefParameter>
     <RefParameter Name="SAU1_INIT_START" Comment="Start Address" DefaultValue="0x08100000" Min="0x00000000" Max ="0xFFFFFFE0" Type="hex">
@@ -74,6 +86,13 @@
         <Condition Expression="S_SAU1_Activated &amp; (DIE484)" Diagnostic=""/>
         <Description>
             Size of this region &lt;br&gt; 
+            Used to compute the end address of this region
+        </Description>
+    </RefParameter>
+    <RefParameter Name="SAU1_INIT_SIZE" Comment="Block Size" Min="0x20" Max ="0xFFFFFFFF" DefaultValue="0x200000" Type="hex">
+        <Condition Expression="S_SAU1_Activated &amp; (DIE47A)" Diagnostic=""/>
+        <Description>
+            Size of this region &lt;br&gt;
             Used to compute the end address of this region
         </Description>
     </RefParameter>
@@ -124,6 +143,12 @@
             Start address of this region
         </Description>
     </RefParameter>
+    <RefParameter Name="SAU2_INIT_START" Comment="Start Address" DefaultValue="0x20060000" Min="0x00000000" Max ="0xFFFFFFE0" Type="hex">
+        <Condition Expression="S_SAU2_Activated &amp; (DIE47A)" Diagnostic=""/>
+        <Description>
+            Start address of this region
+        </Description>
+    </RefParameter>
     <RefParameter Name="SAU2_INIT_START" Comment="Start Address" DefaultValue="0x20018000" Min="0x00000000" Max ="0xFFFFFFE0" Type="hex">
         <Condition Expression="S_SAU2_Activated" Diagnostic=""/>
         <Description>
@@ -135,6 +160,13 @@
         <Condition Expression="S_SAU2_Activated &amp; (DIE484)" Diagnostic=""/>
         <Description>
             Size of this region &lt;br&gt; 
+            Used to compute the end address of this region
+        </Description>
+    </RefParameter>
+    <RefParameter Name="SAU2_INIT_SIZE" Comment="Block Size" Min="0x20" Max ="0xFFFFFFFF" DefaultValue="0x60000" Type="hex">
+        <Condition Expression="S_SAU2_Activated &amp; (DIE47A)" Diagnostic=""/>
+        <Description>
+            Size of this region &lt;br&gt;
             Used to compute the end address of this region
         </Description>
     </RefParameter>

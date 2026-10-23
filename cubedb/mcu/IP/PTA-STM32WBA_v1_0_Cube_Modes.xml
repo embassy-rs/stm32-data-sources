@@ -11,7 +11,9 @@
 	
     <!-- Modes Description for PTA Converter -->
     <!-- ModeLogicOperator for PTA Converter -->
-
+    <RefMode Name="PTA_Activate" >
+        <ConfigForMode>PTA_Init</ConfigForMode>
+    </RefMode>
     <ModeLogicOperator Name="OR">
         <Mode Name="PTA" UserName="Activated">
             <ModeLogicOperator Name="XOR">
@@ -19,7 +21,7 @@
                     <SignalLogicalOp Name="AND">
                         <Signal Name="VS_PTA"/>
                     </SignalLogicalOp>
-                    <Condition Diagnostic="Active only if: &lt;br&gt; RF is activated" Expression="S_RF"/>
+                    <Condition Diagnostic="Active only if: &lt;br&gt; STM32_WPAN is activated" Expression="S_STM32_WPAN"/>
                     <Semaphore>S_PTA</Semaphore>
                 </Mode>
             </ModeLogicOperator>
@@ -28,7 +30,7 @@
             <ModeLogicOperator Name="XOR">
                 <Mode Name="1_WIRE" UserName="1_WIRE">
                     <SignalLogicalOp Name="AND">
-                        <Signal IOMode="System" Name="ACTIVE"/>
+                        <Signal IOMode="AlternateFunctionPushPull" Name="ACTIVE"/>
                     </SignalLogicalOp>
                     <Condition Diagnostic="Active only if: &lt;br&gt; PTA is activated" Expression="S_PTA"/>
                 </Mode>
@@ -38,8 +40,8 @@
             <ModeLogicOperator Name="XOR">
                 <Mode Name="2_WIRE" UserName="2_WIRE">
                     <SignalLogicalOp Name="AND">
-                        <Signal IOMode="System" Name="ACTIVE"/>
-                        <Signal IOMode="System" Name="GRANT"/>
+                        <Signal IOMode="AlternateFunctionPushPull" Name="ACTIVE"/>
+                        <Signal IOMode="AlternateFunctionPushPull" Name="GRANT"/>
                     </SignalLogicalOp>
                     <Condition Diagnostic="Active only if: &lt;br&gt; PTA is activated" Expression="S_PTA"/>
                 </Mode>
@@ -49,9 +51,9 @@
             <ModeLogicOperator Name="XOR">
                 <Mode Name="3_WIRE" UserName="3_WIRE">
                     <SignalLogicalOp Name="AND">
-                        <Signal IOMode="System" Name="ACTIVE"/>
-                        <Signal IOMode="System" Name="GRANT"/>
-                        <Signal IOMode="System" Name="STATUS"/>
+                        <Signal IOMode="AlternateFunctionPushPull" Name="ACTIVE"/>
+                        <Signal IOMode="AlternateFunctionPushPull" Name="GRANT"/>
+                        <Signal IOMode="AlternateFunctionPushPull" Name="STATUS"/>
                     </SignalLogicalOp>
                     <Condition Diagnostic="Active only if: &lt;br&gt; PTA is activated" Expression="S_PTA"/>
                 </Mode>
@@ -61,10 +63,10 @@
             <ModeLogicOperator Name="XOR">
                 <Mode Name="4_WIRE" UserName="4_WIRE">
                     <SignalLogicalOp Name="AND">
-                        <Signal IOMode="System" Name="ACTIVE"/>
-                        <Signal IOMode="System" Name="GRANT"/>
-                        <Signal IOMode="System" Name="STATUS"/>
-                        <Signal IOMode="System" Name="PRIORITY"/>
+                        <Signal IOMode="AlternateFunctionPushPull" Name="ACTIVE"/>
+                        <Signal IOMode="AlternateFunctionPushPull" Name="GRANT"/>
+                        <Signal IOMode="AlternateFunctionPushPull" Name="STATUS"/>
+                        <Signal IOMode="AlternateFunctionPushPull" Name="PRIORITY"/>
                     </SignalLogicalOp>
                     <Condition Diagnostic="Active only if: &lt;br&gt; PTA is activated" Expression="S_PTA"/>
                 </Mode>
@@ -75,9 +77,9 @@
 
     <!-- RefSignal -->
     <RefSignal Name="VS_PTA" Virtual="true"/>
-    <RefSignal IOMode="System" Name="ACTIVE"/>
-    <RefSignal IOMode="System" Name="STATUS"/>
-    <RefSignal IOMode="System" Name="PRIORITY"/>
-    <RefSignal IOMode="System" Name="GRANT"/>
+    <RefSignal IOMode="AlternateFunctionPushPull" Name="ACTIVE"/>
+    <RefSignal IOMode="AlternateFunctionPushPull" Name="STATUS"/>
+    <RefSignal IOMode="AlternateFunctionPushPull" Name="PRIORITY"/>
+    <RefSignal IOMode="AlternateFunctionPushPull" Name="GRANT"/>
     <Semaphore>$IpInstanceUsed_ForRCC</Semaphore>
 </IP>

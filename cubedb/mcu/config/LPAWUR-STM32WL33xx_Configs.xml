@@ -8,6 +8,8 @@ ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../..
 
     <RefConfig Comment="Initializes the RF Config" Name="RFConfig_Init" >
         <CallLibMethod  Name="HAL_LPAWUR_RFConfigInit" ReturnHAL="false"/>
+        <ImplementCallBack Name="HAL_LPAWUR_MspInit"/>
+        <ImplementCallBack Name="HAL_LPAWUR_MspDeInit"/>
     </RefConfig>
     <RefConfig Comment="Initializes the Frame" Name="Frame_Init">
         <CallLibMethod Name="HAL_LPAWUR_FrameInit" ReturnHAL="false"/>
@@ -50,6 +52,9 @@ ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../..
     <LibMethod Comment="" Name="LL_LPAWUR_SetState">
           <Argument AddressOf="false" GenericType="simple" Name="state" OptimizationCondition="equal"/>
     </LibMethod>
+
+    <LibMethod Comment="" Name="HAL_LPAWUR_MspInit"/>
+    <LibMethod Comment="" Name="HAL_LPAWUR_MspDeInit"/>
 
     <RefComponent Cclass="HAL" Cgroup="LPAWUR" Cversion="0.3.0">
         <File Category="header" Name="Drivers/STM32WL3x_HAL_Driver/Inc/stm32wl3x_hal_lpawur.h"/>

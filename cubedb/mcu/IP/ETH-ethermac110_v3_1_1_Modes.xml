@@ -15,7 +15,9 @@
 	<RefParameter Comment="Note" DefaultValue="N/A" Name="Note" Group="General : Ethernet Configuration" Type="string" Visible="false"/>
 
 	<!-- ST MicroElectronics prefixe Adress -->
-	<RefParameter Comment="Ethernet MAC Address" ArraySize="6" ArrayTypeElement="uint8_t;16" Name="MACAddr" Type="Array" Separator=":" Group="General : Ethernet Configuration" DefaultValue="00:80:E1:00:00:00"/>
+	<RefParameter Comment="Ethernet MAC Address" ArraySize="6" ArrayTypeElement="uint8_t;16" Name="MACAddr" Type="Array" Separator=":" Group="General : Ethernet Configuration" DefaultValue="00:80:E1:00:00:00">
+		<Description>Ethernet MAC address: A 48-bit (6 bytes) hardware identifier, in a 12 hexadecimal digits format, separated by colons.</Description>
+	</RefParameter>
 	<RefParameter Name="RxMode" Comment="Rx Mode" Type="list" Group="General : Ethernet Configuration" DefaultValue="ETH_RXPOLLING_MODE" Visible="false">
 		<PossibleValue Comment="Polling Mode" Value="ETH_RXPOLLING_MODE"/>
         <Description>Polling mode is supported without FreeRTOS.&lt;br&gt;Interrupt mode is supported with FreeRTOS.&lt;br&gt;Tx mode is the same as Rx mode.</Description>
@@ -23,18 +25,26 @@
 	<RefParameter Comment="Rx Descriptor Length" DefaultValue="4" Max="256" Min="0" Type="integer" Name="ETH_RX_DESC_CNT" Group="General : Ethernet Configuration">
 		<Description>Rx Descriptor Length value must be modulo 4. Rx descriptor length must be set in a way that Rx descriptor contents must not exceed max value and must not overlap with Rx buffer and Tx descriptor.</Description>
 		<ValueCondition Diagnostic="Value must be modulo 4" Expression="MOD(Value,4) = 0"/>
+		<Condition Diagnostic="" Expression="ETH1_FSBL | ETH1_APPS | ETH1_EL"/>
 	</RefParameter>
-	<RefParameter Comment="First Rx Descriptor Address" DefaultValue="0x341F8000" Max="0x341FFFFF" Min="0x34100000" Type="hex" Name="RxDescAddress" Group="General : Ethernet Configuration">
+	<RefParameter Comment="First Rx Descriptor Address" DefaultValue="0x34100000" Max="0x341FFFFF" Min="0x34064000" Type="hex" Name="RxDescAddress" Group="General : Ethernet Configuration">
 		<Description>Fisrt Rx Descriptor address must be only in the D2 Domain AHB SRAM. Rx descriptor address must not exceed Max value and must no overlap with Tx descriptor and Rx buffer. These areas must not be cacheable.</Description>
+		<Condition Diagnostic="" Expression="ETH1_FSBL | ETH1_APPS | ETH1_EL"/>
+	</RefParameter>
+	<RefParameter Comment="First Rx Descriptor Address" DefaultValue="0x24100000" Max="0x241FFFFF" Min="0x24064000" Type="hex" Name="RxDescAddress_nonsecure" Group="Non Secure">
+		<Description>Fisrt Rx Descriptor address must be only in the D2 Domain AHB SRAM. Rx descriptor address must not exceed Max value and must no overlap with Tx descriptor and Rx buffer. These areas must not be cacheable.</Description>
+		<Condition Diagnostic="" Expression="ETH1_APPNS"/>
 	</RefParameter>
 	<RefParameter Name="TxDesc[ch]" Comment="Tx Desc" Type="string" Group="General : Ethernet Configuration" DefaultValue="DMATxDscrTab[ch]"  Visible="false"/>
 
 	<RefParameter Comment="Tx Descriptor Length" DefaultValue="4" Max="256" Min="0" Type="integer" Name="ETH_TX_DESC_CNT" Group="General : Ethernet Configuration">
 		<Description>Tx Descriptor Length value must be modulo 4. Tx descriptor length must be set in a way that Tx descriptor contents must not exceed max value and must not overlap with Rx descriptor and buffer.</Description>
 		<ValueCondition Diagnostic="Value must be modulo 4" Expression="MOD(Value,4) = 0"/>
+		<Condition Diagnostic="" Expression="ETH1_FSBL | ETH1_APPS | ETH1_EL"/>
 	</RefParameter>
-	<RefParameter Comment="First Tx Descriptor Address" DefaultValue="0x341F80C0" Max="0x341FFFFF" Min="0x34100000" Type="hex" Name="TxDescAddress" Group="General : Ethernet Configuration">
+	<RefParameter Comment="First Tx Descriptor Address" DefaultValue="0x341000C0" Max="0x341FFFFF" Min="0x34064000" Type="hex" Name="TxDescAddress" Group="General : Ethernet Configuration">
 		<Description>First Tx Descriptor address must be only in the D2 Domain AHB SRAM. Tx descriptor address must not exceed Max value and must no overlap with Rx descriptor and buffer. These areas must not be cacheable.</Description>
+		<Condition Diagnostic="" Expression="ETH1_FSBL | ETH1_APPS | ETH1_EL"/>
 	</RefParameter>
 	<RefParameter Name="RxDesc[ch]" Comment="Rx Desc" Type="string" Group="General : Ethernet Configuration" DefaultValue="DMARxDscrTab[ch]"  Visible="false"/>
 	<RefParameter Comment="Rx Buffers Length" DefaultValue="1536" Max="1536" Min="4" Type="integer" Name="RxBuffLen" Group="General : Ethernet Configuration" Visible="true">
@@ -42,10 +52,37 @@
 		<ValueCondition Diagnostic="Value must be modulo 4" Expression="MOD(Value,4) = 0"/>
 		<Description>Rx buffers Length must be set in a way that Rx buffer contents must not exceed max value and must not overlap with Rx and Tx descriptors. Rx Buffer is declared into the NetXDuo Mw. Length for the HAL is set to 0 for this buffer to avoid allocating unnecessary memory space.&lt;br&gt;Value must be modulo 4.</Description>
 	</RefParameter>
-	<RefParameter Comment="Rx Buffers Length" DefaultValue="1524" Max="1536" Min="0" Type="integer" Name="RxBuffLen" Group="General : Ethernet Configuration">
+	<RefParameter Comment="Rx Buffers Length" DefaultValue="1536" Max="1536" Min="0" Type="integer" Name="RxBuffLen" Group="General : Ethernet Configuration">
 		<Description>Rx buffers Length must be set in a way that Rx buffer contents not exceed max value and must not overlap with Rx and Tx descriptors. To ensure the zero copy capabilities, a received frame can't be divided into more than one buffer greater than the Rx Buffers Length. That is why we recommend to set this parameter to Ethernet Maximum Transfert Unit(MTU).&lt;br&gt;Value must be modulo 4.</Description>
 		<ValueCondition Diagnostic="Value must be modulo 4" Expression="MOD(Value,4) = 0"/>
+                <Condition Diagnostic="" Expression="ETH1_FSBL | ETH1_APPS | ETH1_EL"/>
 	</RefParameter>
+	<RefParameter Comment="Rx Buffers Address" DefaultValue="0x34100100" Max="0x341FFFFF" Min="0x34064000" Type="hex" Name="RxBufferAddress" Group="General : Ethernet Configuration">
+		<ValueCondition Diagnostic="Value must be modulo 4" Expression="MOD(Value,4) = 0"/>
+	</RefParameter>
+	<!-- non secure -->
+	<RefParameter Comment="Tx Descriptor Length" DefaultValue="4" Max="256" Min="0" Type="integer" Name="ETH_TX_DESC_CNT_nonsecure" Group="Non Secure">
+		<Description>Tx Descriptor Length value must be modulo 4. Tx descriptor length must be set in a way that Tx descriptor contents must not exceed max value and must not overlap with Rx descriptor and buffer.</Description>
+		<ValueCondition Diagnostic="Value must be modulo 4" Expression="MOD(Value,4) = 0"/>
+		<Condition Diagnostic="" Expression="ETH1_APPNS"/>
+	</RefParameter>
+	<RefParameter Comment="First Tx Descriptor Address" DefaultValue="0x241000C0" Max="0x241FFFFF" Min="0x24064000" Type="hex" Name="TxDescAddress_nonsecure" Group="Non Secure">
+		<Description>First Tx Descriptor address must be only in the D2 Domain AHB SRAM. Tx descriptor address must not exceed Max value and must no overlap with Rx descriptor and buffer. These areas must not be cacheable.</Description>
+		<Condition Diagnostic="" Expression="ETH1_APPNS"/>
+	</RefParameter>
+	<RefParameter Comment="Rx Descriptor Length" DefaultValue="4" Max="256" Min="0" Type="integer" Name="ETH_RX_DESC_CNT_nonsecure" Group="Non Secure">
+		<Description>Rx Descriptor Length value must be modulo 4. Rx descriptor length must be set in a way that Rx descriptor contents must not exceed max value and must not overlap with Rx buffer and Tx descriptor.</Description>
+		<ValueCondition Diagnostic="Value must be modulo 4" Expression="MOD(Value,4) = 0"/>
+		<Condition Diagnostic="" Expression="ETH1_APPNS"/>
+	</RefParameter>
+
+	<RefParameter Comment="Rx Buffers Length" DefaultValue="1536" Max="1536" Min="0" Type="integer" Name="RxBuffLen_nonsecure" Group="Non Secure">
+		<Description>Rx buffers Length must be set in a way that Rx buffer contents not exceed max value and must not overlap with Rx and Tx descriptors. To ensure the zero copy capabilities, a received frame can't be divided into more than one buffer greater than the Rx Buffers Length. That is why we recommend to set this parameter to Ethernet Maximum Transfert Unit(MTU).&lt;br&gt;Value must be modulo 4.</Description>
+		<ValueCondition Diagnostic="Value must be modulo 4" Expression="MOD(Value,4) = 0"/>
+		<Condition Diagnostic="" Expression="ETH1_APPNS"/>
+	</RefParameter>
+
+
 	<!-- BZ 97589 End -->
 	
 	<RefParameter Comment="Media Interface" DefaultValue="HAL_ETH_MII_MODE" Name="MediaInterface" Type="list" Group="General : Ethernet Configuration" Visible="false">
@@ -62,8 +99,13 @@
 		<Parameter Name="TxDescAddress"/>
 		<Parameter Name="TxDesc[ch]"/>
 		<Parameter Name="ETH_RX_DESC_CNT"/>
-		<Parameter Name="RxDescAddress"/>
-		 <Parameter Name="RxDesc[ch]"/>
+		<Parameter Name="RxDescAddress" />
+		<Parameter Name="ETH_TX_DESC_CNT_nonsecure"/>
+		<Parameter Name="TxDescAddress_nonsecure" />
+		<Parameter Name="ETH_RX_DESC_CNT_nonsecure"/>
+		<Parameter Name="RxDescAddress_nonsecure" />
+		<Parameter Name="RxBuffLen_nonsecure" />
+		<Parameter Name="RxDesc[ch]"/>
         <Parameter Name="RxBuffLen"/>
 		<Parameter Name="RxMode"/>
 		<Parameter Name="MediaInterface">
@@ -77,11 +119,16 @@
 		<Parameter Name="Note"/>
 		<Parameter Name="MACAddr"/>
 		<Parameter Name="ETH_TX_DESC_CNT"/>
-		<Parameter Name="TxDescAddress"/>
+		<Parameter Name="TxDescAddress" />
 		<Parameter Name="TxDesc[ch]"/>
 		<Parameter Name="ETH_RX_DESC_CNT"/>
-		<Parameter Name="RxDescAddress"/>
-		 <Parameter Name="RxDesc[ch]"/>
+		<Parameter Name="RxDescAddress" />
+		<Parameter Name="ETH_TX_DESC_CNT_nonsecure"/>
+		<Parameter Name="TxDescAddress_nonsecure" />
+		<Parameter Name="ETH_RX_DESC_CNT_nonsecure"/>
+		<Parameter Name="RxDescAddress_nonsecure" />
+		<Parameter Name="RxBuffLen_nonsecure" />
+		<Parameter Name="RxDesc[ch]"/>
         <Parameter Name="RxBuffLen"/>
 		<Parameter Name="RxMode"/>
 		<Parameter Name="MediaInterface">
@@ -95,10 +142,15 @@
 		<Parameter Name="Note"/>
 		<Parameter Name="MACAddr"/>
 		<Parameter Name="ETH_TX_DESC_CNT"/>
-		<Parameter Name="TxDescAddress"/>
+		<Parameter Name="TxDescAddress" />
 		<Parameter Name="TxDesc[ch]"/>
 		<Parameter Name="ETH_RX_DESC_CNT"/>
-		<Parameter Name="RxDescAddress"/>
+		<Parameter Name="RxDescAddress" />
+		<Parameter Name="ETH_TX_DESC_CNT_nonsecure"/>
+		<Parameter Name="TxDescAddress_nonsecure" />
+		<Parameter Name="ETH_RX_DESC_CNT_nonsecure"/>
+		<Parameter Name="RxDescAddress_nonsecure" />
+		<Parameter Name="RxBuffLen_nonsecure" />
 		<Parameter Name="RxDesc[ch]"/>
         <Parameter Name="RxBuffLen"/>
 		<Parameter Name="RxMode"/>
@@ -113,10 +165,15 @@
 		<Parameter Name="Note"/>
 		<Parameter Name="MACAddr"/>
 		<Parameter Name="ETH_TX_DESC_CNT"/>
-		<Parameter Name="TxDescAddress"/>
+		<Parameter Name="TxDescAddress" />
 		<Parameter Name="TxDesc[ch]"/>
 		<Parameter Name="ETH_RX_DESC_CNT"/>
-		<Parameter Name="RxDescAddress"/>
+		<Parameter Name="RxDescAddress" />
+		<Parameter Name="ETH_TX_DESC_CNT_nonsecure"/>
+		<Parameter Name="TxDescAddress_nonsecure" />
+		<Parameter Name="ETH_RX_DESC_CNT_nonsecure"/>
+		<Parameter Name="RxDescAddress_nonsecure" />
+		<Parameter Name="RxBuffLen_nonsecure" />
 		<Parameter Name="RxDesc[ch]"/>
         <Parameter Name="RxBuffLen"/>
 		<Parameter Name="RxMode"/>
@@ -131,10 +188,15 @@
 		<Parameter Name="Note"/>
 		<Parameter Name="MACAddr"/>
 		<Parameter Name="ETH_TX_DESC_CNT"/>
-		<Parameter Name="TxDescAddress"/>
+		<Parameter Name="TxDescAddress" />
 		<Parameter Name="TxDesc[ch]"/>
 		<Parameter Name="ETH_RX_DESC_CNT"/>
-		<Parameter Name="RxDescAddress"/>
+		<Parameter Name="RxDescAddress" />
+		<Parameter Name="ETH_TX_DESC_CNT_nonsecure"/>
+		<Parameter Name="TxDescAddress_nonsecure" />
+		<Parameter Name="ETH_RX_DESC_CNT_nonsecure"/>
+		<Parameter Name="RxDescAddress_nonsecure" />
+		<Parameter Name="RxBuffLen_nonsecure" />
 		<Parameter Name="RxDesc[ch]"/>
         <Parameter Name="RxBuffLen"/>
 		<Parameter Name="RxMode"/>
@@ -147,7 +209,7 @@
 	<ModeLogicOperator Name="OR">
 		<Mode Name="Mode">
 			<ModeLogicOperator Name="XOR">
-				<Mode Name="MII" RemoveCondition="!VFBGA198 &amp; !VFBGA223 &amp; !VFBGA264">
+				<Mode Name="MII" RemoveCondition="(!VFBGA198 &amp; !VFBGA223 &amp; !VFBGA264)| STM32N657A0HxQ | STM32N647I0HxQ | STM32N647A0HxQ | STM32N647A0HxQG | STM32N647Z0HxQ | STM32N655I0HxQ | STM32N655A0HxQ | STM32N655A0HxQG | STM32N655Z0HxQ | STM32N645I0HxQ | STM32N645A0HxQ | STM32N645A0HxQG | STM32N645Z0HxQ">
 					<SignalLogicalOp Name="AND">
 						<Signal Name="CLK"/>
 						<Signal Name="MII_COL"/>
@@ -170,7 +232,7 @@
 					<Semaphore>MII</Semaphore>
 					<Semaphore>MW_ETH_MW</Semaphore>
 				</Mode>
-				<Mode Name="MII" RemoveCondition="!VFBGA178 | STM32N657I0HxQ">
+				<Mode Name="MII" RemoveCondition="STM32N657I0Hx | STM32N657A0HxQ | STM32N647I0HxQ | STM32N647A0HxQ | STM32N647A0HxQG | STM32N647Z0HxQ | STM32N655I0HxQ | STM32N655A0HxQ | STM32N655A0HxQG | STM32N655Z0HxQ | STM32N645I0HxQ | STM32N645A0HxQ | STM32N645A0HxQG | STM32N645Z0HxQ">
 					<SignalLogicalOp Name="AND">
 						<Signal Name="CLK"/>
 						<Signal Name="MII_COL"/>
@@ -188,7 +250,7 @@
 					<Semaphore>MII</Semaphore>
 					<Semaphore>MW_ETH_MW</Semaphore>
 				</Mode>
-				<Mode Name="MII" RemoveCondition="(!VFBGA142 &amp; !VFBGA169) | STM32N657A0HxQ">
+				<Mode Name="MII" RemoveCondition="(!VFBGA142  &amp; !VFBGA169) | STM32N657A0HxQ | STM32N647I0HxQ | STM32N647A0HxQ | STM32N647A0HxQG | STM32N647Z0HxQ | STM32N655I0HxQ | STM32N655A0HxQ | STM32N655A0HxQG | STM32N655Z0HxQ | STM32N645I0HxQ | STM32N645A0HxQ | STM32N645A0HxQG | STM32N645Z0HxQ">
 					<SignalLogicalOp Name="AND">
 						<Signal Name="CLK"/>
 						<Signal Name="MDC"/>
@@ -205,7 +267,7 @@
 					<Semaphore>MW_ETH_MW</Semaphore>
 				</Mode>
 
-				<Mode Name="MII_PTP_Synchro" RemoveCondition="!VFBGA198 &amp; !VFBGA223 &amp; !VFBGA264">
+				<Mode Name="MII_PTP_Synchro" RemoveCondition="(!VFBGA198 &amp; !VFBGA223 &amp; !VFBGA264) | STM32N657A0HxQ | STM32N647I0HxQ | STM32N647A0HxQ | STM32N647A0HxQG | STM32N647Z0HxQ | STM32N655I0HxQ | STM32N655A0HxQ | STM32N655A0HxQG | STM32N655Z0HxQ | STM32N645I0HxQ | STM32N645A0HxQ | STM32N645A0HxQG | STM32N645Z0HxQ">
 					<SignalLogicalOp Name="AND">
 						<Signal Name="CLK"/>
 						<Signal Name="MII_COL"/>
@@ -230,7 +292,7 @@
 					<Semaphore>MW_ETH_MW</Semaphore>
 					<Condition Expression="((Semaphore_TriggerSourceITR4TIM2 &amp; Semaphore_ETH_ControllerModeTIM2) | (Semaphore_TriggerSourceITR4TIM3 &amp; Semaphore_ETH_ControllerModeTIM3)) | (FDCAN1Used_ForRCC | FDCAN2Used_ForRCC)" Diagnostic="Only active when TIM2/TIM3 has an enabled Slave Mode with ITR4 as trigger source or if FDCAN is enabled."/>
 				</Mode>
-				<Mode Name="MII_PTP_Synchro" RemoveCondition="!VFBGA178 | STM32N657I0HxQ">
+				<Mode Name="MII_PTP_Synchro" RemoveCondition="!VFBGA178 | STM32N657I0HxQ | STM32N657A0HxQ | STM32N647I0HxQ | STM32N647A0HxQ | STM32N647A0HxQG | STM32N647Z0HxQ | STM32N655I0HxQ | STM32N655A0HxQ | STM32N655A0HxQG | STM32N655Z0HxQ | STM32N645I0HxQ | STM32N645A0HxQ | STM32N645A0HxQG | STM32N645Z0HxQ">
 					<SignalLogicalOp Name="AND">
 						<Signal Name="CLK"/>
 						<Signal Name="MII_COL"/>
@@ -250,7 +312,7 @@
 					<Semaphore>MW_ETH_MW</Semaphore>
 					<Condition Expression="((Semaphore_TriggerSourceITR4TIM2 &amp; Semaphore_ETH_ControllerModeTIM2) | (Semaphore_TriggerSourceITR4TIM3 &amp; Semaphore_ETH_ControllerModeTIM3)) | (FDCAN1Used_ForRCC | FDCAN2Used_ForRCC)" Diagnostic="Only active when TIM2/TIM3 has an enabled Slave Mode with ITR4 as trigger source or if FDCAN is enabled."/>
 				</Mode>
-				<Mode Name="MII_PTP_Synchro" RemoveCondition="(!VFBGA142 &amp; !VFBGA169) | STM32N657A0HxQ">
+				<Mode Name="MII_PTP_Synchro" RemoveCondition="(!VFBGA142 &amp; !VFBGA169) | STM32N657A0HxQ |  STM32N657A0HxQ | STM32N647I0HxQ | STM32N647A0HxQ | STM32N647A0HxQG | STM32N647Z0HxQ | STM32N655I0HxQ | STM32N655A0HxQ | STM32N655A0HxQG | STM32N655Z0HxQ | STM32N645I0HxQ | STM32N645A0HxQ | STM32N645A0HxQG | STM32N645Z0HxQ">
 					<SignalLogicalOp Name="AND">
 						<Signal Name="CLK"/>
 						<Signal Name="MDC"/>
@@ -306,7 +368,7 @@
 					<Condition Expression="((Semaphore_TriggerSourceITR4TIM2 &amp; Semaphore_ETH_ControllerModeTIM2) | (Semaphore_TriggerSourceITR4TIM3 &amp; Semaphore_ETH_ControllerModeTIM3)) | (FDCAN1Used_ForRCC | FDCAN2Used_ForRCC)" Diagnostic="Only active when TIM2/TIM3 has an enabled Slave Mode with ITR4 as trigger source or if FDCAN is enabled."/>
 				</Mode>
 
-				<Mode Name="RGMII" RemoveCondition="!VFBGA198 &amp; !VFBGA223 &amp; !VFBGA264">
+				<Mode Name="RGMII" RemoveCondition="(!VFBGA198 &amp; !VFBGA223 &amp; !VFBGA264) | STM32N657A0HxQ | STM32N647I0HxQ | STM32N647A0HxQ | STM32N647A0HxQG | STM32N647Z0HxQ | STM32N655I0HxQ | STM32N655A0HxQ | STM32N655A0HxQG | STM32N655Z0HxQ | STM32N645I0HxQ | STM32N645A0HxQ | STM32N645A0HxQG | STM32N645Z0HxQ">
 					<SignalLogicalOp Name="AND">
 						<Signal Name="CLK"/>
 						<Signal Name="MDC"/>
@@ -328,7 +390,7 @@
 					<Semaphore>RGMII</Semaphore>
 					<Semaphore>MW_ETH_MW</Semaphore>
 				</Mode>
-				<Mode Name="RGMII" RemoveCondition="(!VFBGA178 &amp; !VFBGA142 &amp; !VFBGA169) | STM32N657A0HxQ | STM32N657I0HxQ">
+				<Mode Name="RGMII" RemoveCondition="(!VFBGA178 &amp; !VFBGA142 &amp; !VFBGA169) | STM32N657A0HxQ | STM32N657I0HxQ | STM32N657A0HxQ | STM32N647I0HxQ | STM32N647A0HxQ | STM32N647A0HxQG | STM32N647Z0HxQ | STM32N655I0HxQ | STM32N655A0HxQ | STM32N655A0HxQG | STM32N655Z0HxQ | STM32N645I0HxQ | STM32N645A0HxQ | STM32N645A0HxQG | STM32N645Z0HxQ">
 					<SignalLogicalOp Name="AND">
 						<Signal Name="CLK"/>
 						<Signal Name="MDC"/>

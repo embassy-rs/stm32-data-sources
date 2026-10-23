@@ -16,6 +16,7 @@
 		<Parameter Name="TX_NOT_INTERRUPTABLE"/>
 		<Parameter Name="TX_MAX_PRIORITIES"/>
 		<Parameter Name="TX_TIMER_TICKS_PER_SECOND"/>
+		<Parameter Name="TX_ENABLE_RANDOM_NUMBER_STACK_FILLING"/>
 		<Parameter Name="TX_SAFETY_CRITICAL"/>
 		<Parameter Name="TX_TIMER_PROCESS_IN_ISR"/>
 		<Parameter Name="TX_REACTIVATE_INLINE"/>
@@ -123,6 +124,7 @@
 						<Signal Name="VS_RTOSJjThreadXJjCoreJjDefault" />
 					</SignalLogicalOp>
 					<Semaphore>SEMThreadXCcRTOSJjThreadXJjCore</Semaphore>
+					<Condition Expression="!S_BLE_HOST_SIMPLE" Diagnostic="When enabling the simplest BLE configuration of STM32_WPAN, it is not possible to enable ThreadX." />
 				</Mode>
 			</ModeLogicOperator>
 		</Mode>
@@ -323,20 +325,29 @@ TX_TIMER_ENABLE_PERFORMANCE_INFO must not be defined.</Description>
 		<Condition Diagnostic="" Expression="USBPD_P0U1 &amp; !USBPD_TYPECONLY"/>
 		<Description>Define the common timer tick reference for use by other middleware components. This is forced to 1000 for USBPD stack constraints</Description>
 	</RefParameter>
-	<RefParameter Added="true" Comment="ThreadX version" DefaultValue="6.2.1" Group="Version" Name="ThreadX_Version" TabName="ThreadX" Type="string">
-        <Description>Current ThreadX version</Description>
-    </RefParameter>
+	<RefParameter Added="true" Comment="TX_ENABLE_RANDOM_NUMBER_STACK_FILLING" DefaultValue="0" Group="Core" Name="TX_ENABLE_RANDOM_NUMBER_STACK_FILLING" TabName="ThreadX" Type="list">
+		<Condition Diagnostic="" Expression="(TX_ENABLE_STACK_CHECKING  = 1)"/>
+		<Description>Determine if random number is used for stack filling. &lt;br&gt;
+			By default, ThreadX uses a fixed pattern for stack filling.&lt;br&gt;
+			When the following is defined,  ThreadX uses a random number for stack filling.&lt;br&gt;
+			This is effective only when  TX_ENABLE_STACK_CHECKING is defined.</Description>
+		<PossibleValue Comment="Disabled" Value="0"/>
+		<PossibleValue Comment="Enabled" Value="1"/>
+	</RefParameter>
+	<RefParameter Added="true" Comment="ThreadX version" DefaultValue="6.4.0" Group="Version" Name="ThreadX_Version" TabName="ThreadX" Type="string">
+		<Description>Current ThreadX version</Description>
+	</RefParameter>
         <RefParameter Added="true" Comment="Enable LowPower Support" DefaultValue="0" Group="Low Power" Name="TX_LOW_POWER" TabName="ThreadX" Type="list">
         <Description>When enabled ThreadX will support LowPower feature.</Description>
 		<PossibleValue Comment="Disabled" Value="0"/>
         <PossibleValue Comment="Enabled" Value="1" Semaphore="Low_Power_ENABLED"/>
     </RefParameter>
     <RefParameter Added="true" Comment="TX_LOW_POWER_TIMER_SETUP" DefaultValue="App_ThreadX_LowPower_Timer_Setup" Group="Low Power" Name="TX_LOW_POWER_TIMER_SETUP" TabName="ThreadX" Type="stringRW">
-        <Condition Diagnostic="" Expression="(TX_LOW_POWER = 1) &amp; TX_LOW_POWER_TIMER_SETUP_ENABLE=true &amp; (DIE492 | DIE4B0)"/>
+        <Condition Diagnostic="" Expression="(TX_LOW_POWER = 1) &amp; TX_LOW_POWER_TIMER_SETUP_ENABLE=true &amp; (DIE492 | DIE4B0 | DIE4B2)"/>
         <Description>A macro used to track the current time.&lt;br&gt; &lt;font color=&quot;red&quot;&gt; &lt;b&gt;This is a variable name. It should be C compliant declaration, Otherwise compilation errors will be generated in the project. &lt;/b&gt; &lt;/font&gt;</Description>
     </RefParameter>
 	<RefParameter Added="true" Comment="TX_LOW_POWER_TIMER_SETUP" DefaultValue="App_ThreadX_LowPower_Timer_Setup" Group="Low Power" Name="TX_LOW_POWER_TIMER_SETUP" TabName="ThreadX" Type="stringRW">
-        <Condition Diagnostic="" Expression="(TX_LOW_POWER = 1) &amp; !DIE492 &amp; !DIE4B0"/>
+        <Condition Diagnostic="" Expression="(TX_LOW_POWER = 1) &amp; !DIE492 &amp; !DIE4B0 &amp; !DIE4B2"/>
         <Description>A macro used to track the current time.&lt;br&gt; &lt;font color=&quot;red&quot;&gt; &lt;b&gt;This is a variable name. It should be C compliant declaration, Otherwise compilation errors will be generated in the project. &lt;/b&gt; &lt;/font&gt;</Description>
     </RefParameter>
     <RefParameter Added="true" Comment="TX_LOW_POWER_TICKLESS" DefaultValue="1" Group="Low Power" Name="TX_LOW_POWER_TICKLESS" TabName="ThreadX" Type="list">
@@ -358,7 +369,7 @@ TX_TIMER_ENABLE_PERFORMANCE_INFO must not be defined.</Description>
         <Description>A macro to retrieve the number of ticks the system was in low power mode.&lt;br&gt; &lt;font color=&quot;red&quot;&gt; &lt;b&gt;This is a variable name. It should be C compliant declaration, Otherwise compilation errors will be generated in the project. &lt;/b&gt; &lt;/font&gt;</Description>
     </RefParameter>
 	<RefParameter Added="true" Comment="TX_LOW_POWER_USER_TIMER_ADJUST" DefaultValue="App_ThreadX_LowPower_Timer_Adjust" Group="Low Power" Name="TX_LOW_POWER_USER_TIMER_ADJUST" TabName="ThreadX" Type="stringRW">
-        <Condition Diagnostic="" Expression="(TX_LOW_POWER = 1)&amp; !DIE492 &amp; !DIE4B0"/>
+        <Condition Diagnostic="" Expression="(TX_LOW_POWER = 1)&amp; !DIE492 &amp; !DIE4B0 &amp; !DIE4B2"/>
         <Description>A macro to retrieve the number of ticks the system was in low power mode.&lt;br&gt; &lt;font color=&quot;red&quot;&gt; &lt;b&gt;This is a variable name. It should be C compliant declaration, Otherwise compilation errors will be generated in the project. &lt;/b&gt; &lt;/font&gt;</Description>
     </RefParameter>
         <RefParameter Added="true" Comment="TX_NO_FILEX_POINTER" DefaultValue="0" Group="Core" Name="TX_NO_FILEX_POINTER" TabName="ThreadX" Type="list">
@@ -404,7 +415,10 @@ This is automatically generated by STM32CubeMX under the &lt;b&gt;USE_DYNAMIC_ME
         <PossibleValue Comment="Use Static Allocation" Value="1"/>
         <PossibleValue Comment="Use Dynamic Allocation" Value="0"/>
     </RefParameter>
-
+	<RefParameter Added="true" Comment="ThreadX memory pool size" DefaultValue="1024" Group="Memory Configuration" Max="24576" Min="512" Name="TX_APP_MEM_POOL_SIZE" TabName="ThreadX" Type="integer" Unit="">
+		<Description>Default memory pool size for the ThreadX application.</Description>
+		<Condition Diagnostic="" Expression="(AZRTOS_APP_MEM_ALLOCATION_METHOD = 1) &amp; DIE4B2"/>
+	</RefParameter>
     <RefParameter Added="true" Comment="ThreadX memory pool size" DefaultValue="1024" Group="Memory Configuration" Max="=($RamSize*1024)/4" Min="512" Name="TX_APP_MEM_POOL_SIZE" TabName="ThreadX" Type="integer" Unit="">
         <Description>Default memory pool size for the ThreadX application.</Description>
 		<Condition Diagnostic="" Expression="(AZRTOS_APP_MEM_ALLOCATION_METHOD = 1)"/>
@@ -483,11 +497,11 @@ This is automatically generated by STM32CubeMX under the &lt;b&gt;USE_DYNAMIC_ME
     </RefParameter>
 	<RefParameter Added="true" Comment="USBX_ENABLED" DefaultValue="false" Group="Memory Configuration"  Name="USBX_ENABLED" TabName="ThreadX" Type="boolean" Visible="false">
         <Description></Description>
-        <Condition Diagnostic="" Expression="!SEMUSBXCcUSBJjUSBXJjUXOoHostOoCoreStackJjRTOSIiMODE_HS &amp; !SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoCoreStackJjRTOSIiMODE_HS"/>
+        <Condition Diagnostic="" Expression="!SEMUSBXCcUSBJjUSBXJjUXOoHostOoCoreStackJjRTOSIiMODE_HS &amp; !SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoCoreStackJjRTOSIiMODE_HS &amp; !SEMUSBXCcUSBJjUSBXJjUXOoHostOoCoreStackJjRTOSIiMODE_FS &amp; !SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoCoreStackJjRTOSIiMODE_FS"/>
     </RefParameter>
     <RefParameter Added="true" Comment="USBX_ENABLED" DefaultValue="true" Group="Memory Configuration"  Name="USBX_ENABLED" TabName="ThreadX" Type="boolean" Visible="false">
         <Description></Description>
-        <Condition Diagnostic="" Expression="SEMUSBXCcUSBJjUSBXJjUXOoHostOoCoreStackJjRTOSIiMODE_HS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoCoreStackJjRTOSIiMODE_HS"/>
+        <Condition Diagnostic="" Expression="SEMUSBXCcUSBJjUSBXJjUXOoHostOoCoreStackJjRTOSIiMODE_HS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoCoreStackJjRTOSIiMODE_HS | SEMUSBXCcUSBJjUSBXJjUXOoHostOoCoreStackJjRTOSIiMODE_FS | SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoCoreStackJjRTOSIiMODE_FS"/>
     </RefParameter>
     <RefParameter Added="true" Comment="USBXHOST_ENABLED" DefaultValue="true" Group="Memory Configuration"  Name="USBXHOST_ENABLED" TabName="ThreadX" Type="boolean" Visible="false">
         <Description></Description>
@@ -557,13 +571,13 @@ This is automatically generated by STM32CubeMX under the &lt;b&gt;USE_DYNAMIC_ME
         <Description></Description>
 		<PossibleValue Comment="false" Value="false"/>
         <PossibleValue Comment="true" Value="true"/>
-		<Condition Diagnostic="" Expression="(TX_LOW_POWER = 1) &amp; (DIE492 | DIE4B0)"/>
+		<Condition Diagnostic="" Expression="(TX_LOW_POWER = 1) &amp; (DIE492 | DIE4B0 | DIE4B2)"/>
     </RefParameter>
 	<RefParameter Added="true" Comment="TX_LOW_POWER_USER_TIMER_ADJUST_ENABLE" DefaultValue="false" Group="Low Power"  Name="TX_LOW_POWER_USER_TIMER_ADJUST_ENABLE" TabName="ThreadX" Type="boolean">
         <Description></Description>
 		<PossibleValue Comment="false" Value="false"/>
         <PossibleValue Comment="true" Value="true"/>
-		<Condition Diagnostic="" Expression="(TX_LOW_POWER = 1) &amp; (DIE492 | DIE4B0)"/>
+		<Condition Diagnostic="" Expression="(TX_LOW_POWER = 1) &amp; (DIE492 | DIE4B0 | DIE4B2)"/>
     </RefParameter>
 	<RefParameter Added="true" Comment="ThreadX MemPool Name" DefaultValue="tx_app_byte_pool" Group="Memory Configuration" Name="THREADX_MEM_POOL_VAR_NAME" TabName="ThreadX" Type="stringRW">
 		<Description>Default ThreadX memory pool var name.&lt;br&gt; &lt;font color=&quot;red&quot;&gt; &lt;b&gt;This is a variable name. It should be C compliant declaration, Otherwise compilation errors will be generated in the project. &lt;/b&gt; &lt;/font&gt; </Description>
