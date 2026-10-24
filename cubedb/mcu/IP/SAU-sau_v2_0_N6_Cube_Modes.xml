@@ -10,14 +10,20 @@
         </Description>
     </RefParameter>
     <RefParameter Name="SAU0_INIT_START" Comment="Start Address" DefaultValue="0x241A0000" Min="0x00000000" Max ="0xFFFFFFFF" Type="hex">
-        <Condition Expression="S_SAU0_Activated" Diagnostic=""/>
+        <Condition Expression="S_SAU0_Activated &amp; !NSC0 | (NSC0 &amp; !MODE_DYNAMIC_0)" Diagnostic=""/>
+        <Description>
+            Start address of this region
+        </Description>
+    </RefParameter>
+    <RefParameter Name="SAU0_INIT_START_DYNAMIC" Comment="Start Address" DefaultValue="_sNSCVeneer" Type="string">
+        <Condition Expression="NSC0 &amp; MODE_DYNAMIC_0" Diagnostic=""/>
         <Description>
             Start address of this region
         </Description>
     </RefParameter>
     <RefParameter Name="SAU0_INIT_START" Comment="Start Address" DefaultValue="0x00000000" Min="0x00000000" Max ="0xFFFFFFFF" Type="hex" Visible="false"/>
     <RefParameter Name="SAU0_INIT_SIZE" Comment="Block Size" Min="0x20" Max ="0xFFFFFFFF" DefaultValue="0x2000" Type="hex">
-        <Condition Expression="S_SAU0_Activated" Diagnostic=""/>
+        <Condition Expression="S_SAU0_Activated &amp; !NSC0 | (NSC0 &amp; !MODE_DYNAMIC_0)" Diagnostic=""/>
         <Description>
             Size of this region &lt;br&gt; 
             Used to compute the end address of this region
@@ -31,7 +37,7 @@
     <RefParameter Name="SAU0_INIT_NSC" Comment="Secure Attribute" DefaultValue="1" Type="list">
         <Condition Expression="S_SAU0_Activated" Diagnostic=""/>
         <PossibleValue Value="0" Comment="Non-Secure"/>
-        <PossibleValue Value="1" Comment="Non-Secure Callable"/>
+        <PossibleValue Value="1" Comment="Non-Secure Callable" Semaphore="NSC0"/>
         <Description>
             Region could be defined as  &lt;br&gt; 
             - Non-Secure &lt;br&gt; 
@@ -42,8 +48,18 @@
         <PossibleValue Value="0" Comment="Non-Secure"/>
         <PossibleValue Value="1" Comment="Non-Secure Callable"/>
     </RefParameter>
-    
-    
+    <RefParameter Name="SAU0_INIT_Mode" Comment="Mode" DefaultValue="1" Type="list">
+        <Condition Expression="SAU0_INIT_NSC=1" Diagnostic="Non-Secure Callable region address is deduced from linker"/>
+        <PossibleValue Value="0" Comment="Static" Semaphore="MODE_STATIC"/>
+        <PossibleValue Value="1" Comment="Dynamic" Semaphore="MODE_DYNAMIC_0" Condition="(MODE_DYNAMIC_7|MODE_DYNAMIC_1|MODE_DYNAMIC_2|MODE_DYNAMIC_3|MODE_DYNAMIC_4|MODE_DYNAMIC_5|MODE_DYNAMIC_6)" Action="remove"/>
+    </RefParameter>
+    <RefParameter Name="SAU0_End_Address" Comment="End Address"  DefaultValue="_eNSCVeneer" Type="string">
+        <Condition Expression="NSC0 &amp; MODE_DYNAMIC_0" Diagnostic=""/>
+        <Description>
+            Size of this region &lt;br&gt;
+            Used to compute the end address of this region
+        </Description>
+    </RefParameter>
     <RefParameter Name="SAU1_INIT_REGION" Comment="Enable this region" DefaultValue="1" Type="list">
         <PossibleValue Value="1" Comment="Yes" Semaphore="S_SAU1_Activated"/>
         <PossibleValue Value="0" Comment="No"/>
@@ -51,9 +67,14 @@
             Activate the region initialisation. If no initialisation all fields are forced to 0x00
         </Description>
     </RefParameter>
-
     <RefParameter Name="SAU1_INIT_START" Comment="Start Address" DefaultValue="0x3419FF00" Min="0x00000000" Max ="0xFFFFFFE0" Type="hex">
-        <Condition Expression="S_SAU1_Activated" Diagnostic=""/>
+        <Condition Expression="S_SAU1_Activated &amp; !NSC1| (NSC1 &amp; !MODE_DYNAMIC_1)" Diagnostic=""/>
+        <Description>
+            Start address of this region
+        </Description>
+    </RefParameter>
+    <RefParameter Name="SAU1_INIT_START_DYNAMIC" Comment="Start Address" DefaultValue="_sNSCVeneer" Type="string">
+        <Condition Expression="NSC1 &amp; MODE_DYNAMIC_1 " Diagnostic=""/>
         <Description>
             Start address of this region
         </Description>
@@ -61,7 +82,7 @@
     <RefParameter Name="SAU1_INIT_START" Comment="Start Address" DefaultValue="0x00000000" Min="0x00000000" Max ="0xFFFFFFE0" Type="hex" Visible="false"/>
 
     <RefParameter Name="SAU1_INIT_SIZE" Comment="Block Size" Min="0x20" Max ="0xFFFFFFFF" DefaultValue="0x40000" Type="hex">
-        <Condition Expression="S_SAU1_Activated" Diagnostic=""/>
+        <Condition Expression="S_SAU1_Activated &amp; !NSC1 | (NSC1 &amp; !MODE_DYNAMIC_1)" Diagnostic=""/>
         <Description>
             Size of this region &lt;br&gt; 
             Used to compute the end address of this region
@@ -75,7 +96,7 @@
     <RefParameter Name="SAU1_INIT_NSC" Comment="Secure Attribute" DefaultValue="0" Type="list">
         <Condition Expression="S_SAU1_Activated" Diagnostic=""/>
         <PossibleValue Value="0" Comment="Non-Secure"/>
-        <PossibleValue Value="1" Comment="Non-Secure Callable"/>
+        <PossibleValue Value="1" Comment="Non-Secure Callable" Semaphore="NSC1"/>
         <Description>
             Region could be defined as  &lt;br&gt; 
             - Non-Secure &lt;br&gt; 
@@ -86,8 +107,18 @@
         <PossibleValue Value="0" Comment="Non-Secure"/>
         <PossibleValue Value="1" Comment="Non-Secure Callable"/>
     </RefParameter>
-    
-  
+    <RefParameter Name="SAU1_INIT_Mode" Comment="Mode" DefaultValue="0" Type="list">
+        <Condition Expression="SAU1_INIT_NSC=1" Diagnostic="Non-Secure Callable region address is deduced from linker"/>
+        <PossibleValue Value="0" Comment="Static" Semaphore="MODE_STATIC"/>
+        <PossibleValue Value="1" Comment="Dynamic" Semaphore="MODE_DYNAMIC_1" Condition="(MODE_DYNAMIC_0|MODE_DYNAMIC_7|MODE_DYNAMIC_2|MODE_DYNAMIC_3|MODE_DYNAMIC_4|MODE_DYNAMIC_5|MODE_DYNAMIC_6)" Action="remove"/>
+    </RefParameter>
+    <RefParameter Name="SAU1_End_Address" Comment="End Address"  DefaultValue="_eNSCVeneer " Type="string">
+        <Condition Expression="NSC1 &amp; MODE_DYNAMIC_1" Diagnostic=""/>
+        <Description>
+            Size of this region &lt;br&gt;
+            Used to compute the end address of this region
+        </Description>
+    </RefParameter>
     <RefParameter Name="SAU2_INIT_REGION" Comment="Enable this region" DefaultValue="1" Type="list">
         <PossibleValue Value="1" Comment="Yes" Semaphore="S_SAU2_Activated"/>
         <PossibleValue Value="0" Comment="No"/>
@@ -96,14 +127,20 @@
         </Description>
     </RefParameter>
     <RefParameter Name="SAU2_INIT_START" Comment="Start Address" DefaultValue="0x40000000" Min="0x00000000" Max ="0xFFFFFFE0" Type="hex">
-        <Condition Expression="S_SAU2_Activated" Diagnostic=""/>
+        <Condition Expression="S_SAU2_Activated &amp; !NSC2 | (NSC2 &amp; !MODE_DYNAMIC_2)" Diagnostic=""/>
+        <Description>
+            Start address of this region
+        </Description>
+    </RefParameter>
+    <RefParameter Name="SAU2_INIT_START_DYNAMIC" Comment="Start Address" DefaultValue="_sNSCVeneer" Type="string">
+        <Condition Expression="NSC2 &amp; MODE_DYNAMIC_2" Diagnostic=""/>
         <Description>
             Start address of this region
         </Description>
     </RefParameter>
     <RefParameter Name="SAU2_INIT_START" Comment="Start Address" DefaultValue="0x00000000" Min="0x00000000" Max ="0xFFFFFFE0" Type="hex" Visible="false"/>
     <RefParameter Name="SAU2_INIT_SIZE" Comment="Block Size" Min="0x20" Max ="0xFFFFFFFF" DefaultValue="0x28000" Type="hex">
-        <Condition Expression="S_SAU2_Activated" Diagnostic=""/>
+        <Condition Expression="S_SAU2_Activated &amp; !NSC2 | (NSC2 &amp; !MODE_DYNAMIC_2)" Diagnostic=""/>
         <Description>
             Size of this region &lt;br&gt; 
             Used to compute the end address of this region
@@ -117,7 +154,7 @@
     <RefParameter Name="SAU2_INIT_NSC" Comment="Secure Attribute" DefaultValue="0" Type="list">
         <Condition Expression="S_SAU2_Activated" Diagnostic=""/>
         <PossibleValue Value="0" Comment="Non-Secure"/>
-        <PossibleValue Value="1" Comment="Non-Secure Callable"/>
+        <PossibleValue Value="1" Comment="Non-Secure Callable" Semaphore="NSC2"/>
         <Description>
             Region could be defined as  &lt;br&gt; 
             - Non-Secure &lt;br&gt; 
@@ -128,8 +165,18 @@
         <PossibleValue Value="0" Comment="Non-Secure"/>
         <PossibleValue Value="1" Comment="Non-Secure Callable"/>
     </RefParameter>
-    
-  
+    <RefParameter Name="SAU2_INIT_Mode" Comment="Mode" DefaultValue="0" Type="list">
+        <Condition Expression="SAU2_INIT_NSC=1" Diagnostic="Non-Secure Callable region address is deduced from linker"/>
+        <PossibleValue Value="0" Comment="Static" Semaphore="MODE_STATIC"/>
+        <PossibleValue Value="1" Comment="Dynamic" Semaphore="MODE_DYNAMIC_2" Condition="(MODE_DYNAMIC_0|MODE_DYNAMIC_1|MODE_DYNAMIC_7|MODE_DYNAMIC_3|MODE_DYNAMIC_4|MODE_DYNAMIC_5|MODE_DYNAMIC_6)" Action="remove"/>
+    </RefParameter>
+    <RefParameter Name="SAU2_End_Address" Comment="End Address"  DefaultValue="_eNSCVeneer " Type="string">
+        <Condition Expression="NSC2 &amp; MODE_DYNAMIC_2" Diagnostic=""/>
+        <Description>
+            Size of this region &lt;br&gt;
+            Used to compute the end address of this region
+        </Description>
+    </RefParameter>
     <RefParameter Name="SAU3_INIT_REGION" Comment="Enable this region" DefaultValue="1" Type="list">
         <PossibleValue Value="1" Comment="Yes" Semaphore="S_SAU3_Activated"/>
         <PossibleValue Value="0" Comment="No"/>
@@ -138,14 +185,20 @@
         </Description>
     </RefParameter>
     <RefParameter Name="SAU3_INIT_START" Comment="Start Address" DefaultValue="0x40000000" Min="0x00000000" Max ="0xFFFFFFE0" Type="hex">
-        <Condition Expression="S_SAU3_Activated" Diagnostic=""/>
+        <Condition Expression="S_SAU3_Activated &amp; !NSC3| (NSC3 &amp; !MODE_DYNAMIC_3)" Diagnostic=""/>
+        <Description>
+            Start address of this region
+        </Description>
+    </RefParameter>
+    <RefParameter Name="SAU3_INIT_START_DYNAMIC" Comment="Start Address" DefaultValue="_sNSCVeneer" Type="string">
+        <Condition Expression="NSC3  &amp; MODE_DYNAMIC_3" Diagnostic=""/>
         <Description>
             Start address of this region
         </Description>
     </RefParameter>
     <RefParameter Name="SAU3_INIT_START" Comment="Start Address" DefaultValue="0x00000000" Min="0x00000000" Max ="0xFFFFFFE0" Type="hex" Visible="false"/>
     <RefParameter Name="SAU3_INIT_SIZE" Comment="Block Size" Min="0x20" Max ="0xFFFFFFFF" DefaultValue="0x10000000" Type="hex">
-        <Condition Expression="S_SAU3_Activated" Diagnostic=""/>
+        <Condition Expression="S_SAU3_Activated &amp; !NSC3| (NSC3 &amp; !MODE_DYNAMIC_3)" Diagnostic=""/>
         <Description>
             Size of this region &lt;br&gt; 
             Used to compute the end address of this region
@@ -159,7 +212,7 @@
     <RefParameter Name="SAU3_INIT_NSC" Comment="Secure Attribute" DefaultValue="0" Type="list">
         <Condition Expression="S_SAU3_Activated" Diagnostic=""/>
         <PossibleValue Value="0" Comment="Non-Secure"/>
-        <PossibleValue Value="1" Comment="Non-Secure Callable"/>
+        <PossibleValue Value="1" Comment="Non-Secure Callable" Semaphore="NSC3"/>
         <Description>
             Region could be defined as  &lt;br&gt; 
             - Non-Secure &lt;br&gt; 
@@ -170,7 +223,18 @@
         <PossibleValue Value="0" Comment="Non-Secure"/>
         <PossibleValue Value="1" Comment="Non-Secure Callable"/>
     </RefParameter>
-    
+    <RefParameter Name="SAU3_INIT_Mode" Comment="Mode" DefaultValue="0" Type="list">
+        <Condition Expression="SAU3_INIT_NSC=1" Diagnostic="Non-Secure Callable region address is deduced from linker"/>
+        <PossibleValue Value="0" Comment="Static" Semaphore="MODE_STATIC"/>
+        <PossibleValue Value="1" Comment="Dynamic" Semaphore="MODE_DYNAMIC_3" Condition="(MODE_DYNAMIC_0|MODE_DYNAMIC_1|MODE_DYNAMIC_2|MODE_DYNAMIC_7|MODE_DYNAMIC_4|MODE_DYNAMIC_5|MODE_DYNAMIC_6)" Action="remove"/>
+    </RefParameter>
+    <RefParameter Name="SAU3_End_Address" Comment="End Address"  DefaultValue="_eNSCVeneer " Type="string">
+        <Condition Expression="NSC3 &amp; MODE_DYNAMIC_3" Diagnostic=""/>
+        <Description>
+            Size of this region &lt;br&gt;
+            Used to compute the end address of this region
+        </Description>
+    </RefParameter>
     <RefParameter Name="SAU4_INIT_REGION" Comment="Enable this region" DefaultValue="1" Type="list">
         <PossibleValue Value="1" Comment="Yes" Semaphore="S_SAU4_Activated"/>
         <PossibleValue Value="0" Comment="No"/>
@@ -179,14 +243,20 @@
         </Description>
     </RefParameter>
     <RefParameter Name="SAU4_INIT_START" Comment="Start Address" DefaultValue="0x00000000" Min="0x00000000" Max ="0xFFFFFFE0" Type="hex">
-        <Condition Expression="S_SAU4_Activated" Diagnostic=""/>
+        <Condition Expression="S_SAU4_Activated &amp; !NSC4| (NSC4 &amp; !MODE_DYNAMIC_4)" Diagnostic=""/>
+        <Description>
+            Start address of this region
+        </Description>
+    </RefParameter>
+    <RefParameter Name="SAU4_INIT_START_DYNAMIC" Comment="Start Address" DefaultValue="_sNSCVeneer" Type="string">
+        <Condition Expression="NSC4 &amp; MODE_DYNAMIC_4 " Diagnostic=""/>
         <Description>
             Start address of this region
         </Description>
     </RefParameter>
     <RefParameter Name="SAU4_INIT_START" Comment="Start Address" DefaultValue="0x00000000" Min="0x00000000" Max ="0xFFFFFFE0" Type="hex" Visible="false"/>
     <RefParameter Name="SAU4_INIT_SIZE" Comment="Block Size" Min="0x20" Max ="0xFFFFFFFF" DefaultValue="0x40000000" Type="hex">
-        <Condition Expression="S_SAU4_Activated" Diagnostic=""/>
+        <Condition Expression="S_SAU4_Activated &amp; !NSC4 | (NSC4 &amp; !MODE_DYNAMIC_4)" Diagnostic=""/>
         <Description>
             Size of this region &lt;br&gt; 
             Used to compute the end address of this region
@@ -200,7 +270,7 @@
     <RefParameter Name="SAU4_INIT_NSC" Comment="Secure Attribute" DefaultValue="0" Type="list">
         <Condition Expression="S_SAU4_Activated" Diagnostic=""/>
         <PossibleValue Value="0" Comment="Non-Secure"/>
-        <PossibleValue Value="1" Comment="Non-Secure Callable"/>
+        <PossibleValue Value="1" Comment="Non-Secure Callable" Semaphore="NSC4"/>
         <Description>
             Region could be defined as  &lt;br&gt; 
             - Non-Secure &lt;br&gt; 
@@ -211,8 +281,18 @@
         <PossibleValue Value="0" Comment="Non-Secure"/>
         <PossibleValue Value="1" Comment="Non-Secure Callable"/>
     </RefParameter>
-    
-  
+    <RefParameter Name="SAU4_INIT_Mode" Comment="Mode" DefaultValue="0" Type="list">
+        <Condition Expression="SAU4_INIT_NSC=1" Diagnostic="Non-Secure Callable region address is deduced from linker"/>
+        <PossibleValue Value="0" Comment="Static" Semaphore="MODE_STATIC"/>
+        <PossibleValue Value="1" Comment="Dynamic" Semaphore="MODE_DYNAMIC_4" Condition="(MODE_DYNAMIC_0|MODE_DYNAMIC_1|MODE_DYNAMIC_2|MODE_DYNAMIC_3|MODE_DYNAMIC_7|MODE_DYNAMIC_5|MODE_DYNAMIC_6)" Action="remove"/>
+    </RefParameter>
+    <RefParameter Name="SAU4_End_Address" Comment="End Address"  DefaultValue="_eNSCVeneer " Type="string">
+        <Condition Expression="NSC4 &amp; MODE_DYNAMIC_4" Diagnostic=""/>
+        <Description>
+            Size of this region &lt;br&gt;
+            Used to compute the end address of this region
+        </Description>
+    </RefParameter>
     <RefParameter Name="SAU5_INIT_REGION" Comment="Enable this region" DefaultValue="1" Type="list">
         <PossibleValue Value="1" Comment="Yes" Semaphore="S_SAU5_Activated"/>
         <PossibleValue Value="0" Comment="No"/>
@@ -221,14 +301,20 @@
         </Description>
     </RefParameter>
     <RefParameter Name="SAU5_INIT_START" Comment="Start Address" DefaultValue="0x00000000" Min="0x00000000" Max ="0xFFFFFFE0" Type="hex">
-        <Condition Expression="S_SAU5_Activated" Diagnostic=""/>
+        <Condition Expression="S_SAU5_Activated &amp; !NSC5| (NSC5 &amp; !MODE_DYNAMIC_5)" Diagnostic=""/>
+        <Description>
+            Start address of this region
+        </Description>
+    </RefParameter>
+    <RefParameter Name="SAU5_INIT_START_DYNAMIC" Comment="Start Address" DefaultValue="_sNSCVeneer" Type="string">
+        <Condition Expression="NSC5 &amp; MODE_DYNAMIC_5 " Diagnostic=""/>
         <Description>
             Start address of this region
         </Description>
     </RefParameter>
     <RefParameter Name="SAU5_INIT_START" Comment="Start Address" DefaultValue="0x00000000" Min="0x00000000" Max ="0xFFFFFFE0" Type="hex" Visible="false"/>
     <RefParameter Name="SAU5_INIT_SIZE" Comment="Block Size" Min="0x20" Max ="0xFFFFFFFF" DefaultValue="0x19000" Type="hex">
-        <Condition Expression="S_SAU5_Activated" Diagnostic=""/>
+        <Condition Expression="S_SAU5_Activated &amp; !NSC5| (NSC5 &amp; !MODE_DYNAMIC_5)" Diagnostic=""/>
         <Description>
             Size of this region &lt;br&gt; 
             Used to compute the end address of this region
@@ -242,7 +328,7 @@
     <RefParameter Name="SAU5_INIT_NSC" Comment="Secure Attribute" DefaultValue="0" Type="list">
         <Condition Expression="S_SAU5_Activated" Diagnostic=""/>
         <PossibleValue Value="0" Comment="Non-Secure"/>
-        <PossibleValue Value="1" Comment="Non-Secure Callable"/>
+        <PossibleValue Value="1" Comment="Non-Secure Callable" Semaphore="NSC5"/>
         <Description>
             Region could be defined as  &lt;br&gt; 
             - Non-Secure &lt;br&gt; 
@@ -253,8 +339,18 @@
         <PossibleValue Value="0" Comment="Non-Secure"/>
         <PossibleValue Value="1" Comment="Non-Secure Callable"/>
     </RefParameter>
-    
-  
+    <RefParameter Name="SAU5_INIT_Mode" Comment="Mode" DefaultValue="0" Type="list">
+        <Condition Expression="SAU5_INIT_NSC=1" Diagnostic="Non-Secure Callable region address is deduced from linker"/>
+        <PossibleValue Value="0" Comment="Static" Semaphore="MODE_STATIC"/>
+        <PossibleValue Value="1" Comment="Dynamic" Semaphore="MODE_DYNAMIC_5" Condition="(MODE_DYNAMIC_0|MODE_DYNAMIC_1|MODE_DYNAMIC_2|MODE_DYNAMIC_3|MODE_DYNAMIC_4|MODE_DYNAMIC_7|MODE_DYNAMIC_6)" Action="remove"/>
+    </RefParameter>
+    <RefParameter Name="SAU5_End_Address" Comment="End Address"  DefaultValue="_eNSCVeneer " Type="string">
+        <Condition Expression="NSC5 &amp; MODE_DYNAMIC_5" Diagnostic=""/>
+        <Description>
+            Size of this region &lt;br&gt;
+            Used to compute the end address of this region
+        </Description>
+    </RefParameter>
     <RefParameter Name="SAU6_INIT_REGION" Comment="Enable this region" DefaultValue="0" Type="list">
         <PossibleValue Value="1" Comment="Yes" Semaphore="S_SAU6_Activated"/>
         <PossibleValue Value="0" Comment="No"/>
@@ -263,14 +359,20 @@
         </Description>
     </RefParameter>
     <RefParameter Name="SAU6_INIT_START" Comment="Start Address" DefaultValue="0x00000000" Min="0x00000000" Max ="0xFFFFFFE0" Type="hex">
-        <Condition Expression="S_SAU6_Activated" Diagnostic=""/>
+        <Condition Expression="S_SAU6_Activated &amp; !NSC6| (NSC6 &amp; !MODE_DYNAMIC_6)" Diagnostic=""/>
+        <Description>
+            Start address of this region
+        </Description>
+    </RefParameter>
+    <RefParameter Name="SAU6_INIT_START_DYNAMIC" Comment="Start Address" DefaultValue="_sNSCVeneer" Type="string">
+        <Condition Expression="NSC6 &amp; MODE_DYNAMIC_6 " Diagnostic=""/>
         <Description>
             Start address of this region
         </Description>
     </RefParameter>
     <RefParameter Name="SAU6_INIT_START" Comment="Start Address" DefaultValue="0x00000000" Min="0x00000000" Max ="0xFFFFFFE0" Type="hex" Visible="false"/>
     <RefParameter Name="SAU6_INIT_SIZE" Comment="Block Size" Min="0x20" Max ="0xFFFFFFFF" DefaultValue="0x20" Type="hex">
-        <Condition Expression="S_SAU6_Activated" Diagnostic=""/>
+        <Condition Expression="S_SAU6_Activated &amp; !NSC6| (NSC6 &amp; !MODE_DYNAMIC_6)" Diagnostic=""/>
         <Description>
             Size of this region &lt;br&gt; 
             Used to compute the end address of this region
@@ -284,7 +386,7 @@
     <RefParameter Name="SAU6_INIT_NSC" Comment="Secure Attribute" DefaultValue="0" Type="list">
         <Condition Expression="S_SAU6_Activated" Diagnostic=""/>
         <PossibleValue Value="0" Comment="Non-Secure"/>
-        <PossibleValue Value="1" Comment="Non-Secure Callable"/>
+        <PossibleValue Value="1" Comment="Non-Secure Callable" Semaphore="NSC6"/>
         <Description>
             Region could be defined as  &lt;br&gt; 
             - Non-Secure &lt;br&gt; 
@@ -295,7 +397,18 @@
         <PossibleValue Value="0" Comment="Non-Secure"/>
         <PossibleValue Value="1" Comment="Non-Secure Callable"/>
     </RefParameter>
-    
+    <RefParameter Name="SAU6_INIT_Mode" Comment="Mode" DefaultValue="0" Type="list">
+        <Condition Expression="SAU6_INIT_NSC=1" Diagnostic="Non-Secure Callable region address is deduced from linker"/>
+        <PossibleValue Value="0" Comment="Static" Semaphore="MODE_STATIC"/>
+        <PossibleValue Value="1" Comment="Dynamic" Semaphore="MODE_DYNAMIC_6" Condition="(MODE_DYNAMIC_0|MODE_DYNAMIC_1|MODE_DYNAMIC_2|MODE_DYNAMIC_3|MODE_DYNAMIC_4|MODE_DYNAMIC_5|MODE_DYNAMIC_7)" Action="remove"/>
+    </RefParameter>
+    <RefParameter Name="SAU6_End_Address" Comment="End Address"  DefaultValue="_eNSCVeneer " Type="string">
+        <Condition Expression="NSC6 &amp; MODE_DYNAMIC_6" Diagnostic=""/>
+        <Description>
+            Size of this region &lt;br&gt;
+            Used to compute the end address of this region
+        </Description>
+    </RefParameter>
     <RefParameter Name="SAU7_INIT_REGION" Comment="Enable this region" DefaultValue="0" Type="list">
         <PossibleValue Value="1" Comment="Yes" Semaphore="S_SAU7_Activated"/>
         <PossibleValue Value="0" Comment="No"/>
@@ -304,14 +417,20 @@
         </Description>
     </RefParameter>
     <RefParameter Name="SAU7_INIT_START" Comment="Start Address" DefaultValue="0x00000000" Min="0x00000000" Max ="0xFFFFFFE0" Type="hex">
-        <Condition Expression="S_SAU7_Activated" Diagnostic=""/>
+        <Condition Expression="S_SAU7_Activated &amp; !NSC7| (NSC7 &amp; !MODE_DYNAMIC_7)" Diagnostic=""/>
+        <Description>
+            Start address of this region
+        </Description>
+    </RefParameter>
+    <RefParameter Name="SAU7_INIT_START_DYNAMIC" Comment="Start Address" DefaultValue="_sNSCVeneer" Type="string">
+        <Condition Expression="NSC7 &amp; MODE_DYNAMIC_7 " Diagnostic=""/>
         <Description>
             Start address of this region
         </Description>
     </RefParameter>
     <RefParameter Name="SAU7_INIT_START" Comment="Start Address" DefaultValue="0x00000000" Min="0x00000000" Max ="0xFFFFFFE0" Type="hex" Visible="false"/>
     <RefParameter Name="SAU7_INIT_SIZE" Comment="Block Size" Min="0x20" Max ="0xFFFFFFFF" DefaultValue="0x20" Type="hex">
-        <Condition Expression="S_SAU7_Activated" Diagnostic=""/>
+        <Condition Expression="S_SAU7_Activated &amp; !NSC7| (NSC7 &amp; !MODE_DYNAMIC_7)" Diagnostic=""/>
         <Description>
             Size of this region &lt;br&gt; 
             Used to compute the end address of this region
@@ -325,7 +444,7 @@
     <RefParameter Name="SAU7_INIT_NSC" Comment="Secure Attribute" DefaultValue="0" Type="list">
         <Condition Expression="S_SAU7_Activated" Diagnostic=""/>
         <PossibleValue Value="0" Comment="Non-Secure"/>
-        <PossibleValue Value="1" Comment="Non-Secure Callable"/>
+        <PossibleValue Value="1" Comment="Non-Secure Callable" Semaphore="NSC7"/>
         <Description>
             Region could be defined as  &lt;br&gt; 
             - Non-Secure &lt;br&gt; 
@@ -336,8 +455,18 @@
         <PossibleValue Value="0" Comment="Non-Secure"/>
         <PossibleValue Value="1" Comment="Non-Secure Callable"/>
     </RefParameter>
-    
-  
+    <RefParameter Name="SAU7_INIT_Mode" Comment="Mode" DefaultValue="0" Type="list">
+        <Condition Expression="SAU7_INIT_NSC=1" Diagnostic="Non-Secure Callable region address is deduced from linker"/>
+        <PossibleValue Value="0" Comment="Static" Semaphore="MODE_STATIC"/>
+        <PossibleValue Value="1" Comment="Dynamic" Semaphore="MODE_DYNAMIC_7" Condition="(MODE_DYNAMIC_0|MODE_DYNAMIC_1|MODE_DYNAMIC_2|MODE_DYNAMIC_3|MODE_DYNAMIC_4|MODE_DYNAMIC_5|MODE_DYNAMIC_6)" Action="remove"/>
+    </RefParameter>
+    <RefParameter Name="SAU7_End_Address" Comment="End Address"  DefaultValue="_eNSCVeneer " Type="string">
+        <Condition Expression="NSC7 &amp; MODE_DYNAMIC_7" Diagnostic=""/>
+        <Description>
+            Size of this region &lt;br&gt;
+            Used to compute the end address of this region
+        </Description>
+    </RefParameter>
     <!--  MODES Definitions -->
 
     <!-- Instanciated RefModes -->
@@ -345,51 +474,75 @@
         <ConfigForMode>SAU_Init</ConfigForMode>	
         <Parameter Name="SAU0_INIT_REGION"        Group="Region 0"/>
         <Parameter Name="SAU0_INIT_START"         Group="Region 0"/>
+        <Parameter Name="SAU0_INIT_START_DYNAMIC"         Group="Region 0"/>
+        <Parameter Name="SAU0_End_Address"         Group="Region 0"/>
         <Parameter Name="SAU0_INIT_SIZE"          Group="Region 0"/>
         <Parameter Name="SAU0_INIT_END"           Group="Region 0"/>
         <Parameter Name="SAU0_INIT_NSC"           Group="Region 0" />
+        <Parameter Name="SAU0_INIT_Mode"                      Group="Region 0"/>
 
         <Parameter Name="SAU1_INIT_REGION"        Group="Region 1"/>
         <Parameter Name="SAU1_INIT_START"         Group="Region 1"/>
+        <Parameter Name="SAU1_INIT_START_DYNAMIC"         Group="Region 1"/>
+        <Parameter Name="SAU1_End_Address"         Group="Region 1"/>
         <Parameter Name="SAU1_INIT_SIZE"          Group="Region 1"/>
         <Parameter Name="SAU1_INIT_END"           Group="Region 1"/>
         <Parameter Name="SAU1_INIT_NSC"           Group="Region 1" />
+        <Parameter Name="SAU1_INIT_Mode"                      Group="Region 1" />
 
         <Parameter Name="SAU2_INIT_REGION"        Group="Region 2"/>
         <Parameter Name="SAU2_INIT_START"         Group="Region 2"/>
+        <Parameter Name="SAU2_INIT_START_DYNAMIC"         Group="Region 2"/>
+        <Parameter Name="SAU2_End_Address"         Group="Region 2"/>
         <Parameter Name="SAU2_INIT_SIZE"          Group="Region 2"/>
         <Parameter Name="SAU2_INIT_END"           Group="Region 2"/>
         <Parameter Name="SAU2_INIT_NSC"           Group="Region 2" />
+        <Parameter Name="SAU2_INIT_Mode"                      Group="Region 2" />
 
         <Parameter Name="SAU3_INIT_REGION"        Group="Region 3"/>
         <Parameter Name="SAU3_INIT_START"         Group="Region 3"/>
+        <Parameter Name="SAU3_INIT_START_DYNAMIC"         Group="Region 3"/>
+        <Parameter Name="SAU3_End_Address"         Group="Region 3"/>
         <Parameter Name="SAU3_INIT_SIZE"          Group="Region 3"/>
         <Parameter Name="SAU3_INIT_END"           Group="Region 3"/>
         <Parameter Name="SAU3_INIT_NSC"           Group="Region 3" />
+        <Parameter Name="SAU3_INIT_Mode"                      Group="Region 3" />
 
         <Parameter Name="SAU4_INIT_REGION"        Group="Region 4"/>
         <Parameter Name="SAU4_INIT_START"         Group="Region 4"/>
+        <Parameter Name="SAU4_INIT_START_DYNAMIC"         Group="Region 4"/>
+        <Parameter Name="SAU4_End_Address"         Group="Region 4"/>
         <Parameter Name="SAU4_INIT_SIZE"          Group="Region 4"/>
         <Parameter Name="SAU4_INIT_END"           Group="Region 4"/>
         <Parameter Name="SAU4_INIT_NSC"           Group="Region 4" />
+        <Parameter Name="SAU4_INIT_Mode"                      Group="Region 4" />
 
         <Parameter Name="SAU5_INIT_REGION"        Group="Region 5"/>
         <Parameter Name="SAU5_INIT_START"         Group="Region 5"/>
+        <Parameter Name="SAU5_INIT_START_DYNAMIC"         Group="Region 5"/>
+        <Parameter Name="SAU5_End_Address"         Group="Region 5"/>
         <Parameter Name="SAU5_INIT_SIZE"          Group="Region 5"/>
         <Parameter Name="SAU5_INIT_END"           Group="Region 5"/>
         <Parameter Name="SAU5_INIT_NSC"           Group="Region 5" />
+        <Parameter Name="SAU5_INIT_Mode"                      Group="Region 5" />
 
-        <Parameter Name="SAU6_INIT_REGION"        Group="Region 6"/>
-        <Parameter Name="SAU6_INIT_START"         Group="Region 6"/>
-        <Parameter Name="SAU6_INIT_SIZE"          Group="Region 6"/>
+        <Parameter Name="SAU6_INIT_REGION"      Group="Region 6"/>
+        <Parameter Name="SAU6_INIT_START"        Group="Region 6"/>
+        <Parameter Name="SAU6_INIT_START_DYNAMIC"        Group="Region 6"/>
+        <Parameter Name="SAU6_End_Address"             Group="Region 6"/>
+        <Parameter Name="SAU6_INIT_SIZE"           Group="Region 6"/>
         <Parameter Name="SAU6_INIT_END"           Group="Region 6"/>
         <Parameter Name="SAU6_INIT_NSC"           Group="Region 6" />
+        <Parameter Name="SAU6_INIT_Mode"                       Group="Region 6" />
 
         <Parameter Name="SAU7_INIT_REGION"        Group="Region 7"/>
         <Parameter Name="SAU7_INIT_START"         Group="Region 7"/>
+        <Parameter Name="SAU7_INIT_START_DYNAMIC"         Group="Region 7"/>
+        <Parameter Name="SAU7_End_Address"           Group="Region 7"/>
         <Parameter Name="SAU7_INIT_SIZE"          Group="Region 7"/>
         <Parameter Name="SAU7_INIT_END"           Group="Region 7"/>
         <Parameter Name="SAU7_INIT_NSC"           Group="Region 7" />
+        <Parameter Name="SAU7_INIT_Mode"                      Group="Region 7" />
 
       
 

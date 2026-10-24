@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<IP xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance"
+    ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../../../doc/V4/Development/SpecIFications/db/IP_Modes.xsd"
+    xmlns="http://mcd.rou.st.com/modules.php?name=mcu"
+    DBVersion="V4.0"
+    IPType="middleware"
+    IpGroup="Middleware"
+    Name="trusted-firmware-m"
+    Version="v1.0.0_Cube">
+    <About>trusted-firmware-m: Add trusted-firmware-m APIs</About>
+
+    <RefMode Name="CORTEX_A35_Start">
+        <ConfigForMode>CORTEX_A35_Start</ConfigForMode>
+    </RefMode>
+
+    <!-- ModeLogicOperator for TF-M -->
+    <ModeLogicOperator Name="OR">
+        <Mode Name="CORTEX_A35_Start" UserName="Activated" RemoveCondition="S_CTX_PROJECT_A35TD_TZDIS|S_CTX_PROJECT_A35TD_TZEN">
+            <Condition Expression="S_CMSIS_RTOS_V2" Diagnostic="Please enable FreeRTOS with 'CMSIS_V2' interface. "/>
+            <ModeLogicOperator Name="XOR">
+                <Mode Name="CORTEX_A35_Start" UserName="Manage A35 coprocessor">
+                    <SignalLogicalOp Name="AND">
+                        <Signal Name="VS_CORTEX_A35_START" />
+                    </SignalLogicalOp>
+                    <Semaphore>S_TFM_ENABLED</Semaphore>
+                </Mode>
+            </ModeLogicOperator>
+        </Mode>
+    </ModeLogicOperator>
+
+    <!-- RefSignal for TF-M -->
+    <RefSignal Name="VS_CORTEX_A35_START" Virtual="true"/>
+
+</IP>

@@ -8,6 +8,8 @@ ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../..
 
     <RefConfig Comment="Configures the radio parameters" Name="MRSUBG_Init">
         <CallLibMethod  Name="HAL_MRSubG_Init" ReturnHAL="false"/>
+        <ImplementCallBack Name="HAL_MRSubG_MspInit"/>
+        <ImplementCallBack Name="HAL_MRSubG_MspDeInit"/>
     </RefConfig>
 
     <RefConfig Comment="Configures the packet parameters" Name="BasicPacket_Init">
@@ -50,7 +52,7 @@ ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../..
         </IFCondition>
     </RefConfig>
      <LibMethod Comment="" Name="HAL_MRSubG_Init" >
-        <Argument AddressOf="true"  GenericType="struct" Name="MRSUBG_RadioInitStruct" TypeName="SMRSubGConfig" Context="global">
+        <Argument AddressOf="true"  GenericType="struct" Name="MRSUBG_RadioInitStruct" TypeName="SMRSubGConfig_t" Context="global">
             <Argument AddressOf="false" GenericType="simple" Name="lFrequencyBase"  OptimizationCondition="equal"/>
             <Argument AddressOf="false" GenericType="simple" Name="xModulationSelect"  OptimizationCondition="equal"/>
             <Argument AddressOf="false" GenericType="simple" Name="lDatarate"  OptimizationCondition="equal"/>
@@ -62,7 +64,7 @@ ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../..
         </Argument>
     </LibMethod>
      <LibMethod Comment="" Name="HAL_MRSubG_PacketBasicInit" >
-        <Argument AddressOf="true"  GenericType="struct" Name="MRSUBG_PacketSettingsStruct" TypeName="MRSubG_PcktBasicFields" Context="global">
+        <Argument AddressOf="true"  GenericType="struct" Name="MRSUBG_PacketSettingsStruct" TypeName="MRSubG_PcktBasicFields_t" Context="global">
             <Argument AddressOf="false" GenericType="simple" Name="PreambleLength"  OptimizationCondition="equal"/>
             <Argument AddressOf="false" GenericType="simple" Name="PostambleLength"  OptimizationCondition="equal"/>
             <Argument AddressOf="false" GenericType="simple" Name="SyncLength"  OptimizationCondition="equal"/>
@@ -78,14 +80,14 @@ ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../..
         </Argument>
     </LibMethod>
     <LibMethod Comment="" Name="HAL_MRSubG_WMBus_PacketInit" >
-        <Argument AddressOf="true"  GenericType="struct" Name="MRSUBG_PacketSettingsStruct" TypeName="MRSubG_WMBUS_PcktFields" Context="global">
+        <Argument AddressOf="true"  GenericType="struct" Name="MRSUBG_PacketSettingsStruct" TypeName="MRSubG_WMBUS_PcktFields_t" Context="global">
             <Argument AddressOf="false" GenericType="simple" Name="xWMbusSubmode"  OptimizationCondition="equal"/>
             <Argument AddressOf="false" GenericType="simple" Name="PreambleLength"  OptimizationCondition="equal"/>
             <Argument AddressOf="false" GenericType="simple" Name="PostambleLength"  OptimizationCondition="equal"/>
         </Argument>
     </LibMethod>
     <LibMethod Comment="" Name="HAL_MRSubG_802_15_4_PacketInit">
-        <Argument AddressOf="true"  GenericType="struct" Name="MRSUBG_PacketSettingsStruct" TypeName="MRSubG_802_15_4_PcktFields" Context="global">
+        <Argument AddressOf="true"  GenericType="struct" Name="MRSUBG_PacketSettingsStruct" TypeName="MRSubG_802_15_4_PcktFields_t" Context="global">
             <Argument AddressOf="false" GenericType="simple" Name="Modulation"  OptimizationCondition="equal"/>
             <Argument AddressOf="false" GenericType="simple" Name="PreambleLength"  OptimizationCondition="equal"/>
             <Argument AddressOf="false" GenericType="simple" Name="FCSType"  OptimizationCondition="equal"/>
@@ -93,7 +95,10 @@ ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../..
             <Argument AddressOf="false" GenericType="simple" Name="FecType"  OptimizationCondition="equal"/>
             <Argument AddressOf="false" GenericType="simple" Name="FrameLength"  OptimizationCondition="equal"/>
         </Argument>
-    </LibMethod> 
+    </LibMethod>
+    <LibMethod Comment="" Name="HAL_MRSubG_MspInit"/>
+    <LibMethod Comment="" Name="HAL_MRSubG_MspDeInit"/>
+
     <RefComponent Cclass="HAL" Cgroup="MRSUBG" Cversion="0.3.0">
         <File Category="header" Name="Drivers/STM32WL3x_HAL_Driver/Inc/stm32wl3x_hal_mrsubg.h"/>
         <File Category="header" Name="Drivers/STM32WL3x_HAL_Driver/Inc/stm32wl3x_ll_mrsubg.h"/>

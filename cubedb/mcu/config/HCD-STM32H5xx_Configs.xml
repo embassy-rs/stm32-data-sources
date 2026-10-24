@@ -15,7 +15,15 @@
         <ImplementCallBack Name="HAL_HCD_MspInit"/>
         <ImplementCallBack Name="HAL_HCD_MspDeInit"/>
     </RefConfig>
-    
+
+	<RefConfig Name="HCD_Init_HS">
+		<CallLibMethod Name="HAL_HCD_Init">
+			<MethodArg Name="hhcd" ParameterName="hhcd_USB_OTG_HS"/>
+		</CallLibMethod>
+		<ImplementCallBack Name="HAL_HCD_MspInit"/>
+		<ImplementCallBack Name="HAL_HCD_MspDeInit"/>
+	</RefConfig>
+
     <RefConfig Name="HCD_DeInit">
         <CallLibMethod Name="HAL_HCD_DeInit"/>        
     </RefConfig>
@@ -25,12 +33,14 @@
         <Argument AddressOf="true" Context="global" GenericType="struct" Name="hhcd" TypeName="HCD_HandleTypeDef">
             <Argument AddressOf="false" GenericType="enum" Name="Instance" TypeName="HCD_TypeDef"/>
             <Argument AddressOf="false" GenericType="struct" Name="Init" TypeName="HCD_InitTypeDef">
-                <Argument AddressOf="false" GenericType="simple" Name="dev_endpoints" OptimizationCondition="equal"/>
+                <!-- <Argument AddressOf="false" GenericType="simple" Name="dev_endpoints" OptimizationCondition="equal"/> -->
                 <Argument AddressOf="false" GenericType="simple" Name="Host_channels" OptimizationCondition="equal"/>
-                <Argument AddressOf="false" GenericType="simple" Name="speed" OptimizationCondition="equal"/>               
+                <Argument AddressOf="false" GenericType="simple" Name="speed" OptimizationCondition="equal"/>
+                <Argument AddressOf="false" GenericType="simple" Name="dma_enable" OptimizationCondition="equal"/> 
                 <Argument AddressOf="false" GenericType="simple" Name="phy_itface" OptimizationCondition="equal"/>
                 <Argument AddressOf="false" GenericType="simple" Name="Sof_enable" OptimizationCondition="equal"/>
                 <Argument AddressOf="false" GenericType="simple" Name="low_power_enable" OptimizationCondition="equal"/>
+                <Argument AddressOf="false" GenericType="simple" Name="use_external_vbus" OptimizationCondition="equal"/>
                 <Argument AddressOf="false" GenericType="simple" Name="lpm_enable" OptimizationCondition="equal"/>
                 <Argument AddressOf="false" GenericType="simple" Name="battery_charging_enable" OptimizationCondition="equal"/>
                 <Argument AddressOf="false" GenericType="simple" Name="vbus_sensing_enable" OptimizationCondition="equal"/>
@@ -52,12 +62,14 @@
         <Argument AddressOf="true" Context="global" GenericType="struct" Name="hhcd" TypeName="HCD_HandleTypeDef">
             <Argument AddressOf="false" GenericType="enum" Name="Instance" TypeName="HCD_TypeDef"/>
             <Argument AddressOf="false" GenericType="struct" Name="Init" TypeName="HCD_InitTypeDef">
-                <Argument AddressOf="false" GenericType="simple" Name="dev_endpoints" OptimizationCondition="equal"/>
+                <!-- <Argument AddressOf="false" GenericType="simple" Name="dev_endpoints" OptimizationCondition="equal"/> -->
                 <Argument AddressOf="false" GenericType="simple" Name="Host_channels" OptimizationCondition="equal"/>
-                <Argument AddressOf="false" GenericType="simple" Name="speed" OptimizationCondition="equal"/>               
+                <Argument AddressOf="false" GenericType="simple" Name="speed" OptimizationCondition="equal"/>
+                <Argument AddressOf="false" GenericType="simple" Name="dma_enable" OptimizationCondition="equal"/>
                 <Argument AddressOf="false" GenericType="simple" Name="phy_itface" OptimizationCondition="equal"/>
                 <Argument AddressOf="false" GenericType="simple" Name="Sof_enable" OptimizationCondition="equal"/>
                 <Argument AddressOf="false" GenericType="simple" Name="low_power_enable" OptimizationCondition="equal"/>
+                <Argument AddressOf="false" GenericType="simple" Name="use_external_vbus" OptimizationCondition="equal"/>
                 <Argument AddressOf="false" GenericType="simple" Name="lpm_enable" OptimizationCondition="equal"/>
                 <Argument AddressOf="false" GenericType="simple" Name="battery_charging_enable" OptimizationCondition="equal"/>
                 <Argument AddressOf="false" GenericType="simple" Name="vbus_sensing_enable" OptimizationCondition="equal"/>
@@ -79,12 +91,14 @@
         <Argument AddressOf="true" Context="global" GenericType="struct" Name="hhcd" TypeName="HCD_HandleTypeDef">
             <Argument AddressOf="false" GenericType="enum" Name="Instance" TypeName="HCD_TypeDef"/>
             <Argument AddressOf="false" GenericType="struct" Name="Init" TypeName="HCD_InitTypeDef">
-                <Argument AddressOf="false" GenericType="simple" Name="dev_endpoints" OptimizationCondition="equal"/>
+                <!-- <Argument AddressOf="false" GenericType="simple" Name="dev_endpoints" OptimizationCondition="equal"/> -->
                 <Argument AddressOf="false" GenericType="simple" Name="Host_channels" OptimizationCondition="equal"/>
-                <Argument AddressOf="false" GenericType="simple" Name="speed" OptimizationCondition="equal"/>               
+                <Argument AddressOf="false" GenericType="simple" Name="speed" OptimizationCondition="equal"/>
+                <Argument AddressOf="false" GenericType="simple" Name="dma_enable" OptimizationCondition="equal"/>
                 <Argument AddressOf="false" GenericType="simple" Name="phy_itface" OptimizationCondition="equal"/>
                 <Argument AddressOf="false" GenericType="simple" Name="Sof_enable" OptimizationCondition="equal"/>
                 <Argument AddressOf="false" GenericType="simple" Name="low_power_enable" OptimizationCondition="equal"/>
+                <Argument AddressOf="false" GenericType="simple" Name="use_external_vbus" OptimizationCondition="equal"/>
                 <Argument AddressOf="false" GenericType="simple" Name="lpm_enable" OptimizationCondition="equal"/>
                 <Argument AddressOf="false" GenericType="simple" Name="battery_charging_enable" OptimizationCondition="equal"/>
                 <Argument AddressOf="false" GenericType="simple" Name="vbus_sensing_enable" OptimizationCondition="equal"/>
@@ -106,12 +120,14 @@
         <Argument AddressOf="true" Context="global" GenericType="struct" Name="hhcd" TypeName="HCD_HandleTypeDef">
             <Argument AddressOf="false" GenericType="enum" Name="Instance" TypeName="HCD_TypeDef"/>
             <Argument AddressOf="false" GenericType="struct" Name="Init" TypeName="HCD_InitTypeDef">
-                <Argument AddressOf="false" GenericType="simple" Name="dev_endpoints" OptimizationCondition="equal"/>
+                <!-- <Argument AddressOf="false" GenericType="simple" Name="dev_endpoints" OptimizationCondition="equal"/> -->
                 <Argument AddressOf="false" GenericType="simple" Name="Host_channels" OptimizationCondition="equal"/>
-                <Argument AddressOf="false" GenericType="simple" Name="speed" OptimizationCondition="equal"/>               
+                <Argument AddressOf="false" GenericType="simple" Name="speed" OptimizationCondition="equal"/>
+                <Argument AddressOf="false" GenericType="simple" Name="dma_enable" OptimizationCondition="equal"/>
                 <Argument AddressOf="false" GenericType="simple" Name="phy_itface" OptimizationCondition="equal"/>
                 <Argument AddressOf="false" GenericType="simple" Name="Sof_enable" OptimizationCondition="equal"/>
                 <Argument AddressOf="false" GenericType="simple" Name="low_power_enable" OptimizationCondition="equal"/>
+                <Argument AddressOf="false" GenericType="simple" Name="use_external_vbus" OptimizationCondition="equal"/>
                 <Argument AddressOf="false" GenericType="simple" Name="lpm_enable" OptimizationCondition="equal"/>
                 <Argument AddressOf="false" GenericType="simple" Name="battery_charging_enable" OptimizationCondition="equal"/>
                 <Argument AddressOf="false" GenericType="simple" Name="vbus_sensing_enable" OptimizationCondition="equal"/>

@@ -26,7 +26,7 @@
 		<Device MatcherMxDM="(MDMA_A7NS)" MatchToName="MDMA1" SetterMatcherCtxt="(^CortexA7NS$)" />
 
 		<Device MatcherMxDM="(GPIO)" MatchToName="$1" SetterMatcherCtxt="(^CortexA7S|CortexA7NS$)" />
-
+		<Device MatcherMxDM="" MatchToName="GPIOSEC" SetterMatcherCtxt="(^CortexA7S$)" Type= "IP"/>
 		<!--Copro name should be of form: xxx_COPRO: cf dependency w kernel.ftl-->
 		<Device MatcherMxDM="" MatchToName="M4_COPRO" SetterMatcherCtxt="(^CortexM4$)" Type="COPRO" />
 
@@ -211,6 +211,12 @@
 			</Binding>
 
 			<Bind MatcherFw="(^.+$)" />
+		</DTGenCfg>
+
+		<DTGenCfg MatcherDevice="GPIOSEC" MatchToName="">
+			<Binding  MatcherFw="(^.+$)" Name="st-stm32-gpiosc_v1.0_Binding">
+			</Binding>
+			<Bind MatcherFw="(^OP-TEE$)" />
 		</DTGenCfg>
 
 		<DTGenCfg  MatcherDevice="HDMI_CEC" MatchToName="">

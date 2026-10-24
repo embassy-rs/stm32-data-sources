@@ -42,9 +42,19 @@
         <ConfigFile Name="LX_CUSTOM_GLUE_FUNCTIONS_C"/>
 		<ConfigFile Name="LX_OSPI"/>
     </RefConfig>
+	<RefConfig Name="XSPIOomemoryOointerface">
+		<Component Name="Middleware:LevelX:XSPIOomemoryOointerface:true"/>
+		<ConfigFile Name="LX_CUSTOM_HSPI_DRIVER_H"/>
+        <ConfigFile Name="LX_CUSTOM_GLUE_FUNCTIONS_C"/>
+		<ConfigFile Name="LX_XSPI"/>
+    </RefConfig>
 
 	<RefConfigFile Name="LX_OSPI" Description="LX OSPI" Template="azure_rtos/mx25lm51245g_conf_template_h.ftl" destinationFolder="Core/Inc">
         <File Name="./mx25lm51245g_conf.h" Category="header" Condition="SEMA_MX25LM51245G"/>
+    </RefConfigFile>
+	
+	<RefConfigFile Name="LX_XSPI" Description="LX XSPI" Template="azure_rtos/mx66uw1g45g_conf_template.ftl" destinationFolder="Core/Inc">
+        <File Name="./mx66uw1g45g_conf.h" Category="header" Condition="SEMA_MX66UW1G45G"/>
     </RefConfigFile>
 
     <RefConfigFile Added="true" Description="LevelX's user.h file" Name="LX_USER" Template="azure_rtos/lx_user_h.ftl" destinationFolder="LevelX/App">
@@ -134,6 +144,44 @@
         <Argument Added="true" AddressOf="false" GenericType="simple" Name="TRANSFER_NOTIFICATION" OptimizationCondition="equal"/>
 		<Argument Added="true" AddressOf="false" GenericType="simple" Name="LX_OSPI_INSTANCE" OptimizationCondition="equal"/>
     </RefConfigFile>
+	
+	<RefConfigFile Added="true" Description="Levelx nor hspi driver header template" Name="LX_CUSTOM_HSPI_DRIVER_H" Template="azure_rtos/lx_stm32_nor_xspi_h_rtos.ftl" destinationFolder="LevelX/Target">
+        <File Category="header" Condition="SEMInterfacesCcFileOoSystemJjLevelXOoXSPIOomemoryOointerface &amp; (SEMA_MX66UW1G45G | SEMA_CUSTOM_XSPI) &amp; SEMThreadXCcRTOSJjThreadXJjCore" Name="./lx_stm32_xspi_driver.h"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="LX_USE_XSPI" OptimizationCondition="equal"/>
+		<Argument Added="true" AddressOf="false" GenericType="simple" Name="LX_DRIVER_ERASES_XSPI_AFTER_INIT" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="LX_DRIVER_CALLS_XSPI_INIT" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="LX_XSPI_INSTANCE" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="LX_XSPI_USE_BSP_API" OptimizationCondition="equal"/>
+		<Argument Added="true" AddressOf="false" GenericType="simple" Name="GLUE_FUNCTIONS_XSPI" OptimizationCondition="equal"/>
+		<Argument Added="true" AddressOf="false" GenericType="simple" Name="TRANSFER_NOTIFICATION_XSPI" OptimizationCondition="equal"/>
+		<Argument Added="true" AddressOf="false" GenericType="simple" Name="LX_STM32_XSPI_BASE_ADDRESS" OptimizationCondition="equal"/>
+    </RefConfigFile>
+    <RefConfigFile Added="true" Description="LevelX ospi driver glue template" Name="LX_CUSTOM_GLUE_FUNCTIONS_C" Template="azure_rtos/lx_stm32_xspi_driver_glue_c_rtos.ftl" destinationFolder="LevelX/Target">
+		<File Category="source" Condition="SEMInterfacesCcFileOoSystemJjLevelXOoXSPIOomemoryOointerface &amp; (SEMA_MX66UW1G45G | SEMA_CUSTOM_XSPI) &amp; SEMThreadXCcRTOSJjThreadXJjCore" Name="./lx_stm32_xspi_driver_glue.c"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="LX_USE_XSPI" OptimizationCondition="equal"/>
+		<Argument Added="true" AddressOf="false" GenericType="simple" Name="GLUE_FUNCTIONS_XSPI" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="TRANSFER_NOTIFICATION_XSPI" OptimizationCondition="equal"/>
+		<Argument Added="true" AddressOf="false" GenericType="simple" Name="LX_XSPI_INSTANCE" OptimizationCondition="equal"/>
+    </RefConfigFile>
+	
+	<RefConfigFile Added="true" Description="Levelx nor ospi driver header template" Name="LX_CUSTOM_HSPI_DRIVER_H" Template="azure_rtos/lx_stm32_nor_xspi_h_standalone.ftl" destinationFolder="LevelX/Target">
+        <File Category="header" Condition="SEMInterfacesCcFileOoSystemJjLevelXOoXSPIOomemoryOointerface &amp; (SEMA_MX66UW1G45G | SEMA_CUSTOM_XSPI) &amp; !SEMThreadXCcRTOSJjThreadXJjCore" Name="./lx_stm32_xspi_driver.h"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="LX_USE_XSPI" OptimizationCondition="equal"/>
+		<Argument Added="true" AddressOf="false" GenericType="simple" Name="LX_DRIVER_ERASES_XSPI_AFTER_INIT" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="LX_DRIVER_CALLS_XSPI_INIT" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="LX_XSPI_INSTANCE" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="LX_XSPI_USE_BSP_API" OptimizationCondition="equal"/>
+		<Argument Added="true" AddressOf="false" GenericType="simple" Name="GLUE_FUNCTIONS_XSPI" OptimizationCondition="equal"/>
+		<Argument Added="true" AddressOf="false" GenericType="simple" Name="TRANSFER_NOTIFICATION_XSPI" OptimizationCondition="equal"/>
+		<Argument Added="true" AddressOf="false" GenericType="simple" Name="LX_STM32_XSPI_BASE_ADDRESS" OptimizationCondition="equal"/>
+    </RefConfigFile>
+    <RefConfigFile Added="true" Description="LevelX ospi driver glue template" Name="LX_CUSTOM_GLUE_FUNCTIONS_C" Template="azure_rtos/lx_stm32_xspi_driver_glue_c_standalone.ftl" destinationFolder="LevelX/Target">
+		<File Category="source" Condition="SEMInterfacesCcFileOoSystemJjLevelXOoXSPIOomemoryOointerface &amp; (SEMA_MX66UW1G45G | SEMA_CUSTOM_XSPI) &amp; !SEMThreadXCcRTOSJjThreadXJjCore" Name="./lx_stm32_xspi_driver_glue.c"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="LX_USE_XSPI" OptimizationCondition="equal"/>
+		<Argument Added="true" AddressOf="false" GenericType="simple" Name="GLUE_FUNCTIONS_XSPI" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="TRANSFER_NOTIFICATION_XSPI" OptimizationCondition="equal"/>
+		<Argument Added="true" AddressOf="false" GenericType="simple" Name="LX_XSPI_INSTANCE" OptimizationCondition="equal"/>
+    </RefConfigFile>
 
 	<RefComponent Cclass="Middleware" Cgroup="LevelX" Cversion="6Gg4Gg0">
         <SubComponent Csub="NOROoFlashOoSupport" Cvariant="true" Cversion="6Gg4Gg0">
@@ -209,8 +257,11 @@
 		<SubComponent Csub="OctoSPIOomemoryOointerface" Cvariant="true" Cversion="6Gg4Gg0">
 		    <File Category="source" Condition="" Name="common/drivers/lx_stm32_ospi_driver.c"/>
         </SubComponent>
+		<SubComponent Csub="XSPIOomemoryOointerface" Cvariant="true" Cversion="6Gg4Gg0">
+		    <File Category="source" Condition="" Name="common/drivers/lx_stm32_xspi_driver.c"/>
+        </SubComponent>
 	</RefComponent>
-
+	
 	<RefBspComponent BspIpName="" BspModeName="" Name="OSPI Component">
 		<!-- <File Category="template" Name="azure_rtos/mx25lm51245g_conf_template_h.ftl;Core/Inc/mx25lm51245g_conf.h" ComponentName="MX25LM51245G"/> -->
 		<File Category="template" Name="azure_rtos/lx_stm32_nor_ospi_h.ftl;Target/lx_stm32_ospi_driver.h" ComponentName="MX25LM51245G"/>
@@ -220,4 +271,18 @@
 		<File Category="template" Name="azure_rtos/lx_stm32_nor_ospi_h.ftl;Target/lx_stm32_ospi_driver.h" ComponentName="custom"/>
 		<File Category="template" Name="azure_rtos/lx_stm32_ospi_driver_glue_c.ftl;Target/lx_stm32_ospi_driver_glue.c" ComponentName="custom"/>
 	</RefBspComponent>
+	
+	<RefBspComponent BspIpName="" BspModeName="" Name="XSPI Component">
+		<File Category="template" Name="azure_rtos/lx_stm32_nor_xspi_h.ftl;Target/lx_stm32_xspi_driver.h" ComponentName="MX66UW1G45G"/>
+		<File Category="template" Name="azure_rtos/lx_stm32_xspi_driver_glue_c.ftl;Target/lx_stm32_xspi_driver_glue.c" ComponentName="MX66UW1G45G"/>
+        <File Category="header" Name="Drivers/BSP/Components/mx66uw1g45g/mx66uw1g45g.h" ComponentName="MX66UW1G45G"/>
+        <File Category="source" Name="Drivers/BSP/Components/mx66uw1g45g/mx66uw1g45g.c" ComponentName="MX66UW1G45G"/>
+		<File Category="template" Name="azure_rtos/lx_stm32_nor_xspi_h.ftl;Target/lx_stm32_xspi_driver.h" ComponentName="custom_xspi"/>
+		<File Category="template" Name="azure_rtos/lx_stm32_xspi_driver_glue_c.ftl;Target/lx_stm32_xspi_driver_glue.c" ComponentName="custom_xspi"/>
+	</RefBspComponent>
+	
+<!-- 	<RefBspComponent BspIpName="HSPI1" BspModeName="XSPI_memory_interface" Name="XSPI Component">
+	    <File Category="header" Name="Drivers/BSP/Components/mx66uw1g45g/mx66uw1g45g.h" ComponentName="MX66UW1G45G"/>
+        <File Category="source" Name="Drivers/BSP/Components/mx66uw1g45g/mx66uw1g45g.c" ComponentName="MX66UW1G45G"/>
+    </RefBspComponent> -->
 </IP>

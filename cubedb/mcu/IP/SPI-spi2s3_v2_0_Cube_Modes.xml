@@ -88,6 +88,7 @@
 	<!-- Clock RefParameters for SPI --> 
 	<RefParameter Comment="Prescaler (for Baud Rate)" DefaultValue="SPI_BAUDRATEPRESCALER_2" Group="Clock Parameters" Name="BaudRatePrescaler" Type="list">
 		<Condition Diagnostic="" Expression="($IpInstance_Slave &amp; (TIMode = SPI_TIMODE_ENABLE)) | $IpInstance_Master"/>
+		<PossibleValue Comment="1"   Value="SPI_BAUDRATEPRESCALER_BYPASS"/>
 		<PossibleValue Comment="2"   Value="SPI_BAUDRATEPRESCALER_2"/>
 		<PossibleValue Comment="4"   Value="SPI_BAUDRATEPRESCALER_4"/>
 		<PossibleValue Comment="8"   Value="SPI_BAUDRATEPRESCALER_8"/>
@@ -835,7 +836,7 @@
 
 	<RefParameter Comment="Trigger Source" DefaultValue="SPI_GRP1_GPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
             <Description>Autonomous Mode Trigger Source.</Description>
-	    <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 3) &amp; (TriggerState = SPI_AUTO_MODE_ENABLE)"/>
+	    <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2) &amp; (TriggerState = SPI_AUTO_MODE_ENABLE) &amp; !(STM32WBA52CGUx|STM32WBA52CEUx|STM32WBA52KGUx|STM32WBA52KEUx|STM32WBA50KGUx)"/>
             <PossibleValue Comment="Global Purpose DMA Channel 0" Value="SPI_GRP1_GPDMA_CH0_TCF_TRG"/>
             <PossibleValue Comment="Global Purpose DMA Channel 1" Value="SPI_GRP1_GPDMA_CH1_TCF_TRG"/>
             <PossibleValue Comment="Global Purpose DMA Channel 2" Value="SPI_GRP1_GPDMA_CH2_TCF_TRG"/>
@@ -845,24 +846,65 @@
             <PossibleValue Comment="LPTIM1 Channel 1" Value="SPI_GRP1_LPTIM1_CH1_TRG"/>
             <PossibleValue Comment="LPTIM2 Channel 1" Value="SPI_GRP1_LPTIM2_CH1_TRG"/>
             <PossibleValue Comment="COMP1" Value="SPI_GRP1_COMP1_TRG"/>
-            <PossibleValue Comment="COMP2" Value="SPI_GRP1_COMP2_TRG"/>
+            <PossibleValue Action="Remove" Comment="COMP2" Value="SPI_GRP1_COMP2_TRG" Condition="STM32WBA64CGUx|STM32WBA64CIUx|STM32WBA62CIUx|STM32WBA62CGUx|STM32WBA65CIUx|STM32WBA65CGUx"/>
             <PossibleValue Comment="RTC Alarm" Value="SPI_GRP1_RTC_ALRA_TRG"/>
             <PossibleValue Comment="RTC Wakeup Timer" Value="SPI_GRP1_RTC_WUT_TRG"/>
         </RefParameter>
+	<RefParameter Comment="Trigger Source" DefaultValue="SPI_GRP1_GPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
+		<Description>Autonomous Mode Trigger Source.</Description>
+		<Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2) &amp; (TriggerState = SPI_AUTO_MODE_ENABLE) &amp; (STM32WBA52CGUx|STM32WBA52CEUx|STM32WBA52KGUx|STM32WBA52KEUx|STM32WBA50KGUx)"/>
+		<PossibleValue Comment="Global Purpose DMA Channel 0" Value="SPI_GRP1_GPDMA_CH0_TCF_TRG"/>
+		<PossibleValue Comment="Global Purpose DMA Channel 1" Value="SPI_GRP1_GPDMA_CH1_TCF_TRG"/>
+		<PossibleValue Comment="Global Purpose DMA Channel 2" Value="SPI_GRP1_GPDMA_CH2_TCF_TRG"/>
+		<PossibleValue Comment="Global Purpose DMA Channel 3" Value="SPI_GRP1_GPDMA_CH3_TCF_TRG"/>
+		<PossibleValue Comment="EXTI4" Value="SPI_GRP1_EXTI4_TRG"/>
+		<PossibleValue Comment="EXTI9" Value="SPI_GRP1_EXTI9_TRG"/>
+		<PossibleValue Comment="LPTIM1 Channel 1" Value="SPI_GRP1_LPTIM1_CH1_TRG"/>
+		<PossibleValue Action="Remove" Comment="LPTIM2 Channel 1" Value="SPI_GRP1_LPTIM2_CH1_TRG" Condition="STM32WBA50KGUx"/>
+		<PossibleValue Comment="RTC Alarm" Value="SPI_GRP1_RTC_ALRA_TRG"/>
+		<PossibleValue Comment="RTC Wakeup Timer" Value="SPI_GRP1_RTC_WUT_TRG"/>
+	</RefParameter>
+
+	<RefParameter Comment="Trigger Source" DefaultValue="SPI_GRP2_LPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
+		<Description>Autonomous Mode Trigger Source.</Description>
+		<Condition Diagnostic="" Expression="$IpNumber = 3 &amp; DIE4B2 &amp; (TriggerState = SPI_AUTO_MODE_ENABLE) &amp; !(STM32WBA52CGUx|STM32WBA52CEUx|STM32WBA52KGUx|STM32WBA52KEUx|STM32WBA50KGUx)"/>
+		<PossibleValue Comment="Global Purpose DMA Channel 0" Value="SPI_GRP2_GPDMA_CH0_TCF_TRG"/>
+		<PossibleValue Comment="Global Purpose DMA Channel 1" Value="SPI_GRP2_GPDMA_CH1_TCF_TRG"/>
+		<PossibleValue Comment="Global Purpose DMA Channel 2" Value="SPI_GRP2_GPDMA_CH2_TCF_TRG"/>
+		<PossibleValue Comment="Global Purpose DMA Channel 3" Value="SPI_GRP2_GPDMA_CH3_TCF_TRG"/>
+		<PossibleValue Comment="EXTI4" Value="SPI_GRP2_EXTI4_TRG"/>
+		<PossibleValue Comment="EXTI8" Value="SPI_GRP2_EXTI8_TRG"/>
+		<PossibleValue Comment="LPTIM1 Channel 1" Value="SPI_GRP2_LPTIM1_CH1_TRG"/>
+		<PossibleValue Comment="COMP1" Value="SPI_GRP2_COMP1_TRG"/>
+		<PossibleValue Comment="RTC Alarm" Value="SPI_GRP2_RTC_ALRA_TRG"/>
+		<PossibleValue Comment="RTC Wakeup Timer" Value="SPI_GRP2_RTC_WUT_TRG"/>
+	</RefParameter>
+
+	<RefParameter Comment="Trigger Source" DefaultValue="SPI_GRP2_LPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
+		<Description>Autonomous Mode Trigger Source.</Description>
+		<Condition Diagnostic="" Expression="$IpNumber = 3 &amp; (TriggerState = SPI_AUTO_MODE_ENABLE) &amp; (STM32WBA52CGUx|STM32WBA52CEUx|STM32WBA52KGUx|STM32WBA52KEUx|STM32WBA50KGUx)"/>
+		<PossibleValue Comment="Global Purpose DMA Channel 0" Value="SPI_GRP2_GPDMA_CH0_TCF_TRG"/>
+		<PossibleValue Comment="Global Purpose DMA Channel 1" Value="SPI_GRP2_GPDMA_CH1_TCF_TRG"/>
+		<PossibleValue Comment="Global Purpose DMA Channel 2" Value="SPI_GRP2_GPDMA_CH2_TCF_TRG"/>
+		<PossibleValue Comment="Global Purpose DMA Channel 3" Value="SPI_GRP2_GPDMA_CH3_TCF_TRG"/>
+		<PossibleValue Comment="EXTI4" Value="SPI_GRP2_EXTI4_TRG"/>
+		<PossibleValue Comment="EXTI8" Value="SPI_GRP2_EXTI8_TRG"/>
+		<PossibleValue Comment="LPTIM1 Channel 1" Value="SPI_GRP2_LPTIM1_CH1_TRG"/>
+		<PossibleValue Comment="RTC Alarm" Value="SPI_GRP2_RTC_ALRA_TRG"/>
+		<PossibleValue Comment="RTC Wakeup Timer" Value="SPI_GRP2_RTC_WUT_TRG"/>
+	</RefParameter>
 
 	<!-- <RefParameter Comment="Trigger Source" DefaultValue="SPI_GRP2_LPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
             <Description>Autonomous Mode Trigger Source.</Description>
-            <Condition Diagnostic="" Expression="($IpNumber = 3) &amp; (TriggerState = SPI_AUTO_MODE_ENABLE)"/>
-            <PossibleValue Comment="LowPower DMA Channel 0" Value="SPI_GRP2_LPDMA_CH0_TCF_TRG"/>
-            <PossibleValue Comment="LowPower DMA Channel 1" Value="SPI_GRP2_LPDMA_CH1_TCF_TRG"/>
-            <PossibleValue Comment="LowPower DMA Channel 2" Value="SPI_GRP2_LPDMA_CH2_TCF_TRG"/>
-            <PossibleValue Comment="LowPower DMA Channel 3" Value="SPI_GRP2_LPDMA_CH3_TCF_TRG"/>
+            <Condition Diagnostic="" Expression="$IpNumber = 3 &amp; (TriggerState = SPI_AUTO_MODE_ENABLE)"/>
+            <PossibleValue Comment="Global Purpose DMA Channel 0" Value="SPI_GRP2_GPDMA_CH0_TCF_TRG"/>
+            <PossibleValue Comment="Global Purpose DMA Channel 1" Value="SPI_GRP2_GPDMA_CH1_TCF_TRG"/>
+            <PossibleValue Comment="Global Purpose DMA Channel 2" Value="SPI_GRP2_GPDMA_CH2_TCF_TRG"/>
+            <PossibleValue Comment="Global Purpose DMA Channel 3" Value="SPI_GRP2_GPDMA_CH3_TCF_TRG"/>
             <PossibleValue Comment="EXTI4" Value="SPI_GRP2_EXTI4_TRG"/>
             <PossibleValue Comment="EXTI8" Value="SPI_GRP2_EXTI8_TRG"/>
             <PossibleValue Comment="LPTIM1 Channel 1" Value="SPI_GRP2_LPTIM1_CH1_TRG"/>
-            <PossibleValue Comment="LPTIM3 Channel 1" Value="SPI_GRP2_LPTIM3_CH1_TRG"/>
             <PossibleValue Comment="COMP1" Value="SPI_GRP2_COMP1_TRG"/>
-            <PossibleValue Comment="COMP2" Value="SPI_GRP2_COMP2_TRG"/>
             <PossibleValue Comment="RTC Alarm" Value="SPI_GRP2_RTC_ALRA_TRG"/>
             <PossibleValue Comment="RTC Wakeup Timer" Value="SPI_GRP2_RTC_WUT_TRG"/>
 	</RefParameter> -->

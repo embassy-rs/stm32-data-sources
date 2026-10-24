@@ -464,11 +464,11 @@
         <PossibleValue Value="true" Comment="RIF_PRIV" />
         <PossibleValue Value="false" Comment="RIF_NPRIV" />
     </RefParameter>
-    <RefParameter Name="LTDC_L0L1_Privilege" Comment="LTDC_L0L1" DefaultValue="false" Type="string">
+    <RefParameter Name="LTDC_L1L2_Privilege" Comment="LTDC_L1L2" DefaultValue="false" Type="string">
         <PossibleValue Value="true" Comment="RIF_PRIV" />
         <PossibleValue Value="false" Comment="RIF_NPRIV" />
     </RefParameter>
-    <RefParameter Name="LTDC_L2_Privilege" Comment="LTDC_L2" DefaultValue="false" Type="string">
+    <RefParameter Name="LTDC_L3_Privilege" Comment="LTDC_L3" DefaultValue="false" Type="string">
         <PossibleValue Value="true" Comment="RIF_PRIV" />
         <PossibleValue Value="false" Comment="RIF_NPRIV" />
     </RefParameter>
@@ -953,11 +953,11 @@
         <PossibleValue Value="true" Comment="RIF_LOCKED" />
         <PossibleValue Value="false" Comment="RIF_UNLOCKED" />
     </RefParameter>
-    <RefParameter Name="LTDC_L0L1_Locked" Comment="" DefaultValue="false" Type="string">
+    <RefParameter Name="LTDC_L1L2_Locked" Comment="" DefaultValue="false" Type="string">
         <PossibleValue Value="true" Comment="RIF_LOCKED" />
         <PossibleValue Value="false" Comment="RIF_UNLOCKED" />
     </RefParameter>
-    <RefParameter Name="LTDC_L2_Locked" Comment="" DefaultValue="false" Type="string">
+    <RefParameter Name="LTDC_L3_Locked" Comment="" DefaultValue="false" Type="string">
         <PossibleValue Value="true" Comment="RIF_LOCKED" />
         <PossibleValue Value="false" Comment="RIF_UNLOCKED" />
     </RefParameter>
@@ -1428,11 +1428,11 @@
         <PossibleValue Value="true" Comment="RIF_SEC" />
         <PossibleValue Value="false" Comment="RIF_NSEC" />
     </RefParameter>
-    <RefParameter Name="LTDC_L0L1_Secured" Comment="" DefaultValue="false" Type="string">
+    <RefParameter Name="LTDC_L1L2_Secured" Comment="" DefaultValue="false" Type="string">
         <PossibleValue Value="true" Comment="RIF_SEC" />
         <PossibleValue Value="false" Comment="RIF_NSEC" />
     </RefParameter>
-    <RefParameter Name="LTDC_L2_Secured" Comment="" DefaultValue="false" Type="string">
+    <RefParameter Name="LTDC_L3_Secured" Comment="" DefaultValue="false" Type="string">
         <PossibleValue Value="true" Comment="RIF_SEC" />
         <PossibleValue Value="false" Comment="RIF_NSEC" />
     </RefParameter>
@@ -2110,13 +2110,13 @@
         <PossibleValue Value="CID2" Comment="RIF_CID2" />
         <PossibleValue Value="CID1&amp;2" Comment="RIF_CID1&amp;2" />
     </RefParameter>
-    <RefParameter Name="LTDC_L0L1_CID" Comment="" DefaultValue="-" Type="string">
+    <RefParameter Name="LTDC_L1L2_CID" Comment="" DefaultValue="-" Type="string">
         <PossibleValue Value="-" Comment="-" />
         <PossibleValue Value="CID1" Comment="RIF_CID1" />
         <PossibleValue Value="CID2" Comment="RIF_CID2" />
         <PossibleValue Value="CID1&amp;2" Comment="RIF_CID1&amp;2" />
     </RefParameter>
-    <RefParameter Name="LTDC_L2_CID" Comment="" DefaultValue="-" Type="string">
+    <RefParameter Name="LTDC_L3_CID" Comment="" DefaultValue="-" Type="string">
         <PossibleValue Value="-" Comment="-" />
         <PossibleValue Value="CID1" Comment="RIF_CID1" />
         <PossibleValue Value="CID2" Comment="RIF_CID2" />
@@ -2587,8 +2587,11 @@
         <PossibleValue Value="false" Comment="not locked" />
         <PossibleValue Value="true" Comment="locked" />
     </RefParameter>
-
-
+   <RefParameter Name="Global_Lock_RIMU_status" Comment="" DefaultValue="false" Type="string">
+        <PossibleValue Value="false" Comment="not locked" />
+        <PossibleValue Value="true" Comment="locked" />
+    </RefParameter>
+    <RefParameter Name="MultipleTdcid" Comment="" Type="string" DefaultValue="true"/>
     <RefParameter Name="ListIpsRifAware" Comment="" Type="string">
         <PossibleValue Value="FMC" Comment="" />
         <PossibleValue Value="PWR" Comment="" />
@@ -2604,6 +2607,11 @@
         <PossibleValue Value="HPDMA1" Comment="" />
         <PossibleValue Value="HPDMA2" Comment="" />
         <PossibleValue Value="HPDMA3" Comment="" />
+    </RefParameter>
+        <RefParameter Name="ListIpsPseudoRifAware" Comment="" Type="string">
+        <PossibleValue Value="DSIHOST" Comment="" />
+        <PossibleValue Value="LTDC" Comment="" />
+        <PossibleValue Value="ETHSW" Comment="" />
     </RefParameter>
     <RefParameter Name="TAMPBackupRegZoneStartAddress" Comment="" DefaultValue="1174470912" Type="String"/>
     <RefParameter Name="TAMPBackupRegZoneSize" Comment="" DefaultValue="512" Type="String"/>
@@ -2780,8 +2788,8 @@
         <Parameter Name="ID_I3C3" Comment="116" RefParameter="IP_ID" />
         <Parameter Name="ID_I3C4" Comment="117" RefParameter="IP_ID" />
         <Parameter Name="ID_ICACHE_DCACHE" Comment="118" RefParameter="IP_ID" />
-        <Parameter Name="ID_LTDC_L0L1" Comment="119" RefParameter="IP_ID" />
-        <Parameter Name="ID_LTDC_L2" Comment="120" RefParameter="IP_ID" />
+        <Parameter Name="ID_LTDC_L1L2" Comment="119" RefParameter="IP_ID" />
+        <Parameter Name="ID_LTDC_L3" Comment="120" RefParameter="IP_ID" />
         <Parameter Name="ID_LTDC_ROT" Comment="121" RefParameter="IP_ID" />
         <Parameter Name="ID_DSI_TRIG" Comment="122" RefParameter="IP_ID" />
         <Parameter Name="ID_DSI_RDFIFO" Comment="123" RefParameter="IP_ID" />
@@ -2987,15 +2995,15 @@
         <Parameter Name="LPUART1_CID" RefParameter="LPUART1_CID" Comment="LPUART1" />
         <Parameter Name="LPUART1_Secured" RefParameter="LPUART1_Secured" Comment="LPUART1" />
         <!-- -->
-        <Parameter Name="LTDC_L2_Privilege" RefParameter="LTDC_L2_Privilege" Comment="LTDC_L2" />
-        <Parameter Name="LTDC_L2_Locked" RefParameter="LTDC_L2_Locked" Comment="LTDC_L2" />
-        <Parameter Name="LTDC_L2_CID" RefParameter="LTDC_L2_CID" Comment="LTDC_L2" />
-        <Parameter Name="LTDC_L2_Secured" RefParameter="LTDC_L2_Secured" Comment="LTDC_L2" />
+        <Parameter Name="LTDC_L3_Privilege" RefParameter="LTDC_L3_Privilege" Comment="LTDC_L3" />
+        <Parameter Name="LTDC_L3_Locked" RefParameter="LTDC_L3_Locked" Comment="LTDC_L3" />
+        <Parameter Name="LTDC_L3_CID" RefParameter="LTDC_L3_CID" Comment="LTDC_L3" />
+        <Parameter Name="LTDC_L3_Secured" RefParameter="LTDC_L3_Secured" Comment="LTDC_L3" />
         <!-- -->
-        <Parameter Name="LTDC_L0L1_Privilege" RefParameter="LTDC_L0L1_Privilege" Comment="LTDC_L0L1" />
-        <Parameter Name="LTDC_L0L1_Locked" RefParameter="LTDC_L0L1_Locked" Comment="LTDC_L0L1" />
-        <Parameter Name="LTDC_L0L1_CID" RefParameter="LTDC_L0L1_CID" Comment="LTDC_L0L1" />
-        <Parameter Name="LTDC_L0L1_Secured" RefParameter="LTDC_L0L1_Secured" Comment="LTDC_L0L1" />
+        <Parameter Name="LTDC_L1L2_Privilege" RefParameter="LTDC_L1L2_Privilege" Comment="LTDC_L1L2" />
+        <Parameter Name="LTDC_L1L2_Locked" RefParameter="LTDC_L1L2_Locked" Comment="LTDC_L1L2" />
+        <Parameter Name="LTDC_L1L2_CID" RefParameter="LTDC_L1L2_CID" Comment="LTDC_L1L2" />
+        <Parameter Name="LTDC_L1L2_Secured" RefParameter="LTDC_L1L2_Secured" Comment="LTDC_L1L2" />
         <Parameter Name="LTDC_ROT_Privilege" RefParameter="LTDC_ROT_Privilege" Comment="LTDC_ROT" />
         <Parameter Name="LTDC_ROT_Locked" RefParameter="LTDC_ROT_Locked" Comment="LTDC_ROT" />
         <Parameter Name="LTDC_ROT_CID" RefParameter="LTDC_ROT_CID" Comment="LTDC_ROT" />
@@ -3344,7 +3352,7 @@
         <Parameter Name="DCMIPP_Secure_RIMU" RefParameter="DCMIPP_Secure_RIMU" Comment="DCMIPP" />
 
         <Parameter Name="LTDC_L1L2_Name_RIMU" RefParameter="LTDC_L1L2_Name_RIMU" Comment="LTDC_L1L2" />
-        <Parameter Name="LTDC_L1L2_Id_RIMU" RefParameter="LTDC_L0L1_Id_RIMU" Comment="LTDC_L1L2" />
+        <Parameter Name="LTDC_L1L2_Id_RIMU" RefParameter="LTDC_L1L2_Id_RIMU" Comment="LTDC_L1L2" />
         <Parameter Name="LTDC_L1L2_CID_Selection_RIMU" RefParameter="LTDC_L1L2_CID_Selection_RIMU" Comment="LTDC_L1L2" />
         <Parameter Name="LTDC_L1L2_CID_RIMU" RefParameter="DLTDC_L1L2_CID_RIMU" Comment="LTDC_L1L2" />
         <Parameter Name="LTDC_L1L2_Privilege_RIMU" RefParameter="LTDC_L1L2_Privilege_RIMU" Comment="LTDC_L1L2" />
@@ -3380,8 +3388,10 @@
 
         <Parameter Name="Global_Lock_RIMU" RefParameter="Global_Lock_RIMU" Comment="Lock Ips" />
 
-    </RefMode>
+        <Parameter Name="Global_Lock_RIMU_status" RefParameter="Global_Lock_RIMU_status" Comment="Lock status" />
 
+    </RefMode>
+    <!-- A35 Configuration A35 Master-->
     <!-- Assign BKPSRAM memories regions start adress and region size-->
     <RefParameter Name="RISAF_BKPSRAM1_Start_Address" Comment="" DefaultValue="0x42000000" Type="hex" Min="0x42000000" Max="0x42000000" Visible="false" />
     <RefParameter Name="RISAF_BKPSRAM_End_Address" Comment="" DefaultValue="0x42002000" Type="hex" Min="0x42002000" Max="0x42002000" Visible="false" />
@@ -3392,12 +3402,30 @@
     <RefParameter Name="RISAF_BKPSRAM2_Region_Size" Comment="" DefaultValue="0x1000" Type="hex" Min="0x0000" Max="=(RISAF_BKPSRAM3_Start_Address - RISAF_BKPSRAM2_Start_Address)" Visible="false" />
 
     <RefParameter Name="RISAF_BKPSRAM3_Start_Address" Comment="" DefaultValue="=(RISAF_BKPSRAM2_Start_Address + RISAF_BKPSRAM2_Region_Size)" Type="hex" Min="=(RISAF_BKPSRAM2_Start_Address + RISAF_BKPSRAM2_Region_Size)" Max="0x42002000" Visible="false" />
-    <RefParameter Name="RISAF_BKPSRAM3_Region_Size" Comment="" DefaultValue="=(RISAF_BKPSRAM_End_Address - RISAF_BKPSRAM3_Start_Address)" Type="hex" Min="0x0000" Max="=(RISAF_BKPSRAM_End_Address - RISAF_BKPSRAM3_Start_Address - RISAF_BKPSRAM4_Region_Size)" Visible="false" />
+    <RefParameter Name="RISAF_BKPSRAM3_Region_Size" Comment="" DefaultValue="=(RISAF_BKPSRAM_End_Address - RISAF_BKPSRAM3_Start_Address)" Type="hex" Min="0x0000" Max="=(RISAF_BKPSRAM_End_Address - RISAF_BKPSRAM3_Start_Address)" Visible="false" />
 
     <RefParameter Name="RISAF_BKPSRAM4_Start_Address" Comment="" DefaultValue="=(RISAF_BKPSRAM3_Start_Address + RISAF_BKPSRAM3_Region_Size)" Type="hex" Min="=(RISAF_BKPSRAM3_Start_Address + RISAF_BKPSRAM3_Region_Size)" Max="0x42002000" Visible="false" />
     <RefParameter Name="RISAF_BKPSRAM4_Region_Size" Comment="" DefaultValue="=(RISAF_BKPSRAM_End_Address - RISAF_BKPSRAM4_Start_Address)" Type="hex" Min="0x0000" Max="=(RISAF_BKPSRAM_End_Address - RISAF_BKPSRAM4_Start_Address)" Visible="false" />
     <RefParameter Name="RISAF_BKPSRAM_Region_Size_Sum" Comment="" DefaultValue="0x2000" Type="hex" Min="0x2000" Max="0x2000" Visible="false" />
     <RefParameter Name="RISAF_BKPSRAM_RefValue" Comment="" DefaultValue="0x1000" Type="hex" Min="0x1000" Max="0x1000" Visible="false" />
+    <!-- -->
+    <!-- M33 Master-->
+    <RefParameter Name="RISAF_BKPSRAM1_Start_Address_M33" Comment="" DefaultValue="0x52000000" Type="hex" Min="0x52000000" Max="0x52000000" Visible="false" />
+    <RefParameter Name="RISAF_BKPSRAM_End_Address_M33" Comment="" DefaultValue="0x52002000" Type="hex" Min="0x52002000" Max="0x52002000" Visible="false" />
+    <RefParameter Name="RISAF_BKPSRAM1_Region_Size_M33" Comment="" DefaultValue="0x1000" Type="hex" Min="0x0000" Max="=(RISAF_BKPSRAM2_Start_Address_M33 - RISAF_BKPSRAM1_Start_Address_M33)" Visible="false" />
+
+
+    <RefParameter Name="RISAF_BKPSRAM2_Start_Address_M33" Comment="" DefaultValue="=(RISAF_BKPSRAM1_Start_Address_M33 + RISAF_BKPSRAM1_Region_Size_M33)" Type="hex" Min="=(RISAF_BKPSRAM1_Start_Address_M33 + RISAF_BKPSRAM1_Region_Size_M33)" Max="0x52002000" Visible="false" />
+    <RefParameter Name="RISAF_BKPSRAM2_Region_Size_M33" Comment="" DefaultValue="0x1000" Type="hex" Min="0x0000" Max="=(RISAF_BKPSRAM3_Start_Address_M33 - RISAF_BKPSRAM2_Start_Address_M33)" Visible="false" />
+
+    <RefParameter Name="RISAF_BKPSRAM3_Start_Address_M33" Comment="" DefaultValue="=(RISAF_BKPSRAM2_Start_Address_M33 + RISAF_BKPSRAM2_Region_Size_M33)" Type="hex" Min="=(RISAF_BKPSRAM2_Start_Address_M33 + RISAF_BKPSRAM2_Region_Size_M33)" Max="0x52002000" Visible="false" />
+    <RefParameter Name="RISAF_BKPSRAM3_Region_Size_M33" Comment="" DefaultValue="=(RISAF_BKPSRAM_End_Address_M33 - RISAF_BKPSRAM3_Start_Address_M33)" Type="hex" Min="0x0000" Max="=(RISAF_BKPSRAM_End_Address_M33 - RISAF_BKPSRAM3_Start_Address_M33)" Visible="false" />
+
+    <RefParameter Name="RISAF_BKPSRAM4_Start_Address_M33" Comment="" DefaultValue="=(RISAF_BKPSRAM3_Start_Address_M33 + RISAF_BKPSRAM3_Region_Size_M33)" Type="hex" Min="=(RISAF_BKPSRAM3_Start_Address_M33 + RISAF_BKPSRAM3_Region_Size_M33)" Max="0x52002000" Visible="false" />
+    <RefParameter Name="RISAF_BKPSRAM4_Region_Size_M33" Comment="" DefaultValue="=(RISAF_BKPSRAM_End_Address_M33 - RISAF_BKPSRAM4_Start_Address_M33)" Type="hex" Min="0x0000" Max="=(RISAF_BKPSRAM_End_Address_M33 - RISAF_BKPSRAM4_Start_Address_M33)" Visible="false" />
+    <RefParameter Name="RISAF_BKPSRAM_Region_Size_Sum_M33" Comment="" DefaultValue="0x2000" Type="hex" Min="0x2000" Max="0x2000" Visible="false" />
+    <RefParameter Name="RISAF_BKPSRAM_RefValue_M33" Comment="" DefaultValue="0x1000" Type="hex" Min="0x1000" Max="0x1000" Visible="false" />
+    <!-- -->
     <!-- -->
     <RefParameter Name="RISAF_PCIE1_Start_Address" Comment="" DefaultValue="0x10000000" Type="hex" Min="0x10000000" Max="0x10000000" Visible="false" />
     <RefParameter Name="RISAF_PCIE_End_Address" Comment="" DefaultValue="0x20000000" Type="hex" Min="0x20000000" Max="0x20000000" Visible="false" />
@@ -3493,21 +3521,21 @@
 
     <!-- RefParameter Region Size for DDR 4GO-->  
 
-    <RefParameter Name="RISAF_DDR1_Region_Size_4GO" Comment="assign the region size for DDR1" DefaultValue="0x100000" Type="hex" Min="0x0000" Max="0x100000000" Visible="false" />
-    <RefParameter Name="RISAF_DDR2_Region_Size_4GO" Comment="assign the region size for DDR2" DefaultValue="0x800000" Type="hex" Min="0x0000" Max="0x100000000" Visible="false" />
-    <RefParameter Name="RISAF_DDR3_Region_Size_4GO" Comment="assign the region size for DDR3" DefaultValue="0x100000" Type="hex" Min="0x0000" Max="0x100000000" Visible="false" />
-    <RefParameter Name="RISAF_DDR4_Region_Size_4GO" Comment="assign the region size for DDR4" DefaultValue="0x800000" Type="hex" Min="0x0000" Max="0x100000000" Visible="false" />
-    <RefParameter Name="RISAF_DDR5_Region_Size_4GO" Comment="assign the region size for DDR5" DefaultValue="0x100000" Type="hex" Min="0x0000" Max="0x100000000" Visible="false" />
-    <RefParameter Name="RISAF_DDR6_Region_Size_4GO" Comment="assign the region size for DDR6" DefaultValue="0xCC0000" Type="hex" Min="0x0000" Max="0x100000000" Visible="false" />
-    <RefParameter Name="RISAF_DDR7_Region_Size_4GO" Comment="assign the region size for DDR7" DefaultValue="0x40000" Type="hex" Min="0x0000" Max="0x100000000" Visible="false" />
-    <RefParameter Name="RISAF_DDR8_Region_Size_4GO" Comment="assign the region size for DDR8" DefaultValue="0x2000000" Type="hex" Min="0x0000" Max="0x100000000" Visible="false" />
-    <RefParameter Name="RISAF_DDR9_Region_Size_4GO" Comment="assign the region size for DDR9" DefaultValue="0x76800000" Type="hex" Min="0x0000" Max="0x100000000" Visible="false" />
-    <RefParameter Name="RISAF_DDR10_Region_Size_4GO" Comment="assign the region size for DDR10" DefaultValue="0x4000000" Type="hex" Min="0x0000" Max="0x100000000" Visible="false" />
-    <RefParameter Name="RISAF_DDR11_Region_Size_4GO" Comment="assign the region size for DDR11" DefaultValue="0x0" Type="hex" Min="0x0000" Max="0x100000000" Visible="false" />
-    <RefParameter Name="RISAF_DDR12_Region_Size_4GO" Comment="assign the region size for DDR12" DefaultValue="0x0" Type="hex" Min="0x0000" Max="0x100000000" Visible="false" />
-    <RefParameter Name="RISAF_DDR13_Region_Size_4GO" Comment="assign the region size for DDR13" DefaultValue="0x800000" Type="hex" Min="0x0000" Max="0x100000000" Visible="false" />
-    <RefParameter Name="RISAF_DDR14_Region_Size_4GO" Comment="assign the region size for DDR14" DefaultValue="0x1000000" Type="hex" Min="0x0000" Max="0x100000000" Visible="false" />
-    <RefParameter Name="RISAF_DDR15_Region_Size_4GO" Comment="assign the region size for DDR15" DefaultValue="=(RISAF_DDR_End_Address_4GO - RISAF_DDR15_Start_Address_4GO)" Type="hex" Min="0x0000" Max="0x100000000" Visible="false" />
+    <RefParameter Name="RISAF_DDR1_Region_Size_4GO" Comment="assign the region size for DDR1" DefaultValue="0x100000" Type="hex" Min="0x0000" Max="=(RISAF_DDR2_Start_Address_4GO - RISAF_DDR1_Start_Address_4GO)" Visible="false" />
+    <RefParameter Name="RISAF_DDR2_Region_Size_4GO" Comment="assign the region size for DDR2" DefaultValue="0x800000" Type="hex" Min="0x0000" Max="=(RISAF_DDR3_Start_Address_4GO - RISAF_DDR2_Start_Address_4GO)" Visible="false" />
+    <RefParameter Name="RISAF_DDR3_Region_Size_4GO" Comment="assign the region size for DDR3" DefaultValue="0x100000" Type="hex" Min="0x0000" Max="=(RISAF_DDR4_Start_Address_4GO - RISAF_DDR3_Start_Address_4GO)" Visible="false" />
+    <RefParameter Name="RISAF_DDR4_Region_Size_4GO" Comment="assign the region size for DDR4" DefaultValue="0x800000" Type="hex" Min="0x0000" Max="=(RISAF_DDR5_Start_Address_4GO - RISAF_DDR4_Start_Address_4GO)" Visible="false" />
+    <RefParameter Name="RISAF_DDR5_Region_Size_4GO" Comment="assign the region size for DDR5" DefaultValue="0x100000" Type="hex" Min="0x0000" Max="=(RISAF_DDR6_Start_Address_4GO - RISAF_DDR5_Start_Address_4GO)" Visible="false" />
+    <RefParameter Name="RISAF_DDR6_Region_Size_4GO" Comment="assign the region size for DDR6" DefaultValue="0xCC0000" Type="hex" Min="0x0000" Max="=(RISAF_DDR7_Start_Address_4GO - RISAF_DDR6_Start_Address_4GO)" Visible="false" />
+    <RefParameter Name="RISAF_DDR7_Region_Size_4GO" Comment="assign the region size for DDR7" DefaultValue="0x40000" Type="hex" Min="0x0000" Max="=(RISAF_DDR8_Start_Address_4GO - RISAF_DDR7_Start_Address_4GO)" Visible="false" />
+    <RefParameter Name="RISAF_DDR8_Region_Size_4GO" Comment="assign the region size for DDR8" DefaultValue="0x2000000" Type="hex" Min="0x0000" Max="=(RISAF_DDR9_Start_Address_4GO - RISAF_DDR7_Start_Address_4GO)" Visible="false" />
+    <RefParameter Name="RISAF_DDR9_Region_Size_4GO" Comment="assign the region size for DDR9" DefaultValue="0x76800000" Type="hex" Min="0x0000" Max="=(RISAF_DDR10_Start_Address_4GO - RISAF_DDR9_Start_Address_4GO)" Visible="false" />
+    <RefParameter Name="RISAF_DDR10_Region_Size_4GO" Comment="assign the region size for DDR10" DefaultValue="0x4000000" Type="hex" Min="0x0000" Max="=(RISAF_DDR11_Start_Address_4GO - RISAF_DDR10_Start_Address_4GO)" Visible="false" />
+    <RefParameter Name="RISAF_DDR11_Region_Size_4GO" Comment="assign the region size for DDR11" DefaultValue="0x0" Type="hex" Min="0x0000" Max="=(RISAF_DDR12_Start_Address_4GO - RISAF_DDR11_Start_Address_4GO)" Visible="false" />
+    <RefParameter Name="RISAF_DDR12_Region_Size_4GO" Comment="assign the region size for DDR12" DefaultValue="0x0" Type="hex" Min="0x0000" Max="=(RISAF_DDR13_Start_Address_4GO - RISAF_DDR12_Start_Address_4GO)" Visible="false" />
+    <RefParameter Name="RISAF_DDR13_Region_Size_4GO" Comment="assign the region size for DDR13" DefaultValue="0x800000" Type="hex" Min="0x0000" Max="=(RISAF_DDR14_Start_Address_4GO - RISAF_DDR13_Start_Address_4GO)" Visible="false" />
+    <RefParameter Name="RISAF_DDR14_Region_Size_4GO" Comment="assign the region size for DDR14" DefaultValue="0x1000000" Type="hex" Min="0x0000" Max="=(RISAF_DDR15_Start_Address_4GO - RISAF_DDR14_Start_Address_4GO)" Visible="false" />
+    <RefParameter Name="RISAF_DDR15_Region_Size_4GO" Comment="assign the region size for DDR15" DefaultValue="=(RISAF_DDR_End_Address_4GO - RISAF_DDR15_Start_Address_4GO)" Type="hex" Min="0x0000" Max="=(RISAF_DDR_End_Address_4GO - RISAF_DDR15_Start_Address_4GO)" Visible="false" />
 
   <!-- -->
    <!--Start address and region size for all the other DDR :  1GO-->
@@ -3533,29 +3561,29 @@
     <RefParameter Name="RISAF_DDR8_Start_Address_1GO" Comment="assign DDR8 start address" DefaultValue="=(RISAF_DDR7_Start_Address_1GO + RISAF_DDR7_Region_Size_1GO)" Type="hex" Min="=(RISAF_DDR7_Start_Address_1GO + RISAF_DDR7_Region_Size_1GO)" Max="0x100000000" Visible="false" />
     <RefParameter Name="RISAF_DDR8_Region_Size_1GO" Comment="assign the region size for DDR8" DefaultValue="0x2000000" Type="hex" Min="0x0000" Max="=(RISAF_DDR9_Start_Address_1GO - RISAF_DDR8_Start_Address_1GO)" Visible="false" />
     <RefParameter Name="RISAF_DDR9_Start_Address_1GO" Comment="assign DDR9 start address" DefaultValue="=(RISAF_DDR8_Start_Address_1GO + RISAF_DDR8_Region_Size_1GO)" Type="hex" Min="=(RISAF_DDR8_Start_Address_1GO + RISAF_DDR8_Region_Size_1GO)" Max="0x100000000" Visible="false" />
-    <RefParameter Name="RISAF_DDR9_Region_Size_1GO" Comment="assign the region size for DDR9" DefaultValue="0x36800000" Type="hex" Min="0x0000" Max="=((RISAF_DDR_End_Address_1GO - RISAF_DDR1_Start_Address_1GO)- RISAF_DDR1_Region_Size_1GO- RISAF_DDR2_Region_Size_1GO- RISAF_DDR3_Region_Size_1GO- RISAF_DDR4_Region_Size_1GO- RISAF_DDR5_Region_Size_1GO- RISAF_DDR6_Region_Size_1GO- RISAF_DDR7_Region_Size_1GO- RISAF_DDR8_Region_Size_1GO- RISAF_DDR10_Region_Size_1GO- RISAF_DDR11_Region_Size_1GO -RISAF_DDR12_Region_Size_1GO- RISAF_DDR13_Region_Size_1GO - RISAF_DDR14_Region_Size_1GO)" Visible="false" />
+    <RefParameter Name="RISAF_DDR9_Region_Size_1GO" Comment="assign the region size for DDR9" DefaultValue="0x36800000" Type="hex" Min="0x0000" Max="=((RISAF_DDR_End_Address_1GO - RISAF_DDR9_Start_Address_1GO)- RISAF_DDR10_Region_Size_1GO- RISAF_DDR11_Region_Size_1GO -RISAF_DDR12_Region_Size_1GO- RISAF_DDR13_Region_Size_1GO - RISAF_DDR14_Region_Size_1GO)" Visible="false" />
     <RefParameter Name="RISAF_DDR10_Start_Address_1GO" Comment="assign DDR10 start address" DefaultValue="=(RISAF_DDR9_Start_Address_1GO + RISAF_DDR9_Region_Size_1GO)" Type="hex" Min="=(RISAF_DDR9_Start_Address_1GO + RISAF_DDR9_Region_Size_1GO)" Max="0xF80000000" Visible="false" />
-    <RefParameter Name="RISAF_DDR10_Region_Size_1GO" Comment="assign the region size for DDR10" DefaultValue="0x4000000" Type="hex" Min="0x0000" Max="=(RISAF_DDR11_Start_Address_1GO - RISAF_DDR10_Start_Address_1GO)" Visible="false" />
+    <RefParameter Name="RISAF_DDR10_Region_Size_1GO" Comment="assign the region size for DDR10" DefaultValue="0x4000000" Type="hex" Min="0x0000" Max="=((RISAF_DDR_End_Address_1GO - RISAF_DDR10_Start_Address_1GO)- RISAF_DDR11_Region_Size_1GO -RISAF_DDR12_Region_Size_1GO- RISAF_DDR13_Region_Size_1GO - RISAF_DDR14_Region_Size_1GO)" Visible="false" />
     <RefParameter Name="RISAF_DDR11_Start_Address_1GO" Comment="assign DDR11 start address" DefaultValue="=(RISAF_DDR10_Start_Address_1GO + RISAF_DDR10_Region_Size_1GO)" Type="hex" Min="=(RISAF_DDR10_Start_Address_1GO + RISAF_DDR10_Region_Size_1GO)" Max="0x100000000" Visible="false" />
-    <RefParameter Name="RISAF_DDR11_Region_Size_1GO" Comment="assign the region size for DDR11" DefaultValue="0x0000" Type="hex" Min="0x0000" Max="=(RISAF_DDR12_Start_Address_1GO - RISAF_DDR11_Start_Address_1GO)" Visible="false" />
+    <RefParameter Name="RISAF_DDR11_Region_Size_1GO" Comment="assign the region size for DDR11" DefaultValue="0x0000" Type="hex" Min="0x0000" Max="=((RISAF_DDR_End_Address_1GO - RISAF_DDR11_Start_Address_1GO)-RISAF_DDR12_Region_Size_1GO- RISAF_DDR13_Region_Size_1GO - RISAF_DDR14_Region_Size_1GO)" Visible="false" />
     <RefParameter Name="RISAF_DDR12_Start_Address_1GO" Comment="assign DDR12 start address" DefaultValue="=(RISAF_DDR11_Start_Address_1GO + RISAF_DDR11_Region_Size_1GO)" Type="hex" Min="=(RISAF_DDR11_Start_Address_1GO + RISAF_DDR11_Region_Size_1GO)" Max="0x100000000" Visible="false" />
-    <RefParameter Name="RISAF_DDR12_Region_Size_1GO" Comment="assign the region size for DDR12" DefaultValue="0x0000" Type="hex" Min="0x0000" Max="=(RISAF_DDR13_Start_Address_1GO - RISAF_DDR12_Start_Address_1GO)" Visible="false" />
+    <RefParameter Name="RISAF_DDR12_Region_Size_1GO" Comment="assign the region size for DDR12" DefaultValue="0x0000" Type="hex" Min="0x0000" Max="=((RISAF_DDR_End_Address_1GO - RISAF_DDR12_Start_Address_1GO) - RISAF_DDR13_Region_Size_1GO - RISAF_DDR14_Region_Size_1GO)" Visible="false" />
     <RefParameter Name="RISAF_DDR13_Start_Address_1GO" Comment="assign DDR13 start address" DefaultValue="=(RISAF_DDR12_Start_Address_1GO + RISAF_DDR12_Region_Size_1GO)" Type="hex" Min="=(RISAF_DDR12_Start_Address_1GO + RISAF_DDR12_Region_Size_1GO)" Max="0x100000000" Visible="false" />
-    <RefParameter Name="RISAF_DDR13_Region_Size_1GO" Comment="assign the region size for DDR13" DefaultValue="0x800000" Type="hex" Min="0x0000" Max="=(RISAF_DDR13_Start_Address_1GO - RISAF_DDR12_Start_Address_1GO)" Visible="false" />
+    <RefParameter Name="RISAF_DDR13_Region_Size_1GO" Comment="assign the region size for DDR13" DefaultValue="0x800000" Type="hex" Min="0x0000" Max="=((RISAF_DDR_End_Address_1GO - RISAF_DDR13_Start_Address_1GO) - RISAF_DDR14_Region_Size_1GO)" Visible="false" />
     <RefParameter Name="RISAF_DDR14_Start_Address_1GO" Comment="assign DDR14 start address" DefaultValue="=(RISAF_DDR13_Start_Address_1GO + RISAF_DDR13_Region_Size_1GO)" Type="hex" Min="=(RISAF_DDR13_Start_Address_1GO + RISAF_DDR13_Region_Size_1GO)" Max="0x100000000" Visible="false" />
-    <RefParameter Name="RISAF_DDR14_Region_Size_1GO" Comment="assign the region size for DDR14" DefaultValue="0x1000000" Type="hex" Min="0x0000" Max="=(RISAF_DDR15_Start_Address_1GO - RISAF_DDR14_Start_Address_1GO)" Visible="false" />
+    <RefParameter Name="RISAF_DDR14_Region_Size_1GO" Comment="assign the region size for DDR14" DefaultValue="0x1000000" Type="hex" Min="0x0000" Max="=(RISAF_DDR_End_Address_1GO - RISAF_DDR14_Start_Address_1GO)" Visible="false" />
     <RefParameter Name="RISAF_DDR14_Start_Address_1GO" Comment="assign DDR14 start address" DefaultValue="=(RISAF_DDR13_Start_Address_1GO + RISAF_DDR13_Region_Size_1GO)" Type="hex" Min="=(RISAF_DDR13_Start_Address_1GO + RISAF_DDR13_Region_Size_1GO)" Max="0x100000000" Visible="false" />
  
     <RefParameter Name="RISAF_DDR_Region_Size_Sum_1GO" Comment="" DefaultValue="=(RISAF_DDR_End_Address_1GO - RISAF_DDR1_Start_Address_1GO)" Min="0x000000000" Max="0x180000000" Type="hex" Visible="false" />
     
 	<!-- -->
-   <!--Start address and region size for all the other DDR :  2GO-->
+    <!--Start address and region size for all the other DDR :  2GO-->
     <RefParameter Name="RISAF_DDR1_Start_Address_2GO" Comment="assign DDR1 start address" DefaultValue="0x80000000" Type="hex" Min="0x80000000" Max="0x80000000" Visible="false" />
     <RefParameter Name="RISAF_DDR1_Region_Size_2GO" Comment="assign the region size for DDR1" DefaultValue="0x100000" Type="hex" Min="0x0000" Max="=(RISAF_DDR2_Start_Address_2GO - RISAF_DDR1_Start_Address_2GO)" Visible="false" />
    
     <RefParameter Name="RISAF_DDR2_Start_Address_2GO" Comment="assign DDR2 start address" DefaultValue="=(RISAF_DDR1_Start_Address_2GO + RISAF_DDR1_Region_Size_2GO)" Type="hex" Min="=(RISAF_DDR1_Start_Address_2GO + RISAF_DDR1_Region_Size_2GO)" Max="0x100000000" Visible="false" />
    
-     <RefParameter Name="RISAF_DDR2_Region_Size_2GO" Comment="assign the region size for DDR2" DefaultValue="0x800000" Type="hex" Min="0x0000" Max="=(RISAF_DDR3_Start_Address_2GO - RISAF_DDR2_Start_Address_2GO)" Visible="false" />
+    <RefParameter Name="RISAF_DDR2_Region_Size_2GO" Comment="assign the region size for DDR2" DefaultValue="0x800000" Type="hex" Min="0x0000" Max="=(RISAF_DDR3_Start_Address_2GO - RISAF_DDR2_Start_Address_2GO)" Visible="false" />
    
     <RefParameter Name="RISAF_DDR3_Start_Address_2GO" Comment="assign DDR3 start address" DefaultValue="=(RISAF_DDR2_Start_Address_2GO + RISAF_DDR2_Region_Size_2GO)" Type="hex" Min="=(RISAF_DDR2_Start_Address_2GO + RISAF_DDR2_Region_Size_2GO)" Max="0x100000000" Visible="false" />
     <RefParameter Name="RISAF_DDR3_Region_Size_2GO" Comment="assign the region size for DDR3" DefaultValue="0x100000" Type="hex" Min="0x0000" Max="=(RISAF_DDR4_Start_Address_2GO - RISAF_DDR3_Start_Address_2GO)" Visible="false" />
@@ -3571,17 +3599,17 @@
     <RefParameter Name="RISAF_DDR8_Start_Address_2GO" Comment="assign DDR8 start address" DefaultValue="=(RISAF_DDR7_Start_Address_2GO + RISAF_DDR7_Region_Size_2GO)" Type="hex" Min="=(RISAF_DDR7_Start_Address_2GO + RISAF_DDR7_Region_Size_2GO)" Max="0x100000000" Visible="false" />
     <RefParameter Name="RISAF_DDR8_Region_Size_2GO" Comment="assign the region size for DDR8" DefaultValue="0x2000000" Type="hex" Min="0x0000" Max="=(RISAF_DDR9_Start_Address_2GO - RISAF_DDR8_Start_Address_2GO)" Visible="false" />
     <RefParameter Name="RISAF_DDR9_Start_Address_2GO" Comment="assign DDR9 start address" DefaultValue="=(RISAF_DDR8_Start_Address_2GO + RISAF_DDR8_Region_Size_2GO)" Type="hex" Min="=(RISAF_DDR8_Start_Address_2GO + RISAF_DDR8_Region_Size_2GO)" Max="0x100000000" Visible="false" />
-    <RefParameter Name="RISAF_DDR9_Region_Size_2GO" Comment="assign the region size for DDR9" DefaultValue="0x76800000" Type="hex" Min="0x0000" Max="=((RISAF_DDR_End_Address_2GO - RISAF_DDR1_Start_Address_2GO)- RISAF_DDR1_Region_Size_2GO- RISAF_DDR2_Region_Size_2GO- RISAF_DDR3_Region_Size_2GO- RISAF_DDR4_Region_Size_2GO- RISAF_DDR5_Region_Size_2GO- RISAF_DDR6_Region_Size_2GO- RISAF_DDR7_Region_Size_2GO- RISAF_DDR8_Region_Size_2GO- RISAF_DDR10_Region_Size_2GO- RISAF_DDR11_Region_Size_2GO -RISAF_DDR12_Region_Size_2GO- RISAF_DDR13_Region_Size_2GO - RISAF_DDR14_Region_Size_2GO)" Visible="false" />
+    <RefParameter Name="RISAF_DDR9_Region_Size_2GO" Comment="assign the region size for DDR9" DefaultValue="0x76800000" Type="hex" Min="0x0000" Max="=((RISAF_DDR_End_Address_2GO - RISAF_DDR9_Start_Address_2GO)- RISAF_DDR10_Region_Size_2GO- RISAF_DDR11_Region_Size_2GO -RISAF_DDR12_Region_Size_2GO- RISAF_DDR13_Region_Size_2GO - RISAF_DDR14_Region_Size_2GO)" Visible="false" />
     <RefParameter Name="RISAF_DDR10_Start_Address_2GO" Comment="assign DDR10 start address" DefaultValue="=(RISAF_DDR9_Start_Address_2GO + RISAF_DDR9_Region_Size_2GO)" Type="hex" Min="=(RISAF_DDR9_Start_Address_2GO + RISAF_DDR9_Region_Size_2GO)" Max="0xF80000000" Visible="false" />
-    <RefParameter Name="RISAF_DDR10_Region_Size_2GO" Comment="assign the region size for DDR10" DefaultValue="0x4000000" Type="hex" Min="0x0000" Max="=(RISAF_DDR11_Start_Address_2GO - RISAF_DDR10_Start_Address_2GO)" Visible="false" />
+    <RefParameter Name="RISAF_DDR10_Region_Size_2GO" Comment="assign the region size for DDR10" DefaultValue="0x4000000" Type="hex" Min="0x0000" Max="=((RISAF_DDR_End_Address_2GO - RISAF_DDR10_Start_Address_2GO)- RISAF_DDR11_Region_Size_2GO -RISAF_DDR12_Region_Size_2GO- RISAF_DDR13_Region_Size_2GO - RISAF_DDR14_Region_Size_2GO)" Visible="false" />
     <RefParameter Name="RISAF_DDR11_Start_Address_2GO" Comment="assign DDR11 start address" DefaultValue="=(RISAF_DDR10_Start_Address_2GO + RISAF_DDR10_Region_Size_2GO)" Type="hex" Min="=(RISAF_DDR10_Start_Address_2GO + RISAF_DDR10_Region_Size_2GO)" Max="0x100000000" Visible="false" />
-    <RefParameter Name="RISAF_DDR11_Region_Size_2GO" Comment="assign the region size for DDR11" DefaultValue="0x0000" Type="hex" Min="0x0000" Max="=(RISAF_DDR12_Start_Address_2GO - RISAF_DDR11_Start_Address_2GO)" Visible="false" />
+    <RefParameter Name="RISAF_DDR11_Region_Size_2GO" Comment="assign the region size for DDR11" DefaultValue="0x0000" Type="hex" Min="0x0000" Max="=((RISAF_DDR_End_Address_2GO - RISAF_DDR11_Start_Address_2GO)-RISAF_DDR12_Region_Size_2GO- RISAF_DDR13_Region_Size_2GO - RISAF_DDR14_Region_Size_2GO)" Visible="false" />
     <RefParameter Name="RISAF_DDR12_Start_Address_2GO" Comment="assign DDR12 start address" DefaultValue="=(RISAF_DDR11_Start_Address_2GO + RISAF_DDR11_Region_Size_2GO)" Type="hex" Min="=(RISAF_DDR11_Start_Address_2GO + RISAF_DDR11_Region_Size_2GO)" Max="0x100000000" Visible="false" />
-    <RefParameter Name="RISAF_DDR12_Region_Size_2GO" Comment="assign the region size for DDR12" DefaultValue="0x0000" Type="hex" Min="0x0000" Max="=(RISAF_DDR13_Start_Address_2GO - RISAF_DDR12_Start_Address_2GO)" Visible="false" />
+    <RefParameter Name="RISAF_DDR12_Region_Size_2GO" Comment="assign the region size for DDR12" DefaultValue="0x0000" Type="hex" Min="0x0000" Max="=((RISAF_DDR_End_Address_2GO - RISAF_DDR12_Start_Address_2GO) - RISAF_DDR13_Region_Size_2GO - RISAF_DDR14_Region_Size_2GO)" Visible="false" />
     <RefParameter Name="RISAF_DDR13_Start_Address_2GO" Comment="assign DDR13 start address" DefaultValue="=(RISAF_DDR12_Start_Address_2GO + RISAF_DDR12_Region_Size_2GO)" Type="hex" Min="=(RISAF_DDR12_Start_Address_2GO + RISAF_DDR12_Region_Size_2GO)" Max="0x100000000" Visible="false" />
-    <RefParameter Name="RISAF_DDR13_Region_Size_2GO" Comment="assign the region size for DDR13" DefaultValue="0x800000" Type="hex" Min="0x0000" Max="=(RISAF_DDR13_Start_Address_2GO - RISAF_DDR12_Start_Address_2GO)" Visible="false" />
+    <RefParameter Name="RISAF_DDR13_Region_Size_2GO" Comment="assign the region size for DDR13" DefaultValue="0x800000" Type="hex" Min="0x0000" Max="=((RISAF_DDR_End_Address_2GO - RISAF_DDR13_Start_Address_2GO) - RISAF_DDR14_Region_Size_2GO)" Visible="false" />
     <RefParameter Name="RISAF_DDR14_Start_Address_2GO" Comment="assign DDR14 start address" DefaultValue="=(RISAF_DDR13_Start_Address_2GO + RISAF_DDR13_Region_Size_2GO)" Type="hex" Min="=(RISAF_DDR13_Start_Address_2GO + RISAF_DDR13_Region_Size_2GO)" Max="0x100000000" Visible="false" />
-    <RefParameter Name="RISAF_DDR14_Region_Size_2GO" Comment="assign the region size for DDR14" DefaultValue="0x1000000" Type="hex" Min="0x0000" Max="=(RISAF_DDR15_Start_Address_2GO - RISAF_DDR14_Start_Address_2GO)" Visible="false" />
+    <RefParameter Name="RISAF_DDR14_Region_Size_2GO" Comment="assign the region size for DDR14" DefaultValue="0x1000000" Type="hex" Min="0x0000" Max="=(RISAF_DDR_End_Address_2GO - RISAF_DDR14_Start_Address_2GO)" Visible="false" />
   
     <RefParameter Name="RISAF_DDR_Region_Size_Sum_2GO" Comment="" DefaultValue="=(RISAF_DDR_End_Address_2GO - RISAF_DDR1_Start_Address_2GO)" Min="0x000000000" Max="0x180000000" Type="hex" Visible="false" />
     	<!-- -->
@@ -3603,17 +3631,17 @@
     <RefParameter Name="RISAF_DDR8_Start_Address_512MB" Comment="assign DDR8 start address" DefaultValue="=(RISAF_DDR7_Start_Address_512MB + RISAF_DDR7_Region_Size_512MB)" Type="hex" Min="=(RISAF_DDR7_Start_Address_512MB + RISAF_DDR7_Region_Size_512MB)" Max="0x100000000" Visible="false" />
     <RefParameter Name="RISAF_DDR8_Region_Size_512MB" Comment="assign the region size for DDR8" DefaultValue="0x2000000" Type="hex" Min="0x0000" Max="=(RISAF_DDR9_Start_Address_512MB - RISAF_DDR8_Start_Address_512MB)" Visible="false" />
     <RefParameter Name="RISAF_DDR9_Start_Address_512MB" Comment="assign DDR9 start address" DefaultValue="=(RISAF_DDR8_Start_Address_512MB + RISAF_DDR8_Region_Size_512MB)" Type="hex" Min="=(RISAF_DDR8_Start_Address_512MB + RISAF_DDR8_Region_Size_512MB)" Max="0x100000000" Visible="false" />
-    <RefParameter Name="RISAF_DDR9_Region_Size_512MB" Comment="assign the region size for DDR9" DefaultValue="0x16800000" Type="hex" Min="0x0000" Max="=((RISAF_DDR_End_Address_512MB - RISAF_DDR1_Start_Address_512MB)- RISAF_DDR1_Region_Size_512MB- RISAF_DDR2_Region_Size_512MB- RISAF_DDR3_Region_Size_512MB- RISAF_DDR4_Region_Size_512MB- RISAF_DDR5_Region_Size_512MB- RISAF_DDR6_Region_Size_512MB- RISAF_DDR7_Region_Size_512MB- RISAF_DDR8_Region_Size_512MB- RISAF_DDR10_Region_Size_512MB- RISAF_DDR11_Region_Size_512MB -RISAF_DDR12_Region_Size_512MB- RISAF_DDR13_Region_Size_512MB - RISAF_DDR14_Region_Size_512MB)" Visible="false" />
+    <RefParameter Name="RISAF_DDR9_Region_Size_512MB" Comment="assign the region size for DDR9" DefaultValue="0x16800000" Type="hex" Min="0x0000" Max="=((RISAF_DDR_End_Address_512MB - RISAF_DDR9_Start_Address_512MB)- RISAF_DDR10_Region_Size_512MB- RISAF_DDR11_Region_Size_512MB -RISAF_DDR12_Region_Size_512MB- RISAF_DDR13_Region_Size_512MB - RISAF_DDR14_Region_Size_512MB)" Visible="false" />
     <RefParameter Name="RISAF_DDR10_Start_Address_512MB" Comment="assign DDR10 start address" DefaultValue="=(RISAF_DDR9_Start_Address_512MB + RISAF_DDR9_Region_Size_512MB)" Type="hex" Min="=(RISAF_DDR9_Start_Address_512MB + RISAF_DDR9_Region_Size_512MB)" Max="0xF80000000" Visible="false" />
-    <RefParameter Name="RISAF_DDR10_Region_Size_512MB" Comment="assign the region size for DDR10" DefaultValue="0x4000000" Type="hex" Min="0x0000" Max="=(RISAF_DDR11_Start_Address_512MB - RISAF_DDR10_Start_Address_512MB)" Visible="false" />
+    <RefParameter Name="RISAF_DDR10_Region_Size_512MB" Comment="assign the region size for DDR10" DefaultValue="0x4000000" Type="hex" Min="0x0000" Max="=((RISAF_DDR_End_Address_512MB - RISAF_DDR10_Start_Address_512MB)- RISAF_DDR11_Region_Size_512MB -RISAF_DDR12_Region_Size_512MB- RISAF_DDR13_Region_Size_512MB - RISAF_DDR14_Region_Size_512MB)" Visible="false" />
     <RefParameter Name="RISAF_DDR11_Start_Address_512MB" Comment="assign DDR11 start address" DefaultValue="=(RISAF_DDR10_Start_Address_512MB + RISAF_DDR10_Region_Size_512MB)" Type="hex" Min="=(RISAF_DDR10_Start_Address_512MB + RISAF_DDR10_Region_Size_512MB)" Max="0x100000000" Visible="false" />
-    <RefParameter Name="RISAF_DDR11_Region_Size_512MB" Comment="assign the region size for DDR11" DefaultValue="0x0000" Type="hex" Min="0x0000" Max="=(RISAF_DDR12_Start_Address_512MB - RISAF_DDR11_Start_Address_512MB)" Visible="false" />
+    <RefParameter Name="RISAF_DDR11_Region_Size_512MB" Comment="assign the region size for DDR11" DefaultValue="0x0000" Type="hex" Min="0x0000" Max="=((RISAF_DDR_End_Address_512MB - RISAF_DDR11_Start_Address_512MB)-RISAF_DDR12_Region_Size_512MB- RISAF_DDR13_Region_Size_512MB - RISAF_DDR14_Region_Size_512MB)" Visible="false" />
     <RefParameter Name="RISAF_DDR12_Start_Address_512MB" Comment="assign DDR12 start address" DefaultValue="=(RISAF_DDR11_Start_Address_512MB + RISAF_DDR11_Region_Size_512MB)" Type="hex" Min="=(RISAF_DDR11_Start_Address_512MB + RISAF_DDR11_Region_Size_512MB)" Max="0x100000000" Visible="false" />
-    <RefParameter Name="RISAF_DDR12_Region_Size_512MB" Comment="assign the region size for DDR12" DefaultValue="0x0000" Type="hex" Min="0x0000" Max="=(RISAF_DDR13_Start_Address_512MB - RISAF_DDR12_Start_Address_512MB)" Visible="false" />
+    <RefParameter Name="RISAF_DDR12_Region_Size_512MB" Comment="assign the region size for DDR12" DefaultValue="0x0000" Type="hex" Min="0x0000" Max="=((RISAF_DDR_End_Address_512MB - RISAF_DDR12_Start_Address_512MB) - RISAF_DDR13_Region_Size_512MB - RISAF_DDR14_Region_Size_512MB)" Visible="false" />
     <RefParameter Name="RISAF_DDR13_Start_Address_512MB" Comment="assign DDR13 start address" DefaultValue="=(RISAF_DDR12_Start_Address_512MB + RISAF_DDR12_Region_Size_512MB)" Type="hex" Min="=(RISAF_DDR12_Start_Address_512MB + RISAF_DDR12_Region_Size_512MB)" Max="0x100000000" Visible="false" />
-    <RefParameter Name="RISAF_DDR13_Region_Size_512MB" Comment="assign the region size for DDR13" DefaultValue="0x800000" Type="hex" Min="0x0000" Max="=(RISAF_DDR13_Start_Address_512MB - RISAF_DDR12_Start_Address_512MB)" Visible="false" />
+    <RefParameter Name="RISAF_DDR13_Region_Size_512MB" Comment="assign the region size for DDR13" DefaultValue="0x800000" Type="hex" Min="0x0000" Max="=((RISAF_DDR_End_Address_512MB - RISAF_DDR13_Start_Address_512MB) - RISAF_DDR14_Region_Size_512MB)" Visible="false" />
     <RefParameter Name="RISAF_DDR14_Start_Address_512MB" Comment="assign DDR14 start address" DefaultValue="=(RISAF_DDR13_Start_Address_512MB + RISAF_DDR13_Region_Size_512MB)" Type="hex" Min="=(RISAF_DDR13_Start_Address_512MB + RISAF_DDR13_Region_Size_512MB)" Max="0x100000000" Visible="false" />
-    <RefParameter Name="RISAF_DDR14_Region_Size_512MB" Comment="assign the region size for DDR14" DefaultValue="0x1000000" Type="hex" Min="0x0000" Max="=(RISAF_DDR15_Start_Address_512MB - RISAF_DDR14_Start_Address_512MB)" Visible="false" />
+    <RefParameter Name="RISAF_DDR14_Region_Size_512MB" Comment="assign the region size for DDR14" DefaultValue="0x1000000" Type="hex" Min="0x0000" Max="=(RISAF_DDR_End_Address_512MB - RISAF_DDR14_Start_Address_512MB)" Visible="false" />
    
     <RefParameter Name="RISAF_DDR_Region_Size_Sum_512MB" Comment="" DefaultValue="=(RISAF_DDR_End_Address_512MB - RISAF_DDR1_Start_Address_512MB)" Min="0x000000000" Max="0x180000000" Type="hex" Visible="false" />
     
@@ -6476,29 +6504,28 @@
 
     <RefParameter Name="SYSRAM1_region1_End_Address" Comment="" DefaultValue="0xA020000" Type="hex" Min="0xA020000" Max="0xA020000" Visible="false" />
 
-    <RefParameter Name="SYSRAM1_region1_Region_Size" Comment="assign the region size for region1" DefaultValue="0x20000" Type="hex" Min="0x0000" Max="=(SYSRAM1_region2_Start_Address - SYSRAM1_region1_Start_Address)" Visible="false" />
+    <RefParameter Name="SYSRAM1_region1_Region_Size" Comment="assign the region size for region1" DefaultValue="0x20000" Type="hex" Min="0x0000" Max="=(SYSRAM1_region1_End_Address - SYSRAM1_region1_Start_Address)" Visible="false" />
     <!--SYSRAM1_region2-->
 
     <RefParameter Name="SYSRAM1_region2_Start_Address" Comment="assign region2 start address" DefaultValue="=(SYSRAM1_region1_Start_Address + SYSRAM1_region1_Region_Size)" Type="hex" Min="=(SYSRAM1_region1_Start_Address + SYSRAM1_region1_Region_Size)" Max="0xA020000" Visible="false" />
 
-    <RefParameter Name="SYSRAM1_region2_Region_Size" Comment="assign the region size for region2" DefaultValue="=(SYSRAM1_region1_End_Address -(SYSRAM1_region1_Start_Address+SYSRAM1_region1_Region_Size))" Type="hex" Min="0x0000" Max="=(SYSRAM1_region3_Start_Address - SYSRAM1_region2_Start_Address)" Visible="false" />
+    <RefParameter Name="SYSRAM1_region2_Region_Size" Comment="assign the region size for region2" DefaultValue="=(SYSRAM1_region1_End_Address -(SYSRAM1_region1_Start_Address+SYSRAM1_region1_Region_Size))" Type="hex" Min="0x0000" Max="=(SYSRAM1_region1_End_Address - SYSRAM1_region2_Start_Address)" Visible="false" />
 
     <!--SYSRAM1_region3-->
-
     <RefParameter Name="SYSRAM1_region3_Start_Address" Comment="assign region3 start address" DefaultValue="=(SYSRAM1_region2_Start_Address +  SYSRAM1_region2_Region_Size)" Type="hex" Min="=(SYSRAM1_region2_Start_Address +  SYSRAM1_region2_Region_Size)" Max="0xA020000" Visible="false" />
 
-    <RefParameter Name="SYSRAM1_region3_Region_Size" Comment="assign the region size for region3" DefaultValue="=(SYSRAM1_region1_End_Address -(SYSRAM1_region2_Start_Address+SYSRAM1_region2_Region_Size))" Type="hex" Min="0x0000" Max="=(SYSRAM1_region4_Start_Address - SYSRAM1_region3_Start_Address)" Visible="false" />
+    <RefParameter Name="SYSRAM1_region3_Region_Size" Comment="assign the region size for region3" DefaultValue="=(SYSRAM1_region1_End_Address -(SYSRAM1_region2_Start_Address+SYSRAM1_region2_Region_Size))" Type="hex" Min="0x0000" Max="=(SYSRAM1_region1_End_Address - SYSRAM1_region3_Start_Address)" Visible="false" />
     <!--SYSRAM1_region4-->
 
     <RefParameter Name="SYSRAM1_region4_Start_Address" Comment="assign region4 start address" DefaultValue="=(SYSRAM1_region3_Start_Address + SYSRAM1_region3_Region_Size)" Type="hex" Min="=(SYSRAM1_region3_Start_Address + SYSRAM1_region3_Region_Size)" Max="0xA020000" Visible="false" />
 
-    <RefParameter Name="SYSRAM1_region4_Region_Size" Comment="assign the region size for region4" DefaultValue="=(SYSRAM1_region1_End_Address -(SYSRAM1_region3_Start_Address+SYSRAM1_region3_Region_Size))" Type="hex" Min="0x0000" Max="=(SYSRAM1_region5_Start_Address - SYSRAM1_region4_Start_Address)" Visible="false" />
+    <RefParameter Name="SYSRAM1_region4_Region_Size" Comment="assign the region size for region4" DefaultValue="=(SYSRAM1_region1_End_Address -(SYSRAM1_region3_Start_Address+SYSRAM1_region3_Region_Size))" Type="hex" Min="0x0000" Max="=(SYSRAM1_region1_End_Address - SYSRAM1_region4_Start_Address)" Visible="false" />
 
     <!--SYSRAM1_region5-->
 
     <RefParameter Name="SYSRAM1_region5_Start_Address" Comment="assign region5 start address" DefaultValue="=(SYSRAM1_region4_Start_Address + SYSRAM1_region4_Region_Size)" Type="hex" Min="=(SYSRAM1_region4_Start_Address + SYSRAM1_region4_Region_Size)" Max="0xA020000" Visible="false" />
 
-    <RefParameter Name="SYSRAM1_region5_Region_Size" Comment="assign the region size for region5" DefaultValue="=(SYSRAM1_region1_End_Address -(SYSRAM1_region4_Start_Address+SYSRAM1_region4_Region_Size))" Type="hex" Min="0x0000" Max="=(SYSRAM1_region6_Start_Address - SYSRAM1_region5_Start_Address)" Visible="false" />
+    <RefParameter Name="SYSRAM1_region5_Region_Size" Comment="assign the region size for region5" DefaultValue="=(SYSRAM1_region1_End_Address -(SYSRAM1_region4_Start_Address+SYSRAM1_region4_Region_Size))" Type="hex" Min="0x0000" Max="=(SYSRAM1_region1_End_Address - SYSRAM1_region5_Start_Address)" Visible="false" />
 
     <!--SYSRAM1_region6-->
     <RefParameter Name="SYSRAM1_region6_Start_Address" Comment="assign region6 start address" DefaultValue="=(SYSRAM1_region5_Start_Address + SYSRAM1_region5_Region_Size)" Type="hex" Min="=(SYSRAM1_region5_Start_Address + SYSRAM1_region5_Region_Size)" Max="0xA020000" Visible="false" />
@@ -6506,7 +6533,45 @@
     <RefParameter Name="SYSRAM1_region6_Region_Size" Comment="assign the region size for region6" DefaultValue="=(SYSRAM1_region1_End_Address -(SYSRAM1_region5_Start_Address+SYSRAM1_region5_Region_Size))" Type="hex" Min="0x0000" Max="=(SYSRAM1_region1_End_Address - SYSRAM1_region6_Start_Address)" Visible="true" />
 
     <RefParameter Name="SYSRAM1_Region_Size_Sum" Comment="" DefaultValue="0x20000" Type="hex" Min="0x20000" Max="0x20000" Visible="false" />
+<!-- A35 -->
+    <!-- M33 Configuration-->
+    <!--SYSRAM1_region1 M33-->
 
+
+    <RefParameter Name="SYSRAM1_region1_Start_Address_M33" Comment="assign region1 start address" DefaultValue="0xE000000" Type="hex" Min="0xE000000" Max="0xE000000" Visible="false" />
+
+    <RefParameter Name="SYSRAM1_region1_End_Address_M33" Comment="" DefaultValue="0xE020000" Type="hex" Min="0xE020000" Max="0xE020000" Visible="false" />
+
+    <RefParameter Name="SYSRAM1_region1_Region_Size_M33" Comment="assign the region size for region1" DefaultValue="0x20000" Type="hex" Min="0x0000" Max="=(SYSRAM1_region1_End_Address_M33 - SYSRAM1_region1_Start_Address_M33)" Visible="false" />
+    <!--SYSRAM1_region2-->
+
+    <RefParameter Name="SYSRAM1_region2_Start_Address_M33" Comment="assign region2 start address" DefaultValue="=(SYSRAM1_region1_Start_Address_M33 + SYSRAM1_region1_Region_Size_M33)" Type="hex" Min="=(SYSRAM1_region1_Start_Address_M33 + SYSRAM1_region1_Region_Size_M33)" Max="0xE020000" Visible="false" />
+
+    <RefParameter Name="SYSRAM1_region2_Region_Size_M33" Comment="assign the region size for region2" DefaultValue="=(SYSRAM1_region1_End_Address_M33 -(SYSRAM1_region1_Start_Address_M33+SYSRAM1_region1_Region_Size_M33))" Type="hex" Min="0x0000" Max="=(SYSRAM1_region1_End_Address_M33 - SYSRAM1_region2_Start_Address_M33)" Visible="false" />
+
+    <!--SYSRAM1_region3-->
+    <RefParameter Name="SYSRAM1_region3_Start_Address_M33" Comment="assign region3 start address" DefaultValue="=(SYSRAM1_region2_Start_Address_M33 +  SYSRAM1_region2_Region_Size_M33)" Type="hex" Min="=(SYSRAM1_region2_Start_Address_M33 +  SYSRAM1_region2_Region_Size_M33)" Max="0xE020000" Visible="false" />
+
+    <RefParameter Name="SYSRAM1_region3_Region_Size_M33" Comment="assign the region size for region3" DefaultValue="=(SYSRAM1_region1_End_Address_M33 -(SYSRAM1_region2_Start_Address_M33+SYSRAM1_region2_Region_Size_M33))" Type="hex" Min="0x0000" Max="=(SYSRAM1_region1_End_Address_M33 - SYSRAM1_region3_Start_Address_M33)" Visible="false" />
+    <!--SYSRAM1_region4-->
+
+    <RefParameter Name="SYSRAM1_region4_Start_Address_M33" Comment="assign region4 start address" DefaultValue="=(SYSRAM1_region3_Start_Address_M33 + SYSRAM1_region3_Region_Size_M33)" Type="hex" Min="=(SYSRAM1_region3_Start_Address_M33 + SYSRAM1_region3_Region_Size_M33)" Max="0xE020000" Visible="false" />
+
+    <RefParameter Name="SYSRAM1_region4_Region_Size_M33" Comment="assign the region size for region4" DefaultValue="=(SYSRAM1_region1_End_Address_M33 -(SYSRAM1_region3_Start_Address_M33+SYSRAM1_region3_Region_Size_M33))" Type="hex" Min="0x0000" Max="=(SYSRAM1_region1_End_Address_M33 - SYSRAM1_region4_Start_Address_M33)" Visible="false" />
+
+    <!--SYSRAM1_region5-->
+
+    <RefParameter Name="SYSRAM1_region5_Start_Address_M33" Comment="assign region5 start address" DefaultValue="=(SYSRAM1_region4_Start_Address_M33 + SYSRAM1_region4_Region_Size_M33)" Type="hex" Min="=(SYSRAM1_region4_Start_Address_M33 + SYSRAM1_region4_Region_Size_M33)" Max="0xE020000" Visible="false" />
+
+    <RefParameter Name="SYSRAM1_region5_Region_Size_M33" Comment="assign the region size for region5" DefaultValue="=(SYSRAM1_region1_End_Address_M33 -(SYSRAM1_region4_Start_Address_M33+SYSRAM1_region4_Region_Size_M33))" Type="hex" Min="0x0000" Max="=(SYSRAM1_region1_End_Address_M33 - SYSRAM1_region5_Start_Address_M33)" Visible="false" />
+
+    <!--SYSRAM1_region6-->
+    <RefParameter Name="SYSRAM1_region6_Start_Address_M33" Comment="assign region6 start address" DefaultValue="=(SYSRAM1_region5_Start_Address_M33 + SYSRAM1_region5_Region_Size_M33)" Type="hex" Min="=(SYSRAM1_region5_Start_Address_M33 + SYSRAM1_region5_Region_Size_M33)" Max="0xE020000" Visible="false" />
+
+    <RefParameter Name="SYSRAM1_region6_Region_Size_M33" Comment="assign the region size for region6" DefaultValue="=(SYSRAM1_region1_End_Address_M33 -(SYSRAM1_region5_Start_Address_M33+SYSRAM1_region5_Region_Size_M33))" Type="hex" Min="0x0000" Max="=(SYSRAM1_region1_End_Address_M33 - SYSRAM1_region6_Start_Address_M33)" Visible="true" />
+
+    <RefParameter Name="SYSRAM1_Region_Size_Sum_M33" Comment="" DefaultValue="0x20000" Type="hex" Min="0x20000" Max="0x20000" Visible="false" />
+   <!-- M33 -->
     <!-- SYSRAM1 ___Owner-->
 
     <RefParameter Name="SYSRAM1_region1_Owner" Comment="SYSRAM1_region1_Owner" DefaultValue="TDCID" Type="string" />
@@ -7162,29 +7227,29 @@
 
     <RefParameter Name="SYSRAM2_region1_End_Address" Comment="" DefaultValue="0xA040000" Type="hex" Min="0xA040000" Max="0xA040000" Visible="false" />
 
-    <RefParameter Name="SYSRAM2_region1_Region_Size" Comment="assign the region size for region1" DefaultValue="0x20000" Type="hex" Min="0x0000" Max="=(SYSRAM2_region2_Start_Address - SYSRAM2_region1_Start_Address)" Visible="false" />
+    <RefParameter Name="SYSRAM2_region1_Region_Size" Comment="assign the region size for region1" DefaultValue="0x20000" Type="hex" Min="0x0000" Max="=(SYSRAM2_region1_End_Address - SYSRAM2_region1_Start_Address)" Visible="false" />
     <!--SYSRAM2_region2-->
 
     <RefParameter Name="SYSRAM2_region2_Start_Address" Comment="assign region2 start address" DefaultValue="=(SYSRAM2_region1_Start_Address + SYSRAM2_region1_Region_Size)" Type="hex" Min="=(SYSRAM2_region1_Start_Address + SYSRAM2_region1_Region_Size)" Max="0xA040000" Visible="false" />
 
-    <RefParameter Name="SYSRAM2_region2_Region_Size" Comment="assign the region size for region2" DefaultValue="=(SYSRAM2_region1_End_Address -(SYSRAM2_region1_Start_Address+SYSRAM2_region1_Region_Size))" Type="hex" Min="0x0000" Max="=(SYSRAM2_region3_Start_Address - SYSRAM2_region2_Start_Address)" Visible="false" />
+    <RefParameter Name="SYSRAM2_region2_Region_Size" Comment="assign the region size for region2" DefaultValue="=(SYSRAM2_region1_End_Address -(SYSRAM2_region1_Start_Address+SYSRAM2_region1_Region_Size))" Type="hex" Min="0x0000" Max="=(SYSRAM2_region1_End_Address - SYSRAM2_region2_Start_Address)" Visible="false" />
 
     <!--SYSRAM2_region3-->
 
     <RefParameter Name="SYSRAM2_region3_Start_Address" Comment="assign region3 start address" DefaultValue="=(SYSRAM2_region2_Start_Address +  SYSRAM2_region2_Region_Size)" Type="hex" Min="=(SYSRAM2_region2_Start_Address +  SYSRAM2_region2_Region_Size)" Max="0xA040000" Visible="false" />
 
-    <RefParameter Name="SYSRAM2_region3_Region_Size" Comment="assign the region size for region3" DefaultValue="=(SYSRAM2_region1_End_Address -(SYSRAM2_region2_Start_Address+SYSRAM2_region2_Region_Size))" Type="hex" Min="0x0000" Max="=(SYSRAM2_region4_Start_Address - SYSRAM2_region3_Start_Address)" Visible="false" />
+    <RefParameter Name="SYSRAM2_region3_Region_Size" Comment="assign the region size for region3" DefaultValue="=(SYSRAM2_region1_End_Address -(SYSRAM2_region2_Start_Address+SYSRAM2_region2_Region_Size))" Type="hex" Min="0x0000" Max="=(SYSRAM2_region1_End_Address - SYSRAM2_region3_Start_Address)" Visible="false" />
     <!--SYSRAM2_region4-->
 
     <RefParameter Name="SYSRAM2_region4_Start_Address" Comment="assign region4 start address" DefaultValue="=(SYSRAM2_region3_Start_Address + SYSRAM2_region3_Region_Size)" Type="hex" Min="=(SYSRAM2_region3_Start_Address + SYSRAM2_region3_Region_Size)" Max="0xA040000" Visible="false" />
 
-    <RefParameter Name="SYSRAM2_region4_Region_Size" Comment="assign the region size for region4" DefaultValue="=(SYSRAM2_region1_End_Address -(SYSRAM2_region3_Start_Address+SYSRAM2_region3_Region_Size))" Type="hex" Min="0x0000" Max="=(SYSRAM2_region5_Start_Address - SYSRAM2_region4_Start_Address)" Visible="false" />
+    <RefParameter Name="SYSRAM2_region4_Region_Size" Comment="assign the region size for region4" DefaultValue="=(SYSRAM2_region1_End_Address -(SYSRAM2_region3_Start_Address+SYSRAM2_region3_Region_Size))" Type="hex" Min="0x0000" Max="=(SYSRAM2_region1_End_Address - SYSRAM2_region4_Start_Address)" Visible="false" />
 
     <!--SYSRAM2_region5-->
 
     <RefParameter Name="SYSRAM2_region5_Start_Address" Comment="assign region5 start address" DefaultValue="=(SYSRAM2_region4_Start_Address + SYSRAM2_region4_Region_Size)" Type="hex" Min="=(SYSRAM2_region4_Start_Address + SYSRAM2_region4_Region_Size)" Max="0xA040000" Visible="false" />
 
-    <RefParameter Name="SYSRAM2_region5_Region_Size" Comment="assign the region size for region5" DefaultValue="=(SYSRAM2_region1_End_Address -(SYSRAM2_region4_Start_Address+SYSRAM2_region4_Region_Size))" Type="hex" Min="0x0000" Max="=(SYSRAM2_region6_Start_Address - SYSRAM2_region5_Start_Address)" Visible="false" />
+    <RefParameter Name="SYSRAM2_region5_Region_Size" Comment="assign the region size for region5" DefaultValue="=(SYSRAM2_region1_End_Address -(SYSRAM2_region4_Start_Address+SYSRAM2_region4_Region_Size))" Type="hex" Min="0x0000" Max="=(SYSRAM2_region1_End_Address - SYSRAM2_region5_Start_Address)" Visible="false" />
 
     <!--SYSRAM2_region6-->
     <RefParameter Name="SYSRAM2_region6_Start_Address" Comment="assign region6 start address" DefaultValue="=(SYSRAM2_region5_Start_Address + SYSRAM2_region5_Region_Size)" Type="hex" Min="=(SYSRAM2_region5_Start_Address + SYSRAM2_region5_Region_Size)" Max="0xA040000" Visible="false" />
@@ -7193,6 +7258,43 @@
 
     <RefParameter Name="SYSRAM2_Region_Size_Sum" Comment="" DefaultValue="0x20000" Type="hex" Min="0x20000" Max="0x20000" Visible="false" />
 
+   <!-- M33 configuration-->
+    <!--SYSRAM2_region1-->
+
+    <RefParameter Name="SYSRAM2_region1_Start_Address_M33" Comment="assign region1 start address" DefaultValue="0xE020000" Type="hex" Min="0xE020000" Max="0xE020000" Visible="false" />
+
+    <RefParameter Name="SYSRAM2_region1_End_Address_M33" Comment="" DefaultValue="0xE040000" Type="hex" Min="0xE040000" Max="0xE040000" Visible="false" />
+
+    <RefParameter Name="SYSRAM2_region1_Region_Size_M33" Comment="assign the region size for region1" DefaultValue="0x20000" Type="hex" Min="0x0000" Max="=(SYSRAM2_region1_End_Address_M33 - SYSRAM2_region1_Start_Address_M33)" Visible="false" />
+    <!--SYSRAM2_region2-->
+
+    <RefParameter Name="SYSRAM2_region2_Start_Address_M33" Comment="assign region2 start address" DefaultValue="=(SYSRAM2_region1_Start_Address_M33 + SYSRAM2_region1_Region_Size_M33)" Type="hex" Min="=(SYSRAM2_region1_Start_Address_M33 + SYSRAM2_region1_Region_Size_M33)" Max="0xE040000" Visible="false" />
+
+    <RefParameter Name="SYSRAM2_region2_Region_Size_M33" Comment="assign the region size for region2" DefaultValue="=(SYSRAM2_region1_End_Address_M33 -(SYSRAM2_region1_Start_Address_M33+SYSRAM2_region1_Region_Size_M33))" Type="hex" Min="0x0000" Max="=(SYSRAM2_region1_End_Address_M33 - SYSRAM2_region2_Start_Address_M33)" Visible="false" />
+
+    <!--SYSRAM2_region3-->
+
+    <RefParameter Name="SYSRAM2_region3_Start_Address_M33" Comment="assign region3 start address" DefaultValue="=(SYSRAM2_region2_Start_Address_M33 +  SYSRAM2_region2_Region_Size_M33)" Type="hex" Min="=(SYSRAM2_region2_Start_Address_M33 +  SYSRAM2_region2_Region_Size_M33)" Max="0xE040000" Visible="false" />
+
+    <RefParameter Name="SYSRAM2_region3_Region_Size_M33" Comment="assign the region size for region3" DefaultValue="=(SYSRAM2_region1_End_Address_M33 -(SYSRAM2_region2_Start_Address_M33+SYSRAM2_region2_Region_Size_M33))" Type="hex" Min="0x0000" Max="=(SYSRAM2_region1_End_Address_M33 - SYSRAM2_region3_Start_Address_M33)" Visible="false" />
+    <!--SYSRAM2_region4-->
+
+    <RefParameter Name="SYSRAM2_region4_Start_Address_M33" Comment="assign region4 start address" DefaultValue="=(SYSRAM2_region3_Start_Address_M33 + SYSRAM2_region3_Region_Size_M33)" Type="hex" Min="=(SYSRAM2_region3_Start_Address_M33 + SYSRAM2_region3_Region_Size_M33)" Max="0xE040000" Visible="false" />
+
+    <RefParameter Name="SYSRAM2_region4_Region_Size_M33" Comment="assign the region size for region4" DefaultValue="=(SYSRAM2_region1_End_Address_M33 -(SYSRAM2_region3_Start_Address_M33+SYSRAM2_region3_Region_Size_M33))" Type="hex" Min="0x0000" Max="=(SYSRAM2_region1_End_Address_M33 - SYSRAM2_region4_Start_Address_M33)" Visible="false" />
+
+    <!--SYSRAM2_region5-->
+
+    <RefParameter Name="SYSRAM2_region5_Start_Address_M33" Comment="assign region5 start address" DefaultValue="=(SYSRAM2_region4_Start_Address_M33 + SYSRAM2_region4_Region_Size_M33)" Type="hex" Min="=(SYSRAM2_region4_Start_Address_M33 + SYSRAM2_region4_Region_Size_M33)" Max="0xE040000" Visible="false" />
+
+    <RefParameter Name="SYSRAM2_region5_Region_Size_M33" Comment="assign the region size for region5" DefaultValue="=(SYSRAM2_region1_End_Address_M33 -(SYSRAM2_region4_Start_Address_M33+SYSRAM2_region4_Region_Size_M33))" Type="hex" Min="0x0000" Max="=(SYSRAM2_region1_End_Address_M33 - SYSRAM2_region5_Start_Address_M33)" Visible="false" />
+
+    <!--SYSRAM2_region6-->
+    <RefParameter Name="SYSRAM2_region6_Start_Address_M33" Comment="assign region6 start address" DefaultValue="=(SYSRAM2_region5_Start_Address_M33 + SYSRAM2_region5_Region_Size_M33)" Type="hex" Min="=(SYSRAM2_region5_Start_Address_M33 + SYSRAM2_region5_Region_Size_M33)" Max="0xE040000" Visible="false" />
+
+    <RefParameter Name="SYSRAM2_region6_Region_Size_M33" Comment="assign the region size for region6" DefaultValue="=(SYSRAM2_region1_End_Address_M33 -(SYSRAM2_region5_Start_Address_M33+SYSRAM2_region5_Region_Size_M33))" Type="hex" Min="0x0000" Max="=(SYSRAM2_region1_End_Address_M33 - SYSRAM2_region6_Start_Address_M33)" Visible="true" />
+
+    <RefParameter Name="SYSRAM2_Region_Size_Sum_M33" Comment="" DefaultValue="0x20000" Type="hex" Min="0x20000" Max="0x20000" Visible="false" />
 
     <!-- SYSRAM2 ___Owner-->
 
@@ -7843,45 +7945,85 @@
     </RefParameter>
 
 
-    <!--SRAM1_Start_Address AND  Region_Size-->
+       <!--SRAM1_Start_Address AND  Region_Size-->
 
     <RefParameter Name="SRAM1_region1_Start_Address" Comment="assign region1 start address" DefaultValue="0xA040000" Type="hex" Min="0xA040000" Max="0xA040000" Visible="false" />
 
     <RefParameter Name="SRAM1_region1_End_Address" Comment="" DefaultValue="0xA060000" Type="hex" Min="0xA060000" Max="0xA060000" Visible="false" />
 
-    <RefParameter Name="SRAM1_region1_Region_Size" Comment="assign the region size for region1" DefaultValue="0x1000" Type="hex" Min="0x0000" Max="=(SRAM1_region2_Start_Address - SRAM1_region1_Start_Address)" Visible="false" />
+    <RefParameter Name="SRAM1_region1_Region_Size" Comment="assign the region size for region1" DefaultValue="0x1000" Type="hex" Min="0x0000" Max="=(SRAM1_region1_End_Address - SRAM1_region1_Start_Address)" Visible="false" />
 
     <!--SRAM1_region2-->
 
     <RefParameter Name="SRAM1_region2_Start_Address" Comment="assign region2 start address" DefaultValue="=(SRAM1_region1_Start_Address + SRAM1_region1_Region_Size)" Type="hex" Min="=(SRAM1_region1_Start_Address + SRAM1_region1_Region_Size)" Max="0xA060000" Visible="false" />
 
-    <RefParameter Name="SRAM1_region2_Region_Size" Comment="assign the region size for region2" DefaultValue="=(SRAM1_region1_End_Address -(SRAM1_region1_Start_Address + SRAM1_region1_Region_Size))" Type="hex" Min="0x0000" Max="=(SRAM1_region3_Start_Address - SRAM1_region2_Start_Address)" Visible="false" />
+    <RefParameter Name="SRAM1_region2_Region_Size" Comment="assign the region size for region2" DefaultValue="0x1f000" Type="hex" Min="0x0000" Max="=(SRAM1_region1_End_Address -(SRAM1_region1_Start_Address+SRAM1_region1_Region_Size))" Visible="false" />
 
     <!--SRAM1_region3-->
 
     <RefParameter Name="SRAM1_region3_Start_Address" Comment="assign region3 start address" DefaultValue="=(SRAM1_region2_Start_Address +  SRAM1_region2_Region_Size)" Type="hex" Min="=(SRAM1_region2_Start_Address +  SRAM1_region2_Region_Size)" Max="0xA060000" Visible="false" />
 
-    <RefParameter Name="SRAM1_region3_Region_Size" Comment="assign the region size for region3" DefaultValue="=(SRAM1_region1_End_Address -(SRAM1_region2_Start_Address+SRAM1_region2_Region_Size))" Type="hex" Min="0x0000" Max="=(SRAM1_region4_Start_Address - SRAM1_region3_Start_Address)" Visible="false" />
+    <RefParameter Name="SRAM1_region3_Region_Size" Comment="assign the region size for region3" DefaultValue="=(SRAM1_region1_End_Address -(SRAM1_region2_Start_Address + SRAM1_region2_Region_Size))" Type="hex" Min="0x0000" Max="=(SRAM1_region1_End_Address -SRAM1_region3_Start_Address)" Visible="false" />
 
     <!--SRAM1_region4-->
 
     <RefParameter Name="SRAM1_region4_Start_Address" Comment="assign region4 start address" DefaultValue="=(SRAM1_region3_Start_Address + SRAM1_region3_Region_Size)" Type="hex" Min="=(SRAM1_region3_Start_Address + SRAM1_region3_Region_Size)" Max="0xA060000" Visible="false" />
 
-    <RefParameter Name="SRAM1_region4_Region_Size" Comment="assign the region size for region4" DefaultValue="=(SRAM1_region1_End_Address -(SRAM1_region3_Start_Address+SRAM1_region3_Region_Size))" Type="hex" Min="0x0000" Max="=(SRAM1_region5_Start_Address - SRAM1_region4_Start_Address)" Visible="false" />
+    <RefParameter Name="SRAM1_region4_Region_Size" Comment="assign the region size for region4" DefaultValue="=(SRAM1_region1_End_Address -(SRAM1_region3_Start_Address+ SRAM1_region3_Region_Size))" Type="hex" Min="0x0000" Max="=(SRAM1_region1_End_Address -SRAM1_region4_Start_Address)" Visible="false" />
 
     <!--SRAM1_region5-->
 
     <RefParameter Name="SRAM1_region5_Start_Address" Comment="assign region5 start address" DefaultValue="=(SRAM1_region4_Start_Address + SRAM1_region4_Region_Size)" Type="hex" Min="=(SRAM1_region4_Start_Address + SRAM1_region4_Region_Size)" Max="0xA060000" Visible="false" />
 
-    <RefParameter Name="SRAM1_region5_Region_Size" Comment="assign the region size for region5" DefaultValue="=(SRAM1_region1_End_Address -(SRAM1_region4_Start_Address+SRAM1_region4_Region_Size))" Type="hex" Min="0x0000" Max="=(SRAM1_region6_Start_Address - SRAM1_region5_Start_Address)" Visible="false" />
+    <RefParameter Name="SRAM1_region5_Region_Size" Comment="assign the region size for region5" DefaultValue="=(SRAM1_region1_End_Address -(SRAM1_region4_Start_Address+SRAM1_region4_Region_Size))" Type="hex" Min="0x0000" Max="=(SRAM1_region1_End_Address -SRAM1_region5_Start_Address)" Visible="false" />
 
     <!--SRAM1_region6-->
-    <RefParameter Name="SRAM1_region6_Start_Address" Comment="assign region6 start address" DefaultValue="=(SRAM1_region6_Start_Address + SRAM1_region5_Region_Size)" Type="hex" Min="=(SRAM1_region5_Start_Address + SRAM1_region5_Region_Size)" Max="0xA060000" Visible="false" />
+    <RefParameter Name="SRAM1_region6_Start_Address" Comment="assign region6 start address" DefaultValue="=(SRAM1_region5_Start_Address + SRAM1_region5_Region_Size)" Type="hex" Min="=(SRAM1_region5_Start_Address + SRAM1_region5_Region_Size)" Max="0xA060000" Visible="false" />
 
-    <RefParameter Name="SRAM1_region6_Region_Size" Comment="assign the region size for region6" DefaultValue="=(SRAM1_region1_End_Address -(SRAM1_region5_Start_Address+SRAM1_region5_Region_Size))" Type="hex" Min="0x0000" Max="=(SRAM1_region1_End_Address - SRAM1_region6_Start_Address)" Visible="true" />
+    <RefParameter Name="SRAM1_region6_Region_Size" Comment="assign the region size for region6" DefaultValue="=(SRAM1_region1_End_Address -(SRAM1_region5_Start_Address+SRAM1_region5_Region_Size))" Type="hex" Min="0x0000" Max="=(SRAM1_region1_End_Address -SRAM1_region6_Start_Address)" Visible="true" />
 
     <RefParameter Name="SRAM1_Region_Size_Sum" Comment="" DefaultValue="0x20000" Type="hex" Min="0x20000" Max="0x20000" Visible="false" />
 
+    <!-- M33 Configuration-->
+
+       <!--SRAM1_Start_Address AND  Region_Size-->
+
+    <RefParameter Name="SRAM1_region1_Start_Address_M33" Comment="assign region1 start address" DefaultValue="0xE040000" Type="hex" Min="0xE040000" Max="0xE040000" Visible="false" />
+
+    <RefParameter Name="SRAM1_region1_End_Address_M33" Comment="" DefaultValue="0xE060000" Type="hex" Min="0xE060000" Max="0xE060000" Visible="false" />
+
+    <RefParameter Name="SRAM1_region1_Region_Size_M33" Comment="assign the region size for region1" DefaultValue="0x1000" Type="hex" Min="0x0000" Max="=(SRAM1_region1_End_Address_M33 - SRAM1_region1_Start_Address_M33)" Visible="false" />
+
+    <!--SRAM1_region2-->
+
+    <RefParameter Name="SRAM1_region2_Start_Address_M33" Comment="assign region2 start address" DefaultValue="=(SRAM1_region1_Start_Address_M33 + SRAM1_region1_Region_Size_M33)" Type="hex" Min="=(SRAM1_region1_Start_Address_M33 + SRAM1_region1_Region_Size_M33)" Max="0xE060000" Visible="false" />
+
+    <RefParameter Name="SRAM1_region2_Region_Size_M33" Comment="assign the region size for region2" DefaultValue="0x1f000" Type="hex" Min="0x0000" Max="=(SRAM1_region1_End_Address_M33 -(SRAM1_region1_Start_Address_M33+SRAM1_region1_Region_Size_M33))" Visible="false" />
+
+    <!--SRAM1_region3-->
+
+    <RefParameter Name="SRAM1_region3_Start_Address_M33" Comment="assign region3 start address" DefaultValue="=(SRAM1_region2_Start_Address_M33 +  SRAM1_region2_Region_Size_M33)" Type="hex" Min="=(SRAM1_region2_Start_Address_M33 +  SRAM1_region2_Region_Size_M33)" Max="0xE060000" Visible="false" />
+
+    <RefParameter Name="SRAM1_region3_Region_Size_M33" Comment="assign the region size for region3" DefaultValue="=(SRAM1_region1_End_Address_M33 -(SRAM1_region2_Start_Address_M33 + SRAM1_region2_Region_Size_M33))" Type="hex" Min="0x0000" Max="=(SRAM1_region1_End_Address_M33 -SRAM1_region3_Start_Address_M33)" Visible="false" />
+
+    <!--SRAM1_region4-->
+
+    <RefParameter Name="SRAM1_region4_Start_Address_M33" Comment="assign region4 start address" DefaultValue="=(SRAM1_region3_Start_Address_M33 + SRAM1_region3_Region_Size_M33)" Type="hex" Min="=(SRAM1_region3_Start_Address_M33 + SRAM1_region3_Region_Size_M33)" Max="0xE060000" Visible="false" />
+
+    <RefParameter Name="SRAM1_region4_Region_Size_M33" Comment="assign the region size for region4" DefaultValue="=(SRAM1_region1_End_Address_M33 -(SRAM1_region3_Start_Address_M33+ SRAM1_region3_Region_Size_M33))" Type="hex" Min="0x0000" Max="=(SRAM1_region1_End_Address_M33 -SRAM1_region4_Start_Address_M33)" Visible="false" />
+
+    <!--SRAM1_region5-->
+
+    <RefParameter Name="SRAM1_region5_Start_Address_M33" Comment="assign region5 start address" DefaultValue="=(SRAM1_region4_Start_Address_M33 + SRAM1_region4_Region_Size_M33)" Type="hex" Min="=(SRAM1_region4_Start_Address_M33 + SRAM1_region4_Region_Size_M33)" Max="0xE060000" Visible="false" />
+
+    <RefParameter Name="SRAM1_region5_Region_Size_M33" Comment="assign the region size for region5" DefaultValue="=(SRAM1_region1_End_Address_M33 -(SRAM1_region4_Start_Address_M33+SRAM1_region4_Region_Size_M33))" Type="hex" Min="0x0000" Max="=(SRAM1_region1_End_Address_M33 -SRAM1_region5_Start_Address_M33)" Visible="false" />
+
+    <!--SRAM1_region6-->
+    <RefParameter Name="SRAM1_region6_Start_Address_M33" Comment="assign region6 start address" DefaultValue="=(SRAM1_region5_Start_Address_M33 + SRAM1_region5_Region_Size_M33)" Type="hex" Min="=(SRAM1_region5_Start_Address_M33 + SRAM1_region5_Region_Size_M33)" Max="0xE060000" Visible="false" />
+
+    <RefParameter Name="SRAM1_region6_Region_Size_M33" Comment="assign the region size for region6" DefaultValue="=(SRAM1_region1_End_Address_M33 -(SRAM1_region5_Start_Address_M33+SRAM1_region5_Region_Size_M33))" Type="hex" Min="0x0000" Max="=(SRAM1_region1_End_Address_M33 -SRAM1_region6_Start_Address_M33)" Visible="true" />
+
+    <RefParameter Name="SRAM1_Region_Size_Sum_M33" Comment="" DefaultValue="0x20000" Type="hex" Min="0x20000" Max="0x20000" Visible="false" />
 
     <!-- SYSRAM1 ___Owner-->
 
@@ -8535,42 +8677,84 @@
 
     <!--SRAM2_region1-->
 
+        <!--SRAM2_Start_Address AND  Region_Size-->
+
     <RefParameter Name="SRAM2_region1_Start_Address" Comment="assign region1 start address" DefaultValue="0xA060000" Type="hex" Min="0xA060000" Max="0xA060000" Visible="false" />
 
     <RefParameter Name="SRAM2_region1_End_Address" Comment="" DefaultValue="0xA080000" Type="hex" Min="0xA080000" Max="0xA080000" Visible="false" />
 
-    <RefParameter Name="SRAM2_region1_Region_Size" Comment="assign the region size for region1" DefaultValue="0x20000" Type="hex" Min="0x0000" Max="=(SRAM2_region1_Start_Address - SRAM2_region1_Start_Address)" Visible="false" />
+    <RefParameter Name="SRAM2_region1_Region_Size" Comment="assign the region size for region1" DefaultValue="0x20000" Type="hex" Min="0x0000" Max="=(SRAM2_region1_End_Address - SRAM2_region1_Start_Address)" Visible="false" />
 
     <!--SRAM2_region2-->
 
     <RefParameter Name="SRAM2_region2_Start_Address" Comment="assign region2 start address" DefaultValue="=(SRAM2_region1_Start_Address + SRAM2_region1_Region_Size)" Type="hex" Min="=(SRAM2_region1_Start_Address + SRAM2_region1_Region_Size)" Max="0xA080000" Visible="false" />
 
-    <RefParameter Name="SRAM2_region2_Region_Size" Comment="assign the region size for region2" DefaultValue="0x0" Type="hex" Min="0x0000" Max="=(SRAM2_region3_Start_Address - SRAM2_region1_Start_Address)" Visible="false" />
+    <RefParameter Name="SRAM2_region2_Region_Size" Comment="assign the region size for region2" DefaultValue="=(SRAM2_region1_End_Address -(SRAM2_region1_Start_Address+SRAM2_region1_Region_Size))" Type="hex" Min="0x0000" Max="=(SRAM2_region1_End_Address -(SRAM2_region1_Start_Address+SRAM2_region1_Region_Size))" Visible="false" />
 
     <!--SRAM2_region3-->
 
     <RefParameter Name="SRAM2_region3_Start_Address" Comment="assign region3 start address" DefaultValue="=(SRAM2_region2_Start_Address +  SRAM2_region2_Region_Size)" Type="hex" Min="=(SRAM2_region2_Start_Address +  SRAM2_region2_Region_Size)" Max="0xA080000" Visible="false" />
 
-    <RefParameter Name="SRAM2_region3_Region_Size" Comment="assign the region size for region3" DefaultValue="=(SRAM2_region1_End_Address -(SRAM2_region2_Start_Address+SRAM2_region2_Region_Size))" Type="hex" Min="0x0000" Max="=(SRAM2_region4_Start_Address - SRAM2_region3_Start_Address)" Visible="false" />
+    <RefParameter Name="SRAM2_region3_Region_Size" Comment="assign the region size for region3" DefaultValue="=(SRAM2_region1_End_Address -(SRAM2_region2_Start_Address + SRAM2_region2_Region_Size))" Type="hex" Min="0x0000" Max="=(SRAM2_region1_End_Address -SRAM2_region3_Start_Address)" Visible="false" />
 
     <!--SRAM2_region4-->
 
     <RefParameter Name="SRAM2_region4_Start_Address" Comment="assign region4 start address" DefaultValue="=(SRAM2_region3_Start_Address + SRAM2_region3_Region_Size)" Type="hex" Min="=(SRAM2_region3_Start_Address + SRAM2_region3_Region_Size)" Max="0xA080000" Visible="false" />
 
-    <RefParameter Name="SRAM2_region4_Region_Size" Comment="assign the region size for region4" DefaultValue="=(SRAM2_region1_End_Address -(SRAM2_region3_Start_Address+SRAM2_region3_Region_Size))" Type="hex" Min="0x0000" Max="=(SRAM2_region5_Start_Address - SRAM2_region4_Start_Address)" Visible="false" />
+    <RefParameter Name="SRAM2_region4_Region_Size" Comment="assign the region size for region4" DefaultValue="=(SRAM2_region1_End_Address -(SRAM2_region3_Start_Address+ SRAM2_region3_Region_Size))" Type="hex" Min="0x0000" Max="=(SRAM2_region1_End_Address -SRAM2_region4_Start_Address)" Visible="false" />
 
     <!--SRAM2_region5-->
 
     <RefParameter Name="SRAM2_region5_Start_Address" Comment="assign region5 start address" DefaultValue="=(SRAM2_region4_Start_Address + SRAM2_region4_Region_Size)" Type="hex" Min="=(SRAM2_region4_Start_Address + SRAM2_region4_Region_Size)" Max="0xA080000" Visible="false" />
 
-    <RefParameter Name="SRAM2_region5_Region_Size" Comment="assign the region size for region5" DefaultValue="=(SRAM2_region1_End_Address -(SRAM2_region4_Start_Address+SRAM2_region4_Region_Size))" Type="hex" Min="0x0000" Max="=(SRAM2_region6_Start_Address - SRAM2_region5_Start_Address)" Visible="false" />
+    <RefParameter Name="SRAM2_region5_Region_Size" Comment="assign the region size for region5" DefaultValue="=(SRAM2_region1_End_Address -(SRAM2_region4_Start_Address+SRAM2_region4_Region_Size))" Type="hex" Min="0x0000" Max="=(SRAM2_region1_End_Address -SRAM2_region5_Start_Address)" Visible="false" />
 
     <!--SRAM2_region6-->
     <RefParameter Name="SRAM2_region6_Start_Address" Comment="assign region6 start address" DefaultValue="=(SRAM2_region5_Start_Address + SRAM2_region5_Region_Size)" Type="hex" Min="=(SRAM2_region5_Start_Address + SRAM2_region5_Region_Size)" Max="0xA080000" Visible="false" />
 
-    <RefParameter Name="SRAM2_region6_Region_Size" Comment="assign the region size for region6" DefaultValue="=(SRAM2_region1_End_Address -(SRAM2_region5_Start_Address+SRAM2_region5_Region_Size))" Type="hex" Min="0x0000" Max="=(SRAM2_region1_End_Address - SRAM2_region6_Start_Address)" Visible="true" />
+    <RefParameter Name="SRAM2_region6_Region_Size" Comment="assign the region size for region6" DefaultValue="=(SRAM2_region1_End_Address -(SRAM2_region5_Start_Address+SRAM2_region5_Region_Size))" Type="hex" Min="0x0000" Max="=(SRAM2_region1_End_Address -SRAM2_region6_Start_Address)" Visible="true" />
 
     <RefParameter Name="SRAM2_Region_Size_Sum" Comment="" DefaultValue="0x20000" Type="hex" Min="0x20000" Max="0x20000" Visible="false" />
+
+    <!--M33 Configuration -->
+    <!--SRAM2_Start_Address AND  Region_Size-->
+
+    <RefParameter Name="SRAM2_region1_Start_Address_M33" Comment="assign region1 start address" DefaultValue="0xE060000" Type="hex" Min="0xE060000" Max="0xE060000" Visible="false" />
+
+    <RefParameter Name="SRAM2_region1_End_Address_M33" Comment="" DefaultValue="0xE080000" Type="hex" Min="0xE080000" Max="0xE080000" Visible="false" />
+
+    <RefParameter Name="SRAM2_region1_Region_Size_M33" Comment="assign the region size for region1" DefaultValue="0x20000" Type="hex" Min="0x0000" Max="=(SRAM2_region1_End_Address_M33 - SRAM2_region1_Start_Address_M33)" Visible="false" />
+
+    <!--SRAM2_region2-->
+
+    <RefParameter Name="SRAM2_region2_Start_Address_M33" Comment="assign region2 start address" DefaultValue="=(SRAM2_region1_Start_Address_M33 + SRAM2_region1_Region_Size_M33)" Type="hex" Min="=(SRAM2_region1_Start_Address_M33 + SRAM2_region1_Region_Size_M33)" Max="0xE080000" Visible="false" />
+
+    <RefParameter Name="SRAM2_region2_Region_Size_M33" Comment="assign the region size for region2" DefaultValue="=(SRAM2_region1_End_Address_M33 -(SRAM2_region1_Start_Address_M33+SRAM2_region1_Region_Size_M33))" Type="hex" Min="0x0000" Max="=(SRAM2_region1_End_Address_M33 -(SRAM2_region1_Start_Address_M33+SRAM2_region1_Region_Size_M33))" Visible="false" />
+
+    <!--SRAM2_region3-->
+
+    <RefParameter Name="SRAM2_region3_Start_Address_M33" Comment="assign region3 start address" DefaultValue="=(SRAM2_region2_Start_Address_M33 +  SRAM2_region2_Region_Size_M33)" Type="hex" Min="=(SRAM2_region2_Start_Address_M33 +  SRAM2_region2_Region_Size_M33)" Max="0xE080000" Visible="false" />
+
+    <RefParameter Name="SRAM2_region3_Region_Size_M33" Comment="assign the region size for region3" DefaultValue="=(SRAM2_region1_End_Address_M33 -(SRAM2_region2_Start_Address_M33 + SRAM2_region2_Region_Size_M33))" Type="hex" Min="0x0000" Max="=(SRAM2_region1_End_Address_M33 -SRAM2_region3_Start_Address_M33)" Visible="false" />
+
+    <!--SRAM2_region4-->
+
+    <RefParameter Name="SRAM2_region4_Start_Address_M33" Comment="assign region4 start address" DefaultValue="=(SRAM2_region3_Start_Address_M33 + SRAM2_region3_Region_Size_M33)" Type="hex" Min="=(SRAM2_region3_Start_Address_M33 + SRAM2_region3_Region_Size_M33)" Max="0xE080000" Visible="false" />
+
+    <RefParameter Name="SRAM2_region4_Region_Size_M33" Comment="assign the region size for region4" DefaultValue="=(SRAM2_region1_End_Address_M33 -(SRAM2_region3_Start_Address_M33+ SRAM2_region3_Region_Size_M33))" Type="hex" Min="0x0000" Max="=(SRAM2_region1_End_Address_M33 -SRAM2_region4_Start_Address_M33)" Visible="false" />
+
+    <!--SRAM2_region5-->
+
+    <RefParameter Name="SRAM2_region5_Start_Address_M33" Comment="assign region5 start address" DefaultValue="=(SRAM2_region4_Start_Address_M33 + SRAM2_region4_Region_Size_M33)" Type="hex" Min="=(SRAM2_region4_Start_Address_M33 + SRAM2_region4_Region_Size_M33)" Max="0xE080000" Visible="false" />
+
+    <RefParameter Name="SRAM2_region5_Region_Size_M33" Comment="assign the region size for region5" DefaultValue="=(SRAM2_region1_End_Address_M33 -(SRAM2_region4_Start_Address_M33+SRAM2_region4_Region_Size_M33))" Type="hex" Min="0x0000" Max="=(SRAM2_region1_End_Address_M33 -SRAM2_region5_Start_Address_M33)" Visible="false" />
+
+    <!--SRAM2_region6-->
+    <RefParameter Name="SRAM2_region6_Start_Address_M33" Comment="assign region6 start address" DefaultValue="=(SRAM2_region5_Start_Address_M33 + SRAM2_region5_Region_Size_M33)" Type="hex" Min="=(SRAM2_region5_Start_Address_M33 + SRAM2_region5_Region_Size_M33)" Max="0xE080000" Visible="false" />
+
+    <RefParameter Name="SRAM2_region6_Region_Size_M33" Comment="assign the region size for region6" DefaultValue="=(SRAM2_region1_End_Address_M33 -(SRAM2_region5_Start_Address_M33+SRAM2_region5_Region_Size_M33))" Type="hex" Min="0x0000" Max="=(SRAM2_region1_End_Address_M33 -SRAM2_region6_Start_Address_M33)" Visible="true" />
+
+    <RefParameter Name="SRAM2_Region_Size_Sum_M33" Comment="" DefaultValue="0x20000" Type="hex" Min="0x20000" Max="0x20000" Visible="false" />
 
 
     <!-- SYSRAM2 ___Owner-->
@@ -9228,30 +9412,30 @@
 
     <RefParameter Name="RETRAM_region1_End_Address" Comment="" DefaultValue="0xA0A0000" Type="hex" Min="0xA0A0000" Max="0xA0A0000" Visible="false" />
 
-    <RefParameter Name="RETRAM_region1_Region_Size" Comment="assign the region size for region1" DefaultValue="0x20000" Type="hex" Min="0x0000" Max="=(RETRAM_region2_Start_Address - SYSRAM1_region1_Start_Address)" Visible="false" />
+    <RefParameter Name="RETRAM_region1_Region_Size" Comment="assign the region size for region1" DefaultValue="0x20000" Type="hex" Min="0x0000" Max="=(RETRAM_region1_End_Address - RETRAM1_region1_Start_Address)" Visible="false" />
     <!--RETRAM_region2-->
 
     <RefParameter Name="RETRAM_region2_Start_Address" Comment="assign region2 start address" DefaultValue="=(RETRAM_region1_Start_Address + RETRAM_region1_Region_Size)" Type="hex" Min="=(RETRAM_region1_Start_Address + RETRAM_region1_Region_Size)" Max="0xA0A0000" Visible="false" />
 
-    <RefParameter Name="RETRAM_region2_Region_Size" Comment="assign the region size for region2" DefaultValue="=(RETRAM_region1_End_Address -(RETRAM_region1_Start_Address+RETRAM_region1_Region_Size))" Type="hex" Min="0x0000" Max="=(RETRAM_region3_Start_Address - RETRAM_region2_Start_Address)" Visible="false" />
+    <RefParameter Name="RETRAM_region2_Region_Size" Comment="assign the region size for region2" DefaultValue="=(RETRAM_region1_End_Address -(RETRAM_region1_Start_Address+RETRAM_region1_Region_Size))" Type="hex" Min="0x0000" Max="=(RETRAM_region1_End_Address - RETRAM_region2_Start_Address)" Visible="false" />
 
     <!--RETRAM_region3-->
 
     <RefParameter Name="RETRAM_region3_Start_Address" Comment="assign region3 start address" DefaultValue="=(RETRAM_region2_Start_Address +  RETRAM_region2_Region_Size)" Type="hex" Min="=(RETRAM_region2_Start_Address +  RETRAM_region2_Region_Size)" Max="0xA0A0000" Visible="false" />
 
-    <RefParameter Name="RETRAM_region3_Region_Size" Comment="assign the region size for region3" DefaultValue="=(RETRAM_region1_End_Address -(RETRAM_region2_Start_Address+RETRAM_region2_Region_Size))" Type="hex" Min="0x0000" Max="=(RETRAM_region4_Start_Address - RETRAM_region3_Start_Address)" Visible="false" />
+    <RefParameter Name="RETRAM_region3_Region_Size" Comment="assign the region size for region3" DefaultValue="=(RETRAM_region1_End_Address -(RETRAM_region2_Start_Address+RETRAM_region2_Region_Size))" Type="hex" Min="0x0000" Max="=(RETRAM_region1_End_Address - RETRAM_region3_Start_Address)" Visible="false" />
 
     <!--RETRAM_region4-->
 
     <RefParameter Name="RETRAM_region4_Start_Address" Comment="assign region4 start address" DefaultValue="=(RETRAM_region3_Start_Address + RETRAM_region3_Region_Size)" Type="hex" Min="=(RETRAM_region3_Start_Address + RETRAM_region3_Region_Size)" Max="0xA0A0000" Visible="false" />
 
-    <RefParameter Name="RETRAM_region4_Region_Size" Comment="assign the region size for region4" DefaultValue="=(RETRAM_region1_End_Address -(RETRAM_region3_Start_Address+RETRAM_region3_Region_Size))" Type="hex" Min="0x0000" Max="=(RETRAM_region5_Start_Address - RETRAM_region4_Start_Address)" Visible="false" />
+    <RefParameter Name="RETRAM_region4_Region_Size" Comment="assign the region size for region4" DefaultValue="=(RETRAM_region1_End_Address -(RETRAM_region3_Start_Address+RETRAM_region3_Region_Size))" Type="hex" Min="0x0000" Max="=(RETRAM_region1_End_Address - RETRAM_region4_Start_Address)" Visible="false" />
 
     <!--RETRAM_region5-->
 
     <RefParameter Name="RETRAM_region5_Start_Address" Comment="assign region5 start address" DefaultValue="=(RETRAM_region4_Start_Address + RETRAM_region4_Region_Size)" Type="hex" Min="=(RETRAM_region4_Start_Address + RETRAM_region4_Region_Size)" Max="0xA0A0000" Visible="false" />
 
-    <RefParameter Name="RETRAM_region5_Region_Size" Comment="assign the region size for region5" DefaultValue="=(RETRAM_region1_End_Address -(RETRAM_region4_Start_Address+RETRAM_region4_Region_Size))" Type="hex" Min="0x0000" Max="=(RETRAM_region6_Start_Address - RETRAM_region5_Start_Address)" Visible="false" />
+    <RefParameter Name="RETRAM_region5_Region_Size" Comment="assign the region size for region5" DefaultValue="=(RETRAM_region1_End_Address -(RETRAM_region4_Start_Address+RETRAM_region4_Region_Size))" Type="hex" Min="0x0000" Max="=(RETRAM_region1_End_Address - RETRAM_region5_Start_Address)" Visible="false" />
 
     <!--RETRAM_region6-->
 
@@ -9260,6 +9444,47 @@
     <RefParameter Name="RETRAM_region6_Region_Size" Comment="assign the region size for region6" DefaultValue="=(RETRAM_region1_End_Address -(RETRAM_region5_Start_Address+RETRAM_region5_Region_Size))" Type="hex" Min="0x0000" Max="=(RETRAM_region1_End_Address - RETRAM_region6_Start_Address)" Visible="true" />
 
     <RefParameter Name="RETRAM_Region_Size_Sum" Comment="" DefaultValue="0x20000" Type="hex" Min="0x20000" Max="0x20000" Visible="false" />
+
+    <!-- M33 Configuration-->
+ <!-- A35 Configuration-->
+    <!--RETRAM_region1-->
+
+    <RefParameter Name="RETRAM_region1_Start_Address_M33" Comment="assign region1 start address" DefaultValue="0xE080000" Type="hex" Min="0xE080000" Max="0xE080000" Visible="false" />
+
+    <RefParameter Name="RETRAM_region1_End_Address_M33" Comment="" DefaultValue="0xE0A0000" Type="hex" Min="0xE0A0000" Max="0xE0A0000" Visible="false" />
+
+    <RefParameter Name="RETRAM_region1_Region_Size_M33" Comment="assign the region size for region1" DefaultValue="0x20000" Type="hex" Min="0x0000" Max="=(RETRAM_region1_End_Address_M33 - RETRAM1_region1_Start_Address_M33)" Visible="false" />
+    <!--RETRAM_region2-->
+
+    <RefParameter Name="RETRAM_region2_Start_Address_M33" Comment="assign region2 start address" DefaultValue="=(RETRAM_region1_Start_Address_M33 + RETRAM_region1_Region_Size_M33)" Type="hex" Min="=(RETRAM_region1_Start_Address_M33 + RETRAM_region1_Region_Size_M33)" Max="0xE0A0000" Visible="false" />
+
+    <RefParameter Name="RETRAM_region2_Region_Size_M33" Comment="assign the region size for region2" DefaultValue="=(RETRAM_region1_End_Address_M33 -(RETRAM_region1_Start_Address_M33+RETRAM_region1_Region_Size_M33))" Type="hex" Min="0x0000" Max="=(RETRAM_region1_End_Address_M33 - RETRAM_region2_Start_Address_M33)" Visible="false" />
+
+    <!--RETRAM_region3-->
+
+    <RefParameter Name="RETRAM_region3_Start_Address_M33" Comment="assign region3 start address" DefaultValue="=(RETRAM_region2_Start_Address_M33 +  RETRAM_region2_Region_Size_M33)" Type="hex" Min="=(RETRAM_region2_Start_Address_M33 +  RETRAM_region2_Region_Size_M33)" Max="0xE0A0000" Visible="false" />
+
+    <RefParameter Name="RETRAM_region3_Region_Size_M33" Comment="assign the region size for region3" DefaultValue="=(RETRAM_region1_End_Address_M33 -(RETRAM_region2_Start_Address_M33+RETRAM_region2_Region_Size_M33))" Type="hex" Min="0x0000" Max="=(RETRAM_region1_End_Address_M33 - RETRAM_region3_Start_Address_M33)" Visible="false" />
+
+    <!--RETRAM_region4-->
+
+    <RefParameter Name="RETRAM_region4_Start_Address_M33" Comment="assign region4 start address" DefaultValue="=(RETRAM_region3_Start_Address_M33 + RETRAM_region3_Region_Size_M33)" Type="hex" Min="=(RETRAM_region3_Start_Address_M33 + RETRAM_region3_Region_Size_M33)" Max="0xE0A0000" Visible="false" />
+
+    <RefParameter Name="RETRAM_region4_Region_Size_M33" Comment="assign the region size for region4" DefaultValue="=(RETRAM_region1_End_Address_M33 -(RETRAM_region3_Start_Address_M33+RETRAM_region3_Region_Size_M33))" Type="hex" Min="0x0000" Max="=(RETRAM_region1_End_Address_M33 - RETRAM_region4_Start_Address_M33)" Visible="false" />
+
+    <!--RETRAM_region5-->
+
+    <RefParameter Name="RETRAM_region5_Start_Address_M33" Comment="assign region5 start address" DefaultValue="=(RETRAM_region4_Start_Address_M33 + RETRAM_region4_Region_Size_M33)" Type="hex" Min="=(RETRAM_region4_Start_Address_M33 + RETRAM_region4_Region_Size_M33)" Max="0xE0A0000" Visible="false" />
+
+    <RefParameter Name="RETRAM_region5_Region_Size_M33" Comment="assign the region size for region5" DefaultValue="=(RETRAM_region1_End_Address_M33 -(RETRAM_region4_Start_Address_M33+RETRAM_region4_Region_Size_M33))" Type="hex" Min="0x0000" Max="=(RETRAM_region1_End_Address_M33 - RETRAM_region5_Start_Address_M33)" Visible="false" />
+
+    <!--RETRAM_region6-->
+
+    <RefParameter Name="RETRAM_region6_Start_Address_M33" Comment="assign region6 start address" DefaultValue="=(RETRAM_region5_Start_Address_M33 + RETRAM_region5_Region_Size_M33)" Type="hex" Min="=(RETRAM_region5_Start_Address_M33 + RETRAM_region5_Region_Size_M33)" Max="0xE0A0000" Visible="false" />
+
+    <RefParameter Name="RETRAM_region6_Region_Size_M33" Comment="assign the region size for region6" DefaultValue="=(RETRAM_region1_End_Address_M33 -(RETRAM_region5_Start_Address_M33+RETRAM_region5_Region_Size_M33))" Type="hex" Min="0x0000" Max="=(RETRAM_region1_End_Address_M33 - RETRAM_region6_Start_Address_M33)" Visible="true" />
+
+    <RefParameter Name="RETRAM_Region_Size_Sum_M33" Comment="" DefaultValue="0x20000" Type="hex" Min="0x20000" Max="0x20000" Visible="false" />
 
 
     <RefParameter Name="RETRAM_region1_Owner" Comment="RETRAM_region1_Owner" DefaultValue="TDCID" Type="string" />
@@ -9916,37 +10141,77 @@
 
     <RefParameter Name="VDERAM_region1_End_Address" Comment="" DefaultValue="0xA0C0000" Type="hex" Min="0xA0C0000" Max="0xA0C0000" Visible="false" />
 
-    <RefParameter Name="VDERAM_region1_Region_Size" Comment="assign the region size for region1" DefaultValue="0x20000" Type="hex" Min="0x0000" Max="=(VDERAM_region2_Start_Address - VDERAM_region1_Start_Address)" Visible="false" />
+    <RefParameter Name="VDERAM_region1_Region_Size" Comment="assign the region size for region1" DefaultValue="0x20000" Type="hex" Min="0x0000" Max="=(VDERAM_region1_End_Address - VDERAM_region1_Start_Address)" Visible="false" />
 
     <!--VDERAM_region2-->
 
     <RefParameter Name="VDERAM_region2_Start_Address" Comment="assign region2 start address" DefaultValue="=(VDERAM_region1_Start_Address + VDERAM_region1_Region_Size)" Type="hex" Min="=(VDERAM_region1_Start_Address + VDERAM_region1_Region_Size)" Max="0xA0C0000" Visible="false" />
 
-    <RefParameter Name="VDERAM_region2_Region_Size" Comment="assign the region size for region2" DefaultValue="=(VDERAM_region1_End_Address -(VDERAM_region1_Start_Address+VDERAM_region1_Region_Size))" Type="hex" Min="0x0000" Max="=(VDERAM_region3_Start_Address - VDERAM_region2_Start_Address)" Visible="false" />
+    <RefParameter Name="VDERAM_region2_Region_Size" Comment="assign the region size for region2" DefaultValue="=(VDERAM_region1_End_Address -(VDERAM_region1_Start_Address+VDERAM_region1_Region_Size))" Type="hex" Min="0x0000" Max="=(VDERAM_region1_End_Address - VDERAM_region2_Start_Address)" Visible="false" />
 
     <!--VDERAM_region3-->
 
     <RefParameter Name="VDERAM_region3_Start_Address" Comment="assign region3 start address" DefaultValue="=(VDERAM_region2_Start_Address +  VDERAM_region2_Region_Size)" Type="hex" Min="=(VDERAM_region2_Start_Address +  VDERAM_region2_Region_Size)" Max="0xA0C0000" Visible="false" />
 
-    <RefParameter Name="VDERAM_region3_Region_Size" Comment="assign the region size for region3" DefaultValue="=(VDERAM_region1_End_Address -(VDERAM_region2_Start_Address+VDERAM_region2_Region_Size))" Type="hex" Min="0x0000" Max="=(VDERAM_region4_Start_Address - VDERAM_region3_Start_Address)" Visible="false" />
+    <RefParameter Name="VDERAM_region3_Region_Size" Comment="assign the region size for region3" DefaultValue="=(VDERAM_region1_End_Address -(VDERAM_region2_Start_Address+VDERAM_region2_Region_Size))" Type="hex" Min="0x0000" Max="=(VDERAM_region1_End_Address - VDERAM_region3_Start_Address)" Visible="false" />
     <!--VDERAM_region4-->
 
     <RefParameter Name="VDERAM_region4_Start_Address" Comment="assign region4 start address" DefaultValue="=(VDERAM_region3_Start_Address + VDERAM_region3_Region_Size)" Type="hex" Min="=(VDERAM_region3_Start_Address + VDERAM_region3_Region_Size)" Max="0xA0C0000" Visible="false" />
 
-    <RefParameter Name="VDERAM_region4_Region_Size" Comment="assign the region size for region4" DefaultValue="=(VDERAM_region1_End_Address -(VDERAM_region3_Start_Address+VDERAM_region3_Region_Size))" Type="hex" Min="0x0000" Max="=(VDERAM_region5_Start_Address - VDERAM_region4_Start_Address)" Visible="false" />
+    <RefParameter Name="VDERAM_region4_Region_Size" Comment="assign the region size for region4" DefaultValue="=(VDERAM_region1_End_Address -(VDERAM_region3_Start_Address+VDERAM_region3_Region_Size))" Type="hex" Min="0x0000" Max="=(VDERAM_region1_End_Address - VDERAM_region4_Start_Address)" Visible="false" />
 
     <!--VDERAM_region5-->
 
     <RefParameter Name="VDERAM_region5_Start_Address" Comment="assign region5 start address" DefaultValue="=(VDERAM_region4_Start_Address + VDERAM_region4_Region_Size)" Type="hex" Min="=(VDERAM_region4_Start_Address + VDERAM_region4_Region_Size)" Max="0xA0C0000" Visible="false" />
 
-    <RefParameter Name="VDERAM_region5_Region_Size" Comment="assign the region size for region5" DefaultValue="=(VDERAM_region1_End_Address -(VDERAM_region4_Start_Address+VDERAM_region4_Region_Size))" Type="hex" Min="0x0000" Max="=(VDERAM_region6_Start_Address - VDERAM_region5_Start_Address)" Visible="false" />
+    <RefParameter Name="VDERAM_region5_Region_Size" Comment="assign the region size for region5" DefaultValue="=(VDERAM_region1_End_Address -(VDERAM_region4_Start_Address+VDERAM_region4_Region_Size))" Type="hex" Min="0x0000" Max="=(VDERAM_region1_End_Address - VDERAM_region5_Start_Address)" Visible="false" />
 
     <!--VDERAM_region6-->
     <RefParameter Name="VDERAM_region6_Start_Address" Comment="assign region6 start address" DefaultValue="=(VDERAM_region5_Start_Address + VDERAM_region5_Region_Size)" Type="hex" Min="=(VDERAM_region5_Start_Address + VDERAM_region5_Region_Size)" Max="0xA0C0000" Visible="false" />
 
     <RefParameter Name="VDERAM_region6_Region_Size" Comment="assign the region size for region6" DefaultValue="=(VDERAM_region1_End_Address -(VDERAM_region5_Start_Address+VDERAM_region5_Region_Size))" Type="hex" Min="0x0000" Max="=(VDERAM_region1_End_Address - VDERAM_region6_Start_Address)" Visible="true" />
 
-    <RefParameter Name="VDERAM_Region_Size_Sum" Comment="" DefaultValue="0x20000" Type="hex" Min="0x20000" Max="0x20000" Visible="false" />
+    <RefParameter Name="VDERAM_Region_Size_Sum" Comment="" DefaultValue="0x21000" Type="hex" Min="0x20000" Max="0x21000" Visible="false" />
+
+   <!-- M33 Configuration-->
+    <!--VDERAM_region1-->
+
+
+    <RefParameter Name="VDERAM_region1_Start_Address_M33" Comment="assign region1 start address" DefaultValue="0xE09F000" Type="hex" Min="0xE09F000" Max="0xE09F000" Visible="false" />
+
+    <RefParameter Name="VDERAM_region1_End_Address_M33" Comment="" DefaultValue="0xE0C0000" Type="hex" Min="0xE0C0000" Max="0xE0C0000" Visible="false" />
+
+    <RefParameter Name="VDERAM_region1_Region_Size_M33" Comment="assign the region size for region1" DefaultValue="0x20000" Type="hex" Min="0x0000" Max="=(VDERAM_region1_End_Address_M33 - VDERAM_region1_Start_Address_M33)" Visible="false" />
+
+    <!--VDERAM_region2-->
+
+    <RefParameter Name="VDERAM_region2_Start_Address_M33" Comment="assign region2 start address" DefaultValue="=(VDERAM_region1_Start_Address_M33 + VDERAM_region1_Region_Size_M33)" Type="hex" Min="=(VDERAM_region1_Start_Address_M33 + VDERAM_region1_Region_Size_M33)" Max="0xE0C0000" Visible="false" />
+
+    <RefParameter Name="VDERAM_region2_Region_Size_M33" Comment="assign the region size for region2" DefaultValue="=(VDERAM_region1_End_Address_M33 -(VDERAM_region1_Start_Address_M33+VDERAM_region1_Region_Size_M33))" Type="hex" Min="0x0000" Max="=(VDERAM_region1_End_Address_M33 - VDERAM_region2_Start_Address_M33)" Visible="false" />
+
+    <!--VDERAM_region3-->
+
+    <RefParameter Name="VDERAM_region3_Start_Address_M33" Comment="assign region3 start address" DefaultValue="=(VDERAM_region2_Start_Address_M33 +  VDERAM_region2_Region_Size_M33)" Type="hex" Min="=(VDERAM_region2_Start_Address_M33 +  VDERAM_region2_Region_Size_M33)" Max="0xE0C0000" Visible="false" />
+
+    <RefParameter Name="VDERAM_region3_Region_Size_M33" Comment="assign the region size for region3" DefaultValue="=(VDERAM_region1_End_Address_M33 -(VDERAM_region2_Start_Address_M33+VDERAM_region2_Region_Size_M33))" Type="hex" Min="0x0000" Max="=(VDERAM_region1_End_Address_M33 - VDERAM_region3_Start_Address_M33)" Visible="false" />
+    <!--VDERAM_region4-->
+
+    <RefParameter Name="VDERAM_region4_Start_Address_M33" Comment="assign region4 start address" DefaultValue="=(VDERAM_region3_Start_Address_M33 + VDERAM_region3_Region_Size_M33)" Type="hex" Min="=(VDERAM_region3_Start_Address_M33 + VDERAM_region3_Region_Size_M33)" Max="0xE0C0000" Visible="false" />
+
+    <RefParameter Name="VDERAM_region4_Region_Size_M33" Comment="assign the region size for region4" DefaultValue="=(VDERAM_region1_End_Address_M33 -(VDERAM_region3_Start_Address_M33+VDERAM_region3_Region_Size_M33))" Type="hex" Min="0x0000" Max="=(VDERAM_region1_End_Address_M33 - VDERAM_region4_Start_Address_M33)" Visible="false" />
+
+    <!--VDERAM_region5-->
+
+    <RefParameter Name="VDERAM_region5_Start_Address_M33" Comment="assign region5 start address" DefaultValue="=(VDERAM_region4_Start_Address_M33 + VDERAM_region4_Region_Size_M33)" Type="hex" Min="=(VDERAM_region4_Start_Address_M33 + VDERAM_region4_Region_Size_M33)" Max="0xE0C0000" Visible="false" />
+
+    <RefParameter Name="VDERAM_region5_Region_Size_M33" Comment="assign the region size for region5" DefaultValue="=(VDERAM_region1_End_Address_M33 -(VDERAM_region4_Start_Address_M33+VDERAM_region4_Region_Size_M33))" Type="hex" Min="0x0000" Max="=(VDERAM_region1_End_Address_M33 - VDERAM_region5_Start_Address_M33)" Visible="false" />
+
+    <!--VDERAM_region6-->
+    <RefParameter Name="VDERAM_region6_Start_Address_M33" Comment="assign region6 start address" DefaultValue="=(VDERAM_region5_Start_Address_M33 + VDERAM_region5_Region_Size_M33)" Type="hex" Min="=(VDERAM_region5_Start_Address_M33 + VDERAM_region5_Region_Size_M33)" Max="0xE0C0000" Visible="false" />
+
+    <RefParameter Name="VDERAM_region6_Region_Size_M33" Comment="assign the region size for region6" DefaultValue="=(VDERAM_region1_End_Address_M33 -(VDERAM_region5_Start_Address_M33+VDERAM_region5_Region_Size_M33))" Type="hex" Min="0x0000" Max="=(VDERAM_region1_End_Address_M33 - VDERAM_region6_Start_Address_M33)" Visible="true" />
+
+    <RefParameter Name="VDERAM_Region_Size_Sum_M33" Comment="" DefaultValue="0x21000" Type="hex" Min="0x21000" Max="0x20000" Visible="false" />
 
 
     <!-- SYVDERAM ___Owner-->
@@ -10744,6 +11009,18 @@
         <Parameter Name="RISAF_BKPSRAM4_Region_Size" RefParameter="RISAF_BKPSRAM4_Region_Size" Comment="BKPSRAM4_region_size" />
         <Parameter Name="RISAF_BKPSRAM_Region_Size_Sum" RefParameter="RISAF_BKPSRAM_Region_Size_Sum" Comment="Sum of all region_size of BKPSRAM" />
         <Parameter Name="RISAF_BKPSRAM_RefValue" RefParameter="RISAF_BKPSRAM_RefValue" Comment="Reference value off BKPSRAM" />
+
+        <Parameter Name="RISAF_BKPSRAM1_Start_Address_M33" RefParameter="RISAF_BKPSRAM1_Start_Address_M33" Comment="BKPSRAM1_start_address_M33" />
+        <Parameter Name="RISAF_BKPSRAM2_Start_Address_M33" RefParameter="RISAF_BKPSRAM2_Start_Address_M33" Comment="BKPSRAM2_start_address_M33" />
+        <Parameter Name="RISAF_BKPSRAM3_Start_Address_M33" RefParameter="RISAF_BKPSRAM3_Start_Address_M33" Comment="BKPSRAM3_start_address_M33" />
+        <Parameter Name="RISAF_BKPSRAM4_Start_Address_M33" RefParameter="RISAF_BKPSRAM4_Start_Address_M33" Comment="BKPSRAM4_start_address_M33" />
+
+        <Parameter Name="RISAF_BKPSRAM1_Region_Size_M33" RefParameter="RISAF_BKPSRAM1_Region_Size_M33" Comment="BKPSRAM1_region_size_M33" />
+        <Parameter Name="RISAF_BKPSRAM2_Region_Size_M33" RefParameter="RISAF_BKPSRAM2_Region_Size_M33" Comment="BKPSRAM2_region_size_M33" />
+        <Parameter Name="RISAF_BKPSRAM3_Region_Size_M33" RefParameter="RISAF_BKPSRAM3_Region_Size_M33" Comment="BKPSRAM3_region_size_M33" />
+        <Parameter Name="RISAF_BKPSRAM4_Region_Size_M33" RefParameter="RISAF_BKPSRAM4_Region_Size_M33" Comment="BKPSRAM4_region_size_M33" />
+        <Parameter Name="RISAF_BKPSRAM_Region_Size_Sum_M33" RefParameter="RISAF_BKPSRAM_Region_Size_Sum_M33" Comment="Sum of all region_size of BKPSRAM _M33" />
+        <Parameter Name="RISAF_BKPSRAM_RefValue_M33" RefParameter="RISAF_BKPSRAM_RefValue_M33" Comment="Reference value off BKPSRAM _M33" />
 
     </RefMode>
     <RefMode Name="RISAF_DDR">
@@ -11781,6 +12058,23 @@
         <Parameter Name="SYSRAM2_region5_Region_Size" RefParameter="SYSRAM2_region5_Region_Size" Comment="" />
         <Parameter Name="SYSRAM2_region6_Region_Size" RefParameter="SYSRAM2_region6_Region_Size" Comment="" />
 
+        <Parameter Name="SYSRAM2_region1_Start_Address_M33" RefParameter="SYSRAM2_region1_Start_Address_M33" Comment="" />
+        <Parameter Name="SYSRAM2_region2_Start_Address_M33" RefParameter="SYSRAM2_region2_Start_Address_M33" Comment="" />
+        <Parameter Name="SYSRAM2_region3_Start_Address_M33" RefParameter="SYSRAM2_region3_Start_Address_M33" Comment="" />
+        <Parameter Name="SYSRAM2_region4_Start_Address_M33" RefParameter="SYSRAM2_region4_Start_Address_M33" Comment="" />
+        <Parameter Name="SYSRAM2_region5_Start_Address_M33" RefParameter="SYSRAM2_region5_Start_Address_M33" Comment="" />
+        <Parameter Name="SYSRAM2_region6_Start_Address_M33" RefParameter="SYSRAM2_region6_Start_Address_M33" Comment="" />
+
+
+        <Parameter Name="SYSRAM2_region1_Region_Size_M33" RefParameter="SYSRAM2_region1_Region_Size_M33" Comment="" />
+        <Parameter Name="SYSRAM2_region2_Region_Size_M33" RefParameter="SYSRAM2_region2_Region_Size_M33" Comment="" />
+        <Parameter Name="SYSRAM2_region3_Region_Size_M33" RefParameter="SYSRAM2_region3_Region_Size_M33" Comment="" />
+        <Parameter Name="SYSRAM2_region4_Region_Size_M33" RefParameter="SYSRAM2_region4_Region_Size_M33" Comment="" />
+        <Parameter Name="SYSRAM2_region5_Region_Size_M33" RefParameter="SYSRAM2_region5_Region_Size_M33" Comment="" />
+        <Parameter Name="SYSRAM2_region6_Region_Size_M33" RefParameter="SYSRAM2_region6_Region_Size_M33" Comment="" />
+        <Parameter Name="SYSRAM2_Region_Size_Sum" RefParameter="SYSRAM2_Region_Size_Sum" Comment="" />
+        <Parameter Name="SYSRAM2_Region_Size_Sum_M33" RefParameter="SYSRAM2_Region_Size_Sum_M33" Comment="" />
+
 
         <Parameter Name="SYSRAM2_region1_CID_Filtering" RefParameter="SYSRAM2_region1_CID_Filtering" Comment="" />
         <Parameter Name="SYSRAM2_region2_CID_Filtering" RefParameter="SYSRAM2_region2_CID_Filtering" Comment="" />
@@ -12007,6 +12301,22 @@
         <Parameter Name="SYSRAM1_region6_Region_Size" RefParameter="SYSRAM1_region6_Region_Size" Comment="" />
         <Parameter Name="SYSRAM1_Region_Size_Sum" RefParameter="SYSRAM1_Region_Size_Sum" Comment="" />
 
+        <Parameter Name="SYSRAM1_region1_Start_Address_M33" RefParameter="SYSRAM1_region1_Start_Address_M33" Comment="" />
+        <Parameter Name="SYSRAM1_region2_Start_Address_M33" RefParameter="SYSRAM1_region2_Start_Address_M33" Comment="" />
+        <Parameter Name="SYSRAM1_region3_Start_Address_M33" RefParameter="SYSRAM1_region3_Start_Address_M33" Comment="" />
+        <Parameter Name="SYSRAM1_region4_Start_Address_M33" RefParameter="SYSRAM1_region4_Start_Address_M33" Comment="" />
+        <Parameter Name="SYSRAM1_region5_Start_Address_M33" RefParameter="SYSRAM1_region5_Start_Address_M33" Comment="" />
+        <Parameter Name="SYSRAM1_region6_Start_Address_M33" RefParameter="SYSRAM1_region6_Start_Address_M33" Comment="" />
+
+
+        <Parameter Name="SYSRAM1_region1_Region_Size_M33" RefParameter="SYSRAM1_region1_Region_Size_M33" Comment="" />
+        <Parameter Name="SYSRAM1_region2_Region_Size_M33" RefParameter="SYSRAM1_region2_Region_Size_M33" Comment="" />
+        <Parameter Name="SYSRAM1_region3_Region_Size_M33" RefParameter="SYSRAM1_region3_Region_Size_M33" Comment="" />
+        <Parameter Name="SYSRAM1_region4_Region_Size_M33" RefParameter="SYSRAM1_region4_Region_Size_M33" Comment="" />
+        <Parameter Name="SYSRAM1_region5_Region_Size_M33" RefParameter="SYSRAM1_region5_Region_Size_M33" Comment="" />
+        <Parameter Name="SYSRAM1_region6_Region_Size_M33" RefParameter="SYSRAM1_region6_Region_Size_M33" Comment="" />
+        <Parameter Name="SYSRAM1_Region_Size_Sum_M33" RefParameter="SYSRAM1_Region_Size_Sum_M33" Comment="" />
+
 
         <Parameter Name="SYSRAM1_region1_CID_Filtering" RefParameter="SYSRAM1_region1_CID_Filtering" Comment="" />
         <Parameter Name="SYSRAM1_region2_CID_Filtering" RefParameter="SYSRAM1_region2_CID_Filtering" Comment="" />
@@ -12231,6 +12541,23 @@
         <Parameter Name="SRAM1_region5_Region_Size" RefParameter="SRAM1_region5_Region_Size" Comment="" />
         <Parameter Name="SRAM1_region6_Region_Size" RefParameter="SRAM1_region6_Region_Size" Comment="" />
 
+        <Parameter Name="SRAM1_region1_Start_Address_M33" RefParameter="SRAM1_region1_Start_Address_M33" Comment="" />
+        <Parameter Name="SRAM1_region2_Start_Address_M33" RefParameter="SRAM1_region2_Start_Address_M33" Comment="" />
+        <Parameter Name="SRAM1_region3_Start_Address_M33" RefParameter="SRAM1_region3_Start_Address_M33" Comment="" />
+        <Parameter Name="SRAM1_region4_Start_Address_M33" RefParameter="SRAM1_region4_Start_Address_M33" Comment="" />
+        <Parameter Name="SRAM1_region5_Start_Address_M33" RefParameter="SRAM1_region5_Start_Address_M33" Comment="" />
+        <Parameter Name="SRAM1_region6_Start_Address_M33" RefParameter="SRAM1_region6_Start_Address_M33" Comment="" />
+        <Parameter Name="SRAM1_Region_Size_Sum" RefParameter="SRAM1_Region_Size_Sum" Comment="" />
+        <Parameter Name="SRAM1_Region_Size_Sum_M33" RefParameter="SRAM1_Region_Size_Sum_M33" Comment="" />
+
+
+        <Parameter Name="SRAM1_region1_Region_Size_M33" RefParameter="SRAM1_region1_Region_Size_M33" Comment="" />
+        <Parameter Name="SRAM1_region2_Region_Size_M33" RefParameter="SRAM1_region2_Region_Size_M33" Comment="" />
+        <Parameter Name="SRAM1_region3_Region_Size_M33" RefParameter="SRAM1_region3_Region_Size_M33" Comment="" />
+        <Parameter Name="SRAM1_region4_Region_Size_M33" RefParameter="SRAM1_region4_Region_Size_M33" Comment="" />
+        <Parameter Name="SRAM1_region5_Region_Size_M33" RefParameter="SRAM1_region5_Region_Size_M33" Comment="" />
+        <Parameter Name="SRAM1_region6_Region_Size_M33" RefParameter="SRAM1_region6_Region_Size_M33" Comment="" />
+
 
         <Parameter Name="SRAM1_region1_CID_Filtering" RefParameter="SRAM1_region1_CID_Filtering" Comment="" />
         <Parameter Name="SRAM1_region2_CID_Filtering" RefParameter="SRAM1_region2_CID_Filtering" Comment="" />
@@ -12453,6 +12780,23 @@
         <Parameter Name="SRAM2_region4_Region_Size" RefParameter="SRAM2_region4_Region_Size" Comment="" />
         <Parameter Name="SRAM2_region5_Region_Size" RefParameter="SRAM2_region5_Region_Size" Comment="" />
         <Parameter Name="SRAM2_region6_Region_Size" RefParameter="SRAM2_region6_Region_Size" Comment="" />
+
+        <Parameter Name="SRAM2_region1_Start_Address_M33" RefParameter="SRAM2_region1_Start_Address_M33" Comment="" />
+        <Parameter Name="SRAM2_region2_Start_Address_M33" RefParameter="SRAM2_region2_Start_Address_M33" Comment="" />
+        <Parameter Name="SRAM2_region3_Start_Address_M33" RefParameter="SRAM2_region3_Start_Address_M33" Comment="" />
+        <Parameter Name="SRAM2_region4_Start_Address_M33" RefParameter="SRAM2_region4_Start_Address_M33" Comment="" />
+        <Parameter Name="SRAM2_region5_Start_Address_M33" RefParameter="SRAM2_region5_Start_Address_M33" Comment="" />
+        <Parameter Name="SRAM2_region6_Start_Address_M33" RefParameter="SRAM2_region6_Start_Address_M33" Comment="" />
+
+
+        <Parameter Name="SRAM2_region1_Region_Size_M33" RefParameter="SRAM2_region1_Region_Size_M33" Comment="" />
+        <Parameter Name="SRAM2_region2_Region_Size_M33" RefParameter="SRAM2_region2_Region_Size_M33" Comment="" />
+        <Parameter Name="SRAM2_region3_Region_Size_M33" RefParameter="SRAM2_region3_Region_Size_M33" Comment="" />
+        <Parameter Name="SRAM2_region4_Region_Size_M33" RefParameter="SRAM2_region4_Region_Size_M33" Comment="" />
+        <Parameter Name="SRAM2_region5_Region_Size_M33" RefParameter="SRAM2_region5_Region_Size_M33" Comment="" />
+        <Parameter Name="SRAM2_region6_Region_Size_M33" RefParameter="SRAM2_region6_Region_Size_M33" Comment="" />
+        <Parameter Name="SRAM2_Region_Size_Sum" RefParameter="SRAM2_Region_Size_Sum" Comment="" />
+        <Parameter Name="SRAM2_Region_Size_Sum_M33" RefParameter="SRAM2_Region_Size_Sum_M33" Comment="" />
 
 
         <Parameter Name="SRAM2_region1_CID_Filtering" RefParameter="SRAM2_region1_CID_Filtering" Comment="" />
@@ -12678,6 +13022,21 @@
         <Parameter Name="RETRAM_region5_Region_Size" RefParameter="RETRAM_region5_Region_Size" Comment="" />
         <Parameter Name="RETRAM_region6_Region_Size" RefParameter="RETRAM_region6_Region_Size" Comment="" />
 
+        <Parameter Name="RETRAM_region1_Start_Address_M33" RefParameter="RETRAM_region1_Start_Address_M33" Comment="" />
+        <Parameter Name="RETRAM_region2_Start_Address_M33" RefParameter="RETRAM_region2_Start_Address_M33" Comment="" />
+        <Parameter Name="RETRAM_region3_Start_Address_M33" RefParameter="RETRAM_region3_Start_Address_M33" Comment="" />
+        <Parameter Name="RETRAM_region4_Start_Address_M33" RefParameter="RETRAM_region4_Start_Address_M33" Comment="" />
+        <Parameter Name="RETRAM_region5_Start_Address_M33" RefParameter="RETRAM_region5_Start_Address_M33" Comment="" />
+        <Parameter Name="RETRAM_region6_Start_Address_M33" RefParameter="RETRAM_region6_Start_Address_M33" Comment="" />
+        <Parameter Name="RETRAM_Region_Size_Sum_M33" RefParameter="RETRAM_Region_Size_Sum_M33" Comment="" />
+        <Parameter Name="RETRAM_Region_Size_Sum" RefParameter="RETRAM_Region_Size_Sum" Comment="" />
+
+        <Parameter Name="RETRAM_region1_Region_Size_M33" RefParameter="RETRAM_region1_Region_Size_M33" Comment="" />
+        <Parameter Name="RETRAM_region2_Region_Size_M33" RefParameter="RETRAM_region2_Region_Size_M33" Comment="" />
+        <Parameter Name="RETRAM_region3_Region_Size_M33" RefParameter="RETRAM_region3_Region_Size_M33" Comment="" />
+        <Parameter Name="RETRAM_region4_Region_Size_M33" RefParameter="RETRAM_region4_Region_Size_M33" Comment="" />
+        <Parameter Name="RETRAM_region5_Region_Size_M33" RefParameter="RETRAM_region5_Region_Size_M33" Comment="" />
+        <Parameter Name="RETRAM_region6_Region_Size_M33" RefParameter="RETRAM_region6_Region_Size_M33" Comment="" />
 
         <Parameter Name="RETRAM_region1_CID_Filtering" RefParameter="RETRAM_region1_CID_Filtering" Comment="" />
         <Parameter Name="RETRAM_region2_CID_Filtering" RefParameter="RETRAM_region2_CID_Filtering" Comment="" />
@@ -12892,6 +13251,8 @@
         <Parameter Name="VDERAM_region4_Start_Address" RefParameter="VDERAM_region4_Start_Address" Comment="" />
         <Parameter Name="VDERAM_region5_Start_Address" RefParameter="VDERAM_region5_Start_Address" Comment="" />
         <Parameter Name="VDERAM_region6_Start_Address" RefParameter="VDERAM_region6_Start_Address" Comment="" />
+        <Parameter Name="VDERAM_Region_Size_Sum" RefParameter="VDERAM_Region_Size_Sum" Comment="" />
+        <Parameter Name="VDERAM_Region_Size_Sum_M33" RefParameter="VDERAM_Region_Size_Sum_M33" Comment="" />
 
 
         <Parameter Name="VDERAM_region1_Region_Size" RefParameter="VDERAM_region1_Region_Size" Comment="" />
@@ -12901,6 +13262,19 @@
         <Parameter Name="VDERAM_region5_Region_Size" RefParameter="VDERAM_region5_Region_Size" Comment="" />
         <Parameter Name="VDERAM_region6_Region_Size" RefParameter="VDERAM_region6_Region_Size" Comment="" />
 
+        <Parameter Name="VDERAM_region1_Start_Address_M33" RefParameter="VDERAM_region1_Start_Address_M33" Comment="" />
+        <Parameter Name="VDERAM_region2_Start_Address_M33" RefParameter="VDERAM_region2_Start_Address_M33" Comment="" />
+        <Parameter Name="VDERAM_region3_Start_Address_M33" RefParameter="VDERAM_region3_Start_Address_M33" Comment="" />
+        <Parameter Name="VDERAM_region4_Start_Address_M33" RefParameter="VDERAM_region4_Start_Address_M33" Comment="" />
+        <Parameter Name="VDERAM_region5_Start_Address_M33" RefParameter="VDERAM_region5_Start_Address_M33" Comment="" />
+        <Parameter Name="VDERAM_region6_Start_Address_M33" RefParameter="VDERAM_region6_Start_Address_M33" Comment="" />
+
+        <Parameter Name="VDERAM_region1_Region_Size_M33" RefParameter="VDERAM_region1_Region_Size_M33" Comment="" />
+        <Parameter Name="VDERAM_region2_Region_Size_M33" RefParameter="VDERAM_region2_Region_Size_M33" Comment="" />
+        <Parameter Name="VDERAM_region3_Region_Size_M33" RefParameter="VDERAM_region3_Region_Size_M33" Comment="" />
+        <Parameter Name="VDERAM_region4_Region_Size_M33" RefParameter="VDERAM_region4_Region_Size_M33" Comment="" />
+        <Parameter Name="VDERAM_region5_Region_Size_M33" RefParameter="VDERAM_region5_Region_Size_M33" Comment="" />
+        <Parameter Name="VDERAM_region6_Region_Size_M33" RefParameter="VDERAM_region6_Region_Size_M33" Comment="" />
 
         <Parameter Name="VDERAM_region1_CID_Filtering" RefParameter="VDERAM_region1_CID_Filtering" Comment="" />
         <Parameter Name="VDERAM_region2_CID_Filtering" RefParameter="VDERAM_region2_CID_Filtering" Comment="" />

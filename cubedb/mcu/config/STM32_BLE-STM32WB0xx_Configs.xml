@@ -101,6 +101,7 @@ ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../..
         <ConfigFile Name="WB0_DTM_CMD_EN_H"/>
         <ConfigFile Name="WB0_DTM_CMD_STACK_EN_H"/>
         <ConfigFile Name="WB0_DTM_CMDS_C"/>
+		<ConfigFile Name="WB0_DTM_CMDS_H"/>
         <ConfigFile Name="WB0_DTM_PREPROCESS_EVENTS_C"/>
         <ConfigFile Name="WB0_DTM_PREPROCESS_EVENTS_H"/>
         <ConfigFile Name="WB0_FIFO_C"/>
@@ -128,6 +129,7 @@ ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../..
     <RefComponent Cclass="Middleware" Cgroup="BLE_COMMON" Cversion="1.0.0">
         <File Category="header" Name="ST/STM32_BLE/ble.h"/>
         <File Category="header" Name="ST/STM32_BLE/stm32_ble_common.h"/>
+        <File Category="header" Name="ST/STM32_BLE/ble_legacy.h"/>
     </RefComponent>
 
     <RefComponent Cclass="Middleware" Cgroup="CRYPTOLIB" Cversion="1.0.0">
@@ -238,6 +240,7 @@ ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../..
         <Argument Name="CFG_BLE_USER_FIFO_SIZE" GenericType="Simple"/>
         <Argument Name="CFG_BLE_GAP_PERIPH_PREF_CONN_PARAM_CHARACTERISTIC" GenericType="Simple"/>
         <Argument Name="CFG_BLE_GAP_ENCRYPTED_KEY_MATERIAL_CHARACTERISTIC" GenericType="Simple"/>
+        <Argument Name="CFG_BLE_EXTRA_LL_PROCEDURE_CONTEXTS" GenericType="Simple"/>
         <Argument Name="CFG_BLE_ATT_QUEUED_WRITE_SIZE" GenericType="Simple"/>
         <Argument Name="CFG_BLE_GATT_NWK_BUFFER_SIZE" GenericType="Simple"/>
         <Argument Name="CFG_BLE_ADV_NWK_BUFFER_SIZE" GenericType="Simple"/>
@@ -540,7 +543,8 @@ ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../..
     <RefConfigFile Description="" Name="WB0_DTM_CMD_EN_H" Template="stm32wb0/stm32_ble_dtm_cmd_en_h.ftl" destinationFolder="STM32_BLE/App"><File Category="header" Condition="(S_BLE_TM | S_BLE_TMCO)" Name="dtm_cmd_en.h" Version="1.0"/></RefConfigFile>
     <RefConfigFile Description="" Name="WB0_DTM_CMD_STACK_EN_H" Template="stm32wb0/stm32_ble_dtm_cmd_stack_en_h.ftl" destinationFolder="STM32_BLE/App"><File Category="header" Condition="(S_BLE_TM | S_BLE_TMCO)" Name="dtm_cmd_stack_en.h" Version="1.0"/></RefConfigFile>
     <RefConfigFile Description="" Name="WB0_DTM_CMDS_C" Template="stm32wb0/stm32_ble_dtm_cmds_c.ftl" destinationFolder="STM32_BLE/App"><File Category="source" Condition="(S_BLE_TM | S_BLE_TMCO)" Name="dtm_cmds.c" Version="1.0"/></RefConfigFile>
-    <RefConfigFile Description="" Name="WB0_DTM_PREPROCESS_EVENTS_C" Template="stm32wb0/stm32_ble_dtm_preprocess_events_c.ftl" destinationFolder="STM32_BLE/App"><File Category="source" Condition="(S_BLE_TM | S_BLE_TMCO)" Name="dtm_preprocess_events.c" Version="1.0"/></RefConfigFile>
+    <RefConfigFile Description="" Name="WB0_DTM_CMDS_H" Template="stm32wb0/stm32_ble_dtm_cmds_h.ftl" destinationFolder="STM32_BLE/App"><File Category="header" Condition="(S_BLE_TM | S_BLE_TMCO)" Name="dtm_cmds.h" Version="1.0"/></RefConfigFile>
+	<RefConfigFile Description="" Name="WB0_DTM_PREPROCESS_EVENTS_C" Template="stm32wb0/stm32_ble_dtm_preprocess_events_c.ftl" destinationFolder="STM32_BLE/App"><File Category="source" Condition="(S_BLE_TM | S_BLE_TMCO)" Name="dtm_preprocess_events.c" Version="1.0"/></RefConfigFile>
     <RefConfigFile Description="" Name="WB0_DTM_PREPROCESS_EVENTS_H" Template="stm32wb0/stm32_ble_dtm_preprocess_events_h.ftl" destinationFolder="STM32_BLE/App"><File Category="header" Condition="(S_BLE_TM | S_BLE_TMCO)" Name="dtm_preprocess_events.h" Version="1.0"/></RefConfigFile>
     <RefConfigFile Description="" Name="WB0_FIFO_C" Template="stm32wb0/stm32_ble_fifo_c.ftl" destinationFolder="STM32_BLE/App"><File Category="source" Condition="(S_BLE_TM | S_BLE_TMCO)" Name="fifo.c" Version="1.0"/></RefConfigFile>
     <RefConfigFile Description="" Name="WB0_FIFO_H" Template="stm32wb0/stm32_ble_fifo_h.ftl" destinationFolder="STM32_BLE/App"><File Category="header" Condition="(S_BLE_TM | S_BLE_TMCO)" Name="fifo.h" Version="1.0"/></RefConfigFile>
@@ -583,9 +587,11 @@ ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../..
         <Argument Name="SERVICE0_CHAR0_PROP_INDICATE" GenericType="Simple"/>
         <Argument Name="SERVICE_CHAR_ATTR_PERMISSION_NONE" GenericType="Simple"/>
         <Argument Name="SERVICE0_CHAR0_ATTR_PERMISSION_AUTHEN_READ" GenericType="Simple"/>
+        <Argument Name="SERVICE0_CHAR0_ATTR_PERMISSION_AUTHEN_LEV4_READ" GenericType="Simple"/>
         <Argument Name="SERVICE0_CHAR0_ATTR_PERMISSION_AUTHOR_READ" GenericType="Simple"/>
         <Argument Name="SERVICE0_CHAR0_ATTR_PERMISSION_ENCRY_READ" GenericType="Simple"/>
         <Argument Name="SERVICE0_CHAR0_ATTR_PERMISSION_AUTHEN_WRITE" GenericType="Simple"/>
+        <Argument Name="SERVICE0_CHAR0_ATTR_PERMISSION_AUTHEN_LEV4_WRITE" GenericType="Simple"/>
         <Argument Name="SERVICE0_CHAR0_ATTR_PERMISSION_AUTHOR_WRITE" GenericType="Simple"/>
         <Argument Name="SERVICE0_CHAR0_ATTR_PERMISSION_ENCRY_WRITE" GenericType="Simple"/>
         <Argument Name="SERVICE_CHAR_GATT_DONT_NOTIFY_EVENTS" GenericType="Simple"/>
@@ -674,6 +680,7 @@ ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../..
         <Argument Name="GATT_CLT_MAX_NUM_SERVERS" GenericType="Simple"/>
 		<Argument Name="FREERTOS_STATUS" GenericType="Simple" Comment="0 to 1 (0 by default)"/>
         <Argument Name="SEQUENCER_STATUS" GenericType="Simple" Comment="0 to 1 (0 by default)"/>
+        <Argument Name="CFG_BLE_NUM_CLIENT_CONTEXTS" GenericType="Simple"/>
     </RefConfigFile>
     <!-- BSP Virtual PortCom Begin -->
     <RefBspComponent Name="Serial Link for Traces" BspIpName="(LPU|US)ART" BspModeName="Asynchronous">

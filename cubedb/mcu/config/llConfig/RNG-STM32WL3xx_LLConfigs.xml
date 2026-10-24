@@ -4,8 +4,18 @@
 
     <RefConfig Name="Rng_Init">
         <CallLibMethod Name="LL_RNG_Enable">
-           <MethodArg Name="RNGx" ParameterName="Instance"/>
-       </CallLibMethod>
+            <MethodArg Name="RNGx" ParameterName="Instance"/>
+        </CallLibMethod>
+        <IFCondition Expression = "(ClockErrorDetection=RNG_CED_DISABLE)">
+            <CallLibMethod Name="LL_RNG_DisableClkDetect">
+                <MethodArg Name="RNGx" ParameterName="Instance"/>
+            </CallLibMethod>
+        </IFCondition>
+        <IFCondition Expression = "(ClockErrorDetection=RNG_CED_ENABLE)">
+            <CallLibMethod Name="LL_RNG_EnableClkDetect">
+                <MethodArg Name="RNGx" ParameterName="Instance"/>
+            </CallLibMethod>
+        </IFCondition>
     </RefConfig>
 
     <RefComponent Cclass="HAL" Cgroup="RNG" Cversion="0.2.0">
@@ -14,6 +24,15 @@
     </RefComponent>
 
     <LibMethod Comment="" Name="LL_RNG_Enable">
+        <Argument AddressOf="false" GenericType="baseaddress" Name="RNGx" TypeName="RNG_TypeDef"/>
+    </LibMethod>
+    <LibMethod Comment="" Name="LL_RNG_Enable">
+        <Argument AddressOf="false" GenericType="baseaddress" Name="RNGx" TypeName="RNG_TypeDef"/>
+    </LibMethod>
+    <LibMethod Comment="" Name="LL_RNG_DisableClkDetect">
+        <Argument AddressOf="false" GenericType="baseaddress" Name="RNGx" TypeName="RNG_TypeDef"/>
+    </LibMethod>
+    <LibMethod Comment="" Name="LL_RNG_EnableClkDetect">
         <Argument AddressOf="false" GenericType="baseaddress" Name="RNGx" TypeName="RNG_TypeDef"/>
     </LibMethod>
 

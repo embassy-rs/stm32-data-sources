@@ -2284,10 +2284,12 @@
             <PossibleValue Value="TIM_TIM2_ETR_COMP1" Comment="TIM2 ETR input is connected to COMP1_OUT" Condition="!COMP1_Exist" Action="remove"/>
    <PossibleValue Value="TIM_TIM2_ETR_COMP2" Comment="TIM2 ETR input is connected to COMP2_OUT" Condition="!COMP2_Exist" Action="remove"/>
    <PossibleValue Value="TIM_TIM2_ETR_HSI" Comment="TIM2_ETR is connected to HSI" Semaphore="SEM2RCC_HSI_REQUIRED_$IpInstance"/>
-            <PossibleValue Value="TIM_TIM2_ETR_TIM3_ETR" Comment="TIM2 ETR is connected to TIM3 ETR pin" Condition="!TIM3_Exist" Action="remove"/>
+            <PossibleValue Value="TIM_TIM2_ETR_TIM3_ETR" Comment="TIM2 ETR is connected to TIM3 ETR pin" Condition="!TIM3_Exist" Action="remove"/><PossibleValue Value="TIM_TIM2_ETR_ADC4_AWD1" Comment="TIM2_ETR is connected to ADC4 AWD1" Condition="!DIE4B2" Action="remove" />
+            <PossibleValue Value="TIM_TIM2_ETR_ADC4_AWD2" Comment="TIM2_ETR is connected to ADC4 AWD2" Condition="!DIE4B2" Action="remove" />
+            <PossibleValue Value="TIM_TIM2_ETR_ADC4_AWD3" Comment="TIM2_ETR is connected to ADC4 AWD3" Condition="!DIE4B2" Action="remove"/>
     </RefParameter>
     <RefParameter Name="TIM2_ETR_REMAP" Comment="ETR remap capabilities for TIM2" DefaultValue="__NULL" Type="list" Group="ETR remap capabilities for TIM2" Visible="false">
-        <Condition Diagnostic="" Expression="!Semaphore_TIM2_HWBA_ETR_REMAPTIM2"/>
+        <Condition Diagnostic="" Expression="!Semaphore_TIM2_WBA_ETR_REMAPTIM2"/>
             <PossibleValue Value="__NULL" Comment="TIM2 ETR input is not remapped"/>
     </RefParameter>
 <!-- for TIM2 field 3 -->
@@ -2425,7 +2427,7 @@
     </RefMode>
 <!-- ***********************************************************************************-->
     <RefMode Name="Counter_init" HalMode ="TIM" Abstract="true">
-        <Condition Diagnostic="" Expression="!(Semaphore_clearable$IpInstance &amp;!($IpNumber=15))"/>
+        <Condition Diagnostic="" Expression="!(Semaphore_clearable$IpInstance &amp;!(($IpNumber=15)|($IpNumber=16)|($IpNumber=17)))"/>
             <Parameter Name="Prescaler" />
             <Parameter Name="CounterMode" />
             <Parameter Name="Dithering" />
@@ -2513,7 +2515,7 @@
             <Parameter Name="PulseWidth" />
     </RefMode>
     <RefMode Name="Counter_init" HalMode ="TIM" Abstract="true">
-        <Condition Diagnostic="" Expression="Semaphore_clearable$IpInstance &amp;!($IpNumber=15)"/>
+        <Condition Diagnostic="" Expression="Semaphore_clearable$IpInstance &amp;!(($IpNumber=15)|($IpNumber=16)|($IpNumber=17))"/>
             <Parameter Name="Prescaler" />
             <Parameter Name="CounterMode" />
             <Parameter Name="Dithering" />
@@ -5649,7 +5651,7 @@ Encoder_Interface_w_index_remapCH1_remapCH2_remapETR for TIM 2,3,4,5 only
                                         <Semaphore>Semaphore_TriggerSource$IpInstance</Semaphore>
                                         <Semaphore>Semaphore_Trigger_DMA_Enable$IpInstance</Semaphore>
             <ModeLogicOperator Name="XOR">
-                <Mode Name="TriggerSource_ITR0" UserName="ITR0" RemoveCondition="($IpNumber=1)">
+                <Mode Name="TriggerSource_ITR0" UserName="ITR0" RemoveCondition="($IpNumber=1)|DIE4B2">
                                         <Semaphore>Semaphore_TriggerSourceITR0$IpInstance</Semaphore>
                                         <Semaphore>Semaphore_TriggerSourceITRx$IpInstance</Semaphore>
                                         <Semaphore>Semaphore_SourceTRC$IpInstance</Semaphore>
@@ -5657,7 +5659,7 @@ Encoder_Interface_w_index_remapCH1_remapCH2_remapETR for TIM 2,3,4,5 only
                         <Signal Name="VS_ClockSourceITR"/>
                     </SignalLogicalOp>
                 </Mode>
-                <Mode Name="TriggerSource_ITR1" UserName="ITR1" RemoveCondition="($IpNumber=2)">
+                <Mode Name="TriggerSource_ITR1" UserName="ITR1" RemoveCondition="($IpNumber=2)|DIE4B2">
                                         <Semaphore>Semaphore_TriggerSourceITR1$IpInstance</Semaphore>
                                         <Semaphore>Semaphore_TriggerSourceITRx$IpInstance</Semaphore>
                                         <Semaphore>Semaphore_ETH_TriggerSourceITR1$IpInstance</Semaphore>
@@ -5666,7 +5668,7 @@ Encoder_Interface_w_index_remapCH1_remapCH2_remapETR for TIM 2,3,4,5 only
                         <Signal Name="VS_ClockSourceITR"/>
                     </SignalLogicalOp>
                 </Mode>
-                <Mode Name="TriggerSource_ITR2" UserName="ITR2" RemoveCondition="($IpNumber=3)">
+                <Mode Name="TriggerSource_ITR2" UserName="ITR2" RemoveCondition="($IpNumber=3)|DIE4B2">
                                         <Semaphore>Semaphore_TriggerSourceITR2$IpInstance</Semaphore>
                                         <Semaphore>Semaphore_TriggerSourceITRx$IpInstance</Semaphore>
                                         <Semaphore>Semaphore_SourceTRC$IpInstance</Semaphore>
@@ -5674,7 +5676,7 @@ Encoder_Interface_w_index_remapCH1_remapCH2_remapETR for TIM 2,3,4,5 only
                         <Signal Name="VS_ClockSourceITR"/>
                     </SignalLogicalOp>
                 </Mode>
-                <Mode Name="TriggerSource_ITR3" UserName="ITR3" RemoveCondition="($IpNumber=4)|DIE492">
+                <Mode Name="TriggerSource_ITR3" UserName="ITR3" RemoveCondition="($IpNumber=4)|DIE492|DIE4B2">
                                         <Semaphore>Semaphore_TriggerSourceITR3$IpInstance</Semaphore>
                                         <Semaphore>Semaphore_TriggerSourceITRx$IpInstance</Semaphore>
                                         <Semaphore>Semaphore_SourceTRC$IpInstance</Semaphore>
@@ -5682,7 +5684,7 @@ Encoder_Interface_w_index_remapCH1_remapCH2_remapETR for TIM 2,3,4,5 only
                         <Signal Name="VS_ClockSourceITR"/>
                     </SignalLogicalOp>
                 </Mode>
-                <Mode Name="TriggerSource_ITR4" UserName="ITR4" RemoveCondition="(DIE492|DIE4B0)">
+                <Mode Name="TriggerSource_ITR4" UserName="ITR4" RemoveCondition="(DIE492|DIE4B0|DIE4B2)">
                                         <Semaphore>Semaphore_TriggerSourceITR4$IpInstance</Semaphore>
                                         <Semaphore>Semaphore_TriggerSourceITRx$IpInstance</Semaphore>
                                         <Semaphore>Semaphore_SourceTRC$IpInstance</Semaphore>
@@ -5690,7 +5692,7 @@ Encoder_Interface_w_index_remapCH1_remapCH2_remapETR for TIM 2,3,4,5 only
                         <Signal Name="VS_ClockSourceITR"/>
                     </SignalLogicalOp>
                 </Mode>
-                <Mode Name="TriggerSource_ITR5" UserName="ITR5" RemoveCondition="(DIE492|DIE4B0)">
+                <Mode Name="TriggerSource_ITR5" UserName="ITR5" RemoveCondition="(DIE492|DIE4B0|DIE4B2)">
                                         <Semaphore>Semaphore_TriggerSourceITR5$IpInstance</Semaphore>
                                         <Semaphore>Semaphore_TriggerSourceITRx$IpInstance</Semaphore>
                                         <Semaphore>Semaphore_SourceTRC$IpInstance</Semaphore>
@@ -5698,7 +5700,7 @@ Encoder_Interface_w_index_remapCH1_remapCH2_remapETR for TIM 2,3,4,5 only
                         <Signal Name="VS_ClockSourceITR"/>
                     </SignalLogicalOp>
                 </Mode>
-                <Mode Name="TriggerSource_ITR6" UserName="ITR6" RemoveCondition="(DIE492|DIE4B0)">
+                <Mode Name="TriggerSource_ITR6" UserName="ITR6" RemoveCondition="(DIE492|DIE4B0|DIE4B2)">
                                         <Semaphore>Semaphore_TriggerSourceITR6$IpInstance</Semaphore>
                                         <Semaphore>Semaphore_TriggerSourceITRx$IpInstance</Semaphore>
                                         <Semaphore>Semaphore_SourceTRC$IpInstance</Semaphore>
@@ -5706,7 +5708,7 @@ Encoder_Interface_w_index_remapCH1_remapCH2_remapETR for TIM 2,3,4,5 only
                         <Signal Name="VS_ClockSourceITR"/>
                     </SignalLogicalOp>
                 </Mode>
-                <Mode Name="TriggerSource_ITR7" UserName="ITR7" RemoveCondition="!(DIE492|DIE4B0)">
+                <Mode Name="TriggerSource_ITR7" UserName="ITR7" RemoveCondition="!(DIE492|DIE4B0|DIE4B2)">
                                         <Semaphore>Semaphore_TriggerSourceITR7$IpInstance</Semaphore>
                                         <Semaphore>Semaphore_TriggerSourceITRx$IpInstance</Semaphore>
                                         <Semaphore>Semaphore_SourceTRC$IpInstance</Semaphore>
@@ -5714,7 +5716,7 @@ Encoder_Interface_w_index_remapCH1_remapCH2_remapETR for TIM 2,3,4,5 only
                         <Signal Name="VS_ClockSourceITR"/>
                     </SignalLogicalOp>
                 </Mode>
-                <Mode Name="TriggerSource_ITR8" UserName="ITR8" RemoveCondition="!(DIE492|DIE4B0)">
+                <Mode Name="TriggerSource_ITR8" UserName="ITR8" RemoveCondition="!(DIE492|DIE4B0|DIE4B2)">
                                         <Semaphore>Semaphore_TriggerSourceITR8$IpInstance</Semaphore>
                                         <Semaphore>Semaphore_TriggerSourceITRx$IpInstance</Semaphore>
                                         <Semaphore>Semaphore_SourceTRC$IpInstance</Semaphore>
@@ -5722,7 +5724,7 @@ Encoder_Interface_w_index_remapCH1_remapCH2_remapETR for TIM 2,3,4,5 only
                         <Signal Name="VS_ClockSourceITR"/>
                     </SignalLogicalOp>
                 </Mode>
-                <Mode Name="TriggerSource_ITR9" UserName="ITR9" RemoveCondition="(DIE492|DIE4B0)">
+                <Mode Name="TriggerSource_ITR9" UserName="ITR9" RemoveCondition="(DIE492|DIE4B0|DIE4B2)">
                                         <Semaphore>Semaphore_TriggerSourceITR9$IpInstance</Semaphore>
                                         <Semaphore>Semaphore_TriggerSourceITRx$IpInstance</Semaphore>
                                         <Semaphore>Semaphore_SourceTRC$IpInstance</Semaphore>
@@ -5730,7 +5732,7 @@ Encoder_Interface_w_index_remapCH1_remapCH2_remapETR for TIM 2,3,4,5 only
                         <Signal Name="VS_ClockSourceITR"/>
                     </SignalLogicalOp>
                 </Mode>
-                <Mode Name="TriggerSource_ITR10" UserName="ITR10" RemoveCondition="(DIE492|DIE4B0)">
+                <Mode Name="TriggerSource_ITR10" UserName="ITR10" RemoveCondition="(DIE492|DIE4B0|DIE4B2)">
                                         <Semaphore>Semaphore_TriggerSourceITR10$IpInstance</Semaphore>
                                         <Semaphore>Semaphore_TriggerSourceITRx$IpInstance</Semaphore>
                                         <Semaphore>Semaphore_SourceTRC$IpInstance</Semaphore>
@@ -5738,7 +5740,7 @@ Encoder_Interface_w_index_remapCH1_remapCH2_remapETR for TIM 2,3,4,5 only
                         <Signal Name="VS_ClockSourceITR"/>
                     </SignalLogicalOp>
                 </Mode>
-                <Mode Name="TriggerSource_ITR11" UserName="ITR11" RemoveCondition="(($IpNumber=1)|($IpNumber=3)|($IpNumber=4)|DIE492)">
+                <Mode Name="TriggerSource_ITR11" UserName="ITR11" RemoveCondition="(($IpNumber=1)|($IpNumber=3)|($IpNumber=4)|DIE492|DIE4B2)">
                                         <Semaphore>Semaphore_TriggerSourceITR11$IpInstance</Semaphore>
                                         <Semaphore>Semaphore_TriggerSourceITRx$IpInstance</Semaphore>
                                         <Semaphore>Semaphore_SourceTRC$IpInstance</Semaphore>
@@ -5746,7 +5748,7 @@ Encoder_Interface_w_index_remapCH1_remapCH2_remapETR for TIM 2,3,4,5 only
                         <Signal Name="VS_ClockSourceITR"/>
                     </SignalLogicalOp>
                 </Mode>
-                <Mode Name="TriggerSource_ITR12" UserName="ITR12" RemoveCondition="(DIE492|DIE4B0)">
+                <Mode Name="TriggerSource_ITR12" UserName="ITR12" RemoveCondition="(DIE492|DIE4B0|DIE4B2)">
                                         <Semaphore>Semaphore_TriggerSourceITR12$IpInstance</Semaphore>
                                         <Semaphore>Semaphore_TriggerSourceITRx$IpInstance</Semaphore>
                                         <Semaphore>Semaphore_SourceTRC$IpInstance</Semaphore>

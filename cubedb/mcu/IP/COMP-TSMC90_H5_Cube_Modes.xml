@@ -19,6 +19,10 @@
 		<Condition Diagnostic="" Expression="$IpInstance_DACChannel1"/>
 		<PossibleValue Comment="DAC Channel1" Value="COMP_INPUT_MINUS_DAC1_CH1"/>
 	</RefParameter>
+	<RefParameter Comment="Inverting Input" DefaultValue="COMP_INPUT_MINUS_DAC1_CH2" Group="Pinout Parameters" Name="InvertingInput" Type="list" Visible="false">
+		<Condition Diagnostic="" Expression="$IpInstance_DACChannel2"/>
+		<PossibleValue Comment="DAC Channel2" Value="COMP_INPUT_MINUS_DAC1_CH2"/>
+	</RefParameter>
 	<RefParameter Comment="Inverting Input" DefaultValue="COMP_INPUT_MINUS_1_4VREFINT" Group="Pinout Parameters" Name="InvertingInput" Type="list" Visible="false">
 		<Condition Diagnostic="" Expression="$IpInstance_Vref14"/>
                 <PossibleValue Comment="1/4 VREFINT connected to comparator inverting input " Value="COMP_INPUT_MINUS_1_4VREFINT"/>
@@ -35,18 +39,19 @@
 		<Condition Diagnostic="" Expression="$IpInstance_Vref"/>
                 <PossibleValue Comment="VREFINT connected to comparator1 inverting input " Value="COMP_INPUT_MINUS_VREFINT"/>
 	</RefParameter>
-	
-	
-	<RefParameter Comment="Inverting Input" DefaultValue="COMP_INPUT_MINUS_1_4VBAT" Group="Pinout Parameters" Name="InvertingInput" Type="list" Visible="false">
+	<RefParameter Comment="Inverting Input" DefaultValue="COMP_INPUT_MINUS_VBAT" Group="Pinout Parameters" Name="InvertingInput" Type="list" Visible="false">
 		<Condition Diagnostic="" Expression="$IpInstance_Vbat"/>
-                <PossibleValue Comment="1/4 VBAT" Value="COMP_INPUT_MINUS_1_4VBAT"/>
+                <PossibleValue Comment="1/4 VBAT" Value="COMP_INPUT_MINUS_VBAT"/>
 	</RefParameter>
-	<RefParameter Comment="Inverting Input" DefaultValue="COMP_INPUT_MINUS_TPSENS" Group="Pinout Parameters" Name="InvertingInput" Type="list" Visible="false">
+	<RefParameter Comment="Inverting Input" DefaultValue="COMP_INPUT_MINUS_VDDCORE" Group="Pinout Parameters" Name="InvertingInput" Type="list" Visible="false">
+		<Condition Diagnostic="" Expression="$IpInstance_vddcore"/>
+		<PossibleValue Comment="VDDCORE" Value="COMP_INPUT_MINUS_VDDCORE"/>
+	</RefParameter>
+	<RefParameter Comment="Inverting Input" DefaultValue="COMP_INPUT_MINUS_TEMPSENSOR" Group="Pinout Parameters" Name="InvertingInput" Type="list" Visible="false">
 		<Condition Diagnostic="" Expression="$IpInstance_tpsens"/>
-                <PossibleValue Comment="Temperature Sensor" Value="COMP_INPUT_MINUS_TPSENS"/>
+		<PossibleValue Comment="Temperature Sensor" Value="COMP_INPUT_MINUS_TEMPSENSOR"/>
 	</RefParameter>
-	
-<RefParameter Comment="Inverting Input" DefaultValue="COMP_INPUT_MINUS_1_4VREFINT" Group="Pinout Parameters" Name="InvertingInput" Type="list" Visible="false">
+    <RefParameter Comment="Inverting Input" DefaultValue="COMP_INPUT_MINUS_1_4VREFINT" Group="Pinout Parameters" Name="InvertingInput" Type="list" Visible="false">
 <!-- if input neg is disabled then generate the code with a quarter of Vref that is reset value --> 
                 <PossibleValue Comment="parameter not set in CubeMx interface" Value="COMP_INPUT_MINUS_1_4VREFINT"/>
 	</RefParameter>
@@ -61,18 +66,14 @@
 		<Condition Diagnostic="" Expression="PA0_COMP1_INP  &amp; ($IpNumber=1)"/>
 		<PossibleValue Comment="" Value="COMP_INPUT_PLUS_IO2"/>
 	</RefParameter>
-
-	<RefParameter Comment="Non Inverting Input" DefaultValue="COMP_INPUT_PLUS_IO3" Group="Pinout Parameters" Name="NonInvertingInput" Type="list" Visible="false">
-		<Condition Diagnostic="" Expression="PB2_COMP1_INP  &amp; ($IpNumber=1)"/>
-		<PossibleValue Comment="" Value="COMP_INPUT_PLUS_IO3"/>
-	</RefParameter>
 	<RefParameter Comment="Non Inverting Input" DefaultValue="COMP_INPUT_PLUS_DAC1_CH1" Group="Pinout Parameters" Name="NonInvertingInput" Type="list" Visible="false">
 		<Condition Diagnostic="" Expression="$IpInstance_DAC1Channel1_inputplus &amp; ($IpNumber=1)"/>
 		<PossibleValue Comment="DAC1 Channel1" Value="COMP_INPUT_PLUS_DAC1_CH1"/>
 	</RefParameter>
-	
-
-	
+	<RefParameter Comment="Non Inverting Input" DefaultValue="COMP_INPUT_PLUS_DAC1_CH2" Group="Pinout Parameters" Name="NonInvertingInput" Type="list" Visible="false">
+		<Condition Diagnostic="" Expression="$IpInstance_DAC1Channel2_inputplus &amp; ($IpNumber=2)"/>
+		<PossibleValue Comment="DAC1 Channel2" Value="COMP_INPUT_PLUS_DAC1_CH2"/>
+	</RefParameter>
 	<!-- Basic Parameters -->
 
 	<RefParameter Comment="Speed / Power Mode" DefaultValue="COMP_POWERMODE_HIGHSPEED" Group="Basic Parameters" Name="Mode" Type="list">
@@ -96,6 +97,7 @@
 		
 	<!-- Blanking Sources. -->
 	<RefParameter Comment="Blanking Source" DefaultValue="COMP_BLANKINGSRC_NONE" Group="Output Configuration" Name="BlankingSrce" Type="list">
+		<Condition Diagnostic="" Expression="($IpNumber=1)"/>
 		<PossibleValue Comment="None" Value="COMP_BLANKINGSRC_NONE"/>
 		<PossibleValue Action="Disable" Comment="Timer 1 Output Compare 5" Condition="!Semaphore_output_Channel5TIM1" Diagnostic="Need to activate Timer 1 Channel 5 in an 'Output Compare' Mode." Value="COMP_BLANKINGSRC_TIM1_OC5"/>
 		<PossibleValue Action="Disable" Comment="Timer 2 Output Compare 3" Condition="!Semaphore_output_Channel3TIM2" Diagnostic="Need to activate Timer 2 Channel 3 in an 'Output Compare' Mode." Value="COMP_BLANKINGSRC_TIM2_OC3"/>
@@ -104,7 +106,16 @@
 		<PossibleValue Action="Disable" Comment="LPTimer 1 Output Compare 2" Condition="!(Semaphore_output_int_ch2_LPTIM1|Semaphore_CH2_OutputLPTIM1)" Diagnostic="Need to activate LPTimer 1 Channel 2 in an 'Output Compare' Mode." Value="COMP_BLANKINGSRC_LPTIM1_OC2"/>
 		<PossibleValue Action="Disable" Comment="LPTimer 2 Output Compare 2" Condition="!(Semaphore_output_int_ch2_LPTIM2|Semaphore_CH2_OutputLPTIM2)" Diagnostic="Need to activate LPTimer 2 Channel 2 in an 'Output Compare' Mode." Value="COMP_BLANKINGSRC_LPTIM2_OC2"/>
 	</RefParameter>
-	
+	<RefParameter Comment="Blanking Source" DefaultValue="COMP_BLANKINGSRC_NONE" Group="Output Configuration" Name="BlankingSrce" Type="list">
+		<Condition Diagnostic="" Expression="($IpNumber=2)"/>
+		<PossibleValue Comment="None" Value="COMP_BLANKINGSRC_NONE"/>
+		<PossibleValue Action="Disable" Comment="Timer 1 Output Compare 6" Condition="!Semaphore_output_Channel6TIM1" Diagnostic="Need to activate Timer 1 Channel 6 in an 'Output Compare' Mode." Value="COMP_BLANKINGSRC_TIM1_OC6"/>
+		<PossibleValue Action="Disable" Comment="Timer 2 Output Compare 3" Condition="!Semaphore_output_Channel3TIM2" Diagnostic="Need to activate Timer 2 Channel 3 in an 'Output Compare' Mode." Value="COMP_BLANKINGSRC_TIM2_OC3"/>
+		<PossibleValue Action="Disable" Comment="Timer 3 Output Compare 3" Condition="!Semaphore_output_Channel3TIM3" Diagnostic="Need to activate Timer 3 Channel 3 in an 'Output Compare' Mode." Value="COMP_BLANKINGSRC_TIM3_OC3"/>
+		<PossibleValue Action="Disable" Comment="Timer 3 Output Compare 4" Condition="!Semaphore_output_Channel4TIM3" Diagnostic="Need to activate Timer 3 Channel 4 in an 'Output Compare' Mode." Value="COMP_BLANKINGSRC_TIM3_OC4"/>
+		<PossibleValue Action="Disable" Comment="Timer 8 Output Compare 5" Condition="!Semaphore_output_Channel5TIM8" Diagnostic="Need to activate Timer 8 Channel 5 in an 'Output Compare' Mode." Value="COMP_BLANKINGSRC_TIM8_OC5"/>
+		<PossibleValue Action="Disable" Comment="Timer 15 Output Compare 2" Condition="!Semaphore_output_Channel2TIM15" Diagnostic="Need to activate Timer 15 Channel 2 in an 'Output Compare' Mode." Value="COMP_BLANKINGSRC_TIM15_OC2"/>
+	</RefParameter>
     <RefParameter Comment="Output Pol" DefaultValue="COMP_OUTPUTPOL_NONINVERTED" Group="Output Configuration" Name="OutputPol" Type="list">
         <PossibleValue Comment="COMP output on GPIO isn't inverted " Value="COMP_OUTPUTPOL_NONINVERTED"/>
         <PossibleValue Comment="COMP output on GPIO is inverted " Value="COMP_OUTPUTPOL_INVERTED"/>
@@ -132,7 +143,11 @@
 			<PossibleValue>COMP_INPUT_PLUS_DAC1_CH1</PossibleValue>
 		</Parameter>	
 	</RefMode>
-
+	<RefMode BaseMode="InputPlus_BaseMode" Name="INP_DAC1CH2">
+		<Parameter Name="NonInvertingInput">
+			<PossibleValue>COMP_INPUT_PLUS_DAC1_CH2</PossibleValue>
+		</Parameter>
+	</RefMode>
 
 
 	<!-- 'Inverting Input' RefModes list -->
@@ -164,18 +179,26 @@
 			<PossibleValue>COMP_INPUT_MINUS_DAC1_CH1</PossibleValue>
 		</Parameter>	
 	</RefMode>
+	<RefMode Name="INM_DACOUT2">
+		<Parameter Name="InvertingInput">
+			<PossibleValue>COMP_INPUT_MINUS_DAC1_CH2</PossibleValue>
+		</Parameter>
+	</RefMode>
 	<RefMode Name="14VBAT">
 		<Parameter Name="InvertingInput">
-			<PossibleValue>COMP_INPUT_MINUS_1_4VBAT</PossibleValue>
+			<PossibleValue>COMP_INPUT_MINUS_VBAT</PossibleValue>
 		</Parameter>	
 	</RefMode>
 	<RefMode Name="TPSENS">
 		<Parameter Name="InvertingInput">
-			<PossibleValue>COMP_INPUT_MINUS_TPSENS</PossibleValue>
+			<PossibleValue>COMP_INPUT_MINUS_TEMPSENSOR</PossibleValue>
 		</Parameter>	
 	</RefMode>
-	
-
+	<RefMode Name="Vddcore">
+		<Parameter Name="InvertingInput">
+			<PossibleValue>COMP_INPUT_MINUS_VDDCORE</PossibleValue>
+		</Parameter>
+	</RefMode>
 
 	
 	
@@ -198,10 +221,17 @@
 					<Condition Diagnostic="need to have DAC1 OUT1 activated with internal connection" Expression="(DAC1_OUT1_ExtAndInt | DAC1_OUT1_Int)"/>
 					
 				</Mode>
+				<Mode Name="INP_DAC1CH2"  UserName="DAC1 OUT2">
+					<Semaphore>$IpInstance_DAC1Channel2_inputplus</Semaphore>
+					<SignalLogicalOp Name="AND">
+						<Signal Name="VS_DAC1CH2INP"/>
+					</SignalLogicalOp>
+					<Condition Diagnostic="need to have DAC1 OUT1 activated with internal connection" Expression="(DAC1_OUT2_ExtAndInt | DAC1_OUT2_Int)"/>
+
+				</Mode>
 			
 			</ModeLogicOperator>
 			<Semaphore>$IpInstance_InputPlus</Semaphore>
-
 		</Mode>
 		
 		<Mode Name="InputNeg" UserName="Input [-]">
@@ -219,8 +249,13 @@
 					</SignalLogicalOp>
 					<Condition Diagnostic="Need to have DAC1 Out 1 activated with internal connection" Expression="(DAC1_OUT1_ExtAndInt | DAC1_OUT1_Int)"/>
 				</Mode>
-				
-			
+				<Mode Name="INM_DACOUT2" UserName="DAC1 OUT2">
+					<Semaphore>$IpInstance_DACChannel2</Semaphore>
+					<SignalLogicalOp Name="AND">
+						<Signal Name="VS_DACOUT2"/>
+					</SignalLogicalOp>
+					<Condition Diagnostic="Need to have DAC1 Out 2 activated with internal connection" Expression="(DAC1_OUT2_ExtAndInt | DAC1_OUT2_Int)"/>
+				</Mode>
 				<Mode Name="VREFINT" UserName="Internal VRef">
                                        <Semaphore>$IpInstance_Vref</Semaphore>
 					<SignalLogicalOp Name="AND">
@@ -256,6 +291,12 @@
                                        <Semaphore>$IpInstance_tpsens</Semaphore>
 					<SignalLogicalOp Name="AND">
 						<Signal Name="VS_TPSENS"/>
+					</SignalLogicalOp>
+				</Mode>
+				<Mode Name="Vddcore"  UserName="VDDCORE" RemoveCondition="$IpNumber=1">
+					<Semaphore>$IpInstance_vddcore</Semaphore>
+					<SignalLogicalOp Name="AND">
+						<Signal Name="VS_VDDCORE"/>
 					</SignalLogicalOp>
 				</Mode>
 				
@@ -336,13 +377,15 @@
 	<RefSignal Name="VS_VREFINT12" Virtual="true"/>
 	<RefSignal Name="VS_VREFINT14" Virtual="true"/>
 	<RefSignal Name="VS_DACOUT1" Virtual="true"/>
+	<RefSignal Name="VS_DACOUT2" Virtual="true"/>
 	<RefSignal Name="VS_VBAT" Virtual="true"/>
 	<RefSignal Name="VS_TPSENS" Virtual="true"/>
 	<RefSignal Name="VS_DAC1CH1INP" Virtual="true"/>
-	
+	<RefSignal Name="VS_VDDCORE" Virtual="true" />
 
 
 	
 	<!-- Semaphore for COMP -->
 	<Semaphore>$IpInstance</Semaphore>
+
 </IP>

@@ -1,0 +1,1964 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<IP DBVersion="V4.0" Name="LPDMA" Version="STM32Cube_FW_WBA_V0.1.0" IncludeFile="stm32wbaxx_hal.h" xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance" ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../../../doc/V4/Development/Specifications/db/IP_Configs.xsd" xmlns="http://mcd.rou.st.com/modules.php?name=mcu">
+
+<!-- init for simple request circular or linear LPDMA_CH0 BEGIN -->
+    <RefConfig Name="Init_LPDMACH0">
+    	
+    <IFCondition Expression = "!SEM_CIRCULAR_$IpInstanceCH0">
+    <CallLibMethod Name="HAL_DMA_Init">
+            <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel0"/>
+            <MethodArg Name="Instance" FValue="LPDMA$Index_Channel0"/>
+                <MethodArg Name="Request" ParameterName="REQUEST_LPDMACH0"/>
+                <MethodArg Name="BlkHWRequest" ParameterName="BLKHWREQUEST_LPDMACH0"/>
+                <MethodArg Name="Direction" ParameterName="DIRECTION_LPDMACH0"/>
+                <MethodArg Name="SrcInc" ParameterName="SRCINC_LPDMACH0"/>
+                <MethodArg Name="DestInc" ParameterName="DESTINC_LPDMACH0"/>
+                <MethodArg Name="SrcDataWidth" ParameterName="SRCDATAWIDTH_LPDMACH0"/>
+                <MethodArg Name="DestDataWidth" ParameterName="DESTDATAWIDTH_LPDMACH0"/>
+                <MethodArg Name="Priority" ParameterName="PRIORITY_LPDMACH0"/>
+                <MethodArg Name="SrcBurstLength" ParameterName="SRCBURSTLENGTH_LPDMACH0"/>
+                <MethodArg Name="DestBurstLength" ParameterName="DESTBURSTLENGTH_LPDMACH0"/>
+                <MethodArg Name="TransferAllocatedPort" ParameterName="TRANSFERALLOCATEDPORT_LPDMACH0"/> 
+                <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LPDMACH0"/>
+                <MethodArg Name="Mode" ParameterName="MODE_LPDMACH0"/>
+    </CallLibMethod>
+    </IFCondition>
+    <IFCondition Expression = "!SEM_CIRCULAR_$IpInstanceCH0 &amp; SEM_DATA_HANDLING_$IpInstanceCH0">
+    <CallLibMethod Name="HAL_DMAEx_ConfigDataHandling">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel0"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel0"/>
+          <MethodArg Name="DataExchange" ParameterName="DATAEXCHANGE_LPDMACH0"/> 
+          <MethodArg Name="DataAlignment" ParameterName="DATAALIGNEMENT_LPDMACH0"/>
+    </CallLibMethod>
+    </IFCondition>
+    <IFCondition Expression = "!SEM_CIRCULAR_$IpInstanceCH0 &amp; !SEM_NOTRIG_$IpInstanceCH0">
+    <CallLibMethod Name="HAL_DMAEx_ConfigTrigger">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel0"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel0"/>
+          <MethodArg Name="TriggerMode" ParameterName="TRIGGERMODE_LPDMACH0"/> 
+          <MethodArg Name="TriggerPolarity" ParameterName="TRIGGERPOLARITY_LPDMACH0"/>
+          <MethodArg Name="TriggerSelection" ParameterName="TRIGGERSELECTION_LPDMACH0"/>
+    </CallLibMethod>
+    </IFCondition>
+    <IFCondition Expression = "!SEM_CIRCULAR_$IpInstanceCH0">
+   
+    <CallLibMethod Name="__HAL_LINKDMA" ReturnHAL="false">
+        <MethodArg Name="handleIP" ParameterName="IPHANDLE_LPDMACH0"/>
+        <MethodArg Name="handleDMAinIP" ParameterName="DMAHANDLE_LPDMACH0"/>
+        <MethodArg Name="handleDMA" FValue="handle_LPDMA$Index_Channel0"/>
+    </CallLibMethod>
+    </IFCondition>
+    <IFCondition Expression = "SEM_CIRCULAR_$IpInstanceCH0 &amp; SEM_M33S">
+     <CallLibMethod Name="HAL_DMAEx_List_BuildNode">
+          <MethodArg Name="pNode" ParameterName="pNode_LPDMACH0"/>
+        <MethodArg Name="pNodeConfig" ParameterName="nodeconfig"/>
+         <MethodArg Name="SrcSecure" ParameterName="SrcSEC_LPDMACH0"/> 
+        <MethodArg Name="DestSecure" ParameterName="DestSEC_LPDMACH0"/>  
+        <MethodArg Name="NodeType" ParameterName="NODETYPE_LPDMACH0"/> 
+                <MethodArg Name="Request" ParameterName="REQUEST_LPDMACH0"/>
+                <MethodArg Name="BlkHWRequest" ParameterName="BLKHWREQUEST_LPDMACH0"/>
+                <MethodArg Name="Direction" ParameterName="DIRECTION_LPDMACH0"/>
+                <MethodArg Name="SrcInc" ParameterName="SRCINC_LPDMACH0"/>
+                <MethodArg Name="DestInc" ParameterName="DESTINC_LPDMACH0"/>
+                <MethodArg Name="SrcDataWidth" ParameterName="SRCDATAWIDTH_LPDMACH0"/>
+                <MethodArg Name="DestDataWidth" ParameterName="DESTDATAWIDTH_LPDMACH0"/>
+                <MethodArg Name="Priority" ParameterName="PRIORITY_LPDMACH0"/>
+                <MethodArg Name="SrcBurstLength" ParameterName="SRCBURSTLENGTH_LPDMACH0"/>
+                <MethodArg Name="DestBurstLength" ParameterName="DESTBURSTLENGTH_LPDMACH0"/>
+                <MethodArg Name="TransferAllocatedPort" ParameterName="TRANSFERALLOCATEDPORT_LPDMACH0"/> 
+                <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH0"/>
+                <MethodArg Name="Mode" ParameterName="MODE_LPDMACH0"/>
+                <MethodArg Name="TriggerMode" ParameterName="TRIGGERMODE_LPDMACH0"/> 
+                <MethodArg Name="TriggerPolarity" ParameterName="TRIGGERPOLARITY_LPDMACH0"/>
+                <MethodArg Name="TriggerSelection" ParameterName="TRIGGERSELECTION_LPDMACH0"/>
+                <MethodArg Name="DataExchange" ParameterName="DATAEXCHANGE_LPDMACH0"/> 
+                <MethodArg Name="DataAlignment" ParameterName="DATAALIGNEMENT_LPDMACH0"/>
+        <MethodArg Name="SrcAddress"  ParameterName="SRCADD_LPDMACH0"/> 
+        <MethodArg Name="DstAddress"  ParameterName="DSTADD_LPDMACH0"/> 
+        <MethodArg Name="DataSize"  ParameterName="DATASIZE_LPDMACH0"/>    
+      </CallLibMethod>
+         <CallLibMethod Name="HAL_DMAEx_List_InsertNode">
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH0"/>
+                <MethodArg Name="pNode" ParameterName="pNode_LPDMACH0"/>
+         </CallLibMethod>
+         
+           <CallLibMethod Name="HAL_DMAEx_List_SetCircularMode">
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH0"/>
+         </CallLibMethod>
+
+    <CallLibMethod Name="HAL_DMAEx_List_Init">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel0"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel0"/>
+            <MethodArg Name="Priority" ParameterName="PRIORITY_LL_CIRCULAR_LPDMACH0"/> 
+        <MethodArg Name="LinkedListMode" ParameterName="LINKEDLISTMODE_CIRCULAR_LPDMACH0"/> 
+        <MethodArg Name="LinkStepMode" ParameterName="LINKSTEPMODE_CIRCULAR_LPDMACH0"/> 
+        <MethodArg Name="LinkAllocatedPort" ParameterName="LINKALLOCATEDPORT_CIRCULAR_LPDMACH0"/> 
+        <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH0"/> 
+     </CallLibMethod>
+
+        <CallLibMethod Name="HAL_DMAEx_List_LinkQ">
+        <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel0"/>
+            <MethodArg Name="Instance" FValue="LPDMA$Index_Channel0"/>
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH0"/> 
+         </CallLibMethod>
+   <CallLibMethod Name="__HAL_LINKDMA" ReturnHAL="false">
+        <MethodArg Name="handleIP" ParameterName="IPHANDLE_LPDMACH0"/>
+        <MethodArg Name="handleDMAinIP" ParameterName="DMAHANDLE_LPDMACH0"/>
+        <MethodArg Name="handleDMA" FValue="handle_LPDMA$Index_Channel0"/>
+    </CallLibMethod>
+   </IFCondition>  
+   <IFCondition Expression = "SEM_CIRCULAR_$IpInstanceCH0 &amp; !SEM_M33S">
+     <CallLibMethod Name="HAL_DMAEx_List_BuildNode">
+          <MethodArg Name="pNode" ParameterName="pNode_LPDMACH0"/>
+        <MethodArg Name="pNodeConfig" ParameterName="nodeconfig"/>
+        <MethodArg Name="NodeType" ParameterName="NODETYPE_LPDMACH0"/> 
+                <MethodArg Name="Request" ParameterName="REQUEST_LPDMACH0"/>
+                <MethodArg Name="BlkHWRequest" ParameterName="BLKHWREQUEST_LPDMACH0"/>
+                <MethodArg Name="Direction" ParameterName="DIRECTION_LPDMACH0"/>
+                <MethodArg Name="SrcInc" ParameterName="SRCINC_LPDMACH0"/>
+                <MethodArg Name="DestInc" ParameterName="DESTINC_LPDMACH0"/>
+                <MethodArg Name="SrcDataWidth" ParameterName="SRCDATAWIDTH_LPDMACH0"/>
+                <MethodArg Name="DestDataWidth" ParameterName="DESTDATAWIDTH_LPDMACH0"/>
+                <MethodArg Name="Priority" ParameterName="PRIORITY_LPDMACH0"/>
+                <MethodArg Name="SrcBurstLength" ParameterName="SRCBURSTLENGTH_LPDMACH0"/>
+                <MethodArg Name="DestBurstLength" ParameterName="DESTBURSTLENGTH_LPDMACH0"/>
+                <MethodArg Name="TransferAllocatedPort" ParameterName="TRANSFERALLOCATEDPORT_LPDMACH0"/> 
+                <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH0"/>
+                <MethodArg Name="Mode" ParameterName="MODE_LPDMACH0"/>
+                <MethodArg Name="TriggerMode" ParameterName="TRIGGERMODE_LPDMACH0"/> 
+                <MethodArg Name="TriggerPolarity" ParameterName="TRIGGERPOLARITY_LPDMACH0"/>
+                <MethodArg Name="TriggerSelection" ParameterName="TRIGGERSELECTION_LPDMACH0"/>
+                <MethodArg Name="DataExchange" ParameterName="DATAEXCHANGE_LPDMACH0"/> 
+                <MethodArg Name="DataAlignment" ParameterName="DATAALIGNEMENT_LPDMACH0"/>
+        <MethodArg Name="SrcAddress"  ParameterName="SRCADD_LPDMACH0"/> 
+        <MethodArg Name="DstAddress"  ParameterName="DSTADD_LPDMACH0"/> 
+        <MethodArg Name="DataSize"  ParameterName="DATASIZE_LPDMACH0"/>    
+      </CallLibMethod>
+         <CallLibMethod Name="HAL_DMAEx_List_InsertNode">
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH0"/>
+                <MethodArg Name="pNode" ParameterName="pNode_LPDMACH0"/>
+         </CallLibMethod>
+         
+           <CallLibMethod Name="HAL_DMAEx_List_SetCircularMode">
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH0"/>
+         </CallLibMethod>
+
+    <CallLibMethod Name="HAL_DMAEx_List_Init">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel0"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel0"/>
+            <MethodArg Name="Priority" ParameterName="PRIORITY_LL_CIRCULAR_LPDMACH0"/> 
+        <MethodArg Name="LinkedListMode" ParameterName="LINKEDLISTMODE_CIRCULAR_LPDMACH0"/> 
+        <MethodArg Name="LinkStepMode" ParameterName="LINKSTEPMODE_CIRCULAR_LPDMACH0"/> 
+        <MethodArg Name="LinkAllocatedPort" ParameterName="LINKALLOCATEDPORT_CIRCULAR_LPDMACH0"/> 
+        <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH0"/> 
+     </CallLibMethod>
+
+        <CallLibMethod Name="HAL_DMAEx_List_LinkQ">
+        <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel0"/>
+            <MethodArg Name="Instance" FValue="LPDMA$Index_Channel0"/>
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH0"/> 
+         </CallLibMethod>
+   <CallLibMethod Name="__HAL_LINKDMA" ReturnHAL="false">
+        <MethodArg Name="handleIP" ParameterName="IPHANDLE_LPDMACH0"/>
+        <MethodArg Name="handleDMAinIP" ParameterName="DMAHANDLE_LPDMACH0"/>
+        <MethodArg Name="handleDMA" FValue="handle_LPDMA$Index_Channel0"/>
+    </CallLibMethod>
+   </IFCondition>  
+    <IFCondition Expression = "S_SECURE">
+     <CallLibMethod Name="HAL_DMA_ConfigChannelAttributes">
+     <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel0"/>
+      <MethodArg Name="ChannelAttributes" ParameterName="ChannelAttributes_LPDMACH0"/> 
+    </CallLibMethod>
+     </IFCondition>
+     <IFCondition Expression = "S_SECURE| !S_SECURE">
+     <CallLibMethod Name="HAL_DMA_ConfigChannelAttributes">
+     <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel0"/>
+      <MethodArg Name="ChannelAttributes" ParameterName="ChannelPRIV_LPDMACH0"/> 
+    </CallLibMethod>
+     </IFCondition>
+</RefConfig>
+
+<!-- init for simple request circular or linear LPDMA_CH0 END -->
+<!-- init for LinkedList  LPDMA_CH0 BEGIN -->
+ <RefConfig Name="Init_LL_LPDMACH0">
+      <CallLibMethod Name="HAL_DMAEx_List_Init">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel0"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel0"/>
+            <MethodArg Name="Priority" ParameterName="PRIORITY_LL_LPDMACH0"/> 
+        <MethodArg Name="LinkedListMode" ParameterName="LINKEDLISTMODE_LPDMACH0"/> 
+        <MethodArg Name="LinkStepMode" ParameterName="LINKSTEPMODE_LPDMACH0"/> 
+        <MethodArg Name="LinkAllocatedPort" ParameterName="LINKALLOCATEDPORT_LPDMACH0"/> 
+        <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_LPDMACH0"/> 
+     </CallLibMethod>
+      <IFCondition Expression = "S_SECURE">
+     <CallLibMethod Name="HAL_DMA_ConfigChannelAttributes">
+     <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel0"/>
+      <MethodArg Name="ChannelAttributes" ParameterName="ChannelAttributes_LPDMACH0"/> 
+    </CallLibMethod>
+     </IFCondition>
+   <IFCondition Expression = "S_SECURE | !S_SECURE">
+     <CallLibMethod Name="HAL_DMA_ConfigChannelAttributes">
+     <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel0"/>
+      <MethodArg Name="ChannelAttributes" ParameterName="ChannelPRIV_LPDMACH0"/> 
+    </CallLibMethod>
+     </IFCondition>
+
+    
+</RefConfig>
+<!-- init for LinkedList  LPDMA_CH0 END -->
+<!-- LPDMA Channel 1-->
+<!-- -->
+<!-- -->
+<!-- -->
+<!-- init for simple request circular or linear LPDMA_CH1 BEGIN -->
+    <RefConfig Name="Init_LPDMACH1">
+    	
+    <IFCondition Expression = "!SEM_CIRCULAR_$IpInstanceCH1">
+    <CallLibMethod Name="HAL_DMA_Init">
+            <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel1"/>
+            <MethodArg Name="Instance" FValue="LPDMA$Index_Channel1"/>
+                <MethodArg Name="Request" ParameterName="REQUEST_LPDMACH1"/>
+                <MethodArg Name="BlkHWRequest" ParameterName="BLKHWREQUEST_LPDMACH1"/>
+                <MethodArg Name="Direction" ParameterName="DIRECTION_LPDMACH1"/>
+                <MethodArg Name="SrcInc" ParameterName="SRCINC_LPDMACH1"/>
+                <MethodArg Name="DestInc" ParameterName="DESTINC_LPDMACH1"/>
+                <MethodArg Name="SrcDataWidth" ParameterName="SRCDATAWIDTH_LPDMACH1"/>
+                <MethodArg Name="DestDataWidth" ParameterName="DESTDATAWIDTH_LPDMACH1"/>
+                <MethodArg Name="Priority" ParameterName="PRIORITY_LPDMACH1"/>
+                <MethodArg Name="SrcBurstLength" ParameterName="SRCBURSTLENGTH_LPDMACH1"/>
+                <MethodArg Name="DestBurstLength" ParameterName="DESTBURSTLENGTH_LPDMACH1"/>
+                <MethodArg Name="TransferAllocatedPort" ParameterName="TRANSFERALLOCATEDPORT_LPDMACH1"/> 
+                <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LPDMACH1"/>
+                <MethodArg Name="Mode" ParameterName="MODE_LPDMACH1"/>
+    </CallLibMethod>
+    </IFCondition>
+    <IFCondition Expression = "!SEM_CIRCULAR_$IpInstanceCH1 &amp; SEM_DATA_HANDLING_$IpInstanceCH1">
+    <CallLibMethod Name="HAL_DMAEx_ConfigDataHandling">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel1"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel1"/>
+          <MethodArg Name="DataExchange" ParameterName="DATAEXCHANGE_LPDMACH1"/> 
+          <MethodArg Name="DataAlignment" ParameterName="DATAALIGNEMENT_LPDMACH1"/>
+    </CallLibMethod>
+    </IFCondition>
+    <IFCondition Expression = "!SEM_CIRCULAR_$IpInstanceCH1 &amp; !SEM_NOTRIG_$IpInstanceCH1">
+    <CallLibMethod Name="HAL_DMAEx_ConfigTrigger">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel1"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel1"/>
+          <MethodArg Name="TriggerMode" ParameterName="TRIGGERMODE_LPDMACH1"/> 
+          <MethodArg Name="TriggerPolarity" ParameterName="TRIGGERPOLARITY_LPDMACH1"/>
+          <MethodArg Name="TriggerSelection" ParameterName="TRIGGERSELECTION_LPDMACH1"/>
+    </CallLibMethod>
+    </IFCondition>
+    <IFCondition Expression = "!SEM_CIRCULAR_$IpInstanceCH1">
+   
+    <CallLibMethod Name="__HAL_LINKDMA" ReturnHAL="false">
+        <MethodArg Name="handleIP" ParameterName="IPHANDLE_LPDMACH1"/>
+        <MethodArg Name="handleDMAinIP" ParameterName="DMAHANDLE_LPDMACH1"/>
+        <MethodArg Name="handleDMA" FValue="handle_LPDMA$Index_Channel1"/>
+    </CallLibMethod>
+    </IFCondition>
+    <IFCondition Expression = "SEM_CIRCULAR_$IpInstanceCH1 &amp; SEM_M33S">
+     <CallLibMethod Name="HAL_DMAEx_List_BuildNode">
+          <MethodArg Name="pNode" ParameterName="pNode_LPDMACH1"/>
+        <MethodArg Name="pNodeConfig" ParameterName="nodeconfig"/>
+         <MethodArg Name="SrcSecure" ParameterName="SrcSEC_LPDMACH1"/> 
+        <MethodArg Name="DestSecure" ParameterName="DestSEC_LPDMACH1"/>  
+        <MethodArg Name="NodeType" ParameterName="NODETYPE_LPDMACH1"/> 
+                <MethodArg Name="Request" ParameterName="REQUEST_LPDMACH1"/>
+                <MethodArg Name="BlkHWRequest" ParameterName="BLKHWREQUEST_LPDMACH1"/>
+                <MethodArg Name="Direction" ParameterName="DIRECTION_LPDMACH1"/>
+                <MethodArg Name="SrcInc" ParameterName="SRCINC_LPDMACH1"/>
+                <MethodArg Name="DestInc" ParameterName="DESTINC_LPDMACH1"/>
+                <MethodArg Name="SrcDataWidth" ParameterName="SRCDATAWIDTH_LPDMACH1"/>
+                <MethodArg Name="DestDataWidth" ParameterName="DESTDATAWIDTH_LPDMACH1"/>
+                <MethodArg Name="Priority" ParameterName="PRIORITY_LPDMACH1"/>
+                <MethodArg Name="SrcBurstLength" ParameterName="SRCBURSTLENGTH_LPDMACH1"/>
+                <MethodArg Name="DestBurstLength" ParameterName="DESTBURSTLENGTH_LPDMACH1"/>
+                <MethodArg Name="TransferAllocatedPort" ParameterName="TRANSFERALLOCATEDPORT_LPDMACH1"/> 
+                <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH1"/>
+                <MethodArg Name="Mode" ParameterName="MODE_LPDMACH1"/>
+                <MethodArg Name="TriggerMode" ParameterName="TRIGGERMODE_LPDMACH1"/> 
+                <MethodArg Name="TriggerPolarity" ParameterName="TRIGGERPOLARITY_LPDMACH1"/>
+                <MethodArg Name="TriggerSelection" ParameterName="TRIGGERSELECTION_LPDMACH1"/>
+                <MethodArg Name="DataExchange" ParameterName="DATAEXCHANGE_LPDMACH1"/> 
+                <MethodArg Name="DataAlignment" ParameterName="DATAALIGNEMENT_LPDMACH1"/>
+        <MethodArg Name="SrcAddress"  ParameterName="SRCADD_LPDMACH1"/> 
+        <MethodArg Name="DstAddress"  ParameterName="DSTADD_LPDMACH1"/> 
+        <MethodArg Name="DataSize"  ParameterName="DATASIZE_LPDMACH1"/>    
+      </CallLibMethod>
+         <CallLibMethod Name="HAL_DMAEx_List_InsertNode">
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH1"/>
+                <MethodArg Name="pNode" ParameterName="pNode_LPDMACH1"/>
+         </CallLibMethod>
+         
+           <CallLibMethod Name="HAL_DMAEx_List_SetCircularMode">
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH1"/>
+         </CallLibMethod>
+
+    <CallLibMethod Name="HAL_DMAEx_List_Init">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel1"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel1"/>
+            <MethodArg Name="Priority" ParameterName="PRIORITY_LL_CIRCULAR_LPDMACH1"/> 
+        <MethodArg Name="LinkedListMode" ParameterName="LINKEDLISTMODE_CIRCULAR_LPDMACH1"/> 
+        <MethodArg Name="LinkStepMode" ParameterName="LINKSTEPMODE_CIRCULAR_LPDMACH1"/> 
+        <MethodArg Name="LinkAllocatedPort" ParameterName="LINKALLOCATEDPORT_CIRCULAR_LPDMACH1"/> 
+        <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH1"/> 
+     </CallLibMethod>
+
+        <CallLibMethod Name="HAL_DMAEx_List_LinkQ">
+        <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel1"/>
+            <MethodArg Name="Instance" FValue="LPDMA$Index_Channel1"/>
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH1"/> 
+         </CallLibMethod>
+   <CallLibMethod Name="__HAL_LINKDMA" ReturnHAL="false">
+        <MethodArg Name="handleIP" ParameterName="IPHANDLE_LPDMACH1"/>
+        <MethodArg Name="handleDMAinIP" ParameterName="DMAHANDLE_LPDMACH1"/>
+        <MethodArg Name="handleDMA" FValue="handle_LPDMA$Index_Channel1"/>
+    </CallLibMethod>
+   </IFCondition>  
+   <IFCondition Expression = "SEM_CIRCULAR_$IpInstanceCH1 &amp; !SEM_M33S">
+     <CallLibMethod Name="HAL_DMAEx_List_BuildNode">
+          <MethodArg Name="pNode" ParameterName="pNode_LPDMACH1"/>
+        <MethodArg Name="pNodeConfig" ParameterName="nodeconfig"/>
+        <MethodArg Name="NodeType" ParameterName="NODETYPE_LPDMACH1"/> 
+                <MethodArg Name="Request" ParameterName="REQUEST_LPDMACH1"/>
+                <MethodArg Name="BlkHWRequest" ParameterName="BLKHWREQUEST_LPDMACH1"/>
+                <MethodArg Name="Direction" ParameterName="DIRECTION_LPDMACH1"/>
+                <MethodArg Name="SrcInc" ParameterName="SRCINC_LPDMACH1"/>
+                <MethodArg Name="DestInc" ParameterName="DESTINC_LPDMACH1"/>
+                <MethodArg Name="SrcDataWidth" ParameterName="SRCDATAWIDTH_LPDMACH1"/>
+                <MethodArg Name="DestDataWidth" ParameterName="DESTDATAWIDTH_LPDMACH1"/>
+                <MethodArg Name="Priority" ParameterName="PRIORITY_LPDMACH1"/>
+                <MethodArg Name="SrcBurstLength" ParameterName="SRCBURSTLENGTH_LPDMACH1"/>
+                <MethodArg Name="DestBurstLength" ParameterName="DESTBURSTLENGTH_LPDMACH1"/>
+                <MethodArg Name="TransferAllocatedPort" ParameterName="TRANSFERALLOCATEDPORT_LPDMACH1"/> 
+                <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH1"/>
+                <MethodArg Name="Mode" ParameterName="MODE_LPDMACH1"/>
+                <MethodArg Name="TriggerMode" ParameterName="TRIGGERMODE_LPDMACH1"/> 
+                <MethodArg Name="TriggerPolarity" ParameterName="TRIGGERPOLARITY_LPDMACH1"/>
+                <MethodArg Name="TriggerSelection" ParameterName="TRIGGERSELECTION_LPDMACH1"/>
+                <MethodArg Name="DataExchange" ParameterName="DATAEXCHANGE_LPDMACH1"/> 
+                <MethodArg Name="DataAlignment" ParameterName="DATAALIGNEMENT_LPDMACH1"/>
+        <MethodArg Name="SrcAddress"  ParameterName="SRCADD_LPDMACH1"/> 
+        <MethodArg Name="DstAddress"  ParameterName="DSTADD_LPDMACH1"/> 
+        <MethodArg Name="DataSize"  ParameterName="DATASIZE_LPDMACH1"/>    
+      </CallLibMethod>
+         <CallLibMethod Name="HAL_DMAEx_List_InsertNode">
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH1"/>
+                <MethodArg Name="pNode" ParameterName="pNode_LPDMACH1"/>
+         </CallLibMethod>
+         
+           <CallLibMethod Name="HAL_DMAEx_List_SetCircularMode">
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH1"/>
+         </CallLibMethod>
+
+    <CallLibMethod Name="HAL_DMAEx_List_Init">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel1"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel1"/>
+            <MethodArg Name="Priority" ParameterName="PRIORITY_LL_CIRCULAR_LPDMACH1"/> 
+        <MethodArg Name="LinkedListMode" ParameterName="LINKEDLISTMODE_CIRCULAR_LPDMACH1"/> 
+        <MethodArg Name="LinkStepMode" ParameterName="LINKSTEPMODE_CIRCULAR_LPDMACH1"/> 
+        <MethodArg Name="LinkAllocatedPort" ParameterName="LINKALLOCATEDPORT_CIRCULAR_LPDMACH1"/> 
+        <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH1"/> 
+     </CallLibMethod>
+
+        <CallLibMethod Name="HAL_DMAEx_List_LinkQ">
+        <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel1"/>
+            <MethodArg Name="Instance" FValue="LPDMA$Index_Channel1"/>
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH1"/> 
+         </CallLibMethod>
+   <CallLibMethod Name="__HAL_LINKDMA" ReturnHAL="false">
+        <MethodArg Name="handleIP" ParameterName="IPHANDLE_LPDMACH1"/>
+        <MethodArg Name="handleDMAinIP" ParameterName="DMAHANDLE_LPDMACH1"/>
+        <MethodArg Name="handleDMA" FValue="handle_LPDMA$Index_Channel1"/>
+    </CallLibMethod>
+   </IFCondition>  
+    <IFCondition Expression = "S_SECURE">
+     <CallLibMethod Name="HAL_DMA_ConfigChannelAttributes">
+     <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel1"/>
+      <MethodArg Name="ChannelAttributes" ParameterName="ChannelAttributes_LPDMACH1"/> 
+    </CallLibMethod>
+     </IFCondition>
+     <IFCondition Expression = "S_SECURE| !S_SECURE">
+     <CallLibMethod Name="HAL_DMA_ConfigChannelAttributes">
+     <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel1"/>
+      <MethodArg Name="ChannelAttributes" ParameterName="ChannelPRIV_LPDMACH1"/> 
+    </CallLibMethod>
+     </IFCondition>
+</RefConfig>
+
+<!-- init for simple request circular or linear LPDMA_CH0 END -->
+<!-- init for LinkedList  LPDMA_CH1 BEGIN -->
+ <RefConfig Name="Init_LL_LPDMACH1">
+      <CallLibMethod Name="HAL_DMAEx_List_Init">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel1"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel1"/>
+            <MethodArg Name="Priority" ParameterName="PRIORITY_LL_LPDMACH1"/> 
+        <MethodArg Name="LinkedListMode" ParameterName="LINKEDLISTMODE_LPDMACH1"/> 
+        <MethodArg Name="LinkStepMode" ParameterName="LINKSTEPMODE_LPDMACH1"/> 
+        <MethodArg Name="LinkAllocatedPort" ParameterName="LINKALLOCATEDPORT_LPDMACH1"/> 
+        <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_LPDMACH1"/> 
+     </CallLibMethod>
+      <IFCondition Expression = "S_SECURE">
+     <CallLibMethod Name="HAL_DMA_ConfigChannelAttributes">
+     <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel0"/>
+      <MethodArg Name="ChannelAttributes" ParameterName="ChannelAttributes_LPDMACH1"/> 
+    </CallLibMethod>
+     </IFCondition>
+   <IFCondition Expression = "S_SECURE | !S_SECURE">
+     <CallLibMethod Name="HAL_DMA_ConfigChannelAttributes">
+     <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel1"/>
+      <MethodArg Name="ChannelAttributes" ParameterName="ChannelPRIV_LPDMACH1"/> 
+    </CallLibMethod>
+     </IFCondition>
+
+    
+</RefConfig>
+<!-- init for LinkedList  LPDMA_CH1 END -->
+
+<!-- -->
+<!-- -->
+<!-- -->
+<!-- LPDMA Channel 2-->
+<!-- -->
+<!-- -->
+<!-- -->
+<!-- init for simple request circular or linear LPDMA_CH2 BEGIN -->
+    <RefConfig Name="Init_LPDMACH2">
+    	
+    <IFCondition Expression = "!SEM_CIRCULAR_$IpInstanceCH2">
+    <CallLibMethod Name="HAL_DMA_Init">
+            <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel2"/>
+            <MethodArg Name="Instance" FValue="LPDMA$Index_Channel2"/>
+                <MethodArg Name="Request" ParameterName="REQUEST_LPDMACH2"/>
+                <MethodArg Name="BlkHWRequest" ParameterName="BLKHWREQUEST_LPDMACH2"/>
+                <MethodArg Name="Direction" ParameterName="DIRECTION_LPDMACH2"/>
+                <MethodArg Name="SrcInc" ParameterName="SRCINC_LPDMACH2"/>
+                <MethodArg Name="DestInc" ParameterName="DESTINC_LPDMACH2"/>
+                <MethodArg Name="SrcDataWidth" ParameterName="SRCDATAWIDTH_LPDMACH2"/>
+                <MethodArg Name="DestDataWidth" ParameterName="DESTDATAWIDTH_LPDMACH2"/>
+                <MethodArg Name="Priority" ParameterName="PRIORITY_LPDMACH2"/>
+                <MethodArg Name="SrcBurstLength" ParameterName="SRCBURSTLENGTH_LPDMACH2"/>
+                <MethodArg Name="DestBurstLength" ParameterName="DESTBURSTLENGTH_LPDMACH2"/>
+                <MethodArg Name="TransferAllocatedPort" ParameterName="TRANSFERALLOCATEDPORT_LPDMACH2"/> 
+                <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LPDMACH2"/>
+                <MethodArg Name="Mode" ParameterName="MODE_LPDMACH2"/>
+    </CallLibMethod>
+    </IFCondition>
+    <IFCondition Expression = "!SEM_CIRCULAR_$IpInstanceCH2 &amp; SEM_DATA_HANDLING_$IpInstanceCH2">
+    <CallLibMethod Name="HAL_DMAEx_ConfigDataHandling">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel2"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel2"/>
+          <MethodArg Name="DataExchange" ParameterName="DATAEXCHANGE_LPDMACH2"/> 
+          <MethodArg Name="DataAlignment" ParameterName="DATAALIGNEMENT_LPDMACH2"/>
+    </CallLibMethod>
+    </IFCondition>
+    <IFCondition Expression = "!SEM_CIRCULAR_$IpInstanceCH2 &amp; !SEM_NOTRIG_$IpInstanceCH2">
+    <CallLibMethod Name="HAL_DMAEx_ConfigTrigger">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel2"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel2"/>
+          <MethodArg Name="TriggerMode" ParameterName="TRIGGERMODE_LPDMACH2"/> 
+          <MethodArg Name="TriggerPolarity" ParameterName="TRIGGERPOLARITY_LPDMACH2"/>
+          <MethodArg Name="TriggerSelection" ParameterName="TRIGGERSELECTION_LPDMACH2"/>
+    </CallLibMethod>
+    </IFCondition>
+    <IFCondition Expression = "!SEM_CIRCULAR_$IpInstanceCH2">
+   
+    <CallLibMethod Name="__HAL_LINKDMA" ReturnHAL="false">
+        <MethodArg Name="handleIP" ParameterName="IPHANDLE_LPDMACH2"/>
+        <MethodArg Name="handleDMAinIP" ParameterName="DMAHANDLE_LPDMACH2"/>
+        <MethodArg Name="handleDMA" FValue="handle_LPDMA$Index_Channel2"/>
+    </CallLibMethod>
+    </IFCondition>
+    <IFCondition Expression = "SEM_CIRCULAR_$IpInstanceCH2 &amp; SEM_M33S">
+     <CallLibMethod Name="HAL_DMAEx_List_BuildNode">
+          <MethodArg Name="pNode" ParameterName="pNode_LPDMACH2"/>
+        <MethodArg Name="pNodeConfig" ParameterName="nodeconfig"/>
+         <MethodArg Name="SrcSecure" ParameterName="SrcSEC_LPDMACH2"/> 
+        <MethodArg Name="DestSecure" ParameterName="DestSEC_LPDMACH2"/>  
+        <MethodArg Name="NodeType" ParameterName="NODETYPE_LPDMACH2"/> 
+                <MethodArg Name="Request" ParameterName="REQUEST_LPDMACH2"/>
+                <MethodArg Name="BlkHWRequest" ParameterName="BLKHWREQUEST_LPDMACH2"/>
+                <MethodArg Name="Direction" ParameterName="DIRECTION_LPDMACH2"/>
+                <MethodArg Name="SrcInc" ParameterName="SRCINC_LPDMACH2"/>
+                <MethodArg Name="DestInc" ParameterName="DESTINC_LPDMACH2"/>
+                <MethodArg Name="SrcDataWidth" ParameterName="SRCDATAWIDTH_LPDMACH2"/>
+                <MethodArg Name="DestDataWidth" ParameterName="DESTDATAWIDTH_LPDMACH2"/>
+                <MethodArg Name="Priority" ParameterName="PRIORITY_LPDMACH2"/>
+                <MethodArg Name="SrcBurstLength" ParameterName="SRCBURSTLENGTH_LPDMACH2"/>
+                <MethodArg Name="DestBurstLength" ParameterName="DESTBURSTLENGTH_LPDMACH2"/>
+                <MethodArg Name="TransferAllocatedPort" ParameterName="TRANSFERALLOCATEDPORT_LPDMACH2"/> 
+                <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH2"/>
+                <MethodArg Name="Mode" ParameterName="MODE_LPDMACH2"/>
+                <MethodArg Name="TriggerMode" ParameterName="TRIGGERMODE_LPDMACH2"/> 
+                <MethodArg Name="TriggerPolarity" ParameterName="TRIGGERPOLARITY_LPDMACH2"/>
+                <MethodArg Name="TriggerSelection" ParameterName="TRIGGERSELECTION_LPDMACH2"/>
+                <MethodArg Name="DataExchange" ParameterName="DATAEXCHANGE_LPDMACH2"/> 
+                <MethodArg Name="DataAlignment" ParameterName="DATAALIGNEMENT_LPDMACH2"/>
+        <MethodArg Name="SrcAddress"  ParameterName="SRCADD_LPDMACH2"/> 
+        <MethodArg Name="DstAddress"  ParameterName="DSTADD_LPDMACH2"/> 
+        <MethodArg Name="DataSize"  ParameterName="DATASIZE_LPDMACH2"/>    
+      </CallLibMethod>
+         <CallLibMethod Name="HAL_DMAEx_List_InsertNode">
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH2"/>
+                <MethodArg Name="pNode" ParameterName="pNode_LPDMACH2"/>
+         </CallLibMethod>
+         
+           <CallLibMethod Name="HAL_DMAEx_List_SetCircularMode">
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH2"/>
+         </CallLibMethod>
+
+    <CallLibMethod Name="HAL_DMAEx_List_Init">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel2"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel2"/>
+            <MethodArg Name="Priority" ParameterName="PRIORITY_LL_CIRCULAR_LPDMACH2"/> 
+        <MethodArg Name="LinkedListMode" ParameterName="LINKEDLISTMODE_CIRCULAR_LPDMACH2"/> 
+        <MethodArg Name="LinkStepMode" ParameterName="LINKSTEPMODE_CIRCULAR_LPDMACH2"/> 
+        <MethodArg Name="LinkAllocatedPort" ParameterName="LINKALLOCATEDPORT_CIRCULAR_LPDMACH2"/> 
+        <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH2"/> 
+     </CallLibMethod>
+
+        <CallLibMethod Name="HAL_DMAEx_List_LinkQ">
+        <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel2"/>
+            <MethodArg Name="Instance" FValue="LPDMA$Index_Channel2"/>
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH2"/> 
+         </CallLibMethod>
+   <CallLibMethod Name="__HAL_LINKDMA" ReturnHAL="false">
+        <MethodArg Name="handleIP" ParameterName="IPHANDLE_LPDMACH2"/>
+        <MethodArg Name="handleDMAinIP" ParameterName="DMAHANDLE_LPDMACH2"/>
+        <MethodArg Name="handleDMA" FValue="handle_LPDMA$Index_Channel2"/>
+    </CallLibMethod>
+   </IFCondition>  
+   <IFCondition Expression = "SEM_CIRCULAR_$IpInstanceCH2 &amp; !SEM_M33S">
+     <CallLibMethod Name="HAL_DMAEx_List_BuildNode">
+          <MethodArg Name="pNode" ParameterName="pNode_LPDMACH2"/>
+        <MethodArg Name="pNodeConfig" ParameterName="nodeconfig"/>
+        <MethodArg Name="NodeType" ParameterName="NODETYPE_LPDMACH2"/> 
+                <MethodArg Name="Request" ParameterName="REQUEST_LPDMACH2"/>
+                <MethodArg Name="BlkHWRequest" ParameterName="BLKHWREQUEST_LPDMACH2"/>
+                <MethodArg Name="Direction" ParameterName="DIRECTION_LPDMACH2"/>
+                <MethodArg Name="SrcInc" ParameterName="SRCINC_LPDMACH2"/>
+                <MethodArg Name="DestInc" ParameterName="DESTINC_LPDMACH2"/>
+                <MethodArg Name="SrcDataWidth" ParameterName="SRCDATAWIDTH_LPDMACH2"/>
+                <MethodArg Name="DestDataWidth" ParameterName="DESTDATAWIDTH_LPDMACH2"/>
+                <MethodArg Name="Priority" ParameterName="PRIORITY_LPDMACH2"/>
+                <MethodArg Name="SrcBurstLength" ParameterName="SRCBURSTLENGTH_LPDMACH2"/>
+                <MethodArg Name="DestBurstLength" ParameterName="DESTBURSTLENGTH_LPDMACH2"/>
+                <MethodArg Name="TransferAllocatedPort" ParameterName="TRANSFERALLOCATEDPORT_LPDMACH2"/> 
+                <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH2"/>
+                <MethodArg Name="Mode" ParameterName="MODE_LPDMACH2"/>
+                <MethodArg Name="TriggerMode" ParameterName="TRIGGERMODE_LPDMACH2"/> 
+                <MethodArg Name="TriggerPolarity" ParameterName="TRIGGERPOLARITY_LPDMACH2"/>
+                <MethodArg Name="TriggerSelection" ParameterName="TRIGGERSELECTION_LPDMACH2"/>
+                <MethodArg Name="DataExchange" ParameterName="DATAEXCHANGE_LPDMACH2"/> 
+                <MethodArg Name="DataAlignment" ParameterName="DATAALIGNEMENT_LPDMACH2"/>
+        <MethodArg Name="SrcAddress"  ParameterName="SRCADD_LPDMACH2"/> 
+        <MethodArg Name="DstAddress"  ParameterName="DSTADD_LPDMACH2"/> 
+        <MethodArg Name="DataSize"  ParameterName="DATASIZE_LPDMACH2"/>    
+      </CallLibMethod>
+         <CallLibMethod Name="HAL_DMAEx_List_InsertNode">
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH2"/>
+                <MethodArg Name="pNode" ParameterName="pNode_LPDMACH2"/>
+         </CallLibMethod>
+         
+           <CallLibMethod Name="HAL_DMAEx_List_SetCircularMode">
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH2"/>
+         </CallLibMethod>
+
+    <CallLibMethod Name="HAL_DMAEx_List_Init">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel2"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel2"/>
+            <MethodArg Name="Priority" ParameterName="PRIORITY_LL_CIRCULAR_LPDMACH2"/> 
+        <MethodArg Name="LinkedListMode" ParameterName="LINKEDLISTMODE_CIRCULAR_LPDMACH2"/> 
+        <MethodArg Name="LinkStepMode" ParameterName="LINKSTEPMODE_CIRCULAR_LPDMACH2"/> 
+        <MethodArg Name="LinkAllocatedPort" ParameterName="LINKALLOCATEDPORT_CIRCULAR_LPDMACH2"/> 
+        <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH2"/> 
+     </CallLibMethod>
+
+        <CallLibMethod Name="HAL_DMAEx_List_LinkQ">
+        <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel2"/>
+            <MethodArg Name="Instance" FValue="LPDMA$Index_Channel2"/>
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH2"/> 
+         </CallLibMethod>
+   <CallLibMethod Name="__HAL_LINKDMA" ReturnHAL="false">
+        <MethodArg Name="handleIP" ParameterName="IPHANDLE_LPDMACH2"/>
+        <MethodArg Name="handleDMAinIP" ParameterName="DMAHANDLE_LPDMACH2"/>
+        <MethodArg Name="handleDMA" FValue="handle_LPDMA$Index_Channel2"/>
+    </CallLibMethod>
+   </IFCondition>  
+    <IFCondition Expression = "S_SECURE">
+     <CallLibMethod Name="HAL_DMA_ConfigChannelAttributes">
+     <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel2"/>
+      <MethodArg Name="ChannelAttributes" ParameterName="ChannelAttributes_LPDMACH2"/> 
+    </CallLibMethod>
+     </IFCondition>
+     <IFCondition Expression = "S_SECURE| !S_SECURE">
+     <CallLibMethod Name="HAL_DMA_ConfigChannelAttributes">
+     <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel2"/>
+      <MethodArg Name="ChannelAttributes" ParameterName="ChannelPRIV_LPDMACH2"/> 
+    </CallLibMethod>
+     </IFCondition>
+</RefConfig>
+
+<!-- init for simple request circular or linear LPDMA_CH0 END -->
+<!-- init for LinkedList  LPDMA_CH2 BEGIN -->
+ <RefConfig Name="Init_LL_LPDMACH2">
+      <CallLibMethod Name="HAL_DMAEx_List_Init">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel2"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel2"/>
+            <MethodArg Name="Priority" ParameterName="PRIORITY_LL_LPDMACH2"/> 
+        <MethodArg Name="LinkedListMode" ParameterName="LINKEDLISTMODE_LPDMACH2"/> 
+        <MethodArg Name="LinkStepMode" ParameterName="LINKSTEPMODE_LPDMACH2"/> 
+        <MethodArg Name="LinkAllocatedPort" ParameterName="LINKALLOCATEDPORT_LPDMACH2"/> 
+        <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_LPDMACH2"/> 
+     </CallLibMethod>
+      <IFCondition Expression = "S_SECURE">
+     <CallLibMethod Name="HAL_DMA_ConfigChannelAttributes">
+     <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel0"/>
+      <MethodArg Name="ChannelAttributes" ParameterName="ChannelAttributes_LPDMACH2"/> 
+    </CallLibMethod>
+     </IFCondition>
+   <IFCondition Expression = "S_SECURE | !S_SECURE">
+     <CallLibMethod Name="HAL_DMA_ConfigChannelAttributes">
+     <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel2"/>
+      <MethodArg Name="ChannelAttributes" ParameterName="ChannelPRIV_LPDMACH2"/> 
+    </CallLibMethod>
+     </IFCondition>
+
+    
+</RefConfig>
+<!-- init for LinkedList  LPDMA_CH2 END -->
+
+<!-- -->
+<!-- -->
+<!-- -->
+<!-- -->
+<!-- -->
+<!-- -->
+<!-- LPDMA Channel 3-->
+<!-- -->
+<!-- -->
+<!-- -->
+<!-- init for simple request circular or linear LPDMA_CH3 BEGIN -->
+    <RefConfig Name="Init_LPDMACH3">
+    	
+    <IFCondition Expression = "!SEM_CIRCULAR_$IpInstanceCH3">
+    <CallLibMethod Name="HAL_DMA_Init">
+            <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel3"/>
+            <MethodArg Name="Instance" FValue="LPDMA$Index_Channel3"/>
+                <MethodArg Name="Request" ParameterName="REQUEST_LPDMACH3"/>
+                <MethodArg Name="BlkHWRequest" ParameterName="BLKHWREQUEST_LPDMACH3"/>
+                <MethodArg Name="Direction" ParameterName="DIRECTION_LPDMACH3"/>
+                <MethodArg Name="SrcInc" ParameterName="SRCINC_LPDMACH3"/>
+                <MethodArg Name="DestInc" ParameterName="DESTINC_LPDMACH3"/>
+                <MethodArg Name="SrcDataWidth" ParameterName="SRCDATAWIDTH_LPDMACH3"/>
+                <MethodArg Name="DestDataWidth" ParameterName="DESTDATAWIDTH_LPDMACH3"/>
+                <MethodArg Name="Priority" ParameterName="PRIORITY_LPDMACH3"/>
+                <MethodArg Name="SrcBurstLength" ParameterName="SRCBURSTLENGTH_LPDMACH3"/>
+                <MethodArg Name="DestBurstLength" ParameterName="DESTBURSTLENGTH_LPDMACH3"/>
+                <MethodArg Name="TransferAllocatedPort" ParameterName="TRANSFERALLOCATEDPORT_LPDMACH3"/> 
+                <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LPDMACH3"/>
+                <MethodArg Name="Mode" ParameterName="MODE_LPDMACH3"/>
+    </CallLibMethod>
+    </IFCondition>
+    <IFCondition Expression = "!SEM_CIRCULAR_$IpInstanceCH3 &amp; SEM_DATA_HANDLING_$IpInstanceCH3">
+    <CallLibMethod Name="HAL_DMAEx_ConfigDataHandling">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel3"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel3"/>
+          <MethodArg Name="DataExchange" ParameterName="DATAEXCHANGE_LPDMACH3"/> 
+          <MethodArg Name="DataAlignment" ParameterName="DATAALIGNEMENT_LPDMACH3"/>
+    </CallLibMethod>
+    </IFCondition>
+    <IFCondition Expression = "!SEM_CIRCULAR_$IpInstanceCH3 &amp; !SEM_NOTRIG_$IpInstanceCH3">
+    <CallLibMethod Name="HAL_DMAEx_ConfigTrigger">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel3"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel3"/>
+          <MethodArg Name="TriggerMode" ParameterName="TRIGGERMODE_LPDMACH3"/> 
+          <MethodArg Name="TriggerPolarity" ParameterName="TRIGGERPOLARITY_LPDMACH3"/>
+          <MethodArg Name="TriggerSelection" ParameterName="TRIGGERSELECTION_LPDMACH3"/>
+    </CallLibMethod>
+    </IFCondition>
+    <IFCondition Expression = "!SEM_CIRCULAR_$IpInstanceCH3">
+   
+    <CallLibMethod Name="__HAL_LINKDMA" ReturnHAL="false">
+        <MethodArg Name="handleIP" ParameterName="IPHANDLE_LPDMACH3"/>
+        <MethodArg Name="handleDMAinIP" ParameterName="DMAHANDLE_LPDMACH3"/>
+        <MethodArg Name="handleDMA" FValue="handle_LPDMA$Index_Channel3"/>
+    </CallLibMethod>
+    </IFCondition>
+    <IFCondition Expression = "SEM_CIRCULAR_$IpInstanceCH3 &amp; SEM_M33S">
+     <CallLibMethod Name="HAL_DMAEx_List_BuildNode">
+          <MethodArg Name="pNode" ParameterName="pNode_LPDMACH3"/>
+        <MethodArg Name="pNodeConfig" ParameterName="nodeconfig"/>
+         <MethodArg Name="SrcSecure" ParameterName="SrcSEC_LPDMACH3"/> 
+        <MethodArg Name="DestSecure" ParameterName="DestSEC_LPDMACH3"/>  
+        <MethodArg Name="NodeType" ParameterName="NODETYPE_LPDMACH3"/> 
+                <MethodArg Name="Request" ParameterName="REQUEST_LPDMACH3"/>
+                <MethodArg Name="BlkHWRequest" ParameterName="BLKHWREQUEST_LPDMACH3"/>
+                <MethodArg Name="Direction" ParameterName="DIRECTION_LPDMACH3"/>
+                <MethodArg Name="SrcInc" ParameterName="SRCINC_LPDMACH3"/>
+                <MethodArg Name="DestInc" ParameterName="DESTINC_LPDMACH3"/>
+                <MethodArg Name="SrcDataWidth" ParameterName="SRCDATAWIDTH_LPDMACH3"/>
+                <MethodArg Name="DestDataWidth" ParameterName="DESTDATAWIDTH_LPDMACH3"/>
+                <MethodArg Name="Priority" ParameterName="PRIORITY_LPDMACH3"/>
+                <MethodArg Name="SrcBurstLength" ParameterName="SRCBURSTLENGTH_LPDMACH3"/>
+                <MethodArg Name="DestBurstLength" ParameterName="DESTBURSTLENGTH_LPDMACH3"/>
+                <MethodArg Name="TransferAllocatedPort" ParameterName="TRANSFERALLOCATEDPORT_LPDMACH3"/> 
+                <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH3"/>
+                <MethodArg Name="Mode" ParameterName="MODE_LPDMACH3"/>
+                <MethodArg Name="TriggerMode" ParameterName="TRIGGERMODE_LPDMACH3"/> 
+                <MethodArg Name="TriggerPolarity" ParameterName="TRIGGERPOLARITY_LPDMACH3"/>
+                <MethodArg Name="TriggerSelection" ParameterName="TRIGGERSELECTION_LPDMACH3"/>
+                <MethodArg Name="DataExchange" ParameterName="DATAEXCHANGE_LPDMACH3"/> 
+                <MethodArg Name="DataAlignment" ParameterName="DATAALIGNEMENT_LPDMACH3"/>
+        <MethodArg Name="SrcAddress"  ParameterName="SRCADD_LPDMACH3"/> 
+        <MethodArg Name="DstAddress"  ParameterName="DSTADD_LPDMACH3"/> 
+        <MethodArg Name="DataSize"  ParameterName="DATASIZE_LPDMACH3"/>    
+      </CallLibMethod>
+         <CallLibMethod Name="HAL_DMAEx_List_InsertNode">
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH3"/>
+                <MethodArg Name="pNode" ParameterName="pNode_LPDMACH3"/>
+         </CallLibMethod>
+         
+           <CallLibMethod Name="HAL_DMAEx_List_SetCircularMode">
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH3"/>
+         </CallLibMethod>
+
+    <CallLibMethod Name="HAL_DMAEx_List_Init">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel3"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel3"/>
+            <MethodArg Name="Priority" ParameterName="PRIORITY_LL_CIRCULAR_LPDMACH3"/> 
+        <MethodArg Name="LinkedListMode" ParameterName="LINKEDLISTMODE_CIRCULAR_LPDMACH3"/> 
+        <MethodArg Name="LinkStepMode" ParameterName="LINKSTEPMODE_CIRCULAR_LPDMACH3"/> 
+        <MethodArg Name="LinkAllocatedPort" ParameterName="LINKALLOCATEDPORT_CIRCULAR_LPDMACH3"/> 
+        <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH3"/> 
+     </CallLibMethod>
+
+        <CallLibMethod Name="HAL_DMAEx_List_LinkQ">
+        <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel3"/>
+            <MethodArg Name="Instance" FValue="LPDMA$Index_Channel3"/>
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH3"/> 
+         </CallLibMethod>
+   <CallLibMethod Name="__HAL_LINKDMA" ReturnHAL="false">
+        <MethodArg Name="handleIP" ParameterName="IPHANDLE_LPDMACH3"/>
+        <MethodArg Name="handleDMAinIP" ParameterName="DMAHANDLE_LPDMACH3"/>
+        <MethodArg Name="handleDMA" FValue="handle_LPDMA$Index_Channel3"/>
+    </CallLibMethod>
+   </IFCondition>  
+   <IFCondition Expression = "SEM_CIRCULAR_$IpInstanceCH3 &amp; !SEM_M33S">
+     <CallLibMethod Name="HAL_DMAEx_List_BuildNode">
+          <MethodArg Name="pNode" ParameterName="pNode_LPDMACH3"/>
+        <MethodArg Name="pNodeConfig" ParameterName="nodeconfig"/>
+        <MethodArg Name="NodeType" ParameterName="NODETYPE_LPDMACH3"/> 
+                <MethodArg Name="Request" ParameterName="REQUEST_LPDMACH3"/>
+                <MethodArg Name="BlkHWRequest" ParameterName="BLKHWREQUEST_LPDMACH3"/>
+                <MethodArg Name="Direction" ParameterName="DIRECTION_LPDMACH3"/>
+                <MethodArg Name="SrcInc" ParameterName="SRCINC_LPDMACH3"/>
+                <MethodArg Name="DestInc" ParameterName="DESTINC_LPDMACH3"/>
+                <MethodArg Name="SrcDataWidth" ParameterName="SRCDATAWIDTH_LPDMACH3"/>
+                <MethodArg Name="DestDataWidth" ParameterName="DESTDATAWIDTH_LPDMACH3"/>
+                <MethodArg Name="Priority" ParameterName="PRIORITY_LPDMACH3"/>
+                <MethodArg Name="SrcBurstLength" ParameterName="SRCBURSTLENGTH_LPDMACH3"/>
+                <MethodArg Name="DestBurstLength" ParameterName="DESTBURSTLENGTH_LPDMACH3"/>
+                <MethodArg Name="TransferAllocatedPort" ParameterName="TRANSFERALLOCATEDPORT_LPDMACH3"/> 
+                <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH3"/>
+                <MethodArg Name="Mode" ParameterName="MODE_LPDMACH3"/>
+                <MethodArg Name="TriggerMode" ParameterName="TRIGGERMODE_LPDMACH3"/> 
+                <MethodArg Name="TriggerPolarity" ParameterName="TRIGGERPOLARITY_LPDMACH3"/>
+                <MethodArg Name="TriggerSelection" ParameterName="TRIGGERSELECTION_LPDMACH3"/>
+                <MethodArg Name="DataExchange" ParameterName="DATAEXCHANGE_LPDMACH3"/> 
+                <MethodArg Name="DataAlignment" ParameterName="DATAALIGNEMENT_LPDMACH3"/>
+        <MethodArg Name="SrcAddress"  ParameterName="SRCADD_LPDMACH3"/> 
+        <MethodArg Name="DstAddress"  ParameterName="DSTADD_LPDMACH3"/> 
+        <MethodArg Name="DataSize"  ParameterName="DATASIZE_LPDMACH3"/>    
+      </CallLibMethod>
+         <CallLibMethod Name="HAL_DMAEx_List_InsertNode">
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH3"/>
+                <MethodArg Name="pNode" ParameterName="pNode_LPDMACH3"/>
+         </CallLibMethod>
+         
+           <CallLibMethod Name="HAL_DMAEx_List_SetCircularMode">
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH3"/>
+         </CallLibMethod>
+
+    <CallLibMethod Name="HAL_DMAEx_List_Init">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel3"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel3"/>
+            <MethodArg Name="Priority" ParameterName="PRIORITY_LL_CIRCULAR_LPDMACH3"/> 
+        <MethodArg Name="LinkedListMode" ParameterName="LINKEDLISTMODE_CIRCULAR_LPDMACH3"/> 
+        <MethodArg Name="LinkStepMode" ParameterName="LINKSTEPMODE_CIRCULAR_LPDMACH3"/> 
+        <MethodArg Name="LinkAllocatedPort" ParameterName="LINKALLOCATEDPORT_CIRCULAR_LPDMACH3"/> 
+        <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH3"/> 
+     </CallLibMethod>
+
+        <CallLibMethod Name="HAL_DMAEx_List_LinkQ">
+        <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel3"/>
+            <MethodArg Name="Instance" FValue="LPDMA$Index_Channel3"/>
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH3"/> 
+         </CallLibMethod>
+   <CallLibMethod Name="__HAL_LINKDMA" ReturnHAL="false">
+        <MethodArg Name="handleIP" ParameterName="IPHANDLE_LPDMACH3"/>
+        <MethodArg Name="handleDMAinIP" ParameterName="DMAHANDLE_LPDMACH3"/>
+        <MethodArg Name="handleDMA" FValue="handle_LPDMA$Index_Channel3"/>
+    </CallLibMethod>
+   </IFCondition>  
+    <IFCondition Expression = "S_SECURE">
+     <CallLibMethod Name="HAL_DMA_ConfigChannelAttributes">
+     <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel3"/>
+      <MethodArg Name="ChannelAttributes" ParameterName="ChannelAttributes_LPDMACH3"/> 
+    </CallLibMethod>
+     </IFCondition>
+     <IFCondition Expression = "S_SECURE| !S_SECURE">
+     <CallLibMethod Name="HAL_DMA_ConfigChannelAttributes">
+     <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel3"/>
+      <MethodArg Name="ChannelAttributes" ParameterName="ChannelPRIV_LPDMACH3"/> 
+    </CallLibMethod>
+     </IFCondition>
+</RefConfig>
+
+<!-- init for simple request circular or linear LPDMA_CH0 END -->
+<!-- init for LinkedList  LPDMA_CH3 BEGIN -->
+ <RefConfig Name="Init_LL_LPDMACH3">
+      <CallLibMethod Name="HAL_DMAEx_List_Init">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel3"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel3"/>
+            <MethodArg Name="Priority" ParameterName="PRIORITY_LL_LPDMACH3"/> 
+        <MethodArg Name="LinkedListMode" ParameterName="LINKEDLISTMODE_LPDMACH3"/> 
+        <MethodArg Name="LinkStepMode" ParameterName="LINKSTEPMODE_LPDMACH3"/> 
+        <MethodArg Name="LinkAllocatedPort" ParameterName="LINKALLOCATEDPORT_LPDMACH3"/> 
+        <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_LPDMACH3"/> 
+     </CallLibMethod>
+      <IFCondition Expression = "S_SECURE">
+     <CallLibMethod Name="HAL_DMA_ConfigChannelAttributes">
+     <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel0"/>
+      <MethodArg Name="ChannelAttributes" ParameterName="ChannelAttributes_LPDMACH3"/> 
+    </CallLibMethod>
+     </IFCondition>
+   <IFCondition Expression = "S_SECURE | !S_SECURE">
+     <CallLibMethod Name="HAL_DMA_ConfigChannelAttributes">
+     <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel3"/>
+      <MethodArg Name="ChannelAttributes" ParameterName="ChannelPRIV_LPDMACH3"/> 
+    </CallLibMethod>
+     </IFCondition>
+
+    
+</RefConfig>
+<!-- init for LinkedList  LPDMA_CH3 END -->
+
+<!-- -->
+<!-- -->
+<!-- -->
+<!-- LPDMA Channel 3-->
+<!-- -->
+<!-- -->
+<!-- -->
+<!-- init for simple request circular or linear LPDMA_CH4 BEGIN -->
+    <RefConfig Name="Init_LPDMACH4">
+    	
+    <IFCondition Expression = "!SEM_CIRCULAR_$IpInstanceCH4">
+    <CallLibMethod Name="HAL_DMA_Init">
+            <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel4"/>
+            <MethodArg Name="Instance" FValue="LPDMA$Index_Channel4"/>
+                <MethodArg Name="Request" ParameterName="REQUEST_LPDMACH4"/>
+                <MethodArg Name="BlkHWRequest" ParameterName="BLKHWREQUEST_LPDMACH4"/>
+                <MethodArg Name="Direction" ParameterName="DIRECTION_LPDMACH4"/>
+                <MethodArg Name="SrcInc" ParameterName="SRCINC_LPDMACH4"/>
+                <MethodArg Name="DestInc" ParameterName="DESTINC_LPDMACH4"/>
+                <MethodArg Name="SrcDataWidth" ParameterName="SRCDATAWIDTH_LPDMACH4"/>
+                <MethodArg Name="DestDataWidth" ParameterName="DESTDATAWIDTH_LPDMACH4"/>
+                <MethodArg Name="Priority" ParameterName="PRIORITY_LPDMACH4"/>
+                <MethodArg Name="SrcBurstLength" ParameterName="SRCBURSTLENGTH_LPDMACH4"/>
+                <MethodArg Name="DestBurstLength" ParameterName="DESTBURSTLENGTH_LPDMACH4"/>
+                <MethodArg Name="TransferAllocatedPort" ParameterName="TRANSFERALLOCATEDPORT_LPDMACH4"/> 
+                <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LPDMACH4"/>
+                <MethodArg Name="Mode" ParameterName="MODE_LPDMACH4"/>
+    </CallLibMethod>
+    </IFCondition>
+    <IFCondition Expression = "!SEM_CIRCULAR_$IpInstanceCH4 &amp; SEM_DATA_HANDLING_$IpInstanceCH4">
+    <CallLibMethod Name="HAL_DMAEx_ConfigDataHandling">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel4"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel4"/>
+          <MethodArg Name="DataExchange" ParameterName="DATAEXCHANGE_LPDMACH4"/> 
+          <MethodArg Name="DataAlignment" ParameterName="DATAALIGNEMENT_LPDMACH4"/>
+    </CallLibMethod>
+    </IFCondition>
+    <IFCondition Expression = "!SEM_CIRCULAR_$IpInstanceCH4 &amp; !SEM_NOTRIG_$IpInstanceCH4">
+    <CallLibMethod Name="HAL_DMAEx_ConfigTrigger">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel4"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel4"/>
+          <MethodArg Name="TriggerMode" ParameterName="TRIGGERMODE_LPDMACH4"/> 
+          <MethodArg Name="TriggerPolarity" ParameterName="TRIGGERPOLARITY_LPDMACH4"/>
+          <MethodArg Name="TriggerSelection" ParameterName="TRIGGERSELECTION_LPDMACH4"/>
+    </CallLibMethod>
+    </IFCondition>
+    <IFCondition Expression = "!SEM_CIRCULAR_$IpInstanceCH4">
+   
+    <CallLibMethod Name="__HAL_LINKDMA" ReturnHAL="false">
+        <MethodArg Name="handleIP" ParameterName="IPHANDLE_LPDMACH4"/>
+        <MethodArg Name="handleDMAinIP" ParameterName="DMAHANDLE_LPDMACH4"/>
+        <MethodArg Name="handleDMA" FValue="handle_LPDMA$Index_Channel4"/>
+    </CallLibMethod>
+    </IFCondition>
+    <IFCondition Expression = "SEM_CIRCULAR_$IpInstanceCH4 &amp; SEM_M33S">
+     <CallLibMethod Name="HAL_DMAEx_List_BuildNode">
+          <MethodArg Name="pNode" ParameterName="pNode_LPDMACH4"/>
+        <MethodArg Name="pNodeConfig" ParameterName="nodeconfig"/>
+         <MethodArg Name="SrcSecure" ParameterName="SrcSEC_LPDMACH4"/> 
+        <MethodArg Name="DestSecure" ParameterName="DestSEC_LPDMACH4"/>  
+        <MethodArg Name="NodeType" ParameterName="NODETYPE_LPDMACH4"/> 
+                <MethodArg Name="Request" ParameterName="REQUEST_LPDMACH4"/>
+                <MethodArg Name="BlkHWRequest" ParameterName="BLKHWREQUEST_LPDMACH4"/>
+                <MethodArg Name="Direction" ParameterName="DIRECTION_LPDMACH4"/>
+                <MethodArg Name="SrcInc" ParameterName="SRCINC_LPDMACH4"/>
+                <MethodArg Name="DestInc" ParameterName="DESTINC_LPDMACH4"/>
+                <MethodArg Name="SrcDataWidth" ParameterName="SRCDATAWIDTH_LPDMACH4"/>
+                <MethodArg Name="DestDataWidth" ParameterName="DESTDATAWIDTH_LPDMACH4"/>
+                <MethodArg Name="Priority" ParameterName="PRIORITY_LPDMACH4"/>
+                <MethodArg Name="SrcBurstLength" ParameterName="SRCBURSTLENGTH_LPDMACH4"/>
+                <MethodArg Name="DestBurstLength" ParameterName="DESTBURSTLENGTH_LPDMACH4"/>
+                <MethodArg Name="TransferAllocatedPort" ParameterName="TRANSFERALLOCATEDPORT_LPDMACH4"/> 
+                <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH4"/>
+                <MethodArg Name="Mode" ParameterName="MODE_LPDMACH4"/>
+                <MethodArg Name="TriggerMode" ParameterName="TRIGGERMODE_LPDMACH4"/> 
+                <MethodArg Name="TriggerPolarity" ParameterName="TRIGGERPOLARITY_LPDMACH4"/>
+                <MethodArg Name="TriggerSelection" ParameterName="TRIGGERSELECTION_LPDMACH4"/>
+                <MethodArg Name="DataExchange" ParameterName="DATAEXCHANGE_LPDMACH4"/> 
+                <MethodArg Name="DataAlignment" ParameterName="DATAALIGNEMENT_LPDMACH4"/>
+        <MethodArg Name="SrcAddress"  ParameterName="SRCADD_LPDMACH4"/> 
+        <MethodArg Name="DstAddress"  ParameterName="DSTADD_LPDMACH4"/> 
+        <MethodArg Name="DataSize"  ParameterName="DATASIZE_LPDMACH4"/>    
+      </CallLibMethod>
+         <CallLibMethod Name="HAL_DMAEx_List_InsertNode">
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH4"/>
+                <MethodArg Name="pNode" ParameterName="pNode_LPDMACH4"/>
+         </CallLibMethod>
+         
+           <CallLibMethod Name="HAL_DMAEx_List_SetCircularMode">
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH4"/>
+         </CallLibMethod>
+
+    <CallLibMethod Name="HAL_DMAEx_List_Init">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel4"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel4"/>
+            <MethodArg Name="Priority" ParameterName="PRIORITY_LL_CIRCULAR_LPDMACH4"/> 
+        <MethodArg Name="LinkedListMode" ParameterName="LINKEDLISTMODE_CIRCULAR_LPDMACH4"/> 
+        <MethodArg Name="LinkStepMode" ParameterName="LINKSTEPMODE_CIRCULAR_LPDMACH4"/> 
+        <MethodArg Name="LinkAllocatedPort" ParameterName="LINKALLOCATEDPORT_CIRCULAR_LPDMACH4"/> 
+        <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH4"/> 
+     </CallLibMethod>
+
+        <CallLibMethod Name="HAL_DMAEx_List_LinkQ">
+        <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel4"/>
+            <MethodArg Name="Instance" FValue="LPDMA$Index_Channel4"/>
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH4"/> 
+         </CallLibMethod>
+   <CallLibMethod Name="__HAL_LINKDMA" ReturnHAL="false">
+        <MethodArg Name="handleIP" ParameterName="IPHANDLE_LPDMACH4"/>
+        <MethodArg Name="handleDMAinIP" ParameterName="DMAHANDLE_LPDMACH4"/>
+        <MethodArg Name="handleDMA" FValue="handle_LPDMA$Index_Channel4"/>
+    </CallLibMethod>
+   </IFCondition>  
+   <IFCondition Expression = "SEM_CIRCULAR_$IpInstanceCH4 &amp; !SEM_M33S">
+     <CallLibMethod Name="HAL_DMAEx_List_BuildNode">
+          <MethodArg Name="pNode" ParameterName="pNode_LPDMACH4"/>
+        <MethodArg Name="pNodeConfig" ParameterName="nodeconfig"/>
+        <MethodArg Name="NodeType" ParameterName="NODETYPE_LPDMACH4"/> 
+                <MethodArg Name="Request" ParameterName="REQUEST_LPDMACH4"/>
+                <MethodArg Name="BlkHWRequest" ParameterName="BLKHWREQUEST_LPDMACH4"/>
+                <MethodArg Name="Direction" ParameterName="DIRECTION_LPDMACH4"/>
+                <MethodArg Name="SrcInc" ParameterName="SRCINC_LPDMACH4"/>
+                <MethodArg Name="DestInc" ParameterName="DESTINC_LPDMACH4"/>
+                <MethodArg Name="SrcDataWidth" ParameterName="SRCDATAWIDTH_LPDMACH4"/>
+                <MethodArg Name="DestDataWidth" ParameterName="DESTDATAWIDTH_LPDMACH4"/>
+                <MethodArg Name="Priority" ParameterName="PRIORITY_LPDMACH4"/>
+                <MethodArg Name="SrcBurstLength" ParameterName="SRCBURSTLENGTH_LPDMACH4"/>
+                <MethodArg Name="DestBurstLength" ParameterName="DESTBURSTLENGTH_LPDMACH4"/>
+                <MethodArg Name="TransferAllocatedPort" ParameterName="TRANSFERALLOCATEDPORT_LPDMACH4"/> 
+                <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH4"/>
+                <MethodArg Name="Mode" ParameterName="MODE_LPDMACH4"/>
+                <MethodArg Name="TriggerMode" ParameterName="TRIGGERMODE_LPDMACH4"/> 
+                <MethodArg Name="TriggerPolarity" ParameterName="TRIGGERPOLARITY_LPDMACH4"/>
+                <MethodArg Name="TriggerSelection" ParameterName="TRIGGERSELECTION_LPDMACH4"/>
+                <MethodArg Name="DataExchange" ParameterName="DATAEXCHANGE_LPDMACH4"/> 
+                <MethodArg Name="DataAlignment" ParameterName="DATAALIGNEMENT_LPDMACH4"/>
+        <MethodArg Name="SrcAddress"  ParameterName="SRCADD_LPDMACH4"/> 
+        <MethodArg Name="DstAddress"  ParameterName="DSTADD_LPDMACH4"/> 
+        <MethodArg Name="DataSize"  ParameterName="DATASIZE_LPDMACH4"/>    
+      </CallLibMethod>
+         <CallLibMethod Name="HAL_DMAEx_List_InsertNode">
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH4"/>
+                <MethodArg Name="pNode" ParameterName="pNode_LPDMACH4"/>
+         </CallLibMethod>
+         
+           <CallLibMethod Name="HAL_DMAEx_List_SetCircularMode">
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH4"/>
+         </CallLibMethod>
+
+    <CallLibMethod Name="HAL_DMAEx_List_Init">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel4"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel4"/>
+            <MethodArg Name="Priority" ParameterName="PRIORITY_LL_CIRCULAR_LPDMACH4"/> 
+        <MethodArg Name="LinkedListMode" ParameterName="LINKEDLISTMODE_CIRCULAR_LPDMACH4"/> 
+        <MethodArg Name="LinkStepMode" ParameterName="LINKSTEPMODE_CIRCULAR_LPDMACH4"/> 
+        <MethodArg Name="LinkAllocatedPort" ParameterName="LINKALLOCATEDPORT_CIRCULAR_LPDMACH4"/> 
+        <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH4"/> 
+     </CallLibMethod>
+
+        <CallLibMethod Name="HAL_DMAEx_List_LinkQ">
+        <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel4"/>
+            <MethodArg Name="Instance" FValue="LPDMA$Index_Channel4"/>
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH4"/> 
+         </CallLibMethod>
+   <CallLibMethod Name="__HAL_LINKDMA" ReturnHAL="false">
+        <MethodArg Name="handleIP" ParameterName="IPHANDLE_LPDMACH4"/>
+        <MethodArg Name="handleDMAinIP" ParameterName="DMAHANDLE_LPDMACH4"/>
+        <MethodArg Name="handleDMA" FValue="handle_LPDMA$Index_Channel4"/>
+    </CallLibMethod>
+   </IFCondition>  
+    <IFCondition Expression = "S_SECURE">
+     <CallLibMethod Name="HAL_DMA_ConfigChannelAttributes">
+     <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel4"/>
+      <MethodArg Name="ChannelAttributes" ParameterName="ChannelAttributes_LPDMACH4"/> 
+    </CallLibMethod>
+     </IFCondition>
+     <IFCondition Expression = "S_SECURE| !S_SECURE">
+     <CallLibMethod Name="HAL_DMA_ConfigChannelAttributes">
+     <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel4"/>
+      <MethodArg Name="ChannelAttributes" ParameterName="ChannelPRIV_LPDMACH4"/> 
+    </CallLibMethod>
+     </IFCondition>
+</RefConfig>
+
+<!-- init for simple request circular or linear LPDMA_CH0 END -->
+<!-- init for LinkedList  LPDMA_CH4 BEGIN -->
+ <RefConfig Name="Init_LL_LPDMACH4">
+      <CallLibMethod Name="HAL_DMAEx_List_Init">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel4"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel4"/>
+            <MethodArg Name="Priority" ParameterName="PRIORITY_LL_LPDMACH4"/> 
+        <MethodArg Name="LinkedListMode" ParameterName="LINKEDLISTMODE_LPDMACH4"/> 
+        <MethodArg Name="LinkStepMode" ParameterName="LINKSTEPMODE_LPDMACH4"/> 
+        <MethodArg Name="LinkAllocatedPort" ParameterName="LINKALLOCATEDPORT_LPDMACH4"/> 
+        <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_LPDMACH4"/> 
+     </CallLibMethod>
+      <IFCondition Expression = "S_SECURE">
+     <CallLibMethod Name="HAL_DMA_ConfigChannelAttributes">
+     <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel0"/>
+      <MethodArg Name="ChannelAttributes" ParameterName="ChannelAttributes_LPDMACH4"/> 
+    </CallLibMethod>
+     </IFCondition>
+   <IFCondition Expression = "S_SECURE | !S_SECURE">
+     <CallLibMethod Name="HAL_DMA_ConfigChannelAttributes">
+     <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel4"/>
+      <MethodArg Name="ChannelAttributes" ParameterName="ChannelPRIV_LPDMACH4"/> 
+    </CallLibMethod>
+     </IFCondition>
+
+    
+</RefConfig>
+<!-- init for LinkedList  LPDMA_CH4 END -->
+
+<!-- -->
+<!-- -->
+<!-- -->
+<!-- LPDMA Channel 5-->
+<!-- -->
+<!-- -->
+<!-- -->
+<!-- init for simple request circular or linear LPDMA_CH5 BEGIN -->
+    <RefConfig Name="Init_LPDMACH5">
+    	
+    <IFCondition Expression = "!SEM_CIRCULAR_$IpInstanceCH5">
+    <CallLibMethod Name="HAL_DMA_Init">
+            <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel5"/>
+            <MethodArg Name="Instance" FValue="LPDMA$Index_Channel5"/>
+                <MethodArg Name="Request" ParameterName="REQUEST_LPDMACH5"/>
+                <MethodArg Name="BlkHWRequest" ParameterName="BLKHWREQUEST_LPDMACH5"/>
+                <MethodArg Name="Direction" ParameterName="DIRECTION_LPDMACH5"/>
+                <MethodArg Name="SrcInc" ParameterName="SRCINC_LPDMACH5"/>
+                <MethodArg Name="DestInc" ParameterName="DESTINC_LPDMACH5"/>
+                <MethodArg Name="SrcDataWidth" ParameterName="SRCDATAWIDTH_LPDMACH5"/>
+                <MethodArg Name="DestDataWidth" ParameterName="DESTDATAWIDTH_LPDMACH5"/>
+                <MethodArg Name="Priority" ParameterName="PRIORITY_LPDMACH5"/>
+                <MethodArg Name="SrcBurstLength" ParameterName="SRCBURSTLENGTH_LPDMACH5"/>
+                <MethodArg Name="DestBurstLength" ParameterName="DESTBURSTLENGTH_LPDMACH5"/>
+                <MethodArg Name="TransferAllocatedPort" ParameterName="TRANSFERALLOCATEDPORT_LPDMACH5"/> 
+                <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LPDMACH5"/>
+                <MethodArg Name="Mode" ParameterName="MODE_LPDMACH5"/>
+    </CallLibMethod>
+    </IFCondition>
+    <IFCondition Expression = "!SEM_CIRCULAR_$IpInstanceCH5 &amp; SEM_DATA_HANDLING_$IpInstanceCH5">
+    <CallLibMethod Name="HAL_DMAEx_ConfigDataHandling">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel5"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel5"/>
+          <MethodArg Name="DataExchange" ParameterName="DATAEXCHANGE_LPDMACH5"/> 
+          <MethodArg Name="DataAlignment" ParameterName="DATAALIGNEMENT_LPDMACH5"/>
+    </CallLibMethod>
+    </IFCondition>
+    <IFCondition Expression = "!SEM_CIRCULAR_$IpInstanceCH5 &amp; !SEM_NOTRIG_$IpInstanceCH5">
+    <CallLibMethod Name="HAL_DMAEx_ConfigTrigger">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel5"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel5"/>
+          <MethodArg Name="TriggerMode" ParameterName="TRIGGERMODE_LPDMACH5"/> 
+          <MethodArg Name="TriggerPolarity" ParameterName="TRIGGERPOLARITY_LPDMACH5"/>
+          <MethodArg Name="TriggerSelection" ParameterName="TRIGGERSELECTION_LPDMACH5"/>
+    </CallLibMethod>
+    </IFCondition>
+    <IFCondition Expression = "!SEM_CIRCULAR_$IpInstanceCH5">
+   
+    <CallLibMethod Name="__HAL_LINKDMA" ReturnHAL="false">
+        <MethodArg Name="handleIP" ParameterName="IPHANDLE_LPDMACH5"/>
+        <MethodArg Name="handleDMAinIP" ParameterName="DMAHANDLE_LPDMACH5"/>
+        <MethodArg Name="handleDMA" FValue="handle_LPDMA$Index_Channel5"/>
+    </CallLibMethod>
+    </IFCondition>
+    <IFCondition Expression = "SEM_CIRCULAR_$IpInstanceCH5 &amp; SEM_M33S">
+     <CallLibMethod Name="HAL_DMAEx_List_BuildNode">
+          <MethodArg Name="pNode" ParameterName="pNode_LPDMACH5"/>
+        <MethodArg Name="pNodeConfig" ParameterName="nodeconfig"/>
+         <MethodArg Name="SrcSecure" ParameterName="SrcSEC_LPDMACH5"/> 
+        <MethodArg Name="DestSecure" ParameterName="DestSEC_LPDMACH5"/>  
+        <MethodArg Name="NodeType" ParameterName="NODETYPE_LPDMACH5"/> 
+                <MethodArg Name="Request" ParameterName="REQUEST_LPDMACH5"/>
+                <MethodArg Name="BlkHWRequest" ParameterName="BLKHWREQUEST_LPDMACH5"/>
+                <MethodArg Name="Direction" ParameterName="DIRECTION_LPDMACH5"/>
+                <MethodArg Name="SrcInc" ParameterName="SRCINC_LPDMACH5"/>
+                <MethodArg Name="DestInc" ParameterName="DESTINC_LPDMACH5"/>
+                <MethodArg Name="SrcDataWidth" ParameterName="SRCDATAWIDTH_LPDMACH5"/>
+                <MethodArg Name="DestDataWidth" ParameterName="DESTDATAWIDTH_LPDMACH5"/>
+                <MethodArg Name="Priority" ParameterName="PRIORITY_LPDMACH5"/>
+                <MethodArg Name="SrcBurstLength" ParameterName="SRCBURSTLENGTH_LPDMACH5"/>
+                <MethodArg Name="DestBurstLength" ParameterName="DESTBURSTLENGTH_LPDMACH5"/>
+                <MethodArg Name="TransferAllocatedPort" ParameterName="TRANSFERALLOCATEDPORT_LPDMACH5"/> 
+                <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH5"/>
+                <MethodArg Name="Mode" ParameterName="MODE_LPDMACH5"/>
+                <MethodArg Name="TriggerMode" ParameterName="TRIGGERMODE_LPDMACH5"/> 
+                <MethodArg Name="TriggerPolarity" ParameterName="TRIGGERPOLARITY_LPDMACH5"/>
+                <MethodArg Name="TriggerSelection" ParameterName="TRIGGERSELECTION_LPDMACH5"/>
+                <MethodArg Name="DataExchange" ParameterName="DATAEXCHANGE_LPDMACH5"/> 
+                <MethodArg Name="DataAlignment" ParameterName="DATAALIGNEMENT_LPDMACH5"/>
+        <MethodArg Name="SrcAddress"  ParameterName="SRCADD_LPDMACH5"/> 
+        <MethodArg Name="DstAddress"  ParameterName="DSTADD_LPDMACH5"/> 
+        <MethodArg Name="DataSize"  ParameterName="DATASIZE_LPDMACH5"/>    
+      </CallLibMethod>
+         <CallLibMethod Name="HAL_DMAEx_List_InsertNode">
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH5"/>
+                <MethodArg Name="pNode" ParameterName="pNode_LPDMACH5"/>
+         </CallLibMethod>
+         
+           <CallLibMethod Name="HAL_DMAEx_List_SetCircularMode">
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH5"/>
+         </CallLibMethod>
+
+    <CallLibMethod Name="HAL_DMAEx_List_Init">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel5"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel5"/>
+            <MethodArg Name="Priority" ParameterName="PRIORITY_LL_CIRCULAR_LPDMACH5"/> 
+        <MethodArg Name="LinkedListMode" ParameterName="LINKEDLISTMODE_CIRCULAR_LPDMACH5"/> 
+        <MethodArg Name="LinkStepMode" ParameterName="LINKSTEPMODE_CIRCULAR_LPDMACH5"/> 
+        <MethodArg Name="LinkAllocatedPort" ParameterName="LINKALLOCATEDPORT_CIRCULAR_LPDMACH5"/> 
+        <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH5"/> 
+     </CallLibMethod>
+
+        <CallLibMethod Name="HAL_DMAEx_List_LinkQ">
+        <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel5"/>
+            <MethodArg Name="Instance" FValue="LPDMA$Index_Channel5"/>
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH5"/> 
+         </CallLibMethod>
+   <CallLibMethod Name="__HAL_LINKDMA" ReturnHAL="false">
+        <MethodArg Name="handleIP" ParameterName="IPHANDLE_LPDMACH5"/>
+        <MethodArg Name="handleDMAinIP" ParameterName="DMAHANDLE_LPDMACH5"/>
+        <MethodArg Name="handleDMA" FValue="handle_LPDMA$Index_Channel5"/>
+    </CallLibMethod>
+   </IFCondition>  
+   <IFCondition Expression = "SEM_CIRCULAR_$IpInstanceCH5 &amp; !SEM_M33S">
+     <CallLibMethod Name="HAL_DMAEx_List_BuildNode">
+          <MethodArg Name="pNode" ParameterName="pNode_LPDMACH5"/>
+        <MethodArg Name="pNodeConfig" ParameterName="nodeconfig"/>
+        <MethodArg Name="NodeType" ParameterName="NODETYPE_LPDMACH5"/> 
+                <MethodArg Name="Request" ParameterName="REQUEST_LPDMACH5"/>
+                <MethodArg Name="BlkHWRequest" ParameterName="BLKHWREQUEST_LPDMACH5"/>
+                <MethodArg Name="Direction" ParameterName="DIRECTION_LPDMACH5"/>
+                <MethodArg Name="SrcInc" ParameterName="SRCINC_LPDMACH5"/>
+                <MethodArg Name="DestInc" ParameterName="DESTINC_LPDMACH5"/>
+                <MethodArg Name="SrcDataWidth" ParameterName="SRCDATAWIDTH_LPDMACH5"/>
+                <MethodArg Name="DestDataWidth" ParameterName="DESTDATAWIDTH_LPDMACH5"/>
+                <MethodArg Name="Priority" ParameterName="PRIORITY_LPDMACH5"/>
+                <MethodArg Name="SrcBurstLength" ParameterName="SRCBURSTLENGTH_LPDMACH5"/>
+                <MethodArg Name="DestBurstLength" ParameterName="DESTBURSTLENGTH_LPDMACH5"/>
+                <MethodArg Name="TransferAllocatedPort" ParameterName="TRANSFERALLOCATEDPORT_LPDMACH5"/> 
+                <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH5"/>
+                <MethodArg Name="Mode" ParameterName="MODE_LPDMACH5"/>
+                <MethodArg Name="TriggerMode" ParameterName="TRIGGERMODE_LPDMACH5"/> 
+                <MethodArg Name="TriggerPolarity" ParameterName="TRIGGERPOLARITY_LPDMACH5"/>
+                <MethodArg Name="TriggerSelection" ParameterName="TRIGGERSELECTION_LPDMACH5"/>
+                <MethodArg Name="DataExchange" ParameterName="DATAEXCHANGE_LPDMACH5"/> 
+                <MethodArg Name="DataAlignment" ParameterName="DATAALIGNEMENT_LPDMACH5"/>
+        <MethodArg Name="SrcAddress"  ParameterName="SRCADD_LPDMACH5"/> 
+        <MethodArg Name="DstAddress"  ParameterName="DSTADD_LPDMACH5"/> 
+        <MethodArg Name="DataSize"  ParameterName="DATASIZE_LPDMACH5"/>    
+      </CallLibMethod>
+         <CallLibMethod Name="HAL_DMAEx_List_InsertNode">
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH5"/>
+                <MethodArg Name="pNode" ParameterName="pNode_LPDMACH5"/>
+         </CallLibMethod>
+         
+           <CallLibMethod Name="HAL_DMAEx_List_SetCircularMode">
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH5"/>
+         </CallLibMethod>
+
+    <CallLibMethod Name="HAL_DMAEx_List_Init">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel5"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel5"/>
+            <MethodArg Name="Priority" ParameterName="PRIORITY_LL_CIRCULAR_LPDMACH5"/> 
+        <MethodArg Name="LinkedListMode" ParameterName="LINKEDLISTMODE_CIRCULAR_LPDMACH5"/> 
+        <MethodArg Name="LinkStepMode" ParameterName="LINKSTEPMODE_CIRCULAR_LPDMACH5"/> 
+        <MethodArg Name="LinkAllocatedPort" ParameterName="LINKALLOCATEDPORT_CIRCULAR_LPDMACH5"/> 
+        <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH5"/> 
+     </CallLibMethod>
+
+        <CallLibMethod Name="HAL_DMAEx_List_LinkQ">
+        <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel5"/>
+            <MethodArg Name="Instance" FValue="LPDMA$Index_Channel5"/>
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH5"/> 
+         </CallLibMethod>
+   <CallLibMethod Name="__HAL_LINKDMA" ReturnHAL="false">
+        <MethodArg Name="handleIP" ParameterName="IPHANDLE_LPDMACH5"/>
+        <MethodArg Name="handleDMAinIP" ParameterName="DMAHANDLE_LPDMACH5"/>
+        <MethodArg Name="handleDMA" FValue="handle_LPDMA$Index_Channel5"/>
+    </CallLibMethod>
+   </IFCondition>  
+    <IFCondition Expression = "S_SECURE">
+     <CallLibMethod Name="HAL_DMA_ConfigChannelAttributes">
+     <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel5"/>
+      <MethodArg Name="ChannelAttributes" ParameterName="ChannelAttributes_LPDMACH5"/> 
+    </CallLibMethod>
+     </IFCondition>
+     <IFCondition Expression = "S_SECURE| !S_SECURE">
+     <CallLibMethod Name="HAL_DMA_ConfigChannelAttributes">
+     <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel5"/>
+      <MethodArg Name="ChannelAttributes" ParameterName="ChannelPRIV_LPDMACH5"/> 
+    </CallLibMethod>
+     </IFCondition>
+</RefConfig>
+
+<!-- init for simple request circular or linear LPDMA_CH0 END -->
+<!-- init for LinkedList  LPDMA_CH5 BEGIN -->
+ <RefConfig Name="Init_LL_LPDMACH5">
+      <CallLibMethod Name="HAL_DMAEx_List_Init">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel5"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel5"/>
+            <MethodArg Name="Priority" ParameterName="PRIORITY_LL_LPDMACH5"/> 
+        <MethodArg Name="LinkedListMode" ParameterName="LINKEDLISTMODE_LPDMACH5"/> 
+        <MethodArg Name="LinkStepMode" ParameterName="LINKSTEPMODE_LPDMACH5"/> 
+        <MethodArg Name="LinkAllocatedPort" ParameterName="LINKALLOCATEDPORT_LPDMACH5"/> 
+        <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_LPDMACH5"/> 
+     </CallLibMethod>
+      <IFCondition Expression = "S_SECURE">
+     <CallLibMethod Name="HAL_DMA_ConfigChannelAttributes">
+     <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel0"/>
+      <MethodArg Name="ChannelAttributes" ParameterName="ChannelAttributes_LPDMACH5"/> 
+    </CallLibMethod>
+     </IFCondition>
+   <IFCondition Expression = "S_SECURE | !S_SECURE">
+     <CallLibMethod Name="HAL_DMA_ConfigChannelAttributes">
+     <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel5"/>
+      <MethodArg Name="ChannelAttributes" ParameterName="ChannelPRIV_LPDMACH5"/> 
+    </CallLibMethod>
+     </IFCondition>
+
+    
+</RefConfig>
+<!-- init for LinkedList  LPDMA_CH5 END -->
+
+<!-- -->
+<!-- -->
+<!-- -->
+<!-- LPDMA Channel 6-->
+<!-- -->
+<!-- -->
+<!-- -->
+<!-- init for simple request circular or linear LPDMA_CH6 BEGIN -->
+    <RefConfig Name="Init_LPDMACH6">
+    	
+    <IFCondition Expression = "!SEM_CIRCULAR_$IpInstanceCH6">
+    <CallLibMethod Name="HAL_DMA_Init">
+            <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel6"/>
+            <MethodArg Name="Instance" FValue="LPDMA$Index_Channel6"/>
+                <MethodArg Name="Request" ParameterName="REQUEST_LPDMACH6"/>
+                <MethodArg Name="BlkHWRequest" ParameterName="BLKHWREQUEST_LPDMACH6"/>
+                <MethodArg Name="Direction" ParameterName="DIRECTION_LPDMACH6"/>
+                <MethodArg Name="SrcInc" ParameterName="SRCINC_LPDMACH6"/>
+                <MethodArg Name="DestInc" ParameterName="DESTINC_LPDMACH6"/>
+                <MethodArg Name="SrcDataWidth" ParameterName="SRCDATAWIDTH_LPDMACH6"/>
+                <MethodArg Name="DestDataWidth" ParameterName="DESTDATAWIDTH_LPDMACH6"/>
+                <MethodArg Name="Priority" ParameterName="PRIORITY_LPDMACH6"/>
+                <MethodArg Name="SrcBurstLength" ParameterName="SRCBURSTLENGTH_LPDMACH6"/>
+                <MethodArg Name="DestBurstLength" ParameterName="DESTBURSTLENGTH_LPDMACH6"/>
+                <MethodArg Name="TransferAllocatedPort" ParameterName="TRANSFERALLOCATEDPORT_LPDMACH6"/> 
+                <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LPDMACH6"/>
+                <MethodArg Name="Mode" ParameterName="MODE_LPDMACH6"/>
+    </CallLibMethod>
+    </IFCondition>
+    <IFCondition Expression = "!SEM_CIRCULAR_$IpInstanceCH6 &amp; SEM_DATA_HANDLING_$IpInstanceCH6">
+    <CallLibMethod Name="HAL_DMAEx_ConfigDataHandling">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel6"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel6"/>
+          <MethodArg Name="DataExchange" ParameterName="DATAEXCHANGE_LPDMACH6"/> 
+          <MethodArg Name="DataAlignment" ParameterName="DATAALIGNEMENT_LPDMACH6"/>
+    </CallLibMethod>
+    </IFCondition>
+    <IFCondition Expression = "!SEM_CIRCULAR_$IpInstanceCH6 &amp; !SEM_NOTRIG_$IpInstanceCH6">
+    <CallLibMethod Name="HAL_DMAEx_ConfigTrigger">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel6"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel6"/>
+          <MethodArg Name="TriggerMode" ParameterName="TRIGGERMODE_LPDMACH6"/> 
+          <MethodArg Name="TriggerPolarity" ParameterName="TRIGGERPOLARITY_LPDMACH6"/>
+          <MethodArg Name="TriggerSelection" ParameterName="TRIGGERSELECTION_LPDMACH6"/>
+    </CallLibMethod>
+    </IFCondition>
+    <IFCondition Expression = "!SEM_CIRCULAR_$IpInstanceCH6">
+   
+    <CallLibMethod Name="__HAL_LINKDMA" ReturnHAL="false">
+        <MethodArg Name="handleIP" ParameterName="IPHANDLE_LPDMACH6"/>
+        <MethodArg Name="handleDMAinIP" ParameterName="DMAHANDLE_LPDMACH6"/>
+        <MethodArg Name="handleDMA" FValue="handle_LPDMA$Index_Channel6"/>
+    </CallLibMethod>
+    </IFCondition>
+    <IFCondition Expression = "SEM_CIRCULAR_$IpInstanceCH6 &amp; SEM_M33S">
+     <CallLibMethod Name="HAL_DMAEx_List_BuildNode">
+          <MethodArg Name="pNode" ParameterName="pNode_LPDMACH6"/>
+        <MethodArg Name="pNodeConfig" ParameterName="nodeconfig"/>
+         <MethodArg Name="SrcSecure" ParameterName="SrcSEC_LPDMACH6"/> 
+        <MethodArg Name="DestSecure" ParameterName="DestSEC_LPDMACH6"/>  
+        <MethodArg Name="NodeType" ParameterName="NODETYPE_LPDMACH6"/> 
+                <MethodArg Name="Request" ParameterName="REQUEST_LPDMACH6"/>
+                <MethodArg Name="BlkHWRequest" ParameterName="BLKHWREQUEST_LPDMACH6"/>
+                <MethodArg Name="Direction" ParameterName="DIRECTION_LPDMACH6"/>
+                <MethodArg Name="SrcInc" ParameterName="SRCINC_LPDMACH6"/>
+                <MethodArg Name="DestInc" ParameterName="DESTINC_LPDMACH6"/>
+                <MethodArg Name="SrcDataWidth" ParameterName="SRCDATAWIDTH_LPDMACH6"/>
+                <MethodArg Name="DestDataWidth" ParameterName="DESTDATAWIDTH_LPDMACH6"/>
+                <MethodArg Name="Priority" ParameterName="PRIORITY_LPDMACH6"/>
+                <MethodArg Name="SrcBurstLength" ParameterName="SRCBURSTLENGTH_LPDMACH6"/>
+                <MethodArg Name="DestBurstLength" ParameterName="DESTBURSTLENGTH_LPDMACH6"/>
+                <MethodArg Name="TransferAllocatedPort" ParameterName="TRANSFERALLOCATEDPORT_LPDMACH6"/> 
+                <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH6"/>
+                <MethodArg Name="Mode" ParameterName="MODE_LPDMACH6"/>
+                <MethodArg Name="TriggerMode" ParameterName="TRIGGERMODE_LPDMACH6"/> 
+                <MethodArg Name="TriggerPolarity" ParameterName="TRIGGERPOLARITY_LPDMACH6"/>
+                <MethodArg Name="TriggerSelection" ParameterName="TRIGGERSELECTION_LPDMACH6"/>
+                <MethodArg Name="DataExchange" ParameterName="DATAEXCHANGE_LPDMACH6"/> 
+                <MethodArg Name="DataAlignment" ParameterName="DATAALIGNEMENT_LPDMACH6"/>
+        <MethodArg Name="SrcAddress"  ParameterName="SRCADD_LPDMACH6"/> 
+        <MethodArg Name="DstAddress"  ParameterName="DSTADD_LPDMACH6"/> 
+        <MethodArg Name="DataSize"  ParameterName="DATASIZE_LPDMACH6"/>    
+      </CallLibMethod>
+         <CallLibMethod Name="HAL_DMAEx_List_InsertNode">
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH6"/>
+                <MethodArg Name="pNode" ParameterName="pNode_LPDMACH6"/>
+         </CallLibMethod>
+         
+           <CallLibMethod Name="HAL_DMAEx_List_SetCircularMode">
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH6"/>
+         </CallLibMethod>
+
+    <CallLibMethod Name="HAL_DMAEx_List_Init">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel6"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel6"/>
+            <MethodArg Name="Priority" ParameterName="PRIORITY_LL_CIRCULAR_LPDMACH6"/> 
+        <MethodArg Name="LinkedListMode" ParameterName="LINKEDLISTMODE_CIRCULAR_LPDMACH6"/> 
+        <MethodArg Name="LinkStepMode" ParameterName="LINKSTEPMODE_CIRCULAR_LPDMACH6"/> 
+        <MethodArg Name="LinkAllocatedPort" ParameterName="LINKALLOCATEDPORT_CIRCULAR_LPDMACH6"/> 
+        <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH6"/> 
+     </CallLibMethod>
+
+        <CallLibMethod Name="HAL_DMAEx_List_LinkQ">
+        <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel6"/>
+            <MethodArg Name="Instance" FValue="LPDMA$Index_Channel6"/>
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH6"/> 
+         </CallLibMethod>
+   <CallLibMethod Name="__HAL_LINKDMA" ReturnHAL="false">
+        <MethodArg Name="handleIP" ParameterName="IPHANDLE_LPDMACH6"/>
+        <MethodArg Name="handleDMAinIP" ParameterName="DMAHANDLE_LPDMACH6"/>
+        <MethodArg Name="handleDMA" FValue="handle_LPDMA$Index_Channel6"/>
+    </CallLibMethod>
+   </IFCondition>  
+   <IFCondition Expression = "SEM_CIRCULAR_$IpInstanceCH6 &amp; !SEM_M33S">
+     <CallLibMethod Name="HAL_DMAEx_List_BuildNode">
+          <MethodArg Name="pNode" ParameterName="pNode_LPDMACH6"/>
+        <MethodArg Name="pNodeConfig" ParameterName="nodeconfig"/>
+        <MethodArg Name="NodeType" ParameterName="NODETYPE_LPDMACH6"/> 
+                <MethodArg Name="Request" ParameterName="REQUEST_LPDMACH6"/>
+                <MethodArg Name="BlkHWRequest" ParameterName="BLKHWREQUEST_LPDMACH6"/>
+                <MethodArg Name="Direction" ParameterName="DIRECTION_LPDMACH6"/>
+                <MethodArg Name="SrcInc" ParameterName="SRCINC_LPDMACH6"/>
+                <MethodArg Name="DestInc" ParameterName="DESTINC_LPDMACH6"/>
+                <MethodArg Name="SrcDataWidth" ParameterName="SRCDATAWIDTH_LPDMACH6"/>
+                <MethodArg Name="DestDataWidth" ParameterName="DESTDATAWIDTH_LPDMACH6"/>
+                <MethodArg Name="Priority" ParameterName="PRIORITY_LPDMACH6"/>
+                <MethodArg Name="SrcBurstLength" ParameterName="SRCBURSTLENGTH_LPDMACH6"/>
+                <MethodArg Name="DestBurstLength" ParameterName="DESTBURSTLENGTH_LPDMACH6"/>
+                <MethodArg Name="TransferAllocatedPort" ParameterName="TRANSFERALLOCATEDPORT_LPDMACH6"/> 
+                <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH6"/>
+                <MethodArg Name="Mode" ParameterName="MODE_LPDMACH6"/>
+                <MethodArg Name="TriggerMode" ParameterName="TRIGGERMODE_LPDMACH6"/> 
+                <MethodArg Name="TriggerPolarity" ParameterName="TRIGGERPOLARITY_LPDMACH6"/>
+                <MethodArg Name="TriggerSelection" ParameterName="TRIGGERSELECTION_LPDMACH6"/>
+                <MethodArg Name="DataExchange" ParameterName="DATAEXCHANGE_LPDMACH6"/> 
+                <MethodArg Name="DataAlignment" ParameterName="DATAALIGNEMENT_LPDMACH6"/>
+        <MethodArg Name="SrcAddress"  ParameterName="SRCADD_LPDMACH6"/> 
+        <MethodArg Name="DstAddress"  ParameterName="DSTADD_LPDMACH6"/> 
+        <MethodArg Name="DataSize"  ParameterName="DATASIZE_LPDMACH6"/>    
+      </CallLibMethod>
+         <CallLibMethod Name="HAL_DMAEx_List_InsertNode">
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH6"/>
+                <MethodArg Name="pNode" ParameterName="pNode_LPDMACH6"/>
+         </CallLibMethod>
+         
+           <CallLibMethod Name="HAL_DMAEx_List_SetCircularMode">
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH6"/>
+         </CallLibMethod>
+
+    <CallLibMethod Name="HAL_DMAEx_List_Init">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel6"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel6"/>
+            <MethodArg Name="Priority" ParameterName="PRIORITY_LL_CIRCULAR_LPDMACH6"/> 
+        <MethodArg Name="LinkedListMode" ParameterName="LINKEDLISTMODE_CIRCULAR_LPDMACH6"/> 
+        <MethodArg Name="LinkStepMode" ParameterName="LINKSTEPMODE_CIRCULAR_LPDMACH6"/> 
+        <MethodArg Name="LinkAllocatedPort" ParameterName="LINKALLOCATEDPORT_CIRCULAR_LPDMACH6"/> 
+        <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH6"/> 
+     </CallLibMethod>
+
+        <CallLibMethod Name="HAL_DMAEx_List_LinkQ">
+        <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel6"/>
+            <MethodArg Name="Instance" FValue="LPDMA$Index_Channel6"/>
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH6"/> 
+         </CallLibMethod>
+   <CallLibMethod Name="__HAL_LINKDMA" ReturnHAL="false">
+        <MethodArg Name="handleIP" ParameterName="IPHANDLE_LPDMACH6"/>
+        <MethodArg Name="handleDMAinIP" ParameterName="DMAHANDLE_LPDMACH6"/>
+        <MethodArg Name="handleDMA" FValue="handle_LPDMA$Index_Channel6"/>
+    </CallLibMethod>
+   </IFCondition>  
+    <IFCondition Expression = "S_SECURE">
+     <CallLibMethod Name="HAL_DMA_ConfigChannelAttributes">
+     <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel6"/>
+      <MethodArg Name="ChannelAttributes" ParameterName="ChannelAttributes_LPDMACH6"/> 
+    </CallLibMethod>
+     </IFCondition>
+     <IFCondition Expression = "S_SECURE| !S_SECURE">
+     <CallLibMethod Name="HAL_DMA_ConfigChannelAttributes">
+     <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel6"/>
+      <MethodArg Name="ChannelAttributes" ParameterName="ChannelPRIV_LPDMACH6"/> 
+    </CallLibMethod>
+     </IFCondition>
+</RefConfig>
+
+<!-- init for simple request circular or linear LPDMA_CH0 END -->
+<!-- init for LinkedList  LPDMA_CH6 BEGIN -->
+ <RefConfig Name="Init_LL_LPDMACH6">
+      <CallLibMethod Name="HAL_DMAEx_List_Init">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel6"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel6"/>
+            <MethodArg Name="Priority" ParameterName="PRIORITY_LL_LPDMACH6"/> 
+        <MethodArg Name="LinkedListMode" ParameterName="LINKEDLISTMODE_LPDMACH6"/> 
+        <MethodArg Name="LinkStepMode" ParameterName="LINKSTEPMODE_LPDMACH6"/> 
+        <MethodArg Name="LinkAllocatedPort" ParameterName="LINKALLOCATEDPORT_LPDMACH6"/> 
+        <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_LPDMACH6"/> 
+     </CallLibMethod>
+      <IFCondition Expression = "S_SECURE">
+     <CallLibMethod Name="HAL_DMA_ConfigChannelAttributes">
+     <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel0"/>
+      <MethodArg Name="ChannelAttributes" ParameterName="ChannelAttributes_LPDMACH6"/> 
+    </CallLibMethod>
+     </IFCondition>
+   <IFCondition Expression = "S_SECURE | !S_SECURE">
+     <CallLibMethod Name="HAL_DMA_ConfigChannelAttributes">
+     <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel6"/>
+      <MethodArg Name="ChannelAttributes" ParameterName="ChannelPRIV_LPDMACH6"/> 
+    </CallLibMethod>
+     </IFCondition>
+
+    
+</RefConfig>
+<!-- init for LinkedList  LPDMA_CH6 END -->
+
+<!-- -->
+<!-- -->
+<!-- -->
+<!-- LPDMA Channel 7-->
+<!-- -->
+<!-- -->
+<!-- -->
+<!-- init for simple request circular or linear LPDMA_CH7 BEGIN -->
+    <RefConfig Name="Init_LPDMACH7">
+    	
+    <IFCondition Expression = "!SEM_CIRCULAR_$IpInstanceCH7">
+    <CallLibMethod Name="HAL_DMA_Init">
+            <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel7"/>
+            <MethodArg Name="Instance" FValue="LPDMA$Index_Channel7"/>
+                <MethodArg Name="Request" ParameterName="REQUEST_LPDMACH7"/>
+                <MethodArg Name="BlkHWRequest" ParameterName="BLKHWREQUEST_LPDMACH7"/>
+                <MethodArg Name="Direction" ParameterName="DIRECTION_LPDMACH7"/>
+                <MethodArg Name="SrcInc" ParameterName="SRCINC_LPDMACH7"/>
+                <MethodArg Name="DestInc" ParameterName="DESTINC_LPDMACH7"/>
+                <MethodArg Name="SrcDataWidth" ParameterName="SRCDATAWIDTH_LPDMACH7"/>
+                <MethodArg Name="DestDataWidth" ParameterName="DESTDATAWIDTH_LPDMACH7"/>
+                <MethodArg Name="Priority" ParameterName="PRIORITY_LPDMACH7"/>
+                <MethodArg Name="SrcBurstLength" ParameterName="SRCBURSTLENGTH_LPDMACH7"/>
+                <MethodArg Name="DestBurstLength" ParameterName="DESTBURSTLENGTH_LPDMACH7"/>
+                <MethodArg Name="TransferAllocatedPort" ParameterName="TRANSFERALLOCATEDPORT_LPDMACH7"/> 
+                <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LPDMACH7"/>
+                <MethodArg Name="Mode" ParameterName="MODE_LPDMACH7"/>
+    </CallLibMethod>
+    </IFCondition>
+    <IFCondition Expression = "!SEM_CIRCULAR_$IpInstanceCH7 &amp; SEM_DATA_HANDLING_$IpInstanceCH7">
+    <CallLibMethod Name="HAL_DMAEx_ConfigDataHandling">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel7"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel7"/>
+          <MethodArg Name="DataExchange" ParameterName="DATAEXCHANGE_LPDMACH7"/> 
+          <MethodArg Name="DataAlignment" ParameterName="DATAALIGNEMENT_LPDMACH7"/>
+    </CallLibMethod>
+    </IFCondition>
+    <IFCondition Expression = "!SEM_CIRCULAR_$IpInstanceCH7 &amp; !SEM_NOTRIG_$IpInstanceCH7">
+    <CallLibMethod Name="HAL_DMAEx_ConfigTrigger">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel7"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel7"/>
+          <MethodArg Name="TriggerMode" ParameterName="TRIGGERMODE_LPDMACH7"/> 
+          <MethodArg Name="TriggerPolarity" ParameterName="TRIGGERPOLARITY_LPDMACH7"/>
+          <MethodArg Name="TriggerSelection" ParameterName="TRIGGERSELECTION_LPDMACH7"/>
+    </CallLibMethod>
+    </IFCondition>
+    <IFCondition Expression = "!SEM_CIRCULAR_$IpInstanceCH7">
+   
+    <CallLibMethod Name="__HAL_LINKDMA" ReturnHAL="false">
+        <MethodArg Name="handleIP" ParameterName="IPHANDLE_LPDMACH7"/>
+        <MethodArg Name="handleDMAinIP" ParameterName="DMAHANDLE_LPDMACH7"/>
+        <MethodArg Name="handleDMA" FValue="handle_LPDMA$Index_Channel7"/>
+    </CallLibMethod>
+    </IFCondition>
+    <IFCondition Expression = "SEM_CIRCULAR_$IpInstanceCH7 &amp; SEM_M33S">
+     <CallLibMethod Name="HAL_DMAEx_List_BuildNode">
+          <MethodArg Name="pNode" ParameterName="pNode_LPDMACH7"/>
+        <MethodArg Name="pNodeConfig" ParameterName="nodeconfig"/>
+         <MethodArg Name="SrcSecure" ParameterName="SrcSEC_LPDMACH7"/> 
+        <MethodArg Name="DestSecure" ParameterName="DestSEC_LPDMACH7"/>  
+        <MethodArg Name="NodeType" ParameterName="NODETYPE_LPDMACH7"/> 
+                <MethodArg Name="Request" ParameterName="REQUEST_LPDMACH7"/>
+                <MethodArg Name="BlkHWRequest" ParameterName="BLKHWREQUEST_LPDMACH7"/>
+                <MethodArg Name="Direction" ParameterName="DIRECTION_LPDMACH7"/>
+                <MethodArg Name="SrcInc" ParameterName="SRCINC_LPDMACH7"/>
+                <MethodArg Name="DestInc" ParameterName="DESTINC_LPDMACH7"/>
+                <MethodArg Name="SrcDataWidth" ParameterName="SRCDATAWIDTH_LPDMACH7"/>
+                <MethodArg Name="DestDataWidth" ParameterName="DESTDATAWIDTH_LPDMACH7"/>
+                <MethodArg Name="Priority" ParameterName="PRIORITY_LPDMACH7"/>
+                <MethodArg Name="SrcBurstLength" ParameterName="SRCBURSTLENGTH_LPDMACH7"/>
+                <MethodArg Name="DestBurstLength" ParameterName="DESTBURSTLENGTH_LPDMACH7"/>
+                <MethodArg Name="TransferAllocatedPort" ParameterName="TRANSFERALLOCATEDPORT_LPDMACH7"/> 
+                <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH7"/>
+                <MethodArg Name="Mode" ParameterName="MODE_LPDMACH7"/>
+                <MethodArg Name="TriggerMode" ParameterName="TRIGGERMODE_LPDMACH7"/> 
+                <MethodArg Name="TriggerPolarity" ParameterName="TRIGGERPOLARITY_LPDMACH7"/>
+                <MethodArg Name="TriggerSelection" ParameterName="TRIGGERSELECTION_LPDMACH7"/>
+                <MethodArg Name="DataExchange" ParameterName="DATAEXCHANGE_LPDMACH7"/> 
+                <MethodArg Name="DataAlignment" ParameterName="DATAALIGNEMENT_LPDMACH7"/>
+        <MethodArg Name="SrcAddress"  ParameterName="SRCADD_LPDMACH7"/> 
+        <MethodArg Name="DstAddress"  ParameterName="DSTADD_LPDMACH7"/> 
+        <MethodArg Name="DataSize"  ParameterName="DATASIZE_LPDMACH7"/>    
+      </CallLibMethod>
+         <CallLibMethod Name="HAL_DMAEx_List_InsertNode">
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH7"/>
+                <MethodArg Name="pNode" ParameterName="pNode_LPDMACH7"/>
+         </CallLibMethod>
+         
+           <CallLibMethod Name="HAL_DMAEx_List_SetCircularMode">
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH7"/>
+         </CallLibMethod>
+
+    <CallLibMethod Name="HAL_DMAEx_List_Init">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel7"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel7"/>
+            <MethodArg Name="Priority" ParameterName="PRIORITY_LL_CIRCULAR_LPDMACH7"/> 
+        <MethodArg Name="LinkedListMode" ParameterName="LINKEDLISTMODE_CIRCULAR_LPDMACH7"/> 
+        <MethodArg Name="LinkStepMode" ParameterName="LINKSTEPMODE_CIRCULAR_LPDMACH7"/> 
+        <MethodArg Name="LinkAllocatedPort" ParameterName="LINKALLOCATEDPORT_CIRCULAR_LPDMACH7"/> 
+        <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH7"/> 
+     </CallLibMethod>
+
+        <CallLibMethod Name="HAL_DMAEx_List_LinkQ">
+        <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel7"/>
+            <MethodArg Name="Instance" FValue="LPDMA$Index_Channel7"/>
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH7"/> 
+         </CallLibMethod>
+   <CallLibMethod Name="__HAL_LINKDMA" ReturnHAL="false">
+        <MethodArg Name="handleIP" ParameterName="IPHANDLE_LPDMACH7"/>
+        <MethodArg Name="handleDMAinIP" ParameterName="DMAHANDLE_LPDMACH7"/>
+        <MethodArg Name="handleDMA" FValue="handle_LPDMA$Index_Channel7"/>
+    </CallLibMethod>
+   </IFCondition>  
+   <IFCondition Expression = "SEM_CIRCULAR_$IpInstanceCH7 &amp; !SEM_M33S">
+     <CallLibMethod Name="HAL_DMAEx_List_BuildNode">
+          <MethodArg Name="pNode" ParameterName="pNode_LPDMACH7"/>
+        <MethodArg Name="pNodeConfig" ParameterName="nodeconfig"/>
+        <MethodArg Name="NodeType" ParameterName="NODETYPE_LPDMACH7"/> 
+                <MethodArg Name="Request" ParameterName="REQUEST_LPDMACH7"/>
+                <MethodArg Name="BlkHWRequest" ParameterName="BLKHWREQUEST_LPDMACH7"/>
+                <MethodArg Name="Direction" ParameterName="DIRECTION_LPDMACH7"/>
+                <MethodArg Name="SrcInc" ParameterName="SRCINC_LPDMACH7"/>
+                <MethodArg Name="DestInc" ParameterName="DESTINC_LPDMACH7"/>
+                <MethodArg Name="SrcDataWidth" ParameterName="SRCDATAWIDTH_LPDMACH7"/>
+                <MethodArg Name="DestDataWidth" ParameterName="DESTDATAWIDTH_LPDMACH7"/>
+                <MethodArg Name="Priority" ParameterName="PRIORITY_LPDMACH7"/>
+                <MethodArg Name="SrcBurstLength" ParameterName="SRCBURSTLENGTH_LPDMACH7"/>
+                <MethodArg Name="DestBurstLength" ParameterName="DESTBURSTLENGTH_LPDMACH7"/>
+                <MethodArg Name="TransferAllocatedPort" ParameterName="TRANSFERALLOCATEDPORT_LPDMACH7"/> 
+                <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH7"/>
+                <MethodArg Name="Mode" ParameterName="MODE_LPDMACH7"/>
+                <MethodArg Name="TriggerMode" ParameterName="TRIGGERMODE_LPDMACH7"/> 
+                <MethodArg Name="TriggerPolarity" ParameterName="TRIGGERPOLARITY_LPDMACH7"/>
+                <MethodArg Name="TriggerSelection" ParameterName="TRIGGERSELECTION_LPDMACH7"/>
+                <MethodArg Name="DataExchange" ParameterName="DATAEXCHANGE_LPDMACH7"/> 
+                <MethodArg Name="DataAlignment" ParameterName="DATAALIGNEMENT_LPDMACH7"/>
+        <MethodArg Name="SrcAddress"  ParameterName="SRCADD_LPDMACH7"/> 
+        <MethodArg Name="DstAddress"  ParameterName="DSTADD_LPDMACH7"/> 
+        <MethodArg Name="DataSize"  ParameterName="DATASIZE_LPDMACH7"/>    
+      </CallLibMethod>
+         <CallLibMethod Name="HAL_DMAEx_List_InsertNode">
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH7"/>
+                <MethodArg Name="pNode" ParameterName="pNode_LPDMACH7"/>
+         </CallLibMethod>
+         
+           <CallLibMethod Name="HAL_DMAEx_List_SetCircularMode">
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH7"/>
+         </CallLibMethod>
+
+    <CallLibMethod Name="HAL_DMAEx_List_Init">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel7"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel7"/>
+            <MethodArg Name="Priority" ParameterName="PRIORITY_LL_CIRCULAR_LPDMACH7"/> 
+        <MethodArg Name="LinkedListMode" ParameterName="LINKEDLISTMODE_CIRCULAR_LPDMACH7"/> 
+        <MethodArg Name="LinkStepMode" ParameterName="LINKSTEPMODE_CIRCULAR_LPDMACH7"/> 
+        <MethodArg Name="LinkAllocatedPort" ParameterName="LINKALLOCATEDPORT_CIRCULAR_LPDMACH7"/> 
+        <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_CIRCULAR_LPDMACH7"/> 
+     </CallLibMethod>
+
+        <CallLibMethod Name="HAL_DMAEx_List_LinkQ">
+        <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel7"/>
+            <MethodArg Name="Instance" FValue="LPDMA$Index_Channel7"/>
+              <MethodArg Name="pQueueLinkList" ParameterName="pQueueLinkList_LPDMACH7"/> 
+         </CallLibMethod>
+   <CallLibMethod Name="__HAL_LINKDMA" ReturnHAL="false">
+        <MethodArg Name="handleIP" ParameterName="IPHANDLE_LPDMACH7"/>
+        <MethodArg Name="handleDMAinIP" ParameterName="DMAHANDLE_LPDMACH7"/>
+        <MethodArg Name="handleDMA" FValue="handle_LPDMA$Index_Channel7"/>
+    </CallLibMethod>
+   </IFCondition>  
+    <IFCondition Expression = "S_SECURE">
+     <CallLibMethod Name="HAL_DMA_ConfigChannelAttributes">
+     <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel7"/>
+      <MethodArg Name="ChannelAttributes" ParameterName="ChannelAttributes_LPDMACH7"/> 
+    </CallLibMethod>
+     </IFCondition>
+     <IFCondition Expression = "S_SECURE| !S_SECURE">
+     <CallLibMethod Name="HAL_DMA_ConfigChannelAttributes">
+     <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel7"/>
+      <MethodArg Name="ChannelAttributes" ParameterName="ChannelPRIV_LPDMACH7"/> 
+    </CallLibMethod>
+     </IFCondition>
+</RefConfig>
+
+<!-- init for simple request circular or linear LPDMA_CH0 END -->
+<!-- init for LinkedList  LPDMA_CH7 BEGIN -->
+ <RefConfig Name="Init_LL_LPDMACH7">
+      <CallLibMethod Name="HAL_DMAEx_List_Init">
+          <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel7"/>
+          <MethodArg Name="Instance" FValue="LPDMA$Index_Channel7"/>
+            <MethodArg Name="Priority" ParameterName="PRIORITY_LL_LPDMACH7"/> 
+        <MethodArg Name="LinkedListMode" ParameterName="LINKEDLISTMODE_LPDMACH7"/> 
+        <MethodArg Name="LinkStepMode" ParameterName="LINKSTEPMODE_LPDMACH7"/> 
+        <MethodArg Name="LinkAllocatedPort" ParameterName="LINKALLOCATEDPORT_LPDMACH7"/> 
+        <MethodArg Name="TransferEventMode" ParameterName="TRANSFEREVENTMODE_LL_LPDMACH7"/> 
+     </CallLibMethod>
+      <IFCondition Expression = "S_SECURE">
+     <CallLibMethod Name="HAL_DMA_ConfigChannelAttributes">
+     <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel0"/>
+      <MethodArg Name="ChannelAttributes" ParameterName="ChannelAttributes_LPDMACH7"/> 
+    </CallLibMethod>
+     </IFCondition>
+   <IFCondition Expression = "S_SECURE | !S_SECURE">
+     <CallLibMethod Name="HAL_DMA_ConfigChannelAttributes">
+     <MethodArg Name="hdma" ParameterName="handle_LPDMA$Index_Channel7"/>
+      <MethodArg Name="ChannelAttributes" ParameterName="ChannelPRIV_LPDMACH7"/> 
+    </CallLibMethod>
+     </IFCondition>
+
+    
+</RefConfig>
+<!-- init for LinkedList  LPDMA_CH7 END -->
+
+<!-- -->
+<!-- -->
+<!-- -->
+<LibMethod Comment="" Name="HAL_DMA_ConfigChannelAttributes">
+        <Argument Comment="" AddressOf="true" GenericType="struct" Name="hdma" TypeName="DMA_HandleTypeDef" Context="global">
+            <Argument Comment="" AddressOf="false" GenericType="baseaddress" Name="Instance" TypeName="DMA_Stream_TypeDef *"/>
+            <Argument Comment="" AddressOf="false" GenericType="struct" Name="Init" TypeName="DMA_InitTypeDef">
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="Request"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="BlkHWRequest"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="Direction"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="SrcInc"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="DestInc"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="SrcDataWidth"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="DestDataWidth"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="Priority"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="SrcBurstLength"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="DestBurstLength"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="TransferAllocatedPort"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="TransferEventMode"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="Mode"/>
+            </Argument>
+          </Argument>
+        <Argument AddressOf="false" GenericType="simple" Name="ChannelAttributes" OptimizationCondition="equal"/>
+    </LibMethod>
+
+<LibMethod Comment="" Name="__HAL_LINKDMA">
+ <Argument Comment="" AddressOf="false" GenericType="simple" Name="handleIP"/>
+ <Argument Comment="" AddressOf="false" GenericType="simple" Name="handleDMAinIP"/>
+ <Argument Comment="" AddressOf="false" GenericType="simple" Name="handleDMA"/>
+</LibMethod>	
+   
+<LibMethod Comment="" Name="HAL_DMAEx_ConfigDataHandling">
+        <Argument Comment="" AddressOf="true" GenericType="struct" Name="hdma" TypeName="DMA_HandleTypeDef" Context="global">
+            <Argument Comment="" AddressOf="false" GenericType="baseaddress" Name="Instance" TypeName="DMA_Stream_TypeDef *"/>
+            <Argument Comment="" AddressOf="false" GenericType="struct" Name="Init" TypeName="DMA_InitTypeDef">
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="Request"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="BlkHWRequest"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="Direction"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="SrcInc"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="DestInc"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="SrcDataWidth"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="DestDataWidth"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="Priority"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="SrcBurstLength"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="DestBurstLength"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="TransferAllocatedPort"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="TransferEventMode"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="Mode"/>
+            </Argument>
+          </Argument>
+        	<Argument Comment="" AddressOf="true" GenericType="struct" Name="DataHandlingConfig" TypeName="DMA_DataHandlingConfTypeDef">
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="DataExchange"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="DataAlignment"/>
+        	</Argument>
+
+</LibMethod>
+     
+<LibMethod Comment="" Name="HAL_DMAEx_ConfigTrigger">
+        <Argument Comment="" AddressOf="true" GenericType="struct" Name="hdma" TypeName="DMA_HandleTypeDef" Context="global">
+            <Argument Comment="" AddressOf="false" GenericType="baseaddress" Name="Instance" TypeName="DMA_Stream_TypeDef *"/>
+            <Argument Comment="" AddressOf="false" GenericType="struct" Name="Init" TypeName="DMA_InitTypeDef">
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="Request"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="BlkHWRequest"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="Direction"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="SrcInc"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="DestInc"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="SrcDataWidth"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="DestDataWidth"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="Priority"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="SrcBurstLength"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="DestBurstLength"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="TransferAllocatedPort"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="TransferEventMode"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="Mode"/>
+            </Argument>
+             </Argument>
+        	<Argument Comment="" AddressOf="true" GenericType="struct" Name="TriggerConfig" TypeName="DMA_TriggerConfTypeDef">
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="TriggerMode"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="TriggerPolarity"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="TriggerSelection"/>
+        	</Argument>
+
+</LibMethod>
+                              
+<LibMethod Comment="" Name="HAL_DMAEx_ConfigRepeatBlock">
+        <Argument Comment="" AddressOf="true" GenericType="struct" Name="hdma" TypeName="DMA_HandleTypeDef" Context="global">
+            <Argument Comment="" AddressOf="false" GenericType="baseaddress" Name="Instance" TypeName="DMA_Stream_TypeDef *"/>
+            <Argument Comment="" AddressOf="false" GenericType="struct" Name="Init" TypeName="DMA_InitTypeDef">
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="Request"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="BlkHWRequest"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="Direction"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="SrcInc"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="DestInc"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="SrcDataWidth"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="DestDataWidth"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="Priority"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="SrcBurstLength"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="DestBurstLength"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="TransferAllocatedPort"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="TransferEventMode"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="Mode"/>
+            </Argument>
+             </Argument>
+</LibMethod>
+
+<LibMethod Comment="" Name="HAL_DMA_Init">
+        <Argument Comment="" AddressOf="true" GenericType="struct" Name="hdma" TypeName="DMA_HandleTypeDef" Context="global">
+            <Argument Comment="" AddressOf="false" GenericType="baseaddress" Name="Instance" TypeName="DMA_Stream_TypeDef *"/>
+            <Argument Comment="" AddressOf="false" GenericType="struct" Name="Init" TypeName="DMA_InitTypeDef">
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="Request"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="BlkHWRequest"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="Direction"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="SrcInc"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="DestInc"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="SrcDataWidth"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="DestDataWidth"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="Priority"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="SrcBurstLength"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="DestBurstLength"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="TransferAllocatedPort"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="TransferEventMode"/>
+                <Argument Comment="" AddressOf="false" GenericType="simple" Name="Mode"/>
+            </Argument>
+            <Argument Comment="" AddressOf="false" GenericType="enum" Name="Lock" TypeName="HAL_LockTypeDef"/>
+            <Argument Comment="" AddressOf="false" GenericType="enum" Name="State" TypeName="HAL_DMA_StateTypeDef"/>
+            <Argument Comment="" AddressOf="true" GenericType="simple" Name="Parent"/>
+            <Argument Comment="" AddressOf="true" GenericType="simple" Name="XferCpltCallback"/>
+            <Argument Comment="" AddressOf="true" GenericType="simple" Name="XferHalfCpltCallback"/>
+            <Argument Comment="" AddressOf="true" GenericType="simple" Name="XferM1CpltCallback"/>
+            <Argument Comment="" AddressOf="true" GenericType="simple" Name="XferErrorCallback"/>
+            <Argument Comment="" AddressOf="false" GenericType="simple" Name="ErrorCode"/>
+        </Argument>
+    </LibMethod>
+   
+<LibMethod Comment="" Name="HAL_DMAEx_List_Init">
+    <Argument Comment="" AddressOf="true" GenericType="struct" Name="hdma" TypeName="DMA_HandleTypeDef" Context="global">
+        <Argument Comment="" AddressOf="false" GenericType="baseaddress" Name="Instance" TypeName="DMA_Stream_TypeDef *"/>
+        <Argument Comment="" AddressOf="false" GenericType="struct" Name="InitLinkedList" TypeName="DMA_InitLinkedListTypeDef">
+            <Argument Comment="" AddressOf="false" GenericType="simple" Name="Priority"/>
+            <Argument Comment="" AddressOf="false" GenericType="simple" Name="LinkStepMode"/>
+            <Argument Comment="" AddressOf="false" GenericType="simple" Name="LinkAllocatedPort"/>
+            <Argument Comment="" AddressOf="false" GenericType="simple" Name="TransferEventMode"/>
+            <Argument Comment="" AddressOf="false" GenericType="simple" Name="LinkedListMode"/>
+      </Argument>
+    </Argument>
+</LibMethod>
+
+<LibMethod Comment="" Name="HAL_DMAEx_List_BuildNode">
+   <Argument Comment="" AddressOf="true" GenericType="struct" Name="pNodeConfig" TypeName="DMA_NodeConfTypeDef">
+      <Argument Comment="" AddressOf="false" GenericType="simple" Name="NodeType"/>
+       <Argument Comment="" AddressOf="false" GenericType="simple" Name="SrcSecure"/>
+        <Argument Comment="" AddressOf="false" GenericType="simple" Name="DestSecure"/>
+      <Argument Comment="" AddressOf="false" GenericType="struct" Name="Init" TypeName="DMA_InitTypeDef">
+           <Argument Comment="" AddressOf="false" GenericType="simple" Name="Request"/>
+            <Argument Comment="" AddressOf="false" GenericType="simple" Name="BlkHWRequest"/>
+            <Argument Comment="" AddressOf="false" GenericType="simple" Name="Direction"/>
+            <Argument Comment="" AddressOf="false" GenericType="simple" Name="SrcInc"/>
+            <Argument Comment="" AddressOf="false" GenericType="simple" Name="DestInc"/>
+            <Argument Comment="" AddressOf="false" GenericType="simple" Name="SrcDataWidth"/>
+            <Argument Comment="" AddressOf="false" GenericType="simple" Name="DestDataWidth"/>
+            <Argument Comment="" AddressOf="false" GenericType="simple" Name="Priority"/>
+            <Argument Comment="" AddressOf="false" GenericType="simple" Name="SrcBurstLength"/>
+            <Argument Comment="" AddressOf="false" GenericType="simple" Name="DestBurstLength"/>
+            <Argument Comment="" AddressOf="false" GenericType="simple" Name="TransferAllocatedPort"/>
+            <Argument Comment="" AddressOf="false" GenericType="simple" Name="TransferEventMode"/>
+            <Argument Comment="" AddressOf="false" GenericType="simple" Name="Mode"/>
+        </Argument>
+      <Argument Comment="" AddressOf="false" GenericType="struct" Name="TriggerConfig" TypeName="DMA_TriggerConfTypeDef">
+            <Argument Comment="" AddressOf="false" GenericType="simple" Name="TriggerMode"/>
+            <Argument Comment="" AddressOf="false" GenericType="simple" Name="TriggerPolarity"/>
+            <Argument Comment="" AddressOf="false" GenericType="simple" Name="TriggerSelection"/>
+      </Argument>
+      <Argument Comment="" AddressOf="false" GenericType="struct" Name="DataHandlingConfig" TypeName="DMA_DataHandlingConfTypeDef">
+            <Argument Comment="" AddressOf="false" GenericType="simple" Name="DataExchange"/>
+            <Argument Comment="" AddressOf="false" GenericType="simple" Name="DataAlignment"/>
+      </Argument>
+      <Argument Comment="" AddressOf="false" GenericType="simple" Name="SrcAddress"/> 
+      <Argument Comment="" AddressOf="false" GenericType="simple" Name="DstAddress"/> 
+      <Argument Comment="" AddressOf="false" GenericType="simple" Name="DataSize"/>         
+      <Argument Comment="" AddressOf="false" GenericType="simple" Name="SrcSecure"/>
+    <Argument Comment="" AddressOf="false" GenericType="simple" Name="DestSecure"/>
+    </Argument>
+   <Argument Comment="" AddressOf="true" GenericType="struct" Name="pNode" TypeName="DMA_NodeTypeDef" Context="global" Optional="output">
+   <Argument Comment="" AddressOf="false" GenericType="simple" Name="fake_for_struct"/>
+   </Argument>
+</LibMethod>
+
+<LibMethod Comment="" Name="HAL_DMAEx_List_InsertNode">
+   <Argument Comment="" AddressOf="true" GenericType="struct" Name="pQueueLinkList" TypeName="DMA_QListTypeDef" Context="global" Optional="output">
+     <Argument Comment="" AddressOf="false" GenericType="simple" Name="fake_for_struct"/>
+   
+   </Argument>
+    <Argument Comment="" AddressOf="false" GenericType="simple" Name="pPrevNode" TypeName="DMA_NodeTypeDef" >
+   </Argument>
+    <Argument Comment="" AddressOf="true" GenericType="struct" Name="pNode" TypeName="DMA_NodeTypeDef" Context="global" Optional="output">
+         <Argument Comment="" AddressOf="false" GenericType="simple" Name="fake_for_struct"/>
+   
+   </Argument>
+</LibMethod>
+
+<LibMethod Comment="" Name="HAL_DMAEx_List_SetCircularMode">
+   <Argument Comment="" AddressOf="true" GenericType="struct" Name="pQueueLinkList" TypeName="DMA_QListTypeDef" Context="global" Optional="output">
+     <Argument Comment="" AddressOf="false" GenericType="simple" Name="fake_for_struct"/>
+   </Argument>
+</LibMethod>
+
+<LibMethod Comment="" Name="HAL_DMAEx_List_LinkQ">
+     <Argument Comment="" AddressOf="true" GenericType="struct" Name="hdma" TypeName="DMA_HandleTypeDef" Context="global">
+          <Argument Comment="" AddressOf="false" GenericType="baseaddress" Name="Instance" TypeName="DMA_Stream_TypeDef *"/>
+          <Argument Comment="" AddressOf="false" GenericType="struct" Name="Init" TypeName="DMA_InitTypeDef">
+              <Argument Comment="" AddressOf="false" GenericType="simple" Name="Request"/>
+              <Argument Comment="" AddressOf="false" GenericType="simple" Name="BlkHWRequest"/>
+              <Argument Comment="" AddressOf="false" GenericType="simple" Name="Direction"/>
+              <Argument Comment="" AddressOf="false" GenericType="simple" Name="SrcInc"/>
+              <Argument Comment="" AddressOf="false" GenericType="simple" Name="DestInc"/>
+              <Argument Comment="" AddressOf="false" GenericType="simple" Name="SrcDataWidth"/>
+              <Argument Comment="" AddressOf="false" GenericType="simple" Name="DestDataWidth"/>
+              <Argument Comment="" AddressOf="false" GenericType="simple" Name="Priority"/>
+              <Argument Comment="" AddressOf="false" GenericType="simple" Name="SrcBurstLength"/>
+              <Argument Comment="" AddressOf="false" GenericType="simple" Name="DestBurstLength"/>
+              <Argument Comment="" AddressOf="false" GenericType="simple" Name="TransferAllocatedPort"/>
+              <Argument Comment="" AddressOf="false" GenericType="simple" Name="TransferEventMode"/>
+              <Argument Comment="" AddressOf="false" GenericType="simple" Name="Mode"/>
+          </Argument>
+           </Argument>
+       <Argument Comment="" AddressOf="true" GenericType="simple" Name="pQueueLinkList" TypeName="DMA_QListTypeDef" Context="global">
+     </Argument>
+</LibMethod>
+
+<LibMethod Comment="" Name="HAL_DMA_DeInit">
+    <Argument Comment="" AddressOf="true" GenericType="struct" Name="hdma" TypeName="DMA_HandleTypeDef">
+        <Argument Comment="" AddressOf="false" GenericType="baseaddress" Name="Instance" TypeName="DMA_Stream_TypeDef *"/>
+        <Argument Comment="" AddressOf="false" GenericType="struct" Name="Init" TypeName="DMA_InitTypeDef">
+            <Argument Comment="" AddressOf="false" GenericType="simple" Name="Channel"/>
+            <Argument Comment="" AddressOf="false" GenericType="simple" Name="Direction"/>
+            <Argument Comment="" AddressOf="false" GenericType="simple" Name="PeriphInc"/>
+            <Argument Comment="" AddressOf="false" GenericType="simple" Name="MemInc"/>
+            <Argument Comment="" AddressOf="false" GenericType="simple" Name="PeriphDataAlignment"/>
+            <Argument Comment="" AddressOf="false" GenericType="simple" Name="MemDataAlignment"/>
+            <Argument Comment="" AddressOf="false" GenericType="simple" Name="Mode"/>
+            <Argument Comment="" AddressOf="false" GenericType="simple" Name="Priority"/>
+            <Argument Comment="" AddressOf="false" GenericType="simple" Name="FIFOMode"/>
+            <Argument Comment="" AddressOf="false" GenericType="simple" Name="FIFOThreshold"/>
+            <Argument Comment="" AddressOf="false" GenericType="simple" Name="MemBurst"/>
+            <Argument Comment="" AddressOf="false" GenericType="simple" Name="PeriphBurst"/>
+        </Argument>
+        <Argument Comment="" AddressOf="false" GenericType="enum" Name="Lock" TypeName="HAL_LockTypeDef"/>
+        <Argument Comment="" AddressOf="false" GenericType="enum" Name="State" TypeName="HAL_DMA_StateTypeDef"/>
+        <Argument Comment="" AddressOf="true" GenericType="simple" Name="Parent"/>
+        <Argument Comment="" AddressOf="true" GenericType="simple" Name="XferCpltCallback"/>
+        <Argument Comment="" AddressOf="true" GenericType="simple" Name="XferHalfCpltCallback"/>
+        <Argument Comment="" AddressOf="true" GenericType="simple" Name="XferM1CpltCallback"/>
+        <Argument Comment="" AddressOf="true" GenericType="simple" Name="XferErrorCallback"/>
+        <Argument Comment="" AddressOf="false" GenericType="simple" Name="ErrorCode"/>
+    </Argument>
+</LibMethod>
+
+    <RefComponent Cclass="HAL" Cgroup="FAKE" Cversion="0.1.0">
+        <File Category="header" Name="Drivers/STM32WBAxx_HAL_Driver/Inc/stm32wbaxx_hal_dma.h"/>
+        <File Category="source" Name="Drivers/STM32WBAxx_HAL_Driver/Src/stm32wbaxx_hal_dma.c"/>
+        <File Category="header" Name="Drivers/STM32WBAxx_HAL_Driver/Inc/stm32wbaxx_hal_dma_ex.h"/>
+        <File Category="source" Name="Drivers/STM32WBAxx_HAL_Driver/Src/stm32wbaxx_hal_dma_ex.c"/>
+    </RefComponent>
+</IP>
+

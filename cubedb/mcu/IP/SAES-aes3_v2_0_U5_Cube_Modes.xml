@@ -17,7 +17,7 @@
 		CRYP_AES_ECB: Electronic codebook chaining algorithm&lt;br&gt;
 		CRYP_AES_CBC: Cipher block chaining algorithm&lt;br&gt;
 		</Description>
-		<Condition Expression="DIE454" Diagnostic=""/>
+		<Condition Expression="( DIE454 | DIE42A | DIE42B )" Diagnostic=""/>
         <PossibleValue Value="CRYP_AES_ECB" Comment="SAES ECB" Semaphore="Semaphore_CRYP_Coding_AESECB$IpInstance"/>
         <PossibleValue Value="CRYP_AES_CBC" Comment="SAES CBC" Semaphore="Semaphore_CRYP_Coding_AESCBC$IpInstance"/>
         <PossibleValue Value="CRYP_AES_CTR" Comment="SAES CTR" Semaphore="Semaphore_CRYP_Coding_AESCTR$IpInstance"/>
@@ -73,7 +73,16 @@
     </RefParameter>
 
     <RefParameter Comment="Initialization vector" ArraySize="4" ArrayTypeElement="uint32_t;16" Name="pInitVect" Type="Array" Separator=" " Group="Parameters" DefaultValue="00000000 00000000 00000000 00000000">
-        <Condition Diagnostic="" Expression="Semaphore_CRYP_Coding_AESCBC$IpInstance"/>
+        <Condition Diagnostic="" Expression="(DIE454|DIE42B) &amp; ((Semaphore_CRYP_Coding_AESCBC$IpInstance)|(Semaphore_CRYP_Coding_AESCTR$IpInstance)|(Semaphore_CRYP_Coding_AESGCM$IpInstance))"/>
+        <Description>Initialization Vector used for CBC,CTR, GCM modes</Description>
+    </RefParameter>
+    <RefParameter Comment="Initialization vector" Name="pInitVect" Type="list" Group="Parameters" DefaultValue="null" Visible="false">
+        <Condition Diagnostic="" Expression="(DIE454|DIE42B) &amp;(Semaphore_CRYP_Coding_AESECB$IpInstance)|(Semaphore_CRYP_Coding_AES_CCM$IpInstance)"/>
+        <Description>Initialization Vector used for CTR, CBC,GCM GMAC, CMAC (and CCM when applicable) modes</Description>
+    </RefParameter>
+
+    <RefParameter Comment="Initialization vector" ArraySize="4" ArrayTypeElement="uint32_t;16" Name="pInitVect" Type="Array" Separator=" " Group="Parameters" DefaultValue="00000000 00000000 00000000 00000000">
+        <Condition Diagnostic="" Expression="(Semaphore_CRYP_Coding_AESCBC$IpInstance)"/>
         <Description>Initialization Vector used for CBC mode</Description>
     </RefParameter>
     <RefParameter Comment="Initialization vector" Name="pInitVect" Type="list" Group="Parameters" DefaultValue="null" Visible="false">
@@ -82,22 +91,22 @@
     </RefParameter>	
 
 	<RefParameter Name="Header" Comment="Header" Group="Parameters" Type="Array" Separator=" " ArraySize="1" ArrayTypeElement="uint32_t;16" DefaultValue="00000000" Visible="false">
-        <Condition Diagnostic="" Expression="Semaphore_CRYP_Coding_AESGCM$IpInstance &amp; DIE454"/>
+        <Condition Diagnostic="" Expression="Semaphore_CRYP_Coding_AESGCM$IpInstance &amp; (DIE454|DIE42B|DIE42A)"/>
         <Description>The header also known as Additional Authentication Data is used for authentication</Description>
     </RefParameter>
     <RefParameter Name="Header" Comment="Header(B1)" Group="Parameters" Type="Array" Separator=" " ArraySize="4" ArrayTypeElement="uint32_t;16" DefaultValue="00000000 00000000 00000000 00000000" Visible="false">
-        <Condition Diagnostic="" Expression="Semaphore_CRYP_Coding_AESCCM$IpInstance &amp; DIE454"/>
+        <Condition Diagnostic="" Expression="Semaphore_CRYP_Coding_AESCCM$IpInstance &amp; (DIE454|DIE42B|DIE42A)"/>
         <Description>The header, also named B1 is used for authentication and composed of the associated data length and Associated Data.</Description>
     </RefParameter>
     <RefParameter Name="Header" Comment="Header" Group="Parameters" Type="list" DefaultValue="null" Visible="false">
         <Description>Not used.</Description>
     </RefParameter>
     <RefParameter Name="HeaderInput" Comment="Header(Additional Authentication Data)" Group="Parameters" Type="StringRW"  DefaultValue="0">
-        <Condition Diagnostic="" Expression="Semaphore_CRYP_Coding_AESGCM$IpInstance &amp; DIE454"/>
+        <Condition Diagnostic="" Expression="Semaphore_CRYP_Coding_AESGCM$IpInstance &amp; (DIE454|DIE42B|DIE42A)"/>
         <Description>The header, also known as Additional Authentication Data in GCM mode is used as first part of the message just after the Initial Counter Block (ICB), and precede the plain text message.&lt;br&gt; Input format: hexadecimal (ex: 0123456789abcdef)</Description>
     </RefParameter>
     <RefParameter Name="HeaderInput" Comment="Header(B1)" Group="Parameters" Type="StringRW"  DefaultValue="0">
-        <Condition Diagnostic="" Expression="Semaphore_CRYP_Coding_AESCCM$IpInstance &amp; DIE454"/>
+        <Condition Diagnostic="" Expression="Semaphore_CRYP_Coding_AESCCM$IpInstance &amp; (DIE454|DIE42B|DIE42A)"/>
         <Description>The header, also named B1 is used for authentication and composed of the associated data length and Associated Data.&lt;br&gt; Input format: hexadecimal and minimum length should be 4 words (ex: 0123456789abcdef0123456789abcdef)</Description>
     </RefParameter>
     <RefParameter Name="HeaderInput" Comment="Header input" Group="Parameters" Type="list" DefaultValue="null" Visible="false">
@@ -105,11 +114,11 @@
     </RefParameter>
 
     <RefParameter Name="HeaderSize" Comment="Header size" Group="Parameters" DefaultValue="1" Max="4294967295" Min="0" Type="String">
-        <Condition Diagnostic="" Expression="Semaphore_CRYP_Coding_AESGCM$IpInstance &amp; DIE454"/>
+        <Condition Diagnostic="" Expression="Semaphore_CRYP_Coding_AESGCM$IpInstance &amp; (DIE454|DIE42B|DIE42A)"/>
         <Description>Header size in word</Description>
     </RefParameter>
     <RefParameter Name="HeaderSize" Comment="Header(B1) size" Group="Parameters" DefaultValue="4" Min="4" Max="4294967295" Type="String">
-        <Condition Diagnostic="" Expression="Semaphore_CRYP_Coding_AESCCM$IpInstance &amp; DIE454"/>
+        <Condition Diagnostic="" Expression="Semaphore_CRYP_Coding_AESCCM$IpInstance &amp; (DIE454|DIE42B|DIE42A)"/>
         <Description>Lenght of 16-bytes blocks (B) associated to the Associated Data (A), part of CBC-MAC mode Counter</Description>
     </RefParameter>
     <RefParameter Name="HeaderSize" Comment="Header size" Group="Parameters" Type="list" DefaultValue="null" Visible="false">
@@ -117,7 +126,7 @@
     </RefParameter>
 
     <RefParameter Name="B0" Comment="B0" Type="Array" ArraySize="4" ArrayTypeElement="uint32_t;16" Separator=" " Group="Parameters" DefaultValue="00000000 00000000 00000000 00000000">
-        <Condition Diagnostic="" Expression="Semaphore_CRYP_Coding_AESCCM$IpInstance &amp; DIE454"/>
+        <Condition Diagnostic="" Expression="Semaphore_CRYP_Coding_AESCCM$IpInstance &amp; (DIE454|DIE42B|DIE42A)"/>
         <Description>One 16-byte first authentication block, part of CBC-MAC mode Counter</Description>
     </RefParameter>
     <RefParameter Name="B0" Comment="B0" Group="Parameters" Type="list" DefaultValue="null" Visible="false">
@@ -142,24 +151,24 @@
 		CRYP_HEADERWIDTHUNIT_WORD: By default, header size unit is word&lt;br&gt;
 		CRYP_HEADERWIDTHUNIT_BYTE: Header size unit is byte&lt;br&gt;
 		</Description>
-        <Condition Expression="Semaphore_CRYP_Coding_AESGCM$IpInstance &amp; Semaphore_CRYP_Coding_AESCCM$IpInstance &amp; DIE454" Diagnostic=""/>
+        <Condition Expression="(DIE454 |DIE42A| DIE42B) &amp; (Semaphore_CRYP_Coding_AESGCM$IpInstance | Semaphore_CRYP_Coding_AESCCM$IpInstance)" Diagnostic=""/>
         <PossibleValue Comment="Word" Value="CRYP_HEADERWIDTHUNIT_WORD"/>
         <PossibleValue Comment="Byte" Value="CRYP_HEADERWIDTHUNIT_BYTE"/>
     </RefParameter>
 	
     <RefParameter Comment="Key and IV configuration skip" DefaultValue="CRYP_KEYIVCONFIG_ALWAYS" Name="KeyIVConfigSkip" Type="List" Group="Parameters">
         <Description> CRYP peripheral Key and IV configuration skip, to config Key and Initialization Vector only once and to skip configuration for consecutive processings.&lt;br&gt;
-		This parameter can be a value of @ref CRYP_Configuration_Skip&lt;br&gt;
-		Possible values are:&lt;br&gt;
-		CRYP_KEYIVCONFIG_ALWAYS: Peripheral Key and IV configuration to do systematically&lt;br&gt;
-		CRYP_KEYIVCONFIG_ONCE: Peripheral Key and IV configuration to do only once&lt;br&gt;
-        CRYP_KEYNOCONFIG: Peripheral Key configuration to not do&lt;br&gt;
-        CRYP_IVCONFIG_ONCE: Peripheral IV configuration do once for interleave mode&lt;br&gt;
-		</Description>
-        <PossibleValue Comment="KEYIVCONFIG_ALWAYS" Value="CRYP_KEYIVCONFIG_ALWAYS"/>
-        <PossibleValue Comment="KEYIVCONFIG_ONCE" Value="CRYP_KEYIVCONFIG_ONCE"/>
-        <PossibleValue Comment="KEYIVCONFIG" Value="CRYP_KEYNOCONFIG"/>
-        <PossibleValue Comment="IVCONFIG_ONCE" Value="CRYP_IVCONFIG_ONCE"/>
+            This parameter can be a value of @ref CRYP_Configuration_Skip&lt;br&gt;
+            Possible values are:&lt;br&gt;
+            CRYP_KEYIVCONFIG_ALWAYS: Peripheral Key and IV configuration to do systematically&lt;br&gt;
+            CRYP_KEYIVCONFIG_ONCE: Peripheral Key and IV configuration to do only once&lt;br&gt;
+            CRYP_KEYNOCONFIG: Peripheral Key configuration to not do &lt;br&gt;
+            CRYP_IVCONFIG_ONCE: Peripheral IV configuration do once for interleave mode&lt;br&gt;
+        </Description>
+        <PossibleValue Comment="CRYP_KEYIVCONFIG_ALWAYS" Value="CRYP_KEYIVCONFIG_ALWAYS"/>
+        <PossibleValue Comment="CRYP_KEYIVCONFIG_ONCE" Value="CRYP_KEYIVCONFIG_ONCE"/>
+        <PossibleValue Comment="CRYP_KEYNOCONFIG" Value="CRYP_KEYNOCONFIG"/>
+        <PossibleValue Comment="CRYP_IVCONFIG_ONCE" Value="CRYP_IVCONFIG_ONCE"/>
     </RefParameter>
 
     <RefParameter Comment="Key mode" DefaultValue="CRYP_KEYMODE_NORMAL" Name="KeyMode" Type="list" Group="Parameters">
@@ -228,7 +237,7 @@
 					<Semaphore>S_SAES</Semaphore>
 				</Mode>
 			</ModeLogicOperator>
-			<Condition Diagnostic="Active only if RNG is enabled" Expression="S_RNG &amp; ((DIE454 &amp;!CCB_Used ) | !DIE454)"/>
+			<Condition Diagnostic="Active only if RNG is enabled" Expression="S_RNG &amp; (((DIE454|DIE42B|DIE42A) &amp;!CCB_Used ) | !(DIE454|DIE42B|DIE42A))"/>
 		</Mode>
 	</ModeLogicOperator>
 

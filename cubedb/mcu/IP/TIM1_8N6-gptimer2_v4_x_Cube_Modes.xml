@@ -2261,11 +2261,11 @@
         <Condition Diagnostic="" Expression="Semaphore_TIM2_N6_ETR_REMAPTIM2"/>
             <PossibleValue Value="TIM_TIM2_ETR_SAI1_FSA" Comment="TIM2_ETR is connected to SAI1 FS_A" Condition="!SAI1_Exist" Action="remove"/>
             <PossibleValue Value="TIM_TIM2_ETR_SAI1_FSB" Comment="TIM2_ETR is connected to SAI1 FS_B" Condition="!SAI1_Exist" Action="remove"/>
-            <PossibleValue Value="TIM_TIM2_ETR_ETH_PPS" Comment="TIM2_ETR is connected to ETH1 PPS"/>
+            <PossibleValue Value="TIM_TIM2_ETR_ETH_PPS" Comment="TIM2_ETR is connected to ETH1 PPS" Condition="!ETH1_Exist" Action="Disable"/>
             <PossibleValue Value="TIM_TIM2_ETR_DCMIPP_VSYNC" Comment="TIM2_ETR is connected to DCMIPP VSYNC" Condition="!(DCMIPP_Exist)" Action="remove"/>
             <PossibleValue Value="TIM_TIM2_ETR_DCMIPP_HSYNC" Comment="TIM2_ETR is connected to DCMIPP HSYNC" Condition="!(DCMIPP_Exist)" Action="remove"/>
-            <PossibleValue Value="TIM_TIM2_ETR_LCD VSYNC" Comment="TIM2_ETR is connected to LCD VSYNC" Condition="!(DCMIPP_Exist)" Action="remove"/>
-            <PossibleValue Value="TIM_TIM2_ETR_LCD HSYNC" Comment="TIM2_ETR is connected to LCD HSYNC" Condition="!(DCMIPP_Exist)" Action="remove"/>
+            <PossibleValue Value="TIM_TIM2_ETR_LCD_VSYNC" Comment="TIM2_ETR is connected to LCD VSYNC" Condition="!(LTDC_Exist)" Action="Disable"/>
+            <PossibleValue Value="TIM_TIM2_ETR_LCD_HSYNC" Comment="TIM2_ETR is connected to LCD HSYNC" Condition="!(LTDC_Exist)" Action="Disable"/>
             <PossibleValue Value="TIM_TIM2_ETR_GFXTIM_TE" Comment="TIM2_ETR is connected to GFXTIM TE" Condition="!GFXTIM_Exist" Action="remove"/>
             <PossibleValue Value="TIM_TIM2_ETR_TIM3_ETR" Comment="TIM2 ETR is connected to TIM3 ETR pin" Condition="!TIM3_Exist" Action="remove"/>
             <PossibleValue Value="TIM_TIM2_ETR_TIM4_ETR" Comment="TIM2 ETR is connected to TIM4 ETR pin" Condition="!TIM4_Exist" Action="remove"/>
@@ -2281,7 +2281,8 @@
 <!-- for TIM2 TI1 -->
     <RefParameter Name="TIM2_TI1_REMAP" Comment="TI1 remap capabilities for TIM2" DefaultValue="TIM_TIM2_TI1_ETH1_PPS" Type="list" Group="T1 remap capabilities for TIM2">
         <Condition Diagnostic="" Expression="Semaphore_TIM2_N6_TI1_REMAPTIM2"/>
-           <PossibleValue Value="TIM_TIM2_TI1_ETH1_PPS" Comment="TIM2 Channel 1 is connected to ETH1_PPS" Condition="!ETH1_Exist" Action="remove" Semaphore="Semaphore_TIM_TIM2_TI1_ETH1_PPS"/>
+			<PossibleValue Value="TIM_TIM2_TI1_GPIO" Comment="TIM2 TI1 is connected to Comparators"/>
+           <PossibleValue Value="TIM_TIM2_TI1_ETH1_PPS" Comment="TIM2 Channel 1 is connected to ETH1_PPS" Condition="!ETH1_Exist" Action="Disable" Semaphore="Semaphore_TIM_TIM2_TI1_ETH1_PPS"/>
     </RefParameter>
     <RefParameter Name="TIM2_TI1_REMAP" Comment="TI1 remap capabilities for TIM2" DefaultValue="TIM_TIM2_TI1_GPIO" Type="list" Group="T1 remap capabilities for TIM2" Visible="false">
         <Condition Diagnostic="" Expression="!Semaphore_TIM2_N6_TI1_REMAPTIM2"/>
@@ -2293,13 +2294,13 @@
         <Condition Diagnostic="" Expression="Semaphore_TIM3_N6_ETR_REMAPTIM3"/>
             <PossibleValue Value="TIM_TIM3_ETR_DCMIPP_VSYNC" Comment="TIM3_ETR is connected to DCMIPP VSYNC" Condition="!(DCMIPP_Exist)" Action="remove"/>
             <PossibleValue Value="TIM_TIM3_ETR_DCMIPP_HSYNC" Comment="TIM3_ETR is connected to DCMIPP HSYNC" Condition="!(DCMIPP_Exist)" Action="remove"/>
-            <PossibleValue Value="TIM_TIM3_ETR_LCD_VSYNC" Comment="TIM3_ETR is connected to LCD VSYNC" Condition="!(DCMIPP_Exist)" Action="remove"/>
-            <PossibleValue Value="TIM_TIM3_ETR_LCD_HSYNC" Comment="TIM3_ETR is connected to LCD HSYNC" Condition="!(DCMIPP_Exist)" Action="remove"/>
+            <PossibleValue Value="TIM_TIM3_ETR_LCD_VSYNC" Comment="TIM3_ETR is connected to LCD VSYNC" Condition="!(LTDC_Exist)" Action="Disable"/>
+            <PossibleValue Value="TIM_TIM3_ETR_LCD_HSYNC" Comment="TIM3_ETR is connected to LCD HSYNC" Condition="!(LTDC_Exist)" Action="Disable"/>
             <PossibleValue Value="TIM_TIM3_ETR_GFXTIM_TE" Comment="TIM3_ETR is connected to GFXTIM TE" Condition="!GFXTIM_Exist" Action="remove"/>
             <PossibleValue Value="TIM_TIM3_ETR_TIM2_ETR" Comment="TIM3 ETR is connected to TIM2 ETR pin" Condition="!TIM2_Exist" Action="remove"/>
             <PossibleValue Value="TIM_TIM3_ETR_TIM4_ETR" Comment="TIM3 ETR is connected to TIM4 ETR pin" Condition="!TIM4_Exist" Action="remove"/>
             <PossibleValue Value="TIM_TIM3_ETR_TIM5_ETR" Comment="TIM3 ETR is connected to TIM5 ETR pin" Condition="!TIM5_Exist" Action="remove"/>
-            <PossibleValue Value="TIM_TIM3_ETR_ETH1_PPS" Comment="TIM3_ETR is connected to ETH1 PPS" Condition="!ETH1_Exist" Action="remove" />
+            <PossibleValue Value="TIM_TIM3_ETR_ETH1_PPS" Comment="TIM3_ETR is connected to ETH1 PPS" Condition="!ETH1_Exist" Action="Disable" />
     </RefParameter>
     <RefParameter Name="TIM3_ETR_REMAP" Comment="ETR remap capabilities for TIM3" DefaultValue="TIM_TIM3_ETR_GPIO" Type="list" Group="ETR remap capabilities for TIM3">
         <Condition Diagnostic="" Expression="!Semaphore_TIM3_N6_ETR_REMAPTIM3"/>
@@ -2308,10 +2309,10 @@
 <!-- for TIM3 TI1 -->
    <RefParameter Name="TIM3_TI1_REMAP" Comment="TI1 remap capabilities for TIM3" DefaultValue="TIM_TIM3_TI1_ETH1_PPS" Type="list" Group="T1 remap capabilities for TIM3">
         <Condition Diagnostic="" Expression="Semaphore_TIM3_N6_TI1_REMAPTIM3"/>
-   <PossibleValue Value="TIM_TIM3_TI1_ETH1_PPS" Comment="TIM3 Channel 1 is connected to ETH1_PPS" Condition="!ETH1_Exist" Action="remove" Semaphore="Semaphore_TIM_TIM3_TI1_ETH1_PPS"/>
-   <PossibleValue Value="TIM_TIM3_TI1_FDCAN_RTP" Comment="TIM3 Channel 1 is connected to FDCAN RTP" Condition="!FDCAN_Exist" Action="remove"/>
-   <PossibleValue Value="TIM_TIM3_TI1_FDCAN_TMP" Comment="TIM3 Channel 1 is connected to FDCAN TMP" Condition="!FDCAN_Exist" Action="remove"/>
-   <PossibleValue Value="TIM_TIM3_TI1_FDCAN_SOC" Comment="TIM3 Channel 1 is connected to FDCAN SOC" Condition="!FDCAN_Exist" Action="remove"/>
+   <PossibleValue Value="TIM_TIM3_TI1_ETH1_PPS" Comment="TIM3 Channel 1 is connected to ETH1_PPS" Condition="!ETH1_Exist" Action="Disable" Semaphore="Semaphore_TIM_TIM3_TI1_ETH1_PPS"/>
+   <PossibleValue Value="TIM_TIM3_TI1_FDCAN_RTP" Comment="TIM3 Channel 1 is connected to FDCAN RTP" />
+   <PossibleValue Value="TIM_TIM3_TI1_FDCAN_TMP" Comment="TIM3 Channel 1 is connected to FDCAN TMP" />
+   <PossibleValue Value="TIM_TIM3_TI1_FDCAN_SOC" Comment="TIM3 Channel 1 is connected to FDCAN SOC" />
     </RefParameter>
     <RefParameter Name="TIM3_TI1_REMAP" Comment="TI1 remap capabilities for TIM3" DefaultValue="TIM_TIM3_TI1_GPIO" Type="list" Group="T1 remap capabilities for TIM3" Visible="false">
         <Condition Diagnostic="" Expression="!Semaphore_TIM3_N6_TI1_REMAPTIM3"/>
@@ -2323,10 +2324,10 @@
         <Condition Diagnostic="" Expression="Semaphore_TIM4_N6_ETR_REMAPTIM4"/>
             <PossibleValue Value="TIM_TIM4_ETR_DCMIPP_VSYNC" Comment="TIM4_ETR is connected to DCMIPP VSYNC" Condition="!(DCMIPP_Exist)" Action="remove"/>
             <PossibleValue Value="TIM_TIM4_ETR_DCMIPP_HSYNC" Comment="TIM4_ETR is connected to DCMIPP HSYNC" Condition="!(DCMIPP_Exist)" Action="remove"/>
-            <PossibleValue Value="TIM_TIM4_ETR_LCD_VSYNC" Comment="TIM4_ETR is connected to LCD VSYNC" Condition="!(DCMIPP_Exist)" Action="remove"/>
-            <PossibleValue Value="TIM_TIM4_ETR_LCD_HSYNC" Comment="TIM4_ETR is connected to LCD HSYNC" Condition="!(DCMIPP_Exist)" Action="remove"/>
+            <PossibleValue Value="TIM_TIM4_ETR_LCD_VSYNC" Comment="TIM4_ETR is connected to LCD VSYNC" Condition="!(LTDC_Exist)" Action="Disable"/>
+            <PossibleValue Value="TIM_TIM4_ETR_LCD_HSYNC" Comment="TIM4_ETR is connected to LCD HSYNC" Condition="!(LTDC_Exist)" Action="Disable"/>
             <PossibleValue Value="TIM_TIM4_ETR_GFXTIM_TE" Comment="TIM4_ETR is connected to GFXTIM TE" Condition="!GFXTIM_Exist" Action="remove"/>
-   <PossibleValue Value="TIM_TIM4_ETR_TIM2_ETR" Comment="TIM4 ETR is connected to TIM2 ETR pin" Condition="!TIM2_Exist" Action="remove"/>
+			<PossibleValue Value="TIM_TIM4_ETR_TIM2_ETR" Comment="TIM4 ETR is connected to TIM2 ETR pin" Condition="!TIM2_Exist" Action="remove"/>
             <PossibleValue Value="TIM_TIM4_ETR_TIM3_ETR" Comment="TIM4 ETR is connected to TIM3 ETR pin" Condition="!TIM3_Exist" Action="remove"/>
             <PossibleValue Value="TIM_TIM4_ETR_TIM5_ETR" Comment="TIM4 ETR is connected to TIM5 ETR pin" Condition="!TIM5_Exist" Action="remove"/>
     </RefParameter>
@@ -2342,8 +2343,8 @@
             <PossibleValue Value="TIM_TIM5_ETR_SAI2_FSB" Comment="TIM5_ETR is connected to SAI2 FS_B" Condition="!SAI1_Exist" Action="remove"/>
             <PossibleValue Value="TIM_TIM5_ETR_DCMIPP_VSYNC" Comment="TIM5_ETR is connected to DCMIPP VSYNC" Condition="!(DCMIPP_Exist)" Action="remove"/>
             <PossibleValue Value="TIM_TIM5_ETR_DCMIPP_HSYNC" Comment="TIM5_ETR is connected to DCMIPP HSYNC" Condition="!(DCMIPP_Exist)" Action="remove"/>
-            <PossibleValue Value="TIM_TIM5_ETR_LCD_VSYNC" Comment="TIM5_ETR is connected to LCD VSYNC" Condition="!(DCMIPP_Exist)" Action="remove"/>
-            <PossibleValue Value="TIM_TIM5_ETR_LCD_HSYNC" Comment="TIM5_ETR is connected to LCD HSYNC" Condition="!(DCMIPP_Exist)" Action="remove"/>
+            <PossibleValue Value="TIM_TIM5_ETR_LCD_VSYNC" Comment="TIM5_ETR is connected to LCD VSYNC" Condition="!(LTDC_Exist)" Action="Disable"/>
+            <PossibleValue Value="TIM_TIM5_ETR_LCD_HSYNC" Comment="TIM5_ETR is connected to LCD HSYNC" Condition="!(LTDC_Exist)" Action="Disable"/>
             <PossibleValue Value="TIM_TIM5_ETR_GFXTIM_TE" Comment="TIM5_ETR is connected to GFXTIM TE" Condition="!GFXTIM_Exist" Action="remove"/>
             <PossibleValue Value="TIM_TIM5_ETR_TIM2_ETR" Comment="TIM5 ETR is connected to TIM2 ETR pin" Condition="!TIM2_Exist" Action="remove"/>
             <PossibleValue Value="TIM_TIM5_ETR_TIM3_ETR" Comment="TIM5 ETR is connected to TIM3 ETR pin" Condition="!TIM3_Exist" Action="remove"/>

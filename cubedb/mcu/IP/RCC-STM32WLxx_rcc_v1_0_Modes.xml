@@ -403,7 +403,7 @@
 	
     <!--frequence Values -->
     <RefParameter Visible="false" Comment="HSE OSC"    Name="HSE_VALUE" DefaultValue="32000000" Max="32000000" Min="32000000" Type="double" Display="value/1000000" Unit="MHz">
-        <Condition Diagnostic="" Expression="STM32WL5MOCHx"/>
+        <Condition Diagnostic="" Expression="STM32WL5MOCHx|STM32WL5MOCHxS"/>
     </RefParameter>
     <RefParameter Visible="false" Comment="HSE OSC"    Name="HSE_VALUE" DefaultValue="8000000" Max="32000000" Min="4000000" Type="double" Display="value/1000000" Unit="MHz"/><!--HSE in OSI mode-->
     <RefParameter Visible="false" Comment="LSE OSC"    Name="LSE_VALUE" DefaultValue="32768" Max="1000000" Min="1000"  Type="double" Display="value/1000" Unit="KHz"/>
@@ -805,7 +805,7 @@
 	
     <!-- HSE state for codGen -->
     <RefParameter Visible="false" Comment="Hse State" DefaultValue="RCC_HSE_BYPASS_PWR" Name="HSEState" Type="list">
-        <Condition Diagnostic="HSE ON" Expression="HSEOscillator &amp; STM32WL5MOCHx"/>
+        <Condition Diagnostic="HSE ON" Expression="(HSEOscillator &amp; (STM32WL5MOCHx|STM32WL5MOCHxS))"/>
         <PossibleValue Comment="Hse ON" Value="RCC_HSE_BYPASS_PWR" Semaphore="HSEEnabled"/>
     </RefParameter>
     <RefParameter Visible="false" Comment="Hse State" DefaultValue="RCC_HSE_BYPASS_PWR" Name="HSEState" Type="list">
@@ -1645,12 +1645,12 @@
     </RefParameter>
     
     <RefParameter Visible="false" Comment="Hse is Internal osc" DefaultValue="true" Name="HSEOSCisInternal" Type="list">
-        <Condition Diagnostic="Hse is Internal osc" Expression="STM32WL5MOCHx"/>
+        <Condition Diagnostic="Hse is Internal osc" Expression="STM32WL5MOCHx|STM32WL5MOCHxS"/>
         <PossibleValue Comment="Hse is Internal osc" Value="true"/>
     </RefParameter>
     
     <RefParameter Visible="false" Comment="LSE is Internal osc" DefaultValue="true" Name="LSEOSCisInternal" Type="list">
-        <Condition Diagnostic="LSE is Internal osc" Expression="STM32WL5MOCHx"/>
+        <Condition Diagnostic="LSE is Internal osc" Expression="STM32WL5MOCHx|STM32WL5MOCHxS"/>
         <PossibleValue Comment="LSE is Internal osc" Value="true"/>
     </RefParameter>
     
@@ -1659,6 +1659,7 @@
 	<ConfigForMode>RCC_LSEDRIVE_CONFIG</ConfigForMode>
         <ConfigForMode>RCC_ConfigVoltageScaling</ConfigForMode> 
         <ConfigForMode>RCC_OSCConfig</ConfigForMode>
+        <ConfigForMode>RCC_EnableMSIPLLMode</ConfigForMode>
         <ConfigForMode>RCC_HSE_DIV2_ENABLE</ConfigForMode>		
         <ConfigForMode>RCC_ClockConfig</ConfigForMode>
         <ConfigForMode>RCC_MCO1Config</ConfigForMode>        
@@ -1669,7 +1670,6 @@
 
         <!--ConfigForMode>RCC_interrupt_Time_SYSTICK_Config</ConfigForMode-->
         <!--ConfigForMode>RCC_SYSTICK_CONFIG</ConfigForMode-->
-        <ConfigForMode>EnableMSIPLLMode</ConfigForMode>
         <ConfigForMode>RCC_CRSConfig</ConfigForMode>    
 
         <Parameter Name="OscillatorType"/>
@@ -1779,7 +1779,7 @@
    
     <ModeLogicOperator Name="OR">
         <!-- Modes for Oscillators & Clocks -->
-        <Mode Name="OSC" UserName="High Speed Clock (HSE)" RemoveCondition="STM32WL5MOCHx">
+        <Mode Name="OSC" UserName="High Speed Clock (HSE)" RemoveCondition="STM32WL5MOCHx|STM32WL5MOCHxS">
             <ModeLogicOperator Name="XOR">                
                 <Mode Name="HSE-External-Oscillator" UserName="Crystal/Ceramic Resonator">
                     <SignalLogicalOp Name="AND">
@@ -1799,7 +1799,7 @@
             </ModeLogicOperator>
         </Mode>
         
-        <Mode Name="OSC32" UserName="Low Speed Clock (LSE) " RemoveCondition="STM32WL5MOCHx">
+        <Mode Name="OSC32" UserName="Low Speed Clock (LSE) " RemoveCondition="STM32WL5MOCHx|STM32WL5MOCHxS">
             <ModeLogicOperator Name="XOR">
                 <Mode Name="LSE-External-Clock-Source" UserName="BYPASS Clock Source">
                     <SignalLogicalOp Name="AND">
@@ -1817,7 +1817,7 @@
                 </Mode>
             </ModeLogicOperator>
         </Mode>
-        <Mode Name="OSC" UserName="High Speed Clock (HSE)" RemoveCondition="!STM32WL5MOCHx">
+        <Mode Name="OSC" UserName="High Speed Clock (HSE)" RemoveCondition="(!STM32WL5MOCHx &amp; !STM32WL5MOCHxS)">
             <ModeLogicOperator Name="XOR">
                 <Mode Name="HSE-External-Clock-Source" UserName="Crystal/Ceramic Resonator">
                     <SignalLogicalOp Name="AND">
@@ -1828,7 +1828,7 @@
             </ModeLogicOperator>
          </Mode>
          
-        <Mode Name="OSC32" UserName="Low Speed Clock (LSE) " RemoveCondition="!STM32WL5MOCHx">
+        <Mode Name="OSC32" UserName="Low Speed Clock (LSE) " RemoveCondition="(!STM32WL5MOCHx &amp; !STM32WL5MOCHxS)">
             <ModeLogicOperator Name="XOR">
                 <Mode Name="LSE-External-Clock-Source" UserName="Crystal/Ceramic Resonator">
                     <SignalLogicalOp Name="AND">

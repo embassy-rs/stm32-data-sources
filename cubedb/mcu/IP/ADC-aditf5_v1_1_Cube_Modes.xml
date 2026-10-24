@@ -22,7 +22,7 @@
         <Condition Diagnostic="" Expression="(ADC1_Exist|ADC_Exist)&amp;(!ADC2_Exist)"/>
     </RefParameter>
     <RefParameter Comment="Mode" DefaultValue="ADC_MODE_INDEPENDENT" Group="ADCs_Common_Settings" Name="Mode" Type="list">
-        <Condition Diagnostic="Regular simultanious mode should not be available for injected conversion" Expression="((($Index=1|$Index=2)&amp; USE_ADC1&amp;USE_ADC2)&amp;(ADC1:InjNumberOfConversion=0)&amp;(ADC2:InjNumberOfConversion=0))|((($IpInstance=ADC3|$IpInstance=ADC4)&amp;USE_ADC3&amp;USE_ADC4&amp;(ADC3:InjNumberOfConversion=0)&amp;(ADC4:InjNumberOfConversion=0)))"/>
+        <Condition Diagnostic="Regular simultaneous mode should not be available for injected conversion" Expression="((($Index=1|$Index=2)&amp; USE_ADC1&amp;USE_ADC2)&amp;(ADC1:InjNumberOfConversion=0)&amp;(ADC2:InjNumberOfConversion=0))|((($IpInstance=ADC3|$IpInstance=ADC4)&amp;USE_ADC3&amp;USE_ADC4&amp;(ADC3:InjNumberOfConversion=0)&amp;(ADC4:InjNumberOfConversion=0)))"/>
         <PossibleValue Comment="Independent mode" Value="ADC_MODE_INDEPENDENT"/>
         <PossibleValue Comment="Dual regular simultaneous + alternate trigger mode" Semaphore="DualMode1_$IpInstance" Value="ADC_DUALMODE_REGSIMULT_ALTERTRIG"/>
         <PossibleValue Comment="Dual regular simultaneous mode only" Semaphore="DualMode2_$IpInstance" Value="ADC_DUALMODE_REGSIMULT"/>
@@ -30,7 +30,7 @@
         <PossibleValue Comment="Dual alternate trigger mode only" Semaphore="DualMode3_$IpInstance" Value="ADC_DUALMODE_ALTERTRIG"/>
     </RefParameter>
     <RefParameter Comment="Mode" DefaultValue="ADC_MODE_INDEPENDENT" Group="ADCs_Common_Settings" Name="Mode" Type="list">
-        <Condition Diagnostic="Regular simultanious mode should not be available for injected conversion" Expression="((($Index=1|$Index=2)&amp;USE_ADC1&amp;USE_ADC2)|(($IpInstance=ADC3|$IpInstance=ADC4)&amp;USE_ADC3&amp;USE_ADC4))"/>
+        <Condition Diagnostic="Regular simultaneous mode should not be available for injected conversion" Expression="((($Index=1|$Index=2)&amp;USE_ADC1&amp;USE_ADC2)|(($IpInstance=ADC3|$IpInstance=ADC4)&amp;USE_ADC3&amp;USE_ADC4))"/>
         <PossibleValue Comment="Independent mode" Value="ADC_MODE_INDEPENDENT"/>
         <PossibleValue Comment="Dual combined regular simultaneous + injected simultaneous mode" Semaphore="DualMode0_$IpInstance" Value="ADC_DUALMODE_REGSIMULT_INJECSIMULT"/>
         <PossibleValue Comment="Dual regular simultaneous + alternate trigger mode" Semaphore="DualMode1_$IpInstance" Value="ADC_DUALMODE_REGSIMULT_ALTERTRIG"/>       
@@ -340,23 +340,17 @@
     <RefParameter Comment="Channel_Rank2" DefaultValue="0x0000" Group="ADCChannel" Name="Rank2_Channel" Type="String" Visible="false"/>
     <RefParameter Comment="Channel_Rank3" DefaultValue="0x0000" Group="ADCChannel" Name="Rank3_Channel" Type="String" Visible="false"/>
     <RefParameter Comment="Channel_Rank4" DefaultValue="0x0000" Group="ADCChannel" Name="Rank4_Channel" Type="String" Visible="false"/>
-    
-    
-    <RefMode Abstract="true" Comment="Injected Queue Enable" Group="ADC_Injected_ConversionMode" Name="ADC_Injected_Queue_Enable">
-        <Condition Diagnostic="" Expression="!(InjNumberOfConversion = 0)"/>
-        <ConfigForMode>ADC_InjectedQueueEnable</ConfigForMode>
-         <Parameter Name="EnableRegularConversion"/>
-        <Parameter Name="NbrOfConversionFlag"/>
-        <Parameter Name="NbrOfConversion"/>
-        <Parameter Name="ExternalTrigConv"/>
-        <Parameter Name="ExternalTrigConvEdge"/>
-        <Parameter Name="SequencerNbRanks"/>
-    </RefMode>
-    
-    <RefMode Abstract="true" Comment="Injected Queue Disable" Group="ADC_Injected_ConversionMode" Name="ADC_Injected_Queue_Disable">
-        <Condition Diagnostic="" Expression="!(InjNumberOfConversion = 0)"/>
-        <ConfigForMode>ADC_InjectedQueueDisable</ConfigForMode>
-    </RefMode>
+
+    <RefParameter Comment="Queue Injected Context Mode" DefaultValue="null" Group="ADCgroup" Name="QueueInjectedContext" Type="list" Visible="false">
+        <Condition Diagnostic="In case of usage of channels on injected group, ADC frequency should be low than AHB clock frequency /4 for resolution 12 or 10 bits, AHB clock frequency /3 for resolution 8 bits, AHB clock frequency /2 for resolution 6 bits." Expression="EnableInjectedConversion=DISABLE | InjNumberOfConversion=0 "/>
+    </RefParameter>
+
+    <RefParameter Comment="Queue Injected Context Mode" DefaultValue="DISABLE" Group="ADCgroup" Name="QueueInjectedContext" Type="list">
+        <PossibleValue Comment="Injected Queue enabled with Mode 0 (2 contexts, last active)" Value="DISABLE"/>
+        <PossibleValue Comment="Injected Queue enabled with Mode 1 (2 contexts, queue end empty)" Value="ENABLE"/>
+        <Description>Enable/Disable the queue of injected context</Description>
+    </RefParameter>
+
     <!-- RefMode of ADC_Regular_ConversionMode -->
     <RefMode Abstract="true" Comment="Regular Conversion Settings" Group="ADC_Regular_ConversionMode" Name="ADC_Regular_ConversionMode">
         <Parameter Name="EnableRegularConversion"/>
@@ -739,6 +733,7 @@
         <Parameter Name="AutoInjectedConv"/>
         <Parameter Name="InjectedDiscontinuousConvMode"/>
         <Parameter Name="TrigAuto"/>
+        <Parameter Name="QueueInjectedContext"/>
     </RefMode>
 		    
     <!--  -->

@@ -113,7 +113,7 @@
         <PossibleValue Comment="HPDMA1 Channel 11 global interrupt" Value="HPDMA1_Channel11_IRQn:Y,DMA:HPDMA1:HPDMA1:11"/>
         <PossibleValue Comment="HPDMA1 Channel 12 global interrupt" Value="HPDMA1_Channel12_IRQn:Y,DMA:HPDMA1:HPDMA1:12"/>
         <PossibleValue Comment="HPDMA1 Channel 13 global interrupt" Value="HPDMA1_Channel13_IRQn:Y,DMA:HPDMA1:HPDMA1:13"/>
-        <PossibleValue Comment="HPDMA1 Channel 14 global interrupt" Value="HPDMA1_Channel14_IRQn:Y,DMA:HPDMA1:HPDMA1:14"/>
+        <PossibleValue Comment="HPDMA1 Channel 14 global interrupt" Value="HPDMA1_Channe1l4_IRQn:Y,DMA:HPDMA1:HPDMA1:14"/>
         <PossibleValue Comment="HPDMA1 Channel 15 global interrupt" Value="HPDMA1_Channel15_IRQn:Y,DMA:HPDMA1:HPDMA1:15"/>
         <PossibleValue Comment="GPDMA1 Channel 0 global interrupt" Value="GPDMA1_Channel0_IRQn:Y,DMA:GPDMA1:GPDMA1:0"/>
         <PossibleValue Comment="GPDMA1 Channel 1 global interrupt" Value="GPDMA1_Channel1_IRQn:Y,DMA:GPDMA1:GPDMA1:1"/>
@@ -129,7 +129,7 @@
         <PossibleValue Comment="GPDMA1 Channel 11 global interrupt" Value="GPDMA1_Channel11_IRQn:Y,DMA:GPDMA1:GPDMA1:11"/>
         <PossibleValue Comment="GPDMA1 Channel 12 global interrupt" Value="GPDMA1_Channel12_IRQn:Y,DMA:GPDMA1:GPDMA1:12"/>
         <PossibleValue Comment="GPDMA1 Channel 13 global interrupt" Value="GPDMA1_Channel13_IRQn:Y,DMA:GPDMA1:GPDMA1:13"/>
-        <PossibleValue Comment="GPDMA1 Channel 14 global interrupt" Value="GPDMA1_Channel14_IRQn:Y,DMA:GPDMA1:GPDMA1:14"/>
+        <PossibleValue Comment="GPDMA1 Channel 14 global interrupt" Value="GPDMA1_Channe1l4_IRQn:Y,DMA:GPDMA1:GPDMA1:14"/>
         <PossibleValue Comment="GPDMA1 Channel 15 global interrupt" Value="GPDMA1_Channel15_IRQn:Y,DMA:GPDMA1:GPDMA1:15"/>
         <PossibleValue Comment="I2C1 Event interrupt" Value="I2C1_EV_IRQn:Y,1H:I2C1:I2C_EV,SMBUS_EV:"/>
         <PossibleValue Comment="I2C1 Error interrupt" Value="I2C1_ER_IRQn:Y,1H:I2C1:I2C_ER,SMBUS_ER:"/>
@@ -179,10 +179,10 @@
         <PossibleValue Comment="MDF1 Filter 3 global interrupt" Condition="reset:(!S_MDF_MDF1_DFLT3)" Diagnostic="reset:is forced to be disabled as MDF3 Digital Filter DFLT1 is not activated" Value="MDF1_FLT3_IRQn:Y:MDF1:HAL_MDF_IRQHandler:MdfHandle3"/>
         <PossibleValue Comment="MDF1 Filter 4 global interrupt" Condition="reset:(!S_MDF_MDF1_DFLT4)" Diagnostic="reset:is forced to be disabled as MDF4 Digital Filter DFLT1 is not activated" Value="MDF1_FLT4_IRQn:Y:MDF1:HAL_MDF_IRQHandler:MdfHandle4"/>
         <PossibleValue Comment="MDF1 Filter 5 global interrupt" Condition="reset:(!S_MDF_MDF1_DFLT5)" Diagnostic="reset:is forced to be disabled as MDF5 Digital Filter DFLT1 is not activated" Value="MDF1_FLT5_IRQn:Y:MDF1:HAL_MDF_IRQHandler:MdfHandle5"/>
-        <PossibleValue Comment="Serial Audio Interface 1 block A interrupt" Value="SAI1_A_IRQn:Y,SAI:SAI1:HAL_SAI_IRQHandler:"/>
-        <PossibleValue Comment="Serial Audio Interface 1 block B interrupt" Value="SAI1_B_IRQn:Y,SAI:SAI1:HAL_SAI_IRQHandler:"/>
-        <PossibleValue Comment="Serial Audio Interface 2 block A interrupt" Value="SAI2_A_IRQn:Y,SAI:SAI2:HAL_SAI_IRQHandler:"/>
-        <PossibleValue Comment="Serial Audio Interface 2 block B interrupt" Value="SAI2_B_IRQn:Y,SAI:SAI2:HAL_SAI_IRQHandler:"/>
+        <PossibleValue Comment="Serial Audio Interface 1 block A interrupt" Condition="SAI1_SAIA_Mode" Diagnostic="" Value="SAI1_A_IRQn:Y,SAI:SAI1:HAL_SAI_IRQHandler,sai_BlockA1:SAI_A"/>
+        <PossibleValue Comment="Serial Audio Interface 1 block B interrupt" Condition="SAI1_SAIB_Mode" Diagnostic="" Value="SAI1_B_IRQn:Y,SAI:SAI1:HAL_SAI_IRQHandler,sai_BlockB1:SAI_B"/>
+        <PossibleValue Comment="Serial Audio Interface 2 block A interrupt" Condition="SAI2_SAIA_Mode" Diagnostic="" Value="SAI2_A_IRQn:Y,SAI:SAI2:HAL_SAI_IRQHandler,sai_BlockA2:SAI_A"/>
+        <PossibleValue Comment="Serial Audio Interface 2 block B interrupt" Condition="SAI2_SAIB_Mode" Diagnostic="" Value="SAI2_B_IRQn:Y,SAI:SAI2:HAL_SAI_IRQHandler,sai_BlockB2:SAI_B"/>
         <PossibleValue Comment="SPI1 global interrupt" Value="SPI1_IRQn:Y:SPI1,I2S1::"/>
         <PossibleValue Comment="SPI2 global interrupt" Value="SPI2_IRQn:Y:SPI2,I2S2::"/>
         <PossibleValue Comment="SPI3 global interrupt" Value="SPI3_IRQn:Y:SPI3,I2S3::"/>
@@ -225,5 +225,6 @@
         <PossibleValue Comment="MCE4 global interrupt" Value="MCE4_IRQn:Y:MCE4:HAL_MCE_IRQHandler:"/>
         <PossibleValue Comment="Backup RAM Interrupts" Condition="BKPRAM_INTERRUPT" Diagnostic="" Value="BKP_ECC_IRQn:Y:RAMCFG:HAL_RAMCFG_IRQHandler:"/>
         <PossibleValue Comment="CSI global interrupt" Condition="DCMIPP_SERIAL_MODE" Diagnostic="" Value="CSI_IRQn:Y:DCMIPP:HAL_DCMIPP_CSI_IRQHandler:"/>
+        <PossibleValue Comment="IAC interrupt" Value="IAC_IRQn:Y:RIF:HAL_RIF_IRQHandler:"/>
     </RefParameter>
 </IP>

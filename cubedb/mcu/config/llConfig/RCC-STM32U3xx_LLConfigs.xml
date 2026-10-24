@@ -4,8 +4,51 @@
 
     <RefConfig Name="RCC_OSCConfig">
       
+        <!--voltage scaling configuration-->
+        <IFCondition Expression="(HCLKFreq_Value &gt; 24000000)">
+            <CallLibMethod Name="" Type="HardCode">
+                <HardCode Text="#t/** Enable Epod Booster #n#t*/"/>
+            </CallLibMethod>
+            <CallLibMethod Name="" Type="HardCode">
+                <HardCode Text="#tLL_AHB1_GRP2_EnableClock(LL_AHB1_GRP2_PERIPH_PWR);"/>
+            </CallLibMethod>            
+            <CallLibMethod Name="LL_RCC_SetEPODBoosterClkSource" ReturnHAL="false">
+                <MethodArg Name="ClkSource" ParameterName="EPOD_Booster_SourceArg"/>
+            </CallLibMethod>
+            <CallLibMethod Name="LL_RCC_SetEPODBoosterClkPrescaler" ReturnHAL="false">
+                <MethodArg Name="Prescaler" ParameterName="EPOD_Booster_DividerArg"/>
+            </CallLibMethod>  
+            <CallLibMethod Name="LL_PWR_EnableEPODBooster" ReturnHAL="false"/>
+            <CallLibMethod Name="" Type="HardCode">
+                <HardCode Text="#twhile(LL_PWR_IsActiveFlag_BOOST() != 1U)#n#t{#n#t}#n"/>
+            </CallLibMethod>
+        </IFCondition>
+
+        <IFCondition Expression ="1=1">
+            <CallLibMethod Name="" Type="HardCode">
+                <HardCode Text="#n#t/** Configure the main internal regulator output voltage #n#t*/"/>
+            </CallLibMethod>
+            <CallLibMethod Name="LL_PWR_SetRegulVoltageScaling">
+                <MethodArg Name="VoltageScaling" ParameterName="PWR_Regulator_Voltage_Scale"/>           
+            </CallLibMethod>
+            <IFCondition Expression="PWR_Regulator_Voltage_Scale=PWR_REGULATOR_VOLTAGE_SCALE1">
+                <CallLibMethod Name="" Type="HardCode">
+                    <HardCode Text="#twhile(LL_PWR_GetRegulCurrentVOS() != LL_PWR_REGU_VOLTAGE_SCALE1)#n#t{#n#t}#n"/>
+                </CallLibMethod>
+            </IFCondition>
+            <IFCondition Expression="PWR_Regulator_Voltage_Scale=PWR_REGULATOR_VOLTAGE_SCALE2">
+                <CallLibMethod Name="" Type="HardCode">
+                    <HardCode Text="#twhile(LL_PWR_GetRegulCurrentVOS() != LL_PWR_REGU_VOLTAGE_SCALE2)#n#t{#n#t}#n"/>
+                </CallLibMethod>
+            </IFCondition>
+        </IFCondition>
+
+
         <!--flash latency configuration-->
         <IFCondition Expression ="1=1">
+            <CallLibMethod Name="" Type="HardCode">
+                <HardCode Text="#n#t/** Set Flash latency before switching to MSIS #n#t*/"/>
+            </CallLibMethod>
             <CallLibMethod Name="LL_FLASH_SetLatency">
                 <MethodArg Name="Latency" ParameterName="FLatency"/>
             </CallLibMethod>
@@ -25,27 +68,6 @@
                 <HardCode Text="#twhile(LL_FLASH_GetLatency()!= LL_FLASH_LATENCY_2)#n#t{#n#t}#n"/>
             </CallLibMethod>
         </IFCondition>
-
-        <!--voltage scaling configuration-->
-        <IFCondition Expression ="1=1">
-            <CallLibMethod Name="LL_PWR_SetRegulVoltageScaling">
-                <MethodArg Name="VoltageScaling" ParameterName="PWR_Regulator_Voltage_Scale"/>           
-            </CallLibMethod>
-        </IFCondition>
-		
-	    <IFCondition Expression="(HCLKFreq_Value &gt; 24000000)">
-            <CallLibMethod Name="" Type="HardCode">
-                <HardCode Text="#n#t/* Enable Epod Booster */#n#tLL_AHB1_GRP2_EnableClock(LL_AHB1_GRP2_PERIPH_PWR);"/>
-            </CallLibMethod>
-            <CallLibMethod Name="LL_RCC_SetEPODBoosterClkSource" ReturnHAL="false">
-                <MethodArg Name="ClkSource" ParameterName="EPOD_Booster_SourceArg"/>
-            </CallLibMethod>
-	    	<CallLibMethod Name="LL_PWR_EnableEPODBooster" ReturnHAL="false"/>
-            <CallLibMethod Name="" Type="HardCode">
-                <HardCode Text="#twhile(LL_PWR_IsActiveFlag_BOOST() != 1)#n#t{#n#t}#n"/>
-            </CallLibMethod>
-	    </IFCondition>
-
         <!--Clock source activation-->
         <IFCondition Expression ="HSEUsed=1 &amp; (HSEByPass | HSEDIGByPass)">
             <CallLibMethod Name="LL_RCC_HSE_EnableBypass" />
@@ -103,7 +125,7 @@
 	
         <IFCondition Expression ="MSISUsed=1">
             <CallLibMethod Name="" Type="HardCode">
-                <HardCode Text="#t/* Activate MSIS as source */"/>
+                <HardCode Text="#t/** Activate MSIS as source #n*/"/>
             </CallLibMethod>
             <CallLibMethod Name="LL_RCC_MSIS_SetClockSource">
                 <MethodArg Name="MSISClockSource" ParameterName="MSISSource"/>
@@ -120,8 +142,7 @@
             <CallLibMethod Name="LL_RCC_MSIK_SetClockDivision">
                 <MethodArg Name="MSIKClockDivision" ParameterName="MSIKDIV"/>
             </CallLibMethod>
-        </IFCondition>	 
-		
+        </IFCondition>
         <IFCondition Expression ="LSEUsed=1 &amp; (LSEByPass | LSEByPassRTC)">
             <CallLibMethod Name="LL_RCC_LSE_EnableBypass"/>
         </IFCondition>
@@ -162,7 +183,7 @@
 
         <IFCondition Expression ="SysSourceMSI">
             <CallLibMethod Name="" Type="HardCode">
-                <HardCode Text="#n#t /* Wait till System clock is ready */#n#twhile(LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_MSIS)#n#t{#n#t}#n"/>
+                <HardCode Text="#n#t /** Wait till System clock is ready #n*/#n#twhile(LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_MSIS)#n#t{#n#t}#n"/>
             </CallLibMethod>
         </IFCondition>		
 
@@ -204,6 +225,56 @@
             <CallLibMethod Name="LL_SetSystemCoreClock">
                 <MethodArg Name="HCLKFrequency" ParameterName="HCLKFreq_Value"/>
             </CallLibMethod>
+        </IFCondition>
+	 
+        <IFCondition Expression ="MSIKMSISAutoCalibrationON|MSIKAutoCalibrationON|MSIAutoCalibrationON">
+            <CallLibMethod Name="" Type="HardCode">
+                <HardCode Text="#n#t/** Configure MSI PLL mode #n*/"/>
+            </CallLibMethod>
+        </IFCondition>
+        <IFCondition Expression ="MSIKMSISAutoCalibrationON|MSIKAutoCalibrationON">
+           <IFCondition Expression ="MSIKRC0 &amp; (MSIK_HSE|MSIK_HSEDIV2)">
+            <CallLibMethod Name="" Type="HardCode">
+                <HardCode Text="#tLL_RCC_MSI_RC0_SetPLLInputClk(LL_RCC_MSIPLL0SEL_HSE_OR_HSEDIV2);"/>
+            </CallLibMethod>
+           </IFCondition>
+           <IFCondition Expression ="MSIKRC0 &amp; MSIK_LSE">
+            <CallLibMethod Name="" Type="HardCode">
+                <HardCode Text="#tLL_RCC_MSI_RC0_SetPLLInputClk(LL_RCC_MSIPLL0SEL_LSE);"/>
+            </CallLibMethod>
+           </IFCondition>
+           <IFCondition Expression ="MSIKRC1 &amp; (MSIK_HSE|MSIK_HSEDIV2)">
+            <CallLibMethod Name="" Type="HardCode">
+                <HardCode Text="#tLL_RCC_MSI_RC1_SetPLLInputClk(LL_RCC_MSIPLL1SEL_HSE_OR_HSEDIV2);"/>
+            </CallLibMethod>
+           </IFCondition>
+           <IFCondition Expression ="MSIKRC1 &amp; MSIK_LSE">
+            <CallLibMethod Name="" Type="HardCode">
+                <HardCode Text="#tLL_RCC_MSI_RC1_SetPLLInputClk(LL_RCC_MSIPLL1SEL_LSE);"/>
+            </CallLibMethod>
+           </IFCondition>
+        </IFCondition>
+		<IFCondition Expression ="MSIKMSISAutoCalibrationON|MSIAutoCalibrationON">
+           <IFCondition Expression ="MSISRC0 &amp; (MSIS_HSE|MSIS_HSEDIV2)">
+            <CallLibMethod Name="" Type="HardCode">
+                <HardCode Text="#tLL_RCC_MSI_RC0_SetPLLInputClk(LL_RCC_MSIPLL0SEL_HSE_OR_HSEDIV2);"/>
+            </CallLibMethod>
+           </IFCondition>
+           <IFCondition Expression ="MSISRC0 &amp; MSIS_LSE">
+            <CallLibMethod Name="" Type="HardCode">
+                <HardCode Text="#tLL_RCC_MSI_RC0_SetPLLInputClk(LL_RCC_MSIPLL0SEL_LSE);"/>
+            </CallLibMethod>
+           </IFCondition>
+           <IFCondition Expression ="MSISRC1 &amp; (MSIS_HSE|MSIS_HSEDIV2)">
+            <CallLibMethod Name="" Type="HardCode">
+                <HardCode Text="#tLL_RCC_MSI_RC1_SetPLLInputClk(LL_RCC_MSIPLL1SEL_HSE_OR_HSEDIV2);"/>
+            </CallLibMethod>
+           </IFCondition>
+           <IFCondition Expression ="MSISRC1 &amp; MSIS_LSE">
+            <CallLibMethod Name="" Type="HardCode">
+                <HardCode Text="#tLL_RCC_MSI_RC1_SetPLLInputClk(LL_RCC_MSIPLL1SEL_LSE);"/>
+            </CallLibMethod>
+           </IFCondition>
         </IFCondition>
 
         <IFCondition Expression ="!USE_FULL_LL_DRIVER">
@@ -392,6 +463,12 @@
             </CallLibMethod>
         </IFCondition>
 
+         <IFCondition Expression ="USART2_Used">
+            <CallLibMethod Name="LL_RCC_SetUSARTClockSource">
+                <MethodArg Name="USARTxSource" ParameterName="USART2CLockSelection"/>
+            </CallLibMethod>
+        </IFCondition>
+
         <IFCondition Expression ="UART4_Used">
             <CallLibMethod Name="LL_RCC_SetUARTClockSource">
                 <MethodArg Name="UARTxSource" ParameterName="UART4CLockSelection"/>
@@ -413,6 +490,12 @@
         <IFCondition Expression ="I2C3_Used">
             <CallLibMethod Name="LL_RCC_SetI2CClockSource">
                 <MethodArg Name="I2CxSource" ParameterName="I2C3CLockSelection"/>
+            </CallLibMethod>
+        </IFCondition>
+
+        <IFCondition Expression ="I2C4_Used">
+            <CallLibMethod Name="LL_RCC_SetI2CClockSource">
+                <MethodArg Name="I2CxSource" ParameterName="I2C4CLockSelection"/>
             </CallLibMethod>
         </IFCondition>
 
@@ -480,6 +563,9 @@
             <CallLibMethod Name="LL_RCC_SetADCDACClockSource">
                 <MethodArg Name="ADCxSource" ParameterName="ADCCLockSelection"/>
             </CallLibMethod>
+            <CallLibMethod Name="LL_RCC_SetADCDACClockPrescaler">
+                <MethodArg Name="ADC_DIVPrescaler" ParameterName="ADC_DIV"/>
+            </CallLibMethod>
         </IFCondition>
         <IFCondition Expression ="DAC1">
             <CallLibMethod Name="LL_RCC_SetDACSHClockSource">
@@ -499,7 +585,7 @@
             </CallLibMethod>
         </IFCondition>
 
-        <IFCondition Expression ="FDCAN1_Used">
+        <IFCondition Expression ="FDCAN1_Used|FDCAN2_Used">
             <CallLibMethod Name="LL_RCC_SetFDCANClockSource">
                 <MethodArg Name="FDCANxSource" ParameterName="FDCANClockSelection"/>
             </CallLibMethod>
@@ -520,10 +606,19 @@
                 <MethodArg Name="Source" ParameterName="SPI3CLockSelection"/>
             </CallLibMethod>
         </IFCondition>
+        <IFCondition Expression ="SPI4_Used">
+            <CallLibMethod Name="LL_RCC_SetSPIClockSource">
+                <MethodArg Name="Source" ParameterName="SPI4CLockSelection"/>
+            </CallLibMethod>
+        </IFCondition>
     </RefConfig>
-
-    <RefConfig Name="RCC_CommonPeriphClockConfig">
-    </RefConfig>
+        <RefConfig Name="RCC_CommonPeriphClockConfig">
+               <IFCondition Expression="Systick_External">
+                <CallLibMethod Name="LL_RCC_SetSystickClockSource">
+                    <MethodArg Name="SystickSource" ParameterName="CortexCLockSelection"/>
+                </CallLibMethod> 
+               </IFCondition>
+        </RefConfig>
 
     <RefConfig Name="RCC_LSCOConfig">
         <!--LSCO  code gen-->
@@ -575,12 +670,21 @@
             </CallLibMethod>
         </IFCondition>
     </RefConfig>
-
+    <RefConfig Comment="Enable access to the backup domain" Name="RTC_BACKUP">
+	    <IFCondition Expression="RTCClockSelectionARG=RCC_RTCCLKSOURCE_LSI">
+        <CallLibMethod Name="HardCode:RTC" Type="HardCode">
+            <HardCode Text="#t#tLL_PWR_EnableBkUpAccess();"/>
+        </CallLibMethod>
+		</IFCondition>
+    </RefConfig>
     <LibMethod Comment="" Name="LL_PWR_SetRegulVoltageScaling">
         <Argument AddressOf="false" GenericType="simple" Name="VoltageScaling"/>
     </LibMethod>
     <LibMethod Comment="" Name="LL_RCC_SetEPODBoosterClkSource">
         <Argument AddressOf="false" GenericType="simple" Name="ClkSource"/>
+    </LibMethod>
+    <LibMethod Comment="" Name="LL_RCC_SetEPODBoosterClkPrescaler">
+        <Argument AddressOf="false" GenericType="simple" Name="Prescaler"/>
     </LibMethod>
     <LibMethod Comment="" Name="LL_FLASH_SetLatency">
         <Argument AddressOf="false" GenericType="simple" Name="FLatency"/>
@@ -720,6 +824,10 @@
 	
     <LibMethod Comment="" Name="LL_RCC_SetADCDACClockSource">
         <Argument AddressOf="false" GenericType="simple" Name="ADCxSource"/>
+    </LibMethod>
+	
+    <LibMethod Comment="" Name="LL_RCC_SetADCDACClockPrescaler">
+        <Argument AddressOf="false" GenericType="simple" Name="ADC_DIVPrescaler"/>
     </LibMethod>
 
     <LibMethod Comment="" Name="LL_RCC_SetDACSHClockSource">

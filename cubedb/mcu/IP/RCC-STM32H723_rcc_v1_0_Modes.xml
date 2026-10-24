@@ -6523,21 +6523,21 @@
 	
 	
     <RefParameter Name="PWR_Regulator_Voltage_Scale" Comment="Power Regulator Voltage Scale" Type="list" DefaultValue="PWR_REGULATOR_VOLTAGE_SCALE3" Group="Power Parameters">
-        <Condition Diagnostic="" Expression="((HCLKFreq_Value &lt; 85000000)|(HCLKFreq_Value=85000000))"/>
+        <Condition Diagnostic="" Expression="(((CpuClockFreq_Value &lt; 170000000)|(CpuClockFreq_Value=170000000))&amp; ((HCLKFreq_Value &lt; 85000000)|(HCLKFreq_Value=85000000)))"/>
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE3" Comment="Power Regulator Voltage Scale 3" Semaphore="scale3"/>
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE2" Comment="Power Regulator Voltage Scale 2" Semaphore="scale2"/>
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE1" Comment="Power Regulator Voltage Scale 1" Semaphore="scale1"/>
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE0" Comment="Power Regulator Voltage Scale 0" Semaphore="scale0"/>
     </RefParameter>
     <RefParameter Name="PWR_Regulator_Voltage_Scale" Comment="Power Regulator Voltage Scale" Type="list" DefaultValue="PWR_REGULATOR_VOLTAGE_SCALE2" Group="Power Parameters">
-        <Condition Diagnostic="" Expression="((HCLKFreq_Value &lt; 150000000)|(HCLKFreq_Value=150000000)) &amp; (HCLKFreq_Value &gt; 85000000)"/>
+        <Condition Diagnostic="" Expression="(((CpuClockFreq_Value &lt; 300000000)|(CpuClockFreq_Value=300000000))&amp; ((HCLKFreq_Value &lt; 150000000)|(HCLKFreq_Value=150000000)))"/>
         <PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE3" Diagnostic="Max HCLK value allowed for this scale is 85MHz" Comment="Power Regulator Voltage Scale 3" Condition="!scale3"/>
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE2" Comment="Power Regulator Voltage Scale 2" Semaphore="scale2"/>
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE1" Comment="Power Regulator Voltage Scale 1" Semaphore="scale1"/>
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE0" Comment="Power Regulator Voltage Scale 0" Semaphore="scale0"/>
     </RefParameter>
     <RefParameter Name="PWR_Regulator_Voltage_Scale" Comment="Power Regulator Voltage Scale" Type="list" DefaultValue="PWR_REGULATOR_VOLTAGE_SCALE1" Group="Power Parameters">
-        <Condition Diagnostic="" Expression="((HCLKFreq_Value &lt; 200000000)|(HCLKFreq_Value=200000000)) &amp; (HCLKFreq_Value &gt; 150000000)"/>
+        <Condition Diagnostic="" Expression="((CpuClockFreq_Value &lt; 400000000)|(CpuClockFreq_Value=400000000)) &amp; ((HCLKFreq_Value &lt; 200000000)|(HCLKFreq_Value=200000000))"/>
         <PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE3" Diagnostic="Max HCLK value allowed for this scale is 85MHz" Comment="Power Regulator Voltage Scale 3" Condition="!scale3"/>
 		<PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE2" Diagnostic="Max HCLK value allowed for this scale is 150MHz" Comment="Power Regulator Voltage Scale 2" Condition="!scale2"/>
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE1" Comment="Power Regulator Voltage Scale 1" Semaphore="scale1"/>
@@ -6545,8 +6545,7 @@
     </RefParameter>
 		  
     <RefParameter Name="PWR_Regulator_Voltage_Scale" Comment="Power Regulator Voltage Scale" Type="list" DefaultValue="PWR_REGULATOR_VOLTAGE_SCALE0" Group="Power Parameters">
-        <Condition Diagnostic="You have to set CPU_FREQ_BOOST in Flash Otption bytes when CPU freq &gt; 520 Mhz" Expression="((HCLKFreq_Value &lt; 275000000)|(HCLKFreq_Value=275000000)) &amp; (HCLKFreq_Value &gt; 200000000)"/>
-	    <PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE3" Diagnostic="Max HCLK value allowed for this scale is 85MHz" Comment="Power Regulator Voltage Scale 3" Condition="!scale3"/>
+        <Condition Diagnostic="You have to set CPU_FREQ_BOOST in Flash Otption bytes when CPU freq &gt; 520 Mhz" Expression="((CpuClockFreq_Value &lt; 550000000)|(CpuClockFreq_Value=550000000))&amp; ((HCLKFreq_Value &lt; 275000000)|(HCLKFreq_Value=275000000))"/>        <PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE3" Diagnostic="Max HCLK value allowed for this scale is 85MHz" Comment="Power Regulator Voltage Scale 3" Condition="!scale3"/>
 		<PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE2" Diagnostic="Max HCLK value allowed for this scale is 150MHz" Comment="Power Regulator Voltage Scale 2" Condition="!scale2"/>
 		<PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE1" Diagnostic="Max HCLK value allowed for this scale is 200MHz" Comment="Power Regulator Voltage Scale 1" Condition="!scale1"/>
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE0" Comment="Power Regulator Voltage Scale 0" Semaphore="scale0"/>

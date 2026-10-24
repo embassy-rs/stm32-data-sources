@@ -167,13 +167,14 @@
                 <MethodArg Name="VoltageRange" ParameterName="VoltRange" />
             </CallLibMethod>
 
-            <CallLibMethod Name="LL_ADC_ConfigureCalibPoint">
-                <MethodArg Name="ADCx" ParameterName="Instance" />
-                <MethodArg Name="Number" ParameterName="Number" />
-                <MethodArg Name="Offset" ParameterName="Offset" />
-                <MethodArg Name="Gain" ParameterName="Gain" />
-            </CallLibMethod>
-
+           <IFCondition Expression="!ADC_CALIB_NONE">
+               <CallLibMethod Name="LL_ADC_ConfigureCalibPoint">
+                   <MethodArg Name="ADCx" ParameterName="Instance" />
+                   <MethodArg Name="Number" ParameterName="Number" />
+                   <MethodArg Name="Offset" ParameterName="Offset" />
+                   <MethodArg Name="Gain" ParameterName="Gain" />
+               </CallLibMethod>
+           </IFCondition>
             
             <CallLibMethod Name="LL_ADC_SetChannelSamplingTime">
                 <MethodArg Name="ADCx" ParameterName="Instance" />

@@ -730,6 +730,7 @@
         <PossibleValue Comment="Compute Conjugate Complex Vector;CmplxConj;inBuff;nbSamples;outBuff" Value="HSP_SEQ_CmplxConj_f32" Semaphore="S_MW_COMPLEX_1"/> 
         <PossibleValue Comment="Compute Dot Product Complex Vector;CmplxDotProd;inABuff;inBBuff;nbSamples;outBuff" Value="HSP_SEQ_CmplxDotProd_f32" Semaphore="S_MW_COMPLEX_2"/> 
         <PossibleValue Comment="Compute Magnitude Complex Vector;CmplxMag;inBuff;nbSamples;outBuff" Value="HSP_SEQ_CmplxMag_f32" Semaphore="S_MW_COMPLEX_3"/> 
+        <PossibleValue Comment="Compute Fast Magnitude Complex Vector;CmplxFastMag;inBuff;nbSamples;outBuff" Value="HSP_SEQ_CmplxFastMag_f32" Semaphore="S_MW_COMPLEX_8"/> 
         <PossibleValue Comment="Compute Squared Magnitude Complex Vector;CmplxMagSqr;inBuff;nbSamples;outBuff" Value="HSP_SEQ_CmplxMagSquared_f32" Semaphore="S_MW_COMPLEX_4"/> 
         <PossibleValue Comment="Compute Multiplication Complex Vector;CmplxMul;inABuff;inBBuff;nbSamples;outBuff;" Value="HSP_SEQ_CmplxMul_f32" Semaphore="S_MW_COMPLEX_5"/> 
         <PossibleValue Comment="Compute Multiplication Complex Vector and Exponential Complex Signal;CmplxMulExp;inBuff;startBuff;nbSamples;step;outBuff" Value="HSP_SEQ_CmplxMulExp_f32" Semaphore="S_MW_COMPLEX_6"/> 
@@ -773,9 +774,6 @@
     </RefParameter>    
     <RefParameter Comment="Name" DefaultValue="HSP_SEQ_ScaIAdd_f32" Group="Function" TabName="Processing Element" Name="FunctionF" Visible="true" Type="list" Line="1">
         <PossibleValue Comment="Add Scalar with Immediate Value;+;inBuff;valueToAdd;outBuff" Value="HSP_SEQ_ScaIAdd_f32" Semaphore="S_MW_SCALAR_6"/>
-        <PossibleValue Comment="Set Value for a Scalar Float;=;valueToSet;outBuff" Value="HSP_SEQ_ScaISet_f32" Semaphore="S_MW_SCALAR_9"/>
-        <PossibleValue Comment="Set Value for a Scalar Uint;=;inBuffuint32_t;outBuffuint32_t" Value="HSP_SEQ_ScaSet_u32" Semaphore="S_MW_SCALAR_16"/>
-        <PossibleValue Comment="Set Uint Value for a Scalar;=;valueToSet;outBuffuint32_t" Value="HSP_SEQ_ScaISet_u32" Semaphore="S_MW_SCALAR_17"/>
         <PossibleValue Comment="Scalar Subtraction with Immediate Value;-;inBuff;valueToSub;outBuff" Value="HSP_SEQ_ScaISub_f32" Semaphore="S_MW_SCALAR_10"/>
         <PossibleValue Comment="Scalar Multiplication with Immediate Value;*;inBuff;valueToMult;outBuff" Value="HSP_SEQ_ScaIMul_f32" Semaphore="S_MW_SCALAR_7"/> 
         <PossibleValue Comment="ScaISub;-;inBuffint32_t;imm;outBuffInt32_t" Value="HSP_SEQ_ScaISub_i32" Semaphore="S_MW_SCALAR_31"/>
@@ -803,7 +801,7 @@
         <PossibleValue Comment="ScaLog10;ScaLog10;inBuff;outBuff" Value="HSP_SEQ_ScaLog10_f32" Semaphore="S_MW_SCALAR_40"/>
         <PossibleValue Comment="ScaLn;ScaLn;inBuff;outBuff" Value="HSP_SEQ_ScaLn_f32" Semaphore="S_MW_SCALAR_41"/>
         <!-- New Fonction in RC9 -->
-        <!-- Commented until RC9 is received
+        <!-- Commented until RC9 is received -->
         <PossibleValue Comment="ScaFastExp2;ScaFastExp2;inBuff;outBuff" Value="HSP_SEQ_ScaFastExp2_f32" Semaphore="S_MW_SCALAR_70"/>
         <PossibleValue Comment="ScaFastExp10;ScaFastExp10;inBuff;outBuff" Value="HSP_SEQ_ScaFastExp10_f32" Semaphore="S_MW_SCALAR_71"/>
         <PossibleValue Comment="ScaFastExpe;ScaFastExpe;inBuff;outBuff" Value="HSP_SEQ_ScaFastExpe_f32" Semaphore="S_MW_SCALAR_72"/>
@@ -811,8 +809,7 @@
         <PossibleValue Comment="ScaFastLog2;ScaFastLog2;inBuff;outBuff" Value="HSP_SEQ_ScaFastLog2_f32" Semaphore="S_MW_SCALAR_74"/>
         <PossibleValue Comment="ScaFastLog10;ScaFastLog10;inBuff;outBuff" Value="HSP_SEQ_ScaFastLog10_f32" Semaphore="S_MW_SCALAR_75"/>
         <PossibleValue Comment="ScaFastLogdB;ScaFastLogdB;inBuff;outBuff" Value="HSP_SEQ_ScaFastLogdB_f32" Semaphore="S_MW_SCALAR_76"/>
-        <PossibleValue Comment="ScaFastLn;ScaFastLn;inBuff;outBuff" Value="HSP_SEQ_ScaFastLn_f32" Semaphore="S_MW_SCALAR_77"/>
-        -->        
+        <PossibleValue Comment="ScaFastLn;ScaFastLn;inBuff;outBuff" Value="HSP_SEQ_ScaFastLn_f32" Semaphore="S_MW_SCALAR_77"/>        
         <Condition Diagnostic="" Expression="S_MW_SCALAR_EXPONENTIAL_LOG_FUNCTION_FUNCTION"/>
     </RefParameter>
     <RefParameter Comment="Name" DefaultValue="HSP_SEQ_ScaQ312F" Group="Function" TabName="Processing Element" Name="FunctionF" Visible="true" Type="list" Line="1">
@@ -824,6 +821,9 @@
         <PossibleValue Comment="ScaI2F;ScaI2F;inBuffint32_t;outBuff" Value="HSP_SEQ_ScaI2F" Semaphore="S_MW_SCALAR_45"/>
         <PossibleValue Comment="ScaF2I;ScaF2I;inBuff;outBuffInt32_t" Value="HSP_SEQ_ScaF2I" Semaphore="S_MW_SCALAR_46"/>
         <PossibleValue Comment="ScaSet;ScaSet;inBuff;outBuff" Value="HSP_SEQ_ScaSet_f32" Semaphore="S_MW_SCALAR_49"/>
+        <PossibleValue Comment="ScaISet;ScaISet;valueToSet;outBuff" Value="HSP_SEQ_ScaISet_f32" Semaphore="S_MW_SCALAR_9"/>
+        <PossibleValue Comment="ScaSet_u32;ScaSet_u32;inBuffuint32_t;outBuffuint32_t" Value="HSP_SEQ_ScaSet_u32" Semaphore="S_MW_SCALAR_16"/>
+        <PossibleValue Comment="ScaISet_u32;ScaISet_u32;valueToSet;outBuffuint32_t" Value="HSP_SEQ_ScaISet_u32" Semaphore="S_MW_SCALAR_17"/>
         <Condition Diagnostic="" Expression="S_MW_SCALAR_SUPPORT_FUNCTION"/>
     </RefParameter> 
     <RefParameter Comment="Name" DefaultValue="HSP_SEQ_ScaIShift_i32" Group="Function" TabName="Processing Element" Name="FunctionF" Visible="true" Type="list" Line="1">
@@ -980,17 +980,17 @@
         <PossibleValue Comment="Performs Powers of Ten (exp base 10) of Each Element of Vector;VectExp10;pSrc;nbSamples;pDst" Value="HSP_SEQ_VectExp10_f32" Semaphore="S_MW_VECTOR_12"/>
         <PossibleValue Comment="Performs Logarithm Natural of Each Element of Vector;VectLn;pSrc;nbSamples;pDst" Value="HSP_SEQ_VectLn_f32" Semaphore="S_MW_VECTOR_21"/>
         <PossibleValue Comment="Performs Logarithm (base 10) of Each Element of Vector;VectLog10;pSrc;nbSamples;pDst" Value="HSP_SEQ_VectLog10_f32" Semaphore="S_MW_VECTOR_22"/>    
-        <!-- New fonction with RC9 -->
-        <!--
+        
+        
         <PossibleValue Comment="Performs the fast calculation of natural logarithm of each input element of a real vector;VectFastLn;pSrc;nbSamples;pDst" Value="HSP_SEQ_VectFastLn_f32" Semaphore="S_MW_VECTOR_50"/>   
-        <PossibleValue Comment="Performs the fast calculation of decimal logarithm (10 based logarithm) of each input element of a real vector;VectFastLn;pSrc;nbSamples;pDst" Value="HSP_SEQ_VectFastLog10_f32" Semaphore="S_MW_VECTOR_51"/>
+        <PossibleValue Comment="Performs the fast calculation of decimal logarithm (10 based logarithm) of each input element of a real vector;VectFastLog10;pSrc;nbSamples;pDst" Value="HSP_SEQ_VectFastLog10_f32" Semaphore="S_MW_VECTOR_51"/>
         <PossibleValue Comment="Performs the fast calculation of 2 based logarithm of each input element of a real vector;VectFastLog2;pSrc;nbSamples;pDst" Value="HSP_SEQ_VectFastLog2_f32" Semaphore="S_MW_VECTOR_51"/>
         <PossibleValue Comment="Performs the fast calculation of dB (decibel) based logarithm of each input element of a real vector;VectFastLogdB;pSrc;nbSamples;pDst" Value="HSP_SEQ_VectFastLogdB_f32" Semaphore="S_MW_VECTOR_53"/>
         <PossibleValue Comment="Performs the fast calculation of exponential of each input element;VectFastExpe;pSrc;nbSamples;pDst" Value="HSP_SEQ_VectFastExpe_f32" Semaphore="S_MW_VECTOR_54"/>
         <PossibleValue Comment="Performs the fast calculation of base 10 exponential of each input element;VectFastExp10;pSrc;nbSamples;pDst" Value="HSP_SEQ_VectFastExp10_f32" Semaphore="S_MW_VECTOR_55"/>
         <PossibleValue Comment="Performs the fast calculation of base 2 exponential of each input element;VectFastExp2;pSrc;nbSamples;pDst" Value="HSP_SEQ_VectFastExp2_f32" Semaphore="S_MW_VECTOR_56"/>
         <PossibleValue Comment="Performs the fast calculation of base dB exponential of each input element;VectFastExpdB;pSrc;nbSamples;pDst" Value="HSP_SEQ_VectFastExpdB_f32" Semaphore="S_MW_VECTOR_57"/>
-        --> 
+        
         <Condition Diagnostic="" Expression="S_MW_VECTOR_EXPONENTIAL_LOG_FUNCTION"/>
     </RefParameter>   
     <RefParameter Comment="Name" DefaultValue="HSP_SEQ_VectCos_f32" Group="Function" TabName="Processing Element" Name="FunctionF" Visible="true" Type="list" Line="1"> 
@@ -1111,24 +1111,24 @@
     <!-- The following argument must be field by Java code fom Data enterred into the Buffer Tab -->
     <RefParameter Comment="hmw" DefaultValue="hmw" Group="Arguments" TabName="Processing Element" Name="hmw" Visible="true" Type="String" Line="0"/> 
     
-    <RefParameter Comment="Input Buffer Name" DefaultValue="inBuff" Group="Arguments" TabName="Processing Element" Name="inBuff" Visible="true" Type="Array"  ArraySize="256" ArrayTypeElement="float32_t" Line="1" PointerType="BRAM">
+    <RefParameter Comment="Input Buffer Name" DefaultValue="inBuff" Group="Arguments" TabName="Processing Element" Name="inBuff" Visible="true" Type="Array"  ArraySize="256" ArrayTypeElement="float32_t" Line="1" PointerType="BRAM" DefaultType="input">
         <PossibleValue Comment="inBuff" Value="inBuff" Semaphore=""/>
         <Condition Diagnostic="" Expression="S_MW_FILTER_1 | S_MW_FILTER_2 | S_MW_FILTER_5 | S_MW_FILTER_6 | S_MW_FILTER_7 | S_MW_FILTER_8 | S_MW_FILTER_9 | S_MW_FILTER_10 | S_MW_FILTER_11
-            | S_MW_COMPLEX_1 | S_MW_COMPLEX_3 | S_MW_COMPLEX_4 |  S_MW_COMPLEX_6 
+            | S_MW_COMPLEX_1 | S_MW_COMPLEX_3 | S_MW_COMPLEX_8 | S_MW_COMPLEX_4 |  S_MW_COMPLEX_6 
             | S_MW_SCALAR_2  | S_MW_SCALAR_4 | S_MW_SCALAR_5 | S_MW_SCALAR_6 | S_MW_SCALAR_7 | S_MW_SCALAR_10 | S_MW_SCALAR_11 | S_MW_SCALAR_13 | S_MW_SCALAR_14 | S_MW_SCALAR_20 
             | S_MW_SCALAR_38 | S_MW_SCALAR_39 | S_MW_SCALAR_40 | S_MW_SCALAR_41
             | S_MW_SCALAR_44 | S_MW_SCALAR_46 | S_MW_SCALAR_47 | S_MW_SCALAR_48 | S_MW_SCALAR_49 | S_MW_SCALAR_53 | S_MW_SCALAR_56
             | S_MW_SCALAR_70 | S_MW_SCALAR_71 | S_MW_SCALAR_72 | S_MW_SCALAR_73 | S_MW_SCALAR_74 | S_MW_SCALAR_75 | S_MW_SCALAR_76 | S_MW_SCALAR_77"/>    
     </RefParameter>   
-    <RefParameter Comment="Input Buffer Name" DefaultValue="inBuff" Group="Arguments" TabName="Processing Element" Name="inBuff" Visible="false" Type="Array" ArraySize="256" ArrayTypeElement="float32_t" Line="1"/>   
+    <RefParameter Comment="Input Buffer Name" DefaultValue="inBuff" Group="Arguments" TabName="Processing Element" Name="inBuff" Visible="false" Type="Array" ArraySize="256" ArrayTypeElement="float32_t" Line="1"/>
     
-    <RefParameter Comment="Input Buffer A Name" DefaultValue="inABuff" Group="Arguments" TabName="Processing Element" Name="inABuff" Visible="true" Type="Array" ArraySize="256" ArrayTypeElement="float32_t" Line="1" PointerType="BRAM">
+    <RefParameter Comment="Input Buffer A Name" DefaultValue="inABuff" Group="Arguments" TabName="Processing Element" Name="inABuff" Visible="true" Type="Array" ArraySize="256" ArrayTypeElement="float32_t" Line="1" PointerType="BRAM" DefaultType="input">
         <PossibleValue Comment="inABuff" Value="inABuff" Semaphore=""/>
         <Condition Diagnostic="" Expression="S_MW_FILTER_3 | S_MW_FILTER_4  | S_MW_FILTER_14
             | S_MW_COMPLEX_2 | S_MW_COMPLEX_5 | S_MW_COMPLEX_7
             | S_MW_SCALAR_0 | S_MW_SCALAR_3 | S_MW_SCALAR_12  | S_MW_SCALAR_18 | S_MW_SCALAR_50 | S_MW_SCALAR_51 | S_MW_SCALAR_52"/>    
     </RefParameter>
-    <RefParameter Comment="Input Buffer A Name" DefaultValue="inABuff" Group="Arguments" TabName="Processing Element" Name="inABuff" Visible="false" Type="Array" ArraySize="256" ArrayTypeElement="float32_t" />   
+    <RefParameter Comment="Input Buffer A Name" DefaultValue="inABuff" Group="Arguments" TabName="Processing Element" Name="inABuff" Visible="false" Type="Array" ArraySize="256" ArrayTypeElement="float32_t" />
     
 	<RefParameter Comment="pSrcA" DefaultValue="pSrcA" Group="Arguments" TabName="Processing Element" Name="pSrcA" Visible="true" Type="Array" ArraySize="256" ArrayTypeElement="float32_t" Line="1" PointerType="BRAM">
         <PossibleValue Comment="pSrcA" Value="pSrcA" Semaphore=""/>
@@ -1137,18 +1137,18 @@
     </RefParameter>
     <RefParameter Comment="pSrcA" DefaultValue="pSrcA" Group="Arguments" TabName="Processing Element" Name="pSrcA" Visible="false" Type="Array" ArraySize="256" ArrayTypeElement="float32_t" />   
     
-    <RefParameter Comment="Input Buffer B Name" DefaultValue="inBBuff" Group="Arguments" TabName="Processing Element" Name="inBBuff" Visible="true" Type="Array" ArraySize="256" ArrayTypeElement="float32_t" Line="2" PointerType="BRAM">
+    <RefParameter Comment="Input Buffer B Name" DefaultValue="inBBuff" Group="Arguments" TabName="Processing Element" Name="inBBuff" Visible="true" Type="Array" ArraySize="256" ArrayTypeElement="float32_t" Line="2" PointerType="BRAM" DefaultType="input">
         <PossibleValue Comment="inBBuff" Value="inBBuff" Semaphore=""/>
         <Condition Diagnostic="" Expression="S_MW_FILTER_14 | S_MW_COMPLEX_2 | S_MW_COMPLEX_5 | S_MW_COMPLEX_7 
             | S_MW_SCALAR_0 | S_MW_SCALAR_3 | S_MW_SCALAR_12 | S_MW_SCALAR_18"/>    
     </RefParameter>  
-    <RefParameter Comment="Input Buffer B Name" DefaultValue="inBBuff" Group="Arguments" TabName="Processing Element" Name="inBBuff" Visible="true" Type="Array" ArraySize="256" ArrayTypeElement="float32_t" Line="3" PointerType="BRAM">
+    <RefParameter Comment="Input Buffer B Name" DefaultValue="inBBuff" Group="Arguments" TabName="Processing Element" Name="inBBuff" Visible="true" Type="Array" ArraySize="256" ArrayTypeElement="float32_t" Line="3" PointerType="BRAM" DefaultType="input">
         <PossibleValue Comment="inBBuff" Value="inBBuff" Semaphore=""/>
         <Condition Diagnostic="" Expression="S_MW_FILTER_3 | S_MW_FILTER_4            
             | S_MW_SCALAR_50 | S_MW_SCALAR_51 | S_MW_SCALAR_52"/>    
     </RefParameter>   
     
-    <RefParameter Comment="Input Buffer B Name" DefaultValue="inBBuff" Group="Arguments" TabName="Processing Element" Name="inBBuff" Visible="false" Type="Array" ArraySize="256" ArrayTypeElement="float32_t" Line="3" />   
+    <RefParameter Comment="Input Buffer B Name" DefaultValue="inBBuff" Group="Arguments" TabName="Processing Element" Name="inBBuff" Visible="false" Type="Array" ArraySize="256" ArrayTypeElement="float32_t" Line="3" />
     
 	<RefParameter Comment="pSrcB" DefaultValue="pSrcB" Group="Arguments" TabName="Processing Element" Name="pSrcB" Visible="true" Type="Array" ArraySize="256" ArrayTypeElement="float32_t" Line="2" PointerType="BRAM">
         <PossibleValue Comment="pSrcB" Value="pSrcB" Semaphore=""/>
@@ -1157,33 +1157,33 @@
     </RefParameter>
     <RefParameter Comment="pSrcB" DefaultValue="pSrcB" Group="Arguments" TabName="Processing Element" Name="pSrcB" Visible="false" Type="Array" ArraySize="256" ArrayTypeElement="float32_t" />   
     
-    <RefParameter Comment="Output Buffer Name" DefaultValue="outBuff" Group="Arguments" TabName="Processing Element" Name="outBuff" Visible="true" Type="Array" ArraySize="256" ArrayTypeElement="float32_t" Line="2" PointerType="BRAM">
+    <RefParameter Comment="Output Buffer Name" DefaultValue="outBuff" Group="Arguments" TabName="Processing Element" Name="outBuff" Visible="true" Type="Array" ArraySize="256" ArrayTypeElement="float32_t" Line="2" PointerType="BRAM" DefaultType="output">
         <PossibleValue Comment="outBuff" Value="outBuff" Semaphore=""/>
         <Condition Diagnostic="" Expression="S_MW_SCALAR_2 | S_MW_SCALAR_4 | S_MW_SCALAR_5 | S_MW_SCALAR_9 | S_MW_SCALAR_19
             | S_MW_SCALAR_70 | S_MW_SCALAR_71 | S_MW_SCALAR_72 | S_MW_SCALAR_73 | S_MW_SCALAR_74 | S_MW_SCALAR_75 | S_MW_SCALAR_76 | S_MW_SCALAR_77"/>    
     </RefParameter>
-    <RefParameter Comment="Output Buffer Name" DefaultValue="outBuff" Group="Arguments" TabName="Processing Element" Name="outBuff" Visible="true" Type="Array" ArraySize="256" ArrayTypeElement="float32_t" Line="3" PointerType="BRAM">
+    <RefParameter Comment="Output Buffer Name" DefaultValue="outBuff" Group="Arguments" TabName="Processing Element" Name="outBuff" Visible="true" Type="Array" ArraySize="256" ArrayTypeElement="float32_t" Line="3" PointerType="BRAM" DefaultType="output">
         <PossibleValue Comment="outBuff" Value="outBuff" Semaphore=""/>
         <Condition Diagnostic="" Expression="S_MW_FILTER_1 | S_MW_FILTER_2 | S_MW_FILTER_5 | S_MW_FILTER_6 | S_MW_FILTER_7 | S_MW_FILTER_8 | S_MW_FILTER_9 | S_MW_FILTER_10 | S_MW_FILTER_11 | S_MW_FILTER_14
-            | S_MW_COMPLEX_1 | S_MW_COMPLEX_3 | S_MW_COMPLEX_4 
+            | S_MW_COMPLEX_1 | S_MW_COMPLEX_3 | S_MW_COMPLEX_8 | S_MW_COMPLEX_4 
             | S_MW_SCALAR_0 | S_MW_SCALAR_3 | S_MW_SCALAR_6 | S_MW_SCALAR_7 | S_MW_SCALAR_10 | S_MW_SCALAR_13 | S_MW_SCALAR_14  | S_MW_SCALAR_18 | S_MW_SCALAR_47 | S_MW_SCALAR_48 | S_MW_SCALAR_49 | S_MW_SCALAR_53 
             | S_MW_SCALAR_38 | S_MW_SCALAR_39 | S_MW_SCALAR_40 | S_MW_SCALAR_41 | S_MW_SCALAR_42 | S_MW_SCALAR_43 | S_MW_SCALAR_45 | S_MW_SCALAR_56"/>    
     </RefParameter>
-    <RefParameter Comment="Output Buffer Name" DefaultValue="outBuff" Group="Arguments" TabName="Processing Element" Name="outBuff" Visible="true" Type="Array" ArraySize="256" ArrayTypeElement="float32_t" Line="4" PointerType="BRAM">
+    <RefParameter Comment="Output Buffer Name" DefaultValue="outBuff" Group="Arguments" TabName="Processing Element" Name="outBuff" Visible="true" Type="Array" ArraySize="256" ArrayTypeElement="float32_t" Line="4" PointerType="BRAM" DefaultType="output">
         <PossibleValue Comment="outBuff" Value="outBuff" Semaphore=""/>
         <Condition Diagnostic="" Expression="S_MW_COMPLEX_2 | S_MW_COMPLEX_5 | S_MW_COMPLEX_7
             | S_MW_SCALAR_50 | S_MW_SCALAR_51 | S_MW_SCALAR_52" />    
     </RefParameter>
-    <RefParameter Comment="Output Buffer Name" DefaultValue="outBuff" Group="Arguments" TabName="Processing Element" Name="outBuff" Visible="true" Type="Array" ArraySize="256" ArrayTypeElement="float32_t" Line="5" PointerType="BRAM">
+    <RefParameter Comment="Output Buffer Name" DefaultValue="outBuff" Group="Arguments" TabName="Processing Element" Name="outBuff" Visible="true" Type="Array" ArraySize="256" ArrayTypeElement="float32_t" Line="5" PointerType="BRAM" DefaultType="output">
         <PossibleValue Comment="outBuff" Value="outBuff" Semaphore=""/>
         <Condition Diagnostic="" Expression="S_MW_FILTER_3 | S_MW_FILTER_4 | S_MW_COMPLEX_6" />    
     </RefParameter>
-    <RefParameter Comment="Output Buffer Name" DefaultValue="outBuff" Group="Arguments" TabName="Processing Element" Name="outBuff" Visible="true" Type="Array" ArraySize="256" ArrayTypeElement="float32_t" Line="6" PointerType="BRAM">
+    <RefParameter Comment="Output Buffer Name" DefaultValue="outBuff" Group="Arguments" TabName="Processing Element" Name="outBuff" Visible="true" Type="Array" ArraySize="256" ArrayTypeElement="float32_t" Line="6" PointerType="BRAM" DefaultType="output">
         <PossibleValue Comment="outBuff" Value="outBuff" Semaphore=""/>
         <Condition Diagnostic="" Expression="S_MW_SCALAR_12" />    
     </RefParameter>
     
-	<RefParameter Comment="Output Buffer" DefaultValue="outBuff" Group="Arguments" TabName="Processing Element" Name="outBuff" Visible="false" Type="Array" ArraySize="256" ArrayTypeElement="float32_t"/>
+	<RefParameter Comment="Output Buffer" DefaultValue="outBuff" Group="Arguments" TabName="Processing Element" Name="outBuff" Visible="false" Type="Array" ArraySize="256" ArrayTypeElement="float32_t" DefaultType="output"/>
     
     <RefParameter Comment="Output Buffer Name" DefaultValue="outBuffScaIPark" Group="Arguments" TabName="Processing Element" Name="outBuffScaIPark" Visible="true" Type="Array" ArraySize="256" ArrayTypeElement="hsp_v_alpha_beta_t" Line="3" PointerType="BRAM">
         <PossibleValue Comment="outBuffScaIPark" Value="outBuffScaIPark" Semaphore=""/>
@@ -1198,21 +1198,21 @@
 	<RefParameter Comment="Output Buffer" DefaultValue="outBuffScaPark" Group="Arguments" TabName="Processing Element" Name="outBuffScaPark" Visible="false" Type="Array" ArraySize="256" ArrayTypeElement="hsp_v_q_d_t" />
     
         
-    <RefParameter Comment="Coefficient Buffer" DefaultValue="coefBuff" Group="Arguments" TabName="Processing Element" Name="coefBuff" Visible="true" Type="Array" ArraySize="32" ArrayTypeElement="float32_t" Line="2" PointerType="BRAM">
+    <RefParameter Comment="Coefficient Buffer" DefaultValue="coefBuff" Group="Arguments" TabName="Processing Element" Name="coefBuff" Visible="true" Type="Array" ArraySize="32" ArrayTypeElement="float32_t" Line="2" PointerType="BRAM" DefaultType="coef">
         <PossibleValue Comment="coefBuff" Value="coefBuff" Semaphore=""/>
         <Condition Diagnostic="" Expression="S_MW_FILTER_1 | S_MW_FILTER_2 | S_MW_FILTER_5 | S_MW_FILTER_6 | S_MW_FILTER_7 | S_MW_FILTER_8 | S_MW_FILTER_9 | S_MW_FILTER_11 | S_MW_FILTER_12 | S_MW_FILTER_13"/>    
     </RefParameter>
     <RefParameter Comment="Coefficient Buffer" DefaultValue="coefBuff" Group="Arguments" TabName="Processing Element" Name="coefBuff" Visible="false" Type="Array" ArraySize="32" ArrayTypeElement="float32_t" Line="2"/>
     
     <RefParameter Comment="Number of Samples" DefaultValue="256" Type="integer" Min="1" Max="4096" Group="Arguments" TabName="Processing Element" Name="nbSamples" Visible="true" Line="2">
-        <Condition Diagnostic="" Expression="S_MW_COMPLEX_1 | S_MW_COMPLEX_3 | S_MW_COMPLEX_4"/>            
+        <Condition Diagnostic="" Expression="S_MW_COMPLEX_1 | S_MW_COMPLEX_3 | S_MW_COMPLEX_8 | S_MW_COMPLEX_4
+		    | S_MW_VECTOR_50 | S_MW_VECTOR_51 | S_MW_VECTOR_52 | S_MW_VECTOR_53 | S_MW_VECTOR_54 | S_MW_VECTOR_55 | S_MW_VECTOR_56 | S_MW_VECTOR_57"/>            
     </RefParameter> 
     <RefParameter Comment="Number of Samples" DefaultValue="256" Type="integer" Min="1" Max="4096" Group="Arguments" TabName="Processing Element" Name="nbSamples" Visible="true" Line="3">
         <Condition Diagnostic="" Expression="S_MW_COMPLEX_2 | S_MW_COMPLEX_5 | S_MW_COMPLEX_6 | S_MW_COMPLEX_7 | S_MW_VECTOR_2 | S_MW_VECTOR_5 | S_MW_VECTOR_6 | S_MW_VECTOR_7
             | S_MW_VECTOR_11 | S_MW_VECTOR_12 | S_MW_VECTOR_13 | S_MW_VECTOR_14 | S_MW_VECTOR_15 | S_MW_VECTOR_16 | S_MW_VECTOR_17 | S_MW_VECTOR_18 | S_MW_VECTOR_19
             | S_MW_VECTOR_20 | S_MW_VECTOR_21 | S_MW_VECTOR_22 | S_MW_VECTOR_29 | S_MW_VECTOR_30 | S_MW_VECTOR_31 | S_MW_VECTOR_33 | S_MW_VECTOR_34 | S_MW_VECTOR_35
-            | S_MW_VECTOR_36 | S_MW_VECTOR_38 | S_MW_VECTOR_43 
-            | S_MW_VECTOR_50 | S_MW_VECTOR_51 | S_MW_VECTOR_52 | S_MW_VECTOR_53 | S_MW_VECTOR_54 | S_MW_VECTOR_55 | S_MW_VECTOR_56 | S_MW_VECTOR_57"/>            
+            | S_MW_VECTOR_36 | S_MW_VECTOR_38 | S_MW_VECTOR_43 "/>            
     </RefParameter> 
     <RefParameter Comment="Number of Samples" DefaultValue="256" Type="integer" Min="1" Max="4096" Group="Arguments" TabName="Processing Element" Name="nbSamples" Visible="true" Line="4">
         <Condition Diagnostic="" Expression="S_MW_VECTOR_3 | S_MW_VECTOR_4 | S_MW_VECTOR_9 | S_MW_VECTOR_10 | S_MW_VECTOR_23 | S_MW_VECTOR_24 | S_MW_VECTOR_25 | S_MW_VECTOR_26 | S_MW_VECTOR_27 | S_MW_VECTOR_28
@@ -1760,39 +1760,39 @@
     <RefParameter Comment="Start columns index to set" DefaultValue="1" Type="integer" Min="1" Max="128" Group="Arguments" TabName="Processing Element" Name="coldIdx" Visible="false" />
     
     <!-- Additional Integer for Filtering Function --> 
-    <RefParameter Comment="State Buffer Name" DefaultValue="staBuff_BDF1" Group="Arguments" TabName="Processing Element" Name="staBuff_BDF1" Visible="true"  Type="Array"  ArraySize="1" ArrayTypeElement="hsp_filter_state_identifier_t" Line="4" PointerType="BRAM">
+    <RefParameter Comment="State Buffer Name" DefaultValue="staBuff_BDF1" Group="Arguments" TabName="Processing Element" Name="staBuff_BDF1" Visible="true"  Type="Array"  ArraySize="1" ArrayTypeElement="hsp_filter_state_identifier_t" Line="4" PointerType="BRAM" DefaultType="state">
         <PossibleValue Comment="staBuff_BDF1" Value="staBuff_BDF1" Semaphore=""/>
         <Condition Diagnostic="" Expression="S_MW_FILTER_1"/>
     </RefParameter>
-    <RefParameter Comment="State Buffer Name" DefaultValue="staBuff_BDF2" Group="Arguments" TabName="Processing Element" Name="staBuff_BDF2" Visible="true"  Type="Array"  ArraySize="1" ArrayTypeElement="hsp_filter_state_identifier_t" Line="4" PointerType="BRAM">
+    <RefParameter Comment="State Buffer Name" DefaultValue="staBuff_BDF2" Group="Arguments" TabName="Processing Element" Name="staBuff_BDF2" Visible="true"  Type="Array"  ArraySize="1" ArrayTypeElement="hsp_filter_state_identifier_t" Line="4" PointerType="BRAM" DefaultType="state">
         <PossibleValue Comment="staBuff_BDF2" Value="staBuff_BDF2" Semaphore=""/>
         <Condition Diagnostic="" Expression="S_MW_FILTER_2 "/>
     </RefParameter>
-    <RefParameter Comment="State Buffer Name" DefaultValue="staBuff_Fir" Group="Arguments" TabName="Processing Element" Name="staBuff_Fir" Visible="true"  Type="Array"  ArraySize="1" ArrayTypeElement="hsp_filter_state_identifier_t" Line="4" PointerType="BRAM">
+    <RefParameter Comment="State Buffer Name" DefaultValue="staBuff_Fir" Group="Arguments" TabName="Processing Element" Name="staBuff_Fir" Visible="true"  Type="Array"  ArraySize="1" ArrayTypeElement="hsp_filter_state_identifier_t" Line="4" PointerType="BRAM" DefaultType="state">
         <PossibleValue Comment="staBuff_Fir" Value="staBuff_Fir" Semaphore=""/>
         <Condition Diagnostic="" Expression="S_MW_FILTER_5"/>
     </RefParameter>
-    <RefParameter Comment="State Buffer Name" DefaultValue="staBuff_FirDec" Group="Arguments" TabName="Processing Element" Name="staBuff_FirDec" Visible="true"  Type="Array"  ArraySize="1" ArrayTypeElement="hsp_filter_state_identifier_t" Line="4" PointerType="BRAM">
+    <RefParameter Comment="State Buffer Name" DefaultValue="staBuff_FirDec" Group="Arguments" TabName="Processing Element" Name="staBuff_FirDec" Visible="true"  Type="Array"  ArraySize="1" ArrayTypeElement="hsp_filter_state_identifier_t" Line="4" PointerType="BRAM" DefaultType="state">
         <PossibleValue Comment="staBuff_FirDec" Value="staBuff_FirDec" Semaphore=""/>
         <Condition Diagnostic="" Expression="S_MW_FILTER_6"/>
     </RefParameter>
-    <RefParameter Comment="State Buffer Name" DefaultValue="staBuff_Iir2p2z" Group="Arguments" TabName="Processing Element" Name="staBuff_Iir2p2z" Visible="true"  Type="Array"  ArraySize="1" ArrayTypeElement="hsp_filter_state_identifier_t" Line="4" PointerType="BRAM">
+    <RefParameter Comment="State Buffer Name" DefaultValue="staBuff_Iir2p2z" Group="Arguments" TabName="Processing Element" Name="staBuff_Iir2p2z" Visible="true"  Type="Array"  ArraySize="1" ArrayTypeElement="hsp_filter_state_identifier_t" Line="4" PointerType="BRAM" DefaultType="state">
         <PossibleValue Comment="staBuff_Iir2p2z" Value="staBuff_Iir2p2z" Semaphore=""/>
         <Condition Diagnostic="" Expression="S_MW_FILTER_7"/>
     </RefParameter>
-    <RefParameter Comment="State Buffer Name" DefaultValue="staBuff_Iir3p3z" Group="Arguments" TabName="Processing Element" Name="staBuff_Iir3p3z" Visible="true"  Type="Array"  ArraySize="1" ArrayTypeElement="hsp_filter_state_identifier_t" Line="4" PointerType="BRAM">
+    <RefParameter Comment="State Buffer Name" DefaultValue="staBuff_Iir3p3z" Group="Arguments" TabName="Processing Element" Name="staBuff_Iir3p3z" Visible="true"  Type="Array"  ArraySize="1" ArrayTypeElement="hsp_filter_state_identifier_t" Line="4" PointerType="BRAM" DefaultType="state">
         <PossibleValue Comment="staBuff_Iir3p3z" Value="staBuff_Iir3p3z" Semaphore=""/>
         <Condition Diagnostic="" Expression="S_MW_FILTER_8"/>
     </RefParameter>
-    <RefParameter Comment="State Buffer Name" DefaultValue="staBuff_IirDF1" Group="Arguments" TabName="Processing Element" Name="staBuff_IirDF1" Visible="true"  Type="Array"  ArraySize="1" ArrayTypeElement="hsp_filter_state_identifier_t" Line="4" PointerType="BRAM">
+    <RefParameter Comment="State Buffer Name" DefaultValue="staBuff_IirDF1" Group="Arguments" TabName="Processing Element" Name="staBuff_IirDF1" Visible="true"  Type="Array"  ArraySize="1" ArrayTypeElement="hsp_filter_state_identifier_t" Line="4" PointerType="BRAM" DefaultType="state">
         <PossibleValue Comment="staBuff_IirDF1" Value="staBuff_IirDF1" Semaphore=""/>
         <Condition Diagnostic="" Expression="S_MW_FILTER_9"/>
     </RefParameter>
-    <RefParameter Comment="State Buffer Name" DefaultValue="staBuff_IirLattice" Group="Arguments" TabName="Processing Element" Name="staBuff_IirLattice" Visible="true"  Type="Array"  ArraySize="1" ArrayTypeElement="hsp_filter_state_identifier_t" Line="4" PointerType="BRAM">
+    <RefParameter Comment="State Buffer Name" DefaultValue="staBuff_IirLattice" Group="Arguments" TabName="Processing Element" Name="staBuff_IirLattice" Visible="true"  Type="Array"  ArraySize="1" ArrayTypeElement="hsp_filter_state_identifier_t" Line="4" PointerType="BRAM" DefaultType="state">
         <PossibleValue Comment="staBuff_IirLattice" Value="staBuff_IirLattice" Semaphore=""/>
         <Condition Diagnostic="" Expression="S_MW_FILTER_10"/>
     </RefParameter>
-    <RefParameter Comment="State Buffer Name" DefaultValue="staBuff_FirLms" Group="Arguments" TabName="Processing Element" Name="staBuff_FirLms" Visible="true"  Type="Array"  ArraySize="1" ArrayTypeElement="hsp_filter_state_identifier_t" Line="4" PointerType="BRAM">
+    <RefParameter Comment="State Buffer Name" DefaultValue="staBuff_FirLms" Group="Arguments" TabName="Processing Element" Name="staBuff_FirLms" Visible="true"  Type="Array"  ArraySize="1" ArrayTypeElement="hsp_filter_state_identifier_t" Line="4" PointerType="BRAM" DefaultType="state">
         <PossibleValue Comment="staBuff_FirLms" Value="staBuff_FirLms" Semaphore=""/>
         <Condition Diagnostic="" Expression="S_MW_FILTER_11"/>
     </RefParameter>
@@ -2202,12 +2202,17 @@
     
     <!-- ############################## Event Parameters Configuration START ############################################ -->   
     <!-- Stream Event configuration  -->
-    <RefParameter Comment="Direction" DefaultValue="HSP_SEQ_STREAM_BUFFER_RX" Group="StreamEventConfiguration" TabName="EventConfiguration" Name="direction" Type="list" Visible="true" Line="0">
+    <RefParameter Comment="Int 2 Float" DefaultValue="false" Group="StreamEventConfiguration" TabName="EventConfiguration" Name="Int_2_Float" Type="boolean" Visible="true" Line="0">
+        <PossibleValue Comment="true" Value="true" />
+        <PossibleValue Comment="false" Value="false"/>
+        <Condition Expression="S_MW_RX_TX_BUFFER" Diagnostic=""/>
+    </RefParameter>
+    <RefParameter Comment="Direction" DefaultValue="HSP_SEQ_STREAM_BUFFER_RX" Group="StreamEventConfiguration" TabName="EventConfiguration" Name="direction" Type="list" Visible="true" Line="1">
         <PossibleValue Comment="RX" Value="HSP_SEQ_STREAM_BUFFER_RX"/> 
         <PossibleValue Comment="TX" Value="HSP_SEQ_STREAM_BUFFER_TX"/> 
         <Condition Expression="S_MW_RX_TX_BUFFER" Diagnostic=""/>
     </RefParameter>
-    <RefParameter Comment="Sync" DefaultValue="HSP_SEQ_STREAM_BUFFER_SYNC_DISABLE" Group="StreamEventConfiguration" TabName="EventConfiguration" Name="sync" Type="list" Visible="true" Line="1">
+    <RefParameter Comment="Sync" DefaultValue="HSP_SEQ_STREAM_BUFFER_SYNC_DISABLE" Group="StreamEventConfiguration" TabName="EventConfiguration" Name="sync" Type="list" Visible="true" Line="2">
         <PossibleValue Comment="Disable" Value="HSP_SEQ_STREAM_BUFFER_SYNC_DISABLE"/> 
         <!--<PossibleValue Comment="Enable" Value="HSP_SEQ_STREAM_BUFFER_SYNC_ENABLE" Semaphore="S_HSP_SEQ_STREAM_BUFFER_SYNC_ENABLE"/>-->
         <Condition Expression="S_MW_RX_TX_BUFFER" Diagnostic=""/>
@@ -3213,7 +3218,7 @@
         <Condition Diagnostic="" Expression="S_MW_SCALAR_1 | S_MW_SCALAR_2 | S_MW_SCALAR_4 | S_MW_SCALAR_5 | S_MW_SCALAR_9 | S_MW_SCALAR_16"/> 
     </RefParameter>
     <RefParameter Comment="ioType" DefaultValue="HSP_SEQ_IOTYPE_DEFAULT" Group="Arguments" TabName="Processing Element" Name="ioType" Visible="true" Type="String" Line="4">
-        <Condition Diagnostic="" Expression="S_MW_COMPLEX_1 | S_MW_SCALAR_3 | S_MW_SCALAR_6 | S_MW_SCALAR_7 | S_MW_SCALAR_8 | S_MW_SCALAR_10"/> 
+        <Condition Diagnostic="" Expression="S_MW_COMPLEX_1 | S_MW_SCALAR_3 | S_MW_SCALAR_6 | S_MW_SCALAR_7 | S_MW_SCALAR_8 | S_MW_SCALAR_10"/>
     </RefParameter>
     <RefParameter Comment="ioType" DefaultValue="HSP_SEQ_IOTYPE_DEFAULT" Group="Arguments" TabName="Processing Element" Name="ioType" Visible="true" Type="String" Line="5">
         <Condition Diagnostic="" Expression="S_MW_FILTER_7 | S_FILTER_8 | S_MW_COMPLEX_2 | S_MW_COMPLEX_5 | S_MW_COMPLEX_7 | S_MW_MATRIX_2 | S_MW_MATRIX_6"/> 

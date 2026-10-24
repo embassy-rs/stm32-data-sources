@@ -195,6 +195,7 @@
 		<Parameter Name="RDPKeyType">
 			<Condition Expression="OB_RDPKEY_active=true" Diagnostic="" />
 		</Parameter>
+
 		<Parameter Name="RDPKey1">
 			<Condition Expression="OB_RDPKEY_active=true" Diagnostic="" />
 		</Parameter>
@@ -208,8 +209,8 @@
             <Condition Expression="OB_RDPKEY_active=true" Diagnostic="" />
         </Parameter>
 
-		<!-- AREA-based page protection-->
-		<Parameter Name="numberOfPages" />
+        <!-- AREA-based page protection-->
+        <Parameter Name="numberOfPages" />
 		<Parameter Name="numberOfRegisters" />
 		<Parameter Name="FlashSize" />
 		<!-- AREA1 -->
@@ -376,21 +377,31 @@ These bits contain the VDD supply level threshold that activates/releases the re
 	</RefParameter>
 	<!-- END HAL OB BOR Level REFPARAMETERS-->
 
-	<!-- BEGIN HAL OB User Configuration REFPARAMETERS-->
-	<RefParameter Visible="false" Comment="USERConfig" Name="USERConfig" DefaultValue="+OB_BOR_level" Type="list">
-		<Condition Expression="OB_BOR_Level_active=true &amp; OB_User_Configuration_active = false" Diagnostic="" />
-	</RefParameter>
-	<RefParameter Visible="false" Comment="USERConfig" Name="USERConfig" DefaultValue="+OB_NRST_STOP+|OB_NRST_STDBY+|OB_NRST_SHDW+|OB_SRAM1_RST+|OB_IWDGSW+|OB_IWDG_STOP+|OB_IWDG_STDBY+|OB_WWDGSW+|OB_SWAP_BANK+|OB_DBANK+|OB_SRAM2_PE+|OB_SRAM2_RST+|OB_nSWBOOT0+|OB_nBOOT0+|OB_IO_VDD_HSLV+|OB_IO_VDDIO2_HSLV" Type="list">
-		<Condition Expression="OB_BOR_Level_active=false &amp; OB_User_Configuration_active = true" Diagnostic="" />
-	</RefParameter>
-	<RefParameter Visible="false" Comment="USERConfig" Name="USERConfig" DefaultValue="+OB_BOR_level+|OB_NRST_STOP+|OB_NRST_STDBY+|OB_NRST_SHDW+|OB_SRAM1_RST+|OB_IWDGSW+|OB_IWDG_STOP+|OB_IWDG_STDBY+|OB_WWDGSW+|OB_SWAP_BANK+|OB_DBANK+|OB_SRAM2_PE+|OB_SRAM2_RST+|OB_nSWBOOT0+|OB_nBOOT0+|OB_IO_VDD_HSLV+|OB_IO_VDDIO2_HSLV" Type="list">
-		<Condition Expression="OB_BOR_Level_active=true &amp; OB_User_Configuration_active = true" Diagnostic="" />
-	</RefParameter>
-
+    <!-- BEGIN HAL OB User Configuration REFPARAMETERS-->
+    <RefParameter Visible="false" Comment="USERConfig" Name="USERConfig" DefaultValue="+OB_BOR_level" Type="list">
+        <Condition Expression="OB_BOR_Level_active=true &amp; OB_User_Configuration_active = false" Diagnostic="" />
+    </RefParameter>
+    <RefParameter Visible="false" Comment="USERConfig" Name="USERConfig" DefaultValue="+OB_NRST_STOP+|OB_NRST_STDBY+|OB_NRST_SHDW+|OB_SRAM1_RST+|OB_IWDGSW+|OB_IWDG_STOP+|OB_IWDG_STDBY+|OB_WWDGSW+|OB_SWAP_BANK+|OB_DBANK+|OB_SRAM2_PE+|OB_SRAM2_RST+|OB_nSWBOOT0+|OB_nBOOT0+|OB_IO_VDD_HSLV+|OB_IO_VDDIO2_HSLV" Type="list">
+        <Condition Expression="OB_BOR_Level_active=false &amp; ( OB_User_Configuration_active = true
+        &amp; (!SEM_OB_NRST_STOP_NULL | !SEM_OB_NRST_STDBY_NULL | !SEM_OB_NRST_SHDW_NULL | !SEM_OB_SRAM1_RST_NULL
+         | !SEM_OB_IWDGSW_NULL | !SEM_OB_IWDG_STOP_NULL | !SEM_OB_IWDG_STDBY_NULL | !SEM_OB_WWDGSW_NULL
+         | (!SEM_OB_SWAP_BANK_NULL &amp; OB_Boot_Configuration_active_BOOT_LOCK=true &amp; BootLock=OB_BOOT_LOCK_DISABLE &amp; OB_TZEN=OB_TZEN_DISABLE)
+         | !SEM_OB_DUALBANK_DUAL_NULL | !SEM_OB_SRAM2_PE_NULL | !SEM_OB_SRAM2_RST_NULL
+         | !SEM_OB_BOOT0_FROM_NULL | !SEM_OB_NBOOT0_NULL | !SEM_OB_IO_VDD_HSLV_NULL | !SEM_OB_IO_VDDIO2_HSLV_NULL))" Diagnostic="" />
+    </RefParameter>
+    <RefParameter Visible="false" Comment="USERConfig" Name="USERConfig" DefaultValue="+OB_BOR_level+|OB_NRST_STOP+|OB_NRST_STDBY+|OB_NRST_SHDW+|OB_SRAM1_RST+|OB_IWDGSW+|OB_IWDG_STOP+|OB_IWDG_STDBY+|OB_WWDGSW+|OB_SWAP_BANK+|OB_DBANK+|OB_SRAM2_PE+|OB_SRAM2_RST+|OB_nSWBOOT0+|OB_nBOOT0+|OB_IO_VDD_HSLV+|OB_IO_VDDIO2_HSLV" Type="list">
+        <Condition Expression="OB_BOR_Level_active=true &amp; (OB_User_Configuration_active = true
+        &amp; (!SEM_OB_NRST_STOP_NULL | !SEM_OB_NRST_STDBY_NULL | !SEM_OB_NRST_SHDW_NULL | !SEM_OB_SRAM1_RST_NULL
+         | !SEM_OB_IWDGSW_NULL | !SEM_OB_IWDG_STOP_NULL | !SEM_OB_IWDG_STDBY_NULL | !SEM_OB_WWDGSW_NULL
+         | (!SEM_OB_SWAP_BANK_NULL &amp; OB_Boot_Configuration_active_BOOT_LOCK=true &amp; BootLock=OB_BOOT_LOCK_DISABLE &amp; OB_TZEN=OB_TZEN_DISABLE)
+         | !SEM_OB_DUALBANK_DUAL_NULL | !SEM_OB_SRAM2_PE_NULL | !SEM_OB_SRAM2_RST_NULL
+         | !SEM_OB_BOOT0_FROM_NULL | !SEM_OB_NBOOT0_NULL | !SEM_OB_IO_VDD_HSLV_NULL | !SEM_OB_IO_VDDIO2_HSLV_NULL))" Diagnostic="" />
+    </RefParameter>
 
 	<RefParameter Comment="Activate" DefaultValue="false" Group="User Configuration" TabName="HAL Option Bytes Settings" Name="OB_User_Configuration_active" Type="boolean">
 		<Description></Description>
-		<PossibleValue Comment="false" Value="false" />
+		<PossibleValue Comment="false" Value="false"/>
+        <PossibleValue Comment="true" Value="true"/>
 	</RefParameter>
 	<RefParameter Comment="          TZEN" DefaultValue="OB_TZEN_DISABLE" Group="User Configuration" TabName="HAL Option Bytes Settings" Name="OB_TZEN" Type="string">
 		<Description>&lt;font color=&quot;red&quot;&gt;Bit 31&lt;/font&gt; &lt;b&gt; TZEN:&lt;/b&gt; Global TrustZone security enable.&lt;br&gt;
@@ -528,7 +539,6 @@ checked: Bank 1 and bank 2 addresses swapped.</Description>
 		<PossibleValue Comment="no update" Value="OB_DUALBANK_DUAL_NOUPD"  Semaphore="SEM_OB_DUALBANK_DUAL_NULL"/>
 		<PossibleValue Comment="enable" Value="OB_DUALBANK_DUAL" />
 		<PossibleValue Comment="disable" Value="OB_DUALBANK_SINGLE"/>
-		<Condition Expression="OB_User_Configuration_active=true" Diagnostic="" />
 	</RefParameter>
 	<RefParameter Comment="          DBANK" DefaultValue="+OB_DBANK_UI" Group="User Configuration" TabName="HAL Option Bytes Settings" Name="OB_DBANK" Type="String" Visible="false">
 		<Condition Expression="OB_DBANK_UI=OB_DUALBANK_DUAL | OB_DBANK_UI=OB_DUALBANK_SINGLE" Diagnostic="" />
@@ -615,9 +625,7 @@ This bit can be set only with VDDIO2 below 2.5V.&lt;br&gt;
 	</RefParameter>	
 	<RefParameter Comment="          IO_VDDIO2_HSLV" DefaultValue="" Group="User Configuration" TabName="HAL Option Bytes Settings" Name="OB_IO_VDDIO2_HSLV" Type="string" Visible="false" />
 
-
 	<!-- END HAL OB User Configuration REFPARAMETERS-->
-
 
 	<!-- BEGIN HAL OB Boot Configuration REFPARAMETERS-->
 
@@ -636,7 +644,7 @@ This bit can be set only with VDDIO2 below 2.5V.&lt;br&gt;
 		<PossibleValue Comment="false" Value="false" />
 		<PossibleValue Semaphore="SEM_FLASH_OB_BOOTADDR1" Comment="true" Value="true" />
 	</RefParameter>
-	<RefParameter Comment="          Address" DefaultValue="0x0BF9007F" Group="Boot Configuration" TabName="HAL Option Bytes Settings" Max="0xFFFFFF00" Min="0x00000000" Name="OB_NSBOOTADD1_Address" Type="hex">
+	<RefParameter Comment="          Address" DefaultValue="0x0BF8F07F" Group="Boot Configuration" TabName="HAL Option Bytes Settings" Max="0xFFFFFF00" Min="0x00000000" Name="OB_NSBOOTADD1_Address" Type="hex">
 		<Description>Non-secure Boot base addess 1</Description>
 		<Condition Expression="OB_Boot_Configuration_active_NS1=true" Diagnostic="" />
 	</RefParameter>
@@ -882,12 +890,13 @@ This bit can be set only with VDDIO2 below 2.5V.&lt;br&gt;
 	<!-- BEGIN OptionType RefParameter -->
 	<RefParameter Visible="false" Comment="Option Type" Name="OptionType" DefaultValue="+OptionType_WRP+|OptionType_RDP+|OptionType_USER+|OptionType_BOOTADDR+|OptionType_WMSEC+|OptionType_BOOT_LOCK+|OptionType_RDPKEY" Type="list">
 		<Condition Diagnostic="" Expression="SEM_FLASH_OB_RDP|SEM_FLASH_OB_USER|SEM_FLASH_OB_BOOTADDR0|SEM_FLASH_OB_BOOTADDR1
-		|SEM_FLASH_OB_BOOTADDRSEC0|SEM_FLASH_OB_BOOTADDR_BOOTLOCK|SEM_FLASH_OB_WMSEC1|SEM_FLASH_OB_WMSEC2|SEM_FLASH_OB_WRP1A
+		|SEM_FLASH_OB_BOOTADDRSEC0|SEM_FLASH_OB_WMSEC1|SEM_FLASH_OB_WMSEC2|SEM_FLASH_OB_WRP1A
 		|SEM_FLASH_OB_WRP1B|SEM_FLASH_OB_WRP2A|SEM_FLASH_OB_WRP2B|SEM_FLASH_OB_RDPKEY
-		| (OB_User_Configuration_active=true &amp; ( !SEM_OB_NRST_STOP_NULL | !SEM_OB_NRST_STDBY_NULL |!SEM_OB_NRST_SHDW_NULL 
+		| (OB_User_Configuration_active=true &amp;
+		(!SEM_OB_NRST_STOP_NULL | !SEM_OB_NRST_STDBY_NULL |!SEM_OB_NRST_SHDW_NULL
 		|!SEM_OB_SRAM1_RST_NULL | !SEM_OB_IWDGSW_NULL | !SEM_OB_IWDG_STOP_NULL | !SEM_OB_IWDG_STDBY_NULL | !SEM_OB_WWDGSW_NULL 
 		| (!SEM_OB_SWAP_BANK_NULL &amp; OB_Boot_Configuration_active_BOOT_LOCK=true &amp; BootLock=OB_BOOT_LOCK_DISABLE &amp; OB_TZEN=OB_TZEN_DISABLE)
-		| (!SEM_OB_DUALBANK_DUAL_NULL &amp; OB_Boot_Configuration_active_BOOT_LOCK=true) | !SEM_OB_SRAM2_RST_NULL | !SEM_OB_SRAM2_PE_NULL | !SEM_OB_BOOT0_FROM_NULL| !SEM_OB_NBOOT0_NULL
+		| !SEM_OB_DUALBANK_DUAL_NULL | !SEM_OB_SRAM2_RST_NULL | !SEM_OB_SRAM2_PE_NULL | !SEM_OB_BOOT0_FROM_NULL| !SEM_OB_NBOOT0_NULL
 		| !SEM_OB_IO_VDD_HSLV_NULL | !SEM_OB_IO_VDDIO2_HSLV_NULL))" />
 	</RefParameter>
 	<RefParameter Comment="" DefaultValue="OPTIONBYTE_WRP" Group="Option Bytes" Name="OptionType_WRP" Type="string" Visible="false">
@@ -902,11 +911,12 @@ This bit can be set only with VDDIO2 below 2.5V.&lt;br&gt;
 	<RefParameter Comment="" DefaultValue="" Group="Option Bytes" Name="OptionType_RDP" Type="string" Visible="false" />
 	<RefParameter Comment="" DefaultValue="OPTIONBYTE_USER" Group="Option Bytes" Name="OptionType_USER" Type="string" Visible="false">
 		<Description></Description>
-		<Condition Diagnostic="" Expression="!SEM_OB_NRST_STOP_NULL | !SEM_OB_NRST_STDBY_NULL | !SEM_OB_NRST_SHDW_NULL 
+		<Condition Diagnostic="" Expression="(OB_User_Configuration_active=true &amp;
+		(!SEM_OB_NRST_STOP_NULL | !SEM_OB_NRST_STDBY_NULL | !SEM_OB_NRST_SHDW_NULL
 		| !SEM_OB_SRAM1_RST_NULL | !SEM_OB_IWDGSW_NULL | !SEM_OB_IWDG_STOP_NULL | !SEM_OB_IWDG_STDBY_NULL | !SEM_OB_WWDGSW_NULL
-		| (!SEM_OB_SWAP_BANK_NULL &amp; OB_Boot_Configuration_active_BOOT_LOCK=true &amp; BootLock=OB_BOOT_LOCK_DISABLE &amp; OB_TZEN=OB_TZEN_DISABLE) 
-		| (!SEM_OB_DUALBANK_DUAL_NULL &amp; OB_Boot_Configuration_active_BOOT_LOCK=true) | !SEM_OB_SRAM2_RST_NULL | !SEM_OB_SRAM2_PE_NULL | !SEM_OB_BOOT0_FROM_NULL| !SEM_OB_NBOOT0_NULL
-		| !SEM_OB_IO_VDD_HSLV_NULL | !SEM_OB_IO_VDDIO2_HSLV_NULL | OB_BOR_Level_active=true" />
+		| (!SEM_OB_SWAP_BANK_NULL &amp; OB_Boot_Configuration_active_BOOT_LOCK=true &amp; BootLock=OB_BOOT_LOCK_DISABLE &amp; OB_TZEN=OB_TZEN_DISABLE)
+		| !SEM_OB_DUALBANK_DUAL_NULL | !SEM_OB_SRAM2_RST_NULL | !SEM_OB_SRAM2_PE_NULL | !SEM_OB_BOOT0_FROM_NULL| !SEM_OB_NBOOT0_NULL
+		| !SEM_OB_IO_VDD_HSLV_NULL | !SEM_OB_IO_VDDIO2_HSLV_NULL)) | OB_BOR_Level_active=true" />
 	</RefParameter>
 	<RefParameter Comment="" DefaultValue="" Group="Option Bytes" Name="OptionType_USER" Type="string" Visible="false" />
 	<RefParameter Comment="" DefaultValue="OPTIONBYTE_BOOTADDR" Group="Option Bytes" Name="OptionType_BOOTADDR" Type="string" Visible="false">
@@ -935,18 +945,20 @@ This bit can be set only with VDDIO2 below 2.5V.&lt;br&gt;
 		<Condition Expression="OB_BOR_Level_active=true &amp; OB_User_Configuration_active = false" Diagnostic="" />
 	</RefParameter>
 	<RefParameter Visible="false" Comment="Option Type" Name="USERType" DefaultValue="+OB_USER_NRST_STOP+|OB_USER_NRST_STDBY+|OB_USER_NRST_SHDW+|OB_USER_SRAM1_RST+|OB_USER_IWDG_SW+|OB_USER_IWDG_STOP+|OB_USER_IWDG_STDBY+|OB_USER_WWDG_SW+|OB_USER_SWAP_BANK+|OB_USER_DUALBANK+|OB_USER_SRAM2_RST+|OB_USER_SRAM2_PE+|OB_USER_NSWBOOT0+|OB_USER_NBOOT0+|OB_USER_IO_VDD_HSLV+|OB_USER_IO_VDDIO2_HSLV" Type="list">
-		<Condition Expression="OB_BOR_Level_active=false &amp; (!SEM_OB_NRST_STOP_NULL | !SEM_OB_NRST_STDBY_NULL | !SEM_OB_NRST_SHDW_NULL 
+		<Condition Expression="OB_BOR_Level_active=false 
+		&amp; (OB_User_Configuration_active = true &amp;(!SEM_OB_NRST_STOP_NULL | !SEM_OB_NRST_STDBY_NULL | !SEM_OB_NRST_SHDW_NULL 
 		| !SEM_OB_SRAM1_RST_NULL | !SEM_OB_IWDGSW_NULL | !SEM_OB_IWDG_STOP_NULL | !SEM_OB_IWDG_STDBY_NULL | !SEM_OB_WWDGSW_NULL
-		| (!SEM_OB_SWAP_BANK_NULL &amp; OB_Boot_Configuration_active_BOOT_LOCK=true &amp; BootLock=OB_BOOT_LOCK_DISABLE &amp; OB_TZEN=OB_TZEN_DISABLE) 
-		| (!SEM_OB_DUALBANK_DUAL_NULL &amp; OB_Boot_Configuration_active_BOOT_LOCK=true) | !SEM_OB_SRAM2_RST_NULL | !SEM_OB_SRAM2_PE_NULL | !SEM_OB_BOOT0_FROM_NULL| !SEM_OB_NBOOT0_NULL
-		| !SEM_OB_IO_VDD_HSLV_NULL | !SEM_OB_IO_VDDIO2_HSLV_NULL)" Diagnostic=""/>
+		| (!SEM_OB_SWAP_BANK_NULL &amp; OB_Boot_Configuration_active_BOOT_LOCK=true &amp; BootLock=OB_BOOT_LOCK_DISABLE &amp; OB_TZEN=OB_TZEN_DISABLE)
+		| !SEM_OB_DUALBANK_DUAL_NULL | !SEM_OB_SRAM2_RST_NULL | !SEM_OB_SRAM2_PE_NULL | !SEM_OB_BOOT0_FROM_NULL| !SEM_OB_NBOOT0_NULL
+		| !SEM_OB_IO_VDD_HSLV_NULL | !SEM_OB_IO_VDDIO2_HSLV_NULL))" Diagnostic=""/>
 	</RefParameter>
 	<RefParameter Visible="false" Comment="Option Type" Name="USERType" DefaultValue="+OB_USER_BOR_LEV+|OB_USER_NRST_STOP+|OB_USER_NRST_STDBY+|OB_USER_NRST_SHDW+|OB_USER_SRAM1_RST+|OB_USER_IWDG_SW+|OB_USER_IWDG_STOP+|OB_USER_IWDG_STDBY+|OB_USER_WWDG_SW+|OB_USER_SWAP_BANK+|OB_USER_DUALBANK+|OB_USER_SRAM2_RST+|OB_USER_SRAM2_PE+|OB_USER_NSWBOOT0+|OB_USER_NBOOT0+|OB_USER_IO_VDD_HSLV+|OB_USER_IO_VDDIO2_HSLV" Type="list">
-		<Condition Expression="OB_BOR_Level_active=true &amp; (!SEM_OB_NRST_STOP_NULL | !SEM_OB_NRST_STDBY_NULL | !SEM_OB_NRST_SHDW_NULL 
+		<Condition Expression="OB_BOR_Level_active=true 
+		&amp; (OB_User_Configuration_active = true &amp;(!SEM_OB_NRST_STOP_NULL | !SEM_OB_NRST_STDBY_NULL | !SEM_OB_NRST_SHDW_NULL 
 		| !SEM_OB_SRAM1_RST_NULL | !SEM_OB_IWDGSW_NULL | !SEM_OB_IWDG_STOP_NULL | !SEM_OB_IWDG_STDBY_NULL | !SEM_OB_WWDGSW_NULL
-		| (!SEM_OB_SWAP_BANK_NULL &amp; OB_Boot_Configuration_active_BOOT_LOCK=true &amp; BootLock=OB_BOOT_LOCK_DISABLE &amp; OB_TZEN=OB_TZEN_DISABLE) 
-		| (!SEM_OB_DUALBANK_DUAL_NULL  &amp; OB_Boot_Configuration_active_BOOT_LOCK=true) | !SEM_OB_SRAM2_RST_NULL | !SEM_OB_SRAM2_PE_NULL | !SEM_OB_BOOT0_FROM_NULL| !SEM_OB_NBOOT0_NULL
-		| !SEM_OB_IO_VDD_HSLV_NULL | !SEM_OB_IO_VDDIO2_HSLV_NULL)" Diagnostic="" />
+		| (!SEM_OB_SWAP_BANK_NULL &amp; OB_Boot_Configuration_active_BOOT_LOCK=true &amp; BootLock=OB_BOOT_LOCK_DISABLE &amp; OB_TZEN=OB_TZEN_DISABLE)
+		| !SEM_OB_DUALBANK_DUAL_NULL | !SEM_OB_SRAM2_RST_NULL | !SEM_OB_SRAM2_PE_NULL | !SEM_OB_BOOT0_FROM_NULL| !SEM_OB_NBOOT0_NULL
+		| !SEM_OB_IO_VDD_HSLV_NULL | !SEM_OB_IO_VDDIO2_HSLV_NULL))" Diagnostic="" />
 	</RefParameter>
 
 	<RefParameter Comment="" DefaultValue="OB_USER_BOR_LEV" Group="Option Bytes" Name="OB_USER_BOR_LEV" Type="String" Visible="false">
@@ -1233,10 +1245,10 @@ This bit can be set only with VDDIO2 below 2.5V.&lt;br&gt;
 	<!-- END HAL OB REFPARAMETERS-->
 
 	<!-- BEGIN Block-based REFPARAMETERS-->
-	<RefParameter Comment="          numberOfPages" DefaultValue="=($FlashSize/16)" Group="REGISTERS" Name="numberOfPages" TabName="Block-based page protection" Type="integer" Visible="false">
-		<Condition Expression="OB_DBANK=OB_DUALBANK_DUAL" Diagnostic="" />
+	<RefParameter Comment="          numberOfPages" DefaultValue="=($FlashSize/8)" Group="REGISTERS" Name="numberOfPages" TabName="Block-based page protection" Type="integer" Visible="false">
+		<Condition Expression="OB_DBANK=OB_DUALBANK_SINGLE" Diagnostic="" />
 	</RefParameter>
-	<RefParameter Comment="          numberOfPages" DefaultValue="=($FlashSize/8)" Group="REGISTERS" Name="numberOfPages" TabName="Block-based page protection" Type="integer" Visible="false" />
+	<RefParameter Comment="          numberOfPages" DefaultValue="=($FlashSize/16)" Group="REGISTERS" Name="numberOfPages" TabName="Block-based page protection" Type="integer" Visible="false" />
 	<RefParameter Comment="          numberOfRegisters" DefaultValue="=numberOfPages/32" Group="REGISTERS" Name="numberOfRegisters" TabName="Block-based page protection" Type="integer" Visible="false" />
 	<RefParameter Comment="          FlashSize" DefaultValue="=$FlashSize" Group="REGISTERS" Name="FlashSize" TabName="Block-based page protection" Type="integer" Visible="false" />
 
@@ -2901,7 +2913,7 @@ This bit can be set only with VDDIO2 below 2.5V.&lt;br&gt;
 	<RefParameter Comment="Activate AREA 2" DefaultValue="false" Group="AREA2" TabName="Block-based page protection" Name="B2_BLOCK_active" Type="boolean">
 		<Description></Description>
 		<PossibleValue Comment="false" Value="false" />
-		<PossibleValue Semaphore="SEM_FLASH_B2_AREA" Comment="true" Value="true" />
+		<PossibleValue Comment="true" Value="true" />
 	</RefParameter>
 	<RefParameter Comment="          Bank" DefaultValue="FLASH_BANK_1" Group="AREA2" TabName="Block-based page protection" Name="B2_Bank" Type="string" Visible="true">
 		<Description>FLASH Bank</Description>

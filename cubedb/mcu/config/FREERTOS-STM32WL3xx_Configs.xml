@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
-<IP xmlns="http://mcd.rou.st.com/modules.php?name=mcu" xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance" CodeTemplate="" DBVersion="V4.0" IncludeFile="FreeRTOSConfig.h" Name="FREERTOS" RootFolder="Middlewares/Third_Party/FreeRTOS/" Version="STM32Cube_FW_WL3_V0.4.0" ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../../../doc/V4/Development/Specifications/db/IP_Configs.xsd">
+<IP xmlns="http://mcd.rou.st.com/modules.php?name=mcu" xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance" CodeTemplate="" DBVersion="V4.0" IncludeFile="FreeRTOSConfig.h" Name="FREERTOS" RootFolder="Middlewares/Third_Party/FreeRTOS/" Version="STM32Cube_FW_WL3_V1.3.0" ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../../../doc/V4/Development/Specifications/db/IP_Configs.xsd">
 
     <RefConfig Comment="" Name="FREERTOS_CMSIS_V2_ENABLE_Init">  
         <CallLibMethod Name="osKernelStart" ReturnHAL="false"/>                 
@@ -49,6 +49,7 @@
         <File Category="header" Name="Source/include/list.h"/>
         <File Category="header" Name="Source/include/message_buffer.h"/>
         <File Category="header" Name="Source/include/mpu_prototypes.h"/>
+        <File Category="header" Name="Source/include/mpu_syscall_numbers.h"/>
         <File Category="header" Name="Source/include/mpu_wrappers.h"/>
         <File Category="header" Name="Source/include/portable.h"/>
         <File Category="header" Name="Source/include/projdefs.h"/>
@@ -68,7 +69,7 @@
         <File Category="source" Name="Source/event_groups.c"/>
         <File Category="source" Name="Source/list.c"/>
         <File Category="source" Name="Source/queue.c"/>
-        <File Category="source" Name="Source/stream_buffer.c"/>
+        <File Category="source" Name="Source/stream_buffer.c" Condition="!configUSE_TASK_NOTIFICATIONS_DISABLED"/>
         <File Category="source" Name="Source/tasks.c"/>
         <File Category="source" Name="Source/timers.c"/>
 
@@ -100,16 +101,22 @@
             <File Category="header" Name="Source/portable/IAR/ARM_CM0/portmacro.h" Condition="!S_FREERTOS_WITH_MPU"/>
         </SubComponent>
         <SubComponent Csub="Keil">    <!-- Keil refers to GCC files -->
+            <File Category="source" Name="Source/portable/GCC/ARM_CM0/mpu_wrappers_v2_asm.c" Condition="!S_FREERTOS_WITH_MPU"/>
             <File Category="source" Name="Source/portable/GCC/ARM_CM0/port.c" Condition="!S_FREERTOS_WITH_MPU"/>
             <File Category="header" Name="Source/portable/GCC/ARM_CM0/portmacro.h" Condition="!S_FREERTOS_WITH_MPU"/>
+            <File Category="source" Name="Source/portable/GCC/ARM_CM0/portasm.c" Condition="!S_FREERTOS_WITH_MPU"/>
+            <File Category="header" Name="Source/portable/GCC/ARM_CM0/portasm.h" Condition="!S_FREERTOS_WITH_MPU"/>
         </SubComponent> 
         <SubComponent Csub="RVDS">
             <File Category="source" Name="Source/portable/RVDS/ARM_CM0/port.c" Condition="!S_FREERTOS_WITH_MPU"/>
             <File Category="header" Name="Source/portable/RVDS/ARM_CM0/portmacro.h" Condition="!S_FREERTOS_WITH_MPU"/>
         </SubComponent> 
         <SubComponent Csub="GCC">
+            <File Category="source" Name="Source/portable/GCC/ARM_CM0/mpu_wrappers_v2_asm.c" Condition="!S_FREERTOS_WITH_MPU"/>
             <File Category="source" Name="Source/portable/GCC/ARM_CM0/port.c" Condition="!S_FREERTOS_WITH_MPU"/>
             <File Category="header" Name="Source/portable/GCC/ARM_CM0/portmacro.h" Condition="!S_FREERTOS_WITH_MPU"/>
+            <File Category="source" Name="Source/portable/GCC/ARM_CM0/portasm.c" Condition="!S_FREERTOS_WITH_MPU"/>
+            <File Category="header" Name="Source/portable/GCC/ARM_CM0/portasm.h" Condition="!S_FREERTOS_WITH_MPU"/>
         </SubComponent>
     </RefComponent>
 
@@ -315,7 +322,7 @@
     </RefConfigFile>
 
     <!-- use specific template file to generate header file containing #define -->
-    <RefConfigFile Description="Header file for #define" Name="CONFIG_V2" Template="freertos_conf_v10_6_2_cmsis_v2.ftl">
+    <RefConfigFile Description="Header file for #define" Name="CONFIG_V2" Template="freertos_conf_v11_2_0_cmsis_v2.ftl">
         <File Category="header" Condition="all" Name="FreeRTOSConfig.h" Version="10.6.2"/>
         <!-- Parameters for FReeRTOS -->
         <Argument Comment="Set to 1 to use the preemptive RTOS scheduler, or 0 to use the cooperative RTOS scheduler. " GenericType="simple" Name="configUSE_PREEMPTION"/>
@@ -329,6 +336,10 @@
         <Argument Comment="When set in FreeRTOSConfig.h, the memory freed using vPortFree() is automatically cleared to zero" GenericType="simple" Name="configHEAP_CLEAR_MEMORY_ON_FREE"/>
         <Argument Comment="The maximum permissible length of the descriptive name given to a task when the task is created" GenericType="simple" Name="configMAX_TASK_NAME_LEN"/>
         <Argument Comment="" GenericType="simple" Name="configUSE_16_BIT_TICKS"/>
+        <Argument Comment="" GenericType="simple" Name="configSTATS_BUFFER_MAX_LENGTH"/>
+        <Argument Comment="" GenericType="simple" Name="configUSE_STREAM_BUFFERS"/>
+        <Argument Comment="" GenericType="simple" Name="configUSE_EVENT_GROUPS"/>
+        <Argument Comment="" GenericType="simple" Name="configENABLE_HEAP_PROTECTOR"/>
         <Argument Comment="This parameter controls the behaviour of tasks at the idle priority" GenericType="simple" Name="configIDLE_SHOULD_YIELD"/>
         <Argument Comment="Set to 1 to include mutex functionality, or 0 to omit it" GenericType="simple" Name="configUSE_MUTEXES"/>
         <Argument Comment="Set to 1 to include recursive mutex functionality, or 0 to omit it" GenericType="simple" Name="configUSE_RECURSIVE_MUTEXES"/>  
@@ -370,6 +381,7 @@
         <Argument Comment="" GenericType="simple" Name="INCLUDE_vTaskSuspend"/>
         <Argument Comment="" GenericType="simple" Name="INCLUDE_vTaskDelayUntil"/>
         <Argument Comment="" GenericType="simple" Name="INCLUDE_vTaskDelay"/>  
+        <Argument Comment="" GenericType="simple" Name="INCLUDE_xTaskDelayUntil"/>
         <Argument Comment="" GenericType="simple" Name="INCLUDE_xTaskGetSchedulerState"/> 
         
         <Argument Comment="" GenericType="simple" Name="configASSERT( x )"/>

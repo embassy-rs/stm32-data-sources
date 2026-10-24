@@ -5,7 +5,7 @@
         <ConfigFile Name="APP_THREADX_C" />
         <ConfigFile Name="APP_THREADX_H" />
         <ConfigFile Name="APP_AZURE_RTOS_C" />
-        <ConfigFile Name="APP_AZURE_RTOS_H" /> 
+        <ConfigFile Name="APP_AZURE_RTOS_H" />
         <ConfigFile Name="TX_USER_H" />
         <ConfigFile Name="TX_INITIALIZE_LOW_LEVEL_S" />
         <ConfigFile Name="AZURE_RTOS_CONFIG_H_FTL" />
@@ -22,26 +22,26 @@
         <Defines Name="TX_THREAD_SECURE_STACK_MINIMUM" Condition="SEM_AppS &amp; !SEMSTACK_MAXIMUM" Type="Cdefine" Value="$TX_THREAD_SECURE_STACK_MINIMUM"/>
 
         <Defines Name="TX_PORT_USE_BASEPRI" Condition="TX_ENABLE_BASEPRI_SUPPORT" Type="Cdefine"/>
-        <Defines Name="TX_PORT_USE_BASEPRI" Condition="TX_ENABLE_BASEPRI_SUPPORT" Type="Adefine"/> 
+        <Defines Name="TX_PORT_USE_BASEPRI" Condition="TX_ENABLE_BASEPRI_SUPPORT" Type="Adefine"/>
         <Defines Name="TX_PORT_BASEPRI" Condition="TX_ENABLE_BASEPRI_SUPPORT" Type="Cdefine" Value="$TX_PORT_BASEPRI_VALUE"/>
         <Defines Name="TX_PORT_BASEPRI" Condition="TX_ENABLE_BASEPRI_SUPPORT" Type="Adefine" Value="$TX_PORT_BASEPRI_VALUE" />
     </RefConfig>
-	
+
     <RefConfig Name="Performance_Default">
         <Component Name="Middleware:ThreadX:Performance:Default" />
         <ConfigFile Name="TX_USER_H" />
     </RefConfig>
-	
+
     <RefConfig Name="TraceX_Support_Default">
         <Component Name="Middleware:ThreadX:TraceX_Support:Default" />
         <ConfigFile Name="TX_USER_H" />
     </RefConfig>
-	
+
     <RefConfig Name="Low_Power_Support">
         <Component Name="Middleware:ThreadX:Low_Power_Support:true" />
         <Defines Condition="Low_Power_ENABLED" Name="TX_LOW_POWER" Type="Adefine"/>
     </RefConfig>
-	
+
     <RefConfigFile Description="ThreadX initialisation file" Name="APP_THREADX_H" Template="azure_rtos/app_threadx_h.ftl" destinationFolder="Core/Inc">
         <File Category="header" Condition="SEM_AppS | SEM_AppNS | SEM_FSBL | SEM_Appli" Name="app_threadx.h" />
         <Argument Added="true" AddressOf="false" GenericType="simple" Name="FILEX_ENABLED" OptimizationCondition="equal"/>
@@ -118,6 +118,14 @@
         <Argument Added="true" AddressOf="false" GenericType="simple" Name="THREADX_MEM_POOL_VAR_NAME" OptimizationCondition="equal" />
         <Argument Added="true" AddressOf="false" GenericType="simple" Name="FILEX_MEM_POOL_VAR_NAME" OptimizationCondition="equal" />
         <Argument Added="true" AddressOf="false" GenericType="simple" Name="USBX_MEM_POOL_VAR_NAME" OptimizationCondition="equal" />
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="NetX_TX_FSBL" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="NetX_TX_APPS" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="NetX_TX_APPNS" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="NetX_TX_Appli" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="FileX_TX_FSBL" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="FileX_TX_APPS" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="FileX_TX_APPNS" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="FileX_TX_Appli" OptimizationCondition="equal"/>
     </RefConfigFile>
     <RefConfigFile Description="" Name="APP_AZURE_RTOS_h" Template="azure_rtos/app_azrtos_h.ftl" destinationFolder="AZURE_RTOS/App">
         <File Category="source" Condition="(SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL)| (SEM_Appli &amp; THREADX_APPS)" Name="app_azure_rtos.h" />
@@ -130,6 +138,14 @@
         <Argument Added="true" AddressOf="false" GenericType="simple" Name="TSC_ENABLED" OptimizationCondition="equal"/>
         <Argument Added="true" AddressOf="false" GenericType="simple" Name="GUI_INTERFACE_ENABLED" OptimizationCondition="equal"/>
         <Argument Added="true" AddressOf="false" GenericType="simple" Name="WPAN_ENABLED" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="NetX_TX_FSBL" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="NetX_TX_APPS" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="NetX_TX_APPNS" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="NetX_TX_Appli" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="FileX_TX_FSBL" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="FileX_TX_APPS" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="FileX_TX_APPNS" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="FileX_TX_Appli" OptimizationCondition="equal"/>
     </RefConfigFile>
     <RefConfigFile Description="ThreadX User Configuration file" Name="TX_USER_H" Template="azure_rtos/tx_user_h.ftl" destinationFolder="Core/Inc">
         <File Category="header" Condition="all" Name="./tx_user.h" />
@@ -176,6 +192,7 @@
         <Argument Added="true" AddressOf="false" GenericType="simple" Name="TX_TIMER_TICKS_PER_SECOND" OptimizationCondition="equal"/>
         <Argument Added="true" AddressOf="false" GenericType="simple" Name="AZRTOS_APP_MEM_ALLOCATION_METHOD" OptimizationCondition="equal"/>
         <Argument Added="true" AddressOf="false" GenericType="simple" Name="CORTEX_CLOCK_FREQ" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="UX_DEVICE_AUDIO_CORE" OptimizationCondition="equal"/>
     </RefConfigFile>
     <RefConfigFile Added="true" Description="ftl for app_azure_rtos_config.h" Name="AZURE_RTOS_CONFIG_H_FTL" Template="azure_rtos/app_azure_rtos_config_h.ftl" destinationFolder="AZURE_RTOS/App">
         <File Category="header" Condition="(SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS)" Name="./app_azure_rtos_config.h"/>
@@ -217,55 +234,66 @@
             <File Category="source" Condition="(SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS) | (SEM_Appli &amp; THREADX_APPS)" Name="common/src/tx_initialize_high_level.c" />
             <File Category="source" Condition="(SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS)" Name="common/src/tx_initialize_kernel_enter.c" />
             <File Category="source" Condition="(SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS)" Name="common/src/tx_initialize_kernel_setup.c" />
-            <File Category="source" Condition="SIiTcompilerIiIAR &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS) | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/iar/src/tx_iar.c" />
+            <File Category="source" Condition="SIiTcompilerIiIAR &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS) | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/iar/src/tx_iar.c" />
             <!-- tx_thread_secure_stack.c -->
-            <File Category="source" Condition="SIiTcompilerIiIAR &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/iar/src/tx_thread_secure_stack.c" />
-            <File Category="source" Condition="SIiTcompilerIiARMCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/ac6/src/tx_thread_secure_stack.c" />
-            <File Category="source" Condition="SIiTcompilerIiGCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/gnu/src/tx_thread_secure_stack.c" />
+            <File Category="source" Condition="SIiTcompilerIiIAR &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/iar/src/tx_thread_secure_stack.c" />
+            <File Category="source" Condition="SIiTcompilerIiARMCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/ac6/src/tx_thread_secure_stack.c" />
+            <File Category="source" Condition="SIiTcompilerIiGCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/gnu/src/tx_thread_secure_stack.c" />
+
             <!-- tx_thread_secure_stack_initialize.S -->
-            <File Category="source" Condition="SIiTcompilerIiIAR &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS) | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/iar/src/tx_thread_secure_stack_initialize.s" />
-            <File Category="source" Condition="SIiTcompilerIiARMCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS) | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/ac6/src/tx_thread_secure_stack_initialize.S" />
-            <File Category="source" Condition="SIiTcompilerIiGCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/gnu/src/tx_thread_secure_stack_initialize.S" />
+            <File Category="source" Condition="SIiTcompilerIiIAR &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS) | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/iar/src/tx_thread_secure_stack_initialize.s" />
+            <File Category="source" Condition="SIiTcompilerIiARMCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS) | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/ac6/src/tx_thread_secure_stack_initialize.S" />
+            <File Category="source" Condition="SIiTcompilerIiGCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/gnu/src/tx_thread_secure_stack_initialize.S" />
+
             <!-- tx_thread_secure_stack_allocate.s -->
-            <File Category="source" Condition="SIiTcompilerIiIAR &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/iar/src/tx_thread_secure_stack_allocate.s" />
-            <File Category="source" Condition="SIiTcompilerIiARMCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/ac6/src/tx_thread_secure_stack_allocate.S" />
-            <File Category="source" Condition="SIiTcompilerIiGCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/gnu/src/tx_thread_secure_stack_allocate.S" />
+            <File Category="source" Condition="SIiTcompilerIiIAR &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/iar/src/tx_thread_secure_stack_allocate.s" />
+            <File Category="source" Condition="SIiTcompilerIiARMCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/ac6/src/tx_thread_secure_stack_allocate.S" />
+            <File Category="source" Condition="SIiTcompilerIiGCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/gnu/src/tx_thread_secure_stack_allocate.S" />
+
             <!-- tx_thread_secure_stack_free.s -->
-            <File Category="source" Condition="SIiTcompilerIiIAR &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/iar/src/tx_thread_secure_stack_free.s" />
-            <File Category="source" Condition="SIiTcompilerIiARMCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/ac6/src/tx_thread_secure_stack_free.S" />
-            <File Category="source" Condition="SIiTcompilerIiGCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/gnu/src/tx_thread_secure_stack_free.S" />
+            <File Category="source" Condition="SIiTcompilerIiIAR &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/iar/src/tx_thread_secure_stack_free.s" />
+            <File Category="source" Condition="SIiTcompilerIiARMCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/ac6/src/tx_thread_secure_stack_free.S" />
+            <File Category="source" Condition="SIiTcompilerIiGCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/gnu/src/tx_thread_secure_stack_free.S" />
+
             <!-- txe_thread_secure_stack_free.c -->
-            <File Category="source" Condition="SIiTcompilerIiIAR &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/iar/src/txe_thread_secure_stack_free.c" />
-            <File Category="source" Condition="SIiTcompilerIiARMCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/ac6/src/txe_thread_secure_stack_free.c" />
-            <File Category="source" Condition="SIiTcompilerIiGCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/gnu/src/txe_thread_secure_stack_free.c" />
-			
-            <File Category="source" Condition="SIiTcompilerIiIAR &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/iar/src/tx_thread_context_restore.s" />
-            <File Category="source" Condition="SIiTcompilerIiIAR &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/iar/src/tx_thread_context_save.s" />
-            <File Category="source" Condition="SIiTcompilerIiIAR &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/iar/src/tx_thread_interrupt_control.s" />
-            <File Category="source" Condition="SIiTcompilerIiIAR &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/iar/src/tx_thread_interrupt_disable.s" />
-            <File Category="source" Condition="SIiTcompilerIiIAR &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/iar/src/tx_thread_interrupt_restore.s" />
-            <File Category="source" Condition="SIiTcompilerIiIAR &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/iar/src/tx_thread_schedule.s" />
-            <File Category="source" Condition="SIiTcompilerIiIAR &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/iar/src/tx_thread_stack_build.s" />
-            <File Category="source" Condition="SIiTcompilerIiIAR &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/iar/src/tx_thread_system_return.s" />
-            <File Category="source" Condition="SIiTcompilerIiIAR &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/iar/src/tx_timer_interrupt.s" />
-            <File Category="source" Condition="SIiTcompilerIiGCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/gnu/src/tx_thread_context_restore.S" />
-            <File Category="source" Condition="SIiTcompilerIiGCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/gnu/src/tx_thread_context_save.S" />
-            <File Category="source" Condition="SIiTcompilerIiGCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/gnu/src/tx_thread_interrupt_control.S" />
-            <File Category="source" Condition="SIiTcompilerIiGCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/gnu/src/tx_thread_interrupt_disable.S" />
-            <File Category="source" Condition="SIiTcompilerIiGCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/gnu/src/tx_thread_interrupt_restore.S" />
-            <File Category="source" Condition="SIiTcompilerIiGCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/gnu/src/tx_thread_schedule.S" />
-            <File Category="source" Condition="SIiTcompilerIiGCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/gnu/src/tx_thread_stack_build.S" />
-            <File Category="source" Condition="SIiTcompilerIiGCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/gnu/src/tx_thread_system_return.S" />
-            <File Category="source" Condition="SIiTcompilerIiGCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/gnu/src/tx_timer_interrupt.S" />
-            <File Category="source" Condition="SIiTcompilerIiARMCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/ac6/src/tx_thread_context_restore.S" />
-            <File Category="source" Condition="SIiTcompilerIiARMCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/ac6/src/tx_thread_context_save.S" />
-            <File Category="source" Condition="SIiTcompilerIiARMCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/ac6/src/tx_thread_interrupt_control.S" />
-            <File Category="source" Condition="SIiTcompilerIiARMCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/ac6/src/tx_thread_interrupt_disable.S" />
-            <File Category="source" Condition="SIiTcompilerIiARMCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/ac6/src/tx_thread_interrupt_restore.S" />
-            <File Category="source" Condition="SIiTcompilerIiARMCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/ac6/src/tx_thread_schedule.S" />
-            <File Category="source" Condition="SIiTcompilerIiARMCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/ac6/src/tx_thread_stack_build.S" />
-            <File Category="source" Condition="SIiTcompilerIiARMCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/ac6/src/tx_thread_system_return.S" />
-            <File Category="source" Condition="SIiTcompilerIiARMCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_M55/ac6/src/tx_timer_interrupt.S" />
+            <File Category="source" Condition="SIiTcompilerIiIAR &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/iar/src/txe_thread_secure_stack_free.c" />
+            <File Category="source" Condition="SIiTcompilerIiARMCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/ac6/src/txe_thread_secure_stack_free.c" />
+            <File Category="source" Condition="SIiTcompilerIiGCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/gnu/src/txe_thread_secure_stack_free.c" />
+            <!-- txe_thread_secure_stack_allocate.c -->
+            <File Category="source" Condition="SIiTcompilerIiIAR &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/iar/src/txe_thread_secure_stack_allocate.c" />
+            <File Category="source" Condition="SIiTcompilerIiARMCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/ac6/src/txe_thread_secure_stack_allocate.c" />
+            <File Category="source" Condition="SIiTcompilerIiGCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/gnu/src/txe_thread_secure_stack_allocate.c" />
+
+            <File Category="source" Condition="SIiTcompilerIiIAR &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/iar/src/tx_thread_context_restore.s" />
+            <File Category="source" Condition="SIiTcompilerIiIAR &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/iar/src/tx_thread_context_save.s" />
+            <File Category="source" Condition="SIiTcompilerIiIAR &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/iar/src/tx_thread_interrupt_control.s" />
+            <File Category="source" Condition="SIiTcompilerIiIAR &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/iar/src/tx_thread_interrupt_disable.s" />
+            <File Category="source" Condition="SIiTcompilerIiIAR &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/iar/src/tx_thread_interrupt_restore.s" />
+            <File Category="source" Condition="SIiTcompilerIiIAR &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/iar/src/tx_thread_schedule.s" />
+            <File Category="source" Condition="SIiTcompilerIiIAR &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/iar/src/tx_thread_stack_build.s" />
+            <File Category="source" Condition="SIiTcompilerIiIAR &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/iar/src/tx_thread_system_return.s" />
+            <File Category="source" Condition="SIiTcompilerIiIAR &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/iar/src/tx_timer_interrupt.s" />
+
+            <File Category="source" Condition="SIiTcompilerIiARMCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/ac6/src/tx_thread_context_restore.S" />
+            <File Category="source" Condition="SIiTcompilerIiARMCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/ac6/src/tx_thread_context_save.S" />
+            <File Category="source" Condition="SIiTcompilerIiARMCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/ac6/src/tx_thread_interrupt_control.S" />
+            <File Category="source" Condition="SIiTcompilerIiARMCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/ac6/src/tx_thread_interrupt_disable.S" />
+            <File Category="source" Condition="SIiTcompilerIiARMCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/ac6/src/tx_thread_interrupt_restore.S" />
+            <File Category="source" Condition="SIiTcompilerIiARMCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/ac6/src/tx_thread_schedule.S" />
+            <File Category="source" Condition="SIiTcompilerIiARMCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/ac6/src/tx_thread_stack_build.S" />
+            <File Category="source" Condition="SIiTcompilerIiARMCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/ac6/src/tx_thread_system_return.S" />
+            <File Category="source" Condition="SIiTcompilerIiARMCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/ac6/src/tx_timer_interrupt.S" />
+
+            <File Category="source" Condition="SIiTcompilerIiGCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/gnu/src/tx_thread_context_restore.S" />
+            <File Category="source" Condition="SIiTcompilerIiGCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/gnu/src/tx_thread_context_save.S" />
+            <File Category="source" Condition="SIiTcompilerIiGCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/gnu/src/tx_thread_interrupt_control.S" />
+            <File Category="source" Condition="SIiTcompilerIiGCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/gnu/src/tx_thread_interrupt_disable.S" />
+            <File Category="source" Condition="SIiTcompilerIiGCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/gnu/src/tx_thread_interrupt_restore.S" />
+            <File Category="source" Condition="SIiTcompilerIiGCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/gnu/src/tx_thread_schedule.S" />
+            <File Category="source" Condition="SIiTcompilerIiGCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/gnu/src/tx_thread_stack_build.S" />
+            <File Category="source" Condition="SIiTcompilerIiGCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/gnu/src/tx_thread_system_return.S" />
+            <File Category="source" Condition="SIiTcompilerIiGCC &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="ports/cortex_m55/gnu/src/tx_timer_interrupt.S" />
+
             <File Category="source" Condition="(SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS)" Name="common/src/tx_thread_stack_error_handler.c" />
             <File Category="source" Condition="(SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS)" Name="common/src/tx_thread_stack_error_notify.c" />
             <File Category="source" Condition="(SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS)" Name="common/src/tx_thread_system_resume.c" />
@@ -420,7 +448,7 @@
             <File Category="source" Condition="(SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS)" Name="common/src/txe_timer_delete.c" />
             <File Category="source" Condition="(SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS)" Name="common/src/txe_timer_info_get.c" />
         </SubComponent>
-        <SubComponent Csub="Performance" Cvariant="Default" Cversion="6Gg2Gg0">
+        <SubComponent Csub="Performance" Cvariant="Default" Cversion="6Gg4Gg0">
             <File Category="source" Condition="(SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS)" Name="common/src/tx_thread_performance_info_get.c" />
             <File Category="source" Condition="(SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS)" Name="common/src/tx_thread_performance_system_info_get.c" />
             <File Category="source" Condition="(SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS)" Name="common/src/tx_block_pool_performance_info_get.c" />
@@ -438,7 +466,7 @@
             <File Category="source" Condition="(SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS)" Name="common/src/tx_timer_performance_info_get.c" />
             <File Category="source" Condition="(SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS)" Name="common/src/tx_timer_performance_system_info_get.c" />
         </SubComponent>
-        <SubComponent Csub="TraceX_Support" Cvariant="Default" Cversion="6Gg2Gg0">
+        <SubComponent Csub="TraceX_Support" Cvariant="Default" Cversion="6Gg4Gg0">
             <File Category="source" Condition="(SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS)" Name="common/src/tx_trace_buffer_full_notify.c" />
             <File Category="source" Condition="(SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS)" Name="common/src/tx_trace_disable.c" />
             <File Category="source" Condition="(SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS)  | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS)" Name="common/src/tx_trace_enable.c" />
@@ -456,9 +484,9 @@
             <File Category="source" Condition="SEMFileXCcFileOoSystemJjFileXJjCore &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS) | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="../filex/common/src/fx_trace_object_register.c"/>
             <File Category="source" Condition="SEMFileXCcFileOoSystemJjFileXJjCore &amp; ((SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS) | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS))" Name="../filex/common/src/fx_trace_object_unregister.c"/>
         </SubComponent>
-        <SubComponent Csub="Low_Power_Support" Cvariant="true" Cversion="6Gg2Gg0">
+        <SubComponent Csub="Low_Power_Support" Cvariant="true" Cversion="6Gg4Gg0">
             <File Category="source" Condition="(SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS) | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS)"  Name="utility/low_power/tx_low_power.c"/>
             <File Category="header" Condition="(SEM_AppS &amp; THREADX_APPS) | (SEM_AppNS &amp; THREADX_APPNS) | (SEM_FSBL &amp; THREADX_FSBL) | (SEM_Appli &amp; THREADX_APPS)"  Name="utility/low_power/*"/>
-        </SubComponent> 
+        </SubComponent>
     </RefComponent>
 </IP>

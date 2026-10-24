@@ -96,9 +96,10 @@
 	</RefParameter>
 	<RefParameter Comment="First Bit" DefaultValue="null" Group="Basic Parameters" Max="1" Min="0" Name="FirstBit" Type="integer" Visible="false"/>
 	
-	<!-- Clock RefParameters for SPI --> 
+	<!-- Clock RefParameters for SPI -->
 	<RefParameter Comment="Prescaler (for Baud Rate)" DefaultValue="SPI_BAUDRATEPRESCALER_2" Group="Clock Parameters" Name="BaudRatePrescaler" Type="list">
-		<Condition Diagnostic="" Expression="($IpInstance_Slave &amp; (TIMode = SPI_TIMODE_ENABLE)) | $IpInstance_Master"/>
+		<Condition Diagnostic="" Expression=" (($IpInstance_Slave &amp; (TIMode = SPI_TIMODE_ENABLE)) | $IpInstance_Master)"/>
+		<PossibleValue Comment="1"   Value="SPI_BAUDRATEPRESCALER_BYPASS"/>
 		<PossibleValue Comment="2"   Value="SPI_BAUDRATEPRESCALER_2"/>
 		<PossibleValue Comment="4"   Value="SPI_BAUDRATEPRESCALER_4"/>
 		<PossibleValue Comment="8"   Value="SPI_BAUDRATEPRESCALER_8"/>
@@ -108,6 +109,7 @@
 		<PossibleValue Comment="128" Value="SPI_BAUDRATEPRESCALER_128"/>
 		<PossibleValue Comment="256" Value="SPI_BAUDRATEPRESCALER_256"/>
 	</RefParameter>
+
 	<RefParameter Comment="Prescaler (for Baud Rate)" DefaultValue="null" Group="Clock Parameters" Name="BaudRatePrescaler" Type="list" Visible="false"/>
 	
 	<RefParameter Comment="Baud Rate" DefaultValue="8000000" Group="Clock Parameters" Max="150000000" Min="0" Name="CalculateBaudRate" Type="string">
@@ -692,7 +694,7 @@
     </RefParameter>
     
 	<RefParameter Comment="Fifo Threshold" DefaultValue="SPI_FIFO_THRESHOLD_01DATA" Group="Advanced Parameters" Name="FifoThreshold" Type="list">
-		<Condition Expression="$IpNumber = 1 | $IpNumber = 2 | $IpNumber = 3" Diagnostic=""/>
+		<Condition Expression="$IpNumber = 1 | $IpNumber = 2 | $IpNumber = 3 | STM32H5" Diagnostic=""/>
 		<PossibleValue Comment="Fifo Threshold 01 Data" Value="SPI_FIFO_THRESHOLD_01DATA"/>
 		<PossibleValue Comment="Fifo Threshold 02 Data" Value="SPI_FIFO_THRESHOLD_02DATA"/>
 		<PossibleValue Comment="Fifo Threshold 03 Data" Value="SPI_FIFO_THRESHOLD_03DATA"/>
@@ -811,7 +813,7 @@
 	<!-- Autonomous Mode -->
 	<RefParameter Comment="State" DefaultValue="SPI_AUTO_MODE_DISABLE" Group="Autonomous Mode" Name="TriggerState" Type="list">
             <Description>Autonomous Mode activation.</Description>
-            <Condition Diagnostic="" Expression="(!DIE474 &amp; !DIE484 &amp; !DIE485 &amp; !DIE478 &amp; !DIE486)"/>
+            <Condition Diagnostic="" Expression="(!DIE474 &amp; !DIE484 &amp; !DIE485 &amp; !DIE478 &amp; !DIE486 &amp; !DIE47A &amp; !DIE47C)"/>
             <PossibleValue Comment="Disable" Value="SPI_AUTO_MODE_DISABLE"/>
             <PossibleValue Comment="Enable" Value="SPI_AUTO_MODE_ENABLE"/>
         </RefParameter>
@@ -820,7 +822,7 @@
 
 	<RefParameter Comment="Trigger Source" DefaultValue="SPI_GRP1_GPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
             <Description>Autonomous Mode Trigger Source.</Description>
-	    <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2) &amp; (TriggerState = SPI_AUTO_MODE_ENABLE) &amp; (!DIE474 &amp; !DIE484 &amp; !DIE485 &amp; !DIE478 &amp; !DIE486)"/>
+	    <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2) &amp; (TriggerState = SPI_AUTO_MODE_ENABLE) &amp; (!DIE474 &amp; !DIE484 &amp; !DIE485 &amp; !DIE478 &amp; !DIE486 &amp; !DIE47C)"/>
             <PossibleValue Comment="Global Purpose DMA Channel 0" Value="SPI_GRP1_GPDMA_CH0_TCF_TRG"/>
             <PossibleValue Comment="Global Purpose DMA Channel 1" Value="SPI_GRP1_GPDMA_CH1_TCF_TRG"/>
             <PossibleValue Comment="Global Purpose DMA Channel 2" Value="SPI_GRP1_GPDMA_CH2_TCF_TRG"/>
@@ -837,7 +839,7 @@
 
        <RefParameter Comment="Trigger Source" DefaultValue="SPI_GRP2_LPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
             <Description>Autonomous Mode Trigger Source.</Description>
-            <Condition Diagnostic="" Expression="($IpNumber = 3) &amp; (TriggerState = SPI_AUTO_MODE_ENABLE) &amp; (!DIE474 &amp; !DIE484 &amp; !DIE485 &amp; !DIE478 &amp; !DIE486)"/>
+            <Condition Diagnostic="" Expression="($IpNumber = 3) &amp; (TriggerState = SPI_AUTO_MODE_ENABLE) &amp; (!DIE474 &amp; !DIE484 &amp; !DIE485 &amp; !DIE478 &amp; !DIE486 &amp; !DIE47C)"/>
             <PossibleValue Comment="LowPower DMA Channel 0" Value="SPI_GRP2_LPDMA_CH0_TCF_TRG"/>
             <PossibleValue Comment="LowPower DMA Channel 1" Value="SPI_GRP2_LPDMA_CH1_TCF_TRG"/>
             <PossibleValue Comment="LowPower DMA Channel 2" Value="SPI_GRP2_LPDMA_CH2_TCF_TRG"/>
@@ -856,7 +858,7 @@
 
 	<RefParameter Comment="Trigger Transition" DefaultValue="SPI_TRIG_POLARITY_RISING" Group="Autonomous Mode" Name="TriggerPolarity" Type="list">
             <Description>Autonomous Mode Trigger Transition.</Description>
-	    <Condition Diagnostic="" Expression="(TriggerState = SPI_AUTO_MODE_ENABLE) &amp; (!DIE474 &amp; !DIE484 &amp; !DIE485 &amp; !DIE478)"/>
+	    <Condition Diagnostic="" Expression="(TriggerState = SPI_AUTO_MODE_ENABLE) &amp; (!DIE474 &amp; !DIE484 &amp; !DIE485 &amp; !DIE478 &amp; !DIE47C)"/>
             <PossibleValue Comment="Rising Edge" Value="SPI_TRIG_POLARITY_RISING"/>
             <PossibleValue Comment="Falling Edge" Value="SPI_TRIG_POLARITY_FALLING"/>
 	</RefParameter>

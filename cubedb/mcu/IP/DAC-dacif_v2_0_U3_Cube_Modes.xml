@@ -41,11 +41,10 @@
     </RefParameter>
     <RefParameter Name="DAC_HighFrequency" Comment="DAC High Frequency Mode" Type="list" DefaultValue="DAC_HIGH_FREQUENCY_INTERFACE_MODE_DISABLE" Group="Common DAC Settings">
         <PossibleValue Value="DAC_HIGH_FREQUENCY_INTERFACE_MODE_DISABLE" Comment="Disable"/>
-        <PossibleValue Value="DAC_HIGH_FREQUENCY_INTERFACE_MODE_ABOVE_80MHZ" Comment="AHB frequency above 80MHz" />
-        <PossibleValue Value="DAC_HIGH_FREQUENCY_INTERFACE_MODE_ABOVE_160MHZ" Comment="AHB frequency above 160MHz"/>
+        <PossibleValue Value="DAC_HIGH_FREQUENCY_INTERFACE_MODE_ABOVE_48MHZ" Comment="AHB frequency above 48MHz"/>
         <PossibleValue Value="DAC_HIGH_FREQUENCY_INTERFACE_MODE_AUTOMATIC" Comment="Automatic"/>
         <Description>
-            High frequency interface mode is used to add extra delay when DAC clock is faster than 80 or 160 MHz&lt;br/&gt;
+            High frequency interface mode is used to add extra delay when DAC clock is faster than 48 MHz&lt;br/&gt;
             Warning "Mode Automatic" is not available on Low Layer code generation option (only on HAL)
         </Description>
     </RefParameter>
@@ -84,8 +83,8 @@
     <RefParameter Name="DAC_Trigger" Comment="Trigger" DefaultValue="DAC_TRIGGER_NONE" Type="list" >
         <Condition Expression="S_LPBAM_CONF" Diagnostic="LPBAM context "/>
         <PossibleValue Comment="No trigger, conversion is performed when the register is loaded" Value="DAC_TRIGGER_NONE"/>
-        <PossibleValue Comment="LPTimer1 Channel 1"           Value="DAC_TRIGGER_LPTIM1_OUT" Condition="!LPTIM1_Exist" Diagnostic="available only if TIMx exists" Action="Remove"/>
-        <PossibleValue Comment="LPTimer3 Channel 1"           Value="DAC_TRIGGER_LPTIM3_OUT" Condition="!LPTIM2_Exist" Diagnostic="available only if TIMx exists" Action="Remove"/>
+        <PossibleValue Comment="LPTimer1 Channel 1"           Value="DAC_TRIGGER_LPTIM1_CH1" Condition="!LPTIM1_Exist" Diagnostic="available only if TIMx exists" Action="Remove"/>
+        <PossibleValue Comment="LPTimer3 Channel 1"           Value="DAC_TRIGGER_LPTIM3_CH1" Condition="!LPTIM3_Exist" Diagnostic="available only if TIMx exists" Action="Remove"/>
         <PossibleValue Comment="External Line 9"              Value="DAC_TRIGGER_EXT_IT9"    Condition="!($IpInstance_External_Trigger)" Diagnostic="Activate External Trigger in Mode windows to enable this choice"/>
         <Description>
             Specifies the external trigger for the selected DAC channel.&lt;br/&gt;
@@ -97,13 +96,11 @@
         <PossibleValue Comment="Timer 1 Trigger Out event "   Value="DAC_TRIGGER_T1_TRGO"    Condition="!TIM1_Exist"   Diagnostic="available only if TIMx exists" Action="Remove"/>
         <PossibleValue Comment="Timer 2 Trigger Out event "   Value="DAC_TRIGGER_T2_TRGO"    Condition="!TIM2_Exist"   Diagnostic="available only if TIMx exists" Action="Remove"/>
         <PossibleValue Comment="Timer 4 Trigger Out event "   Value="DAC_TRIGGER_T4_TRGO"    Condition="!TIM4_Exist"   Diagnostic="available only if TIMx exists" Action="Remove"/>
-        <PossibleValue Comment="Timer 5 Trigger Out event "   Value="DAC_TRIGGER_T5_TRGO"    Condition="!TIM5_Exist"   Diagnostic="available only if TIMx exists" Action="Remove"/>
         <PossibleValue Comment="Timer 6 Trigger Out event "   Value="DAC_TRIGGER_T6_TRGO"    Condition="!TIM6_Exist"   Diagnostic="available only if TIMx exists" Action="Remove"/>
         <PossibleValue Comment="Timer 7 Trigger Out event "   Value="DAC_TRIGGER_T7_TRGO"    Condition="!TIM7_Exist"   Diagnostic="available only if TIMx exists" Action="Remove"/>
-        <PossibleValue Comment="Timer 8 Trigger Out event "   Value="DAC_TRIGGER_T8_TRGO"    Condition="!TIM8_Exist"   Diagnostic="available only if TIMx exists" Action="Remove"/>
         <PossibleValue Comment="Timer 15 Trigger Out event "  Value="DAC_TRIGGER_T15_TRGO"   Condition="!TIM15_Exist"  Diagnostic="available only if TIMx exists" Action="Remove"/>
-        <PossibleValue Comment="LPTimer1 Channel 1"           Value="DAC_TRIGGER_LPTIM1_OUT" Condition="!LPTIM1_Exist" Diagnostic="available only if TIMx exists" Action="Remove"/>
-        <PossibleValue Comment="LPTimer3 Channel 1"           Value="DAC_TRIGGER_LPTIM3_OUT" Condition="!LPTIM2_Exist" Diagnostic="available only if TIMx exists" Action="Remove"/>
+        <PossibleValue Comment="LPTimer1 Channel 1"           Value="DAC_TRIGGER_LPTIM1_CH1" Condition="!LPTIM1_Exist" Diagnostic="available only if TIMx exists" Action="Remove"/>
+        <PossibleValue Comment="LPTimer3 Channel 1"           Value="DAC_TRIGGER_LPTIM3_CH1" Condition="!LPTIM3_Exist" Diagnostic="available only if TIMx exists" Action="Remove"/>
         <PossibleValue Comment="Software trigger "            Value="DAC_TRIGGER_SOFTWARE"/>
         <PossibleValue Comment="External Line 9"              Value="DAC_TRIGGER_EXT_IT9"    Condition="!($IpInstance_External_Trigger)" Diagnostic="Activate External Trigger in Mode windows to enable this choice"/>
         <Description>

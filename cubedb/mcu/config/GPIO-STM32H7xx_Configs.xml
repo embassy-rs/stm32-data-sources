@@ -17,7 +17,23 @@
             </Else>        
         </IFCondition>	
     </RefConfig>
-    
+    <RefConfig Name="Analog">
+        <IFCondition Expression="IsGPIOMode" Diagnostic="">
+            <CallLibMethod Name="HAL_GPIO_Init" ReturnHAL="false">
+                <MethodArg Name="Pin" ParameterName="GPIO_Pin"/>
+                <MethodArg Name="Mode" ParameterName="GPIO_Mode"/>
+                <MethodArg Name="Pull" ParameterName="GPIO_Pd"/>
+                <MethodArg Name="Alternate" ParameterName="GPIO_AF"/>
+                <MethodArg Name="Speed" ParameterName="GPIO_Speed"/>
+            </CallLibMethod>
+            <Else>
+                <CallLibMethod Name="HAL_SYSCFG_AnalogSwitchConfig" ReturnHAL="false">
+                    <MethodArg Name="SYSCFG_AnalogSwitch"/>
+                    <MethodArg Name="SYSCFG_SwitchState"/>
+                </CallLibMethod>
+            </Else>
+        </IFCondition>
+    </RefConfig>
     <RefConfig Name="System">
     </RefConfig>
         
@@ -284,6 +300,28 @@
             <MethodArg Name="Parametre" ParameterName="GPIO_FM6"/>
         </CallLibMethod>
        
+    </RefConfig>
+    <RefConfig Name="AlternateFunctionPPHighDefault">
+        <CallLibMethod Name="HAL_GPIO_Init" ReturnHAL="false">
+            <MethodArg Name="Pin" ParameterName="GPIO_Pin"/>
+            <MethodArg Name="Mode" ParameterName="GPIO_Mode"/>
+            <MethodArg Name="Pull" ParameterName="GPIO_PuPd"/>
+            <MethodArg Name="Alternate" ParameterName="GPIO_AF"/>
+            <MethodArg Name="Speed" ParameterName="GPIO_Speed_Default_HIGH"/>
+        </CallLibMethod>
+        <CallLibMethod Name="HAL_I2CEx_EnableFastModePlus" ReturnHAL="false">
+            <MethodArg Name="Parametre" ParameterName="GPIO_FM9"/>
+        </CallLibMethod>
+        <CallLibMethod Name="HAL_I2CEx_EnableFastModePlus" ReturnHAL="false">
+            <MethodArg Name="Parametre" ParameterName="GPIO_FM8"/>
+        </CallLibMethod>
+        <CallLibMethod Name="HAL_I2CEx_EnableFastModePlus" ReturnHAL="false">
+            <MethodArg Name="Parametre" ParameterName="GPIO_FM7"/>
+        </CallLibMethod>
+        <CallLibMethod Name="HAL_I2CEx_EnableFastModePlus" ReturnHAL="false">
+            <MethodArg Name="Parametre" ParameterName="GPIO_FM6"/>
+        </CallLibMethod>
+
     </RefConfig>
     <RefConfig Name="AlternateFunction">
         <CallLibMethod Name="HAL_GPIO_Init" ReturnHAL="false">

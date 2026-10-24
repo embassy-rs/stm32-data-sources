@@ -54,7 +54,7 @@
         <Argument Context="local" GenericType="baseaddress" Name="argument" TypeName="void *"/>
     </LibMethod>
 
-    <RefComponent Cclass="Middleware" Cgroup="FREERTOS" Cversion="10.3.1">
+    <RefComponent Cclass="Middleware" Cgroup="FREERTOS" Cversion="10.6.2">
         <!-- <File Category="header" Name="Source/include/*.h"/>  -->
         <File Category="header" Name="Source/include/croutine.h"/>
         <File Category="header" Name="Source/include/deprecated_definitions.h"/>
@@ -81,10 +81,12 @@
         <File Category="source" Name="Source/event_groups.c"/>
         <File Category="source" Name="Source/list.c"/>
         <File Category="source" Name="Source/queue.c"/>
-        <File Category="source" Name="Source/stream_buffer.c"/>
+        <File Category="source" Name="Source/stream_buffer.c" Condition="!configUSE_TASK_NOTIFICATIONS_DISABLED"/>
         <File Category="source" Name="Source/tasks.c"/>
         <File Category="source" Name="Source/timers.c"/>
-
+        <!-- New with FreeRTOS 10.6.2  -->
+        <File Category="header" Name="Source/include/newlib-freertos.h"/>
+        <File Category="header" Name="Source/include/picolibc-freertos.h"/>
         <!-- Section for copying the right files according to the chosen API -->
         <File Category="source" Name="Source/CMSIS_RTOS/cmsis_os.c" Condition="S_CMSIS_RTOS_V1"/>
         <File Category="header" Name="Source/CMSIS_RTOS/cmsis_os.h" Condition="S_CMSIS_RTOS_V1"/>
@@ -145,7 +147,7 @@
         <File Category="source" Name="heap_user.c" Version="10.3.1" Condition="S_HEAP_USER"/>
     </RefConfigFile>
 
-    <RefConfigFile Description="Header file for #include" Name="INC" Template="freertos_inc.ftl">
+    <RefConfigFile Description="Header file for #include" Name="INC" Template="freertos_inc_10_6_2_WB.ftl">
         <File Category="source" Condition="all" Name="rtos_inc.tmp" Version="10.3.1"/>
     </RefConfigFile>
 
@@ -199,7 +201,7 @@
 
     <!-- use specific template file to generate header file containing #define -->
     <RefConfigFile Description="Header file for #define" Name="CONFIG" Template="freertos_conf_v10_3_1.ftl">
-        <File Category="header" Condition="all" Name="FreeRTOSConfig.h" Version="10.3.1"/>
+        <File Category="header" Condition="all" Name="FreeRTOSConfig.h" Version="10.6.2"/>
         <!-- Parameters for FReeRTOS -->
         <Argument Comment="Set to 1 to use the preemptive RTOS scheduler, or 0 to use the cooperative RTOS scheduler. " GenericType="simple" Name="configUSE_PREEMPTION"/>
         <Argument Comment="Frequency in Hz of the internal CPU clock" GenericType="simple" Name="configCPU_CLOCK_HZ"/>
@@ -375,8 +377,8 @@
     </RefConfigFile>
 
     <!-- use specific template file to generate header file containing #define -->
-    <RefConfigFile Description="Header file for #define" Name="CONFIG_V2" Template="freertos_conf_v10_3_1_cmsis_v2.ftl">
-        <File Category="header" Condition="all" Name="FreeRTOSConfig.h" Version="10.3.1"/>
+    <RefConfigFile Description="Header file for #define" Name="CONFIG_V2" Template="freertos_conf_v10_6_2_WB_cmsis_v2.ftl">
+        <File Category="header" Condition="all" Name="FreeRTOSConfig.h" Version="10.6.2"/>
         <!-- Parameters for FReeRTOS -->
         <Argument Comment="Set to 1 to use the preemptive RTOS scheduler, or 0 to use the cooperative RTOS scheduler. " GenericType="simple" Name="configUSE_PREEMPTION"/>
         <Argument Comment="Frequency in Hz of the internal CPU clock" GenericType="simple" Name="configCPU_CLOCK_HZ"/>
@@ -384,6 +386,9 @@
         <Argument Comment="The number of priorities available to the application tasks" GenericType="simple" Name="configMAX_PRIORITIES"/>
         <Argument Comment="The size of the stack used by the idle task" GenericType="simple" Name="configMINIMAL_STACK_SIZE"/>
         <Argument Comment="The total amount of RAM available to the RTOS kernel" GenericType="simple" Name="configTOTAL_HEAP_SIZE"/>
+        <Argument Comment="When set in FreeRTOSConfig.h, the memory freed using vPortFree() is automatically cleared to zero" GenericType="simple" Name="configHEAP_CLEAR_MEMORY_ON_FREE"/>
+        <Argument Comment="Set to 1 to use APIs for message buffer, or 0 to invoke default callbacks and macros" GenericType="simple" Name="configUSE_SB_COMPLETED_CALLBACK"/>
+        <Argument Comment="Set to 1 to make ListItem_t and MiniLitItem_t remain separate types, or 0 to make MiniLitItem_t and ListItem_t both typedefs of the same struct xLIST_ITEM." GenericType="simple" Name="configUSE_MINI_LIST_ITEM"/>
         <Argument Comment="The maximum permissible length of the descriptive name given to a task when the task is created" GenericType="simple" Name="configMAX_TASK_NAME_LEN"/>
         <Argument Comment="" GenericType="simple" Name="configUSE_16_BIT_TICKS"/>
         <Argument Comment="This parameter controls the behaviour of tasks at the idle priority" GenericType="simple" Name="configIDLE_SHOULD_YIELD"/>
@@ -487,7 +492,7 @@
     </RefConfigFile>
 
     <!-- Putting it at the end of the file (as the last one to deal with) allows to include all tmp files previously generated in freertos.c -->
-    <RefConfigFile Description="Optional hook functions" Name="HOOKS_V2" Template="freertos_app_c_v10_3_1_cmsis_v2.ftl"> <!-- TBC -->
+    <RefConfigFile Description="Optional hook functions" Name="HOOKS_V2" Template="freertos_app_c_cmsis_v2.ftl"> <!-- TBC -->
         <File Category="source" Condition="all" Name="app_freertos.c" Version="10.3.1"/>
         <Argument Comment="When set to 1, a collection of run time statistics is enabled" GenericType="simple" Name="configGENERATE_RUN_TIME_STATS"/>
         <Argument Comment="Set to 1 if you wish to use an idle hook, or 0 to omit it" GenericType="simple" Name="configUSE_IDLE_HOOK"/>
@@ -557,5 +562,28 @@
         <Argument Comment="User threads" GenericType="rtos_list" Name="Threads"/>
         <Argument Comment="User timers" GenericType="rtos_list" Name="Timers"/>
     </RefConfigFile>
-
+    <RefComponent Cclass="HAL" Cgroup="FREERTOS" Cversion="0.3.0">
+        <SubComponent Csub="IAR">
+            <File Category="header" Name="Drivers/CMSIS/RTOS2/Include/cmsis_os2.h"/>
+            <File Category="header" Name="Drivers/CMSIS/RTOS2/Include/os_tick.h"  />
+        </SubComponent>
+    </RefComponent>
+    <RefComponent Cclass="HAL" Cgroup="FREERTOS" Cversion="0.3.0">
+        <SubComponent Csub="Keil">
+            <File Category="header" Name="Drivers/CMSIS/RTOS2/Include/cmsis_os2.h"  />
+            <File Category="header" Name="Drivers/CMSIS/RTOS2/Include/os_tick.h"  />
+        </SubComponent>
+    </RefComponent>
+    <RefComponent Cclass="HAL" Cgroup="FREERTOS" Cversion="0.3.0">
+        <SubComponent Csub="RVDS">
+            <File Category="header" Name="Drivers/CMSIS/RTOS2/Include/cmsis_os2.h"  />
+            <File Category="header" Name="Drivers/CMSIS/RTOS2/Include/os_tick.h"  />
+        </SubComponent>
+    </RefComponent>
+    <RefComponent Cclass="HAL" Cgroup="FREERTOS" Cversion="0.3.0">
+        <SubComponent Csub="GCC">
+            <File Category="header" Name="Drivers/CMSIS/RTOS2/Include/cmsis_os2.h"  />
+            <File Category="header" Name="Drivers/CMSIS/RTOS2/Include/os_tick.h"  />
+        </SubComponent>
+    </RefComponent>
 </IP>

@@ -24,6 +24,17 @@
 			    <HardCode Text="#twhile (LL_PWR_IsActiveFlag_ACTVOSRDY() == 0U)#n#t{#n#t}#n"/>
 		    </CallLibMethod>			
         </IFCondition>
+		 <IFCondition Expression ="1=1">
+            <CallLibMethod Name="" Type="HardCode">
+                <HardCode Text="#n#t/** Configure the main internal regulator output voltage #n#t*/"/>
+            </CallLibMethod>
+            <CallLibMethod Name="LL_PWR_SetRegulVoltageScaling">
+                <MethodArg Name="VoltageScaling" ParameterName="PWR_Regulator_Voltage_Scale"/>           
+            </CallLibMethod>
+			<CallLibMethod Name="" Type="HardCode">
+                <HardCode Text="#twhile(LL_PWR_IsActiveFlag_VOSRDY() == 0)#n#t{#n#t}#n"/>
+            </CallLibMethod>
+        </IFCondition>
 
 		<IFCondition Expression="HSEUsed=1 &amp; (HSEByPass|HSEDIGByPass)">
 			<CallLibMethod Name="LL_RCC_HSE_EnableBypass" />
@@ -986,6 +997,10 @@
 	
     <LibMethod Comment="" Name="LL_PWR_ConfigSupply">
         <Argument AddressOf="false" GenericType="simple" Name="SupplySource"/>
+    </LibMethod>
+
+    <LibMethod Comment="" Name="LL_PWR_SetRegulVoltageScaling">
+        <Argument AddressOf="false" GenericType="simple" Name="VoltageScaling"/>
     </LibMethod>
 
 	<LibMethod Comment="" Name="LL_RCC_SetFDCANClockSource">

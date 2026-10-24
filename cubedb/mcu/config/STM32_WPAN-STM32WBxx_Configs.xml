@@ -236,6 +236,7 @@ ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../..
             <File Category="header" Name="ble/core/ble_std.h"/>
         <!-- Header files for ble/core/auto -->
             <File Category="header" Name="ble/core/auto/ble_vs_codes.h"/>
+            <File Category="header" Name="ble/core/auto/ble_gen_aci.h"/>
             <File Category="header" Name="ble/core/auto/ble_gap_aci.h"/>
             <File Category="header" Name="ble/core/auto/ble_gatt_aci.h"/>
             <File Category="header" Name="ble/core/auto/ble_hal_aci.h"/>
@@ -476,6 +477,7 @@ ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../..
     <RefComponent Cclass="Middleware" Cgroup="CUSTOM_TEMPLATE" Cversion="1.0.0">
         <SubComponent Csub="TEMPLATE" Cvariant="Enabled">
             <File Category="source" Name="ble/core/auto/ble_events.c"/>
+            <File Category="source" Name="ble/core/auto/ble_gen_aci.c"/>
             <File Category="source" Name="ble/core/auto/ble_gap_aci.c"/>
             <File Category="source" Name="ble/core/auto/ble_gatt_aci.c"/>
             <File Category="source" Name="ble/core/auto/ble_hal_aci.c"/>
@@ -498,6 +500,8 @@ ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../..
             <!-- list here all the remaining files to be copy/paste in case of minimal distribution -->
             <!-- Header files for -->
             <File Category="header" Name="thread/openthread/core/openthread_api/*.h"/>
+            <File Category="header" Name="thread/openthread/core/openthread_config/*.h"/>
+            <File Category="header" Name="thread/openthread/core/mbedtls_config/*.h"/>
             <File Category="header" Name="thread/openthread/stack/include/*"/>
             <File Category="header" Name="thread/openthread/stack/include/openthread/*.h"/>
             <File Category="header" Name="thread/openthread/stack/include/openthread/platform/*.h"/>
@@ -659,6 +663,9 @@ ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../..
         <Argument Name="CFG_BLE_MAX_COC_INITIATOR_NBR" GenericType="Simple"/>
         <Argument Name="CFG_BLE_MIN_TX_POWER" GenericType="Simple"/>
         <Argument Name="CFG_BLE_MAX_TX_POWER" GenericType="Simple"/>
+        <Argument Name="CFG_BLE_MAX_ADD_EATT_BEARERS" GenericType="Simple"/>
+        <Argument Name="CFG_BLE_EXTRA_DATA_BUFFER_SIZE" GenericType="Simple"/>
+        <Argument Name="CFG_BLE_EXTRA_DATA_STATUS" GenericType="Simple"/>
         <Argument Name="CFG_BLE_RX_MODEL_CONFIG" GenericType="Simple"/>
         <Argument Name="CFG_BLE_MAX_ADV_SET_NBR" GenericType="Simple"/>
         <Argument Name="CFG_BLE_MAX_ADV_DATA_LEN" GenericType="Simple"/>
@@ -1358,7 +1365,7 @@ ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../..
         <Argument Name="ZCL_PUMP_CONFIGURATION_CONTROL_ENDPOINT1" GenericType="Simple" 
                   Comment="zcl/general/zcl.pump.h:pump:pump:::ZbZclPump$ROLEAlloc:(zigbee_app_info.zb, SW$ENDPOINT_ENDPOINT):(zigbee_app_info.zb, SW$ENDPOINT_ENDPOINT)"/>
         <Argument Name="ZCL_WATER_CONTENT_MEASUREMENT_ENDPOINT1" GenericType="Simple" 
-                  Comment="zcl/general/zcl.wcm.h:water_content::::ZbZclWaterContentMeas$ROLEAlloc:(zigbee_app_info.zb, SW1_ENDPOINT, ZCL_CLUSTER_MEAS_HUMIDITY):(zigbee_app_info.zb, SW1_ENDPOINT, ZCL_CLUSTER_MEAS_HUMIDITY, HUMIDITY_MIN_$ENDPOINT, HUMIDITY_MAX_$ENDPOINT)"/>
+                  Comment="zcl/general/zcl.wcm.h:water_content::::ZbZclWaterContentMeas$ROLEAlloc:(zigbee_app_info.zb, SW$ENDPOINT_ENDPOINT, ZCL_CLUSTER_MEAS_HUMIDITY):(zigbee_app_info.zb, SW$ENDPOINT_ENDPOINT, ZCL_CLUSTER_MEAS_HUMIDITY, HUMIDITY_MIN_$ENDPOINT, HUMIDITY_MAX_$ENDPOINT)"/>
          <Argument Name="ZPARAM_WATER_CONTENT_MEASUREMENT_MIN_ENDPOINT1" GenericType="Simple" Comment="water_content:HUMIDITY_MIN_"/>
          <Argument Name="ZPARAM_WATER_CONTENT_MEASUREMENT_MAX_ENDPOINT1" GenericType="Simple" Comment="water_content:HUMIDITY_MAX_"/>
 
@@ -1652,6 +1659,7 @@ ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../..
     <RefConfigFile Description="" Name="BLE_TM_C" Template="stm32wb/stm32_wpan_ble_tm_c.ftl">
         <File Category="source" Condition="Semaphore_BLE_TRANSPARENT_MODE &amp; S_BLE_HOST" Name="App/tm.c" Version="1.0"/>
         <Argument Name="CFG_UART_GUI" GenericType="Simple"/>
+        <Argument Name="CFG_BLE_EXTRA_DATA_STATUS" GenericType="Simple"/>
     </RefConfigFile>
 
     <RefConfigFile Description="" Name="BLE_TM_H" Template="stm32wb/stm32_wpan_ble_tm_h.ftl">

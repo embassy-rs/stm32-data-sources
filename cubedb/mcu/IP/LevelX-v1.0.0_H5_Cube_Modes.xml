@@ -239,33 +239,86 @@ The minimum size is 8 and all values must be a power of 2.</Description>
 	<RefParameter Added="true" Comment="NOR Simulator Base Address Ranges" DefaultValue="SRAM3_BASE_NS" Group="NOR Simulator Driver" Name="LX_NOR_SIM_BASE_ADDRESS_RANGES" TabName="LevelX" Type="list">
         <Description>define the address range from which the SRAM file system will be created</Description>
 		<PossibleValue Comment="SRAM1_BASE_NS (0x20000000UL)" Value="SRAM1_BASE_NS" />
-		<PossibleValue Comment="SRAM2_BASE_NS (0x20040000UL)" Value="SRAM2_BASE_NS" />
-		<PossibleValue Comment="SRAM3_BASE_NS (0x20050000UL)" Value="SRAM3_BASE_NS" />
-		<Condition Diagnostic="H5 disk size" Expression="DIE484"/>
-    </RefParameter>	
+		<PossibleValue Comment="SRAM2_BASE_NS (0x20004000UL)" Value="SRAM2_BASE_NS" />
+		<Condition Diagnostic="H5 disk size" Expression="DIE474" />
+    </RefParameter>
+	<RefParameter Added="true" Comment="NOR Simulator Base Address Ranges" DefaultValue="SRAM3_BASE_NS" Group="NOR Simulator Driver" Name="LX_NOR_SIM_BASE_ADDRESS_RANGES" TabName="LevelX" Type="list">
+        <Description>define the address range from which the SRAM file system will be created</Description>
+		<PossibleValue Comment="SRAM1_BASE_NS (0x20000000UL)" Value="SRAM1_BASE_NS" />
+		<PossibleValue Comment="SRAM2_BASE_NS (0x20020000UL)" Value="SRAM2_BASE_NS" />
+		<PossibleValue Comment="SRAM3_BASE_NS (0x20034000UL)" Value="SRAM3_BASE_NS" />
+		<Condition Diagnostic="H5 disk size" Expression="DIE478 | DIE47C" />
+    </RefParameter>
 	<RefParameter Added="true" Comment="NOR Simulator Base Address Ranges" DefaultValue="SRAM3_BASE_NS" Group="NOR Simulator Driver" Name="LX_NOR_SIM_BASE_ADDRESS_RANGES" TabName="LevelX" Type="list">
         <Description>define the address range from which the SRAM file system will be created</Description>
 		<PossibleValue Comment="SRAM1_BASE_NS (0x20000000UL)" Value="SRAM1_BASE_NS" />
 		<PossibleValue Comment="SRAM2_BASE_NS (0x20040000UL)" Value="SRAM2_BASE_NS" />
-		<Condition Diagnostic="H5 disk size" Expression="DIE474"/>
-    </RefParameter>	
-	<RefParameter Added="true" Comment="NOR Simulator Base Address" DefaultValue="0x20000000" Group="NOR Simulator Driver" Max="0x20030000" Min="0x20000000" Name="LX_NOR_SIM_BASE_ADDRESS" TabName="LevelX" Type="Hex" Unit="">
+		<PossibleValue Comment="SRAM3_BASE_NS (0x20050000UL)" Value="SRAM3_BASE_NS" />
+		<Condition Diagnostic="H5 disk size" Expression="DIE484" />
+	</RefParameter>
+	<RefParameter Added="true" Comment="NOR Simulator Base Address Ranges" DefaultValue="SRAM3_BASE_NS" Group="NOR Simulator Driver" Name="LX_NOR_SIM_BASE_ADDRESS_RANGES" TabName="LevelX" Type="list">
+        <Description>define the address range from which the SRAM file system will be created</Description>
+		<PossibleValue Comment="SRAM1_BASE_NS (0x20000000UL)" Value="SRAM1_BASE_NS" />
+		<PossibleValue Comment="SRAM2_BASE_NS (0x20040000UL)" Value="SRAM2_BASE_NS" />
+		<PossibleValue Comment="SRAM3_BASE_NS (0x20060000UL)" Value="SRAM3_BASE_NS" />
+		<PossibleValue Comment="SRAM4_BASE_NS (0x200C0000UL)" Value="SRAM4_BASE_NS" />
+		<PossibleValue Comment="SRAM5_BASE_NS (0x20120000UL)" Value="SRAM5_BASE_NS" />
+		<Condition Diagnostic="H5 disk size" Expression="DIE47A" />
+	</RefParameter>
+	<RefParameter Added="true" Comment="NOR Simulator Base Address" DefaultValue="0x20000000" Group="NOR Simulator Driver" Max="0x20040000" Min="0x20000000" Name="LX_NOR_SIM_BASE_ADDRESS" TabName="LevelX" Type="Hex" Unit="">
         <Description>the base address from which the NOR flash starts</Description>
-		<Condition Diagnostic="" Expression="LX_NOR_SIM_BASE_ADDRESS_RANGES=SRAM1_BASE_NS"/>
+		<Condition Diagnostic="" Expression="LX_NOR_SIM_BASE_ADDRESS_RANGES=SRAM1_BASE_NS &amp; DIE474"/>
     </RefParameter>
-	<RefParameter Added="true" Comment="NOR Simulator Base Address" DefaultValue="0x20030000" Group="NOR Simulator Driver" Max="0x20040000" Min="0x20030000" Name="LX_NOR_SIM_BASE_ADDRESS" TabName="LevelX" Type="Hex" Unit="">
+	<RefParameter Added="true" Comment="NOR Simulator Base Address" DefaultValue="0x20040000" Group="NOR Simulator Driver" Max="0x20060000" Min="0x20040000" Name="LX_NOR_SIM_BASE_ADDRESS" TabName="LevelX" Type="Hex" Unit="">
         <Description>the base address from which the NOR flash starts</Description>
-		<Condition Diagnostic="" Expression="LX_NOR_SIM_BASE_ADDRESS_RANGES=SRAM2_BASE_NS"/>
+		<Condition Diagnostic="" Expression="LX_NOR_SIM_BASE_ADDRESS_RANGES=SRAM2_BASE_NS &amp; DIE474"/>
     </RefParameter>
-	<RefParameter Added="true" Comment="NOR Simulator Base Address" DefaultValue="0x20040000" Group="NOR Simulator Driver" Max="0x200C0000" Min="0x20040000" Name="LX_NOR_SIM_BASE_ADDRESS" TabName="LevelX" Type="Hex" Unit="">
+
+	<RefParameter Added="true" Comment="NOR Simulator Base Address" DefaultValue="0x20000000" Group="NOR Simulator Driver" Max="0x20020000" Min="0x20000000" Name="LX_NOR_SIM_BASE_ADDRESS" TabName="LevelX" Type="Hex" Unit="">
         <Description>the base address from which the NOR flash starts</Description>
-		<Condition Diagnostic="" Expression="LX_NOR_SIM_BASE_ADDRESS_RANGES=SRAM3_BASE_NS"/>
+		<Condition Diagnostic="" Expression="LX_NOR_SIM_BASE_ADDRESS_RANGES=SRAM1_BASE_NS &amp; (DIE478 | DIE47C)"/>
     </RefParameter>
-	<RefParameter Added="true" Comment="NOR Simulator Base Address" DefaultValue="0x28000000" Group="NOR Simulator Driver" Max="0x28004000" Min="0x28000000" Name="LX_NOR_SIM_BASE_ADDRESS" TabName="LevelX" Type="Hex" Unit="">
+	<RefParameter Added="true" Comment="NOR Simulator Base Address" DefaultValue="0x20020000" Group="NOR Simulator Driver" Max="0x20034000" Min="0x20020000" Name="LX_NOR_SIM_BASE_ADDRESS" TabName="LevelX" Type="Hex" Unit="">
         <Description>the base address from which the NOR flash starts</Description>
-		<Condition Diagnostic="" Expression="LX_NOR_SIM_BASE_ADDRESS_RANGES=SRAM4_BASE_NS"/>
+		<Condition Diagnostic="" Expression="LX_NOR_SIM_BASE_ADDRESS_RANGES=SRAM2_BASE_NS &amp; (DIE478 | DIE47C)"/>
+    </RefParameter>
+	<RefParameter Added="true" Comment="NOR Simulator Base Address" DefaultValue="0x20034000" Group="NOR Simulator Driver" Max="0x20044000" Min="0x20034000" Name="LX_NOR_SIM_BASE_ADDRESS" TabName="LevelX" Type="Hex" Unit="">
+        <Description>the base address from which the NOR flash starts</Description>
+		<Condition Diagnostic="" Expression="LX_NOR_SIM_BASE_ADDRESS_RANGES=SRAM3_BASE_NS &amp; (DIE478 | DIE47C)"/>
     </RefParameter>
 	
+	<RefParameter Added="true" Comment="NOR Simulator Base Address" DefaultValue="0x20000000" Group="NOR Simulator Driver" Max="0x20040000" Min="0x20000000" Name="LX_NOR_SIM_BASE_ADDRESS" TabName="LevelX" Type="Hex" Unit="">
+        <Description>the base address from which the NOR flash starts</Description>
+		<Condition Diagnostic="" Expression="LX_NOR_SIM_BASE_ADDRESS_RANGES=SRAM1_BASE_NS &amp; DIE484"/>
+    </RefParameter>
+	<RefParameter Added="true" Comment="NOR Simulator Base Address" DefaultValue="0x20040000" Group="NOR Simulator Driver" Max="0x20050000" Min="0x20040000" Name="LX_NOR_SIM_BASE_ADDRESS" TabName="LevelX" Type="Hex" Unit="">
+        <Description>the base address from which the NOR flash starts</Description>
+		<Condition Diagnostic="" Expression="LX_NOR_SIM_BASE_ADDRESS_RANGES=SRAM2_BASE_NS &amp; DIE484"/>
+    </RefParameter>
+	<RefParameter Added="true" Comment="NOR Simulator Base Address" DefaultValue="0x20050000" Group="NOR Simulator Driver" Max="0x200A0000" Min="0x20050000" Name="LX_NOR_SIM_BASE_ADDRESS" TabName="LevelX" Type="Hex" Unit="">
+        <Description>the base address from which the NOR flash starts</Description>
+		<Condition Diagnostic="" Expression="LX_NOR_SIM_BASE_ADDRESS_RANGES=SRAM3_BASE_NS &amp; DIE484"/>
+    </RefParameter>
+	<RefParameter Added="true" Comment="NOR Simulator Base Address" DefaultValue="0x20000000" Group="NOR Simulator Driver" Max="0x20040000" Min="0x20000000" Name="LX_NOR_SIM_BASE_ADDRESS" TabName="LevelX" Type="Hex" Unit="">
+        <Description>the base address from which the NOR flash starts</Description>
+		<Condition Diagnostic="" Expression="LX_NOR_SIM_BASE_ADDRESS_RANGES=SRAM1_BASE_NS &amp; DIE47A"/>
+    </RefParameter>
+	<RefParameter Added="true" Comment="NOR Simulator Base Address" DefaultValue="0x20040000" Group="NOR Simulator Driver" Max="0x20060000" Min="0x20040000" Name="LX_NOR_SIM_BASE_ADDRESS" TabName="LevelX" Type="Hex" Unit="">
+        <Description>the base address from which the NOR flash starts</Description>
+		<Condition Diagnostic="" Expression="LX_NOR_SIM_BASE_ADDRESS_RANGES=SRAM2_BASE_NS &amp; DIE47A"/>
+    </RefParameter>
+	<RefParameter Added="true" Comment="NOR Simulator Base Address" DefaultValue="0x20060000" Group="NOR Simulator Driver" Max="0x200C0000" Min="0x20060000" Name="LX_NOR_SIM_BASE_ADDRESS" TabName="LevelX" Type="Hex" Unit="">
+        <Description>the base address from which the NOR flash starts</Description>
+		<Condition Diagnostic="" Expression="LX_NOR_SIM_BASE_ADDRESS_RANGES=SRAM3_BASE_NS &amp; DIE47A"/>
+    </RefParameter>
+	<RefParameter Added="true" Comment="NOR Simulator Base Address" DefaultValue="0x200C0000" Group="NOR Simulator Driver" Max="0x20120000" Min="0x200C0000" Name="LX_NOR_SIM_BASE_ADDRESS" TabName="LevelX" Type="Hex" Unit="">
+        <Description>the base address from which the NOR flash starts</Description>
+		<Condition Diagnostic="" Expression="LX_NOR_SIM_BASE_ADDRESS_RANGES=SRAM4_BASE_NS &amp; DIE47A"/>
+    </RefParameter>
+	<RefParameter Added="true" Comment="NOR Simulator Base Address" DefaultValue="0x20120000" Group="NOR Simulator Driver" Max="0x20180000" Min="0x20120000" Name="LX_NOR_SIM_BASE_ADDRESS" TabName="LevelX" Type="Hex" Unit="">
+        <Description>the base address from which the NOR flash starts</Description>
+		<Condition Diagnostic="" Expression="LX_NOR_SIM_BASE_ADDRESS_RANGES=SRAM5_BASE_NS &amp; DIE47A"/>
+    </RefParameter>
 	
 	<RefParameter Added="true" Comment="NOR Flash Size" DefaultValue="9192" Group="NOR Simulator Driver" Max="196608" Min="9192" Name="LX_NOR_SIM_FLASH_SIZE" TabName="LevelX" Type="integer" Unit="">
         <Description>the size in bytes of the NOR flash for the simulator. Notice that this size is tightly dependant on the Base Address used
@@ -285,7 +338,12 @@ The minimum size is 8 and all values must be a power of 2.</Description>
 	<RefParameter Added="true" Comment="NOR Flash Size" DefaultValue="9192" Group="NOR Simulator Driver" Max="16384" Min="9192" Name="LX_NOR_SIM_FLASH_SIZE" TabName="LevelX" Type="integer" Unit="">
         <Description>the size in bytes of the NOR flash for the simulator. Notice that this size is tightly dependant on the Base Address used
 			the maxium size should not exceed the actual memory amount starting from the Base address.</Description>
-		<Condition Diagnostic="SRAM1_BASE_NS size" Expression="LX_NOR_SIM_BASE_ADDRESS_RANGES=SRAM4_BASE_NS"/>
+		<Condition Diagnostic="SRAM4_BASE_NS size" Expression="LX_NOR_SIM_BASE_ADDRESS_RANGES=SRAM4_BASE_NS"/>
+    </RefParameter>
+	<RefParameter Added="true" Comment="NOR Flash Size" DefaultValue="9192" Group="NOR Simulator Driver" Max="16384" Min="9192" Name="LX_NOR_SIM_FLASH_SIZE" TabName="LevelX" Type="integer" Unit="">
+        <Description>the size in bytes of the NOR flash for the simulator. Notice that this size is tightly dependant on the Base Address used
+			the maxium size should not exceed the actual memory amount starting from the Base address.</Description>
+		<Condition Diagnostic="SRAM5_BASE_NS size" Expression="LX_NOR_SIM_BASE_ADDRESS_RANGES=SRAM5_BASE_NS"/>
     </RefParameter>
 	
 	<RefParameter Added="true" Comment="Sectors per block" DefaultValue="16" Group="NOR Simulator Driver" Max="32" Min="2" Name="LX_NOR_SIM_SECTORS_PER_BLOCK" TabName="LevelX" Type="integer" Unit="">
@@ -299,10 +357,14 @@ The minimum size is 8 and all values must be a power of 2.</Description>
 	
 	<RefParameter Added="true" Comment="OctoSPI Instance" DefaultValue="0" Group="NOR OctoSPI driver" Name="LX_OSPI_INSTANCE" TabName="LevelX" Type="list" >
         <Description>the Octo SPI instance.</Description>
-		<PossibleValue Comment="OCTOSPI1" Condition="!(Sem_OCTOSPI1_Octo | Sem_OCTOSPI1_OctoDs |Sem_OCTOSPI1_Single | Sem_OCTOSPI1_Dual | Sem_OCTOSPI1_Quad | 
+		<PossibleValue Comment="OCTOSPI1" Condition="!(Sem_OCTOSPI1_Octo | Sem_OCTOSPI1_Single | Sem_OCTOSPI1_Dual | Sem_OCTOSPI1_Quad | 
 							Sem_OCTOSPI1_DualSingle | Sem_OCTOSPI1_DualDual | Sem_OCTOSPI1_DualQuad | Sem_OCTOSPI1_HyperBus | s_o1_singlemx | s_o1_dualmx |
-							s_o1_quadmx | s_o1_dualsinglemx | s_o1_dualdualmx | s_o1_dualquadmx | s_o1_octomx | s_o1_hyperbusmx)" 
+							s_o1_quadmx | s_o1_dualsinglemx | s_o1_dualdualmx | s_o1_dualquadmx | s_o1_octomx | s_o1_hyperbusmx | Sem_OCTOSPI1_OctoDs)" 
 							Diagnostic="Available only when OCTOSPI1 is activated. If trust zone is enabled OCTOSPI1 must be activated in non secure context." Value="0"/>
+        <PossibleValue Comment="OCTOSPI2" Condition="!(Sem_OCTOSPI2_Octo | Sem_OCTOSPI2_Single | Sem_OCTOSPI2_Dual | Sem_OCTOSPI2_Quad | 
+							Sem_OCTOSPI2_DualSingle | Sem_OCTOSPI2_DualDual | Sem_OCTOSPI2_DualQuad | Sem_OCTOSPI2_HyperBus | s_o2_singlemx | s_o2_dualmx |
+							s_o2_quadmx | s_o2_dualsinglemx | s_o2_dualdualmx | s_o2_dualquadmx | s_o2_octomx | s_o2_hyperbusmx | Sem_OCTOSPI2_OctoDs)" 
+							Diagnostic="Available only when OCTOSPI2 is activated. If trust zone is enabled OCTOSPI2 must be activated in non secure context." Value="1"/>
     </RefParameter>
 	<RefParameter Added="true" Comment="Driver calls OctoSPI Init" DefaultValue="0" Group="NOR OctoSPI driver" Name="LX_DRIVER_CALLS_OSPI_INIT" TabName="LevelX" Type="list">
         <Description>the LevelX OctoSPI interface intialializes the OSPI hw memory. If true, the parameter &lt;b&gt; Driver Erases the OctoSPI after init &lt;/b&gt; will be available.</Description>

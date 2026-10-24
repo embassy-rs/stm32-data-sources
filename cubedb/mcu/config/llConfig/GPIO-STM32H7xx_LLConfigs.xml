@@ -18,6 +18,22 @@
         </Else>
         </IFCondition>
     </RefConfig>
+    <RefConfig Name="Analog">
+        <IFCondition Expression="IsGPIOMode" Diagnostic="">
+            <CallLibMethod Name="LL_GPIO_Init" >
+                <MethodArg Name="Pin" ParameterName="GPIO_Pin"/>
+                <MethodArg Name="Mode" ParameterName="GPIO_Mode"/>
+                <MethodArg Name="Speed" ParameterName="GPIO_Speed"/>
+                <MethodArg Name="Pull" ParameterName="GPIO_Pd"/>
+                <MethodArg Name="Alternate" ParameterName="GPIO_AF"/>
+            </CallLibMethod>
+            <Else>
+                <CallLibMethod Name="LL_SYSCFG_OpenAnalogSwitch" ReturnHAL="false">
+                    <MethodArg Name="AnalogSwitch" ParameterName="SYSCFG_AnalogSwitch"/>
+                </CallLibMethod>
+            </Else>
+        </IFCondition>
+    </RefConfig>
     <RefConfig Name="GPIODefaultOutputPP">
         <CallLibMethod Name="LL_GPIO_Init" >
             <MethodArg Name="Pin" ParameterName="GPIO_Pin"/>

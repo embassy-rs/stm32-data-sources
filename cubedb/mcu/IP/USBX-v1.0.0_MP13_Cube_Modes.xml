@@ -329,6 +329,7 @@
 		<Parameter Added="true" Name="USBD_HID_MOUSE_EPIN_HS_MPS"/>
 		<Parameter Added="true" Name="USBD_HID_MOUSE_EPIN_FS_BINTERVAL"/>
 		<Parameter Added="true" Name="USBD_HID_MOUSE_EPIN_HS_BINTERVAL"/>
+		<Parameter Added="true" Name="USBD_HID_MOUSE_PARAMETER_REPORT_ID" />
 		<Parameter Name="UX_DEVICE_HID_MOUSE">
 			<PossibleValue>1</PossibleValue>
 		</Parameter>
@@ -1158,7 +1159,7 @@
     <RefParameter Added="true" Comment="UX_MAX_SLAVE_CLASS_DRIVER" DefaultValue="1" Group="Device Core" Max="255" Min="0" Name="UX_MAX_SLAVE_CLASS_DRIVER" TabName="USBX" Type="integer" Unit="">
         <Description>This value is the maximum number of classes in the device stack that can be loaded by USBX</Description>
     </RefParameter>
-    <RefParameter Added="true" Comment="UX_MAX_SLAVE_INTERFACES" DefaultValue="16" Group="Device Core" Max="255" Min="0" Name="UX_MAX_SLAVE_INTERFACES" TabName="USBX" Type="integer" Unit="">
+    <RefParameter Added="true" Comment="UX_MAX_SLAVE_INTERFACES" DefaultValue="16" Group="Device Core" Max="255" Min="1" Name="UX_MAX_SLAVE_INTERFACES" TabName="USBX" Type="integer" Unit="">
         <Description>This value is the maximum number of interfaces in the device framework</Description>
     </RefParameter>
 	<RefParameter Added="true" Comment="UX_MAX_DEVICES" DefaultValue="127" Group="Host Core" Max="127" Min="1" Name="UX_MAX_DEVICES" TabName="USBX" Type="integer" Unit="">
@@ -1187,7 +1188,7 @@ Note that this value represents the total number of devices regardless of the nu
 	<RefParameter Added="true" Comment="UX_DEVICE_CLASS_CDC_ECM_PACKET_POOL_WAIT" DefaultValue="10" Group="Device Class CDC ECM" Max="65535" Min="0" Name="UX_DEVICE_CLASS_CDC_ECM_PACKET_POOL_WAIT" TabName="USBX" Type="integer" Unit="">
         <Description>This value represents the number of milliseconds to wait for packet allocation until invoking the application's error callback and retrying</Description>
     </RefParameter>
-    <RefParameter Added="true" Comment="UX_DEVICE_CLASS_HID_EVENT_BUFFER_LENGTH" DefaultValue="64" Group="Device Class HID" Max="255" Min="0" Name="UX_DEVICE_CLASS_HID_EVENT_BUFFER_LENGTH" TabName="USBX" Type="integer" Unit="">
+    <RefParameter Added="true" Comment="UX_DEVICE_CLASS_HID_EVENT_BUFFER_LENGTH" DefaultValue="64" Group="Device Class HID" Max="1024" Min="0" Name="UX_DEVICE_CLASS_HID_EVENT_BUFFER_LENGTH" TabName="USBX" Type="integer" Unit="">
         <Description>This value represents the the maximum length of HID reports on the device.</Description>
     </RefParameter>
     <RefParameter Added="true" Comment="UX_DEVICE_CLASS_HID_MAX_EVENTS_QUEUE" DefaultValue="8" Group="Device Class HID" Max="255" Min="0" Name="UX_DEVICE_CLASS_HID_MAX_EVENTS_QUEUE" TabName="USBX" Type="integer" Unit="">
@@ -1770,9 +1771,6 @@ function, &lt;i&gt;"first_unused_memory"&lt;/i&gt; argument.This require changes
     <RefParameter Added="true" Comment="USBD_RNDIS_ENDPOINT_IN_FS_MPS" DefaultValue="64" Group="Device Class RNDIS" Max="64" Min="1" Name="USBD_RNDIS_EPIN_FS_MPS" TabName="USBX" Type="integer" Unit="">
         <Description>Device RNDIS class endpoint in  FS max packet size</Description>
     </RefParameter>
-	<RefParameter Added="true" Comment="UX_DEVICE_CLASS_HID_EVENT_BUFFER_LENGTH" DefaultValue="64" Group="Device Class HID MOUSE" Max="255" Min="0" Name="UX_DEVICE_CLASS_HID_EVENT_BUFFER_LENGTH" TabName="USBX" Type="integer" Unit="">
-        <Description>This value represents the the maximum length of HID reports on the device.</Description>
-    </RefParameter>
     <RefParameter Added="true" Comment="UX_DEVICE_CLASS_HID_MAX_EVENTS_QUEUE" DefaultValue="8" Group="Device Class HID MOUSE" Max="255" Min="0" Name="UX_DEVICE_CLASS_HID_MAX_EVENTS_QUEUE" TabName="USBX" Type="integer" Unit="">
         <Description>This value represents the the maximum number of HID events/reports that can be queued at once.</Description>
 		</RefParameter>
@@ -2334,4 +2332,9 @@ function, &lt;i&gt;"first_unused_memory"&lt;/i&gt; argument.This require changes
         <PossibleValue Comment="Disabled" Value="0"/>
         <PossibleValue Comment="Enabled" Value="1"/>
     </RefParameter>
+	<RefParameter Added="true" Comment="USBD_HID_MOUSE_PARAMETER_REPORT_ID" DefaultValue="UX_FALSE" Group="Device Class HID MOUSE" Name="USBD_HID_MOUSE_PARAMETER_REPORT_ID" TabName="USBX" Type="list">
+		<Description></Description>
+		<PossibleValue Comment="UX_FALSE" Value="UX_FALSE" />
+		<PossibleValue Comment="UX_TRUE" Value="UX_TRUE" />
+	</RefParameter>
 </IP>

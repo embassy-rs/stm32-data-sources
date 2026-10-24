@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<IP DBVersion="V4.0" 
+	IPType="peripheral" 
+	Name="USB_OTG_HS1" 
+	Version="otghs1_v2_0_h7_Cube" 
+	xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance" 
+	ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../../../doc/V4/Development/Specifications/db/IP_Modes.xsd" 
+	xmlns="http://mcd.rou.st.com/modules.php?name=mcu">
+  <About>USB_OTG_HS: Universal Serial Bus On-The-Go High-Speed</About>
+	
+	<!-- Generic RefParameters for USB High Speed Host & Device Modes -->
+	<RefParameter Name="Instance" DefaultValue="USB_OTG_HS" Comment="Instance" Type="" Visible="false"/>
+	
+	
+    <RefParameter Comment="Host Channels" DefaultValue="=USB_OTG_HS:Host_channels_FS" Name="Host_channels" Min="1" Max="16" Type="integer" Group="Host">
+		<Condition Expression="DIE483 | DIE450 | DIE480" Diagnostic=""/>
+	</RefParameter>	
+	
+    <RefParameter Comment="Host Channels" DefaultValue="=USB_OTG_HS:Host_channels" Name="Host_channels" Min="1" Max="16" Type="integer" Group="Host">
+		<Condition Expression="DIE485" Diagnostic=""/>
+	</RefParameter>
+
+	<RefParameter Comment="Speed" DefaultValue="HCD_SPEED_HIGH" Name="speed" Type="List" Group="Host">
+		<Condition Expression="SEM_HCD_SPEED_HIGH" Diagnostic=""/>
+		<PossibleValue Comment="Host High Speed 480MBit/s" Value="HCD_SPEED_HIGH"/>
+	</RefParameter>
+	<RefParameter Comment="Speed" DefaultValue="HCD_SPEED_FULL" Name="speed" Type="List" Group="Host">
+		<Condition Expression="SEM_HCD_SPEED_FULL" Diagnostic=""/>
+		<PossibleValue Comment="Host Full Speed 12MBit/s" Value="HCD_SPEED_FULL"/>
+	</RefParameter>
+	<RefParameter Comment="Speed" DefaultValue="HCD_SPEED_LOW" Name="speed" Type="List" Group="Host">
+		<Condition Expression="SEM_SPEED_LOW" Diagnostic=""/>
+		<PossibleValue Comment="Host Low Speed 1.5MBit/s" Value="HCD_SPEED_LOW"/>	
+	</RefParameter>
+	
+	<RefParameter Comment="Speed" DefaultValue="HCD_SPEED_LOW" Name="speed" Type="List" Group="Host">
+		<Condition Expression="SEM_SPEED_LOW_FS" Diagnostic=""/>
+		<PossibleValue Comment="Host Low Speed 1.5MBit/s" Value="HCD_SPEED_LOW"/>
+	</RefParameter>
+	<RefParameter Comment="Speed" DefaultValue="HCD_SPEED_FULL" Name="speed" Type="List" Group="Host">
+		<Condition Expression="SEM_HCD_SPEED_FULL_FS" Diagnostic=""/>
+		<PossibleValue Comment="Host Full Speed 12MBit/s" Value="HCD_SPEED_FULL"/>
+	</RefParameter>
+	<RefParameter Comment="Enable internal IP DMA" DefaultValue="DISABLE" Name="dma_enable" Type="List" Group="Host">
+		<Condition Expression="SEM_HS_USE_BUFF_WO_ALIGNMENT_ENABLE" Diagnostic=""/>
+		<PossibleValue Value="ENABLE" Comment="Enabled"/>
+	</RefParameter>	
+	<RefParameter Comment="Enable internal IP DMA" DefaultValue="DISABLE" Name="dma_enable" Type="List" Group="Host">
+		<Condition Expression="SEM_HS_USE_BUFF_WO_ALIGNMENT_DISABLE" Diagnostic=""/>
+		<PossibleValue Value="DISABLE" Comment="Disabled"/>		
+	</RefParameter>	
+	
+	<!-- <RefParameter Comment="Physical interface" DefaultValue="USB_OTG_ULPI_PHY" Name="phy_itface" Type="List" Group="Host"> -->
+        <!-- <Condition Expression="(DIE485 &amp; SEM_USB_OTG_ULPI_PHY) | Device_Role_Device_HS" Diagnostic=""/> -->
+		<!-- <PossibleValue Value="USB_OTG_ULPI_PHY" Comment="External Phy"/> -->
+	<!-- </RefParameter>	 -->
+	<RefParameter Comment="Physical interface" DefaultValue="USB_OTG_EMBEDDED_PHY" Name="phy_itface" Type="List" Group="Host">
+        <Condition Expression="(DIE485 &amp; SEM_USB_OTG_EMBEDDED_PHY_HS) | DIE483 | DIE450 | DIE480" Diagnostic=""/>
+		<PossibleValue Value="USB_OTG_EMBEDDED_PHY" Comment="Internal Phy"/>		
+	</RefParameter>	
+	<RefParameter Comment="Physical interface" DefaultValue="USB_OTG_HS_EMBEDDED_PHY" Name="phy_itface" Type="List" Group="Host">
+        <Condition Expression="DIE485 &amp; SEM_USB_OTG_HS_EMBEDDED_PHY" Diagnostic=""/>
+		<PossibleValue Value="USB_OTG_HS_EMBEDDED_PHY" Comment="Internal HS Phy"/>
+	</RefParameter>
+	
+	<RefParameter Comment="Low power" DefaultValue="DISABLE" Name="low_power_enable" Type="List" Visible="false">
+		<PossibleValue Value="DISABLE" Comment="Disabled"/>		
+	</RefParameter>
+	
+	<RefParameter Comment="Use external vbus" DefaultValue="ENABLE" Name="use_external_vbus" Type="List" Group="Host">
+		<Condition Expression="SEM_use_external_vbus_ENABLE" Diagnostic=""/>
+		<PossibleValue Value="ENABLE" Comment="Enabled"/>	
+	</RefParameter>	
+	<RefParameter Comment="Use external vbus" DefaultValue="DISABLE" Name="use_external_vbus" Type="List" Group="Host">
+		<Condition Expression="SEM_use_external_vbus_DISABLE" Diagnostic=""/>
+		<PossibleValue Value="DISABLE" Comment="Disabled"/>			
+	</RefParameter>	
+	
+	<RefParameter Comment="Signal start of frame" DefaultValue="ENABLE" Name="Sof_enable" Type="List" Group="Host">
+		<Condition Expression="SEM_Sof_enable" Diagnostic=""/>
+		<PossibleValue Value="ENABLE" Comment="Enabled"/>
+	</RefParameter>
+	<RefParameter Comment="Signal start of frame" DefaultValue="DISABLE" Name="Sof_enable" Type="List" Group="Host">
+		<Condition Expression="SEM_Sof_disable" Diagnostic=""/>
+		<PossibleValue Value="DISABLE" Comment="Disabled"/>
+	</RefParameter>
+	
+	
+	<RefMode Name="activate" HalMode="HCD">
+        <ConfigForMode>HCD_Init_HS</ConfigForMode>
+		<Parameter Name="Host_channels"/>		
+		<Parameter Name="speed"/>		
+		<Parameter Name="dma_enable"/>			
+		<Parameter Name="phy_itface"/>
+		<Parameter Name="low_power_enable"/>
+		<!-- <Parameter Name="vbus_sensing_enable"/>	 -->
+		<Parameter Name="use_external_vbus"/>
+		<Parameter Name="Sof_enable"/>
+        <!-- <Parameter Name="RefClockSelection"/> -->
+    </RefMode>
+	
+    <ModeLogicOperator Name="OR">
+        <Mode Name="activate" UserName="activate" RemoveDisable="true">
+            <ModeLogicOperator Name="XOR">
+                <Mode Name="activate" UserName="activate">
+                    <SignalLogicalOp Name="AND">
+                        <Signal Name="USB_OTG_HS_DR" />
+                    </SignalLogicalOp>
+                    <Condition Expression="DUAL_ROLE_DEVICE_HS" Diagnostic=""/>
+					<Semaphore>MW_USB_OTG_HS1_MW_HOST</Semaphore>
+                </Mode>
+            </ModeLogicOperator>
+        </Mode>
+    </ModeLogicOperator>		
+    <RefSignal Name="USB_OTG_HS_DR" Virtual="true"/>	
+</IP>

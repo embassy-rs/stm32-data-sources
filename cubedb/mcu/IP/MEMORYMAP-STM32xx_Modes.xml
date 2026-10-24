@@ -27,9 +27,13 @@
     <!-- 1) Condition to add: this refparam is only for TZEN = 1 (DONE)
          2) different default values cf table in the spec: Done by the MMBuilder -->
     <RefParameter Comment="Security" DefaultValue="NS" Group="Current application region attributes" Name="Security" Type="list">
-        <Condition Diagnostic="" Expression="S_SECURE"/>
+        <Condition Diagnostic="" Expression="S_SECURE &amp;!S_CTX_PROJECT_FullSecure &amp;!(ContextName=FSBL)"/>
         <PossibleValue Comment="Non-Secure" Value="NS" Semaphore="S_MMT_CurReg_NS"/>
         <PossibleValue Comment="Non-Secure Callable" Value="NSC"/>
+        <PossibleValue Comment="Secure" Value="S"/>
+    </RefParameter>
+    <RefParameter Comment="Security" DefaultValue="S" Group="Current application region attributes" Name="Security" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="S_SECURE &amp; (S_CTX_PROJECT_FullSecure |(ContextName=FSBL))"/>
         <PossibleValue Comment="Secure" Value="S"/>
     </RefParameter>
     <RefParameter Comment="Security" DefaultValue="T0" Group="Current application region attributes" Name="Security" Type="list" Visible="false">
@@ -205,7 +209,7 @@
 
      <!-- Depending DIE, give the list of context to remove from current list of existing context -->
     <RefParameter Comment="ExcludedContext" DefaultValue="" Group="Current application region attributes" Name="ExcludedContext" Type="list" Visible="false">
-        <Condition Diagnostic="" Expression="DIE485"/>
+        <Condition Diagnostic="" Expression="DIE485|DIE486"/>
         <PossibleValue Comment="ExtMemLoader" Value="ExtMemLoader"/>
     </RefParameter>
 	

@@ -5,13 +5,28 @@
  	xmlns="http://mcd.rou.st.com/modules.php?name=mcu">
   <About>IPCC: Inter-Processor Communication and Control</About>
 	
-    <!-- Generic RefParameters for IPCC --> 
+    <!-- Generic RefParameters for IPCC -->
     <RefParameter Name="Instance" DefaultValue="IPCC1" Comment="Instance" Type="" Visible="false"/>
+    <RefParameter Name="Vq0" DefaultValue="" Comment="" Type="Instance" Visible="false"/>
+    <RefParameter Name="Vq1" DefaultValue="" Comment="" Type="Instance" Visible="false"/>
+    <RefParameter Name="ShutDown" DefaultValue="" Comment="" Type="Instance" Visible="false"/>
 
     <RefMode Name="IPCC_Activate" HalMode ="IPCC">
         <ConfigForMode>IPCC_Init</ConfigForMode>
     </RefMode>
+    <!-- RefModes_IPCC-->
+    <RefMode Comment="Vq0" Name="Vq0">
+        <Parameter Name="Vq0"/>
+    </RefMode>
 
+    <RefMode Comment="Vq1" Name="Vq1">
+        <Parameter Name="Vq1"/>
+    </RefMode>
+
+    <RefMode Comment="ShutDown" Name="ShutDown">
+        <Parameter Name="ShutDown"/>
+    </RefMode>
+    <!-- IPCC_Modes-->
     <ModeLogicOperator Name="OR">
           <Mode Name="IPCC_State" UserName="Activated">
               <ModeLogicOperator Name="XOR">
@@ -23,9 +38,62 @@
               </ModeLogicOperator>
 			 <Semaphore>IPCC_ENABLED</Semaphore>
           </Mode>
-      </ModeLogicOperator>
-    
+
+
+    <Mode Name="Vq0" UserName="Vq0">
+        <ModeLogicOperator Name="XOR">
+            <Mode Name="Vq0_Interrupt_mode" UserName="Interrupt mode">
+                <SignalLogicalOp Name="AND">
+                    <Signal Name="VS_Vq0_interrupt" />
+                </SignalLogicalOp>
+                <Semaphore>Vq0_Interrupt_Mode</Semaphore>
+            </Mode>
+            <Mode Name="Vq0_Normal_mode" UserName="Normal mode">
+                <SignalLogicalOp Name="AND">
+                    <Signal Name="VS_Vq0_normal" />
+                </SignalLogicalOp>
+                <Semaphore>Vq0_Normal_Mode</Semaphore>
+            </Mode>
+        </ModeLogicOperator>
+        <Semaphore>Vq0_Is_Used</Semaphore>
+        <Condition Expression="IPCC_ENABLED" Diagnostic="" />
+    </Mode>
+    <Mode Name="Vq1" UserName="Vq1">
+        <ModeLogicOperator Name="XOR">
+            <Mode Name="Vq1_Interrupt_mode" UserName="Interrupt mode">
+                <SignalLogicalOp Name="AND">
+                    <Signal Name="VS_Vq1_interrupt" />
+                </SignalLogicalOp>
+                <Semaphore>Vq1_Interrupt_Mode</Semaphore>
+            </Mode>
+            <Mode Name="Vq1_Normal_mode" UserName="Normal mode">
+                <SignalLogicalOp Name="AND">
+                    <Signal Name="VS_Vq1_normal" />
+                </SignalLogicalOp>
+                <Semaphore>Vq1_Normal_Mode</Semaphore>
+            </Mode>
+        </ModeLogicOperator>
+        <Semaphore>Vq1_Is_Used</Semaphore>
+        <Condition Expression="IPCC_ENABLED" Diagnostic="" />
+    </Mode>
+    <Mode Name="ShutDown" UserName="ShutDown">
+        <ModeLogicOperator Name="XOR">
+            <Mode Name="ShutDown_Normal_mode" UserName="Normal mode">
+                <SignalLogicalOp Name="AND">
+                    <Signal Name="VS_ShutDown" />
+                </SignalLogicalOp>
+                <Semaphore>ShutDown_Normal_Mode</Semaphore>
+            </Mode>
+        </ModeLogicOperator>
+        <Semaphore>ShutDown_Is_Used</Semaphore>
+        <Condition Expression="IPCC_ENABLED" Diagnostic="" />
+    </Mode>
+    </ModeLogicOperator>
     <!-- RefSignal for IPCC -->
     <RefSignal Name="VS_IPCC" Virtual="true"/>
-
+    <RefSignal Name="VS_Vq0_interrupt" Virtual="true"/>
+    <RefSignal Name="VS_Vq0_normal" Virtual="true"/>
+    <RefSignal Name="VS_Vq1_interrupt" Virtual="true"/>
+    <RefSignal Name="VS_Vq1_normal" Virtual="true"/>
+    <RefSignal Name="VS_ShutDown" Virtual="true"/>
 </IP>

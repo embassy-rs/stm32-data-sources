@@ -77,19 +77,70 @@
         <Defines Name="NX_INCLUDE_USER_DEFINE_FILE" Type="Cdefine" />
         <Defines Condition="! SEMNetXDuoCcNetworkJjNetXDuoJjTLS" Name="NX_CRYPTO_STANDALONE_ENABLE" Type="Cdefine" />
     </RefConfig>
+    <RefConfig Name="Ethernet_Interface">
+        <Component Name="Middleware:NetXDuo:EthernetOoInterface:true"/>
+        <ConfigFile Name="NX_STM32_ETH_CONFIG_H"/>
+        <Defines Name="NX_INCLUDE_USER_DEFINE_FILE" Type="Cdefine"/>
+    </RefConfig>
     <RefConfig Name="Custom_Interface">
-        <Component Name="Middleware:NetXDuo:CustomJjInterface:true" />
-        <ConfigFile Name="CUSTOM_C" />
-        <ConfigFile Name="CUSTOM_H" />
-        <Defines Name="NX_INCLUDE_USER_DEFINE_FILE" Type="Cdefine" />
+        <Component Name="Middleware:NetXDuo:CustomOoInterface:true"/>
+        <ConfigFile Name="CUSTOM_C"/>
+        <ConfigFile Name="CUSTOM_H"/>
+        <Defines Name="NX_INCLUDE_USER_DEFINE_FILE" Type="Cdefine"/>
+    </RefConfig>
+    <RefConfig Name="LAN8742_Phy_Interface">
+        <Component Name="Middleware:NetXDuo:LAN8742OoPhyOoInterface:true"/>
+        <Defines Name="NX_INCLUDE_USER_DEFINE_FILE" Type="Cdefine"/>
+    </RefConfig>
+    <RefConfig Name="RTL8211_Phy_Interface">
+        <Component Name="Middleware:NetXDuo:RTL8211OoPhyOoInterface:true"/>
+        <Defines Name="ETH_PHY_1000MBITS_SUPPORTED" Type="Cdefine"/>
+        <Defines Name="NX_INCLUDE_USER_DEFINE_FILE" Type="Cdefine"/>
+        <Defines Name="RTL8211_INIT_TO" Type="Cdefine" Value="10000"/>
+    </RefConfig>
+    <RefConfig Name="Custom_Phy_Interface">
+        <Component Name="Middleware:NetXDuo:CustomOoPhyOoInterface:true"/>
+        <ConfigFile Name="NX_ETH_PHY_DRIVER_C_FTL"/>
+        <Defines Name="NX_INCLUDE_USER_DEFINE_FILE" Type="Cdefine"/>
     </RefConfig>
 
     <RefConfigFile Description="NetXDuo initialisation file" Name="APP_NETXDUO_H" Template="azure_rtos/app_netxduo_h.ftl" destinationFolder="NetXDuo/App">
         <File Category="header" Condition="all" Name="app_netxduo.h" />
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="ETH_Activated" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="AZRTOS_APP_MEM_ALLOCATION_METHOD" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="Initialize_DHCP_protocol" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="Initialize_UDP_protocol" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="NX_APP_IP_INSTANCE_THREAD_SIZE" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="NetXDuo_Application_Thread_Name" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="NetXDuo_Generate_Init_Code" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="NetXDuo_Static_IP_address" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="Initialize_TCP_protocol" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="NX_APP_PACKET_POOL_SIZE" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="NX_APP_THREAD_PRIORITY" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="Initialize_ICMP_protocol" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="NetXDuo_Application_NetMask" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="NX_APP_THREAD_STACK_SIZE" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="Addons_DHCP_Client" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="Addons_DHCP_Server" OptimizationCondition="equal"/>
     </RefConfigFile>
     <RefConfigFile Description="NetXDuo initialisation file" Name="APP_NETXDUO_C" Template="azure_rtos/app_netxduo_c.ftl" destinationFolder="NetXDuo/App">
+
         <File Category="source" Condition="all" Name="app_netxduo.c" />
-        <Argument Added="true" AddressOf="false" GenericType="simple" Name="AZRTOS_APP_MEM_ALLOCATION_METHOD" OptimizationCondition="equal" />
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="AZRTOS_APP_MEM_ALLOCATION_METHOD" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="Initialize_DHCP_protocol" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="Initialize_UDP_protocol" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="NX_APP_IP_INSTANCE_THREAD_SIZE" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="NetXDuo_Application_Thread_Name" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="NetXDuo_Generate_Init_Code" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="NetXDuo_Static_IP_address" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="Initialize_TCP_protocol" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="NX_APP_PACKET_POOL_SIZE" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="NX_APP_THREAD_PRIORITY" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="Initialize_ICMP_protocol" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="NetXDuo_Application_NetMask" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="NX_APP_THREAD_STACK_SIZE" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="Addons_DHCP_Client" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="Addons_DHCP_Server" OptimizationCondition="equal"/>
     </RefConfigFile>
     <RefConfigFile Added="true" Description="NetXDuo secure user header file." Name="NX_SECURE_USER_H" Template="azure_rtos/nx_secure_user_h.ftl" destinationFolder="NetXDuo/App">
         <File Category="header" Condition="all" Name="./nx_secure_user.h" />
@@ -526,15 +577,25 @@
         <File Category="source" Condition="all" Name="./nx_stm32_custom_driver.c" />
     </RefConfigFile>
     <RefConfigFile Added="true" Description="filex stub header file template" Name="FX_STUB_H_FTL" Template="azure_rtos/filex_stub_h.ftl" destinationFolder="NetXDuo/App">
-        <File Category="header" Condition="all" Name="./filex_stub.h" />
+        <File Category="header" Condition="all" Name="./filex_stub.h"/>
     </RefConfigFile>
-
+    <RefConfigFile Added="true" Description="Nx eth driver config file template" Name="NX_STM32_ETH_CONFIG_H" Template="azure_rtos/nx_stm32_eth_config_h.ftl" destinationFolder="NetXDuo/Target">
+        <File Category="header" Condition="SEMInterfacesCcNetworkJjEthernetOoInterface | SEMNetXDuoCcNetworkJjNetXDuoJjInterfaceOoPhyOoCustom | SEMNetXDuoCcNetworkJjNetXDuoJjInterfaceOoPhyOoLAN8742 | SEMNetXDuoCcNetworkJjNetXDuoJjInterfaceOoPhyOoRTL8211" Name="./nx_stm32_eth_config.h"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="LAN_8742" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="RTL_8211" OptimizationCondition="equal"/>
+        <Argument Added="true" AddressOf="false" GenericType="simple" Name="ETH_Activated" OptimizationCondition="equal"/>
+    </RefConfigFile>
+    <RefConfigFile Added="true" Description="Nx phy custom driver source template" Name="NX_ETH_PHY_DRIVER_C_FTL" Template="azure_rtos/nx_eth_phy_driver_c.ftl" destinationFolder="NetXDuo/Target">
+        <File Category="header" Condition="SEMNetXDuoCcNetworkJjNetXDuoJjInterfaceOoPhyOoCustom" Name="./nx_stm32_phy_custom_driver.c"/>
+    </RefConfigFile>
     <RefComponent Cclass="Middleware" Cgroup="NetXDuo" Cversion="6Gg4Gg0">
         <SubComponent Csub="NXOoCore" Cvariant="true" Cversion="6Gg4Gg0">
             <File Category="header" Condition="" Name="common/inc/*" />
-            <File Category="header" Condition="SIiTcompilerIiIAR" Name="ports/cortex_M55/iar/inc/*" />
-            <File Category="header" Condition="SIiTcompilerIiGCC" Name="ports/cortex_M55/gnu/inc/*" />
-            <File Category="header" Condition="SIiTcompilerIiARMCC" Name="ports/cortex_M55/ac6/inc/*" />
+            <File Category="header" Condition="SIiTcompilerIiIAR" Name="ports/cortex_m55/iar/inc/*" />
+            <File Category="header" Condition="SIiTcompilerIiGCC" Name="ports/cortex_m55/gnu/inc/*" />
+            <File Category="header" Condition="SIiTcompilerIiARMCC" Name="ports/cortex_m55/ac6/inc/*" />
+            <File Category="header" Condition="" Name="tsn/inc/nx_shaper.h" />
+            <File Category="source" Condition="" Name="tsn/src/nx_shaper.c" />
             <File Category="source" Condition="" Name="common/src/nx_arp_announce_send.c" />
             <File Category="source" Condition="" Name="common/src/nx_arp_dynamic_entries_invalidate.c" />
             <File Category="source" Condition="" Name="common/src/nx_arp_dynamic_entry_delete.c" />
@@ -938,7 +999,7 @@
             <File Category="source" Condition="" Name="common/src/nxe_udp_socket_source_send.c" />
             <File Category="source" Condition="" Name="common/src/nxe_udp_socket_unbind.c" />
             <File Category="source" Condition="" Name="common/src/nxe_udp_source_extract.c" />
-            <File Category="source" Condition="" Name="common/src/nxe_udp_socket_vlan_priority_set.c" /> 
+            <File Category="source" Condition="" Name="common/src/nxe_udp_socket_vlan_priority_set.c" />
             <File Category="source" Condition="" Name="common/src/nx_icmp_interface_ping6.c" />
             <File Category="source" Condition="" Name="common/src/nx_icmp_ping6.c" />
             <File Category="source" Condition="" Name="common/src/nx_icmpv6_DAD_clear_NDCache_entry.c" />
@@ -1111,7 +1172,7 @@
             <File Category="source" Condition="SEM_NX_ENABLE_TCPIP_OFFLOAD" Name="common/src/nx_tcp_socket_driver_establish.c" />
             <File Category="source" Condition="SEM_NX_ENABLE_TCPIP_OFFLOAD" Name="common/src/nx_tcp_socket_driver_packet_receive.c" />
             <File Category="source" Condition="SEM_NX_ENABLE_TCPIP_OFFLOAD" Name="common/src/nx_udp_socket_driver_packet_receive.c" />
-			
+
             <File Category="source" Condition="" Name="common/src/nx_http_proxy_client.c"/>
         </SubComponent>
         <SubComponent Csub="AddonsOoAutoIP" Cvariant="true" Cversion="6Gg4Gg0">
@@ -1464,9 +1525,9 @@
         </SubComponent>
         <SubComponent Csub="Crypto" Cvariant="true" Cversion="6Gg4Gg0">
             <File Category="header" Condition="" Name="crypto_libraries/inc/*" />
-            <File Category="header" Condition="SIiTcompilerIiIAR" Name="crypto_libraries/ports/cortex_m55/iar/inc/*" />
-            <File Category="header" Condition="SIiTcompilerIiGCCC" Name="crypto_libraries/ports/cortex_m55/gnu/inc/*" />
-            <File Category="header" Condition="SIiTcompilerIiARMCC" Name="crypto_libraries/ports/cortex_m55/ac6/inc/*" />
+            <File Category="header" Condition="SIiTcompilerIiIAR" Name="crypto_libraries/ports/cortex_m7/iar/inc/*" />
+            <File Category="header" Condition="SIiTcompilerIiGCCC" Name="crypto_libraries/ports/cortex_m7/gnu/inc/*" />
+            <File Category="header" Condition="SIiTcompilerIiARMCC" Name="crypto_libraries/ports/cortex_m7/ac6/inc/*" />
             <File Category="source" Condition="" Name="crypto_libraries/src/nx_crypto_3des.c" />
             <File Category="source" Condition="" Name="crypto_libraries/src/nx_crypto_aes.c" />
             <File Category="source" Condition="" Name="crypto_libraries/src/nx_crypto_cbc.c" />
@@ -1514,6 +1575,29 @@
             <File Category="source" Condition="" Name="addons/cloud/nx_cloud.c" />
             <File Category="header" Condition="" Name="addons/cloud/*" />
         </SubComponent>
-        <SubComponent Csub="CustomJjInterface" Cvariant="true" Cversion="1Gg0Gg0" />
+        <SubComponent Csub="EthernetOoInterface" Cvariant="true" Cversion="6Gg4Gg0">
+            <File Category="header" Condition="" Name="common/drivers/ethernet/nx_stm32_eth_driver.h"/>
+            <File Category="source" Condition="" Name="common/drivers/ethernet/nx_stm32_eth_driver.c"/>
+        </SubComponent>
+        <SubComponent Csub="CustomOoInterface" Cvariant="true" Cversion="6Gg4Gg0"/>
+        <SubComponent Csub="LAN8742OoPhyOoInterface" Cvariant="true" Cversion="6Gg4Gg0">
+            <File Category="header" Condition="" Name="common/drivers/ethernet/*"/>
+            <File Category="source" Condition="" Name="common/drivers/ethernet/lan8742/nx_stm32_phy_driver.c"/>
+        </SubComponent>
+        <SubComponent Csub="RTL8211OoPhyOoInterface" Cvariant="true" Cversion="6Gg4Gg0">
+            <File Category="header" Condition="" Name="common/drivers/ethernet/*"/>
+            <File Category="source" Condition="" Name="common/drivers/ethernet/rtl8211/nx_stm32_phy_driver.c"/>
+        </SubComponent>
+        <SubComponent Csub="CustomOoPhyOoInterface" Cvariant="true" Cversion="6Gg4Gg0">
+            <File Category="header" Condition="" Name="common/drivers/ethernet/*"/>
+        </SubComponent>
     </RefComponent>
+    <RefBspComponent BspIpName="" BspModeName="" Name="LAN_Component">
+        <File Category="header" Name="Drivers/BSP/Components/lan8742/lan8742.h" ComponentName="LAN8742"/>
+        <File Category="source" Name="Drivers/BSP/Components/lan8742/lan8742.c" ComponentName="LAN8742"/>
+    </RefBspComponent>
+    <RefBspComponent BspIpName="" BspModeName="" Name="RTL_Component">
+        <File Category="header" Name="Drivers/BSP/Components/rtl8211/rtl8211.h" ComponentName="RTL8211"/>
+        <File Category="source" Name="Drivers/BSP/Components/rtl8211/rtl8211.c" ComponentName="RTL8211"/>
+    </RefBspComponent>
 </IP>

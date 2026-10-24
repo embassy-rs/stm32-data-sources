@@ -17,7 +17,23 @@
             </Else>        
         </IFCondition>	
     </RefConfig>
-    
+    <RefConfig Name="Analog">
+        <IFCondition Expression="IsGPIOMode" Diagnostic="">
+            <CallLibMethod Name="HAL_GPIO_Init" ReturnHAL="false">
+                <MethodArg Name="Pin" ParameterName="GPIO_Pin"/>
+                <MethodArg Name="Mode" ParameterName="GPIO_Mode"/>
+                <MethodArg Name="Pull" ParameterName="GPIO_Pd"/>
+                <MethodArg Name="Alternate" ParameterName="GPIO_AF"/>
+                <MethodArg Name="Speed" ParameterName="GPIO_Speed"/>
+            </CallLibMethod>
+            <Else>
+                <CallLibMethod Name="HAL_SYSCFG_AnalogSwitchConfig" ReturnHAL="false">
+                    <MethodArg Name="SYSCFG_AnalogSwitch"/>
+                    <MethodArg Name="SYSCFG_SwitchState"/>
+                </CallLibMethod>
+            </Else>
+        </IFCondition>
+    </RefConfig>
     <RefConfig Name="System">
     </RefConfig>
         

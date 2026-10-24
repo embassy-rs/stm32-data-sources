@@ -97,6 +97,10 @@
         <PossibleValue Value="GPIO_PULLUP" Comment="Pull-up"/>
         <PossibleValue Value="GPIO_PULLDOWN" Comment="Pull-down"/>
     </RefParameter>
+    <RefParameter Name="GPIO_Pd" Comment="GPIO Pull-up/Pull-down" Type="list" DefaultValue="GPIO_NOPULL">
+        <PossibleValue Value="GPIO_NOPULL" Comment="No pull-up and no pull-down"/>
+        <PossibleValue Value="GPIO_PULLDOWN" Comment="Pull-down"/>
+    </RefParameter>
     <RefParameter Name="GPIO_PuPdOD" Comment="GPIO Pull-up/Pull-down" Type="list" DefaultValue="GPIO_PULLUP">
         <PossibleValue Value="GPIO_NOPULL" Comment="No pull-up and no pull-down"/>
         <PossibleValue Value="GPIO_PULLUP" Comment="Pull-up"/>
@@ -768,10 +772,8 @@
         <Parameter Name="GPIO_Pin"/>
     </RefMode>
     <RefMode Name="Analog">
-        <ConfigForMode>GPIO</ConfigForMode>
-        <Parameter Name="GPIO_PuPd">
-            <PossibleValue>GPIO_NOPULL</PossibleValue>
-        </Parameter>
+        <ConfigForMode>Analog</ConfigForMode>
+        <Parameter Name="GPIO_Pd"/>
         <Parameter Name="GPIOx"/>
         <Parameter Name="GPIO_Mode">
             <PossibleValue>GPIO_MODE_ANALOG</PossibleValue>
@@ -779,10 +781,8 @@
         <Parameter Name="GPIO_Pin"/>
     </RefMode>
     <RefMode Name="AnalogForADC">
-        <ConfigForMode>GPIO</ConfigForMode>
-        <Parameter Name="GPIO_PuPd">
-            <PossibleValue>GPIO_NOPULL</PossibleValue>
-        </Parameter>
+        <ConfigForMode>Analog</ConfigForMode>
+        <Parameter Name="GPIO_Pd"/>
         <Parameter Name="GPIOx"/>
         <Parameter Name="GPIO_Mode">
             <PossibleValue>GPIO_MODE_ANALOG_ADC_CONTROL</PossibleValue>

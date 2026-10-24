@@ -12,7 +12,7 @@
         <PossibleValue Comment="Fast Mode" Value="I2C_Fast"/>
     </RefParameter>
     <RefParameter Comment="I2C Speed Mode " DefaultValue="I2C_Standard" Group="Timing configuration" Name="I2C_Speed_Mode" Type="list">
-        <Condition Diagnostic="" Expression="$IpInstance_SMBUS_Enable &amp; (STM32C0|STM32G4|STM32L5|STM32L4|STM32L0|STM32WL|STM32G0|STM32WB)"/>
+        <Condition Diagnostic="" Expression="$IpInstance_SMBUS_Enable &amp;(STM32C0|STM32G4|STM32L5|STM32L4|STM32L0|STM32WL|STM32G0|STM32WB|DIE122|DIE027|DIE49A)"/>
         <PossibleValue Comment="Standard Mode" Value="I2C_Standard"/>
         <PossibleValue Comment="Fast Mode" Value="I2C_Fast"/>
         <PossibleValue Comment="Fast Mode Plus" Semaphore="$IpInstance_SMBusFastMP" Value="I2C_Fast_Plus"/> 
@@ -52,13 +52,35 @@
     
     <!-- I2C Fast Mode Plus -->
     <RefParameter Comment="FASTMODEPLUS" DefaultValue="I2C_FASTMODEPLUS_I2C1" Name="FASTMODEPLUS" Type="list" Visible="false">
-        <Condition Diagnostic="" Expression="$IpInstance_FastMP&amp;$Index=1&amp;(STM32L0|STM32L4|STM32WL3)"/>
+        <Condition Diagnostic="" Expression="$IpInstance_FastMP&amp;$Index=1&amp;(STM32L0|STM32L4)"/>
+    </RefParameter>
+    <RefParameter Comment="FASTMODEPLUS" DefaultValue="I2C_FASTMODEPLUS_ENABLE" Name="FASTMODEPLUS" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="$IpInstance_FastMP&amp;$Index=1&amp;(STM32WL4)"/>
+    </RefParameter>
+    <RefParameter Comment="FASTMODEPLUS" DefaultValue="I2C_FASTMODEPLUS_PA0" Name="ConfigFastModePlus" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="$IpInstance_FastMP&amp;$Index=1&amp;(DIE122|DIE027)"/>
+            <PossibleValue Comment="Enable Fast Mode Plus on PA0" Value="I2C_FASTMODEPLUS_PA0"/>
+            <PossibleValue Comment="Enable Fast Mode Plus on PA1" Value="I2C_FASTMODEPLUS_PA1"/>
+            <PossibleValue Comment="Enable Fast Mode Plus on PB6" Value="I2C_FASTMODEPLUS_PB6"/>
+            <PossibleValue Comment="Enable Fast Mode Plus on PB7" Value="I2C_FASTMODEPLUS_PB7"/>
+            <PossibleValue Comment="Enable Fast Mode Plus on PB10" Value="I2C_FASTMODEPLUS_PB10"/>
+            <PossibleValue Comment="Enable Fast Mode Plus on PB11" Value="I2C_FASTMODEPLUS_PB11"/>
+    </RefParameter>
+    <RefParameter Comment="FASTMODEPLUS" DefaultValue="I2C_FASTMODEPLUS_PA6" Name="ConfigFastModePlus" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="$IpInstance_FastMP&amp;$Index=2&amp;(DIE122|DIE027)"/>
+        <PossibleValue Comment="Enable Fast Mode Plus on PA6" Value="I2C_FASTMODEPLUS_PA6"/>
+        <PossibleValue Comment="Enable Fast Mode Plus on PA7" Value="I2C_FASTMODEPLUS_PA7"/>
+        <PossibleValue Comment="Enable Fast Mode Plus on PA13" Value="I2C_FASTMODEPLUS_PA13"/>
+        <PossibleValue Comment="Enable Fast Mode Plus on PA14" Value="I2C_FASTMODEPLUS_PA14"/>
     </RefParameter>
     <RefParameter Comment="FASTMODEPLUS" DefaultValue="I2C_FASTMODEPLUS_I2C1" Name="FASTMODEPLUS" Type="list" Visible="false">
         <Condition Diagnostic="" Expression="$IpInstance_FastMP&amp;$Index=1"/>
     </RefParameter>
      <RefParameter Comment="FASTMODEPLUS" DefaultValue="I2C_FASTMODEPLUS_I2C2" Name="FASTMODEPLUS" Type="list" Visible="false">
-        <Condition Diagnostic="" Expression="$IpInstance_FastMP&amp;$Index=2&amp;(STM32L0|STM32L4|STM32WL3)"/>
+        <Condition Diagnostic="" Expression="$IpInstance_FastMP&amp;$Index=2&amp;(STM32L0|STM32L4)"/>
+    </RefParameter>
+    <RefParameter Comment="FASTMODEPLUS" DefaultValue="I2C_FASTMODEPLUS_ENABLE" Name="FASTMODEPLUS" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="$IpInstance_FastMP&amp;$Index=2&amp;(STM32WL4)"/>
     </RefParameter>
     <RefParameter Comment="FASTMODEPLUS" DefaultValue="I2C_FASTMODEPLUS_I2C2" Name="FASTMODEPLUS" Type="list" Visible="false">
         <Condition Diagnostic="" Expression="$IpInstance_FastMP&amp;$Index=2"/>
@@ -72,13 +94,34 @@
     <RefParameter Comment="FASTMODEPLUS" DefaultValue="I2C_FASTMODEPLUS_I2C4" Name="FASTMODEPLUS" Type="list" Visible="false">
         <Condition Diagnostic="" Expression="$IpInstance_FastMP&amp;$Index=4"/>
     </RefParameter>
-    
+    <RefParameter Comment="FASTMODEPLUS" DefaultValue="SMBUS_FASTMODEPLUS_PA0" Name="ConfigFastModePlus" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="$IpInstance_SMBusFastMP &amp;$Index=1&amp;(DIE122|DIE027)"/>
+        <PossibleValue Comment="Enable Fast Mode Plus on PA0" Value="SMBUS_FASTMODEPLUS_PA0"/>
+        <PossibleValue Comment="Enable Fast Mode Plus on PA1" Value="SMBUS_FASTMODEPLUS_PA1"/>
+        <PossibleValue Comment="Enable Fast Mode Plus on PB6" Value="SMBUS_FASTMODEPLUS_PB6"/>
+        <PossibleValue Comment="Enable Fast Mode Plus on PB7" Value="SMBUS_FASTMODEPLUS_PB7"/>
+        <PossibleValue Comment="Enable Fast Mode Plus on PB10" Value="SMBUS_FASTMODEPLUS_PB10"/>
+        <PossibleValue Comment="Enable Fast Mode Plus on PB11" Value="SMBUS_FASTMODEPLUS_PB11"/>
+    </RefParameter>
+    <RefParameter Comment="FASTMODEPLUS" DefaultValue="SMBUS_FASTMODEPLUS_PA6" Name="ConfigFastModePlus" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="$IpInstance_SMBusFastMP&amp;$Index=2&amp;(DIE122|DIE027)"/>
+        <PossibleValue Comment="Enable Fast Mode Plus on PA6" Value="SMBUS_FASTMODEPLUS_PA6"/>
+        <PossibleValue Comment="Enable Fast Mode Plus on PA7" Value="SMBUS_FASTMODEPLUS_PA7"/>
+        <PossibleValue Comment="Enable Fast Mode Plus on PA13" Value="SMBUS_FASTMODEPLUS_PA13"/>
+        <PossibleValue Comment="Enable Fast Mode Plus on PA14" Value="SMBUS_FASTMODEPLUS_PA14"/>
+    </RefParameter>
     <!-- SMBus Fast Mode Plus -->
     <RefParameter Comment="FASTMODEPLUS" DefaultValue="SMBUS_FASTMODEPLUS_I2C1" Name="FASTMODEPLUS" Type="list" Visible="false">
-        <Condition Diagnostic="" Expression="$IpInstance_SMBusFastMP &amp; $Index=1  &amp; (STM32C0|STM32G4|STM32L5|STM32L4|STM32L0|STM32WL|STM32G0|STM32WB|STM32WL3)"/>
+        <Condition Diagnostic="" Expression="$IpInstance_SMBusFastMP &amp; $Index=1  &amp; (STM32C0|STM32G4|STM32L5|STM32L4|STM32L0|STM32WL|STM32G0|STM32WB)"/>
+    </RefParameter>
+    <RefParameter Comment="FASTMODEPLUS" DefaultValue="SMBUS_FASTMODEPLUS_ENABLE" Name="FASTMODEPLUS" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="$IpInstance_SMBusFastMP &amp; $Index=1  &amp; (STM32WL4)"/>
+    </RefParameter>
+    <RefParameter Comment="FASTMODEPLUS" DefaultValue="SMBUS_FASTMODEPLUS_ENABLE" Name="FASTMODEPLUS" Type="list" Visible="false">
+        <Condition Diagnostic="" Expression="$IpInstance_SMBusFastMP &amp; $Index=2  &amp; (STM32WL4)"/>
     </RefParameter>
     <RefParameter Comment="FASTMODEPLUS" DefaultValue="SMBUS_FASTMODEPLUS_I2C2" Name="FASTMODEPLUS" Type="list" Visible="false">
-        <Condition Diagnostic="" Expression="$IpInstance_SMBusFastMP &amp; $Index=2  &amp; (STM32G4|STM32L5|STM32L4|STM32L0|STM32WL|STM32G0|STM32WB|STM32WL3)"/>
+        <Condition Diagnostic="" Expression="$IpInstance_SMBusFastMP &amp; $Index=2  &amp; (STM32G4|STM32L5|STM32L4|STM32L0|STM32WL|STM32G0|STM32WB)"/>
     </RefParameter>
     <RefParameter Comment="FASTMODEPLUS" DefaultValue="SMBUS_FASTMODEPLUS_I2C3" Name="FASTMODEPLUS" Type="list" Visible="false">
         <Condition Diagnostic="" Expression="$IpInstance_SMBusFastMP &amp; $Index=3  &amp; (STM32G4|STM32L5|STM32L4|STM32L0|STM32WL|STM32G0|STM32WB)"/>
@@ -463,7 +506,68 @@
     </RefParameter>
     <RefParameter Comment="Secondary Address Mask" DefaultValue="SMBUS_OA2_NOMASK" Group="SMBus Slave Features" Name="SMBusOwnAddress2Masks" Type="list" Visible="false">
         <PossibleValue Comment="No mask" Value="SMBUS_OA2_NOMASK"/>
-    </RefParameter>	
+    </RefParameter>
+    <RefParameter Comment="     Trigger Polarity" DefaultValue="I2C_TRIG_POLARITY_RISING" Group="Autonomous Mode" Name="TriggerPolarity" Type="list">
+        <Condition Diagnostic="" Expression="(AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; $IpInstance_I2C_Enable"/>
+        <PossibleValue Comment="RISING" Value="I2C_TRIG_POLARITY_RISING"/>
+        <PossibleValue Comment="FALLING" Value="I2C_TRIG_POLARITY_FALLING"/>
+    </RefParameter>
+    <RefParameter Comment="     Trigger Polarity" DefaultValue="I2C_TRIG_POLARITY_RISING" Group="Autonomous Mode" Name="TriggerPolarity" Type="list">
+    <Condition Diagnostic="" Expression="(AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; $IpInstance_SMBUS_Enable"/>
+        <PossibleValue Comment="RISING" Value="SMBUS_TRIG_POLARITY_RISING"/>
+        <PossibleValue Comment="FALLING" Value="SMBUS_TRIG_POLARITY_FALLING"/>
+    </RefParameter>
+    <!-- Autonomous Mode __begin -->
+    <RefParameter Comment="Autonomous Mode" DefaultValue="AUTONOMOUS_MODE_DISABLE" Group="Autonomous Mode" Name="AutonomousMode" Type="list">
+        <Condition Diagnostic="" Expression="STM32WL4"/>
+        <PossibleValue Comment="Disable " Value="AUTONOMOUS_MODE_DISABLE"/>
+        <PossibleValue Comment="Enable " Value="AUTONOMOUS_MODE_ENABLE"/>
+    </RefParameter>
+    <RefParameter Comment="     Trigger State" DefaultValue="I2C_AUTO_MODE_ENABLE" Group="Autonomous Mode" Name="TriggerState" Type="list">
+        <Condition Diagnostic="" Expression="(AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; $IpInstance_I2C_Enable"/>
+        <PossibleValue Comment="Enable " Value="I2C_AUTO_MODE_ENABLE"/>
+        <PossibleValue Comment="Disable " Value="I2C_AUTO_MODE_DISABLE"/>
+    </RefParameter>
+
+    <RefParameter Comment="     Trigger State" DefaultValue="I2C_AUTO_MODE_ENABLE" Group="Autonomous Mode" Name="TriggerState" Type="list">
+        <Condition Diagnostic="" Expression="(AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; $IpInstance_SMBUS_Enable"/>
+        <PossibleValue Comment="Enable" Value="SMBUS_AUTO_MODE_ENABLE"/>
+        <PossibleValue Comment="Disable" Value="SMBUS_AUTO_MODE_DISABLE"/>
+    </RefParameter>
+
+    <!--Trigger Selection GRP1 WL4 I2C_Mode-->
+    <RefParameter Comment="     Trigger Selection" DefaultValue="I2C_GRP1_LPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
+        <Condition Diagnostic="" Expression="(STM32WL4) &amp; (AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp;($IpInstance_I2C_Enable)" />
+        <PossibleValue Comment="LPDMA1 channel 0" Value="I2C_GRP1_LPDMA_CH0_TCF_TRG"/>
+        <PossibleValue Comment="LPDMA1 channel 1" Value="I2C_GRP1_LPDMA_CH1_TCF_TRG"/>
+        <PossibleValue Comment="LPDMA1 channel 2" Value="I2C_GRP1_LPDMA_CH2_TCF_TRG"/>
+        <PossibleValue Comment="LPDMA1 channel 3" Value="I2C_GRP1_LPDMA_CH3_TCF_TRG"/>
+        <PossibleValue Comment="EXTI line 5" Value="I2C_GRP1_EXTI5_TRG"/>
+        <PossibleValue Comment="EXTI line 9" Value="I2C_GRP1_EXTI9_TRG"/>
+        <PossibleValue Comment="LPTIM1 out" Value="I2C_GRP1_LPTIM1_CH1_TRG"/>
+        <PossibleValue Comment="LPTIM2 out" Value="I2C_GRP1_LPTIM2_CH1_TRG"/>
+        <PossibleValue Comment="COMP1 out" Value="I2C_GRP1_COMP1_TRG"/>
+        <PossibleValue Comment="COMP2 out" Value="I2C_GRP1_COMP2_TRG"/>
+        <PossibleValue Comment="RTC alarm" Value="I2C_GRP1_RTC_ALRA_TRG"/>
+        <PossibleValue Comment="RTC wakeup" Value="I2C_GRP1_RTC_WUT_TRG"/>
+    </RefParameter>
+    <!--Trigger Selection GRP1 WL4 SMBUS Mode-->
+    <RefParameter Comment="     Trigger Selection" DefaultValue="I2C_GRP1_LPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
+        <Condition Diagnostic="" Expression="STM32WL4 &amp; (AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp;($IpInstance_SMBUS_Enable)" />
+        <PossibleValue Comment="LPDMA1 channel 0" Value="SMBUS_GRP1_LPDMA_CH0_TCF_TRG"/>
+        <PossibleValue Comment="LPDMA1 channel 1" Value="SMBUS_GRP1_LPDMA_CH1_TCF_TRG"/>
+        <PossibleValue Comment="LPDMA1 channel 2" Value="SMBUS_GRP1_LPDMA_CH2_TCF_TRG"/>
+        <PossibleValue Comment="LPDMA1 channel 3" Value="SMBUS_GRP1_LPDMA_CH3_TCF_TRG"/>
+        <PossibleValue Comment="EXTI line 5" Value="SMBUS_GRP1_EXTI5_TRG"/>
+        <PossibleValue Comment="EXTI line 9" Value="SMBUS_GRP1_EXTI9_TRG"/>
+        <PossibleValue Comment="LPTIM1 out" Value="SMBUS_GRP1_LPTIM1_CH1_TRG"/>
+        <PossibleValue Comment="LPTIM2 out" Value="SMBUS_GRP1_LPTIM2_CH1_TRG"/>
+        <PossibleValue Comment="COMP1 out" Value="SMBUS_GRP1_COMP1_TRG"/>
+        <PossibleValue Comment="COMP2 out" Value="SMBUS_GRP1_COMP2_TRG"/>
+        <PossibleValue Comment="RTC alarm" Value="SMBUS_GRP1_RTC_ALRA_TRG"/>
+        <PossibleValue Comment="RTC wakeup" Value="SMBUS_GRP1_RTC_WUT_TRG"/>
+    </RefParameter>
+
 
     <!-- RefMode for I2C -->
     <RefMode HalMode="I2C" Name="I2C">
@@ -471,7 +575,8 @@
         <ConfigForMode>I2C_Analogue</ConfigForMode>  
         <ConfigForMode>I2C_DigitalFolter</ConfigForMode>   		
         <ConfigForMode>FASTMODE_Config</ConfigForMode>
-        <ConfigForMode>I2CEnableFastModePlus</ConfigForMode>   
+        <ConfigForMode>I2CEnableFastModePlus</ConfigForMode>
+        <ConfigForMode>AutonomousMode_Config</ConfigForMode>
         <Parameter Name="CustomTiming"/>
         <Parameter Name="I2C_Speed_Mode"/>
         <Parameter Name="Speed"/>      
@@ -483,11 +588,16 @@
         <Parameter Name="NoStretchMode"/> 
         <Parameter Name="GeneralCallMode"/>
         <Parameter Name="AddressingMode"/>
-	<Parameter Name="DualAddressMode"/>  
+	    <Parameter Name="DualAddressMode"/>
         <Parameter Name="OwnAddress"/>
         <Parameter Name="OwnAddress2"/>  
         <Parameter Name="OwnAddress2Masks"/>	
         <Parameter Name="Instance"/>
+        <Parameter Name="AutonomousMode"/>
+        <Parameter Name="TriggerState"/>
+        <Parameter Name="TriggerSelection"/>
+        <Parameter Name="TriggerPolarity"/>
+        <Parameter Name="ConfigFastModePlus"/>
     </RefMode> 
 
     <!-- RefMode for SMBus -->
@@ -505,7 +615,7 @@
         <Parameter Name="SMBusNoStretchMode"/> 
         <Parameter Name="SMBusGeneralCallMode"/>
         <Parameter Name="SMBusAddressingMode"/>	
-	<Parameter Name="SMBusDualAddressMode"/>
+        <Parameter Name="SMBusDualAddressMode"/>
         <Parameter Name="SMBusOwnAddress"/>          
         <Parameter Name="SMBusOwnAddress2"/>  
         <Parameter Name="SMBusOwnAddress2Masks"/>	
@@ -516,20 +626,28 @@
         <Parameter Name="TIMEOUTA_idle"/>
         <Parameter Name="TIMEOUT_time"/>
         <Parameter Name="Timeout"/>
-        <Parameter Name="Instance"/>	
+        <Parameter Name="Instance"/>
+        <Parameter Name="AutonomousMode"/>
+        <Parameter Name="TriggerState"/>
+        <Parameter Name="TriggerSelection"/>
+        <Parameter Name="TriggerPolarity"/>
+        <Parameter Name="ConfigFastModePlus"/>
     </RefMode>
     <!-- SMBus-two-wire-Interface -->
     <RefMode BaseMode="SMBus_common" HalMode="SMBUS" Name="SMBus-two-wire-Interface">
         <ConfigForMode>SMBus_init</ConfigForMode>   
         <ConfigForMode>FASTMODE_Config</ConfigForMode>  
-        <ConfigForMode>I2C_DigitalFolter</ConfigForMode>   
+        <ConfigForMode>I2C_DigitalFolter</ConfigForMode>
+        <ConfigForMode>AutonomousMode_Config_SMBus</ConfigForMode>
+        <ConfigForMode>SMBUSEnableFastModePlus</ConfigForMode>
     </RefMode> 
     <!-- SMBus-Alert-mode -->
     <RefMode BaseMode="SMBus_common" HalMode="SMBUS" Name="SMBus-Alert-mode">
         <ConfigForMode>SMBus_init</ConfigForMode>   
         <ConfigForMode>SMBus_alert</ConfigForMode>   
         <ConfigForMode>FASTMODE_Config</ConfigForMode>
-        <ConfigForMode>I2C_DigitalFolter</ConfigForMode>  
+        <ConfigForMode>I2C_DigitalFolter</ConfigForMode>
+        <ConfigForMode>AutonomousMode_Config_SMBus</ConfigForMode>
     </RefMode> 
 
     <!-- ModeLogicOperator for I2C -->
@@ -553,7 +671,7 @@
                         <Signal Name="SMBA"/>
                     </SignalLogicalOp>
                 </Mode>
-                <Mode Name="SMBus-two-wire-Interface" RemoveCondition="(STM32G0x1 &amp; (($Index=3)|($Index=2)))|(((STM32L0|STM32F0|STM32G0|STM32C0)) &amp; ($Index=2) &amp; !STM32G0x1)">
+                <Mode Name="SMBus-two-wire-Interface" RemoveCondition="!((STM32WL3|STM32WL|STM32L5|STM32L4|STM32F3|STM32G4)|(STM32WL4)|(((STM32L0) | (STM32F0) | (STM32C0)) &amp;($Index=1))|(((STM32G0) &amp; ($Index=1)) | ((STM32L0) &amp; ($Index=3)) | ((DIE467) &amp; ($Index=2))))">
                     <Semaphore>$IpInstance_SMBUS_Enable</Semaphore>
                     <SignalLogicalOp Name="AND">
                         <Signal Name="SCL"/>

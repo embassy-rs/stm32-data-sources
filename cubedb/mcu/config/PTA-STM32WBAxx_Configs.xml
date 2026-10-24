@@ -9,5 +9,27 @@
     
    <!-- RefConfig is empty to be able to get the NVIC interrupts for PTA and have isHalSupported():true in IP.java -->
    <RefConfig  Name=""></RefConfig>
+   <RefConfig Comment="Initialize the PTA feature" Name="PTA_Init">
+        <CallLibMethod Name="pta_init">
+             <MethodArg Name="PTA_ACTIVE_SETUP_TIME_US"  FValue="PTA_ACTIVE_SETUP_TIME_US"/>
+	    </CallLibMethod>
+	    <CallLibMethod Name="pta_enable">
+             <MethodArg Name="PTA_ENABLED"  FValue="PTA_ENABLED"/>
+	    </CallLibMethod>
+        <ImplementCallBack Name="HAL_PTA_MspInit"/>
+        <ImplementCallBack Name="HAL_PTA_MspDeInit"/>
+    </RefConfig>
+    <RefConfig Name="PTA_DeInit">
+        <CallLibMethod Name="HAL_PTA_DeInit"/>
+    </RefConfig>
+    <LibMethod Comment="Initialize the PTA feature" Name="pta_init">
+        <Argument AddressOf="false" GenericType="simple" Name="PTA_ACTIVE_SETUP_TIME_US" OptimizationCondition="equal"/>
+    </LibMethod>
+    <LibMethod Comment="Enable the PTA" Name="pta_enable">
+        <Argument AddressOf="false" GenericType="simple" Name="PTA_ENABLED" OptimizationCondition="equal"/>
+    </LibMethod>
+    <LibMethod Comment="" Name="HAL_PTA_DeInit"/>
+    <LibMethod Comment="" Name="HAL_PTA_MspInit" />
+    <LibMethod Comment="" Name="HAL_PTA_MspDeInit"/>
    
  </IP>
