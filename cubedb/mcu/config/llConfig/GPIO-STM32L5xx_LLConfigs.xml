@@ -19,6 +19,23 @@
             </CallLibMethod>
         </IFCondition>             
     </RefConfig>
+    <RefConfig Name="Analog">
+        <IFCondition Expression="GENERATE_GPIO_CONFIG">
+            <CallLibMethod Name="LL_GPIO_Init" >
+                <MethodArg Name="Pin" ParameterName="GPIO_Pin"/>
+                <MethodArg Name="Mode" ParameterName="GPIO_Mode"/>
+                <MethodArg Name="Speed" ParameterName="GPIO_Speed"/>
+                <MethodArg Name="Pull" ParameterName="GPIO_Pd"/>
+                <MethodArg Name="Alternate" ParameterName="GPIO_AF"/>
+            </CallLibMethod>
+        </IFCondition>
+        <IFCondition Expression="NS_PIN">
+            <CallLibMethod Name="LL_GPIO_DisablePinSecure" ReturnHAL="false">
+                <MethodArg Name="Pin" ParameterName="GPIO_Pin"/>
+                <MethodArg  Name="GPIOx" ParameterName="GPIOx" />
+            </CallLibMethod>
+        </IFCondition>
+    </RefConfig>
     <RefConfig Name="GPIODefaultOutputPP">
         <IFCondition Expression="GENERATE_GPIO_CONFIG">
         <CallLibMethod Name="LL_GPIO_Init" >

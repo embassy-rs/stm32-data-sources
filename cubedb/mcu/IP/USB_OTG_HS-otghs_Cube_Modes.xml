@@ -24,7 +24,7 @@
 	<RefParameter Comment="Device endpoints number" DefaultValue="7" Name="dev_endpoints" Min="1" Max="7" Type="integer" Group="" Visible="false"/>
 	
 	<RefParameter Comment="Host Channels" DefaultValue="16" Name="Host_channels"  Min="1" Max="16" Type="integer" Group="USB_OTG_Host_Configuration">	
-		<Condition Expression="(DIE4B0) &amp; (VirtualMode = DRD)" Diagnostic=""/>		
+		<Condition Expression="(DIE4B0 | DIE485) &amp; (VirtualMode = DRD)" Diagnostic=""/>		
 	</RefParameter>
 	<RefParameter Comment="Host Channels" DefaultValue="16" Name="Host_channels"  Min="1" Max="16" Type="integer">	
 		<Condition Expression="(DIE450 | DIE480 | DIE483| DIE481 | DIE4B0 | DIE476 | DIE485) &amp; ((VirtualMode = Host_HS) | (VirtualMode = Host_FS))" Diagnostic=""/>		
@@ -610,14 +610,16 @@
 		</Mode>
         <Mode Name="Internal HS Phy" RemoveCondition="!DIE485">
 			<ModeLogicOperator Name="XOR">
-				<Mode Name="OTG/Dual-Role-Device-HS" UserName="OTG/Dual_Role_Device">
+				<Mode Name="Dual_Role_Device" UserName="OTG/Dual_Role_Device">
 					<SignalLogicalOp Name="AND">
 						<Signal Name="DM"/>
 						<Signal Name="DP"/>
 						<Signal Name="ID"/>
 					</SignalLogicalOp>
 					<Semaphore>OTG_DUAL_ROL_DEVICE_HS_FS</Semaphore>
+					<Semaphore>OTG_DUAL_ROL_DEVICE_HS_FS$context</Semaphore>
 					<Semaphore>SEMAOoUSBOoOTGOoHSOoDRDOoFOROoUSBX</Semaphore>
+					<Semaphore>MW_USB_OTG_HS_MW_DEVICE</Semaphore>
 				</Mode>
 				<!-- Tracker 333854 -->
 				<Mode Name="Internal_Phy_Host" UserName="Host_Only">
@@ -685,6 +687,7 @@
 				</Mode>
 			</ModeLogicOperator>
 			<Semaphore>$IpInstanceFS</Semaphore>
+			<Semaphore>USB_OTG_HS_Enabled</Semaphore>
 			<Condition Expression="!$IpInstanceHS &amp; (HSEByPass|HSEDIGByPass|HSEOscillator) " Diagnostic="HSE Clock Source must be enabled"/>
 		</Mode>
 		<Mode Name="Activate_SOF">

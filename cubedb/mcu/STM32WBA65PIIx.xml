@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Mcu ClockTree="STM32WBA6" DBVersion="V3.0" Family="STM32WBA" HasPowerPad="false" IOType="" Line="STM32WBx6" Package="UFBGA121_SMPS_USB" RefName="STM32WBA65PIIx" xmlns="http://mcd.rou.st.com/modules.php?name=mcu">
+<Mcu ClockTree="STM32WBA6" DBVersion="V3.0" Family="STM32WBA" HasPowerPad="false" IOType="" Line="STM32WBAx5" Package="UFBGA121_SMPS_USB" RefName="STM32WBA65PIIx" xmlns="http://mcd.rou.st.com/modules.php?name=mcu">
     <Core>ARM Cortex-M33</Core>
     <ContextProject Attributes="MONO" Comment="without TrustZone activated ?" Contexts="CortexM33" Name="TrustZoneDisabled"/>
     <ContextProject Attributes="DUAL,TZ" Comment="with TrustZone activated ?" Contexts="CortexM33S,CortexM33NS" Name="TrustZoneEnabled"/>
@@ -9,7 +9,7 @@
     <MemoryMap>Available</MemoryMap>
     <TrustZone>Available</TrustZone>
     <Ram>512</Ram>
-    <IONb>86</IONb>
+    <IONb>84</IONb>
     <Die>DIE4B0</Die>
     <Flash>2048</Flash>
     <IP ClockEnableMode="__HAL_RCC_ADC4_CLK_ENABLE" ConfigFile="ADC-STM32WBAxx" InstanceName="ADC4" Name="ADC" Version="aditf4_v4_WBA_Cube">
@@ -42,7 +42,7 @@
             <ContextIP ContextName="CortexM33"/>
         </ContextSplit>
     </IP>
-    <IP ConfigFile="COMMON_WPAN-STM32WBAxx" InstanceName="COMMON_WPAN" Name="COMMON_WPAN" Version="v1.1.0_Cube">
+    <IP ConfigFile="COMMON_WPAN-STM32WBAxx" InstanceName="COMMON_WPAN" Name="COMMON_WPAN" Version="v1.5.0_Cube">
         <ContextSplit Name="split1">
             <ContextIP ContextName="CortexM33NS" InitializerForced="true"/>
         </ContextSplit>
@@ -115,7 +115,7 @@
             <ContextIP ContextName="CortexM33"/>
         </ContextSplit>
     </IP>
-    <IP ConfigFile="flash-STM32WBAxx" InstanceName="FLASH" Name="flash" Version="v1.0.0_WBA_Cube">
+    <IP ConfigFile="flash-STM32WBA6xx" InstanceName="FLASH" Name="flash" Version="v1.0.0_WBA6_Cube">
         <ContextSplit Name="split1">
             <ContextIP ContextName="CortexM33S"/>
         </ContextSplit>
@@ -310,6 +310,14 @@
             <ContextIP ContextName="CortexM33"/>
         </ContextSplit>
     </IP>
+    <IP ConfigFile="NetXDuo-STM32WBAxx" InstanceName="NETXDUO" Name="NetXDuo" Version="v1.0.0_WBA_Cube">
+        <ContextSplit Name="split1">
+            <ContextIP ContextName="CortexM33NS" InitializerForced="true"/>
+        </ContextSplit>
+        <ContextSplit Name="split3">
+            <ContextIP ContextName="CortexM33"/>
+        </ContextSplit>
+    </IP>
     <IP ClockEnableMode="__HAL_RCC_CRC_CLK_ENABLE" ConfigFile="PDM2PCM-STM32WBAxx" InstanceName="PDM2PCM" Name="PDM2PCM" Version="pdm2pcm_v3.2.0_Cube">
         <ContextSplit Name="split1">
             <ContextIP ContextName="CortexM33S"/>
@@ -332,7 +340,7 @@
             <ContextIP ContextName="CortexM33"/>
         </ContextSplit>
     </IP>
-    <IP ConfigFile="PTA-STM32WBAxx" InstanceName="PTA" Name="PTA" Version="STM32WBA_v1_0_Cube">
+    <IP ClockEnableMode="__HAL_RCC_PTACONV_CLK_ENABLE" ConfigFile="PTA-STM32WBAxx" InstanceName="PTA" Name="PTA" Version="STM32WBA_v1_0_Cube">
         <ContextSplit Name="split1">
             <ContextIP ContextName="CortexM33NS" InitializerForced="true"/>
         </ContextSplit>
@@ -342,7 +350,7 @@
     </IP>
     <IP ClockEnableMode="__HAL_RCC_PWR_CLK_ENABLE" ConfigFile="PWR-STM32WBA6xx" InstanceName="PWR" Name="PWR" Version="STM32WBA6_pwr_v1_0">
         <ContextSplit Name="split1">
-            <ContextIP ContextName="CortexM33S" ForcedSelection="true" InitializerForced="true"/>
+            <ContextIP ContextName="CortexM33S" ForcedSelection="true"/>
             <ContextIP ContextName="CortexM33NS" ForcedSelection="true"/>
         </ContextSplit>
         <ContextSplit Name="split3">
@@ -465,7 +473,7 @@
             <ContextIP ContextName="CortexM33"/>
         </ContextSplit>
     </IP>
-    <IP ConfigFile="STM32_WPAN-STM32WBAxx" InstanceName="STM32_WPAN" Name="STM32_WPAN" Version="v2.6_Cube">
+    <IP ConfigFile="STM32_WPAN-STM32WBAxx" InstanceName="STM32_WPAN" Name="STM32_WPAN" Version="v2.10_Cube">
         <ContextSplit Name="split1">
             <ContextIP ContextName="CortexM33NS" InitializerForced="true"/>
         </ContextSplit>
@@ -650,7 +658,7 @@
     </IP>
     <IP ClockEnableMode="__HAL_RCC_USB_OTG_HS_CLK_ENABLE;__HAL_RCC_USB_OTG_HS_PHY_CLK_ENABLE" IPContextCoupling="USB_OTG_HS1 | USB_OTG_HS" InstanceName="USB_OTG_HS" Name="USB_OTG_HS" Version="otghs_Cube"/>
     <IP ClockEnableMode="__HAL_RCC_USB_OTG_HS_CLK_ENABLE;__HAL_RCC_USB_OTG_HS_PHY_CLK_ENABLE" ConfigFile="HCD-STM32WBAxx" IPContextCoupling="USB_OTG_HS1 | USB_OTG_HS" InstanceName="USB_OTG_HS1" Name="USB_OTG_HS1" Version="v1.0.0_Cube"/>
-    <IP InstanceName="VREFBUF" Name="VREFBUF" Version="STM32WBA_vrefbuf_v1_0">
+    <IP ConfigFile="SYS-STM32WBAxx" InstanceName="VREFBUF" Name="VREFBUF" Version="STM32WBA_vrefbuf_v1_0">
         <ContextSplit Name="split1">
             <ContextIP ContextName="CortexM33S"/>
         </ContextSplit>
@@ -898,7 +906,7 @@
         <Signal Name="USART2_CTS"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
     </Pin>
-    <Pin Name="PA13(JTSM/SWDIO)" Position="D9" Type="I/O">
+    <Pin Name="PA13(JTMS/SWDIO)" Position="D9" Type="I/O">
         <Signal Name="DEBUG_JTMS-SWDIO"/>
         <Signal Name="IR_OUT"/>
         <Signal Name="PTA_PRIORITY"/>
@@ -1286,7 +1294,7 @@
         <Signal Name="TIM3_CH3"/>
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
     </Pin>
-    <Pin Name="PB4(NJRST)" Position="J10" Type="I/O">
+    <Pin Name="PB4(NJTRST)" Position="J10" Type="I/O">
         <Signal Name="DEBUG_NJTRST"/>
         <Signal Name="LPTIM2_IN2"/>
         <Signal Name="PTA_ACTIVE"/>
@@ -1301,9 +1309,8 @@
     </Pin>
     <Pin Name="VSS" Position="J11" Type="Power"/>
     <Pin Name="VDDUSB" Position="K1" Type="Power"/>
-    <Pin Name="PD6" Position="K2" Type="I/O">
+    <Pin Name="PD6" Position="K2" Type="MonoIO">
         <Signal Name="USB_OTG_HS_DP"/>
-        <Signal IOModes="Input,Output,Analog,EXTI" Name="GPIO"/>
     </Pin>
     <Pin Name="PB8" Position="K3" Type="I/O">
         <Signal Name="COMP1_OUT"/>
@@ -1362,9 +1369,8 @@
         <Signal IOModes="Input,Output,Analog,EVENTOUT,EXTI" Name="GPIO"/>
     </Pin>
     <Pin Name="VDD" Position="K11" Type="Power"/>
-    <Pin Name="PD7" Position="L1" Type="I/O">
+    <Pin Name="PD7" Position="L1" Type="MonoIO">
         <Signal Name="USB_OTG_HS_DM"/>
-        <Signal IOModes="Input,Output,Analog,EXTI" Name="GPIO"/>
     </Pin>
     <Pin Name="PD5" Position="L2" Type="I/O">
         <Signal Name="SAI1_D1"/>

@@ -2,6 +2,7 @@
 <IP xmlns="http://mcd.rou.st.com/modules.php?name=mcu" DBVersion="V4.0" IPType="middleware" IpGroup="Middleware" Name="USBX" Version="1.0.0" xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance" ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../../../doc/V4/Development/Specifications/db/IP_Modes.xsd">
 	<RefMode Abstract="false" Name="Core_System">
 		<ConfigForMode>Core_System</ConfigForMode>
+		<Parameter Added="true" Name="IS_DEVICE_HOST_ENABLED" />
 		<Parameter Added="true" Name="UX_THREAD_STACK_SIZE">
 			<Condition Diagnostic="" Expression="SEMThreadXCcRTOSJjThreadXJjCore" Name="UX_CORESYSTEM_RTOS"/>
 		</Parameter>
@@ -300,6 +301,7 @@
 		<Parameter Added="true" Name="REG_UX_DEVICE_PRINTER"></Parameter>
 		<Parameter Added="true" Name="UX_DEVICE_ENABLE_GET_STRING_WITH_ZERO_LANGUAGE_ID"></Parameter>
 		<Parameter Added="true" Name="UX_DEVICE_ENDPOINT_BUFFER_OWNER"></Parameter>
+		<Parameter Added="true" Name="USBXDEVICE_ENABLED"/>
 		<Parameter Added="true" Name="USBX_DEVICE_MEM_POOL_VAR_NAME">
 			<Condition Diagnostic="" Expression="SEMThreadXCcRTOSJjThreadXJjCore" />
 		</Parameter>
@@ -329,6 +331,7 @@
 		<Parameter Added="true" Name="USBD_HID_MOUSE_EPIN_HS_MPS"/>
 		<Parameter Added="true" Name="USBD_HID_MOUSE_EPIN_FS_BINTERVAL"/>
 		<Parameter Added="true" Name="USBD_HID_MOUSE_EPIN_HS_BINTERVAL"/>
+		<Parameter Added="true" Name="USBD_HID_MOUSE_PARAMETER_REPORT_ID" />
 		<Parameter Name="UX_DEVICE_HID_MOUSE">
 			<PossibleValue>1</PossibleValue>
 		</Parameter>
@@ -990,6 +993,10 @@
 	<RefSignal Name="UX Device CCID_FS" Virtual="true" />
 	<RefSignal Name="UX Device PRINTER_FS" Virtual="true" />
 	
+	<RefParameter Comment="CoreStack Device/Host" DefaultValue="enable" Group="Core Utilities" TabName="USBX" Name="IS_DEVICE_HOST_ENABLED" Type="list" Visible="true">
+        <PossibleValue Comment="enable" Value="enable" Condition="USBXDEVICE_ENABLED = false" Action="" Diagnostic="Device mode should be enabled"/>
+		<Description>&lt;br&gt;&lt;font color=&quot;red&quot;&gt; The component “USBX/CoreSystem” must be selected alongside either “USBX/UX Host CoreStack” or “USBX/UX Device CoreStack” &lt;/font&gt;</Description>
+    </RefParameter>
 	<RefParameter Added="true" Comment="UX_TRACE_INSERT_MACROS" DefaultValue="0" Group="TraceX" Name="UX_TRACE_INSERT_MACROS" TabName="USBX" Type="uniqueElementList">
 		<Description>Determine if tracing is enabled.</Description>
 		<Condition Diagnostic="Active only when TX_ENABLE_EVENT_TRACE is enabled" Expression="ThreadX:TX_ENABLE_EVENT_TRACE = 0" />
@@ -1182,7 +1189,7 @@
 	<RefParameter Added="true" Comment="UX_MAX_SLAVE_CLASS_DRIVER" DefaultValue="1" Group="Device Core" Max="255" Min="0" Name="UX_MAX_SLAVE_CLASS_DRIVER" TabName="USBX" Type="integer" Unit="">
 		<Description>This value is the maximum number of classes in the device stack that can be loaded by USBX</Description>
 	</RefParameter>
-	<RefParameter Added="true" Comment="UX_MAX_SLAVE_INTERFACES" DefaultValue="16" Group="Device Core" Max="255" Min="0" Name="UX_MAX_SLAVE_INTERFACES" TabName="USBX" Type="integer" Unit="">
+	<RefParameter Added="true" Comment="UX_MAX_SLAVE_INTERFACES" DefaultValue="16" Group="Device Core" Max="255" Min="1" Name="UX_MAX_SLAVE_INTERFACES" TabName="USBX" Type="integer" Unit="">
 		<Description>This value is the maximum number of interfaces in the device framework</Description>
 	</RefParameter>
 	<RefParameter Added="true" Comment="UX_MAX_DEVICES" DefaultValue="127" Group="Host Core" Max="127" Min="1" Name="UX_MAX_DEVICES" TabName="USBX" Type="integer" Unit="">
@@ -1220,7 +1227,7 @@ Note that this value represents the total number of devices regardless of the nu
 	</RefParameter>
 	<RefParameter Added="true" Comment="UX_DEVICE_CLASS_CDC_ECM_PACKET_POOL_WAIT" DefaultValue="10" Group="Device Class CDC ECM" Max="65535" Min="0" Name="UX_DEVICE_CLASS_CDC_ECM_PACKET_POOL_WAIT" TabName="USBX" Type="integer" Unit="">		<Description>This value represents the number of milliseconds to wait for packet allocation until invoking the application's error callback and retrying</Description>
 	</RefParameter>
-	<RefParameter Added="true" Comment="UX_DEVICE_CLASS_HID_EVENT_BUFFER_LENGTH" DefaultValue="64" Group="Device Class HID" Max="255" Min="0" Name="UX_DEVICE_CLASS_HID_EVENT_BUFFER_LENGTH" TabName="USBX" Type="integer" Unit="">
+	<RefParameter Added="true" Comment="UX_DEVICE_CLASS_HID_EVENT_BUFFER_LENGTH" DefaultValue="64" Group="Device Class HID" Max="1024" Min="0" Name="UX_DEVICE_CLASS_HID_EVENT_BUFFER_LENGTH" TabName="USBX" Type="integer" Unit="">
 		<Description>This value represents the the maximum length of HID reports on the device.</Description>
 	</RefParameter>
 	<RefParameter Added="true" Comment="UX_DEVICE_CLASS_HID_MAX_EVENTS_QUEUE" DefaultValue="8" Group="Device Class HID" Max="255" Min="0" Name="UX_DEVICE_CLASS_HID_MAX_EVENTS_QUEUE" TabName="USBX" Type="integer" Unit="">
@@ -1485,9 +1492,6 @@ simple mode disabled: status is queried from application once requested, (bwPoll
 	<RefParameter Added="true" Comment="USBD_MSC_ENDPOINT_IN_FS_MPS" DefaultValue="64" Group="Device Class STORAGE" Name="USBD_MSC_EPIN_FS_MPS" TabName="USBX" Type="string">
 		<Description>Device storage class endpoint in_FS Max Packet Size</Description>
 	</RefParameter>
-	<RefParameter Added="true" Comment="UX_DEVICE_CLASS_HID_EVENT_BUFFER_LENGTH" DefaultValue="64" Group="Device Class HID MOUSE" Max="255" Min="0" Name="UX_DEVICE_CLASS_HID_EVENT_BUFFER_LENGTH" TabName="USBX" Type="integer" Unit="">
-        <Description>This value represents the the maximum length of HID reports on the device.</Description>
-    </RefParameter>
     <RefParameter Added="true" Comment="UX_DEVICE_CLASS_HID_MAX_EVENTS_QUEUE" DefaultValue="8" Group="Device Class HID MOUSE" Max="255" Min="0" Name="UX_DEVICE_CLASS_HID_MAX_EVENTS_QUEUE" TabName="USBX" Type="integer" Unit="">
         <Description>This value represents the the maximum number of HID events/reports that can be queued at once.</Description>
 		</RefParameter>
@@ -2390,4 +2394,17 @@ function, &lt;i&gt;"first_unused_memory"&lt;/i&gt; argument.This require changes
 		<PossibleValue Comment="Disabled" Value="0" />
 		<PossibleValue Comment="Enabled" Value="1" />
 	</RefParameter>
+	<RefParameter Added="true" Comment="USBD_HID_MOUSE_PARAMETER_REPORT_ID" DefaultValue="UX_FALSE" Group="Device Class HID MOUSE" Name="USBD_HID_MOUSE_PARAMETER_REPORT_ID" TabName="USBX" Type="list">
+		<Description></Description>
+		<PossibleValue Comment="UX_FALSE" Value="UX_FALSE" />
+		<PossibleValue Comment="UX_TRUE" Value="UX_TRUE" />
+	</RefParameter>
+    <RefParameter Added="true" Comment="USBXDEVICE_ENABLED" DefaultValue="false" Group="Memory Configuration"  Name="USBXDEVICE_ENABLED" TabName="ThreadX" Type="boolean" Visible="false">
+        <Description></Description>
+        <Condition Diagnostic="" Expression="!SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoCoreStackJjRTOSIiMODE_FS "/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="USBXDEVICE_ENABLED" DefaultValue="true" Group="Memory Configuration"  Name="USBXDEVICE_ENABLED" TabName="ThreadX" Type="boolean" Visible="false">
+        <Description></Description>
+        <Condition Diagnostic="" Expression="SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoCoreStackJjRTOSIiMODE_FS"/>
+    </RefParameter>
 </IP>

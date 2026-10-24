@@ -187,6 +187,10 @@
         <PossibleValue Comment="Enabled" Value="1"/>
         <Description>Forced to 1 when CMSIS_RTOS_V2 is used (constraint due to current cmsis_os2.c file in FW packs).</Description>
     </RefParameter>
+    <RefParameter Name="configUSE_RECURSIVE_MUTEXES" Comment="USE_RECURSIVE_MUTEXES" DefaultValue="1" Type="list" Group="Kernel settings" TabName="Config parameters">
+        <PossibleValue Comment="Enabled" Value="1"/>
+        <Description>Forced to 1 when CMSIS_RTOS_V2 is used (constraint due to current cmsis_os2.c file in FW packs).</Description>
+    </RefParameter>
 
     <RefParameter Name="configUSE_COUNTING_SEMAPHORES" Comment="USE_COUNTING_SEMAPHORES" DefaultValue="1" Type="list" Group="Kernel settings" TabName="Config parameters">
         <Condition Diagnostic="Forced to 1 when CMSIS RTOS v2 is in use." Expression="S_CMSIS_RTOS_V2"/>
@@ -778,10 +782,11 @@
 
     <!-- cf tracker #320153, parameter forced to one in 8.2.1 because of cmsis_os; to be ok for 8.2.2 -->
     <RefParameter Name="configUSE_TASK_NOTIFICATIONS" Comment="USE_TASK_NOTIFICATIONS" DefaultValue="1" Type="list" Group="Kernel settings" TabName="Config parameters" Visible="true">
-        <PossibleValue Comment="Disabled" Value="0"/>
+        <PossibleValue Comment="Disabled" Value="0" Semaphore="configUSE_TASK_NOTIFICATIONS_DISABLED"/>
         <PossibleValue Comment="Enabled" Value="1"/>
         <Description>Each RTOS task has a 32-bit notification value. An RTOS task notification is an event sent directly to a task that can unblock the receiving task, and optionally update the receiving task's notification value.&lt;br&gt;
-                     RTOS task notification functionality is enabled by default, and can be excluded from a build (saving 8 bytes per task) by setting configUSE_TASK_NOTIFICATIONS to 0 in FreeRTOSConfig.h (achieved when setting USE_TASK_NOTIFICATIONS to Disabled). </Description>
+            RTOS task notification functionality is enabled by default, and can be excluded from a build (saving 8 bytes per task) by setting configUSE_TASK_NOTIFICATIONS to 0 in FreeRTOSConfig.h (achieved when setting USE_TASK_NOTIFICATIONS to Disabled).&lt;br&gt;
+            When disabling USE_TASK_NOTIFICATIONS, USE_OS2_THREAD_FLAGS also needs to be disabled to avoid error compilations.</Description>
     </RefParameter>
      <RefParameter Name="configOVERRIDE_DEFAULT_TICK_CONFIGURATION" Comment="OVERRIDE_DEFAULT_TICK_CONFIGURATION" DefaultValue="0" Type="list" Group="Kernel settings" TabName="Config parameters" Visible="false">
         <PossibleValue Comment="Disabled" Value="0"/>

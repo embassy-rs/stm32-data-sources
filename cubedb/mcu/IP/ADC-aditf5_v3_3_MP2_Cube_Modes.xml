@@ -44,7 +44,7 @@
         <Condition Diagnostic="" Expression="(ADC1_Exist|ADC_Exist|ADC3_Exist)&amp;(!ADC2_Exist)"/>
     </RefParameter>
     <RefParameter Comment="Mode" DefaultValue="ADC_MODE_INDEPENDENT" Group="ADCsgroup" Name="Mode" Type="list">
-        <Condition Diagnostic="Regular simultanious mode should not be available for injected conversion" Expression="((($Index=1|$Index=2)&amp; USE_ADC1&amp;USE_ADC2)&amp;(ADC1:InjNumberOfConversion=0)&amp;(ADC2:InjNumberOfConversion=0))"/>
+        <Condition Diagnostic="Regular simultaneous mode should not be available for injected conversion" Expression="((($Index=1|$Index=2)&amp; USE_ADC1&amp;USE_ADC2)&amp;(ADC1:InjNumberOfConversion=0)&amp;(ADC2:InjNumberOfConversion=0))"/>
         <PossibleValue Comment="Independent mode" Value="ADC_MODE_INDEPENDENT"/>
         <PossibleValue Comment="Dual regular simultaneous + alternate trigger mode" Semaphore="DualMode1_$IpInstance" Value="ADC_DUALMODE_REGSIMULT_ALTERTRIG"/>
         <PossibleValue Comment="Dual regular simultaneous mode only" Semaphore="DualMode2_$IpInstance" Value="ADC_DUALMODE_REGSIMULT"/>
@@ -52,7 +52,7 @@
         <PossibleValue Comment="Dual alternate trigger mode only" Semaphore="DualMode3_$IpInstance" Value="ADC_DUALMODE_ALTERTRIG"/>
     </RefParameter>
     <RefParameter Comment="Mode" DefaultValue="ADC_MODE_INDEPENDENT" Group="ADCsgroup" Name="Mode" Type="list">
-        <Condition Diagnostic="Regular simultanious mode should not be available for injected conversion" Expression="((($Index=1|$Index=2)&amp;USE_ADC1&amp;USE_ADC2))"/>
+        <Condition Diagnostic="Regular simultaneous mode should not be available for injected conversion" Expression="((($Index=1|$Index=2)&amp;USE_ADC1&amp;USE_ADC2))"/>
         <PossibleValue Comment="Independent mode" Value="ADC_MODE_INDEPENDENT"/>
         <PossibleValue Comment="Dual combined regular simultaneous + injected simultaneous mode" Semaphore="DualMode0_$IpInstance" Value="ADC_DUALMODE_REGSIMULT_INJECSIMULT"/>
         <PossibleValue Comment="Dual regular simultaneous + alternate trigger mode" Semaphore="DualMode1_$IpInstance" Value="ADC_DUALMODE_REGSIMULT_ALTERTRIG"/>
@@ -155,25 +155,7 @@
     <!--  ########################################################################################ADCx Setting parameters####################################################################################### -->
     <!-- Possible value of Prescaler parameter -->
     <RefParameter Comment="Clock Prescaler" DefaultValue="ADC_CLOCK_CK_KER_ADC12_DIV1" Group="ADCsgroup" Name="ClockPrescaler" Type="list">
-<PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV1_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 1" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC12_DIV1"/>
-        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV2_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 2" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC12_DIV2"/>
-        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV4_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 4" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC12_DIV4"/>
-        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV6_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 6" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC12_DIV6"/>
-        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV8_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 8" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC12_DIV8"/>
-        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV10_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 10" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC12_DIV10"/>		
-        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV12_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 12" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC12_DIV12"/>
-        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV16_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 16" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC12_DIV16"/>
-        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV32_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 32" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC12_DIV32"/>
-        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV64_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 64" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC12_DIV64"/>
-        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV128_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 128" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC12_DIV128"/>
-        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV256_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 256" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC12_DIV256"/>
-        <PossibleValue Action="Disable" Condition="ADC_CLOCK_SYNC_PCLK_DIV1_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Synchronous clock mode divided by 1" Semaphore="$IpInstanceUsedSynchronousCLK_ForRCC" Value="ADC_CLOCK_SYNC_PCLK_DIV1"/>
-        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_SYNC_PCLK_DIV2_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Synchronous clock mode divided by 2" Value="ADC_CLOCK_SYNC_PCLK_DIV2"/>
-        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_SYNC_PCLK_DIV4_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Synchronous clock mode divided by 4" Value="ADC_CLOCK_SYNC_PCLK_DIV4"/>
-        <Description>frequency of the clock to the ADC. The clock is common for all the ADCs.</Description>
-    </RefParameter>  
-	    
-    <RefParameter Comment="Clock Prescaler" DefaultValue="ADC_CLOCK_CK_KER_ADC12_DIV1" Group="ADCsgroup" Name="ClockPrescaler" Type="list">	
+        <Condition Diagnostic="" Expression="DIE505"/>
         <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV1_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 1" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC12_DIV1"/>
         <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV2_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 2" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC12_DIV2"/>
         <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV4_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 4" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC12_DIV4"/>
@@ -191,7 +173,46 @@
         <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_SYNC_PCLK_DIV4_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Synchronous clock mode divided by 4" Value="ADC_CLOCK_SYNC_PCLK_DIV4"/>
         <Description>frequency of the clock to the ADC. The clock is common for all the ADCs.</Description>
     </RefParameter>  
-		
+	    
+    <RefParameter Comment="Clock Prescaler" DefaultValue="ADC_CLOCK_CK_KER_ADC12_DIV1" Group="ADCsgroup" Name="ClockPrescaler" Type="list">
+        <Condition Diagnostic="" Expression="($IpNumber=1) &amp; DIE503"/>
+        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV1_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 1" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC1_DIV1"/>
+        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV2_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 2" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC1_DIV2"/>
+        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV4_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 4" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC1_DIV4"/>
+        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV6_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 6" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC1_DIV6"/>
+        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV8_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 8" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC1_DIV8"/>
+        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV10_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 10" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC1_DIV10"/>
+        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV12_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 12" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC1_DIV12"/>
+        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV16_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 16" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC1_DIV16"/>
+        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV32_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 32" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC1_DIV32"/>
+        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV64_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 64" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC1_DIV64"/>
+        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV128_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 128" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC1_DIV128"/>
+        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV256_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 256" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC1_DIV256"/>
+        <PossibleValue Action="Disable" Condition="ADC_CLOCK_SYNC_PCLK_DIV1_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Synchronous clock mode divided by 1" Semaphore="$IpInstanceUsedSynchronousCLK_ForRCC" Value="ADC_CLOCK_SYNC_PCLK_DIV1"/>
+        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_SYNC_PCLK_DIV2_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Synchronous clock mode divided by 2" Value="ADC_CLOCK_SYNC_PCLK_DIV2"/>
+        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_SYNC_PCLK_DIV4_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Synchronous clock mode divided by 4" Value="ADC_CLOCK_SYNC_PCLK_DIV4"/>
+        <Description>frequency of the clock to the ADC. The clock is common for all the ADCs.</Description>
+    </RefParameter>
+    <RefParameter Comment="Clock Prescaler" DefaultValue="ADC_CLOCK_CK_KER_ADC12_DIV1" Group="ADCsgroup" Name="ClockPrescaler" Type="list">
+        <Condition Diagnostic="" Expression="($IpNumber=2) &amp; DIE503"/>
+        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV1_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 1" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC2_DIV1"/>
+        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV2_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 2" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC2_DIV2"/>
+        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV4_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 4" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC2_DIV4"/>
+        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV6_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 6" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC2_DIV6"/>
+        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV8_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 8" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC2_DIV8"/>
+        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV10_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 10" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC2_DIV10"/>
+        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV12_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 12" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC2_DIV12"/>
+        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV16_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 16" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC2_DIV16"/>
+        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV32_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 32" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC2_DIV32"/>
+        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV64_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 64" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC2_DIV64"/>
+        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV128_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 128" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC2_DIV128"/>
+        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_ASYNC_DIV256_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Asynchronous clock mode divided by 256" Semaphore="$IpInstanceUsedAsynchronousCLK_ForRCC" Value="ADC_CLOCK_CK_KER_ADC2_DIV256"/>
+        <PossibleValue Action="Disable" Condition="ADC_CLOCK_SYNC_PCLK_DIV1_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Synchronous clock mode divided by 1" Semaphore="$IpInstanceUsedSynchronousCLK_ForRCC" Value="ADC_CLOCK_SYNC_PCLK_DIV1"/>
+        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_SYNC_PCLK_DIV2_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Synchronous clock mode divided by 2" Value="ADC_CLOCK_SYNC_PCLK_DIV2"/>
+        <PossibleValue Action="DISABLE" Condition="ADC_CLOCK_SYNC_PCLK_DIV4_$IpInstance" Diagnostic="Prescaler divider not respecting Fadc Min Max Constraint" Comment="Synchronous clock mode divided by 4" Value="ADC_CLOCK_SYNC_PCLK_DIV4"/>
+        <Description>frequency of the clock to the ADC. The clock is common for all the ADCs.</Description>
+    </RefParameter>
+
     <!-- Possible Value of Resolution parameter -->
     <RefParameter Comment="Resolution" DefaultValue="ADC_RESOLUTION_12B" Group="ADCgroup" Name="Resolution" Type="list">
         <PossibleValue Action="Disable" Comment="ADC 12-bit resolution" Condition="isNotAllowed_16b14b12b10b" Diagnostic="In case of usage of channels on injected group, ADC frequency should be low than AHB clock frequency /4 for resolution 16, 14, 12 or 10 bits" Semaphore="ADC_RESOLUTION12b_$IpInstance" Value="ADC_RESOLUTION_12B"/>
@@ -261,9 +282,9 @@
     <RefParameter Comment="Conversion Data Management Mode" DefaultValue="ADC_CONVERSIONDATA_DR" Group="ADCgroup" Name="ConversionDataManagement" Type="list">
         <PossibleValue    Comment="Regular Conversion data stored in DR register only" Value="ADC_CONVERSIONDATA_DR" />
         <PossibleValue    Comment="DFSDM Mode" Value="ADC_CONVERSIONDATA_DFSDM" />
-        <PossibleValue    Comment="DMA One Shot Mode" Value="ADC_CONVERSIONDATA_DMA_ONESHOT" Action="Disable" Condition="!DMARequest_$IpInstance" Diagnostic="A DMA Request in Normal Mode must be configured in DMA Settings Tab for this ADC instance"/>
-        <PossibleValue    Comment="DMA Circular Mode" Value="ADC_CONVERSIONDATA_DMA_CIRCULAR" Action="Disable" Condition="!DMARequest_$IpInstance" Diagnostic="A DMA Request in Circular Mode must be configured in DMA Settings Tab for this ADC instance"/>
-        <Description>This mode specifies whether the Data conversion data is managed: using the DMA (oneshot or circular), or stored in the DR register or transfered to DFSDM register</Description>
+        <PossibleValue    Comment="DMA One Shot Mode" Value="ADC_CONVERSIONDATA_DMA_ONESHOT"  Condition="!SEM_DMA_REQ_$IpInstance" Diagnostic="A HPDMA Request in Normal Mode must be configured in DMA Settings Tab for this ADC instance"/>
+        <PossibleValue    Comment="DMA Circular Mode" Value="ADC_CONVERSIONDATA_DMA_CIRCULAR" Condition="!SEM_DMA_REQ_$IpInstance" Diagnostic="A HPDMA Request in Circular Mode must be configured in DMA Settings Tab for this ADC instance"/>
+        <Description>This mode specifies whether the Data conversion data is managed: using the HPDMA (oneshot or circular), or stored in the DR register or transfered to DFSDM register</Description>
         <PossibleValue    Comment="MDF Mode"   Value="ADC_CONVERSIONDATA_MDF"   Condition="!(MDF1_Exist)" Action="Remove" Semaphore="S_$IpInstance_MDF1_ConversionDataManagement"/>              <Description>This mode specifies whether the Data conversion data is managed: using the DMA (oneshot or circular), or stored in the DR register or transfered to DFSDM register</Description>
     </RefParameter>
     <!-- Possible values of AutoDelay parameter -->
@@ -504,7 +525,7 @@
     <RefParameter Comment="Sampling Time" DefaultValue="null" Group="ADCChannel" Name="SamplingTime" Type="list" Visible="false">
         <Condition Diagnostic="" Expression="EnableRegularConversion=DISABLE"/>
     </RefParameter>
-    <RefParameter Comment="Sampling Time" DefaultValue="ADC_SAMPLETIME_1CYCLE_5" Group="ADCChannel" Name="SamplingTime" Type="list">
+    <RefParameter Comment="Sampling Time" DefaultValue="ADC_SAMPLETIME_2CYCLE_5" Group="ADCChannel" Name="SamplingTime" Type="list">
         <PossibleValue Comment="2.5 Cycles" Value="ADC_SAMPLETIME_2CYCLES_5"/>
         <PossibleValue Comment="3.5 Cycles" Value="ADC_SAMPLETIME_3CYCLES_5"/>
         <PossibleValue Comment="7.5 Cycles" Value="ADC_SAMPLETIME_7CYCLES_5"/>
@@ -512,7 +533,7 @@
         <PossibleValue Comment="24.5 Cycles" Value="ADC_SAMPLETIME_24CYCLES_5"/>
         <PossibleValue Comment="47.5 Cycles" Value="ADC_SAMPLETIME_47CYCLES_5"/>
         <PossibleValue Comment="247.5 Cycles" Value="ADC_SAMPLETIME_247CYCLES_5"/>
-        <PossibleValue Comment="150.5 Cycles" Value="ADC_SAMPLETIME_1501CYCLES_5"/>
+        <PossibleValue Comment="1501.5 Cycles" Value="ADC_SAMPLETIME_1501CYCLES_5"/>
         <Description>Regular Channel x sampling time selection</Description>
     </RefParameter>		    
 		  
@@ -875,10 +896,9 @@
     <RefParameter Comment="Sampling Time" DefaultValue="null" Group="ADCChannel" Name="InjectedSamplingTime" Type="list" Visible="false">
         <Condition Diagnostic="In case of usage of channels on injected group, ADC frequency should be low than AHB clock frequency /4 for resolution 12 or 10 bits, AHB clock frequency /3 for resolution 8 bits, AHB clock frequency /2 for resolution 6 bits." Expression="EnableInjectedConversion=DISABLE"/>
     </RefParameter>
-    <RefParameter Comment="Sampling Time" DefaultValue="ADC_SAMPLETIME_1CYCLE_5" Group="ADCChannel" Name="InjectedSamplingTime" Type="list">
-        <PossibleValue Comment="1.5 Cycles" Value="ADC_SAMPLETIME_1CYCLE_5"/>
+    <RefParameter Comment="Sampling Time" DefaultValue="ADC_SAMPLETIME_1CYCLES_5" Group="ADCChannel" Name="InjectedSamplingTime" Type="list">
         <PossibleValue Comment="2.5 Cycles" Value="ADC_SAMPLETIME_2CYCLES_5"/>
-        <PossibleValue Comment="8.5 Cycles" Value="ADC_SAMPLETIME_8CYCLES_5"/>
+        <PossibleValue Comment="7.5 Cycles" Value="ADC_SAMPLETIME_7CYCLES_5"/>
         <PossibleValue Comment="16.5 Cycles" Value="ADC_SAMPLETIME_16CYCLES_5"/>
         <PossibleValue Comment="32.5 Cycles" Value="ADC_SAMPLETIME_32CYCLES_5"/>
         <PossibleValue Comment="64.5 Cycles" Value="ADC_SAMPLETIME_64CYCLES_5"/>
@@ -980,7 +1000,7 @@
         <PossibleValue Comment="Channel 18" Value="ADC_CHANNEL_18"/>
         <PossibleValue Comment="Channel 19" Value="ADC_CHANNEL_19"/>
         <PossibleValue Comment="Channel Vrefint" Value="ADC_CHANNEL_VREFINT"/>
-        <PossibleValue Comment="Channel VddCore" Value="ADC_CHANNEL_VCORE"/>
+        <PossibleValue Comment="Channel VddCore" Value="ADC_CHANNEL_VDDCORE"/>
         
     </RefParameter>	
     <RefParameter Comment="Channel" DefaultValue="ADC_CHANNEL_0" Group="ADCChannel" Name="Channel" Type="list" Visible="true" >
@@ -1001,11 +1021,13 @@
         <PossibleValue Comment="Channel 19" Value="ADC_CHANNEL_19"/>
         <PossibleValue Comment="Channel Temperature Sensor" Value="ADC_CHANNEL_TEMPSENSOR"/>
         <PossibleValue Comment="Channel Vrefint" Value="ADC_CHANNEL_VREFINT"/>
-        <PossibleValue Comment="Channel VddCore" Value="ADC_CHANNEL_VCORE"/>
-        <PossibleValue Comment="Channel VddCPU" Value="ADC_CHANNEL_VCPU"/>
-        <PossibleValue Comment="Channel VddGPU" Value="ADC_CHANNEL_VGPU"/>
+        <PossibleValue Comment="Channel VddCore" Value="ADC_CHANNEL_VDDCORE"/>
+        <PossibleValue Comment="Channel VddCPU" Value="ADC_CHANNEL_VDDCPU"/>
+        <PossibleValue Comment="Channel VddGPU" Value="ADC_CHANNEL_VDDGPU"/>
         <PossibleValue Comment="Channel VDDQ_DDR" Value="ADC_CHANNEL_VDDQ_DDR"/>
-        <PossibleValue Comment="Channel Vbat" Value="ADC_CHANNEL_VBAT"/>  
+        <PossibleValue Comment="Channel Vbat" Value="ADC_CHANNEL_VBAT"/>
+        <PossibleValue Comment="Channel 12" Value="ADC_CHANNEL_12"/>
+        <PossibleValue Comment="Channel 13" Value="ADC_CHANNEL_13"/>
         <!--PossibleValue Comment="Channel 12" Value="ADC_CHANNEL_12"/>
         <PossibleValue Comment="Channel 13" Value="ADC_CHANNEL_13"/>
         <PossibleValue Comment="Channel 14" Value="ADC_CHANNEL_14"/>
@@ -1033,9 +1055,11 @@
         <PossibleValue Comment="Channel 19" Value="ADC_CHANNEL_19"/>
         <!--PossibleValue Comment="Channel Temperature Sensor" Value="ADC_CHANNEL_TEMPSENSOR"/-->
         <PossibleValue Comment="Channel Vrefint" Value="ADC_CHANNEL_VREFINT"/>
-        <PossibleValue Comment="Channel VddCore" Value="ADC_CHANNEL_VCORE"/>
-        <PossibleValue Comment="Channel VddCPU" Value="ADC_CHANNEL_VCPU"/>
-        <PossibleValue Comment="Channel VddGPU" Value="ADC_CHANNEL_VGPU"/>
+        <PossibleValue Comment="Channel VddCore" Value="ADC_CHANNEL_VDDCORE"/>
+        <PossibleValue Comment="Channel VddCPU" Value="ADC_CHANNEL_VDDCPU"/>
+        <PossibleValue Comment="Channel VddGPU" Value="ADC_CHANNEL_VDDGPU"/>
+        <PossibleValue Comment="Channel 12" Value="ADC_CHANNEL_12"/>
+        <PossibleValue Comment="Channel 13" Value="ADC_CHANNEL_13"/>
         <!--PossibleValue Comment="Channel VDDQ_DDR" Value="ADC_CHANNEL_VDDQ_DDR"/-->
         <PossibleValue Comment="Channel Vbat" Value="ADC_CHANNEL_VBAT"/>  
         <!--PossibleValue Comment="Channel 12" Value="ADC_CHANNEL_12"/>
@@ -1076,7 +1100,7 @@
         <PossibleValue Comment="Channel 17" Value="ADC_CHANNEL_17"/>
         <PossibleValue Comment="Channel 18" Value="ADC_CHANNEL_18"/>
         <PossibleValue Comment="Channel 19" Value="ADC_CHANNEL_19"/>
-        <PossibleValue Comment="Channel VddCore" Value="ADC_CHANNEL_VCORE"/>
+        <PossibleValue Comment="Channel VddCore" Value="ADC_CHANNEL_VDDCORE"/>
         <PossibleValue Comment="Channel Vrefint" Value="ADC_CHANNEL_VREFINT"/>
 
         
@@ -1099,14 +1123,39 @@
         <PossibleValue Comment="Channel 19" Value="ADC_CHANNEL_19"/>
         <!--PossibleValue Comment="Channel Temperature Sensor" Value="ADC_CHANNEL_TEMPSENSOR"/-->
         <PossibleValue Comment="Channel Vrefint" Value="ADC_CHANNEL_VREFINT"/>
-        <PossibleValue Comment="Channel VddCore" Value="ADC_CHANNEL_VCORE"/>
-        <PossibleValue Comment="Channel VddCPU" Value="ADC_CHANNEL_VCPU"/>
-        <PossibleValue Comment="Channel VddGPU" Value="ADC_CHANNEL_VGPU"/>
+        <PossibleValue Comment="Channel VddCore" Value="ADC_CHANNEL_VDDCORE"/>
+        <PossibleValue Comment="Channel VddCPU" Value="ADC_CHANNEL_VDDCPU"/>
+        <PossibleValue Comment="Channel VddGPU" Value="ADC_CHANNEL_VDDGPU"/>
         <!--PossibleValue Comment="Channel VDDQ_DDR" Value="ADC_CHANNEL_VDDQ_DDR"/-->
-        <PossibleValue Comment="Channel Vbat" Value="ADC_CHANNEL_VBAT"/>  
-   
-        
-    </RefParameter>	
+        <PossibleValue Comment="Channel Vbat" Value="ADC_CHANNEL_VBAT"/>
+    </RefParameter>
+
+    <RefParameter Comment="Channel" DefaultValue="ADC_CHANNEL_0" Group="ADCChannel" Name="InjectedChannel" Type="list"  Visible="true" >
+        <Condition Diagnostic="" Expression="($IpNumber=3)"/>
+        <PossibleValue Comment="Channel 0" Value="ADC_CHANNEL_0"/>
+        <PossibleValue Comment="Channel 1" Value="ADC_CHANNEL_1"/>
+        <PossibleValue Comment="Channel 2" Value="ADC_CHANNEL_2"/>
+        <PossibleValue Comment="Channel 3" Value="ADC_CHANNEL_3"/>
+        <PossibleValue Comment="Channel 4" Value="ADC_CHANNEL_4"/>
+        <PossibleValue Comment="Channel 5" Value="ADC_CHANNEL_5"/>
+        <PossibleValue Comment="Channel 6" Value="ADC_CHANNEL_6"/>
+        <PossibleValue Comment="Channel 7" Value="ADC_CHANNEL_7"/>
+        <PossibleValue Comment="Channel 8" Value="ADC_CHANNEL_8"/>
+        <PossibleValue Comment="Channel 9" Value="ADC_CHANNEL_9"/>
+        <PossibleValue Comment="Channel 10" Value="ADC_CHANNEL_10"/>
+        <PossibleValue Comment="Channel 11" Value="ADC_CHANNEL_11"/>
+        <PossibleValue Comment="Channel 18" Value="ADC_CHANNEL_18"/>
+        <PossibleValue Comment="Channel 19" Value="ADC_CHANNEL_19"/>
+        <!--PossibleValue Comment="Channel Temperature Sensor" Value="ADC_CHANNEL_TEMPSENSOR"/-->
+        <PossibleValue Comment="Channel Vrefint" Value="ADC_CHANNEL_VREFINT"/>
+        <PossibleValue Comment="Channel VddCore" Value="ADC_CHANNEL_VDDCORE"/>
+        <PossibleValue Comment="Channel VddCPU" Value="ADC_CHANNEL_VDDCPU"/>
+        <PossibleValue Comment="Channel VddGPU" Value="ADC_CHANNEL_VDDGPU"/>
+        <!--PossibleValue Comment="Channel VDDQ_DDR" Value="ADC_CHANNEL_VDDQ_DDR"/-->
+        <PossibleValue Comment="Channel Vbat" Value="ADC_CHANNEL_VBAT"/>
+        <PossibleValue Comment="Channel 12" Value="ADC_CHANNEL_12"/>
+        <PossibleValue Comment="Channel 13" Value="ADC_CHANNEL_13"/>
+    </RefParameter>
  
     <!--  ########################################################################################Common WatchDog parameters######################################################################################## -->
 
@@ -1159,9 +1208,9 @@
         <PossibleValue Comment="Channel 11" Value="ADC_CHANNEL_11"/>
         <!--PossibleValue Comment="Channel Temperature Sensor" Value="ADC_CHANNEL_TEMPSENSOR"/-->
         <PossibleValue Comment="Channel Vrefint" Value="ADC_CHANNEL_VREFINT"/>
-        <PossibleValue Comment="Channel VddCore" Value="ADC_CHANNEL_VCORE"/>
-        <PossibleValue Comment="Channel VddCPU" Value="ADC_CHANNEL_VCPU"/>
-        <PossibleValue Comment="Channel VddGPU" Value="ADC_CHANNEL_VGPU"/>
+        <PossibleValue Comment="Channel VddCore" Value="ADC_CHANNEL_VDDCORE"/>
+        <PossibleValue Comment="Channel VddCPU" Value="ADC_CHANNEL_VDDCPU"/>
+        <PossibleValue Comment="Channel VddGPU" Value="ADC_CHANNEL_VDDGPU"/>
         <!--PossibleValue Comment="Channel VDDQ_DDR" Value="ADC_CHANNEL_VDDQ_DDR"/-->
         <PossibleValue Comment="Channel Vbat" Value="ADC_CHANNEL_VBAT"/>  
       
@@ -1189,9 +1238,14 @@
         <PossibleValue Comment="Channel 14" Value="ADC_CHANNEL_14"/>
         <PossibleValue Comment="Channel 15" Value="ADC_CHANNEL_15"/>
         <PossibleValue Comment="Channel 16" Value="ADC_CHANNEL_16"/>
+        <PossibleValue Comment="Channel 12" Value="ADC_CHANNEL_12"/>
+        <PossibleValue Comment="Channel 13" Value="ADC_CHANNEL_13"/>
+        <PossibleValue Comment="Channel Vrefint" Value="ADC_CHANNEL_VREFINT"/>
+        <PossibleValue Comment="Channel VddCore" Value="ADC_CHANNEL_VDDCORE"/>
+        <PossibleValue Comment="Channel VddCPU" Value="ADC_CHANNEL_VDDCPU"/>
+        <PossibleValue Comment="Channel VddGPU" Value="ADC_CHANNEL_VDDGPU"/>
         <PossibleValue Comment="Channel Vbat" Value="ADC_CHANNEL_VBAT"/>
         <!--PossibleValue Comment="Channel Temperature Sensor" Value="ADC_CHANNEL_TEMPSENSOR"/-->
-        <PossibleValue Comment="Channel Vbat" Value="ADC_CHANNEL_VBAT"/> 
         <Description>ADC channel for the analog watchdog</Description>     
     </RefParameter>
 	  
@@ -1247,9 +1301,9 @@
         <PossibleValue Comment="Channel 11" Value="ADC_CHANNEL_11"/>
         <!--PossibleValue Comment="Channel Temperature Sensor" Value="ADC_CHANNEL_TEMPSENSOR"/-->
         <PossibleValue Comment="Channel Vrefint" Value="ADC_CHANNEL_VREFINT"/>
-        <PossibleValue Comment="Channel VddCore" Value="ADC_CHANNEL_VCORE"/>
-        <PossibleValue Comment="Channel VddCPU" Value="ADC_CHANNEL_VCPU"/>
-        <PossibleValue Comment="Channel VddGPU" Value="ADC_CHANNEL_VGPU"/>
+        <PossibleValue Comment="Channel VddCore" Value="ADC_CHANNEL_VDDCORE"/>
+        <PossibleValue Comment="Channel VddCPU" Value="ADC_CHANNEL_VDDCPU"/>
+        <PossibleValue Comment="Channel VddGPU" Value="ADC_CHANNEL_VDDGPU"/>
         <!--PossibleValue Comment="Channel VDDQ_DDR" Value="ADC_CHANNEL_VDDQ_DDR"/-->
         <PossibleValue Comment="Channel Vbat" Value="ADC_CHANNEL_VBAT"/>  
 
@@ -1280,7 +1334,10 @@
         <PossibleValue Comment="Channel 16" Value="ADC_CHANNEL_16"/>
         <PossibleValue Comment="Channel Vbat" Value="ADC_CHANNEL_VBAT"/>
         <!--PossibleValue Comment="Channel Temperature Sensor" Value="ADC_CHANNEL_TEMPSENSOR"/-->
-        <PossibleValue Comment="Channel Vbat" Value="ADC_CHANNEL_VBAT"/> 
+        <PossibleValue Comment="Channel Vrefint" Value="ADC_CHANNEL_VREFINT"/>
+        <PossibleValue Comment="Channel VddCore" Value="ADC_CHANNEL_VDDCORE"/>
+        <PossibleValue Comment="Channel VddCPU" Value="ADC_CHANNEL_VDDCPU"/>
+        <PossibleValue Comment="Channel VddGPU" Value="ADC_CHANNEL_VDDGPU"/>
         <Description>ADC channel for the analog watchdog</Description>        
     </RefParameter>
 	
@@ -1329,10 +1386,10 @@
         <PossibleValue Comment="Channel 11" Value="ADC_CHANNEL_11"/>
         <!--PossibleValue Comment="Channel Temperature Sensor" Value="ADC_CHANNEL_TEMPSENSOR"/-->
         <PossibleValue Comment="Channel Vrefint" Value="ADC_CHANNEL_VREFINT"/>
-        <PossibleValue Comment="Channel VddCore" Value="ADC_CHANNEL_VCORE"/>
+        <PossibleValue Comment="Channel VddCore" Value="ADC_CHANNEL_VDDCORE"/>
         <PossibleValue Comment="Channel Vbat" Value="ADC_CHANNEL_VBAT"/> 
-        <PossibleValue Comment="Channel VddCPU" Value="ADC_CHANNEL_VCPU"/>
-        <PossibleValue Comment="Channel VddGPU" Value="ADC_CHANNEL_VGPU"/>
+        <PossibleValue Comment="Channel VddCPU" Value="ADC_CHANNEL_VDDCPU"/>
+        <PossibleValue Comment="Channel VddGPU" Value="ADC_CHANNEL_VDDGPU"/>
         <!--PossibleValue Comment="Channel VDDQ_DDR" Value="ADC_CHANNEL_VDDQ_DDR"/--> 
       
         <PossibleValue Comment="Channel 18" Value="ADC_CHANNEL_18"/>
@@ -1358,9 +1415,12 @@
         <PossibleValue Comment="Channel 14" Value="ADC_CHANNEL_14"/>
         <PossibleValue Comment="Channel 15" Value="ADC_CHANNEL_15"/>
         <PossibleValue Comment="Channel 16" Value="ADC_CHANNEL_16"/>
+        <PossibleValue Comment="Channel Vrefint" Value="ADC_CHANNEL_VREFINT"/>
+        <PossibleValue Comment="Channel VddCore" Value="ADC_CHANNEL_VDDCORE"/>
         <PossibleValue Comment="Channel Vbat" Value="ADC_CHANNEL_VBAT"/>
+        <PossibleValue Comment="Channel VddCPU" Value="ADC_CHANNEL_VDDCPU"/>
+        <PossibleValue Comment="Channel VddGPU" Value="ADC_CHANNEL_VDDGPU"/>
         <!--PossibleValue Comment="Channel Temperature Sensor" Value="ADC_CHANNEL_TEMPSENSOR"/-->
-        <PossibleValue Comment="Channel Vbat" Value="ADC_CHANNEL_VBAT"/> 
         <Description>ADC channel for the analog watchdog</Description>     
     </RefParameter>
 	
@@ -1727,13 +1787,13 @@
         <PossibleValue Comment="Channel 9" Value="ADC_CHANNEL_9" Condition="!IN9Used_$IpInstance" Diagnostic=" " Action="Remove"/>
         <PossibleValue Comment="Channel 10" Value="ADC_CHANNEL_10" Condition="!IN10Used_$IpInstance" Diagnostic=" " Action="Remove"/>
         <PossibleValue Comment="Channel 11" Value="ADC_CHANNEL_11" Condition="!IN11Used_$IpInstance" Diagnostic=" " Action="Remove"/>
-        <PossibleValue Comment="Channel Temperature Sensor" Value="ADC_CHANNEL_TEMPSENSOR" Condition="!IN-TempSelected$IpInstance" Diagnostic=" " Action="Remove"/>
+        <PossibleValue Comment="Channel Temperature Sensor" Value="ADC_CHANNEL_TEMPSENSOR" Condition="!INTempSelected$IpInstance" Diagnostic=" " Action="Remove"/>
         <PossibleValue Comment="Channel Vrefint" Value="ADC_CHANNEL_VREFINT" Condition="!VrefintSelected$IpInstance" Diagnostic=" " Action="Remove"/>
-        <PossibleValue Comment="Channel VddCore" Value="ADC_CHANNEL_VCORE"  Condition="!IN-VddCoreSelected$IpInstance" Diagnostic=" " Action="Remove"/>
-        <PossibleValue Comment="Channel VddCPU" Value="ADC_CHANNEL_VCPU" Condition="!IN-VddCpuSelected$IpInstance" Diagnostic=" " Action="Remove"/>
-        <PossibleValue Comment="Channel VddGPU" Value="ADC_CHANNEL_VGPU" Condition="!IN-VddGpuSelected$IpInstance" Diagnostic=" " Action="Remove"/>
-        <PossibleValue Comment="Channel VDDQ_DDR" Value="ADC_CHANNEL_VDDQ_DDR" Condition="!IN-VDDQ_DDRSelected$IpInstance" Diagnostic=" " Action="Remove"/>
-        <PossibleValue Comment="Channel Vbat" Value="ADC_CHANNEL_VBAT"  Condition="!IN-VBATSelected$IpInstance" Diagnostic=" " Action="Remove"/>  
+        <PossibleValue Comment="Channel VddCore" Value="ADC_CHANNEL_VDDCORE"  Condition="!INVddCoreSelected$IpInstance" Diagnostic=" " Action="Remove"/>
+        <PossibleValue Comment="Channel VddCPU" Value="ADC_CHANNEL_VDDCPU" Condition="!INVddCpuSelected$IpInstance" Diagnostic=" " Action="Remove"/>
+        <PossibleValue Comment="Channel VddGPU" Value="ADC_CHANNEL_VDDGPU" Condition="!INVddGpuSelected$IpInstance" Diagnostic=" " Action="Remove"/>
+        <PossibleValue Comment="Channel VDDQ_DDR" Value="ADC_CHANNEL_VDDQ_DDR" Condition="!INVDDQ_DDRSelected$IpInstance" Diagnostic=" " Action="Remove"/>
+        <PossibleValue Comment="Channel Vbat" Value="ADC_CHANNEL_VBAT"  Condition="!INVBATSelected$IpInstance" Diagnostic=" " Action="Remove"/>  
         <PossibleValue Comment="Channel 18" Value="ADC_CHANNEL_18" Condition="!IN18Used_$IpInstance" Diagnostic=" " Action="Remove"/>
         <PossibleValue Comment="Channel 19" Value="ADC_CHANNEL_19" Condition="!IN19Used_$IpInstance" Diagnostic=" " Action="Remove"/>
     </RefParameter>	
@@ -1755,8 +1815,13 @@
         <PossibleValue Comment="Channel 14" Value="ADC_CHANNEL_14" Condition="!IN14Used_$IpInstance" Diagnostic=" " Action="Remove"/>
         <PossibleValue Comment="Channel 15" Value="ADC_CHANNEL_15" Condition="!IN15Used_$IpInstance" Diagnostic=" " Action="Remove"/>
         <PossibleValue Comment="Channel 16" Value="ADC_CHANNEL_16" Condition="!IN16Used_$IpInstance" Diagnostic=" " Action="Remove"/>
-        <PossibleValue Comment="Channel Vbat" Value="ADC_CHANNEL_VBAT" Condition="!IN-VBATSelected$IpInstance" Diagnostic=" " Action="Remove"/>
-        <PossibleValue Comment="Channel Temperature Sensor" Value="ADC_CHANNEL_TEMPSENSOR" Condition="!IN-TempSelected$IpInstance" Diagnostic=" " Action="Remove"/>
+        <PossibleValue Comment="Channel Vrefint" Value="ADC_CHANNEL_VREFINT" Condition="!VrefintSelected$IpInstance" Diagnostic=" " Action="Remove"/>
+        <PossibleValue Comment="Channel VddCore" Value="ADC_CHANNEL_VDDCORE"  Condition="!INVddCoreSelected$IpInstance" Diagnostic=" " Action="Remove"/>
+        <PossibleValue Comment="Channel VddCPU" Value="ADC_CHANNEL_VDDCPU" Condition="!INVddCpuSelected$IpInstance" Diagnostic=" " Action="Remove"/>
+        <PossibleValue Comment="Channel VddGPU" Value="ADC_CHANNEL_VDDGPU" Condition="!INVddGpuSelected$IpInstance" Diagnostic=" " Action="Remove"/>
+        <PossibleValue Comment="Channel VDDQ_DDR" Value="ADC_CHANNEL_VDDQ_DDR" Condition="!INVDDQ_DDRSelected$IpInstance" Diagnostic=" " Action="Remove"/>
+        <PossibleValue Comment="Channel Vbat" Value="ADC_CHANNEL_VBAT"  Condition="!INVBATSelected$IpInstance" Diagnostic=" " Action="Remove"/>
+        <PossibleValue Comment="Channel Temperature Sensor" Value="ADC_CHANNEL_TEMPSENSOR" Condition="!INTempSelected$IpInstance" Diagnostic=" " Action="Remove"/>
     </RefParameter>
 	
     <!-- Possible Value of HighThreshold parameters: Min and Max of this parameter depend on ADC resolution -->
@@ -1842,11 +1907,14 @@
         <PossibleValue Comment="Channel 9" Value="ADC_CHANNEL_9"/>
         <PossibleValue Comment="Channel 10" Value="ADC_CHANNEL_10"/>
         <PossibleValue Comment="Channel 11" Value="ADC_CHANNEL_11"/>
+	
+        <PossibleValue Comment="Channel 12" Value="ADC_CHANNEL_12"/>
+        <PossibleValue Comment="Channel 13" Value="ADC_CHANNEL_13"/>
         <PossibleValue Comment="Channel Temperature Sensor" Value="ADC_CHANNEL_TEMPSENSOR"/>
         <PossibleValue Comment="Channel Vrefint" Value="ADC_CHANNEL_VREFINT"/>
-        <PossibleValue Comment="Channel VddCore" Value="ADC_CHANNEL_VCORE"/>
-        <PossibleValue Comment="Channel VddCPU" Value="ADC_CHANNEL_VCPU"/>
-        <PossibleValue Comment="Channel VddGPU" Value="ADC_CHANNEL_VGPU"/>
+        <PossibleValue Comment="Channel VddCore" Value="ADC_CHANNEL_VDDCORE"/>
+        <PossibleValue Comment="Channel VddCPU" Value="ADC_CHANNEL_VDDCPU"/>
+        <PossibleValue Comment="Channel VddGPU" Value="ADC_CHANNEL_VDDGPU"/>
         <PossibleValue Comment="Channel VDDQ_DDR" Value="ADC_CHANNEL_VDDQ_DDR"/>
 
         <PossibleValue Comment="Channel Vbat" Value="ADC_CHANNEL_VBAT"/>  
@@ -1873,9 +1941,12 @@
         <PossibleValue Comment="Channel 14" Value="ADC_CHANNEL_14"/>
         <PossibleValue Comment="Channel 15" Value="ADC_CHANNEL_15"/>
         <PossibleValue Comment="Channel 16" Value="ADC_CHANNEL_16"/>
+        <PossibleValue Comment="Channel Vrefint" Value="ADC_CHANNEL_VREFINT"/>
+        <PossibleValue Comment="Channel VddCore" Value="ADC_CHANNEL_VDDCORE"/>
+        <PossibleValue Comment="Channel VddCPU" Value="ADC_CHANNEL_VDDCPU"/>
+        <PossibleValue Comment="Channel VddGPU" Value="ADC_CHANNEL_VDDGPU"/>
         <PossibleValue Comment="Channel Vbat" Value="ADC_CHANNEL_VBAT"/>
         <PossibleValue Comment="Channel Temperature Sensor" Value="ADC_CHANNEL_TEMPSENSOR"/>
-        <PossibleValue Comment="Channel Vbat" Value="ADC_CHANNEL_VBAT"/>     
     </RefParameter>
 		
     <!--  ########################################################################################RefMode parameters######################################################################################## -->
@@ -1943,8 +2014,6 @@
         <Parameter Name="ExternalTrigInjecConv"/>
         <Parameter Name="ExternalTrigInjecConvEdge"/>
         <Parameter Name="InjectedConvMode"/>
-        <Parameter Name="injectedQueueMode"/>
-        <Parameter Name="QueueInjectedContext"/>
         <Parameter Name="AutoInjectedConv"/>
         <Parameter Name="InjectedDiscontinuousConvMode"/>
     </RefMode>
@@ -2277,18 +2346,18 @@
     </RefMode>
     <RefMode Comment="" Name="IN-VddCore">
         <Parameter Name="Channel">
-            <PossibleValue>ADC_CHANNEL_VCORE</PossibleValue>
+            <PossibleValue>ADC_CHANNEL_VDDCORE</PossibleValue>
         </Parameter>
     </RefMode>
     <RefMode Comment="" Name="IN-VddCpu">
         <Parameter Name="Channel">
-            <PossibleValue>ADC_CHANNEL_VCPU</PossibleValue>
+            <PossibleValue>ADC_CHANNEL_VDDCPU</PossibleValue>
         </Parameter>
     </RefMode>
      
     <RefMode Comment="" Name="IN-VddGpu">
         <Parameter Name="Channel">
-            <PossibleValue>ADC_CHANNEL_VGPU</PossibleValue>
+            <PossibleValue>ADC_CHANNEL_VDDGPU</PossibleValue>
         </Parameter>
     </RefMode>
 
@@ -2525,7 +2594,7 @@
             <Semaphore>channelSelected$IpInstance</Semaphore>
             <Condition Diagnostic="Channel11 is already used" Expression="!IN10DiffUsed_$IpInstance"/>
         </Mode>
-        <Mode Name="IN12" RemoveCondition="($IpNumber=2)">
+        <Mode Name="IN12" RemoveCondition="(DIE505 &amp; $IpNumber=2)">
             <ModeLogicOperator Name="XOR">
                 <Mode Name="IN12-Differential" UserName="IN12 Differential" RemoveCondition="($IpNumber=3)">
                     <SignalLogicalOp Name="AND">
@@ -2546,7 +2615,7 @@
             <Semaphore>channelSelected$IpInstance</Semaphore>
             <Condition Diagnostic="Channel12 is already used" Expression="!IN11DiffUsed_$IpInstance"/>
         </Mode>
-        <Mode Name="IN13" RemoveCondition="($IpNumber=2)">
+        <Mode Name="IN13" RemoveCondition="(DIE505 &amp; $IpNumber=2)">
             <ModeLogicOperator Name="XOR">
                 <Mode Name="IN13-Differential" UserName="IN13 Differential" RemoveCondition="($IpNumber=1) | ($IpNumber=2)">
                     <SignalLogicalOp Name="AND">
@@ -2597,7 +2666,7 @@
                     </SignalLogicalOp>
                     <Semaphore>IN15Used_$IpInstance</Semaphore>
                     <Semaphore>IN15DiffUsed_$IpInstance</Semaphore>
-                    <Condition Diagnostic="Channel16 is already used" Expression="!IN16Used_$IpInstance"/>
+                    <Condition Diagnostic="Channel16 is already used" Expression="!DIE503 &amp; !IN16Used_$IpInstance"/>
                 </Mode>
                 <Mode Name="IN15-Single-Ended" UserName="IN15 Single-ended">
                     <SignalLogicalOp Name="AND">
@@ -2653,7 +2722,7 @@
             <Condition Diagnostic="Channel17 is already used" Expression="!IN16DiffUsed_$IpInstance"/>
         </Mode>
   
-        <Mode Name="IN18" RemoveCondition="($IpNumber=3)">
+        <Mode Name="IN18" RemoveCondition="!DIE503|($IpNumber=3)">
             <ModeLogicOperator Name="XOR">
                 <Mode Name="IN18-Differential" UserName="IN18 Differential">
                     <SignalLogicalOp Name="AND">
@@ -2664,7 +2733,7 @@
                     <Semaphore>IN18DiffUsed_$IpInstance</Semaphore>
                     <Condition Diagnostic="Channel19 is already used" Expression="!IN19Used_$IpInstance"/>
                 </Mode>
-                <Mode Name="IN18-Single-Ended" UserName="Single-ended">
+                <Mode Name="IN18-Single-Ended" UserName="IN18-Single-ended">
                     <SignalLogicalOp Name="AND">
                         <Signal Name="INP18"/>
                     </SignalLogicalOp>
@@ -2698,7 +2767,7 @@
                     <SignalLogicalOp Name="AND">
                         <Signal Name="Vbat_Input"/>
                     </SignalLogicalOp>
-			<Semaphore>IN-VBATSelected$IpInstance</Semaphore>
+			<Semaphore>INVBATSelected$IpInstance</Semaphore>
                 </Mode>
             </ModeLogicOperator>
             <Semaphore>channelSelected$IpInstance</Semaphore>
@@ -2712,7 +2781,7 @@
                         <Signal Name="TempSens_Input"/>
                     </SignalLogicalOp>
             <Semaphore>channelSelected$IpInstance</Semaphore>
-            <Semaphore>IN-TempSelected$IpInstance</Semaphore>
+            <Semaphore>INTempSelected$IpInstance</Semaphore>
                 </Mode>
             </ModeLogicOperator>
 
@@ -2729,7 +2798,6 @@
                 </Mode>
             </ModeLogicOperator>
             <Semaphore>channelSelected$IpInstance</Semaphore>
-
         </Mode>
         <Mode Name="IN-Vrefint" RemoveCondition="($IpNumber=1)|($IpNumber=2)|($IpNumber=3)" UserName="Vrefint Channel">
             <ModeLogicOperator Name="XOR">
@@ -2750,7 +2818,7 @@
                     <SignalLogicalOp Name="AND">
                         <Signal Name="VddCore_Input"/>
                     </SignalLogicalOp>
-			<Semaphore>IN-VddCoreSelected$IpInstance</Semaphore>
+			<Semaphore>INVddCoreSelected$IpInstance</Semaphore>
                 </Mode>
             </ModeLogicOperator>
             <Semaphore>channelSelected$IpInstance</Semaphore>
@@ -2762,18 +2830,18 @@
                     <SignalLogicalOp Name="AND">
                         <Signal Name="VddCpu_Input"/>
                     </SignalLogicalOp>
-			<Semaphore>IN-VddCpuSelected$IpInstance</Semaphore>
+			<Semaphore>INVddCpuSelected$IpInstance</Semaphore>
                 </Mode>
             </ModeLogicOperator>
             <Semaphore>channelSelected$IpInstance</Semaphore>
         </Mode>
-        <Mode Name="IN-VddGpu" UserName="VddGpu Channel"  RemoveCondition="DIE500">
+        <Mode Name="IN-VddGpu" UserName="VddGpu Channel"  RemoveCondition="DIE503">
             <ModeLogicOperator Name="XOR">
                 <Mode Name="IN-VddGpu" UserName="VddGpu Channel" RemoveCondition="($IpNumber=1)" >
                     <SignalLogicalOp Name="AND">
                         <Signal Name="VddGpu_Input"/>
                     </SignalLogicalOp>
-			<Semaphore>IN-VddGpuSelected$IpInstance</Semaphore>
+			<Semaphore>INVddGpuSelected$IpInstance</Semaphore>
                 </Mode>
             </ModeLogicOperator>
             <Semaphore>channelSelected$IpInstance</Semaphore>
@@ -2785,7 +2853,7 @@
                     <SignalLogicalOp Name="AND">
                         <Signal Name="VDDQ_DDR_Input"/>
                     </SignalLogicalOp>
-			<Semaphore>IN-VDDQ_DDRSelected$IpInstance</Semaphore>
+			<Semaphore>INVDDQ_DDRSelected$IpInstance</Semaphore>
                 </Mode>
             </ModeLogicOperator>
             <Semaphore>channelSelected$IpInstance</Semaphore>

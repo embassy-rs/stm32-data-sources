@@ -36,6 +36,7 @@
 		<Parameter Added="true" Name="LX_NOR_USE_CUSTOM_DRIVER"/>
         <Parameter Added="true" Name="LX_NOR_USE_SIMULATOR_DRIVER"/>
         <Parameter Added="true" Name="LX_NOR_USE_OSPI_DRIVER"/>
+        <Parameter Added="true" Name="LX_NOR_USE_XSPI_DRIVER"/>
 		<Parameter Added="true" Name="FX_DISABLE_CACHE"/>
 		<Parameter Added="true" Name="FX_DISABLE_FILE_CLOSE"/>
 		<Parameter Added="true" Name="FX_DISABLE_FAST_OPEN"/>
@@ -74,12 +75,6 @@
        <Parameter Added="true" Name="FORMAT_MMC_MEDIA">
             <Condition Diagnostic="" Expression="SEMFileXCcFileOoSystemJjFileXJjCore &amp; SEMInterfacesCcFileOoSystemJjFileXOoMMCOointerface &amp; SEMThreadXCcRTOSJjThreadXJjCore" Name="FX_MMC_ENABLED" />
         </Parameter>
-        <Parameter Added="true" Name="LINK_NOR_OSPI_DRIVER">
-            <Condition Diagnostic="" Expression="SEMFileXCcFileOoSystemJjFileXJjCore &amp; SEMInterfacesCcFileOoSystemJjFileXOoLevelXOoNOROoOointerface &amp; SEMInterfacesCcFileOoSystemJjLevelXOoOctoSPIOomemoryOointerface &amp; SEMSTM32CubeIiBSPIiComponentsCcBoardOoPartJjOctoSPIJjMX25LM51245G &amp; SEMThreadXCcRTOSJjThreadXJjCore" Name="FX_LX_NOR_OSPI_ENABLED" />
-        </Parameter>
-        <Parameter Added="true" Name="FORMAT_NOR_OSPI_MEDIA">
-            <Condition Diagnostic="" Expression="SEMFileXCcFileOoSystemJjFileXJjCore &amp; SEMInterfacesCcFileOoSystemJjFileXOoLevelXOoNOROoOointerface &amp; SEMInterfacesCcFileOoSystemJjLevelXOoOctoSPIOomemoryOointerface &amp; SEMSTM32CubeIiBSPIiComponentsCcBoardOoPartJjOctoSPIJjMX25LM51245G &amp; SEMThreadXCcRTOSJjThreadXJjCore" Name="FX_LX_NOR_OSPI_ENABLED" />
-        </Parameter>
         <Parameter Added="true" Name="LINK_NOR_SIMULATOR_DRIVER">
             <Condition Diagnostic="" Expression="SEMFileXCcFileOoSystemJjFileXJjCore &amp; SEMInterfacesCcFileOoSystemJjFileXOoLevelXOoNOROoOointerface &amp; SEMInterfacesCcFileOoSystemJjLevelXOoNOROoSimulatorOointerface &amp; SEMThreadXCcRTOSJjThreadXJjCore" Name="FX_LX_NOR_SIMULATOR_ENABLED" />
         </Parameter>
@@ -92,6 +87,9 @@
 		</Parameter>
 		<Parameter Added="true" Name="FX_APP_MEM_POOL_SIZE">
 		  <Condition Diagnostic="" Expression="SEMThreadXCcRTOSJjThreadXJjCore" Name="FX_APP_MEM_POOL_CONDITION"/>
+		</Parameter>
+		<Parameter Added="true" Name="FILEX_MEM_POOL_VAR_NAME">
+		  <Condition Diagnostic="" Expression="SEMThreadXCcRTOSJjThreadXJjCore" />
 		</Parameter>
 		<Parameter Added="true" Name="AZRTOS_APP_MEM_ALLOCATION_METHOD">
 		  <Condition Diagnostic="" Expression="SEMThreadXCcRTOSJjThreadXJjCore" Name="APP_MEM_ALLOCATION_CONDITION"/>
@@ -156,10 +154,16 @@
         </Parameter>
 		<Parameter Added="true" Name="FORMAT_NOR_OSPI_MEDIA">
         	<Condition Diagnostic="" Expression="SEMInterfacesCcFileOoSystemJjLevelXOoOctoSPIOomemoryOointerface" Name="FORMAT_NOR_OSPI_MEDIA" />
+        </Parameter>		
+		<Parameter Added="true" Name="LINK_NOR_XSPI_DRIVER">
+        	<Condition Diagnostic="" Expression="SEMInterfacesCcFileOoSystemJjLevelXOoXSPIOomemoryOointerface" Name="LINK_NOR_XSPI_DRIVER" />
+        </Parameter>
+		<Parameter Added="true" Name="FORMAT_NOR_XSPI_MEDIA">
+        	<Condition Diagnostic="" Expression="SEMInterfacesCcFileOoSystemJjLevelXOoXSPIOomemoryOointerface" Name="FORMAT_NOR_XSPI_MEDIA" />
         </Parameter>
 		<Parameter Added="true" Name="LINK_NOR_SIMULATOR_DRIVER">
         	<Condition Diagnostic="" Expression="SEMInterfacesCcFileOoSystemJjLevelXOoNOROoSimulatorOointerface" Name="LINK_NOR_SIMULATOR_DRIVER" />
-        </Parameter> 
+        </Parameter>
 		<Parameter Added="true" Name="FORMAT_NOR_SIMULATOR_MEDIA">
         	<Condition Diagnostic="" Expression="SEMInterfacesCcFileOoSystemJjLevelXOoNOROoSimulatorOointerface" Name="FORMAT_NOR_SIMULATOR_MEDIA" />
         </Parameter>
@@ -178,6 +182,7 @@
         <Parameter Added="true" Name="FX_LX_NAND_CUSTOM_DRIVER_INIT">
         <Condition Diagnostic="" Expression="SEMInterfacesCcFileOoSystemJjLevelXOoNANDOocustomOointerface" Name="FX_LX_NAND_CUSTOM_DRIVER_INIT"/> 
          </Parameter>
+        <Parameter Added="true" Name="FX_LX_NAND_CUSTOM_DRIVER"/>
         <Parameter Name="FX_LX_NAND_INTERFACE">
 			<PossibleValue>1</PossibleValue>
 		</Parameter>
@@ -236,9 +241,7 @@
 							</SignalLogicalOp>
 							<Semaphore>SEMInterfacesCcFileOoSystemJjFileXOoMMCOointerface</Semaphore>
 							<Condition Expression="SEMFileXCcFileOoSystemJjFileXJjCore &amp; 
-												  (((SDMMC1_Bus1Bit | SDMMC1_Bus4Bits | SDMMC1_Bus8Bits) &amp; !SDMMC1_SD_Card)| ((SDMMC2_Bus1Bit | SDMMC2_Bus4Bits | SDMMC2_Bus8Bits) &amp; !SDMMC2_SD_Card))"   
-									   Diagnostic="&lt;b&gt; Require: &lt;/b&gt; &lt;br&gt; Middleware:FILEX:Core &lt;br&gt; 
-									   Device:SDMMC:MMC"/>
+												  (((SDMMC1_Bus1Bit | SDMMC1_Bus4Bits | SDMMC1_Bus8Bits) &amp; !SDMMC1_SD_Card &amp; !SDMMC1_SDIO)| ((SDMMC2_Bus1Bit | SDMMC2_Bus4Bits | SDMMC2_Bus8Bits) &amp; !SDMMC2_SD_Card &amp; !SDMMC2_SDIO))" Diagnostic="&lt;b&gt; Require: &lt;/b&gt; &lt;br&gt; Middleware:FILEX:Core &lt;br&gt; Device:SDMMC:MMC" />
 						</Mode>
 					</ModeLogicOperator>
 				</Mode>
@@ -251,7 +254,8 @@
 							<Semaphore>SEMInterfacesCcFileOoSystemJjFileXOoLevelXOoNOROointerface</Semaphore>
 							<Condition Expression="SEMFileXCcFileOoSystemJjFileXJjCore &amp; (SEMInterfacesCcFileOoSystemJjLevelXOoNOROoSimulatorOointerface|
 																										 SEMInterfacesCcFileOoSystemJjLevelXOoNOROocustomOointerface|
-																										 SEMInterfacesCcFileOoSystemJjLevelXOoOctoSPIOomemoryOointerface)"  
+																										 SEMInterfacesCcFileOoSystemJjLevelXOoOctoSPIOomemoryOointerface |
+																										 SEMInterfacesCcFileOoSystemJjLevelXOoXSPIOomemoryOointerface)"  
 							Diagnostic="&lt;b&gt; Require: &lt;/b&gt; Middleware:FILEX:Core:* AND one of the LEVELX NOR interfaces"/>
 						</Mode>
 					</ModeLogicOperator>
@@ -599,6 +603,14 @@ Doing so causes default time and date to be placed on all file operations.</Desc
         <Description></Description>
 		<Condition Diagnostic="" Expression="!SEMInterfacesCcFileOoSystemJjLevelXOoOctoSPIOomemoryOointerface"/>
     </RefParameter>
+	<RefParameter Added="true" Comment="LX_NOR_USE_XSPI_DRIVER" DefaultValue="false" Group="Custom driver"  Name="LX_NOR_USE_XSPI_DRIVER" TabName="FileX" Type="boolean" Visible="false">
+        <Description></Description>
+		<Condition Diagnostic="" Expression="!SEMInterfacesCcFileOoSystemJjLevelXOoXSPIOomemoryOointerface"/>
+    </RefParameter>
+	<RefParameter Added="true" Comment="LX_NOR_USE_XSPI_DRIVER" DefaultValue="true" Group="Custom driver"  Name="LX_NOR_USE_XSPI_DRIVER" TabName="FileX" Type="boolean" Visible="false" >
+        <Description></Description>
+		<Condition Diagnostic="" Expression="SEMInterfacesCcFileOoSystemJjLevelXOoXSPIOomemoryOointerface"/>
+    </RefParameter>
     <RefParameter Added="true" Comment="LX_NOR_USE_CUSTOM_DRIVER" DefaultValue="true" Group="Custom driver"  Name="LX_NOR_USE_CUSTOM_DRIVER" TabName="FileX" Type="boolean" Visible="false">
         <Description></Description>
 		<Condition Diagnostic="" Expression="SEMInterfacesCcFileOoSystemJjLevelXOoNOROocustomOointerface"/>
@@ -653,7 +665,7 @@ Doing so causes default time and date to be placed on all file operations.</Desc
 	<RefParameter Name="FX_MMC_INTERFACE" Comment="" DefaultValue="0" Type="integer" Min="0" Max="1" Group="" TabName="" Visible="false">
 		<Description></Description>		
 	</RefParameter>
-	<RefParameter Name="FX_LX_NOR_INTERFACE" Comment="" DefaultValue="0" Type="integer" Min="0" Max="1" Group="" TabName="" Visible="false">
+	<RefParameter Name="FX_LX_NOR_INTERFACE" Comment="FX_LX_NOR_INTERFACE" DefaultValue="0" Type="integer" Min="0" Max="1" Group="" TabName="" Visible="false">
 		<Description></Description>		
 	</RefParameter>
 	<RefParameter Name="FX_LX_NAND_INTERFACE" Comment="" DefaultValue="0" Type="integer" Min="0" Max="1" Group="" TabName="" Visible="false">
@@ -666,6 +678,10 @@ Doing so causes default time and date to be placed on all file operations.</Desc
         <Description>Default memory pool size for the FileX application.&lt;font color=&quot;red&quot;&gt;The allocated memory for all enabled middelwares should not exceed the total size of available memory.&lt;/font&gt;</Description>
         <Condition Diagnostic="" Expression="(ThreadX:AZRTOS_APP_MEM_ALLOCATION_METHOD = 1)"/>
 		<ValueCondition Diagnostic="FileX memory pool size should be strictly higher than FileX Application Thread Stack Size." Expression="Value&gt; FILEX_APPLICATION_THREAD_STACK_SIZE" />
+    </RefParameter>
+	<RefParameter Added="true" Comment="FileX MemPool Name" DefaultValue="fx_app_byte_pool" Group="Memory Configuration" Name="FILEX_MEM_POOL_VAR_NAME" TabName="FileX" Type="stringRW">
+        <Description>Default FileX memory pool var name &lt;br&gt; &lt;font color=&quot;red&quot;&gt; &lt;b&gt;This is a variable name. It should be C compliant declaration, Otherwise compilation errors will be generated in the project. &lt;/b&gt; &lt;/font&gt;</Description>
+		<Condition Diagnostic="" Expression="(ThreadX:AZRTOS_APP_MEM_ALLOCATION_METHOD = 1)"/>
     </RefParameter>
 	<RefParameter Added="true" Comment="Memory Allocation" DefaultValue="=(ThreadX:AZRTOS_APP_MEM_ALLOCATION_METHOD)" Group="Core" Name="AZRTOS_APP_MEM_ALLOCATION_METHOD" TabName="FileX" Type="list" Visible="false">
         <Description></Description>
@@ -800,7 +816,19 @@ Doing so causes default time and date to be placed on all file operations.</Desc
         <PossibleValue Comment="false" Value="0"/>
         <Condition Diagnostic="" Expression="(GENERATE_FILEX_INIT_CODE = true) &amp; (AZRTOS_APP_MEM_ALLOCATION_METHOD = 1) &amp; SEMThreadXCcRTOSJjThreadXJjCore" />
     </RefParameter>
+	<RefParameter Added="true" Comment="Link NOR XSPI Driver" DefaultValue="1" Group="FileX Drivers" Name="LINK_NOR_XSPI_DRIVER" TabName="FileX" Type="list">
+        <Description>Generates fx_media_open() function call to link the NOR XSPI Driver to the application.</Description>
+        <PossibleValue Comment="true" Value="1"/>
+        <PossibleValue Comment="false" Value="0"/>
+        <Condition Diagnostic="" Expression="(GENERATE_FILEX_INIT_CODE = true) &amp; (AZRTOS_APP_MEM_ALLOCATION_METHOD = 1) &amp; SEMThreadXCcRTOSJjThreadXJjCore" />
+    </RefParameter>
     <RefParameter Added="true" Comment="Format NOR OSPI Media" DefaultValue="1" Group="FileX Drivers" Name="FORMAT_NOR_OSPI_MEDIA" TabName="FileX" Type="list">
+        <Description>Generates fx_media_open() function call to link the NOR OSPI Driver to the application.</Description>
+        <PossibleValue Comment="true" Value="1"/>
+        <PossibleValue Comment="false" Value="0"/>
+        <Condition Diagnostic="" Expression="(GENERATE_FILEX_INIT_CODE = true) &amp; (AZRTOS_APP_MEM_ALLOCATION_METHOD = 1) &amp; SEMThreadXCcRTOSJjThreadXJjCore" />
+    </RefParameter>
+	<RefParameter Added="true" Comment="Format NOR XSPI Media" DefaultValue="1" Group="FileX Drivers" Name="FORMAT_NOR_XSPI_MEDIA" TabName="FileX" Type="list">
         <Description>Generates fx_media_open() function call to link the NOR OSPI Driver to the application.</Description>
         <PossibleValue Comment="true" Value="1"/>
         <PossibleValue Comment="false" Value="0"/>
@@ -817,5 +845,12 @@ Doing so causes default time and date to be placed on all file operations.</Desc
         <PossibleValue Comment="true" Value="1"/>
         <PossibleValue Comment="false" Value="0"/>
         <Condition Diagnostic="" Expression="(GENERATE_FILEX_INIT_CODE = true) &amp; (AZRTOS_APP_MEM_ALLOCATION_METHOD = 1) &amp; SEMThreadXCcRTOSJjThreadXJjCore" />
+    </RefParameter>
+    <RefParameter Added="true" Comment="FX_LX_NAND_CUSTOM_DRIVER" DefaultValue="1" Group="NAND Custom driver"  Name="FX_LX_NAND_CUSTOM_DRIVER" TabName="" Type="string" Visible="false">
+        <Description>define the NAND custom driver initialization function.</Description>
+        <Condition Diagnostic="" Expression="SEMInterfacesCcFileOoSystemJjLevelXOoNANDOocustomOointerface"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="FX_LX_NAND_CUSTOM_DRIVER" DefaultValue="0" Group="NAND Custom driver"  Name="FX_LX_NAND_CUSTOM_DRIVER" TabName="" Type="string" Visible="false">
+        <Description>define the NAND custom driver initialization function.</Description>
     </RefParameter>
 </IP>

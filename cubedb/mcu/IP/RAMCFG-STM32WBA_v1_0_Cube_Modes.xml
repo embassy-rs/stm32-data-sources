@@ -14,16 +14,21 @@
     <RefParameter Comment="Instance" DefaultValue="RAMCFG" Name="Instance" Type="" Visible="false"/>
    
     <!-- Read Access Latency (Wait State)-->
-    <RefParameter Comment="Wait State" DefaultValue="WS_DISABLE" Name="WaitState" Type="list">
+    <RefParameter Comment="Wait State" DefaultValue="RAMCFG_WAITSTATE_0" Name="WaitState" Type="list">
+        <Condition Diagnostic="Scale 1 (For a HCLKFreq lower or equal to 100 MHz)" Expression="(scale1 &amp; ((RCC:HCLKFreq_Value &lt; 100000000) |(RCC:HCLKFreq_Value =100000000)))" />
+        <PossibleValue Comment="Disable" Value="WS_DISABLE"/>
+        <PossibleValue Comment="0" Value="RAMCFG_WAITSTATE_0"/>
+    </RefParameter>
+    <RefParameter Comment="Wait State" DefaultValue="RAMCFG_WAITSTATE_0" Name="WaitState" Type="list">
+        <Condition Diagnostic="Scale 2 (For a HCLKFreq lower or equal to 12 MHz)" Expression="(scale2 &amp; ((RCC:HCLKFreq_Value &lt; 12000000) |(RCC:HCLKFreq_Value=12000000)))"/>
         <PossibleValue Comment="Disable" Value="WS_DISABLE"/>
         <PossibleValue Comment="0" Value="RAMCFG_WAITSTATE_0"/>
         <PossibleValue Comment="1" Value="RAMCFG_WAITSTATE_1"/>
-        <PossibleValue Comment="2" Value="RAMCFG_WAITSTATE_2"/>
-        <PossibleValue Comment="3" Value="RAMCFG_WAITSTATE_3"/>
-        <PossibleValue Comment="4" Value="RAMCFG_WAITSTATE_4"/>
-        <PossibleValue Comment="5" Value="RAMCFG_WAITSTATE_5"/>
-        <PossibleValue Comment="6" Value="RAMCFG_WAITSTATE_6"/>
-        <PossibleValue Comment="7" Value="RAMCFG_WAITSTATE_7"/>
+    </RefParameter>
+    <RefParameter Comment="Wait State" DefaultValue="RAMCFG_WAITSTATE_1" Name="WaitState" Type="list">
+        <Condition Diagnostic="Scale 2 (For a HCLKFreq greater than 12 and lower or equal to 16 MHz)" Expression="(scale2 &amp; ((RCC:HCLKFreq_Value &lt; 16000000) |(RCC:HCLKFreq_Value=16000000)))"/>
+        <PossibleValue Comment="Disable" Value="WS_DISABLE"/>
+        <PossibleValue Comment="1" Value="RAMCFG_WAITSTATE_1"/>
     </RefParameter>
      
     <!-- Software Erase -->

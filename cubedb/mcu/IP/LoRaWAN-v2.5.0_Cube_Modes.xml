@@ -10,7 +10,7 @@
     <About>Middleware enabling LoRaWAN based on LoRa modulations.</About>
 
     <RefParameter Name="STM32WL5MXX" Comment="Module " DefaultValue="true" Type="boolean" Group="Application selection" TabName="LoRaWAN application" Visible="false">
-        <Condition Diagnostic="" Expression="STM32WL5MOCHx"/>
+        <Condition Diagnostic="" Expression="(STM32WL5MOCHx | STM32WL5MOCHxS)"/>
         <PossibleValue Value="true" Comment="true" Semaphore="SEM_STM32WL5MXX"/>
         <Description> </Description>
     </RefParameter>
@@ -20,9 +20,9 @@
 
     <RefParameter Name="SUBGHZ_APPLICATION" Comment="Application" DefaultValue="LORA_USER_APPLICATION" Type="list" Group="Application selection" TabName="LoRaWAN application">
         <Condition Diagnostic="" Expression="S_ADV_TRACE &amp; S_TINY_LPM &amp; S_TIMER &amp; ((S_SEQUENCER | SEMThreadXCcRTOSJjThreadXJjCore | S_FREERTOS) | (!S_SINGLE_CORE &amp; S_SEQUENCER_M0P &amp; (S_SEQUENCER_M4 | SEMThreadXCcRTOSJjThreadXJjCore_M4 | S_FREERTOS_M4)))"/>
-        <PossibleValue Value="LORA_AT_SLAVE" Comment="AT Slave skeleton" Semaphore="SEM_LORA_AT_SLAVE"/>
-        <PossibleValue Value="LORA_END_NODE" Comment="End Node skeleton" Semaphore="SEM_LORA_END_NODE"/>
-        <PossibleValue Value="LORA_USER_APPLICATION" Comment="User defined skeleton" Semaphore="SEM_LORA_USER_APPLICATION"/>
+        <PossibleValue Value="End_Node_LBM_skeleton" Comment="End Node LBM skeleton" Semaphore="SEM_End_Node_LBM_skeleton"/>
+        <PossibleValue Value="End_Node_Relay_LBM_skeleton" Comment="End Node Relay LBM skeleton" Semaphore="SEM_End_Node_Relay_LBM_skeleton"/>
+        <PossibleValue Value="Relay_LBM_skeleton" Comment="Relay LBM skeleton" Semaphore="SEM_Relay_LBM_skeleton"/>
         <Description>List of available applications</Description>
     </RefParameter>
     <RefParameter Name="SUBGHZ_APPLICATION" Comment="Application" DefaultValue="LORA_USER_APPLICATION" Type="list" Group="Application selection" TabName="LoRaWAN application">
@@ -69,22 +69,6 @@
         <Condition Diagnostic="" Expression="!S_TIMER"/>
     </RefParameter>
     <RefParameter Name="UTIL_TIMER_EN" Comment="Enable/Disable TIMER utility" DefaultValue="true" Type="boolean" Group="Application selection" TabName="LoRaWAN application" Visible="false">
-    </RefParameter>
-
-    <RefParameter Name="LORAWAN_APP_MEM_POOL_SIZE" Comment="ThreadX LORAWAN_APP_MEM_POOL_SIZE" DefaultValue="5120" Max="20480" Min="512" Type="integer" Group="Application selection" TabName="LoRaWAN application" Visible="true">
-        <Description>Default AzRTOS ThreadX memory pool size for the LoRaWAN application.</Description>
-        <Condition Diagnostic="" Expression="S_RTOS_M4 &amp; !S_SINGLE_CORE"/>
-    </RefParameter>
-    <RefParameter Name="LORAWAN_APP_MEM_POOL_SIZE" Comment="ThreadX LORAWAN_APP_MEM_POOL_SIZE" DefaultValue="6144" Max="20480" Min="512" Type="integer" Group="Application selection" TabName="LoRaWAN application" Visible="true">
-        <Description>Default AzRTOS ThreadX memory pool size for the LoRaWAN application.</Description>
-        <Condition Diagnostic="" Expression="S_RTOS_M4 &amp; S_SINGLE_CORE"/>
-    </RefParameter>
-    <RefParameter Name="LORAWAN_APP_MEM_POOL_SIZE" Comment="ThreadX LORAWAN_APP_MEM_POOL_SIZE" DefaultValue="6144" Max="20480" Min="512" Type="integer" Group="Application selection" TabName="LoRaWAN application" Visible="true">
-        <Description>Default AzRTOS ThreadX memory pool size for the LoRaWAN application.</Description>
-        <Condition Diagnostic="" Expression="S_RTOS"/>
-    </RefParameter>
-    <RefParameter Name="LORAWAN_APP_MEM_POOL_SIZE" Comment="ThreadX LORAWAN_APP_MEM_POOL_SIZE" DefaultValue="6144" Max="6144" Min="6144" Type="integer" Group="Application selection" TabName="LoRaWAN application" Visible="false">
-        <Description>Default AzRTOS ThreadX memory pool size for the LoRaWAN application.</Description>
     </RefParameter>
 
     <RefParameter Name="LORAWAN_KMS" Comment="Use KMS for LoRaWAN" DefaultValue="false" Type="UniqueElementList" Group="Application selection" TabName="LoRaWAN application" Visible="true">
@@ -188,8 +172,8 @@
         <Description></Description>
     </RefParameter>
 
-    <RefParameter Name="USE_LPM" Comment="Configure Low Power Mode" DefaultValue="false" Type="boolean" Group="Application selection" TabName="LoRaWAN application" Visible="true">
-        <Condition Diagnostic="" Expression="SEM_LORA_USER_APPLICATION &amp; S_TINY_LPM"/>
+    <RefParameter Name="USE_LPM" Comment="Configure Low Power Mode" DefaultValue="true" Type="boolean" Group="Application selection" TabName="LoRaWAN application" Visible="true">
+        <Condition Diagnostic="" Expression="S_TINY_LPM"/>
         <PossibleValue Value="true" Comment="true" Semaphore="SEM_LORA_USE_LPM"/>
         <PossibleValue Value="false" Comment="false"/>
         <Description>
@@ -204,7 +188,7 @@
         <PossibleValue Value="true" Comment="true"/>
     </RefParameter>
 
-    <RefParameter Name="USE_ADC" Comment="Use ADC for T° and battery management" DefaultValue="false" Type="boolean" Group="Application selection" TabName="LoRaWAN application" Visible="true">
+  <!--<RefParameter Name="USE_ADC" Comment="Use ADC for T° and battery management" DefaultValue="false" Type="boolean" Group="Application selection" TabName="LoRaWAN application" Visible="true">
         <Condition Diagnostic="" Expression="SEM_LORA_USER_APPLICATION"/>
         <PossibleValue Value="true" Comment="true" Semaphore="SEM_LORA_USE_ADC"/>
         <PossibleValue Value="false" Comment="false"/>
@@ -285,7 +269,7 @@
     </RefParameter>
     <RefParameter Name="USE_UART" Comment="Use UART On" DefaultValue="true" Type="UniqueElementList" Group="Application selection" TabName="LoRaWAN application" Visible="false">
         <PossibleValue Value="true" Comment="true"/>
-    </RefParameter>
+    </RefParameter>-->
 
     <RefParameter Name="USER_GUIDANCE_UTIL" Comment="none" DefaultValue="none" Type="String" Group="Application selection" TabName="LoRaWAN application"  Visible="false">
         <Condition Diagnostic="" Expression="S_ADV_TRACE &amp; S_TINY_LPM &amp; S_TIMER &amp; ((S_SEQUENCER | SEMThreadXCcRTOSJjThreadXJjCore | S_FREERTOS) | (!S_SINGLE_CORE &amp; S_SEQUENCER_M0P &amp; (S_SEQUENCER_M4 | SEMThreadXCcRTOSJjThreadXJjCore_M4 | S_FREERTOS_M4)))"/>
@@ -301,7 +285,7 @@
     </RefParameter>
 
     <RefParameter Name="USER_GUIDANCE" Comment="Application configuration recommandations " DefaultValue="!! Please read carefully Information panel below!!" Type="String" Group="Application selection" TabName="LoRaWAN application" Visible="true">
-        <Condition Diagnostic="" Expression="SEM_LORA_END_NODE"/>
+        <Condition Diagnostic="" Expression="SEM_End_Node_LBM_skeleton"/>
         <Description>
         &lt;font color=&quot;blue&quot;&gt;&lt;b&gt;KMS:&lt;/b&gt; To set LoRaWAN using the KMS Middleware,&lt;/font&gt;&lt;&gt;
         &lt;&gt; User Code Sections in following files in the DualCore example project must be filled manually after generation:&lt;br/&gt;
@@ -367,7 +351,7 @@
         </Description>
     </RefParameter>
     <RefParameter Name="USER_GUIDANCE" Comment="Application configuration recommandations " DefaultValue="!! Please read carefully Information panel below!!" Type="String" Group="Application selection" TabName="LoRaWAN application" Visible="true">
-        <Condition Diagnostic="" Expression="SEM_LORA_AT_SLAVE"/>
+        <Condition Diagnostic="" Expression="SEM_End_Node_Relay_LBM_skeleton"/>
         <Description>
         &lt;font color=&quot;blue&quot;&gt;&lt;b&gt;KMS:&lt;/b&gt; To configure LoRaWAN using the KMS Middleware,&lt;/font&gt;&lt;&gt;
         &lt;&gt; User Code Sections in following files in the DualCore example project must be filled manually after generation:&lt;br/&gt;
@@ -453,7 +437,7 @@
 
     <!-- LoRaWAN sys_conf.h RefParameters - Begin -->
     <RefParameter Name="VERBOSE_LEVEL" Comment="Trace verbose level" DefaultValue="VLEVEL_M" Type="list" Group="sys_conf" TabName="LoRaWAN application" Visible="true">
-        <Condition Diagnostic="" Expression="(!(STM32WL55UCYx | STM32WL55CCUx | STM32WL55JCIx | STM32WL54CCUx | STM32WL54JCIx | STM32WL5MOCHx) | S_SINGLE_CORE) &amp; !SEM_LORA_USER_APPLICATION"/>
+        <Condition Diagnostic="" Expression="(!(STM32WL55UCYx | STM32WL55CCUx | STM32WL55JCIx | STM32WL54CCUx | STM32WL54JCIx | STM32WL5MOCHx) | S_SINGLE_CORE)"/>
         <PossibleValue Value="VLEVEL_H" Comment="VLEVEL_H"/>
         <PossibleValue Value="VLEVEL_M" Comment="VLEVEL_M"/>
         <PossibleValue Value="VLEVEL_L" Comment="VLEVEL_L"/>
@@ -464,7 +448,7 @@
     </RefParameter>
 
     <RefParameter Name="VERBOSE_LEVEL_CM4" Comment="Trace verbose level" DefaultValue="VLEVEL_M" Type="list" Group="sys_conf CM4" TabName="LoRaWAN application" Visible="true">
-        <Condition Diagnostic="" Expression="(STM32WL55UCYx | STM32WL55CCUx | STM32WL55JCIx | STM32WL54CCUx | STM32WL54JCIx | STM32WL5MOCHx) &amp; !S_SINGLE_CORE &amp; !SEM_LORA_USER_APPLICATION"/>
+        <Condition Diagnostic="" Expression="(STM32WL55UCYx | STM32WL55CCUx | STM32WL55JCIx | STM32WL54CCUx | STM32WL54JCIx | STM32WL5MOCHx) &amp; !S_SINGLE_CORE"/>
         <PossibleValue Value="VLEVEL_H" Comment="VLEVEL_H"/>
         <PossibleValue Value="VLEVEL_M" Comment="VLEVEL_M"/>
         <PossibleValue Value="VLEVEL_L" Comment="VLEVEL_L"/>
@@ -475,7 +459,7 @@
     </RefParameter>
 
     <RefParameter Name="VERBOSE_LEVEL_CM0PLUS" Comment="Trace verbose level" DefaultValue="VLEVEL_M" Type="list" Group="sys_conf CM0PLUS" TabName="LoRaWAN application" Visible="true">
-        <Condition Diagnostic="" Expression="(STM32WL55UCYx | STM32WL55CCUx | STM32WL55JCIx | STM32WL54CCUx | STM32WL54JCIx | STM32WL5MOCHx) &amp; !S_SINGLE_CORE &amp; !SEM_LORA_USER_APPLICATION"/>
+        <Condition Diagnostic="" Expression="(STM32WL55UCYx | STM32WL55CCUx | STM32WL55JCIx | STM32WL54CCUx | STM32WL54JCIx | STM32WL5MOCHx) &amp; !S_SINGLE_CORE"/>
         <PossibleValue Value="VLEVEL_H" Comment="VLEVEL_H"/>
         <PossibleValue Value="VLEVEL_M" Comment="VLEVEL_M"/>
         <PossibleValue Value="VLEVEL_L" Comment="VLEVEL_L"/>
@@ -486,7 +470,7 @@
     </RefParameter>
 
     <RefParameter Name="APP_LOG_ENABLED" Comment="Enable Application Logging" DefaultValue="true" Type="boolean" Group="sys_conf" TabName="LoRaWAN application" Visible="true">
-        <Condition Diagnostic="" Expression="(!(STM32WL55UCYx | STM32WL55CCUx | STM32WL55JCIx | STM32WL54CCUx | STM32WL54JCIx | STM32WL5MOCHx) | S_SINGLE_CORE) &amp; !SEM_LORA_USER_APPLICATION"/>
+        <Condition Diagnostic="" Expression="(!(STM32WL55UCYx | STM32WL55CCUx | STM32WL55JCIx | STM32WL54CCUx | STM32WL54JCIx | STM32WL5MOCHx) | S_SINGLE_CORE)"/>
         <PossibleValue Value="true" Comment="true"/>
         <PossibleValue Value="false" Comment="false"/>
         <Description> </Description>
@@ -496,7 +480,7 @@
     </RefParameter>
 
     <RefParameter Name="APP_LOG_ENABLED_CM4" Comment="Enable Application Logging" DefaultValue="true" Type="boolean" Group="sys_conf CM4" TabName="LoRaWAN application" Visible="true">
-        <Condition Diagnostic="" Expression="(STM32WL55UCYx | STM32WL55CCUx | STM32WL55JCIx | STM32WL54CCUx | STM32WL54JCIx | STM32WL5MOCHx) &amp; !S_SINGLE_CORE &amp; !SEM_LORA_USER_APPLICATION"/>
+        <Condition Diagnostic="" Expression="(STM32WL55UCYx | STM32WL55CCUx | STM32WL55JCIx | STM32WL54CCUx | STM32WL54JCIx | STM32WL5MOCHx) &amp; !S_SINGLE_CORE"/>
         <PossibleValue Value="true" Comment="true"/>
         <PossibleValue Value="false" Comment="false"/>
         <Description> </Description>
@@ -506,7 +490,7 @@
     </RefParameter>
 
     <RefParameter Name="APP_LOG_ENABLED_CM0PLUS" Comment="Enable Application Logging" DefaultValue="true" Type="boolean" Group="sys_conf CM0PLUS" TabName="LoRaWAN application" Visible="true">
-        <Condition Diagnostic="" Expression="(STM32WL55UCYx | STM32WL55CCUx | STM32WL55JCIx | STM32WL54CCUx | STM32WL54JCIx | STM32WL5MOCHx) &amp; !S_SINGLE_CORE &amp; !SEM_LORA_USER_APPLICATION"/>
+        <Condition Diagnostic="" Expression="(STM32WL55UCYx | STM32WL55CCUx | STM32WL55JCIx | STM32WL54CCUx | STM32WL54JCIx | STM32WL5MOCHx) &amp; !S_SINGLE_CORE"/>
         <PossibleValue Value="true" Comment="true"/>
         <PossibleValue Value="false" Comment="false"/>
         <Description> </Description>
@@ -548,7 +532,7 @@
 -->
 
     <RefParameter Name="LOW_POWER_DISABLE" Comment="Disable Low Power Mode" DefaultValue="false" Type="boolean" Group="sys_conf" TabName="LoRaWAN application" Visible="true">
-        <Condition Diagnostic="" Expression="(!(STM32WL55UCYx | STM32WL55CCUx | STM32WL55JCIx | STM32WL54CCUx | STM32WL54JCIx | STM32WL5MOCHx) | S_SINGLE_CORE) &amp; !SEM_LORA_USER_APPLICATION"/>
+        <Condition Diagnostic="" Expression="(!(STM32WL55UCYx | STM32WL55CCUx | STM32WL55JCIx | STM32WL54CCUx | STM32WL54JCIx | STM32WL5MOCHx) | S_SINGLE_CORE)"/>
         <PossibleValue Value="true" Comment="true"/>
         <PossibleValue Value="false" Comment="false"/>
         <Description>It goes only to SLEEP but not to STOP mode </Description>
@@ -558,7 +542,7 @@
     </RefParameter>
 
     <RefParameter Name="LOW_POWER_DISABLE_CM4" Comment="Disable Low Power Mode" DefaultValue="false" Type="boolean" Group="sys_conf CM4" TabName="LoRaWAN application" Visible="true">
-        <Condition Diagnostic="" Expression="(STM32WL55UCYx | STM32WL55CCUx | STM32WL55JCIx | STM32WL54CCUx | STM32WL54JCIx | STM32WL5MOCHx) &amp; !S_SINGLE_CORE &amp; !SEM_LORA_USER_APPLICATION"/>
+        <Condition Diagnostic="" Expression="(STM32WL55UCYx | STM32WL55CCUx | STM32WL55JCIx | STM32WL54CCUx | STM32WL54JCIx | STM32WL5MOCHx) &amp; !S_SINGLE_CORE"/>
         <PossibleValue Value="true" Comment="true"/>
         <PossibleValue Value="false" Comment="false"/>
         <Description>It goes only to SLEEP but not to STOP mode </Description>
@@ -568,7 +552,7 @@
     </RefParameter>
 
     <RefParameter Name="LOW_POWER_DISABLE_CM0PLUS" Comment="Disable Low Power Mode" DefaultValue="false" Type="boolean" Group="sys_conf CM0PLUS" TabName="LoRaWAN application" Visible="true">
-        <Condition Diagnostic="" Expression="(STM32WL55UCYx | STM32WL55CCUx | STM32WL55JCIx | STM32WL54CCUx | STM32WL54JCIx | STM32WL5MOCHx) &amp; !S_SINGLE_CORE &amp; !SEM_LORA_USER_APPLICATION"/>
+        <Condition Diagnostic="" Expression="(STM32WL55UCYx | STM32WL55CCUx | STM32WL55JCIx | STM32WL54CCUx | STM32WL54JCIx | STM32WL5MOCHx) &amp; !S_SINGLE_CORE"/>
         <PossibleValue Value="true" Comment="true"/>
         <PossibleValue Value="false" Comment="false"/>
         <Description>It goes only to SLEEP but not to STOP mode </Description>
@@ -578,7 +562,7 @@
     </RefParameter>
 
     <RefParameter Name="SENSOR_ENABLED" Comment="Enable Sensor" DefaultValue="false" Type="boolean" Group="sys_conf" TabName="LoRaWAN application" Visible="true">
-        <Condition Diagnostic="" Expression="(!(STM32WL55UCYx | STM32WL55CCUx | STM32WL55JCIx | STM32WL54CCUx | STM32WL54JCIx | STM32WL5MOCHx) | S_SINGLE_CORE) &amp; !SEM_LORA_USER_APPLICATION"/>
+        <Condition Diagnostic="" Expression="(!(STM32WL55UCYx | STM32WL55CCUx | STM32WL55JCIx | STM32WL54CCUx | STM32WL54JCIx | STM32WL5MOCHx) | S_SINGLE_CORE)"/>
         <PossibleValue Value="true" Comment="true"/>
         <PossibleValue Value="false" Comment="false"/>
         <Description> </Description>
@@ -588,7 +572,7 @@
     </RefParameter>
 
     <RefParameter Name="SENSOR_ENABLED_CM4" Comment="Enable Sensor" DefaultValue="false" Type="boolean" Group="sys_conf CM4" TabName="LoRaWAN application" Visible="true">
-        <Condition Diagnostic="" Expression="(STM32WL55UCYx | STM32WL55CCUx | STM32WL55JCIx | STM32WL54CCUx | STM32WL54JCIx | STM32WL5MOCHx) &amp; !S_SINGLE_CORE &amp; !SEM_LORA_USER_APPLICATION"/>
+        <Condition Diagnostic="" Expression="(STM32WL55UCYx | STM32WL55CCUx | STM32WL55JCIx | STM32WL54CCUx | STM32WL54JCIx | STM32WL5MOCHx) &amp; !S_SINGLE_CORE"/>
         <PossibleValue Value="true" Comment="true"/>
         <PossibleValue Value="false" Comment="false"/>
         <Description> </Description>
@@ -600,18 +584,7 @@
 
     <!-- LoRaWAN commissioning.h RefParameters - Begin -->
 
-    <RefParameter Name="LORAWAN_PUBLIC_NETWORK" Comment="Public network" DefaultValue="true" Type="boolean" Group="Commissioning" TabName="LoRaWAN commissioning" Visible="true">
-        <PossibleValue Value="true" Comment="true"/>
-        <PossibleValue Value="false" Comment="false"/>
-        <Description>Indicates if the end-device is to be connected to a private or public network</Description>
-    </RefParameter>
-
-    <RefParameter Name="LORAWAN_NETWORK_ID" Comment="Current network ID" Type="Integer"  DefaultValue="0" Group="Commissioning" TabName="LoRaWAN commissioning" Visible="true">
-        <Description>Current network ID</Description>
-    </RefParameter>
-
     <RefParameter Name="KEY_EXTRACTABLE" Comment="Enable Key read access" DefaultValue="true" Type="boolean" Group="lorawan_conf" TabName="LoRaWAN commissioning" Visible="true">
-        <Condition Diagnostic="" Expression="!SEM_LORA_USER_APPLICATION"/>
         <PossibleValue Value="false" Comment="false"/>
         <PossibleValue Value="true" Comment="true"/>
         <Description> </Description>
@@ -630,7 +603,7 @@
         <Description>App/Join IEEE EUI (big endian)</Description>
     </RefParameter>
 
-    <RefParameter Name="LORAWAN_NWK_KEY" Comment="Network key" Type="Array" ArraySize="16" ArrayTypeElement="uint8_t;16" Separator="," DefaultValue="2B,7E,15,16,28,AE,D2,A6,AB,F7,15,88,09,CF,4F,3C" Group="se-identity" TabName="LoRaWAN commissioning" Visible="true">
+    <RefParameter Name="LORAWAN_GEN_APP_KEY" Comment="Gen Application Key" Type="Array" ArraySize="16" ArrayTypeElement="uint8_t;16" Separator="," DefaultValue="2B,7E,15,16,28,AE,D2,A6,AB,F7,15,88,09,CF,4F,3C" Group="se-identity" TabName="LoRaWAN commissioning" Visible="true">
         <Description>Network root key (big endian) in OTAA Activation Type&lt;br/&gt;
          Used to derive the Network session and Application session keys</Description>
     </RefParameter>
@@ -656,13 +629,8 @@
     <!-- LoRaWAN se-identity.h RefParameters - End -->
 
     <!-- LoRaWAN sys_debug.c RefParameters - Begin -->
-    <RefParameter Name="Activate_DEBUG_LINE" Comment="Probes Lines in Platform Settings" DefaultValue="false" Type="boolean" Group="board settings" TabName="LoRaWAN application" Added="true">
-        <Condition Diagnostic="" Expression="!SEM_LORA_USER_APPLICATION"/>
-        <PossibleValue Comment="false" Value="false"/>
+    <RefParameter Name="Activate_DEBUG_LINE" Comment="Probes Lines in Platform Settings" DefaultValue="true" Type="boolean" Group="board settings" TabName="LoRaWAN application" Added="true">
         <PossibleValue Comment="true" Value="true" Semaphore="SEM_PROBE_LINE_FOR_LORA"/>
-        <Description>Enable Probes Line using GPIO under Plaform Settings panel</Description>
-    </RefParameter>
-    <RefParameter Name="Activate_DEBUG_LINE" Comment="Probes Lines in Platform Settings" DefaultValue="false" Type="UniqueElementList" Group="board settings" TabName="LoRaWAN application" Added="true" Visible="false">
         <PossibleValue Comment="false" Value="false"/>
         <Description>Enable Probes Line using GPIO under Plaform Settings panel</Description>
     </RefParameter>
@@ -694,160 +662,43 @@
 
     <!-- LoRaWAN lora_app.h RefParameters - Begin -->
     <RefParameter Name="ACTIVE_REGION" Comment="Active region" DefaultValue="LORAMAC_REGION_EU868" Type="list" Group="lora_app" TabName="LoRaWAN application" Visible="true">
-        <Condition Diagnostic="" Expression="!SEM_LORA_USER_APPLICATION"/>
-        <PossibleValue Value="LORAMAC_REGION_AS923" Condition="!Semaphore_REGION_AS923" Comment="LORAMAC_REGION_AS923"/>
+        <PossibleValue Value="LORAMAC_REGION_EU868" Condition="!Semaphore_REGION_EU868" Comment="LORAMAC_REGION_EU868"/>
+        <PossibleValue Value="LORAMAC_REGION_AS923_GRP1" Condition="!Semaphore_REGION_AS923" Comment="LORAMAC_REGION_AS923_GRP1"/>
+        <PossibleValue Value="LORAMAC_REGION_US915" Condition="!Semaphore_REGION_US915" Comment="LORAMAC_REGION_US915"/>
         <PossibleValue Value="LORAMAC_REGION_AU915" Condition="!Semaphore_REGION_AU915" Comment="LORAMAC_REGION_AU915"/>
         <PossibleValue Value="LORAMAC_REGION_CN470" Condition="!Semaphore_REGION_CN470" Comment="LORAMAC_REGION_CN470"/>
-        <PossibleValue Value="LORAMAC_REGION_CN779" Condition="!Semaphore_REGION_CN779" Comment="LORAMAC_REGION_CN779"/>
-        <PossibleValue Value="LORAMAC_REGION_EU433" Condition="!Semaphore_REGION_EU433" Comment="LORAMAC_REGION_EU433"/>
-        <PossibleValue Value="LORAMAC_REGION_EU868" Condition="!Semaphore_REGION_EU868" Comment="LORAMAC_REGION_EU868"/>
-        <PossibleValue Value="LORAMAC_REGION_KR920" Condition="!Semaphore_REGION_KR920" Comment="LORAMAC_REGION_KR920"/>
+        <PossibleValue Value="LORAMAC_REGION_AS923_GRP2" Condition="!Semaphore_REGION_AS923" Comment="LORAMAC_REGION_AS923_GRP2"/>
+        <PossibleValue Value="LORAMAC_REGION_AS923_GRP3" Condition="!Semaphore_REGION_AS923" Comment="LORAMAC_REGION_AS923_GRP3"/>
         <PossibleValue Value="LORAMAC_REGION_IN865" Condition="!Semaphore_REGION_IN865" Comment="LORAMAC_REGION_IN865"/>
-        <PossibleValue Value="LORAMAC_REGION_US915" Condition="!Semaphore_REGION_US915" Comment="LORAMAC_REGION_US915"/>
+        <PossibleValue Value="LORAMAC_REGION_KR920" Condition="!Semaphore_REGION_KR920" Comment="LORAMAC_REGION_KR920"/>
         <PossibleValue Value="LORAMAC_REGION_RU864" Condition="!Semaphore_REGION_RU864" Comment="LORAMAC_REGION_RU864"/>
+        <PossibleValue Value="LORAMAC_REGION_CN470_RP_1_0" Condition="!Semaphore_REGION_CN470_RP_1_0" Comment="LORAMAC_REGION_CN470_RP_1_0"/>
+        <PossibleValue Value="LORAMAC_REGION_AS923_GRP4" Condition="!Semaphore_REGION_AS923" Comment="LORAMAC_REGION_AS923_GRP4"/>
         <Description>List of available regions is set in lorawan_conf.h available under LoRaWAN middleware panel</Description>
     </RefParameter>
 
-    <RefParameter Name="APP_TX_DUTYCYCLE" Comment="Transmition duty cycle" DefaultValue="10000" Type="integer" Group="lora_app" TabName="LoRaWAN application" Visible="true">
-        <Condition Diagnostic="" Expression="SEM_LORA_END_NODE "/>
+    <RefParameter Name="APP_TX_DUTYCYCLE" Comment="Transmition duty cycle" DefaultValue="10" Type="integer" Group="lora_app" TabName="LoRaWAN application" Visible="true">
+        <Condition Diagnostic="" Expression="SEM_End_Node_LBM_skeleton"/>
         <Description> </Description>
     </RefParameter>
-
-    <RefParameter Name="APP_TX_DUTYCYCLE" Comment="Transmition duty cycle" DefaultValue="10000" Type="integer" Group="lora_app" TabName="LoRaWAN application" Visible="false">
+    <RefParameter Name="APP_TX_DUTYCYCLE" Comment="Transmition duty cycle" DefaultValue="1800" Type="integer" Group="lora_app" TabName="LoRaWAN application" Visible="true">
+        <Condition Diagnostic="" Expression="SEM_End_Node_Relay_LBM_skeleton"/>
+        <Description> </Description>
+    </RefParameter>
+    <RefParameter Name="APP_TX_DUTYCYCLE" Comment="Transmition duty cycle" DefaultValue="1200" Type="integer" Group="lora_app" TabName="LoRaWAN application" Visible="true">
         <Description> </Description>
     </RefParameter>
 
     <RefParameter Name="LORAWAN_USER_APP_PORT" Comment="Application user port" DefaultValue="2" Type="integer" Min="1" Max="199"  Group="lora_app" TabName="LoRaWAN application" Visible="true">
-        <Condition Diagnostic="" Expression="SEM_LORA_END_NODE "/>
         <Description> </Description>
     </RefParameter>
 
-    <RefParameter Name="LORAWAN_USER_APP_PORT" Comment="Application user port" DefaultValue="2" Type="integer" Min="1" Max="199" Group="lora_app" TabName="LoRaWAN application" Visible="false">
-        <Description> </Description>
-    </RefParameter>
-
-    <RefParameter Name="LORAWAN_SWITCH_CLASS_PORT" Comment="Switch class port" DefaultValue="3" Type="integer" Min="1" Max="199"  Group="lora_app" TabName="LoRaWAN application" Visible="true">
-        <Condition Diagnostic="" Expression="SEM_LORA_END_NODE "/>
-        <Description> </Description>
-    </RefParameter>
-
-    <RefParameter Name="LORAWAN_SWITCH_CLASS_PORT" Comment="Switch class port" DefaultValue="3" Type="integer" Min="1" Max="199" Group="lora_app" TabName="LoRaWAN application" Visible="false">
-        <Description> </Description>
-    </RefParameter>
-
-    <RefParameter Name="LORAWAN_DEFAULT_CLASS" Comment="Default class" DefaultValue="CLASS_A" Type="list" Group="lora_app" TabName="LoRaWAN application" Visible="true">
-        <Condition Diagnostic="" Expression="!SEM_LORA_USER_APPLICATION"/>
-        <PossibleValue Value="CLASS_A" Comment="CLASS_A" Semaphore="Semaphore_LORAWAN_DEFAULT_CLASS_A"/>
-        <PossibleValue Value="CLASS_B" Comment="CLASS_B" Semaphore="Semaphore_LORAWAN_DEFAULT_CLASS_B"/>
-        <PossibleValue Value="CLASS_C" Comment="CLASS_C" Semaphore="Semaphore_LORAWAN_DEFAULT_CLASS_C"/>
-        <Description>@note do not use 224. It is reserved for certification
-        </Description>
-    </RefParameter>
-    <RefParameter Name="LORAWAN_DEFAULT_CLASS" Comment="Default class" DefaultValue="CLASS_A" Type="list" Group="lora_app" TabName="LoRaWAN application" Visible="false">
-        <Description>@note do not use 224. It is reserved for certification
-        </Description>
-    </RefParameter>
-
-    <RefParameter Name="LORAWAN_DEFAULT_CONFIRMED_MSG_STATE" Comment="Default handler message state" DefaultValue="LORAMAC_HANDLER_UNCONFIRMED_MSG" Type="list" Group="lora_app" TabName="LoRaWAN application" Visible="true">
-        <Condition Diagnostic="" Expression="SEM_LORA_END_NODE  "/>
-        <PossibleValue Value="LORAMAC_HANDLER_UNCONFIRMED_MSG" Comment="Unconfirmed message" Semaphore="Semaphore_LORAWAN_DEFAULT_CONFIRMED_MSG_STATE_UNCONFIRMED_MSG"/>
-        <PossibleValue Value="LORAMAC_HANDLER_CONFIRMED_MSG" Comment="Confirmed message" Semaphore="Semaphore_LORAWAN_DEFAULT_CONFIRMED_MSG_STATE_CONFIRMED_MSG"/>
-        <Description> </Description>
-    </RefParameter>
-    <RefParameter Name="LORAWAN_DEFAULT_CONFIRMED_MSG_STATE" Comment="Default message state" DefaultValue="LORAMAC_HANDLER_UNCONFIRMED_MSG" Type="list" Group="lora_app" TabName="LoRaWAN application" Visible="false">
-        <Description> </Description>
-    </RefParameter>
-
-    <RefParameter Name="LORAWAN_ADR_STATE" Comment="Handler Adaptive Data Rate" DefaultValue="LORAMAC_HANDLER_ADR_ON" Type="list" Group="lora_app" TabName="LoRaWAN application" Visible="true">
-        <Condition Diagnostic="" Expression="!SEM_LORA_USER_APPLICATION"/>
-        <PossibleValue Value="LORAMAC_HANDLER_ADR_ON" Comment="On" Semaphore="Semaphore_LORAWAN_ADR_STATE"/>
-        <PossibleValue Value="LORAMAC_HANDLER_ADR_OFF" Comment="Off"/>
-        <Description>@note Please note that when ADR is enabled the end-device should be static</Description>
-    </RefParameter>
-
-    <RefParameter Name="LORAWAN_DEFAULT_ACTIVATION_TYPE" Comment="Default activation type" DefaultValue="ACTIVATION_TYPE_OTAA" Type="list" Group="lora_app" TabName="LoRaWAN application" Visible="true">
-        <Condition Diagnostic="" Expression="SEM_LORA_END_NODE "/>
-        <PossibleValue Value="ACTIVATION_TYPE_OTAA" Comment="OTAA" Semaphore="Semaphore_LORAWAN_DEFAULT_ACTIVATION_TYPE_ACTIVATION_TYPE_OTAA"/>
-        <PossibleValue Value="ACTIVATION_TYPE_ABP" Comment="ABP" Semaphore="Semaphore_LORAWAN_DEFAULT_ACTIVATION_TYPE_ACTIVATION_TYPE_ABP"/>
-        <Description> </Description>
-    </RefParameter>
-
-    <RefParameter Name="LORAWAN_DEFAULT_ACTIVATION_TYPE" Comment="Default activation type" DefaultValue="LORAMAC_HANDLER_UNCONFIRMED_MSG" Type="list" Group="lora_app" TabName="LoRaWAN application" Visible="false">
-        <Description> </Description>
-    </RefParameter>
-
-    <RefParameter Name="LORAWAN_FORCE_REJOIN_AT_BOOT" Comment="Force rejoin at each reboot" DefaultValue="true" Type="boolean" Group="lora_app" TabName="LoRaWAN application" Visible="true">
-        <Condition Diagnostic="" Expression="SEM_LORA_END_NODE "/>
+    <RefParameter Name="LORAWAN_CERTIFICATION_MODE" Comment="Certification mode" DefaultValue="false" Type="boolean" Group="lora_app" TabName="LoRaWAN application" Visible="true">
         <PossibleValue Value="false" Comment="false"/>
         <PossibleValue Value="true" Comment="true"/>
         <Description> </Description>
     </RefParameter>
 
-    <RefParameter Name="LORAWAN_FORCE_REJOIN_AT_BOOT" Comment="Force rejoin at each reboot" DefaultValue="true" Type="boolean" Group="lora_app" TabName="LoRaWAN application" Visible="false">
-        <Description> </Description>
-    </RefParameter>
-
-    <RefParameter Name="LORAWAN_DEFAULT_DATA_RATE" Comment="Default data rate" DefaultValue="DR_0" Type="list" Group="lora_app" TabName="LoRaWAN application" Visible="true">
-        <Condition Diagnostic="" Expression="!Semaphore_LORAWAN_ADR_STATE &amp; (!SEM_LORA_USER_APPLICATION)"/>
-        <PossibleValue Value="DR_0" Comment="DR_0"/>
-        <PossibleValue Value="DR_1" Comment="DR_1"/>
-        <PossibleValue Value="DR_2" Comment="DR_2"/>
-        <PossibleValue Value="DR_3" Comment="DR_3"/>
-        <PossibleValue Value="DR_4" Comment="DR_4"/>
-        <PossibleValue Value="DR_5" Comment="DR_5"/>
-        <PossibleValue Value="DR_6" Comment="DR_6"/>
-        <PossibleValue Value="DR_7" Comment="DR_7"/>
-        <Description>@note Please note that LORAWAN_DEFAULT_DATA_RATE is used only when ADR is disabled
-        </Description>
-    </RefParameter>
-    <RefParameter Name="LORAWAN_DEFAULT_DATA_RATE" Comment="Default data rate" DefaultValue="DR_0" Type="list" Group="lora_app" TabName="LoRaWAN application" Visible="false">
-        <Condition Diagnostic="" Expression="!SEM_LORA_USER_APPLICATION"/>
-        <PossibleValue Value="DR_0" Comment="DR_0"/>
-        <Description>@note Please note that LORAWAN_DEFAULT_DATA_RATE is used only when ADR is disabled
-        </Description>
-    </RefParameter>
-
-    <RefParameter Name="LORAWAN_DEFAULT_TX_POWER" Comment="Default Tx output power" DefaultValue="TX_POWER_0" Type="list" Group="lora_app" TabName="LoRaWAN application" Visible="true">
-        <Condition Diagnostic="" Expression="!SEM_LORA_USER_APPLICATION"/>
-        <PossibleValue Value="TX_POWER_0" Comment="TX_POWER_0"/>
-        <PossibleValue Value="TX_POWER_1" Comment="TX_POWER_1"/>
-        <PossibleValue Value="TX_POWER_2" Comment="TX_POWER_2"/>
-        <PossibleValue Value="TX_POWER_3" Comment="TX_POWER_3"/>
-        <PossibleValue Value="TX_POWER_4" Comment="TX_POWER_4"/>
-        <PossibleValue Value="TX_POWER_5" Comment="TX_POWER_5"/>
-        <PossibleValue Value="TX_POWER_6" Comment="TX_POWER_6"/>
-        <PossibleValue Value="TX_POWER_7" Comment="TX_POWER_7"/>
-        <PossibleValue Value="TX_POWER_8" Comment="TX_POWER_8"/>
-        <PossibleValue Value="TX_POWER_9" Comment="TX_POWER_9"/>
-        <PossibleValue Value="TX_POWER_10" Comment="TX_POWER_10"/>
-        <PossibleValue Value="TX_POWER_11" Comment="TX_POWER_11"/>
-        <PossibleValue Value="TX_POWER_12" Comment="TX_POWER_12"/>
-        <PossibleValue Value="TX_POWER_13" Comment="TX_POWER_13"/>
-        <PossibleValue Value="TX_POWER_14" Comment="TX_POWER_14"/>
-        <Description>@note LORAWAN_DEFAULT_TX_POWER must be defined in the [XXXX_MIN_TX_POWER - XXXX_MAX_TX_POWER] range, else the end-device uses the XXXX_DEFAULT_TX_POWER value
-        </Description>
-    </RefParameter>
-    <RefParameter Name="LORAWAN_DEFAULT_TX_POWER" Comment="Default Tx output power" DefaultValue="TX_POWER_0" Type="list" Group="lora_app" TabName="LoRaWAN application" Visible="false">
-        <PossibleValue Value="TX_POWER_0" Comment="TX_POWER_0"/>
-        <Description>@note LORAWAN_DEFAULT_TX_POWER must be defined in the [XXXX_MIN_TX_POWER - XXXX_MAX_TX_POWER] range, else the end-device uses the XXXX_DEFAULT_TX_POWER value
-        </Description>
-    </RefParameter>
-
-    <RefParameter Name="LORAWAN_DEFAULT_PING_SLOT_PERIODICITY" Comment="Default Unicast ping slots periodicity" DefaultValue="4" Type="integer" Min="0" Max="7"  Group="lora_app" TabName="LoRaWAN application" Visible="true">
-        <Condition Diagnostic="" Expression="!SEM_LORA_USER_APPLICATION"/>
-        <Description>Periodicity is equal to 2^LORAWAN_DEFAULT_PING_SLOT_PERIODICITY seconds (ex: : 2^4 = 16 seconds. The end-device will open an Rx slot every 16 seconds).</Description>
-    </RefParameter>
-    <RefParameter Name="LORAWAN_DEFAULT_PING_SLOT_PERIODICITY" Comment="Default Unicast ping slots periodicity" DefaultValue="4" Type="integer" Min="4" Max="4"  Group="lora_app" TabName="LoRaWAN application" Visible="false">
-        <Description>Periodicity is equal to 2^LORAWAN_DEFAULT_PING_SLOT_PERIODICITY seconds (ex: : 2^4 = 16 seconds. The end-device will open an Rx slot every 16 seconds).</Description>
-    </RefParameter>
-
-    <RefParameter Name="LORAWAN_DEFAULT_CLASS_B_C_RESP_TIMEOUT" Comment="Default reponse timeout for class b and class c confirmed downlink frames in milli seconds." DefaultValue="8000" Type="integer" Min="3000" Group="lora_app" TabName="LoRaWAN application" Visible="true">
-        <Condition Diagnostic="" Expression="!SEM_LORA_USER_APPLICATION"/>
-        <Description>Response timeout for RXC or Ping confirmed downlink frames in milli seconds. The value shall not be smaller than RETRANSMIT_TIMEOUT plus the maximum time on air.</Description>
-    </RefParameter>
-    <RefParameter Name="LORAWAN_DEFAULT_CLASS_B_C_RESP_TIMEOUT" Comment="Default reponse timeout for class b and class c confirmed downlink frames in milli seconds." DefaultValue="8000" Type="integer" Min="8000" Max="8000" Group="lora_app" TabName="LoRaWAN application" Visible="false">
-        <Description>Response timeout for RXC or Ping confirmed downlink frames in milli seconds. The value shall not be smaller than RETRANSMIT_TIMEOUT plus the maximum time on air.</Description>
-    </RefParameter>
     <!-- LoRaWAN lora_app.h RefParameters - End -->
 
     <!-- LoRaWAN lorawan_conf.h RefParameters - Begin -->
@@ -855,7 +706,7 @@
     <RefParameter Name="REGION" Comment="Region(s) selection" DefaultValue="please select the desired region(s) in the list below" Type="String" Group="lorawan_conf" TabName="LoRaWAN middleware" Visible="true">
         <Description> </Description>
     </RefParameter>
-    <RefParameter Name="REGION_AS923" Comment="Region Asia freq: 923" DefaultValue="false" Type="boolean" Group="lorawan_conf" TabName="LoRaWAN middleware" Visible="true">
+    <RefParameter Name="REGION_AS923" Comment="Region Asia freq: 923" DefaultValue="true" Type="boolean" Group="lorawan_conf" TabName="LoRaWAN middleware" Visible="true">
         <PossibleValue Comment="true" Value="true" Semaphore="Semaphore_REGION_AS923"/>
         <PossibleValue Comment="false" Value="false"/>
         <Description> </Description>
@@ -869,18 +720,6 @@
 
     <RefParameter Name="REGION_CN470" Comment="Region China freq: 470" DefaultValue="false" Type="boolean" Group="lorawan_conf" TabName="LoRaWAN middleware" Visible="true">
         <PossibleValue Comment="true" Value="true" Semaphore="Semaphore_REGION_CN470"/>
-        <PossibleValue Comment="false" Value="false"/>
-        <Description> </Description>
-    </RefParameter>
-
-    <RefParameter Name="REGION_CN779" Comment="Region China freq: 779" DefaultValue="false" Type="boolean" Group="lorawan_conf" TabName="LoRaWAN middleware" Visible="true">
-        <PossibleValue Comment="true" Value="true" Semaphore="Semaphore_REGION_CN779"/>
-        <PossibleValue Comment="false" Value="false"/>
-        <Description> </Description>
-    </RefParameter>
-
-    <RefParameter Name="REGION_EU433" Comment="Region Europe freq: 433" DefaultValue="false" Type="boolean" Group="lorawan_conf" TabName="LoRaWAN middleware" Visible="true">
-        <PossibleValue Comment="true" Value="true" Semaphore="Semaphore_REGION_EU433"/>
         <PossibleValue Comment="false" Value="false"/>
         <Description> </Description>
     </RefParameter>
@@ -915,49 +754,30 @@
         <Description> </Description>
     </RefParameter>
 
-    <RefParameter Name="HYBRID_ENABLED" Comment="Enable Hybrid mode" DefaultValue="false" Type="boolean" Group="lorawan_conf" TabName="LoRaWAN middleware">
-        <Condition Diagnostic="" Expression="Semaphore_REGION_CN470 | Semaphore_REGION_AU915 | Semaphore_REGION_US915"/>
-        <PossibleValue Comment="true" Value="true"/>
+    <RefParameter Name="REGION_CN470_RP_1_0" Comment="Region China (RP1.0) freq: 470" DefaultValue="false" Type="boolean" Group="lorawan_conf" TabName="LoRaWAN middleware" Visible="true">
+        <PossibleValue Comment="true" Value="true" Semaphore="Semaphore_REGION_CN470_RP_1_0"/>
         <PossibleValue Comment="false" Value="false"/>
         <Description> </Description>
     </RefParameter>
 
-    <RefParameter Name="HYBRID_ENABLED" Comment="Enable Hybrid mode" DefaultValue="false" Type="boolean" Group="lorawan_conf" TabName="LoRaWAN middleware" Visible="false">
+    <RefParameter Name="LORAMAC_CLASSB_ENABLED" Comment="Enable LoRaMAC ClassB" DefaultValue="false" Type="UniqueElementList" Group="lorawan_conf" TabName="LoRaWAN middleware" Visible="true">
+        <Condition Diagnostic="" Expression="(SEM_STM32WL5MXX &amp; (SEM_End_Node_LBM_skeleton| SEM_Relay_LBM_skeleton | SEM_End_Node_Relay_LBM_skeleton)) | (!SEM_STM32WL5MXX &amp; SEM_End_Node_Relay_LBM_skeleton )"/>
         <PossibleValue Comment="false" Value="false"/>
-        <Description> </Description>
+        <Description>This class is a compromise between power consumption and bidirectional communication needs</Description>
     </RefParameter>
-
     <RefParameter Name="LORAMAC_CLASSB_ENABLED" Comment="Enable LoRaMAC ClassB" DefaultValue="false" Type="boolean" Group="lorawan_conf" TabName="LoRaWAN middleware" Visible="true">
         <PossibleValue Comment="true" Value="true" Semaphore="Semaphore_LORAMAC_CLASSB_ENABLED"/>
         <PossibleValue Comment="false" Value="false"/>
         <Description>This class is a compromise between power consumption and bidirectional communication needs</Description>
     </RefParameter>
-    <RefParameter Name="LORAMAC_CLASSB_ENABLED" Comment="Enable LoRaMAC ClassB" DefaultValue="false" Type="UniqueElementList" Group="lorawan_conf" TabName="LoRaWAN middleware" Visible="false">
-        <PossibleValue Comment="false" Value="false"/>
-        <Description>This class is a compromise between power consumption and bidirectional communication needs</Description>
-    </RefParameter>
 
-    <RefParameter Name="CONTEXT_MANAGEMENT_ENABLED" Comment="Enable the context management storage" DefaultValue="false" Type="boolean" Group="lorawan_conf" TabName="LoRaWAN middleware" Visible="true">
-        <Condition Diagnostic="" Expression="!SEM_LORA_USER_APPLICATION"/>
-        <PossibleValue Value="false" Comment="false"/>
-        <PossibleValue Value="true" Comment="true"/>
-        <Description> </Description>
-    </RefParameter>
-    <RefParameter Name="CONTEXT_MANAGEMENT_ENABLED" Comment="Enable the context management storage" DefaultValue="false" Type="UniqueElementList" Group="lorawan_conf" TabName="LoRaWAN middleware" Visible="false">
-        <PossibleValue Value="false" Comment="false"/>
-        <Description> </Description>
-    </RefParameter>
-
-    <RefParameter Name="LORAMAC_SPECIFICATION_VERSION" Comment="Select the LoRaWAN Link Layer specification version" DefaultValue="0x01000300" Type="list" Group="lorawan_conf" TabName="LoRaWAN middleware" Visible="true">
-        <PossibleValue Value="0x01000300" Comment="v1.0.3"/>
+    <RefParameter Name="LORAMAC_SPECIFICATION_VERSION" Comment="Select the LoRaWAN Link Layer specification version" DefaultValue="0x01000400" Type="UniqueElementList" Group="lorawan_conf" TabName="LoRaWAN middleware" Visible="true">
         <PossibleValue Value="0x01000400" Comment="v1.0.4"/>
         <Description>LoRaWAN Link Layer and Regional Parameters configuration&lt;br/&gt;
-        - v1.0.3: Link Layer(L2) v1.0.3 + Regional Parameters(RP) v1.0.3&lt;br/&gt;
         - v1.0.4: Link Layer TS001-1.0.4 + Regional Parameters RP002-1.0.1</Description>
     </RefParameter>
 
     <RefParameter Name="LORAWAN_DATA_DISTRIB_MGT" Comment="Enable the additional LoRaWAN packages" DefaultValue="false" Type="boolean" Group="lorawan_conf" TabName="LoRaWAN middleware" Visible="true">
-        <Condition Diagnostic="" Expression="!SEM_LORA_USER_APPLICATION"/>
         <PossibleValue Value="false" Comment="false"/>
         <PossibleValue Value="true" Comment="true" Semaphore="SEM_LORAWAN_DATA_DISTRIB_MGT"/>
         <Description>LoRaWAN Packages configuration including:&lt;br/&gt;
@@ -968,13 +788,9 @@
         The Certification Protocol is also defined as a mandatory package (Package ID: 0, Default Port: 224)&lt;br/&gt;
         </Description>
     </RefParameter>
-    <RefParameter Name="LORAWAN_DATA_DISTRIB_MGT" Comment="Enable the additional LoRaWAN packages" DefaultValue="false" Type="UniqueElementList" Group="lorawan_conf" TabName="LoRaWAN middleware" Visible="false">
-        <PossibleValue Value="false" Comment="false"/>
-        <Description> </Description>
-    </RefParameter>
 
     <RefParameter Name="LORAWAN_PACKAGES_VERSION" Comment="Select the LoRaWAN packages version" DefaultValue="1" Type="list" Group="lorawan_conf" TabName="LoRaWAN middleware" Visible="true">
-        <Condition Diagnostic="" Expression="!SEM_LORA_USER_APPLICATION &amp; SEM_LORAWAN_DATA_DISTRIB_MGT"/>
+        <Condition Diagnostic="" Expression="SEM_LORAWAN_DATA_DISTRIB_MGT"/>
         <PossibleValue Value="1" Comment="v1.0.0"/>
         <PossibleValue Value="2" Comment="v2.0.0"/>
         <Description>LoRaWAN Packages version configuration:&lt;br/&gt;
@@ -992,26 +808,6 @@
     </RefParameter>
     <RefParameter Name="LORAWAN_PACKAGES_VERSION" Comment="Select the LoRaWAN packages version" DefaultValue="1" Type="list" Group="lorawan_conf" TabName="LoRaWAN middleware" Visible="false">
         <PossibleValue Value="1" Comment="v1.0.0"/>
-        <Description> </Description>
-    </RefParameter>
-
-    <RefParameter Name="REGION_AS923_DEFAULT_CHANNEL_PLAN" Comment="Select the Default channel plan for region AS923" DefaultValue="CHANNEL_PLAN_GROUP_AS923_1" Type="list" Group="lorawan_conf" TabName="LoRaWAN middleware" Visible="true">
-        <Condition Diagnostic="" Expression="!SEM_LORA_USER_APPLICATION &amp; Semaphore_REGION_AS923"/>
-        <PossibleValue Value="CHANNEL_PLAN_GROUP_AS923_1" Comment="AS923-1"/>
-        <PossibleValue Value="CHANNEL_PLAN_GROUP_AS923_2" Comment="AS923-2"/>
-        <PossibleValue Value="CHANNEL_PLAN_GROUP_AS923_3" Comment="AS923-3"/>
-        <PossibleValue Value="CHANNEL_PLAN_GROUP_AS923_4" Comment="AS923-4"/>
-        <PossibleValue Value="CHANNEL_PLAN_GROUP_AS923_1_JP" Comment="AS923-1-JP"/>
-        <Description>LoRaWAN AS923 channel plans available:&lt;br/&gt;
- *        - CHANNEL_PLAN_GROUP_AS923_1    (Default configuration. Freq offset = 0.0 MHz / Freq range = 915-928MHz)&lt;br/&gt;
- *        - CHANNEL_PLAN_GROUP_AS923_2    (Freq offset = -1.80 MHz / Freq range = 915-928MHz)&lt;br/&gt;
- *        - CHANNEL_PLAN_GROUP_AS923_3    (Freq offset = -6.60 MHz / Freq range = 915-928MHz)&lt;br/&gt;
- *        - CHANNEL_PLAN_GROUP_AS923_4    (Freq offset = -5.90 MHz / Freq range = 917-920MHz)&lt;br/&gt;
- *        - CHANNEL_PLAN_GROUP_AS923_1_JP (Freq offset = 0.0 MHz   / Freq range = 920.6-923.4MHz)&lt;br/&gt;
-         </Description>
-    </RefParameter>
-    <RefParameter Name="REGION_AS923_DEFAULT_CHANNEL_PLAN" Comment="Select the Default channel plan for region AS923" DefaultValue="CHANNEL_PLAN_GROUP_AS923_1" Type="list" Group="lorawan_conf" TabName="LoRaWAN middleware" Visible="false">
-        <PossibleValue Value="CHANNEL_PLAN_GROUP_AS923_1" Comment="AS923-1"/>
         <Description> </Description>
     </RefParameter>
 
@@ -1081,15 +877,14 @@
     <RefMode Name="LoRaWAN_Enabled">
         <ConfigForMode>LoRaWAN_Init</ConfigForMode>
         <!-- app_conf.h -->
-        <Parameter Name="LORAWAN_APP_MEM_POOL_SIZE"/>
         <Parameter Name="SUBGHZ_APPLICATION"/>
         <Parameter Name="USER_GUIDANCE_UTIL"/>
         <Parameter Name="USER_GUIDANCE"/>
         <Parameter Name="LORAWAN_KMS"/>
         <Parameter Name="FILL_UCS"/>
-        <Parameter Name="USE_ADC"/>
+      <!--  <Parameter Name="USE_ADC"/>
         <Parameter Name="USE_RTC"/>
-        <Parameter Name="USE_UART"/>
+        <Parameter Name="USE_UART"/>-->
         <Parameter Name="USE_LPM"/>
 
         <!-- app_conf.h -->
@@ -1102,12 +897,10 @@
         <!-- board_resources -->
 
         <!-- Comissioning.h / se-identity.h -->
-        <Parameter Name="LORAWAN_PUBLIC_NETWORK"/>
-        <Parameter Name="LORAWAN_NETWORK_ID"/>
         <Parameter Name="LORAWAN_DEVICE_EUI"/>
         <Parameter Name="LORAWAN_JOIN_EUI"/>
+        <Parameter Name="LORAWAN_GEN_APP_KEY"/>
         <Parameter Name="LORAWAN_APP_KEY"/>
-        <Parameter Name="LORAWAN_NWK_KEY"/>
         <Parameter Name="LORAWAN_DEVICE_ADDRESS"/>
         <Parameter Name="LORAWAN_NWK_S_KEY"/>
         <Parameter Name="LORAWAN_APP_S_KEY"/>
@@ -1122,16 +915,7 @@
         <Parameter Name="ACTIVE_REGION"/>
         <Parameter Name="APP_TX_DUTYCYCLE"/>
         <Parameter Name="LORAWAN_USER_APP_PORT"/>
-        <Parameter Name="LORAWAN_SWITCH_CLASS_PORT"/>
-        <Parameter Name="LORAWAN_DEFAULT_CLASS"/>
-        <Parameter Name="LORAWAN_DEFAULT_CONFIRMED_MSG_STATE"/>
-        <Parameter Name="LORAWAN_ADR_STATE"/>
-        <Parameter Name="LORAWAN_DEFAULT_ACTIVATION_TYPE"/>
-        <Parameter Name="LORAWAN_FORCE_REJOIN_AT_BOOT"/>
-        <Parameter Name="LORAWAN_DEFAULT_DATA_RATE"/>
-        <Parameter Name="LORAWAN_DEFAULT_TX_POWER"/>
-        <Parameter Name="LORAWAN_DEFAULT_PING_SLOT_PERIODICITY"/>
-        <Parameter Name="LORAWAN_DEFAULT_CLASS_B_C_RESP_TIMEOUT"/>
+        <Parameter Name="LORAWAN_CERTIFICATION_MODE"/>
         <!-- lora_app.h -->
 
         <!-- sys_conf.h -->
@@ -1167,20 +951,16 @@
         <Parameter Name="REGION_AS923"/>
         <Parameter Name="REGION_AU915"/>
         <Parameter Name="REGION_CN470"/>
-        <Parameter Name="REGION_CN779"/>
-        <Parameter Name="REGION_EU433"/>
         <Parameter Name="REGION_EU868"/>
         <Parameter Name="REGION_KR920"/>
         <Parameter Name="REGION_IN865"/>
         <Parameter Name="REGION_US915"/>
         <Parameter Name="REGION_RU864"/>
-        <Parameter Name="HYBRID_ENABLED"/>
+        <Parameter Name="REGION_CN470_RP_1_0"/>
         <Parameter Name="LORAMAC_CLASSB_ENABLED"/>
-        <Parameter Name="CONTEXT_MANAGEMENT_ENABLED"/>
         <Parameter Name="LORAMAC_SPECIFICATION_VERSION"/>
         <Parameter Name="LORAWAN_DATA_DISTRIB_MGT"/>
         <Parameter Name="LORAWAN_PACKAGES_VERSION"/>
-        <Parameter Name="REGION_AS923_DEFAULT_CHANNEL_PLAN"/>
         <!-- lorawan_conf.h -->
 
         <!-- radio_conf -->
@@ -1232,24 +1012,21 @@
         <!-- BSP Board resources Driver End -->
 
         <!-- BSP Virtual PortCom Begin -->
-        <BspDependency Name="USART" Comment="Use LPUART for hyperterminal " BspIpName="LPUART" BspModeName="Asynchronous" GroupName="VCOM">
+     <!--   <BspDependency Name="USART" Comment="Use LPUART for hyperterminal " BspIpName="LPUART" BspModeName="Asynchronous" GroupName="VCOM">
             <Condition Expression="SEM_LORA_AT_SLAVE" Diagnostic=""/>
-        </BspDependency>
+        </BspDependency>-->
 
         <BspDependency Name="USART" Comment="Use an USART or LPUART for hyperterminal" BspIpName="(LPU|US)ART" BspModeName="Asynchronous" GroupName="VCOM">
-            <Condition Expression="SEM_LORA_END_NODE  | SEM_LORA_USE_UART" Diagnostic=""/>
         </BspDependency>
         <!-- BSP Virtual PortCom End -->
 
         <!-- BSP ADC Begin -->
         <BspDependency Name="ADC" Comment="Use ADC for measurment" BspIpName="ADC" BspModeName="Vrefint Channel" GroupName="Vrefint T° calibration">
-            <Condition Expression="!SEM_LORA_USER_APPLICATION | SEM_LORA_USE_ADC" Diagnostic=""/>
         </BspDependency>
         <!-- BSP ADC End -->
 
         <!-- BSP RTC Begin -->
         <BspDependency Name="RTC" Comment="Use RTC for timeServer" BspIpName="RTC" BspModeName="RTC Enabled" GroupName="TimeServer">
-            <Condition Expression="!SEM_LORA_USER_APPLICATION | SEM_LORA_USE_RTC" Diagnostic=""/>
         </BspDependency>
         <!-- BSP RTC End -->
 
@@ -1280,10 +1057,10 @@
                     <Semaphore>S_LoRaWAN</Semaphore>
                 </Mode>
             </ModeLogicOperator>
-            <Condition Expression="((STM32WL55UCYx | STM32WL55CCUx | STM32WL55JCIx | STM32WL54CCUx | STM32WL54JCIx | STM32WL5MOCHx) &amp; !S_SubGhzPhy &amp; !S_Sigfox &amp; S_SUBGHZ &amp; S_IPCC_Enabled &amp; !S_SINGLE_CORE)
-                                    | ((STM32WL55UCYx | STM32WL55CCUx | STM32WL55JCIx | STM32WL54CCUx | STM32WL54JCIx | STM32WL5MOCHx) &amp; !S_SubGhzPhy &amp; !S_Sigfox &amp; S_SUBGHZ &amp; S_SINGLE_CORE)
-                                    | ((!STM32WL55UCYx &amp; !STM32WL55CCUx &amp; !STM32WL55JCIx &amp; !STM32WL54CCUx &amp; !STM32WL54JCIx &amp; !STM32WL5MOCHx) &amp; !S_SubGhzPhy &amp; !S_Sigfox &amp; S_SUBGHZ)"
-                                    Diagnostic="You can enable this middleware only if only if SubGHz IP is enabled and SubGHz_Phy and Sigfox middlewares are not enabled. For Dual Core product you need also to activate IPCC"/>
+            <Condition Expression="((STM32WL55UCYx | STM32WL55CCUx | STM32WL55JCIx | STM32WL54CCUx | STM32WL54JCIx | STM32WL5MOCHx | STM32WL5MOCHxS) &amp; !S_SubGhzPhy &amp; !S_Sigfox &amp; S_SUBGHZ &amp; S_IPCC_Enabled &amp; !S_SINGLE_CORE)
+                                    | ((STM32WL55UCYx | STM32WL55CCUx | STM32WL55JCIx | STM32WL54CCUx | STM32WL54JCIx | STM32WL5MOCHx | STM32WL5MOCHxS) &amp; !S_SubGhzPhy &amp; !S_Sigfox &amp; !S_FREERTOS$context &amp;S_SUBGHZ &amp; RNGUsed_ForRCC &amp; S_SINGLE_CORE)
+                                    | ((!STM32WL55UCYx &amp; !STM32WL55CCUx &amp; !STM32WL55JCIx &amp; !STM32WL54CCUx &amp; !STM32WL54JCIx &amp; !STM32WL5MOCHx &amp; !STM32WL5MOCHxS) &amp; !S_SubGhzPhy &amp; !S_Sigfox &amp; !S_FREERTOS$context &amp; S_SUBGHZ &amp; RNGUsed_ForRCC)"
+                                    Diagnostic="You can enable this middleware only if SubGHz and RNG IP are enabled. SubGHz_Phy, Sigfox and FREERTOS middleware are not enabled."/>
         </Mode>
     </ModeLogicOperator>
 

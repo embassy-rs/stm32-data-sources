@@ -157,7 +157,7 @@
     <!--Slave features-->
     <!--RefParameter Comment="Primary Address Length selection : 7 bit" DefaultValue="I2C_ADDRESSINGMODE_7BIT" Name="AddressingMode" Type="integer" Group="Slave Features"-->
     <RefParameter Comment="Primary Address Length selection" DefaultValue="I2C_ADDRESSINGMODE_7BIT" Group="Slave Features" Name="AddressingMode" Type="list">
-        <Condition Diagnostic="When Dual address is enabled we can have a primary address only on 7 bits length" Expression="DualAddressMode=I2C_DUALADDRESS_ENABLE&amp;!STM32G0&amp;!STM32WB &amp; !STM32U0 &amp; !STM32G4 &amp;!STM32L5 &amp;!STM32WL &amp;!STM32WBA"/>  
+        <Condition Diagnostic="When Dual address is enabled we can have a primary address only on 7 bits length" Expression="DualAddressMode=I2C_DUALADDRESS_ENABLE&amp;!STM32G0&amp;!STM32WB &amp; !STM32U0 &amp; !STM32G4 &amp;!STM32L5 &amp;!STM32WL"/>  
         <PossibleValue Comment="7-bit" Value="I2C_ADDRESSINGMODE_7BIT"/>
     </RefParameter>
     
@@ -509,7 +509,7 @@
         <PossibleValue Comment="EXTI line 5" Value="I2C_GRP2_EXTI5_TRG"/>
         <PossibleValue Comment="EXTI line 8" Value="I2C_GRP2_EXTI8_TRG"/>
         <PossibleValue Comment="LPTIM1 out" Value="I2C_GRP2_LPTIM1_CH1_TRG"/>
-        <PossibleValue Comment="LPTIM2 out" Value="I2C_GRP2_LPTIM3_CH1_TRG"/>
+        <PossibleValue Comment="LPTIM3 out" Value="I2C_GRP2_LPTIM3_CH1_TRG"/>
         <PossibleValue Comment="COMP1 out" Value="I2C_GRP2_COMP1_TRG"/>
         <PossibleValue Comment="COMP2 out" Value="I2C_GRP2_COMP2_TRG"/>
         <PossibleValue Comment="RTC alarm" Value="I2C_GRP2_RTC_ALRA_TRG"/>
@@ -534,18 +534,18 @@
 <!--Trigger Selection GRP2 U3 SMBUS Mode-->
     <RefParameter Comment="     Trigger Selection" DefaultValue="I2C_GRP2_GPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
         <Condition Diagnostic="" Expression="STM32U3 &amp; (AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; ($Index=3) &amp;($IpInstance_SMBus_Mode)" />
-        <PossibleValue Comment="GPDMA1 channel 0" Value="I2C_GRP2_GPDMA_CH0_TCF_TRG"/>
-        <PossibleValue Comment="GPDMA1 channel 1" Value="I2C_GRP2_GPDMA_CH1_TCF_TRG"/>
-        <PossibleValue Comment="GPDMA1 channel 2" Value="I2C_GRP2_GPDMA_CH2_TCF_TRG"/>
-        <PossibleValue Comment="GPDMA1 channel 3" Value="I2C_GRP2_GPDMA_CH3_TCF_TRG"/>
-        <PossibleValue Comment="EXTI line 5" Value="I2C_GRP2_EXTI5_TRG"/>
-        <PossibleValue Comment="EXTI line 8" Value="I2C_GRP2_EXTI8_TRG"/>
-        <PossibleValue Comment="LPTIM1 out" Value="I2C_GRP2_LPTIM1_CH1_TRG"/>
-        <PossibleValue Comment="LPTIM2 out" Value="I2C_GRP2_LPTIM3_CH1_TRG"/>
-        <PossibleValue Comment="COMP1 out" Value="I2C_GRP2_COMP1_TRG"/>
-        <PossibleValue Comment="COMP2 out" Value="I2C_GRP2_COMP2_TRG"/>
-        <PossibleValue Comment="RTC alarm" Value="I2C_GRP2_RTC_ALRA_TRG"/>
-        <PossibleValue Comment="RTC wakeup" Value="I2C_GRP2_RTC_WUT_TRG"/>
+        <PossibleValue Comment="GPDMA1 channel 0" Value="SMBUS_GRP2_GPDMA_CH0_TCF_TRG"/>
+        <PossibleValue Comment="GPDMA1 channel 1" Value="SMBUS_GRP2_GPDMA_CH1_TCF_TRG"/>
+        <PossibleValue Comment="GPDMA1 channel 2" Value="SMBUS_GRP2_GPDMA_CH2_TCF_TRG"/>
+        <PossibleValue Comment="GPDMA1 channel 3" Value="SMBUS_GRP2_GPDMA_CH3_TCF_TRG"/>
+        <PossibleValue Comment="EXTI line 5" Value="SMBUS_GRP2_EXTI5_TRG"/>
+        <PossibleValue Comment="EXTI line 8" Value="SMBUS_GRP2_EXTI8_TRG"/>
+        <PossibleValue Comment="LPTIM1 out" Value="SMBUS_GRP2_LPTIM1_CH1_TRG"/>
+        <PossibleValue Comment="LPTIM3 out" Value="SMBUS_GRP2_LPTIM3_CH1_TRG"/>
+        <PossibleValue Comment="COMP1 out" Value="SMBUS_GRP2_COMP1_TRG"/>
+        <PossibleValue Comment="COMP2 out" Value="SMBUS_GRP2_COMP2_TRG"/>
+        <PossibleValue Comment="RTC alarm" Value="SMBUS_GRP2_RTC_ALRA_TRG"/>
+        <PossibleValue Comment="RTC wakeup" Value="SMBUS_GRP2_RTC_WUT_TRG"/>
     </RefParameter>
 <!--Trigger Selection GRP1 U3 SMBUS_Mode-->
     <RefParameter Comment="     Trigger Selection" DefaultValue="I2C_GRP2_GPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
@@ -564,12 +564,12 @@
         <PossibleValue Comment="RTC wakeup" Value="SMBUS_GRP1_RTC_WUT_TRG"/>
     </RefParameter>
 	<!--Trigger Selection Without COMP2 out-->
-	<RefParameter Comment="Trigger Selection" DefaultValue="I2C_GRP2_GPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
+	<RefParameter Comment="Trigger Selection" DefaultValue="I2C_GRP2_LPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
         <Condition Diagnostic="" Expression="STM32U5 &amp; DIE455 &amp;  (AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; $IpInstance_I2C_Mode" />
-        <PossibleValue Comment="GPDMA1 channel 0" Value="I2C_GRP2_GPDMA_CH0_TCF_TRG"/>
-        <PossibleValue Comment="GPDMA1 channel 1" Value="I2C_GRP2_GPDMA_CH1_TCF_TRG"/>
-        <PossibleValue Comment="GPDMA1 channel 2" Value="I2C_GRP2_GPDMA_CH2_TCF_TRG"/>
-        <PossibleValue Comment="GPDMA1 channel 3" Value="I2C_GRP2_GPDMA_CH3_TCF_TRG"/>
+        <PossibleValue Comment="LPDMA1 channel 0" Value="I2C_GRP2_LPDMA_CH0_TCF_TRG"/>
+        <PossibleValue Comment="LPDMA1 channel 1" Value="I2C_GRP2_LPDMA_CH1_TCF_TRG"/>
+        <PossibleValue Comment="LPDMA1 channel 2" Value="I2C_GRP2_LPDMA_CH2_TCF_TRG"/>
+        <PossibleValue Comment="LPDMA1 channel 3" Value="I2C_GRP2_LPDMA_CH3_TCF_TRG"/>
         <PossibleValue Comment="EXTI line 5" Value="I2C_GRP2_EXTI5_TRG"/>
         <PossibleValue Comment="EXTI line 8" Value="I2C_GRP2_EXTI8_TRG"/>
         <PossibleValue Comment="LPTIM1 out" Value="I2C_GRP2_LPTIM1_CH1_TRG"/>
@@ -579,7 +579,7 @@
         <PossibleValue Comment="RTC wakeup" Value="I2C_GRP2_RTC_WUT_TRG"/>
     </RefParameter>
     <RefParameter Comment="     Trigger Selection" DefaultValue="I2C_GRP1_GPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
-        <Condition Diagnostic="" Expression="(AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; !($Index=3) &amp; $IpInstance_I2C_Mode &amp; !(STM32WBAx0|STM32WBAx2)" />
+        <Condition Diagnostic="" Expression="(AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; (($Index=1)|($Index=2)|($Index=5)|($Index=4)|($Index=6))&amp; $IpInstance_I2C_Mode &amp;(STM32U5)" />
         <PossibleValue Comment="GPDMA1 channel 0" Value="I2C_GRP1_GPDMA_CH0_TCF_TRG"/>
         <PossibleValue Comment="GPDMA1 channel 1" Value="I2C_GRP1_GPDMA_CH1_TCF_TRG"/>
         <PossibleValue Comment="GPDMA1 channel 2" Value="I2C_GRP1_GPDMA_CH2_TCF_TRG"/>
@@ -593,23 +593,38 @@
         <PossibleValue Comment="RTC alarm" Value="I2C_GRP1_RTC_ALRA_TRG"/>
         <PossibleValue Comment="RTC wakeup" Value="I2C_GRP1_RTC_WUT_TRG"/>
     </RefParameter>
-    <RefParameter Comment="     Trigger Selection" DefaultValue="I2C_GRP2_GPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
-        <Condition Diagnostic="" Expression="STM32U5 &amp; (AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; ($Index=3) &amp; $IpInstance_I2C_Mode" />
-        <PossibleValue Comment="GPDMA1 channel 0" Value="I2C_GRP2_GPDMA_CH0_TCF_TRG"/>
-        <PossibleValue Comment="GPDMA1 channel 1" Value="I2C_GRP2_GPDMA_CH1_TCF_TRG"/>
-        <PossibleValue Comment="GPDMA1 channel 2" Value="I2C_GRP2_GPDMA_CH2_TCF_TRG"/>
-        <PossibleValue Comment="GPDMA1 channel 3" Value="I2C_GRP2_GPDMA_CH3_TCF_TRG"/>
-        <PossibleValue Comment="EXTI line 5" Value="I2C_GRP2_EXTI5_TRG"/>
-        <PossibleValue Comment="EXTI line 8" Value="I2C_GRP2_EXTI8_TRG"/>
-        <PossibleValue Comment="LPTIM1 out" Value="I2C_GRP2_LPTIM1_CH1_TRG"/>
-        <PossibleValue Comment="LPTIM2 out" Value="I2C_GRP2_LPTIM3_CH1_TRG"/>
-        <PossibleValue Comment="COMP1 out" Value="I2C_GRP2_COMP1_TRG"/>
-        <PossibleValue Comment="COMP2 out" Value="I2C_GRP2_COMP2_TRG"/>
-        <PossibleValue Comment="RTC alarm" Value="I2C_GRP2_RTC_ALRA_TRG"/>
-        <PossibleValue Comment="RTC wakeup" Value="I2C_GRP2_RTC_WUT_TRG"/>
+    <RefParameter Comment="     Trigger Selection" DefaultValue="I2C_GRP1_GPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
+        <Condition Diagnostic="" Expression="(AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; !($Index=3) &amp; $IpInstance_I2C_Mode &amp; !(STM32WBAx0|STM32WBAx2)&amp; STM32WBA &amp; (DIE492|DIE4B0)" />
+        <PossibleValue Comment="GPDMA1 channel 0" Value="I2C_GRP1_GPDMA_CH0_TCF_TRG"/>
+        <PossibleValue Comment="GPDMA1 channel 1" Value="I2C_GRP1_GPDMA_CH1_TCF_TRG"/>
+        <PossibleValue Comment="GPDMA1 channel 2" Value="I2C_GRP1_GPDMA_CH2_TCF_TRG"/>
+        <PossibleValue Comment="GPDMA1 channel 3" Value="I2C_GRP1_GPDMA_CH3_TCF_TRG"/>
+        <PossibleValue Comment="EXTI line 5" Value="I2C_GRP1_EXTI5_TRG"/>
+        <PossibleValue Comment="EXTI line 9" Value="I2C_GRP1_EXTI9_TRG"/>
+        <PossibleValue Comment="LPTIM1 out" Value="I2C_GRP1_LPTIM1_CH1_TRG"/>
+        <PossibleValue Comment="LPTIM2 out" Value="I2C_GRP1_LPTIM2_CH1_TRG"/>
+        <PossibleValue Comment="COMP1 out" Value="I2C_GRP1_COMP1_TRG"/>
+        <PossibleValue Comment="COMP2 out" Value="I2C_GRP1_COMP2_TRG"/>
+        <PossibleValue Comment="RTC alarm" Value="I2C_GRP1_RTC_ALRA_TRG"/>
+        <PossibleValue Comment="RTC wakeup" Value="I2C_GRP1_RTC_WUT_TRG"/>
     </RefParameter>
+    <RefParameter Comment="     Trigger Selection" DefaultValue="I2C_GRP2_LPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
+    <Condition Diagnostic="" Expression="STM32U5 &amp; (AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; ($Index=3) &amp; $IpInstance_I2C_Mode" />
+    <PossibleValue Comment="LPDMA1 channel 0" Value="I2C_GRP2_LPDMA_CH0_TCF_TRG"/>
+    <PossibleValue Comment="LPDMA1 channel 1" Value="I2C_GRP2_LPDMA_CH1_TCF_TRG"/>
+    <PossibleValue Comment="LPDMA1 channel 2" Value="I2C_GRP2_LPDMA_CH2_TCF_TRG"/>
+    <PossibleValue Comment="LPDMA1 channel 3" Value="I2C_GRP2_LPDMA_CH3_TCF_TRG"/>
+    <PossibleValue Comment="EXTI line 5" Value="I2C_GRP2_EXTI5_TRG"/>
+    <PossibleValue Comment="EXTI line 8" Value="I2C_GRP2_EXTI8_TRG"/>
+    <PossibleValue Comment="LPTIM1 out" Value="I2C_GRP2_LPTIM1_CH1_TRG"/>
+    <PossibleValue Comment="LPTIM2 out" Value="I2C_GRP2_LPTIM3_CH1_TRG"/>
+    <PossibleValue Comment="COMP1 out" Value="I2C_GRP2_COMP1_TRG"/>
+    <PossibleValue Comment="COMP2 out" Value="I2C_GRP2_COMP2_TRG"/>
+    <PossibleValue Comment="RTC alarm" Value="I2C_GRP2_RTC_ALRA_TRG"/>
+    <PossibleValue Comment="RTC wakeup" Value="I2C_GRP2_RTC_WUT_TRG"/>
+</RefParameter>
     <RefParameter Comment="     Trigger Selection" DefaultValue="I2C_GRP2_GPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
-        <Condition Diagnostic="" Expression="STM32WBA &amp; !(STM32WBAx0|STM32WBAx2) &amp; (AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; ($Index=3) &amp; $IpInstance_I2C_Mode" />
+        <Condition Diagnostic="" Expression="STM32WBA &amp; (DIE492|DIE4B0) &amp; !(STM32WBAx0|STM32WBAx2) &amp; (AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; ($Index=3) &amp; $IpInstance_I2C_Mode" />
         <PossibleValue Comment="GPDMA1 channel 0" Value="I2C_GRP2_GPDMA_CH0_TCF_TRG"/>
         <PossibleValue Comment="GPDMA1 channel 1" Value="I2C_GRP2_GPDMA_CH1_TCF_TRG"/>
         <PossibleValue Comment="GPDMA1 channel 2" Value="I2C_GRP2_GPDMA_CH2_TCF_TRG"/>
@@ -623,7 +638,7 @@
         <PossibleValue Comment="RTC wakeup" Value="I2C_GRP2_RTC_WUT_TRG"/>
     </RefParameter>
     <RefParameter Comment="     Trigger Selection" DefaultValue="I2C_GRP1_GPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
-        <Condition Diagnostic="" Expression="(STM32WBAx0|STM32WBAx2) &amp; (AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; !($Index=3) &amp; $IpInstance_I2C_Mode" />
+        <Condition Diagnostic="" Expression="STM32WBA &amp; (DIE492|DIE4B0)&amp; (STM32WBAx0|STM32WBAx2) &amp; (AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; !($Index=3) &amp; $IpInstance_I2C_Mode" />
         <PossibleValue Comment="GPDMA1 channel 0" Value="I2C_GRP1_GPDMA_CH0_TCF_TRG"/>
         <PossibleValue Comment="GPDMA1 channel 1" Value="I2C_GRP1_GPDMA_CH1_TCF_TRG"/>
         <PossibleValue Comment="GPDMA1 channel 2" Value="I2C_GRP1_GPDMA_CH2_TCF_TRG"/>
@@ -636,7 +651,7 @@
         <PossibleValue Comment="RTC wakeup" Value="I2C_GRP1_RTC_WUT_TRG"/>
     </RefParameter>
     <RefParameter Comment="     Trigger Selection" DefaultValue="I2C_GRP2_GPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
-        <Condition Diagnostic="" Expression="(STM32WBAx0|STM32WBAx2) &amp; (AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; ($Index=3) &amp; $IpInstance_I2C_Mode" />
+        <Condition Diagnostic="" Expression="STM32WBA &amp; (DIE492|DIE4B0)&amp;(STM32WBAx0|STM32WBAx2) &amp; (AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; ($Index=3) &amp; $IpInstance_I2C_Mode" />
         <PossibleValue Comment="GPDMA1 channel 0" Value="I2C_GRP2_GPDMA_CH0_TCF_TRG"/>
         <PossibleValue Comment="GPDMA1 channel 1" Value="I2C_GRP2_GPDMA_CH1_TCF_TRG"/>
         <PossibleValue Comment="GPDMA1 channel 2" Value="I2C_GRP2_GPDMA_CH2_TCF_TRG"/>
@@ -648,7 +663,7 @@
         <PossibleValue Comment="RTC wakeup" Value="I2C_GRP2_RTC_WUT_TRG"/>
     </RefParameter>
     <RefParameter Comment="     Trigger Selection" DefaultValue="SMBUS_GRP1_GPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
-        <Condition Diagnostic="" Expression="(AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; !($Index=3) &amp; $IpInstance_SMBus_Mode &amp; !(STM32WBAx0|STM32WBAx2)" />
+        <Condition Diagnostic="" Expression="(AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; !($Index=3) &amp; $IpInstance_SMBus_Mode &amp;STM32WBA &amp; (DIE492|DIE4B0)&amp; !(STM32WBAx0|STM32WBAx2)" />
         <PossibleValue Comment="GPDMA1 channel 0" Value="SMBUS_GRP1_GPDMA_CH0_TCF_TRG"/>
         <PossibleValue Comment="GPDMA1 channel 1" Value="SMBUS_GRP1_GPDMA_CH1_TCF_TRG"/>
         <PossibleValue Comment="GPDMA1 channel 2" Value="SMBUS_GRP1_GPDMA_CH2_TCF_TRG"/>
@@ -662,12 +677,12 @@
         <PossibleValue Comment="RTC alarm" Value="SMBUS_GRP1_RTC_ALRA_TRG"/>
         <PossibleValue Comment="RTC wakeup" Value="SMBUS_GRP1_RTC_WUT_TRG"/>
     </RefParameter>
-    <RefParameter Comment="     Trigger Selection" DefaultValue="SMBUS_GRP2_GPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
+    <RefParameter Comment="     Trigger Selection" DefaultValue="SMBUS_GRP2_LPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
         <Condition Diagnostic="" Expression="STM32U5 &amp; (AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; ($Index=3) &amp; $IpInstance_SMBus_Mode" />
-        <PossibleValue Comment="GPDMA1 channel 0" Value="SMBUS_GRP2_GPDMA_CH0_TCF_TRG"/>
-        <PossibleValue Comment="GPDMA1 channel 1" Value="SMBUS_GRP2_GPDMA_CH1_TCF_TRG"/>
-        <PossibleValue Comment="GPDMA1 channel 2" Value="SMBUS_GRP2_GPDMA_CH2_TCF_TRG"/>
-        <PossibleValue Comment="GPDMA1 channel 3" Value="SMBUS_GRP2_GPDMA_CH3_TCF_TRG"/>
+        <PossibleValue Comment="LPDMA1 channel 0" Value="SMBUS_GRP2_LPDMA_CH0_TCF_TRG"/>
+        <PossibleValue Comment="LPDMA1 channel 1" Value="SMBUS_GRP2_LPDMA_CH1_TCF_TRG"/>
+        <PossibleValue Comment="LPDMA1 channel 2" Value="SMBUS_GRP2_LPDMA_CH2_TCF_TRG"/>
+        <PossibleValue Comment="LPDMA1 channel 3" Value="SMBUS_GRP2_LPDMA_CH3_TCF_TRG"/>
         <PossibleValue Comment="EXTI line 5" Value="SMBUS_GRP2_EXTI5_TRG"/>
         <PossibleValue Comment="EXTI line 8" Value="SMBUS_GRP2_EXTI8_TRG"/>
         <PossibleValue Comment="LPTIM1 out" Value="SMBUS_GRP2_LPTIM1_CH1_TRG"/>
@@ -677,8 +692,23 @@
         <PossibleValue Comment="RTC alarm" Value="SMBUS_GRP2_RTC_ALRA_TRG"/>
         <PossibleValue Comment="RTC wakeup" Value="SMBUS_GRP2_RTC_WUT_TRG"/>
     </RefParameter>
+    <RefParameter Comment="     Trigger Selection" DefaultValue="SMBUS_GRP1_GPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
+        <Condition Diagnostic="" Expression="STM32U5 &amp; (AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; !($Index=3) &amp; $IpInstance_SMBus_Mode" />
+        <PossibleValue Comment="GPDMA1 channel 0" Value="SMBUS_GRP1_GPDMA_CH0_TCF_TRG"/>
+        <PossibleValue Comment="GPDMA1 channel 1" Value="SMBUS_GRP1_GPDMA_CH1_TCF_TRG"/>
+        <PossibleValue Comment="GPDMA1 channel 2" Value="SMBUS_GRP1_GPDMA_CH2_TCF_TRG"/>
+        <PossibleValue Comment="GPDMA1 channel 3" Value="SMBUS_GRP1_GPDMA_CH3_TCF_TRG"/>
+        <PossibleValue Comment="EXTI line 5" Value="SMBUS_GRP1_EXTI5_TRG"/>
+        <PossibleValue Comment="EXTI line 8" Value="SMBUS_GRP1_EXTI8_TRG"/>
+        <PossibleValue Comment="LPTIM1 out" Value="SMBUS_GRP1_LPTIM1_CH1_TRG"/>
+        <PossibleValue Comment="LPTIM2 out" Value="SMBUS_GRP1_LPTIM3_CH1_TRG"/>
+        <PossibleValue Comment="COMP1 out" Value="SMBUS_GRP1_COMP1_TRG"/>
+        <PossibleValue Comment="COMP2 out" Value="SMBUS_GRP1_COMP2_TRG" Condition="DIE455" Action="Remove"/>
+        <PossibleValue Comment="RTC alarm" Value="SMBUS_GRP1_RTC_ALRA_TRG"/>
+        <PossibleValue Comment="RTC wakeup" Value="SMBUS_GRP1_RTC_WUT_TRG"/>
+    </RefParameter>
     <RefParameter Comment="     Trigger Selection" DefaultValue="SMBUS_GRP2_GPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
-        <Condition Diagnostic="" Expression="STM32WBA &amp; !(STM32WBAx0|STM32WBAx2) &amp; (AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; ($Index=3) &amp; $IpInstance_SMBus_Mode" />
+        <Condition Diagnostic="" Expression="STM32WBA &amp;(DIE492|DIE4B0)&amp; !(STM32WBAx0|STM32WBAx2) &amp; (AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; ($Index=3) &amp; $IpInstance_SMBus_Mode" />
         <PossibleValue Comment="GPDMA1 channel 0" Value="SMBUS_GRP2_GPDMA_CH0_TCF_TRG"/>
         <PossibleValue Comment="GPDMA1 channel 1" Value="SMBUS_GRP2_GPDMA_CH1_TCF_TRG"/>
         <PossibleValue Comment="GPDMA1 channel 2" Value="SMBUS_GRP2_GPDMA_CH2_TCF_TRG"/>
@@ -692,7 +722,7 @@
         <PossibleValue Comment="RTC wakeup" Value="SMBUS_GRP2_RTC_WUT_TRG"/>
     </RefParameter>
     <RefParameter Comment="     Trigger Selection" DefaultValue="SMBUS_GRP1_GPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
-        <Condition Diagnostic="" Expression="(STM32WBAx0|STM32WBAx2) &amp; (AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; !($Index=3) &amp; $IpInstance_SMBus_Mode" />
+        <Condition Diagnostic="" Expression="STM32WBA &amp; (DIE492|DIE4B0)&amp;(STM32WBAx0|STM32WBAx2) &amp; (AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; !($Index=3) &amp; $IpInstance_SMBus_Mode" />
         <PossibleValue Comment="GPDMA1 channel 0" Value="SMBUS_GRP1_GPDMA_CH0_TCF_TRG"/>
         <PossibleValue Comment="GPDMA1 channel 1" Value="SMBUS_GRP1_GPDMA_CH1_TCF_TRG"/>
         <PossibleValue Comment="GPDMA1 channel 2" Value="SMBUS_GRP1_GPDMA_CH2_TCF_TRG"/>
@@ -704,8 +734,21 @@
         <PossibleValue Comment="RTC alarm" Value="SMBUS_GRP1_RTC_ALRA_TRG"/>
         <PossibleValue Comment="RTC wakeup" Value="SMBUS_GRP1_RTC_WUT_TRG"/>
     </RefParameter>
+    <RefParameter Comment="     Trigger Selection" DefaultValue="SMBUS_GRP1_LPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
+        <Condition Diagnostic="" Expression="STM32WBA &amp;DIE4B2 &amp; (AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; !($Index=3) &amp; $IpInstance_SMBus_Mode" />
+        <PossibleValue Comment="LPDMA1 channel 0" Value="SMBUS_GRP1_LPDMA_CH0_TCF_TRG"/>
+        <PossibleValue Comment="LPDMA1 channel 1" Value="SMBUS_GRP1_LPDMA_CH1_TCF_TRG"/>
+        <PossibleValue Comment="LPDMA1 channel 2" Value="SMBUS_GRP1_LPDMA_CH2_TCF_TRG"/>
+        <PossibleValue Comment="LPDMA1 channel 3" Value="SMBUS_GRP1_LPDMA_CH3_TCF_TRG"/>
+        <PossibleValue Comment="EXTI line 5" Value="SMBUS_GRP1_EXTI5_TRG"/>
+        <PossibleValue Comment="EXTI line 9" Value="SMBUS_GRP1_EXTI9_TRG"/>
+        <PossibleValue Comment="LPTIM1 out" Value="SMBUS_GRP1_LPTIM1_CH1_TRG"/>
+        <PossibleValue Comment="LPTIM2 out" Value="SMBUS_GRP1_LPTIM2_CH1_TRG"/>
+        <PossibleValue Comment="RTC alarm" Value="SMBUS_GRP1_RTC_ALRA_TRG"/>
+        <PossibleValue Comment="RTC wakeup" Value="SMBUS_GRP1_RTC_WUT_TRG"/>
+    </RefParameter>
     <RefParameter Comment="     Trigger Selection" DefaultValue="SMBUS_GRP2_GPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
-        <Condition Diagnostic="" Expression="(STM32WBAx0|STM32WBAx2) &amp; (AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; ($Index=3) &amp; $IpInstance_SMBus_Mode" />
+        <Condition Diagnostic="" Expression="STM32WBA &amp; (DIE492|DIE4B0)&amp;(STM32WBAx0|STM32WBAx2) &amp; (AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; ($Index=3) &amp; $IpInstance_SMBus_Mode" />
         <PossibleValue Comment="GPDMA1 channel 0" Value="SMBUS_GRP2_GPDMA_CH0_TCF_TRG"/>
         <PossibleValue Comment="GPDMA1 channel 1" Value="SMBUS_GRP2_GPDMA_CH1_TCF_TRG"/>
         <PossibleValue Comment="GPDMA1 channel 2" Value="SMBUS_GRP2_GPDMA_CH2_TCF_TRG"/>
@@ -715,6 +758,43 @@
         <PossibleValue Comment="LPTIM1 out" Value="SMBUS_GRP2_LPTIM1_CH1_TRG"/>
         <PossibleValue Comment="RTC alarm" Value="SMBUS_GRP2_RTC_ALRA_TRG"/>
         <PossibleValue Comment="RTC wakeup" Value="SMBUS_GRP2_RTC_WUT_TRG"/>
+    </RefParameter>
+    <RefParameter Comment="     Trigger Selection" DefaultValue="SMBUS_GRP2_LPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
+        <Condition Diagnostic="" Expression="STM32WBA &amp;DIE4B2 &amp;(AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; ($Index=3) &amp; $IpInstance_SMBus_Mode" />
+        <PossibleValue Comment="LPDMA1 channel 0" Value="SMBUS_GRP2_LPDMA_CH0_TCF_TRG"/>
+        <PossibleValue Comment="LPDMA1 channel 1" Value="SMBUS_GRP2_LPDMA_CH1_TCF_TRG"/>
+        <PossibleValue Comment="LPDMA1 channel 2" Value="SMBUS_GRP2_LPDMA_CH2_TCF_TRG"/>
+        <PossibleValue Comment="LPDMA1 channel 3" Value="SMBUS_GRP2_LPDMA_CH3_TCF_TRG"/>
+        <PossibleValue Comment="EXTI line 5" Value="SMBUS_GRP2_EXTI5_TRG"/>
+        <PossibleValue Comment="EXTI line 8" Value="SMBUS_GRP2_EXTI8_TRG"/>
+        <PossibleValue Comment="LPTIM1 out" Value="SMBUS_GRP2_LPTIM1_CH1_TRG"/>
+        <PossibleValue Comment="RTC alarm" Value="SMBUS_GRP2_RTC_ALRA_TRG"/>
+        <PossibleValue Comment="RTC wakeup" Value="SMBUS_GRP2_RTC_WUT_TRG"/>
+    </RefParameter>
+    <RefParameter Comment="     Trigger Selection" DefaultValue="I2C_GRP1_LPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
+        <Condition Diagnostic="" Expression="STM32WBA &amp;DIE4B2 &amp; (AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; ($Index=1) &amp; $IpInstance_I2C_Mode" />
+        <PossibleValue Comment="LPDMA1 channel 0" Value="I2C_GRP1_LPDMA_CH0_TCF_TRG"/>
+        <PossibleValue Comment="LPDMA1 channel 1" Value="I2C_GRP1_LPDMA_CH1_TCF_TRG"/>
+        <PossibleValue Comment="LPDMA1 channel 2" Value="I2C_GRP1_LPDMA_CH2_TCF_TRG"/>
+        <PossibleValue Comment="LPDMA1 channel 3" Value="I2C_GRP1_LPDMA_CH3_TCF_TRG"/>
+        <PossibleValue Comment="EXTI line 5" Value="I2C_GRP1_EXTI5_TRG"/>
+        <PossibleValue Comment="EXTI line 9" Value="I2C_GRP1_EXTI9_TRG"/>
+        <PossibleValue Comment="LPTIM1 out" Value="I2C_GRP1_LPTIM1_CH1_TRG"/>
+        <PossibleValue Comment="LPTIM2 out" Value="I2C_GRP1_LPTIM2_CH1_TRG"/>
+        <PossibleValue Comment="RTC alarm" Value="I2C_GRP1_RTC_ALRA_TRG"/>
+        <PossibleValue Comment="RTC wakeup" Value="I2C_GRP1_RTC_WUT_TRG"/>
+    </RefParameter>
+    <RefParameter Comment=" Trigger Selection" DefaultValue="I2C_GRP2_LPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
+        <Condition Diagnostic="" Expression="STM32WBA &amp;DIE4B2 &amp; (AutonomousMode = AUTONOMOUS_MODE_ENABLE) &amp; ($Index=3) &amp; $IpInstance_I2C_Mode" />
+        <PossibleValue Comment="LPDMA1 channel 0" Value="I2C_GRP2_LPDMA_CH0_TCF_TRG"/>
+        <PossibleValue Comment="LPDMA1 channel 1" Value="I2C_GRP2_LPDMA_CH1_TCF_TRG"/>
+        <PossibleValue Comment="LPDMA1 channel 2" Value="I2C_GRP2_LPDMA_CH2_TCF_TRG"/>
+        <PossibleValue Comment="LPDMA1 channel 3" Value="I2C_GRP2_LPDMA_CH3_TCF_TRG"/>
+        <PossibleValue Comment="EXTI line 5" Value="I2C_GRP2_EXTI5_TRG"/>
+        <PossibleValue Comment="EXTI line 8" Value="I2C_GRP2_EXTI8_TRG"/>
+        <PossibleValue Comment="LPTIM1 out" Value="I2C_GRP2_LPTIM1_CH1_TRG"/>
+        <PossibleValue Comment="RTC alarm" Value="I2C_GRP2_RTC_ALRA_TRG"/>
+        <PossibleValue Comment="RTC wakeup" Value="I2C_GRP2_RTC_WUT_TRG"/>
     </RefParameter>
     <!-- Autonomous Mode  __end. -->
 

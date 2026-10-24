@@ -163,7 +163,7 @@
 		<PossibleValue Value="DISABLE" Comment="Disabled"/>	
 	</RefParameter>	
 	<RefParameter Comment="Use dedicated end point 1 interrupt" DefaultValue="DISABLE" Name="use_dedicated_ep1" Type="List" Group="">	
-		<Condition Expression="DIE470|DIE482|DIE485" Diagnostic=""/>
+		<Condition Expression="DIE470|DIE482|DIE485 | DIE47A" Diagnostic=""/>
 		<PossibleValue Value="ENABLE" Comment="Enabled" Semaphore="$IpInstance_USE_DEDICATED_EP1_ON"/>
 		<PossibleValue Value="DISABLE" Comment="Disabled"/>		
 	</RefParameter>
@@ -280,7 +280,7 @@
 					<Semaphore>OTG_DUAL_ROLE_DEVICE</Semaphore>	
 					<Semaphore>SEMAOoUSBOoOTGOoFSOoDRDOoFOROoUSBX</Semaphore>
 				</Mode>
-				<Mode Name="Host_Only" RemoveCondition="DIE485">
+				<Mode Name="Host_Only" RemoveCondition="DIE485 | DIE47A">
 					<SignalLogicalOp Name="AND">
 						<Signal Name="DM"/>
 						<Signal Name="DP"/>						
@@ -288,7 +288,7 @@
 					<Semaphore>MW_USB_OTG_FS_MW_HOST</Semaphore>	
 					<Semaphore>SEMAOoUSBOoOTGOoFSOoHOSTOoFOROoUSBX</Semaphore>	
 				</Mode>
-				<Mode Name="Host_Only" RemoveCondition="!DIE485">
+				<Mode Name="Host_Only" RemoveCondition="!(DIE485 | DIE47A)">
 					<SignalLogicalOp Name="AND">
 						<Signal Name="DM" IOMode="System"/>
 						<Signal Name="DP" IOMode="System"/>
@@ -296,21 +296,24 @@
 					<Semaphore>MW_USB_OTG_FS_MW_HOST</Semaphore>
 					<Semaphore>SEMAOoUSBOoOTGOoFSOoHOSTOoFOROoUSBX</Semaphore>
 				</Mode>
-				<Mode Name="Device_Only" RemoveCondition="DIE485">
+				<Mode Name="Device_Only" RemoveCondition="DIE485 | DIE47A">
 					<SignalLogicalOp Name="AND">
 						<Signal Name="DM"/>
 						<Signal Name="DP"/>						
 					</SignalLogicalOp>
 					<Semaphore>MW_USB_OTG_FS_MW_DEVICE</Semaphore>
 					<Semaphore>SEMAOoUSBOoOTGOoFSOoDEVICEOoFOROoUSBX</Semaphore>
+					<Condition Expression="!MW_USB_OTG_HS_MW_DEVICE" Diagnostic="the Device mode is activated in USB_OTG_HS IP"/>
+
 				</Mode>
-				<Mode Name="Device_Only" RemoveCondition="!DIE485">
+				<Mode Name="Device_Only" RemoveCondition="!(DIE485 | DIE47A)">
 					<SignalLogicalOp Name="AND">
 						<Signal Name="DM" IOMode="System"/>
 						<Signal Name="DP" IOMode="System"/>
 					</SignalLogicalOp>
 					<Semaphore>MW_USB_OTG_FS_MW_DEVICE</Semaphore>
 					<Semaphore>SEMAOoUSBOoOTGOoFSOoDEVICEOoFOROoUSBX</Semaphore>
+					<Condition Expression="!MW_USB_OTG_HS_MW_DEVICE" Diagnostic="the Device mode is activated in USB_OTG_HS IP"/>
 				</Mode>
 			</ModeLogicOperator>
 			<Semaphore>USB_FS_HS</Semaphore>

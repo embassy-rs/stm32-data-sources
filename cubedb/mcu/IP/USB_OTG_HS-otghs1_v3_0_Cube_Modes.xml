@@ -44,7 +44,7 @@
 		<Condition Expression="(VirtualMode = Ext_Phy_Host) | (VirtualMode = Ext_Phy_Device)" Diagnostic=""/>		
 	</RefParameter>	
 	<RefParameter Comment="Physical interface" DefaultValue="USB_OTG_HS_EMBEDDED_PHY" Name="phy_itface" Type="List">		
-		<Condition Expression="(STM32F7x3 | STM32F730I8Kx | STM32F730Z8Tx) &amp; ((VirtualMode = Int_Phy_Host) | (VirtualMode = Int_Phy_Device))" Diagnostic=""/>		
+		<Condition Expression="(STM32F7x3 | STM32F730I8Kx | STM32F730Z8Tx | DIE47A) &amp; ((VirtualMode = Int_Phy_Host) | (VirtualMode = Int_Phy_Device))" Diagnostic=""/>		
 		<PossibleValue Value="USB_OTG_HS_EMBEDDED_PHY" Comment="Internal Phy"/>	
 	</RefParameter>	
 	<RefParameter Comment="Physical interface" DefaultValue="USB_OTG_EMBEDDED_PHY" Name="phy_itface" Type="List">		
@@ -305,7 +305,7 @@
 		</Mode>
 		<!-- ModeLogicOperator for FS -->
 		<!-- Tracker 232811 -->
-		<Mode Name="Internal Phy FS" RemoveCondition="STM32F7x3 | STM32F730I8Kx | STM32F730Z8Tx">			
+		<Mode Name="Internal Phy FS" RemoveCondition="STM32F7x3 | STM32F730I8Kx | STM32F730Z8Tx | STM32H5">			
 			<ModeLogicOperator Name="XOR">
 				<Mode Name="Int_Phy_OTG/Dual-Role-Device" UserName="OTG/Dual_Role_Device">
 					<SignalLogicalOp Name="AND">
@@ -342,7 +342,7 @@
 			<Semaphore>USB_OTG_HSEmbeddedPHYUsed_ForRCC</Semaphore>
 			<Condition Expression="!$IpInstanceHS" Diagnostic=""/>			
 		</Mode>	
-		<Mode Name="Internal Phy HS">			
+		<Mode Name="Internal Phy HS" RemoveCondition="STM32H5">			
 			<ModeLogicOperator Name="XOR">
 				<Mode Name="Int_Phy_OTG/Dual-Role-Device" UserName="OTG/Dual_Role_Device">
 					<SignalLogicalOp Name="AND">
@@ -378,7 +378,45 @@
 						<!--<Signal Name="VBUS"/>-->
 					</SignalLogicalOp>	
 					<Semaphore>MW_USB_OTG_HS_MW_DEVICE</Semaphore>
-					<Semaphore>USB_OTG_HS_INT_Used_ForRCC</Semaphore>	
+					<Semaphore>USB_OTG_HS_INT_Used_ForRCC</Semaphore>
+					<Condition Expression="!MW_USB_OTG_FS_MW_DEVICE" Diagnostic="the Device mode is activated in USB_OTG_FS IP"/>
+				</Mode>
+			</ModeLogicOperator>	
+			<Semaphore>$IpInstanceFS</Semaphore>
+             <Semaphore>USB_OTG_HSEmbeddedPHYUsed_ForRCC</Semaphore>
+			<Condition Expression="!$IpInstanceHS" Diagnostic=""/>			
+		</Mode>
+		<Mode Name="Internal Phy HS" RemoveCondition="!STM32H5">			
+			<ModeLogicOperator Name="XOR">
+				<Mode Name="Int_Phy_OTG/Dual-Role-Device" UserName="OTG/Dual_Role_Device">
+					<SignalLogicalOp Name="AND">
+						<Signal Name="DM"/>
+						<Signal Name="DP"/>
+						<!--<Signal Name="VBUS"/>-->
+					</SignalLogicalOp>
+					<Semaphore>OTG_DUAL_ROL_DEVICE_HS_FS</Semaphore>	
+					<Semaphore>USB_OTG_HS_INT_Used_ForRCC</Semaphore>						
+				</Mode>
+				<!-- Tracker 333854 -->
+				<Mode Name="Internal_Phy_Host" UserName="Host_Only">
+					<SignalLogicalOp Name="AND">
+						<Signal Name="DM"/>
+						<Signal Name="DP"/>
+					</SignalLogicalOp>	
+					<Semaphore>MW_USB_OTG_HS_MW_HOST</Semaphore>		
+					<Semaphore>USB_OTG_HS_INT_Used_ForRCC</Semaphore>		
+					<Semaphore>SEMAOoUSBOoOTGOoHSOoHOSTOoFOROoUSBX</Semaphore>		
+				</Mode>				
+				<!-- Tracker 333854 -->
+				<Mode Name="Internal_Phy_Device" UserName="Device_Only">
+					<SignalLogicalOp Name="AND">
+						<Signal Name="DM"/>
+						<Signal Name="DP"/>
+					</SignalLogicalOp>	
+					<Semaphore>MW_USB_OTG_HS_MW_DEVICE</Semaphore>
+					<Semaphore>USB_OTG_HS_INT_Used_ForRCC</Semaphore>
+					<Semaphore>SEMAOoUSBOoOTGOoHSOoDEVICEOoFOROoUSBX</Semaphore>
+					<Condition Expression="!MW_USB_OTG_FS_MW_DEVICE" Diagnostic="the Device mode is activated in USB_OTG_FS IP"/>
 				</Mode>
 			</ModeLogicOperator>	
 			<Semaphore>$IpInstanceFS</Semaphore>

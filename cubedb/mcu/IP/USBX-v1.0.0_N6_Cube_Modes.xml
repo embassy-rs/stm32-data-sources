@@ -2,6 +2,7 @@
 <IP xmlns="http://mcd.rou.st.com/modules.php?name=mcu" DBVersion="V4.0" IPType="middleware" IpGroup="Middleware" Name="USBX" Version="1.0.0" xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance" ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../../../doc/V4/Development/Specifications/db/IP_Modes.xsd">
     <RefMode Abstract="false" Name="Core_System">
         <ConfigForMode>Core_System</ConfigForMode>
+		<Parameter Added="true" Name="IS_DEVICE_HOST_ENABLED" />
         <Parameter Added="true" Name="UX_ENFORCE_SAFE_ALIGNMENT"/>
         <Parameter Added="true" Name="UX_DEBUG_LOG_SIZE"/>
         <Parameter Added="true" Name="UX_THREAD_PRIORITY_ENUM">
@@ -42,6 +43,7 @@
             <PossibleValue>1</PossibleValue>
             <Condition Expression="(SEMUSBXCcUSBJjUSBXJjUXOoHostOoCoreStackJjRTOSIiMODE_HS1) | (SEMUSBXCcUSBJjUSBXJjUXOoHostOoCoreStackJjRTOSIiMODE_HS2)" Diagnostic=""/>
         </Parameter>
+		<Parameter Added="true" Name="Dual_Role_Device_Enabled"/>
         <Parameter Name="Core_System">
             <PossibleValue>1</PossibleValue>
         </Parameter>
@@ -133,11 +135,18 @@
         <Parameter Added="true" Name="REG_UX_HOST_HUB">
             <Condition Expression="(SEMUSBXCcUSBJjUSBXJjUXOoHostOoCoreStackJjRTOSIiMODE_HS1) &amp; (!SEMUSBXCcUSBJjUSBXJjUXOoHostOoCoreStackJjRTOSIiMODE_HS2)" Diagnostic=""/>
         </Parameter>
+		<Parameter Added="true" Name="REG_UX_HOST_AUDIO">
+            <Condition Expression="(SEMUSBXCcUSBJjUSBXJjUXOoHostOoCoreStackJjRTOSIiMODE_HS1) &amp; (!SEMUSBXCcUSBJjUSBXJjUXOoHostOoCoreStackJjRTOSIiMODE_HS2)" Diagnostic=""/>
+        </Parameter>
         <Parameter Added="true" Name="UX_HOST_STACK_CONFIGURATION_INSTANCE_CREATE_CONTROL">
             <Condition Expression="(SEMUSBXCcUSBJjUSBXJjUXOoHostOoCoreStackJjRTOSIiMODE_HS1) &amp; (!SEMUSBXCcUSBJjUSBXJjUXOoHostOoCoreStackJjRTOSIiMODE_HS2)" Diagnostic=""/>
         </Parameter>
         <Parameter Added="true" Name="UX_MAX_CLASSES">
             <Condition Expression="(SEMUSBXCcUSBJjUSBXJjUXOoHostOoCoreStackJjRTOSIiMODE_HS1) &amp; (!SEMUSBXCcUSBJjUSBXJjUXOoHostOoCoreStackJjRTOSIiMODE_HS2)" Diagnostic=""/>
+        </Parameter>
+		<Parameter Added="true" Name="UX_HOST1_enabled">
+            <Condition Expression="SEMUSBXCcUSBJjUSBXJjUXOoHostOoCoreStackJjRTOSIiMODE_HS1" Diagnostic=""/>
+			<PossibleValue>1</PossibleValue>
         </Parameter>
     </RefMode>	
     <RefMode Abstract="false" Name="UX_Host_CoreStack_HS2">
@@ -223,7 +232,14 @@
         <Parameter Added="true" Name="UX_MAX_CLASSES">
             <Condition Expression="(SEMUSBXCcUSBJjUSBXJjUXOoHostOoCoreStackJjRTOSIiMODE_HS1) | (SEMUSBXCcUSBJjUSBXJjUXOoHostOoCoreStackJjRTOSIiMODE_HS2)" Diagnostic=""/>
         </Parameter>
-    </RefMode>
+		<Parameter Added="true" Name="UX_HOST2_enabled">
+            <Condition Expression="SEMUSBXCcUSBJjUSBXJjUXOoHostOoCoreStackJjRTOSIiMODE_HS2" Diagnostic=""/>
+			<PossibleValue>1</PossibleValue>
+        </Parameter>
+		<Parameter Added="true" Name="REG_UX_HOST_AUDIO">
+            <Condition Expression="(SEMUSBXCcUSBJjUSBXJjUXOoHostOoCoreStackJjRTOSIiMODE_HS1) | (SEMUSBXCcUSBJjUSBXJjUXOoHostOoCoreStackJjRTOSIiMODE_HS2)" Diagnostic=""/>
+        </Parameter>
+	</RefMode>
     <RefMode Abstract="false" Name="UX_Host_Controller_HS1">
         <ConfigForMode>UX_Host_Controller_HS1</ConfigForMode>
         <Parameter Added="true" Name="UX_MAX_ED">
@@ -687,6 +703,8 @@
         <Parameter Added="true" Name="REG_UX_DEVICE_VIDEO"></Parameter>
         <Parameter Added="true" Name="REG_UX_DEVICE_CCID"></Parameter>
         <Parameter Added="true" Name="REG_UX_DEVICE_PRINTER"></Parameter>
+		<Parameter Added="true" Name="REG_UX_DEVICE_AUDIO_PLAYBACK"/>
+		<Parameter Added="true" Name="REG_UX_DEVICE_AUDIO_RECORDING"/>
         <Parameter Added="true" Name="UX_THREAD_STACK_SIZE" Group="Device Core">
             <Condition Diagnostic="" Expression="SEMThreadXCcRTOSJjThreadXJjCore" Name="UX_CORESYSTEM_RTOS"/>
         </Parameter>
@@ -694,6 +712,14 @@
         <Parameter Added="true" Name="UX_NO_TIME_SLICE" Group="Device Core"/>
         <Parameter Added="true" Name="UX_DEVICE_ENDPOINT_BUFFER_OWNER"/>
         <Parameter Added="true" Name="UX_DEVICE_ENABLE_GET_STRING_WITH_ZERO_LANGUAGE_ID"></Parameter>
+		<Parameter Added="true" Name="UX_DEVICE1_ENABLED_HS">
+            <Condition Expression="SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoCoreStackJjRTOSIiMODE_HS1" Diagnostic=""/>
+			<PossibleValue>1</PossibleValue>
+        </Parameter>
+		<Parameter Added="true" Name="UX_DEVICE2_ENABLED_HS">
+            <Condition Expression="SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoCoreStackJjRTOSIiMODE_HS2" Diagnostic=""/>
+			<PossibleValue>1</PossibleValue>
+        </Parameter>  
     </RefMode>
     <RefMode Abstract="false" Name="UX_Device_Controller_HS1">
         <ConfigForMode>UX_Device_Controller_HS</ConfigForMode>
@@ -733,6 +759,7 @@
         <Parameter Added="true" Name="USBD_HID_MOUSE_EPIN_HS_MPS"/>
         <Parameter Added="true" Name="USBD_HID_MOUSE_EPIN_FS_BINTERVAL"/>
         <Parameter Added="true" Name="USBD_HID_MOUSE_EPIN_HS_BINTERVAL"/>
+		<Parameter Added="true" Name="USBD_HID_MOUSE_PARAMETER_REPORT_ID" />
         <Parameter Name="UX_DEVICE_HID_MOUSE">
             <PossibleValue>1</PossibleValue>
         </Parameter>
@@ -829,11 +856,64 @@
     </RefMode>
     <RefMode Abstract="false" Name="UX_Device_class_AUDIO_HS">
         <ConfigForMode>UX_Device_class_AUDIO</ConfigForMode>
-        <Parameter Name="UX_DEVICE_AUDIO">
-            <PossibleValue>1</PossibleValue>
-        </Parameter>
+		<Parameter Added="true" Name="USBD_AUDIO_CLASS"></Parameter>
         <Parameter Added="true" Name="UX_DEVICE_CLASS_AUDIO_FEEDBACK_SUPPORT"/>
         <Parameter Added="true" Name="UX_DEVICE_CLASS_AUDIO_INTERRUPT_SUPPORT"/>
+        <Parameter Added="true" Name="USBD_AUDIO_INTERRUPT_EPIN_ADDR"/>
+        <Parameter Added="true" Name="USBD_AUDIO_INTERRUPT_EPIN_FS_MPS"/>
+        <Parameter Added="true" Name="USBD_AUDIO_INTERRUPT_EPIN_HS_MPS"/>
+        <Parameter Added="true" Name="USBD_AUDIO_INTERRUPT_EPIN_FS_BINTERVAL"/>
+        <Parameter Added="true" Name="USBD_AUDIO_INTERRUPT_EPIN_HS_BINTERVAL"/>
+		<Parameter Name="UX_DEVICE_AUDIO_CORE">
+            <PossibleValue>1</PossibleValue>
+        </Parameter>
+    </RefMode>
+    <RefMode Abstract="false" Name="UX_Device_class_AUDIO_PLAYBACK_HS">
+        <ConfigForMode>UX_Device_class_AUDIO_PLAYBACK</ConfigForMode>
+        <Parameter Added="true" Name="USBD_AUDIO_PLAY_CHANNEL_COUNT"/>
+        <Parameter Added="true" Name="USBD_AUDIO_PLAY_CHANNEL_MAP"/>
+        <Parameter Added="true" Name="USBD_AUDIO_PLAY_RES_BIT"/>
+        <Parameter Added="true" Name="USBD_AUDIO_PLAY_FREQ_192_K"/>
+        <Parameter Added="true" Name="USBD_AUDIO_PLAY_FREQ_96_K"/>
+        <Parameter Added="true" Name="USBD_AUDIO_PLAY_FREQ_48_K"/>
+        <Parameter Added="true" Name="USBD_AUDIO_PLAY_FREQ_44_1_K"/>
+        <Parameter Added="true" Name="USBD_AUDIO_PLAY_FREQ_32_K"/>
+        <Parameter Added="true" Name="USBD_AUDIO_PLAY_FREQ_16_K"/>
+        <Parameter Added="true" Name="USBD_AUDIO_PLAY_FREQ_8_K"/>
+        <Parameter Added="true" Name="USBD_AUDIO_PLAY_EPOUT_ADDR"/>
+        <Parameter Added="true" Name="USBD_AUDIO_PLAY_EPOUT_FS_MPS"/>
+        <Parameter Added="true" Name="USBD_AUDIO_PLAY_EPOUT_HS_MPS"/>
+        <Parameter Added="true" Name="USBD_AUDIO_EPOUT_FS_BINTERVAL"/>
+        <Parameter Added="true" Name="USBD_AUDIO_EPOUT_HS_BINTERVAL"/>
+        <Parameter Added="true" Name="USBD_AUDIO_EPIN_FEEDBACK_ADDR"/>
+        <Parameter Added="true" Name="USBD_AUDIO_EPIN_FEEDBACK_FS_MPS"/>
+        <Parameter Added="true" Name="USBD_AUDIO_EPIN_FEEDBACK_HS_MPS"/>
+        <Parameter Added="true" Name="USBD_ADUIO_EPIN_FEEDBACK_FS_BINTERVAL"/>
+        <Parameter Added="true" Name="USBD_ADUIO_EPIN_FEEDBACK_HS_BINTERVAL"/>
+        <Parameter Name="UX_DEVICE_AUDIO_PLAYBACK">
+            <PossibleValue>1</PossibleValue>
+        </Parameter>
+    </RefMode>
+    <RefMode Abstract="false" Name="UX_Device_class_AUDIO_RECORDING_HS">
+        <ConfigForMode>UX_Device_class_AUDIO_RECORDING</ConfigForMode>
+        <Parameter Added="true" Name="USBD_AUDIO_RECORD_CHANNEL_COUNT"/>
+        <Parameter Added="true" Name="USBD_AUDIO_RECORD_CHANNEL_MAP"/>
+        <Parameter Added="true" Name="USBD_AUDIO_RECORD_RES_BIT"/>
+        <Parameter Added="true" Name="USBD_AUDIO_RECORD_FREQ_192_K"/>
+        <Parameter Added="true" Name="USBD_AUDIO_RECORD_FREQ_96_K"/>
+        <Parameter Added="true" Name="USBD_AUDIO_RECORD_FREQ_48_K"/>
+        <Parameter Added="true" Name="USBD_AUDIO_RECORD_FREQ_44_1_K"/>
+        <Parameter Added="true" Name="USBD_AUDIO_RECORD_FREQ_32_K"/>
+        <Parameter Added="true" Name="USBD_AUDIO_RECORD_FREQ_16_K"/>
+        <Parameter Added="true" Name="USBD_AUDIO_RECORD_FREQ_8_K"/>
+        <Parameter Added="true" Name="USBD_AUDIO_EPIN_ADDR"/>
+        <Parameter Added="true" Name="USBD_AUDIO_EPIN_FS_MPS"/>
+        <Parameter Added="true" Name="USBD_AUDIO_EPIN_HS_MPS"/>
+        <Parameter Added="true" Name="USBD_AUDIO_EPIN_FS_BINTERVAL"/>
+        <Parameter Added="true" Name="USBD_AUDIO_EPIN_HS_BINTERVAL"/>
+        <Parameter Name="UX_DEVICE_AUDIO_RECORDING">
+            <PossibleValue>1</PossibleValue>
+        </Parameter>
     </RefMode>
     <RefMode Abstract="false" Name="UX_Device_class_PIMA_HS">
         <ConfigForMode>UX_Device_class_PIMA</ConfigForMode>
@@ -1184,7 +1264,7 @@
                     </ModeLogicOperator>
                 </Mode>				
             </ModeLogicOperator>
-            <Condition Expression="SEMAOoUSBOoOTGOoHSOoDRDOoFOROoUSBXOo1 | SEMAOoUSBOoOTGOoHSOoHOSTOoFOROoUSBXOo1" Diagnostic="Active only when USB_OTG_HS IP1 is configured in host mode or DRD mode"/>
+            <Condition Expression="SEMAOoUSBOoOTGOoHSOoHOSTOoFOROoUSBXOo1" Diagnostic="Active only when USB_OTG_HS IP1 is configured in host mode or DRD mode"/>
         </Mode>
         <Mode Name="Device_Class_HS" UserName="UX Device HS1">
             <ModeLogicOperator Name="OR">
@@ -1288,14 +1368,43 @@
                                 </Mode>
                             </ModeLogicOperator>
                         </Mode>
-                        <Mode Name="UX_Device_class_AUDIO_HS" UserName="AUDIO">
-                            <ModeLogicOperator Name="NONE">
-                                <Mode Name="UX_Device_class_AUDIO_HS" UserName="HID" >
-                                    <SignalLogicalOp Name="AND">
-                                        <Signal Name="UX Device AUDIO_HS1"/>
-                                    </SignalLogicalOp>
-                                    <Semaphore>SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoAUDIO_HS</Semaphore>
-                                    <Condition Expression="SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoCoreStackJjRTOSIiMODE_HS1" Diagnostic="&lt;b&gt; Requires: &lt;/b&gt; Middleware:USBX:Device CoreStack HS"/>
+                        <Mode Name="UX_Device_class_AUDIO_HS" UserName="AUDIO" >
+                            <ModeLogicOperator Name="XOR">
+                                <Mode Name="UX_Device_class_AUDIO_HS" UserName="CORE">
+                                    <ModeLogicOperator Name="NONE">
+                                        <Mode Name="UX_Device_class_AUDIO_HS">
+                                            <SignalLogicalOp Name="AND">
+                                                <Signal Name="UX Device AUDIO_HS1"/>
+                                            </SignalLogicalOp>
+                                            <Semaphore>SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoAUDIO_CORE_HS</Semaphore>
+                                            <Condition Expression="SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoCoreStackJjRTOSIiMODE_HS1" 
+                                                                                                   Diagnostic="&lt;b&gt; Requires: &lt;/b&gt; &lt;br&gt; Middleware:USBX:Device CoreStack HS"/>
+                                        </Mode>
+                                    </ModeLogicOperator>
+                                </Mode>
+                                <Mode Name="UX_Device_class_AUDIO_PLAYBACK_HS" UserName="PLAYBACK">
+                                    <ModeLogicOperator Name="NONE">
+                                        <Mode Name="UX_Device_class_AUDIO_PLAYBACK_HS">
+                                            <SignalLogicalOp Name="AND">
+                                                <Signal Name="UX Device AUDIO_PlAYBACK_HS1"/>
+                                            </SignalLogicalOp>
+                                            <Semaphore>SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoAUDIO_PLAYBACK_HS</Semaphore>
+                                            <Condition Expression="SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoAUDIO_CORE_HS" 
+                                                                                                   Diagnostic="&lt;b&gt; Requires: &lt;/b&gt; &lt;br&gt; Middleware:USBX:Device CoreStack HS"/>
+                                        </Mode>
+                                    </ModeLogicOperator>
+                                </Mode>
+                                <Mode Name="UX_Device_class_AUDIO_RECORDING_HS" UserName="RECORDING">
+                                    <ModeLogicOperator Name="NONE">
+                                        <Mode Name="UX_Device_class_AUDIO_RECORDING_HS">
+                                            <SignalLogicalOp Name="AND">
+                                                <Signal Name="UX Device AUDIO_RECORDING_HS1"/>
+                                            </SignalLogicalOp>
+                                            <Semaphore>SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoAUDIO_RECORDING_HS</Semaphore>
+                                            <Condition Expression="SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoAUDIO_CORE_HS" 
+                                                                                                   Diagnostic="&lt;b&gt; Requires: &lt;/b&gt; &lt;br&gt; Middleware:USBX:Device CoreStack HS"/>
+                                        </Mode>
+                                    </ModeLogicOperator>
                                 </Mode>
                             </ModeLogicOperator>
                         </Mode>
@@ -1381,7 +1490,7 @@
                     </ModeLogicOperator>
                 </Mode>
             </ModeLogicOperator>
-            <Condition Expression="(SEMAOoUSBOoOTGOoHSOoDRDOoFOROoUSBXOo1 | SEMAOoUSBOoOTGOoHSOoDEVICEOoFOROoUSBXOo1) &amp; !SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoCoreStackJjRTOSIiMODE_HS2" Diagnostic="Active only when USB_OTG_HS1 IP is configured in device mode or DRD mode"/>
+            <Condition Expression="SEMAOoUSBOoOTGOoHSOoDEVICEOoFOROoUSBXOo1 &amp; !SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoCoreStackJjRTOSIiMODE_HS2" Diagnostic="Active only when USB_OTG_HS1 IP is configured in device mode or DRD mode"/>
         </Mode>		
         <Mode Name="Host_Class_HS" UserName="UX Host HS2">
             <ModeLogicOperator Name="OR">
@@ -1603,7 +1712,7 @@
                     </ModeLogicOperator>
                 </Mode>				
             </ModeLogicOperator>
-            <Condition Expression="SEMAOoUSBOoOTGOoHSOoDRDOoFOROoUSBXOo2 | SEMAOoUSBOoOTGOoHSOoHOSTOoFOROoUSBXOo2" Diagnostic="Active only when USB_OTG_HS IP1 is configured in host mode or DRD mode"/>
+            <Condition Expression="SEMAOoUSBOoOTGOoHSOoHOSTOoFOROoUSBXOo2" Diagnostic="Active only when USB_OTG_HS IP1 is configured in host mode or DRD mode"/>
         </Mode>
         <Mode Name="Device_Class_HS" UserName="UX Device HS2">
             <ModeLogicOperator Name="OR">
@@ -1707,14 +1816,43 @@
                                 </Mode>
                             </ModeLogicOperator>
                         </Mode>
-                        <Mode Name="UX_Device_class_AUDIO_HS" UserName="AUDIO">
-                            <ModeLogicOperator Name="NONE">
-                                <Mode Name="UX_Device_class_AUDIO_HS" UserName="HID" >
-                                    <SignalLogicalOp Name="AND">
-                                        <Signal Name="UX Device AUDIO_HS2"/>
-                                    </SignalLogicalOp>
-                                    <Semaphore>SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoAUDIO_HS</Semaphore>
-                                    <Condition Expression="SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoCoreStackJjRTOSIiMODE_HS2" Diagnostic="&lt;b&gt; Requires: &lt;/b&gt; Middleware:USBX:Device CoreStack HS"/>
+                        <Mode Name="UX_Device_class_AUDIO_HS" UserName="AUDIO" >
+                            <ModeLogicOperator Name="XOR">
+                                <Mode Name="UX_Device_class_AUDIO_HS" UserName="CORE">
+                                    <ModeLogicOperator Name="NONE">
+                                        <Mode Name="UX_Device_class_AUDIO_HS">
+                                            <SignalLogicalOp Name="AND">
+                                                <Signal Name="UX Device AUDIO_HS2"/>
+                                            </SignalLogicalOp>
+                                            <Semaphore>SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoAUDIO_CORE_HS</Semaphore>
+                                            <Condition Expression="SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoCoreStackJjRTOSIiMODE_HS2" 
+                                                                                                   Diagnostic="&lt;b&gt; Requires: &lt;/b&gt; &lt;br&gt; Middleware:USBX:Device CoreStack HS"/>
+                                        </Mode>
+                                    </ModeLogicOperator>
+                                </Mode>
+                                <Mode Name="UX_Device_class_AUDIO_PLAYBACK_HS" UserName="PLAYBACK">
+                                    <ModeLogicOperator Name="NONE">
+                                        <Mode Name="UX_Device_class_AUDIO_PLAYBACK_HS">
+                                            <SignalLogicalOp Name="AND">
+                                                <Signal Name="UX Device AUDIO_PlAYBACK_HS2"/>
+                                            </SignalLogicalOp>
+                                            <Semaphore>SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoAUDIO_PLAYBACK_HS</Semaphore>
+                                            <Condition Expression="SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoAUDIO_CORE_HS" 
+                                                                                                   Diagnostic="&lt;b&gt; Requires: &lt;/b&gt; &lt;br&gt; Middleware:USBX:Device CoreStack HS"/>
+                                        </Mode>
+                                    </ModeLogicOperator>
+                                </Mode>
+                                <Mode Name="UX_Device_class_AUDIO_RECORDING_HS" UserName="RECORDING">
+                                    <ModeLogicOperator Name="NONE">
+                                        <Mode Name="UX_Device_class_AUDIO_RECORDING_HS">
+                                            <SignalLogicalOp Name="AND">
+                                                <Signal Name="UX Device AUDIO_RECORDING_HS2"/>
+                                            </SignalLogicalOp>
+                                            <Semaphore>SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoAUDIO_RECORDING_HS</Semaphore>
+                                            <Condition Expression="SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoAUDIO_CORE_HS" 
+                                                                                                   Diagnostic="&lt;b&gt; Requires: &lt;/b&gt; &lt;br&gt; Middleware:USBX:Device CoreStack HS"/>
+                                        </Mode>
+                                    </ModeLogicOperator>
                                 </Mode>
                             </ModeLogicOperator>
                         </Mode>
@@ -1800,7 +1938,7 @@
                     </ModeLogicOperator>
                 </Mode>
             </ModeLogicOperator>
-            <Condition Expression="(SEMAOoUSBOoOTGOoHSOoDRDOoFOROoUSBXOo2 | SEMAOoUSBOoOTGOoHSOoDEVICEOoFOROoUSBXOo2)  &amp; !SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoCoreStackJjRTOSIiMODE_HS1" Diagnostic="Active only when USB_OTG_HS1 IP is configured in device mode or DRD mode"/>
+            <Condition Expression="SEMAOoUSBOoOTGOoHSOoDEVICEOoFOROoUSBXOo2 &amp; !SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoCoreStackJjRTOSIiMODE_HS1" Diagnostic="Active only when USB_OTG_HS1 IP is configured in device mode or DRD mode"/>
         </Mode>		
     </ModeLogicOperator>
 
@@ -1855,6 +1993,8 @@
     <RefSignal Name="UX Device CDC ECM Class_HS1" Virtual="true"/>
     <RefSignal Name="UX Device DFU_HS1" Virtual="true"/>
     <RefSignal Name="UX Device AUDIO_HS1" Virtual="true"/>
+    <RefSignal Name="UX Device AUDIO_PlAYBACK_HS1" Virtual="true"/>
+    <RefSignal Name="UX Device AUDIO_RECORDING_HS1" Virtual="true"/>
     <RefSignal Name="UX Device PIMA_HS1" Virtual="true"/>
     <RefSignal Name="UX Device RNDIS_HS1" Virtual="true"/>
     <RefSignal Name="UX Device HID_CORE_HS1" Virtual="true"/>
@@ -1873,6 +2013,8 @@
     <RefSignal Name="UX Device CDC ECM Class_HS2" Virtual="true"/>
     <RefSignal Name="UX Device DFU_HS2" Virtual="true"/>
     <RefSignal Name="UX Device AUDIO_HS2" Virtual="true"/>
+    <RefSignal Name="UX Device AUDIO_PlAYBACK_HS2" Virtual="true"/>
+    <RefSignal Name="UX Device AUDIO_RECORDING_HS2" Virtual="true"/>
     <RefSignal Name="UX Device PIMA_HS2" Virtual="true"/>
     <RefSignal Name="UX Device RNDIS_HS2" Virtual="true"/>
     <RefSignal Name="UX Device HID_CORE_HS2" Virtual="true"/>
@@ -1884,7 +2026,10 @@
     <RefSignal Name="UX Device PRINTER_HS2" Virtual="true" />
 	
     <RefParameter Name="Instance" DefaultValue="USB_OTG_HS" Comment="Instance" Type="" Visible="false"/>
-	
+	<RefParameter Comment="CoreStack Device/Host" DefaultValue="enable" Group="Core Utilities" TabName="USBX" Name="IS_DEVICE_HOST_ENABLED" Type="list" Visible="true">
+        <PossibleValue Comment="enable" Value="enable" Condition="!(UX_HOST1_enabled | UX_HOST2_enabled | UX_DEVICE2_ENABLED_HS | UX_DEVICE1_ENABLED_HS)" Action="" Diagnostic="Host or Device mode should be enabled"/>
+		<Description>&lt;br&gt;&lt;font color=&quot;red&quot;&gt; The component “USBX/CoreSystem” must be selected alongside either “USBX/UX Host CoreStack” or “USBX/UX Device CoreStack” &lt;/font&gt;</Description>
+    </RefParameter>
     <RefParameter Added="true" Comment="UX_TRACE_INSERT_MACROS" DefaultValue="0" Group="TraceX" Name="UX_TRACE_INSERT_MACROS" TabName="USBX" Type="uniqueElementList">
         <Description>Determine if tracing is enabled.</Description>
         <Condition Diagnostic="Active only when TX_ENABLE_EVENT_TRACE is enabled" Expression="ThreadX:TX_ENABLE_EVENT_TRACE = 0"/>
@@ -2038,7 +2183,7 @@
     <RefParameter Added="true" Comment="UX_MAX_SLAVE_CLASS_DRIVER" DefaultValue="1" Group="Device Core" Max="255" Min="0" Name="UX_MAX_SLAVE_CLASS_DRIVER" TabName="USBX" Type="integer" Unit="">
         <Description>This value is the maximum number of classes in the device stack that can be loaded by USBX</Description>
     </RefParameter>
-    <RefParameter Added="true" Comment="UX_MAX_SLAVE_INTERFACES" DefaultValue="16" Group="Device Core" Max="255" Min="0" Name="UX_MAX_SLAVE_INTERFACES" TabName="USBX" Type="integer" Unit="">
+    <RefParameter Added="true" Comment="UX_MAX_SLAVE_INTERFACES" DefaultValue="16" Group="Device Core" Max="255" Min="1" Name="UX_MAX_SLAVE_INTERFACES" TabName="USBX" Type="integer" Unit="">
         <Description>This value is the maximum number of interfaces in the device framework</Description>
     </RefParameter>
     <RefParameter Added="true" Comment="UX_MAX_DEVICES" DefaultValue="127" Group="Host Core" Max="127" Min="1" Name="UX_MAX_DEVICES" TabName="USBX" Type="integer" Unit="">
@@ -2067,7 +2212,7 @@
     <RefParameter Added="true" Comment="UX_DEVICE_CLASS_CDC_ECM_PACKET_POOL_WAIT" DefaultValue="10" Group="Device Class CDC ECM" Max="65535" Min="0" Name="UX_DEVICE_CLASS_CDC_ECM_PACKET_POOL_WAIT" TabName="USBX" Type="integer" Unit="">
         <Description>This value represents the number of milliseconds to wait for packet allocation until invoking the application's error callback and retrying</Description>
     </RefParameter>
-    <RefParameter Added="true" Comment="UX_DEVICE_CLASS_HID_EVENT_BUFFER_LENGTH" DefaultValue="64" Group="Device Class HID" Max="255" Min="0" Name="UX_DEVICE_CLASS_HID_EVENT_BUFFER_LENGTH" TabName="USBX" Type="integer" Unit="">
+    <RefParameter Added="true" Comment="UX_DEVICE_CLASS_HID_EVENT_BUFFER_LENGTH" DefaultValue="32" Group="Device Class HID" Max="1024" Min="0" Name="UX_DEVICE_CLASS_HID_EVENT_BUFFER_LENGTH" TabName="USBX" Type="integer" Unit="">
         <Description>This value represents the the maximum length of HID reports on the device.</Description>
     </RefParameter>
     <RefParameter Added="true" Comment="UX_DEVICE_CLASS_HID_MAX_EVENTS_QUEUE" DefaultValue="8" Group="Device Class HID" Max="255" Min="0" Name="UX_DEVICE_CLASS_HID_MAX_EVENTS_QUEUE" TabName="USBX" Type="integer" Unit="">
@@ -2331,6 +2476,12 @@
     <RefParameter Name="UX_Host_Controller" Comment="" DefaultValue="0" Type="integer" Min="0" Max="1" Group="" TabName="" Visible="false">
         <Description>The Product Identfier value present on the Device Descriptor</Description>		
     </RefParameter>
+	<RefParameter Name="UX_HOST1_enabled" Comment="" DefaultValue="0" Type="integer" Min="0" Max="1" Group="" TabName="" Visible="false">
+        <Description></Description>		
+    </RefParameter>
+	<RefParameter Name="UX_HOST2_enabled" Comment="" DefaultValue="0" Type="integer" Min="0" Max="1" Group="" TabName="" Visible="false">
+        <Description></Description>		
+    </RefParameter>
     <RefParameter Name="UX_Host_class_HID_Core" Comment="" DefaultValue="0" Type="integer" Min="0" Max="1" Group="" TabName="" Visible="false">
         <Description>The Product Identfier value present on the Device Descriptor</Description>		
     </RefParameter>
@@ -2394,7 +2545,13 @@
     <RefParameter Name="UX_DEVICE_DFU" Comment="" DefaultValue="0" Type="integer" Min="0" Max="1" Group="" TabName="" Visible="false">
         <Description>The Product Identfier value present on the Device Descriptor</Description>		
     </RefParameter>
-    <RefParameter Name="UX_DEVICE_AUDIO" Comment="" DefaultValue="0" Type="integer" Min="0" Max="1" Group="" TabName="" Visible="false">
+    <RefParameter Name="UX_DEVICE_AUDIO_CORE" Comment="" DefaultValue="0" Type="integer" Min="0" Max="1" Group="" TabName="" Visible="false">
+        <Description>The Product Identfier value present on the Device Descriptor</Description>		
+    </RefParameter>
+    <RefParameter Name="UX_DEVICE_AUDIO_PLAYBACK" Comment="" DefaultValue="0" Type="integer" Min="0" Max="1" Group="" TabName="" Visible="false">
+        <Description>The Product Identfier value present on the Device Descriptor</Description>		
+    </RefParameter>	
+    <RefParameter Name="UX_DEVICE_AUDIO_RECORDING" Comment="" DefaultValue="0" Type="integer" Min="0" Max="1" Group="" TabName="" Visible="false">
         <Description>The Product Identfier value present on the Device Descriptor</Description>		
     </RefParameter>
     <RefParameter Name="UX_DEVICE_PIMA_MTP" Comment="" DefaultValue="0" Type="integer" Min="0" Max="1" Group="" TabName="" Visible="false">
@@ -2418,7 +2575,13 @@
     <RefParameter Name="UX_DEVICE_CCID" Comment="" DefaultValue="0" Type="integer" Min="0" Max="1" Group="" TabName="" Visible="false">
         <Description>The Product Identfier value present on the Device Descriptor</Description>
     </RefParameter>
-    <RefParameter Added="true" Comment="Memory Allocation" DefaultValue="1" Group="Memory Configuration" Name="AZRTOS_APP_MEM_ALLOCATION_METHOD_STANDALONE" TabName="USBX" Type="list">
+    <RefParameter Name="UX_DEVICE1_ENABLED_HS" Comment="" DefaultValue="0" Type="integer" Min="0" Max="1" Group="" TabName="" Visible="false">
+        <Description></Description>		
+    </RefParameter>
+	<RefParameter Name="UX_DEVICE2_ENABLED_HS" Comment="" DefaultValue="0" Type="integer" Min="0" Max="1" Group="" TabName="" Visible="false">
+        <Description></Description>		
+    </RefParameter>
+	<RefParameter Added="true" Comment="Memory Allocation" DefaultValue="1" Group="Memory Configuration" Name="AZRTOS_APP_MEM_ALLOCATION_METHOD_STANDALONE" TabName="USBX" Type="list">
         <Description>&lt;b&gt; Use Static Allocation &lt;/b&gt; : use predefined threadX memory pools for allocation.&lt;br&gt;
             a static &lt;b&gt;TX_BYTE_POOL &lt;/b&gt; is created using the &lt;code&gt; tx_byte_pool_create() &lt;/code&gt; API and allocations are done with &lt;code&gt;tx_byte_allocate() &lt;/code&gt;&lt;br&gt;
 &lt;b&gt; Use Dynamic Allocation &lt;/b&gt; :Using dynamic memory allocation requires to apply some changes to the linker file.&lt;br&gt;
@@ -2509,20 +2672,9 @@
         <Description>Default memory pool size for the USBX application.&lt;font color=&quot;red&quot;&gt;The allocated memory for all enabled middelwares should not exceed the total size of available memory.&lt;/font&gt;</Description>
         <Condition Diagnostic="" Expression="(ThreadX:AZRTOS_APP_MEM_ALLOCATION_METHOD = 1)"/>
     </RefParameter>
-	
     <RefParameter Added="true" Comment="Memory Allocation" DefaultValue="=(ThreadX:AZRTOS_APP_MEM_ALLOCATION_METHOD)" Group="Core" Name="AZRTOS_APP_MEM_ALLOCATION_METHOD" TabName="USBX" Type="list" Visible="false">
         <Description></Description>
-    </RefParameter>
-    <RefParameter Added="true" Comment="UX_DEVICE_CLASS_AUDIO_FEEDBACK_SUPPORT" DefaultValue="0" Group="Device Class AUDIO" Name="UX_DEVICE_CLASS_AUDIO_FEEDBACK_SUPPORT" TabName="USBX" Type="list">
-        <Description>Enable the device audio Feedback support</Description>
-        <PossibleValue Comment="Disabled" Value="0"/>
-        <PossibleValue Comment="Enabled" Value="1"/>
-    </RefParameter>	    
-    <RefParameter Added="true" Comment="UX_DEVICE_CLASS_AUDIO_INTERRUPT_SUPPORT" DefaultValue="0" Group="Device Class AUDIO" Name="UX_DEVICE_CLASS_AUDIO_INTERRUPT_SUPPORT" TabName="USBX" Type="list">
-        <Description>Enable the device audio interrupt endpoint support</Description>
-        <PossibleValue Comment="Disabled" Value="0"/>
-        <PossibleValue Comment="Enabled" Value="1"/>
-    </RefParameter>
+    </RefParameter>  
     <RefParameter Added="true" Comment="UX_DEVICE_CLASS_CDC_ACM_WRITE_AUTO_ZLP" DefaultValue="0" Group="Device Class CDC ACM" Name="UX_DEVICE_CLASS_CDC_ACM_WRITE_AUTO_ZLP" TabName="USBX" Type="list">
         <Description>Enable automatic pending ZLP (complete transfer) after buffer is sent</Description>
         <PossibleValue Comment="Disabled" Value="0"/>
@@ -2538,10 +2690,11 @@
         <PossibleValue Comment="Disabled" Value="0"/>
         <PossibleValue Comment="Enabled" Value="1"/>
     </RefParameter>
-    <RefParameter Added="true" Comment="UX_HOST_CLASS_AUDIO_2_SUPPORT" DefaultValue="0" Group="Host Class AUDIO" Name="UX_HOST_CLASS_AUDIO_2_SUPPORT" TabName="USBX" Type="list">
+    <RefParameter Added="true" Comment="UX_HOST_CLASS_AUDIO_2_SUPPORT" DefaultValue="1" Group="Host Class AUDIO" Name="UX_HOST_CLASS_AUDIO_2_SUPPORT" TabName="USBX" Type="list">
         <Description>Enable the host audio UAC 2.0 supported</Description>
         <PossibleValue Comment="Disabled" Value="0"/>
         <PossibleValue Comment="Enabled" Value="1"/>
+        <Condition Expression="(SEMUSBXCcUSBJjUSBXJjUXOoHostOoClassOoAUDIO_HS1) | (SEMUSBXCcUSBJjUSBXJjUXOoHostOoClassOoAUDIO_HS2)" Diagnostic=""/>
     </RefParameter>
     <RefParameter Added="true" Comment="UX_HOST_CLASS_AUDIO_FEEDBACK_SUPPORT" DefaultValue="0" Group="Host Class AUDIO" Name="UX_HOST_CLASS_AUDIO_FEEDBACK_SUPPORT" TabName="USBX" Type="list">
         <Description>Enable the host audio Feedback support</Description>
@@ -2552,6 +2705,12 @@
         <Description>Enable the host audio interrupt endpoint support</Description>
         <PossibleValue Comment="Disabled" Value="0"/>
         <PossibleValue Comment="Enabled" Value="1"/>
+    </RefParameter>
+	<RefParameter Added="true" Comment="Register USBX Host Class AUDIO" DefaultValue="1" Group="USBX Host Classes" Name="REG_UX_HOST_AUDIO" TabName="USBX" Type="list">
+        <Description>Register USBX Host Class AUDIO</Description>
+        <PossibleValue Comment="false" Value="0"/>
+        <PossibleValue Comment="true" Value="1"/>
+        <Condition Diagnostic="" Expression="(REG_UX_HOST_CORE = true) &amp; (SEMUSBXCcUSBJjUSBXJjUXOoHostOoClassOoAUDIO_HS1 | SEMUSBXCcUSBJjUSBXJjUXOoHostOoClassOoAUDIO_HS2)"/>
     </RefParameter>
     <RefParameter Added="true" Comment="UX_PIMA_WITH_MTP_SUPPORT" DefaultValue="1" Group="Device Class PIMA" Name="UX_PIMA_WITH_MTP_SUPPORT" TabName="USBX" Type="list">
         <Description>Enables device/host PIMA MTP support</Description>
@@ -2637,9 +2796,6 @@
     </RefParameter>
     <RefParameter Added="true" Comment="USBD_RNDIS_ENDPOINT_IN_FS_MPS" DefaultValue="64" Group="Device Class RNDIS" Max="64" Min="1" Name="USBD_RNDIS_EPIN_FS_MPS" TabName="USBX" Type="integer" Unit="">
         <Description>Device RNDIS class endpoint in  FS max packet size</Description>
-    </RefParameter>
-    <RefParameter Added="true" Comment="UX_DEVICE_CLASS_HID_EVENT_BUFFER_LENGTH" DefaultValue="64" Group="Device Class HID MOUSE" Max="255" Min="0" Name="UX_DEVICE_CLASS_HID_EVENT_BUFFER_LENGTH" TabName="USBX" Type="integer" Unit="">
-        <Description>This value represents the the maximum length of HID reports on the device.</Description>
     </RefParameter>
     <RefParameter Added="true" Comment="UX_DEVICE_CLASS_HID_MAX_EVENTS_QUEUE" DefaultValue="8" Group="Device Class HID MOUSE" Max="255" Min="0" Name="UX_DEVICE_CLASS_HID_MAX_EVENTS_QUEUE" TabName="USBX" Type="integer" Unit="">
         <Description>This value represents the the maximum number of HID events/reports that can be queued at once.</Description>
@@ -2806,7 +2962,6 @@
     </RefParameter>
     <RefParameter Added="true" Comment="USBX Device Application Thread Stack Size" DefaultValue="1024" Group="USBX Device Common Init" Max="=UX_APP_MEM_POOL_SIZE" Min="512" Name="USBX_DEVICE_APP_THREAD_Size" TabName="USBX" Type="integer" Unit="">
         <Description>Thread stack size must be between 512 and UXDevice memory pool size.</Description>
-        <Condition Diagnostic="" Expression="REG_UX_DEVICE_THREAD = 1"/>
         <Condition Diagnostic="" Expression="REG_UX_DEVICE_THREAD = 1 &amp; (ThreadX:AZRTOS_APP_MEM_ALLOCATION_METHOD = 1)"/>
     </RefParameter>
     <RefParameter Added="true" Comment="Register USBX Device Class HID MOUSE" DefaultValue="1" Group="USBX Device Classes" Name="REG_UX_DEVICE_HID_MOUSE" TabName="USBX" Type="list" Unit="">
@@ -2886,7 +3041,6 @@
         <PossibleValue Comment="false" Value="false"/>
         <PossibleValue Comment="true" Value="true"/>
         <Condition Diagnostic="" Expression="SEMThreadXCcRTOSJjThreadXJjCore &amp; (ThreadX:AZRTOS_APP_MEM_ALLOCATION_METHOD = 1) &amp; (!SEMUSBXCcUSBJjUSBXJjUXOoHostOoCoreStackJjRTOSIiMODE_HS2) &amp; (!SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoCoreStackJjRTOSIiMODE_HS1) &amp; (!SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoCoreStackJjRTOSIiMODE_HS2)"/>
-
     </RefParameter>
     <RefParameter Added="true" Comment="USBX Host Generate Core Init code" DefaultValue="true" Group="USBX Host Core Init" Name="REG_UX_HOST_CORE" TabName="USBX" Type="boolean" Unit="">
         <Description>Generate USBX Host Core Init code for the USBX Host application.</Description>
@@ -2899,7 +3053,6 @@
         <PossibleValue Comment="false" Value="false"/>
         <PossibleValue Comment="true" Value="true"/>
         <Condition Diagnostic="" Expression="SEMThreadXCcRTOSJjThreadXJjCore &amp; (ThreadX:AZRTOS_APP_MEM_ALLOCATION_METHOD = 1) &amp; (!SEMUSBXCcUSBJjUSBXJjUXOoHostOoCoreStackJjRTOSIiMODE_HS1) &amp; (!SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoCoreStackJjRTOSIiMODE_HS1) &amp; (!SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoCoreStackJjRTOSIiMODE_HS2)"/>
-
     </RefParameter>
     <RefParameter Added="true" Comment="USBX Host Generate Core Init code" DefaultValue="true" Group="USBX Host Core Init" Name="REG_UX_HOST_CORE" TabName="USBX" Type="boolean" Unit="">
         <Description>Generate USBX Host Core Init code for the USBX Host application.</Description>
@@ -2907,12 +3060,12 @@
         <PossibleValue Comment="true" Value="true"/>
         <Condition Diagnostic="" Expression="!SEMThreadXCcRTOSJjThreadXJjCore &amp; (AZRTOS_APP_MEM_ALLOCATION_METHOD_STANDALONE = 1) &amp; (!SEMUSBXCcUSBJjUSBXJjUXOoHostOoCoreStackJjRTOSIiMODE_HS1) &amp; (!SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoCoreStackJjRTOSIiMODE_HS1) &amp; (!SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoCoreStackJjRTOSIiMODE_HS2)"/>
     </RefParameter>    
-    <RefParameter Added="true" Comment="USBX_SYSTEM_STACK_SIZE" DefaultValue="1024" Group="Core Utilities" Max="262144" Min="512" Name="USBX_SYS_SIZE" TabName="USBX" Type="integer" Unit="">
+    <RefParameter Added="true" Comment="USBX System Stack Size" DefaultValue="1024" Group="Core Utilities" Max="262144" Min="512" Name="USBX_SYS_SIZE" TabName="USBX" Type="integer" Unit="">
         <Description>Default pool size for USBX stack. &lt;font color=&quot;red&quot;&gt;The allocated memory for all enabled middelwares should not exceed the total size of available memory.&lt;/font&gt;</Description>
         <Condition Diagnostic="" Expression="(ThreadX:AZRTOS_APP_MEM_ALLOCATION_METHOD = 1)"/>
         <ValueCondition Diagnostic="The value of USBX System Stack Size must be less than USBX memory pool size" Expression="(Value &lt;= UX_APP_MEM_POOL_SIZE)"/>
     </RefParameter>
-    <RefParameter Added="true" Comment="USBX_SYSTEM_STACK_SIZE" DefaultValue="1024" Group="Core Utilities" Max="262144" Min="512" Name="USBX_SYS_SIZE" TabName="USBX" Type="integer" Unit="">
+    <RefParameter Added="true" Comment="USBX System Stack Size" DefaultValue="1024" Group="Core Utilities" Max="262144" Min="512" Name="USBX_SYS_SIZE" TabName="USBX" Type="integer" Unit="">
         <Description>Default pool size for USBX stack.           
 			&lt;font color=&quot;red&quot;&gt;The allocated memory for all enabled middelwares should not exceed the total size of available memory.&lt;/font&gt;
         </Description>
@@ -3282,5 +3435,274 @@
     <RefParameter Added="true" Comment="USBXHOST_ENABLED" DefaultValue="true" Group="Memory Configuration"  Name="USBXHOST_ENABLED" TabName="ThreadX" Type="boolean" Visible="false">
         <Description></Description>
         <Condition Diagnostic="" Expression="SEMUSBXCcUSBJjUSBXJjUXOoHostOoCoreStackJjRTOSIiMODE_HS1 | SEMUSBXCcUSBJjUSBXJjUXOoHostOoCoreStackJjRTOSIiMODE_HS2"/>
-    </RefParameter> 
+    </RefParameter>
+	<RefParameter Added="true" Comment="USBD_HID_MOUSE_PARAMETER_REPORT_ID" DefaultValue="UX_FALSE" Group="Device Class HID MOUSE" Name="USBD_HID_MOUSE_PARAMETER_REPORT_ID" TabName="USBX" Type="list">
+		<Description></Description>
+		<PossibleValue Comment="UX_FALSE" Value="UX_FALSE" />
+		<PossibleValue Comment="UX_TRUE" Value="UX_TRUE" />
+	</RefParameter>
+	<RefParameter Added="true" Comment="Dual_Role_Device_Enabled" DefaultValue="0" Group="USBX OTG" Name="Dual_Role_Device_Enabled" TabName="USBX" Type="list" Visible="false">
+        <Description></Description>
+        <PossibleValue Comment="Disabled" Value="0"/>
+		<Condition Diagnostic="" Expression="!SEMAOoUSBOoOTGOoHSOoDRDOoFOROoUSBXOo1 &amp; !SEMAOoUSBOoOTGOoHSOoDRDOoFOROoUSBXOo2"/>
+    </RefParameter>
+	<RefParameter Added="true" Comment="Dual_Role_Device_Enabled" DefaultValue="1" Group="USBX OTG" Name="Dual_Role_Device_Enabled" TabName="USBX" Type="list" Visible="false">
+        <Description></Description>
+        <PossibleValue Comment="Enable" Value="1"/>
+		<Condition Diagnostic="" Expression="SEMAOoUSBOoOTGOoHSOoDRDOoFOROoUSBXOo1 | SEMAOoUSBOoOTGOoHSOoDRDOoFOROoUSBXOo2"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="USB_Device_AUDIO_CLASS" DefaultValue="1" Group="Device Class AUDIO" Name="USBD_AUDIO_CLASS" TabName="USBX" Type="list">
+        <Description>USB Device Audio Class 1.0/2.0</Description>
+        <PossibleValue Comment="Audio 1.0" Value="0"/>
+        <PossibleValue Comment="Audio 2.0" Value="1"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="UX_DEVICE_CLASS_AUDIO_FEEDBACK_SUPPORT" DefaultValue="0" Group="Device Class AUDIO" Name="UX_DEVICE_CLASS_AUDIO_FEEDBACK_SUPPORT" TabName="USBX" Type="list">
+        <Description>If defined, this macro enables device audio feedback endpoint support.</Description>
+        <PossibleValue Comment="Disabled" Value="0"/>
+        <PossibleValue Comment="Enabled" Value="1"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="UX_DEVICE_CLASS_AUDIO_INTERRUPT_SUPPORT" DefaultValue="0" Group="Device Class AUDIO" Name="UX_DEVICE_CLASS_AUDIO_INTERRUPT_SUPPORT" TabName="USBX" Type="list">
+        <Description>If defined, this macro enables device audio interrupt endpoint support.</Description>
+        <PossibleValue Comment="Disabled" Value="0"/>
+        <PossibleValue Comment="Enabled" Value="1"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="USBD_AUDIO_INTERRUPT_EPIN_ADDRESS" DefaultValue="1" Max="9" Min="1" Group="Device Class AUDIO" Name="USBD_AUDIO_INTERRUPT_EPIN_ADDR" TabName="USBX" Type="integer">
+        <Description>Device Audio interrupt endpoint in address, make sure to have a unique address when used alongside other device classes.</Description>
+        <PossibleValue Comment="Disabled" Value="0"/>
+        <PossibleValue Comment="Enabled" Value="1"/>
+        <Condition Diagnostic="Active only when UX_DEVICE_CLASS_AUDIO_INTERRUPT_SUPPORT  is enabled" Expression="UX_DEVICE_CLASS_AUDIO_INTERRUPT_SUPPORT  = 1"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="USBD_AUDIO_INTERRUPT_ENDPOINT_IN_FS_MPS" DefaultValue="6" Group="Device Class AUDIO" Max="1023" Min="1" Name="USBD_AUDIO_INTERRUPT_EPIN_FS_MPS" TabName="USBX" Type="integer" Unit="">
+        <Description>Device Audio interrupt endpoint in FS Max Packet Size.</Description>
+        <Condition Diagnostic="Active only when UX_DEVICE_CLASS_AUDIO_INTERRUPT_SUPPORT  is enabled" Expression="UX_DEVICE_CLASS_AUDIO_INTERRUPT_SUPPORT  = 1"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="USBD_AUDIO_INTERRUPT_ENDPOINT_IN_HS_MPS" DefaultValue="6" Group="Device Class AUDIO" Max="1024" Min="1" Name="USBD_AUDIO_INTERRUPT_EPIN_HS_MPS" TabName="USBX" Type="integer" Unit="">
+        <Description>Device Audio interrupt endpoint in HS Max Packet Size.</Description>
+        <Condition Diagnostic="" Expression="(UX_DEVICE_CLASS_AUDIO_INTERRUPT_SUPPORT  = 1) &amp;(USBD_AUDIO_CLASS = 1)"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="USBD_AUDIO_INTERRUPT_ENDPOINT_IN_FS_BINTERVAL" DefaultValue="5" Group="Device Class AUDIO" Max="255" Min="1" Name="USBD_AUDIO_INTERRUPT_EPIN_FS_BINTERVAL" TabName="USBX" Type="integer" Unit="">
+        <Description>Device Audio interrupt endpoint in FS BINERVAL.</Description>
+        <Condition Diagnostic="" Expression="(UX_DEVICE_CLASS_AUDIO_INTERRUPT_SUPPORT  = 1)"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="USBD_AUDIO_INTERRUPT_ENDPOINT_IN_HS_BINTERVAL" DefaultValue="5" Group="Device Class AUDIO" Max="16" Min="1" Name="USBD_AUDIO_INTERRUPT_EPIN_HS_BINTERVAL" TabName="USBX" Type="integer" Unit="">
+        <Description>Device Audio interrupt endpoint in HS BINERVAL.</Description>
+        <Condition Diagnostic="" Expression="(UX_DEVICE_CLASS_AUDIO_INTERRUPT_SUPPORT  = 1) &amp;(USBD_AUDIO_CLASS = 1)"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="USBD_AUDIO_PLAY_CHANNEL_COUNT" DefaultValue="2" Group="Device Class AUDIO Playback" Max="8" Min="1" Name="USBD_AUDIO_PLAY_CHANNEL_COUNT" TabName="USBX" Type="integer" Unit="">
+        <Description>Number of physical channels in the AS Interface audio channel cluster.</Description>
+    </RefParameter>
+    <RefParameter Added="true" Comment="USBD_AUDIO_PLAY_CHANNEL_MAP" DefaultValue="3" Group="Device Class AUDIO Playback" Max="0xFFFFFFFF" Min="1" Name="USBD_AUDIO_PLAY_CHANNEL_MAP" TabName="USBX" Type="integer" Unit="">
+        <Description>Describes the spatial location of the logical channels:&lt;br&gt;
+            Bit 0: Front Left - FL = 1&lt;br&gt;
+            Bit 1: Front Right - FR = 1&lt;br&gt;
+            Bit 2: Front Center - FC = 0&lt;br&gt;
+            Bit 3: Low Frequency Effects - LFE = 0&lt;br&gt;
+            Bit 4: Back Left - BL = 0&lt;br&gt;
+            Bit 5: Back Right - BR = 0&lt;br&gt;
+            Bit 6: Front Left of Center - FLC = 0&lt;br&gt;
+            Bit 7: FRONT RIght of Center - FRC = 0&lt;br&gt;
+            Bit 8: Back Center - BC = 0&lt;br&gt;
+            Bit 9: Side Left - SL = 0&lt;br&gt;
+            Bit 10: Side Right - SR = 0&lt;br&gt;
+            Bit 11: Top Center - TC = 0&lt;br&gt;
+            Bit 12: Top Front Left - TFL = 0&lt;br&gt;
+            Bit 13: Top Front Center - TFC = 0&lt;br&gt;
+            Bit 14: Top Front Right - TFR = 0&lt;br&gt;
+            Bit 15: Top Back Left - TBL = 0&lt;br&gt;
+            Bit 16: Top Back Center - TBC = 0&lt;br&gt;
+            Bit 17: Top Back Right - TBR = 0&lt;br&gt;
+            Bit 18: Top Front Left of Center - TFLC = 0&lt;br&gt;
+            Bit 19: Top Front Right of Center - TFRC = 0&lt;br&gt;
+            Bit 20: Left Low Frequency Effects - LLFE = 0&lt;br&gt;
+            Bit 21: Right Low Frequency Effects - RLFE = 0&lt;br&gt;
+            Bit 22: Top Side Left - TSL = 0&lt;br&gt;
+            Bit 23: Top Side Right - TSR = 0&lt;br&gt;
+            Bit 24: Bottom Center - BC = 0&lt;br&gt;
+            Bit 25: Back Left of Center - BLC = 0&lt;br&gt;
+            Bit 26: Back Right of Center - BRC = 0&lt;br&gt;
+            Bit 31: Raw Data - RD; Mutually exclusive with all other spatial locations = 0&lt;br&gt;</Description>
+    </RefParameter>
+    <RefParameter Added="true" Comment="USBD_AUDIO_PLAY_RESOLUTION" DefaultValue="0" Group="Device Class AUDIO Playback" Name="USBD_AUDIO_PLAY_RES_BIT" TabName="USBX" Type="list">
+        <Description>The number of effectively used bits from the available bits in an audio sub slot</Description>
+        <PossibleValue Comment="16 bit per sample" Value="0"/>
+        <PossibleValue Comment="32 bit per sample" Value="1"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="USBD_AUDIO_PLAY_FREQ_192_K" DefaultValue="false" Group="Device Class AUDIO Playback" Name="USBD_AUDIO_PLAY_FREQ_192_K" TabName="USBX" Type="boolean">
+        <Description>If selected add support of frequency 192KHz.</Description>
+        <PossibleValue Comment="true" Value="true"/>
+        <PossibleValue Comment="false" Value="false"/>
+        <Condition Diagnostic="" Expression="(USBD_AUDIO_CLASS = 1)"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="USBD_AUDIO_PLAY_FREQ_96_K" DefaultValue="false" Group="Device Class AUDIO Playback" Name="USBD_AUDIO_PLAY_FREQ_96_K" TabName="USBX" Type="boolean">
+        <Description>If selected add support of frequency 96KHz.</Description>
+        <PossibleValue Comment="true" Value="true"/>
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="USBD_AUDIO_PLAY_FREQ_48_K" DefaultValue="true" Group="Device Class AUDIO Playback" Name="USBD_AUDIO_PLAY_FREQ_48_K" TabName="USBX" Type="boolean">
+        <Description>If selected add support of frequency 48KHz.</Description>
+        <PossibleValue Comment="true" Value="true"/>
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="USBD_AUDIO_PLAY_FREQ_44_1_K" DefaultValue="false" Group="Device Class AUDIO Playback" Name="USBD_AUDIO_PLAY_FREQ_44_1_K" TabName="USBX" Type="boolean">
+        <Description>If selected add support of frequency 44.1KHz.</Description>
+        <PossibleValue Comment="true" Value="true"/>
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="USBD_AUDIO_PLAY_FREQ_32_K" DefaultValue="false" Group="Device Class AUDIO Playback" Name="USBD_AUDIO_PLAY_FREQ_32_K" TabName="USBX" Type="boolean">
+        <Description>If selected add support of frequency 32KHz.</Description>
+        <PossibleValue Comment="true" Value="true"/>
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="USBD_AUDIO_PLAY_FREQ_16_K" DefaultValue="false" Group="Device Class AUDIO Playback" Name="USBD_AUDIO_PLAY_FREQ_16_K" TabName="USBX" Type="boolean">
+        <Description>If selected add support of frequency 16KHz.</Description>
+        <PossibleValue Comment="true" Value="true"/>
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="USBD_AUDIO_PLAY_FREQ_8_K" DefaultValue="false" Group="Device Class AUDIO Playback" Name="USBD_AUDIO_PLAY_FREQ_8_K" TabName="USBX" Type="boolean">
+        <Description>If selected add support of frequency 8KHz.</Description>
+        <PossibleValue Comment="true" Value="true"/>
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="USBD_AUDIO_PLAY_EPOUT_ADDR" DefaultValue="1" Group="Device Class AUDIO Playback" Max="9" Min="1" Name="USBD_AUDIO_PLAY_EPOUT_ADDR" TabName="USBX" Type="integer" Unit="">
+        <Description>When UX_DEVICE_BIDIRECTIONAL_ENDPOINT_SUPPORT disabled, Device Audio playback endpoint out address, make sure to have a unique address when used alongside other device classes.</Description>
+    </RefParameter>
+    <RefParameter Added="true" Comment="USBD_AUDIO_PLAY_EPOUT_FS_MPS" DefaultValue="256" Group="Device Class AUDIO Playback" Max="1023" Min="1" Name="USBD_AUDIO_PLAY_EPOUT_FS_MPS" TabName="USBX" Type="integer" Unit="">
+        <Description>Device Audio class playback endpoint out FS max packet size. This value be as flow: USBD_AUDIO_PLAY_FREQ_MAX* USBD_AUDIO_PLAY_CHANNEL_COUNT * (USBD_AUDIO_PLAY_RESOLUTION/8)</Description>
+    </RefParameter>
+    <RefParameter Added="true" Comment="USBD_AUDIO_PLAY_EPOUT_HS_MPS" DefaultValue="512" Group="Device Class AUDIO Playback" Max="1024" Min="1" Name="USBD_AUDIO_PLAY_EPOUT_HS_MPS" TabName="USBX" Type="integer" Unit="">
+        <Description>Device Audio class playback endpoint out HS max packet size. This value be as flow: USBD_AUDIO_PLAY_FREQ_MAX* USBD_AUDIO_PLAY_CHANNEL_COUNT * (USBD_AUDIO_PLAY_RESOLUTION/8)</Description>
+        <Condition Diagnostic="" Expression="(USBD_AUDIO_CLASS = 1)"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="USBD_AUDIO_PLAY_ENDPOINT_OUT_FS_BINTERVAL" DefaultValue="1" Group="Device Class AUDIO Playback" Max="16" Min="1" Name="USBD_AUDIO_EPOUT_FS_BINTERVAL" TabName="USBX" Type="integer" Unit="">
+        <Description>Device Audio class playback endpoint OUT FS BINERVAL</Description>
+    </RefParameter>
+    <RefParameter Added="true" Comment="USBD_AUDIO_PLAY_ENDPOINT_OUT_HS_BINTERVAL" DefaultValue="1" Group="Device Class AUDIO Playback" Max="225" Min="1" Name="USBD_AUDIO_EPOUT_HS_BINTERVAL" TabName="USBX" Type="integer" Unit="">
+        <Description>Device Audio class playback endpoint OUT HS BINERVAL</Description>
+        <Condition Diagnostic="" Expression="(USBD_AUDIO_CLASS = 1)"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="USBD_AUDIO_PLAY_ENDPOINT_FEEDBACK_ADDR" DefaultValue="1" Group="Device Class AUDIO Playback" Max="9" Min="1" Name="USBD_AUDIO_EPIN_FEEDBACK_ADDR" TabName="USBX" Type="integer" Unit="">
+        <Description>Device Audio playback endpoint feedback address should have a unique address, when UX_DEVICE_BIDIRECTIONAL_ENDPOINT_SUPPORT is enabled and other device classes are used.</Description>
+        <Condition Diagnostic="" Expression="(UX_DEVICE_CLASS_AUDIO_FEEDBACK_SUPPORT = 1)"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="USBD_AUDIO_PLAY_ENDPOINT_FEEDBACK_FS_MPS" DefaultValue="4" Group="Device Class AUDIO Playback" Max="4" Min="3" Name="USBD_AUDIO_EPIN_FEEDBACK_FS_MPS" TabName="USBX" Type="integer" Unit="">
+        <Description>Device Audio class playback endpoint feedback FS max packet size. </Description>
+        <Condition Diagnostic="" Expression="(UX_DEVICE_CLASS_AUDIO_FEEDBACK_SUPPORT = 1)"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="USBD_AUDIO_PLAY_ENDPOINT_FEEDBACK_HS_MPS" DefaultValue="4" Group="Device Class AUDIO Playback" Max="4" Min="3" Name="USBD_AUDIO_EPIN_FEEDBACK_HS_MPS" TabName="USBX" Type="integer" Unit="">
+        <Description>Device Audio class playback endpoint feedback HS max packet size.</Description>
+        <Condition Diagnostic="" Expression="(UX_DEVICE_CLASS_AUDIO_FEEDBACK_SUPPORT = 1) &amp;(USBD_AUDIO_CLASS = 1)"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="USBD_AUDIO_PLAY_ENDPOINT_FEEDBACK_FS_BINTERVAL" DefaultValue="1" Group="Device Class AUDIO Playback" Max="16" Min="1" Name="USBD_ADUIO_EPIN_FEEDBACK_FS_BINTERVAL" TabName="USBX" Type="integer" Unit="">
+        <Description>Device Audio class playback endpoint Feedback FS BINTERVAL </Description>
+        <Condition Diagnostic="" Expression="(UX_DEVICE_CLASS_AUDIO_FEEDBACK_SUPPORT = 1)"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="USBD_AUDIO_PLAY_ENDPOINT_FEEDBACK_HS_BINTERVAL" DefaultValue="1" Group="Device Class AUDIO Playback" Max="255" Min="1" Name="USBD_ADUIO_EPIN_FEEDBACK_HS_BINTERVAL" TabName="USBX" Type="integer" Unit="">
+        <Description>Device Audio class playback endpoint Feedback HS BINERVAL</Description>
+        <Condition Diagnostic="" Expression="(UX_DEVICE_CLASS_AUDIO_FEEDBACK_SUPPORT = 1) &amp;(USBD_AUDIO_CLASS = 1)"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="Register USBX Device Class AUDIO Playback" DefaultValue="1" Group="USBX Device Classes" Name="REG_UX_DEVICE_AUDIO_PLAYBACK" TabName="USBX" Type="list">
+        <Description>Generate USBX Device Class AUDIO Playback init parameters.</Description>
+        <PossibleValue Comment="false" Value="0"/>
+        <PossibleValue Comment="true" Value="1"/>
+		 <Condition Diagnostic="" Expression="REG_UX_DEVICE_CORE = true &amp; SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoAUDIO_PLAYBACK_HS"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="USBD_AUDIO_RECORD_CHANNEL_COUNT" DefaultValue="2" Group="Device Class AUDIO Recording" Max="8" Min="1" Name="USBD_AUDIO_RECORD_CHANNEL_COUNT" TabName="USBX" Type="integer" Unit="">
+        <Description>Number of physical channels in the AS Interface audio channel cluster .</Description>
+    </RefParameter>
+    <RefParameter Added="true" Comment="USBD_AUDIO_RECORD_CHANNEL_MAP" DefaultValue="3" Group="Device Class AUDIO Recording" Max="0xFFFFFFFF" Min="1" Name="USBD_AUDIO_RECORD_CHANNEL_MAP" TabName="USBX" Type="integer" Unit="">
+        <Description>Describes the spatial location of the logical channels:
+            Bit 0: Front Left - FL = 1
+            Bit 1: Front Right - FR = 1
+            Bit 2: Front Center - FC = 0
+            Bit 3: Low Frequency Effects - LFE = 0
+            Bit 4: Back Left - BL = 0
+            Bit 5: Back Right - BR = 0
+            Bit 6: Front Left of Center - FLC = 0
+            Bit 7: FRONT RIght of Center - FRC = 0
+            Bit 8: Back Center - BC = 0
+            Bit 9: Side Left - SL = 0
+            Bit 10: Side Right - SR = 0
+            Bit 11: Top Center - TC = 0
+            Bit 12: Top Front Left - TFL = 0
+            Bit 13: Top Front Center - TFC = 0
+            Bit 14: Top Front Right - TFR = 0
+            Bit 15: Top Back Left - TBL = 0
+            Bit 16: Top Back Center - TBC = 0
+            Bit 17: Top Back Right - TBR = 0
+            Bit 18: Top Front Left of Center - TFLC = 0
+            Bit 19: Top Front Right of Center - TFRC = 0
+            Bit 20: Left Low Frequency Effects - LLFE = 0
+            Bit 21: Right Low Frequency Effects - RLFE = 0
+            Bit 22: Top Side Left - TSL = 0
+            Bit 23: Top Side Right - TSR = 0
+            Bit 24: Bottom Center - BC = 0
+            Bit 25: Back Left of Center - BLC = 0
+            Bit 26: Back Right of Center - BRC = 0
+            Bit 31: Raw Data - RD; Mutually exclusive with all other spatial locations = </Description>
+    </RefParameter>
+	<RefParameter Added="true" Comment="USBD_AUDIO_RECORD_RESOLUTION" DefaultValue="0" Group="Device Class AUDIO Recording" Name="USBD_AUDIO_RECORD_RES_BIT" TabName="USBX" Type="list">
+        <Description>The number of effectively used bits from the available bits in an audio sub slot.</Description>
+        <PossibleValue Comment="16 bit per sample" Value="0"/>
+        <PossibleValue Comment="32 bit per sample" Value="1"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="USBD_AUDIO_RECORD_FREQ_192_K" DefaultValue="false" Group="Device Class AUDIO Recording" Name="USBD_AUDIO_RECORD_FREQ_192_K" TabName="USBX" Type="boolean">
+        <Description>If selected add support of frequency 192KHz.</Description>
+        <PossibleValue Comment="true" Value="true"/>
+        <PossibleValue Comment="false" Value="false"/>
+        <Condition Diagnostic="" Expression="(USBD_AUDIO_CLASS = 1)"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="USBD_AUDIO_RECORD_FREQ_96_K" DefaultValue="false" Group="Device Class AUDIO Recording" Name="USBD_AUDIO_RECORD_FREQ_96_K" TabName="USBX" Type="boolean">
+        <Description>If selected add support of frequency 96KHz.</Description>
+        <PossibleValue Comment="true" Value="true"/>
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="USBD_AUDIO_RECORD_FREQ_48_K" DefaultValue="true" Group="Device Class AUDIO Recording" Name="USBD_AUDIO_RECORD_FREQ_48_K" TabName="USBX" Type="boolean">
+        <Description>If selected add support of frequency 48KHz.</Description>
+        <PossibleValue Comment="true" Value="true"/>
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="USBD_AUDIO_RECORD_FREQ_44_1_K" DefaultValue="false" Group="Device Class AUDIO Recording" Name="USBD_AUDIO_RECORD_FREQ_44_1_K" TabName="USBX" Type="boolean">
+        <Description>If selected add support of frequency 44.1KHz.</Description>
+        <PossibleValue Comment="true" Value="true"/>
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="USBD_AUDIO_RECORD_FREQ_32_K" DefaultValue="false" Group="Device Class AUDIO Recording" Name="USBD_AUDIO_RECORD_FREQ_32_K" TabName="USBX" Type="boolean">
+        <Description>If selected add support of frequency 32KHz.</Description>
+        <PossibleValue Comment="true" Value="true"/>
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="USBD_AUDIO_RECORD_FREQ_16_K" DefaultValue="false" Group="Device Class AUDIO Recording" Name="USBD_AUDIO_RECORD_FREQ_16_K" TabName="USBX" Type="boolean">
+        <Description>If selected add support of frequency 16KHz.</Description>
+        <PossibleValue Comment="true" Value="true"/>
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="USBD_AUDIO_RECORD_FREQ_8_K" DefaultValue="false" Group="Device Class AUDIO Recording" Name="USBD_AUDIO_RECORD_FREQ_8_K" TabName="USBX" Type="boolean">
+        <Description>If selected add support of frequency 8KHz.</Description>
+        <PossibleValue Comment="true" Value="true"/>
+        <PossibleValue Comment="false" Value="false"/>
+    </RefParameter>
+    <RefParameter Added="true" Comment="Register USBX Device Class AUDIO Recording" DefaultValue="1" Group="USBX Device Classes" Name="REG_UX_DEVICE_AUDIO_RECORDING" TabName="USBX" Type="list">
+        <Description>Generate USBX Device Class AUDIO init parameters.</Description>
+        <PossibleValue Comment="false" Value="0"/>
+        <PossibleValue Comment="true" Value="1"/>
+		<Condition Diagnostic="" Expression="REG_UX_DEVICE_CORE	= true &amp; SEMUSBXCcUSBJjUSBXJjUXOoDeviceOoClassOoAUDIO_RECORDING_HS"/>
+    </RefParameter>
+	<RefParameter Added="true" Comment="USBD_AUDIO_RECORD_ENDPOINT_IN_ADDR" DefaultValue="1" Group="Device Class AUDIO Recording" Max="9" Min="1" Name="USBD_AUDIO_EPIN_ADDR" TabName="USBX" Type="integer" Unit="">
+        <Description>When UX_DEVICE_BIDIRECTIONAL_ENDPOINT_SUPPORT disabled,  Device Audio recording endpoint IN address, make sure to have a unique address when used alongside other device classes.</Description>
+    </RefParameter>
+	<RefParameter Added="true" Comment="USBD_AUDIO_RECORD_ENDPOINT_IN_FS_MPS" DefaultValue="256" Group="Device Class AUDIO Recording" Max="1023" Min="1" Name="USBD_AUDIO_EPIN_FS_MPS" TabName="USBX" Type="integer" Unit="">
+        <Description>Device Audio class recording endpoint IN FS max packet size. This value be as flow: &lt;br&gt; USBD_AUDIO_RECORD_MAX* USBD_AUDIO_RECORD_CHANNEL_COUNT * (USBD_AUDIO_RECORD_RESOLUTION/8)&lt;br&gt;</Description>
+    </RefParameter>
+    <RefParameter Added="true" Comment="USBD_AUDIO_RECORD_ENDPOINT_IN_HS_MPS" DefaultValue="512" Group="Device Class AUDIO Recording" Max="1024" Min="1" Name="USBD_AUDIO_EPIN_HS_MPS" TabName="USBX" Type="integer" Unit="">
+        <Description>Device Audio class recording endpoint IN FS max packet size. This value be as flow: &lt;br&gt;
+USBD_AUDIO_RECORD_MAX* USBD_AUDIO_RECORD_CHANNEL_COUNT * (USBD_AUDIO_RECORD_RESOLUTION/8)&lt;br&gt;</Description>
+        <Condition Diagnostic="" Expression="(USBD_AUDIO_CLASS = 1)"/>
+    </RefParameter>
+	<RefParameter Added="true" Comment="USBD_AUDIO_RECORD_ENDPOINT_IN_FS_BINTERVAL" DefaultValue="1" Group="Device Class AUDIO Recording" Max="16" Min="1" Name="USBD_AUDIO_EPIN_FS_BINTERVAL" TabName="USBX" Type="integer" Unit="">
+        <Description>Device Audio class recording endpoint IN FS BINERVAL</Description>
+    </RefParameter>
+	 <RefParameter Added="true" Comment="USBD_AUDIO_RECORD_ENDPOINT_IN_HS_BINTERVAL" DefaultValue="1" Group="Device Class AUDIO Recording" Max="255" Min="1" Name="USBD_AUDIO_EPIN_HS_BINTERVAL" TabName="USBX" Type="integer" Unit="">
+        <Description>Device Audio class recording endpoint IN HS BINERVAL</Description>
+        <Condition Diagnostic="" Expression="(USBD_AUDIO_CLASS = 1)"/>
+    </RefParameter>
 </IP>

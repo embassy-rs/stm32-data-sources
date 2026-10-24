@@ -951,7 +951,17 @@
         <PossibleValue Comment="512" Value="512"/>
         <Description>Minimum sector size to be handled.&lt;br&gt; Note: must be less than or equal to FF_MAX_SS.</Description>
     </RefParameter>
-		
+    <RefParameter Name="FF_MULTI_PARTITION" Comment="MULTI_PARTITION (Volume partitions feature)" DefaultValue="0" Type="uniqueElementList" Group="Physical Drive Parameters" TabName="Set Defines">
+        <Condition Expression="STM32WL4" Diagnostic=""/>
+        <PossibleValue Comment="Disabled" Value="0"/>
+        <Description>When set to 0 (Disabled), each volume is bound to the same physical drive number and it can mount only first primaly partition. &lt;br&gt;
+            When it is set to 1 (Enabled), each volume is tied to the partitions listed in VolToPart[].&lt;br&gt;
+            &lt;b&gt;Warning: &lt;/b&gt; &lt;br&gt;
+            The volToPart variable contains the "volume management table" defined by the user (&lt;b&gt;required&lt;/b&gt; when FF_MULTI_PARTITION != 0). &lt;br&gt;
+            It is generated in a USER SECTION so that it can be completed by the user.
+        </Description>
+    </RefParameter>
+
     <RefParameter Name="FF_MULTI_PARTITION" Comment="MULTI_PARTITION (Volume partitions feature)" DefaultValue="0" Type="list" Group="Physical Drive Parameters" TabName="Set Defines">
         <PossibleValue Comment="Disabled" Value="0"/>
         <PossibleValue Comment="Enabled" Value="1"/>

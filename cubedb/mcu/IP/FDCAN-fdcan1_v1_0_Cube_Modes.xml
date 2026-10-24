@@ -156,6 +156,7 @@
     </RefParameter>
     <RefParameter Comment="Tx Buffers Nbr" DefaultValue="0" Max="32" Min="0" Name="TxBuffersNbr" Type="integer" Group="Basic Parameters">
         <Condition Diagnostic="" Expression="STM32H7"/>
+        <ValueCondition Expression="Value+TxFifoQueueElmtsNbr &lt; 32 | Value+TxFifoQueueElmtsNbr=32  " Diagnostic="the number of Tx Buffers Nbr+the number of Tx Fifo Queue Elmts Nbr must not exceed 32"/>
         <Description>Specifies the number of Dedicated Tx Buffers.</Description>
     </RefParameter>
     <RefParameter Comment="Tx Fifo Queue Elmts Nbr" DefaultValue="0" Max="32" Min="0" Name="TxFifoQueueElmtsNbr" Type="integer" Group="Basic Parameters">
@@ -397,7 +398,7 @@
     <RefParameter Comment="P Rx Data" DefaultValue="0" Max="0" Min="0" Name="pRxData" Type="integer"/>
 
     <RefParameter Comment="Message Ram Offset" DefaultValue="0" Max="2560" Min="0" Name="MessageRAMOffset" Type="integer" Group="Basic Parameters">
-         <Condition Diagnostic="" Expression="STM32H7"/>		
+         <Condition Diagnostic="" Expression="STM32H7"/>
         <Description>Specifies the message RAM start address.</Description>		
     </RefParameter>
     <RefParameter Comment="Operation Mode" DefaultValue="FDCAN_EVENT_DRIVEN_COMMUNICATION" Name="OperationMode" Type="list" Group="Basic Parameters" Visible="false" >		

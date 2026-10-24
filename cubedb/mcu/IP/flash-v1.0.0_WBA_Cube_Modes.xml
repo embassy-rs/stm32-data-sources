@@ -39,7 +39,7 @@
 			<Condition Expression="OB_User_Configuration_active=true" Diagnostic="" />
 		</Parameter>
 		<Parameter Name="OB_WWDG_SW_UI">
-			<Condition Expression="OB_User_Configuration_active=true" Diagnostic="" />
+			<Condition Expression="(OB_User_Configuration_active=true) &amp; !DIE4B2" Diagnostic="" />
 		</Parameter>
 		<Parameter Name="OB_SRAM2_PE_UI">
 			<Condition Expression="OB_User_Configuration_active=true" Diagnostic="" />
@@ -148,6 +148,7 @@
 		</Parameter>
 
 		<!-- AREA-based page protection-->
+		<Parameter Name="numberOfBanks" />
 		<Parameter Name="numberOfPages" />
 		<Parameter Name="numberOfRegisters" />
 		<Parameter Name="FlashSize" />
@@ -313,14 +314,14 @@ These bits contain the VDD supply level threshold that activates/releases the re
 		<Condition Expression="OB_BOR_Level_active=false
             &amp; (OB_User_Configuration_active=true &amp; (!SEM_OB_NRST_STOP_NULL |!SEM_OB_NRST_STDBY_NULL
             | !SEM_OB_SRAM1_RST_NULL | !SEM_OB_IWDGSW_NULL | !SEM_OB_IWDG_STOP_NULL | !SEM_OB_IWDG_STDBY_NULL
-            | !SEM_OB_WWDGSW_NULL | !SEM_OB_SRAM2_PARITY_NULL | !SEM_OB_SRAM2_RST_NULL
+            | (!SEM_OB_WWDGSW_NULL &amp; !DIE4B2)| !SEM_OB_SRAM2_PARITY_NULL | !SEM_OB_SRAM2_RST_NULL
             | !SEM_OB_BOOT0_FROM_NULL | !SEM_OB_NBOOT0_NULL))" Diagnostic="" />
 	</RefParameter>
 	<RefParameter Visible="false" Comment="USERConfig" Name="USERConfig" DefaultValue="+OB_BOR_level+|OB_NRST_STOP+|OB_NRST_STDBY+|OB_SRAM1_RST+|OB_IWDGSW+|OB_IWDG_STOP+|OB_IWDG_STDBY+|OB_WWDGSW+|OB_SRAM2_RST+|OB_nSWBOOT0+|OB_nBOOT0+|OB_SRAM2_PE" Type="list">
 		<Condition Expression="OB_BOR_Level_active=true
             &amp; (OB_User_Configuration_active=true &amp; (!SEM_OB_NRST_STOP_NULL |!SEM_OB_NRST_STDBY_NULL
             | !SEM_OB_SRAM1_RST_NULL | !SEM_OB_IWDGSW_NULL | !SEM_OB_IWDG_STOP_NULL | !SEM_OB_IWDG_STDBY_NULL
-            | !SEM_OB_WWDGSW_NULL | !SEM_OB_SRAM2_PARITY_NULL | !SEM_OB_SRAM2_RST_NULL
+            | (!SEM_OB_WWDGSW_NULL &amp; !DIE4B2) | !SEM_OB_SRAM2_PARITY_NULL | !SEM_OB_SRAM2_RST_NULL
             | !SEM_OB_BOOT0_FROM_NULL | !SEM_OB_NBOOT0_NULL))" Diagnostic="" />
 	</RefParameter>
     <RefParameter Visible="false" Comment="USERConfig" Name="USERConfig" DefaultValue="+OB_BOR_level" Type="list">
@@ -426,7 +427,8 @@ checked: Independent watchdog counter running in Standby mode.</Description>
 	<RefParameter Comment="          IWDG_STDBY" DefaultValue="" Group="User Configuration" TabName="HAL Option Bytes Settings" Name="OB_IWDG_STDBY" Type="String" Visible="false"/>
 
 	<RefParameter Comment="          WWDG_SW" DefaultValue="OB_WWDG_NOUPD" Group="User Configuration" TabName="HAL Option Bytes Settings" Name="OB_WWDG_SW_UI" Type="list">
-		<Description>&lt;font color=&quot;green&quot;&gt;Bit 19 &lt;/font&gt; &lt;b&gt;WWDG_SW:&lt;/b&gt; Window watchdog selection.&lt;br&gt;
+		<Condition Diagnostic="" Expression="!DIE4B2"/>
+        <Description>&lt;font color=&quot;green&quot;&gt;Bit 19 &lt;/font&gt; &lt;b&gt;WWDG_SW:&lt;/b&gt; Window watchdog selection.&lt;br&gt;
 Unchecked: Hardware window watchdog selected.&lt;br&gt;
 checked: Software window watchdog selected.</Description>
 		<PossibleValue Comment="no update" Value="OB_WWDG_NOUPD"  Semaphore="SEM_OB_WWDGSW_NULL"/>
@@ -434,7 +436,7 @@ checked: Software window watchdog selected.</Description>
 		<PossibleValue Comment="disable" Value="OB_WWDG_HW" />
 	</RefParameter>
 	<RefParameter Comment="          WWDG_SW" DefaultValue="+OB_WWDG_SW_UI" Group="User Configuration" TabName="HAL Option Bytes Settings" Name="OB_WWDGSW" Type="String" Visible="false">
-		<Condition Expression="OB_WWDG_SW_UI=OB_WWDG_SW | OB_WWDG_SW_UI=OB_WWDG_HW" Diagnostic="" />
+		<Condition Expression="(OB_WWDG_SW_UI=OB_WWDG_SW | OB_WWDG_SW_UI=OB_WWDG_HW) &amp; !DIE4B2" Diagnostic="" />
 	</RefParameter>
 	<RefParameter Comment="          WWDG_SW" DefaultValue="" Group="User Configuration" TabName="HAL Option Bytes Settings" Name="OB_WWDGSW" Type="String" Visible="false"/>
 
@@ -678,7 +680,7 @@ checked: SRAM2 not erased when a system reset occurs.</Description>
 	<RefParameter Visible="false" Comment="Option Type" Name="OptionType" DefaultValue="+OptionType_WRP+|OptionType_RDP+|OptionType_USER+|OptionType_BOOTADDR+|OptionType_WMSEC+|OptionType_BOOT_LOCK+|OptionType_RDPKEY" Type="list">
 		<Condition Diagnostic="" Expression="SEM_FLASH_OB_RDP |SEM_FLASH_OB_BOOTADDR0|SEM_FLASH_OB_BOOTADDR1
 		| (OB_User_Configuration_active=true &amp; (!SEM_OB_NRST_STOP_NULL |!SEM_OB_NRST_STDBY_NULL | !SEM_OB_SRAM1_RST_NULL
-		| !SEM_OB_IWDGSW_NULL | !SEM_OB_IWDG_STOP_NULL | !SEM_OB_IWDG_STDBY_NULL | !SEM_OB_WWDGSW_NULL | !SEM_OB_SRAM2_PARITY_NULL
+		| !SEM_OB_IWDGSW_NULL | !SEM_OB_IWDG_STOP_NULL | !SEM_OB_IWDG_STDBY_NULL | (!SEM_OB_WWDGSW_NULL &amp; !DIE4B2) | !SEM_OB_SRAM2_PARITY_NULL
 		| !SEM_OB_SRAM2_RST_NULL | !SEM_OB_BOOT0_FROM_NULL | !SEM_OB_NBOOT0_NULL))
 		| OB_BOR_Level_active=true
 		|SEM_FLASH_OB_BOOTADDRSEC0|SEM_FLASH_OB_BOOTADDR_BOOTLOCK|SEM_FLASH_OB_WMSEC|SEM_FLASH_OB_WRPA|SEM_FLASH_OB_WRPB|SEM_FLASH_OB_RDPKEY" />
@@ -696,7 +698,7 @@ checked: SRAM2 not erased when a system reset occurs.</Description>
 	<RefParameter Comment="" DefaultValue="OPTIONBYTE_USER" Group="Option Bytes" Name="OptionType_USER" Type="string" Visible="false">
 		<Condition Diagnostic="" Expression="(OB_User_Configuration_active=true &amp; (!SEM_OB_NRST_STOP_NULL | !SEM_OB_NRST_STDBY_NULL
 		| !SEM_OB_SRAM1_RST_NULL | !SEM_OB_IWDGSW_NULL | !SEM_OB_IWDG_STOP_NULL | !SEM_OB_IWDG_STDBY_NULL
-		| !SEM_OB_WWDGSW_NULL | !SEM_OB_SRAM2_PARITY_NULL | !SEM_OB_SRAM2_RST_NULL
+		| (!SEM_OB_WWDGSW_NULL &amp; !DIE4B2) | !SEM_OB_SRAM2_PARITY_NULL | !SEM_OB_SRAM2_RST_NULL
 		| !SEM_OB_BOOT0_FROM_NULL | !SEM_OB_NBOOT0_NULL)) | OB_BOR_Level_active=true" />
 	</RefParameter>
 	<RefParameter Comment="" DefaultValue="" Group="Option Bytes" Name="OptionType_USER" Type="string" Visible="false" />
@@ -726,13 +728,13 @@ checked: SRAM2 not erased when a system reset occurs.</Description>
 	<RefParameter Visible="false" Comment="Option Type" Name="USERType" DefaultValue="+OB_USER_NRST_STOP+|OB_USER_NRST_STDBY+|OB_USER_SRAM1_RST+|OB_USER_IWDG_SW+|OB_USER_IWDG_STOP+|OB_USER_IWDG_STDBY+|OB_USER_WWDG_SW+|OB_USER_SRAM2_PE+|OB_USER_SRAM2_RST+|OB_USER_NSWBOOT0+|OB_USER_NBOOT0" Type="list">
 		<Condition Expression="OB_BOR_Level_active=false
         &amp; (OB_User_Configuration_active=true &amp; (!SEM_OB_NRST_STOP_NULL |!SEM_OB_NRST_STDBY_NULL | !SEM_OB_SRAM1_RST_NULL
-		| !SEM_OB_IWDGSW_NULL | !SEM_OB_IWDG_STOP_NULL | !SEM_OB_IWDG_STDBY_NULL | !SEM_OB_WWDGSW_NULL | !SEM_OB_SRAM2_PARITY_NULL
+		| !SEM_OB_IWDGSW_NULL | !SEM_OB_IWDG_STOP_NULL | !SEM_OB_IWDG_STDBY_NULL | (!SEM_OB_WWDGSW_NULL &amp; !DIE4B2) | !SEM_OB_SRAM2_PARITY_NULL
 		| !SEM_OB_SRAM2_RST_NULL | !SEM_OB_BOOT0_FROM_NULL | !SEM_OB_NBOOT0_NULL )) " Diagnostic="" />
 	</RefParameter>
 	<RefParameter Visible="false" Comment="Option Type" Name="USERType" DefaultValue="+OB_USER_BOR_LEV+|OB_USER_NRST_STOP+|OB_USER_NRST_STDBY+|OB_USER_SRAM1_RST+|OB_USER_IWDG_SW+|OB_USER_IWDG_STOP+|OB_USER_IWDG_STDBY+|OB_USER_WWDG_SW+|OB_USER_SRAM2_PE+|OB_USER_SRAM2_RST+|OB_USER_NSWBOOT0+|OB_USER_NBOOT0" Type="list">
 		<Condition Expression="OB_BOR_Level_active=true
         &amp; (OB_User_Configuration_active=true &amp; (!SEM_OB_NRST_STOP_NULL |!SEM_OB_NRST_STDBY_NULL | !SEM_OB_SRAM1_RST_NULL
-		| !SEM_OB_IWDGSW_NULL | !SEM_OB_IWDG_STOP_NULL | !SEM_OB_IWDG_STDBY_NULL | !SEM_OB_WWDGSW_NULL | !SEM_OB_SRAM2_PARITY_NULL
+		| !SEM_OB_IWDGSW_NULL | !SEM_OB_IWDG_STOP_NULL | !SEM_OB_IWDG_STDBY_NULL | (!SEM_OB_WWDGSW_NULL &amp; !DIE4B2) | !SEM_OB_SRAM2_PARITY_NULL
 		| !SEM_OB_SRAM2_RST_NULL | !SEM_OB_BOOT0_FROM_NULL | !SEM_OB_NBOOT0_NULL)) " Diagnostic="" />
 	</RefParameter>
     <RefParameter Visible="false" Comment="Option Type" Name="USERType" DefaultValue="OB_USER_BOR_LEV" Type="list">
@@ -770,7 +772,7 @@ checked: SRAM2 not erased when a system reset occurs.</Description>
 	<RefParameter Comment="          IWDG_STDBY" DefaultValue="" TabName="HAL Option Bytes Settings" Name="OB_USER_IWDG_STDBY" Type="String" Visible="false"/>
 
 	<RefParameter Comment="          WWDG_SW" DefaultValue="OB_USER_WWDG_SW" TabName="HAL Option Bytes Settings" Name="OB_USER_WWDG_SW" Type="String" Visible="false">
-		<Condition Expression="OB_WWDG_SW_UI=OB_WWDG_SW | OB_WWDG_SW_UI=OB_WWDG_HW" Diagnostic="" />
+		<Condition Expression="(OB_WWDG_SW_UI=OB_WWDG_SW | OB_WWDG_SW_UI=OB_WWDG_HW) &amp; !DIE4B2" Diagnostic="" />
 	</RefParameter>
 	<RefParameter Comment="          WWDG_SW" DefaultValue="" TabName="HAL Option Bytes Settings" Name="OB_USER_WWDG_SW" Type="String" Visible="false"/>
 
@@ -802,7 +804,7 @@ checked: SRAM2 not erased when a system reset occurs.</Description>
 
 	<RefParameter Visible="false" Comment="UserConfig_condition" Name="UserConfigCondition" DefaultValue="+NRST_STOP+|NRST_STDBY+|SRAM1_RST+|IWDG_SW+|IWDG_STOP+|IWDG_STDBY+|WWDG_SW+|SRAM2_PE+|SRAM2_RST+|NSWBOOT0+|NBOOT0" Type="list">
 		<Condition Expression="OB_User_Configuration_active=true &amp; (!SEM_OB_NRST_STOP_NULL |!SEM_OB_NRST_STDBY_NULL | !SEM_OB_SRAM1_RST_NULL | !SEM_OB_IWDGSW_NULL
-				| !SEM_OB_IWDG_STOP_NULL | !SEM_OB_IWDG_STDBY_NULL | !SEM_OB_WWDGSW_NULL | !SEM_OB_SRAM2_PARITY_NULL
+				| !SEM_OB_IWDG_STOP_NULL | !SEM_OB_IWDG_STDBY_NULL | (!SEM_OB_WWDGSW_NULL &amp; !DIE4B2) | !SEM_OB_SRAM2_PARITY_NULL
 			    | !SEM_OB_SRAM2_RST_NULL | !SEM_OB_BOOT0_FROM_NULL | !SEM_OB_NBOOT0_NULL)" Diagnostic="" />
 	</RefParameter>
 
@@ -855,10 +857,10 @@ checked: SRAM2 not erased when a system reset occurs.</Description>
 	<RefParameter Comment="          IWDG_STDBY" DefaultValue="" Name="IWDG_STDBY" Type="String" Visible="false"/>
 
 	<RefParameter Comment="          WWDG_SW" DefaultValue="(pOBInit.USERConfig &amp; OB_WWDG_SW) != OB_WWDG_SW" Name="WWDG_SW" Type="String" Visible="false">
-		<Condition Expression="OB_WWDG_SW_UI=OB_WWDG_SW" Diagnostic="" />
+		<Condition Expression="(OB_WWDG_SW_UI=OB_WWDG_SW) &amp; !DIE4B2" Diagnostic="" />
 	</RefParameter>
 	<RefParameter Comment="          WWDG_SW" DefaultValue="(pOBInit.USERConfig &amp; OB_WWDG_SW) != OB_WWDG_HW" Name="WWDG_SW" Type="String" Visible="false">
-		<Condition Expression="OB_WWDG_SW_UI=OB_WWDG_HW" Diagnostic="" />
+		<Condition Expression="(OB_WWDG_SW_UI=OB_WWDG_HW) &amp; !DIE4B2" Diagnostic="" />
 	</RefParameter>
 	<RefParameter Comment="          WWDG_SW" DefaultValue="" Name="WWDG_SW" Type="String" Visible="false"/>
 
@@ -940,7 +942,11 @@ checked: SRAM2 not erased when a system reset occurs.</Description>
 	<!-- END HAL OB REFPARAMETERS-->
 
 	<!-- BEGIN Block-based REFPARAMETERS-->
-	<RefParameter Comment="          numberOfPages" DefaultValue="=($FlashSize/8)" Group="REGISTERS" Name="numberOfPages" TabName="Block-based page protection" Type="integer" Visible="false" />
+	<RefParameter Comment="          numberOfBanks" DefaultValue="2" Group="REGISTERS" Name="numberOfBanks" TabName="Block-based page protection" Type="integer" Visible="false">
+            <Condition Diagnostic="" Expression="DIE4B0 &amp; (FlashSize = 2048)"/>
+    </RefParameter>
+	<RefParameter Comment="          numberOfBanks" DefaultValue="1" Group="REGISTERS" Name="numberOfBanks" TabName="Block-based page protection" Type="integer" Visible="false" />
+	<RefParameter Comment="          numberOfPages" DefaultValue="=($FlashSize/numberOfBanks/8)" Group="REGISTERS" Name="numberOfPages" TabName="Block-based page protection" Type="integer" Visible="false" />
 	<RefParameter Comment="          numberOfRegisters" DefaultValue="=numberOfPages/32" Group="REGISTERS" Name="numberOfRegisters" TabName="Block-based page protection" Type="integer" Visible="false" />
 	<RefParameter Comment="          FlashSize" DefaultValue="=$FlashSize" Group="REGISTERS" Name="FlashSize" TabName="Block-based page protection" Type="integer" Visible="false" />
 

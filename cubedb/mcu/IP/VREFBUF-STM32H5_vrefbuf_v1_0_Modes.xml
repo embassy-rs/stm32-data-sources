@@ -31,7 +31,6 @@
 		<PossibleValue Comment="SCALE 0: around 2.5 V" Value="SYSCFG_VREFBUF_VOLTAGE_SCALE0" />
 		<PossibleValue Comment="SCALE 1: around 2.048 V" Value="SYSCFG_VREFBUF_VOLTAGE_SCALE1" />
 		<PossibleValue Comment="SCALE 2: around 1.8 V" Value="SYSCFG_VREFBUF_VOLTAGE_SCALE2" />
-		<PossibleValue Comment="SCALE 3: around 1.5 V" Value="SYSCFG_VREFBUF_VOLTAGE_SCALE3" />
 	</RefParameter>
 	<RefParameter Comment="Internal Voltage reference scale" DefaultValue="null" Name="VoltageScaling" Type="list" Visible="false" />
 	<RefParameter Comment="Trimming Mode" DefaultValue="__NULL" Name="TrimmingMode" Type="list">
@@ -91,18 +90,13 @@
 					</SignalLogicalOp>
 					<Semaphore>Sem_ExternalMode</Semaphore>
 				</Mode>
-				<Mode Name="InternalMode" UserName="Internal voltage reference" RemoveCondition="STM32H5">
+				<Mode Name="InternalMode" UserName="Internal voltage reference" >
 					<SignalLogicalOp Name="AND">
 						<Signal Name="$SingleInstanceVREFBUF_OUT" />
 					</SignalLogicalOp>
 					<Semaphore>Sem_InternalMode</Semaphore>
 				</Mode>
-				<Mode Name="InternalMode" UserName="Internal voltage reference" RemoveCondition="STM32U5 | STM32L5">
-					<SignalLogicalOp Name="AND">
-						<Signal Name="$SingleInstanceVREFBUF_OUT" />
-					</SignalLogicalOp>
-					<Semaphore>Sem_InternalMode</Semaphore>
-				</Mode>
+				
 				<Mode Name="HoldMode" UserName="Hold">
 					<SignalLogicalOp Name="AND">
 						<Signal Name="V_VREFBUF" />
@@ -114,5 +108,5 @@
 	</ModeLogicOperator>
 	<!-- RefSignal for System -->
 	<RefSignal IOMode="Analog" Name="V_VREFBUF" Virtual="true" />
-	<RefSignal IOMode="System" Name="$SingleInstanceVREFBUF_OUT" />
+	<RefSignal IOMode="System" Name="$SingleInstanceVREFBUF_OUT" Virtual="true" />
 </IP>

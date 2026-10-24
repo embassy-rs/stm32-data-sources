@@ -20,6 +20,16 @@
 				<MethodArg Name="__RCC_ADC3KERSOURCE__" ParameterName="ADC3SourceARG"/>
 			</CallLibMethod>
 		</IFCondition>
+        <IFCondition Expression ="(USE_ADC1 &amp; ADC1UsedAsynchronousCLK_ForRCC)">
+			<CallLibMethod Name="__HAL_RCC_ADC1KERCLK_SETSOURCE" ReturnHAL="false">
+				<MethodArg Name="__RCC_ADC1KERSOURCE__" ParameterName="ADC1SourceARG"/>
+			</CallLibMethod>
+		</IFCondition>
+		<IFCondition Expression ="(USE_ADC2 &amp; ADC2UsedAsynchronousCLK_ForRCC)">
+			<CallLibMethod Name="__HAL_RCC_ADC2KERCLK_SETSOURCE" ReturnHAL="false">
+				<MethodArg Name="__RCC_ADC2KERSOURCE__" ParameterName="ADC2SourceARG"/>
+			</CallLibMethod>
+		</IFCondition>
 		<IFCondition Expression ="(DSIHOST_Used)">
 			<CallLibMethod Name="__HAL_RCC_DSIPHYKERCLK_SETSOURCE" ReturnHAL="false">
 				<MethodArg Name="__RCC_DSIPHYKERSOURCE__" ParameterName="DSISourceARG"/>
@@ -36,6 +46,11 @@
 		<IFCondition Expression ="(RTC_Used)">
 			<CallLibMethod Name="__HAL_RCC_RTCKERCLK_SETSOURCE" ReturnHAL="false">
 				<MethodArg Name="__RCC_RTCKERSOURCE__" ParameterName="RTCSourceARG"/>
+			</CallLibMethod>
+		</IFCondition>
+		<IFCondition Expression ="(USBH_HS_Used)">
+			<CallLibMethod Name="__HAL_RCC_USB2PHY1KERCLK_SETSOURCE" ReturnHAL="false">
+				<MethodArg Name="__RCC_USB2PHY1KERSOURCE__" ParameterName="USB2PHY1SourceARG"/>
 			</CallLibMethod>
 		</IFCondition>
     </RefConfig>
@@ -67,6 +82,14 @@
         <Argument AddressOf="false" GenericType="simple" Name="__RCC_ADC3KERSOURCE__" OptimizationCondition="equal"/>
     </LibMethod>
 	
+	<LibMethod Comment="" Name="__HAL_RCC_ADC1KERCLK_SETSOURCE">
+        <Argument AddressOf="false" GenericType="simple" Name="__RCC_ADC1KERSOURCE__" OptimizationCondition="equal"/>
+    </LibMethod>
+	
+	<LibMethod Comment="" Name="__HAL_RCC_ADC2KERCLK_SETSOURCE">
+        <Argument AddressOf="false" GenericType="simple" Name="__RCC_ADC2KERSOURCE__" OptimizationCondition="equal"/>
+    </LibMethod>
+	
 	<LibMethod Comment="" Name="__HAL_RCC_DSIPHYKERCLK_SETSOURCE">
         <Argument AddressOf="false" GenericType="simple" Name="__RCC_DSIPHYKERSOURCE__" OptimizationCondition="equal"/>
     </LibMethod>
@@ -80,6 +103,10 @@
     </LibMethod>
 	
 	<LibMethod Comment="" Name="__HAL_RCC_RTCKERCLK_SETSOURCE">
+        <Argument AddressOf="false" GenericType="simple" Name="__RCC_RTCKERSOURCE__" OptimizationCondition="equal"/>
+    </LibMethod>
+	
+	<LibMethod Comment="" Name="__HAL_RCC_USB2PHY1KERCLK_SETSOURCE">
         <Argument AddressOf="false" GenericType="simple" Name="__RCC_RTCKERSOURCE__" OptimizationCondition="equal"/>
     </LibMethod>
 

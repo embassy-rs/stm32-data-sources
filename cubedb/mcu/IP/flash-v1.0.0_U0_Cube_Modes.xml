@@ -15,10 +15,7 @@
 		<Parameter Name="OB_BOR_EN">
 			<Condition Expression="OB_BOR_Level_active=true" Diagnostic="" />
 		</Parameter>
-		<Parameter Name="OB_BORR_level">
-			<Condition Expression="OB_BOR_Level_active=true" Diagnostic="" />
-		</Parameter>
-		<Parameter Name="OB_BORF_level">
+		<Parameter Name="OB_BOR_level">
 			<Condition Expression="OB_BOR_Level_active=true" Diagnostic="" />
 		</Parameter>
 		
@@ -163,42 +160,43 @@
 		<PossibleValue Comment="Disable" Value="OB_BOR_DISABLE" />
 		<PossibleValue Comment="Enable" Value="OB_BOR_ENABLE" />
 	</RefParameter>
-	<RefParameter Comment="          BOR Rising Level" DefaultValue="OB_BOR_LEVEL_RISING_3" Group="BOR Level" TabName="HAL Option Bytes Settings" Name="OB_BORR_level" Type="list">
+	<RefParameter Comment="          BOR Level" DefaultValue="OB_BOR_LEVEL_3" Group="BOR Level" TabName="HAL Option Bytes Settings" Name="OB_BOR_level" Type="list">
 		<Description>&lt;font color=&quot;green&quot;&gt;Bits 10:9 &lt;/font&gt; &lt;b&gt;BORR_LEV[1:0]:&lt;/b&gt; BOR threshold at rising VDD supply.&lt;br&gt;
 Rising VDD crossings this threshold releases the reset signal. &lt;br&gt;
-00: BOR rising level 1 with threshold around 2.1 V&lt;br&gt;
-01: BOR rising level 2 with threshold around 2.3 V&lt;br&gt;
-10: BOR rising level 3 with threshold around 2.6 V&lt;br&gt;
-11: BOR rising level 4 with threshold around 2.9 V</Description>
-		<PossibleValue Comment="0" Value="OB_BOR_LEVEL_RISING_0" />
-		<PossibleValue Comment="1" Value="OB_BOR_LEVEL_RISING_1" />
-		<PossibleValue Comment="2" Value="OB_BOR_LEVEL_RISING_2" />
-		<PossibleValue Comment="3" Value="OB_BOR_LEVEL_RISING_3" />
-	</RefParameter>
-	<RefParameter Comment="          BOR Falling Level" DefaultValue="OB_BOR_LEVEL_FALLING_3" Group="BOR Level" TabName="HAL Option Bytes Settings" Name="OB_BORF_level" Type="list">
-		<Description>&lt;font color=&quot;green&quot;&gt;Bits 12:11 &lt;/font&gt; &lt;b&gt;BORF_LEV[1:0]:&lt;/b&gt; BOR threshold at falling VDD supply.&lt;br&gt;
-Falling VDD crossings this threshold activates the reset signal. &lt;br&gt;
-00: BOR falling level 1 with threshold around 2.0 V &lt;br&gt;
-01: BOR falling level 2 with threshold around 2.2 V &lt;br&gt;
-10: BOR falling level 3 with threshold around 2.5 V&lt;br&gt;
-11: BOR falling level 4 with threshold around 2.8 V </Description>
-		<PossibleValue Comment="0" Value="OB_BOR_LEVEL_FALLING_0" />
-		<PossibleValue Comment="1" Value="OB_BOR_LEVEL_FALLING_1" />
-		<PossibleValue Comment="2" Value="OB_BOR_LEVEL_FALLING_2" />
-		<PossibleValue Comment="3" Value="OB_BOR_LEVEL_FALLING_3" />
+00: BOR rising level 1 with threshold around 2.0 V&lt;br&gt;
+01: BOR rising level 2 with threshold around 2.2 V&lt;br&gt;
+10: BOR rising level 3 with threshold around 2.5 V&lt;br&gt;
+11: BOR rising level 4 with threshold around 2.8 V</Description>
+		<PossibleValue Comment="0" Value="OB_BOR_LEVEL_0" />
+		<PossibleValue Comment="1" Value="OB_BOR_LEVEL_1" />
+		<PossibleValue Comment="2" Value="OB_BOR_LEVEL_2" />
+		<PossibleValue Comment="3" Value="OB_BOR_LEVEL_3" />
 	</RefParameter>
 
 	<!-- END HAL OB BOR Level REFPARAMETERS-->
 
 	<!-- BEGIN HAL OB User Configuration REFPARAMETERS-->
-	<RefParameter Visible="false" Comment="USERConfig" Name="USERConfig" DefaultValue="+OB_BOR_EN+|OB_BORR_level+|OB_BORF_level" Type="list">
-		<Condition Expression="OB_BOR_Level_active=true &amp; OB_User_Configuration_active = false" Diagnostic="" />
+	<RefParameter Visible="false" Comment="USERConfig" Name="USERConfig" DefaultValue="+OB_BOR_EN+|OB_BOR_level" Type="list">
+		<Condition Expression="(OB_BOR_Level_active=true &amp;
+		 (OB_User_Configuration_active = false
+		 | (OB_User_Configuration_active = true &amp;SEM_OB_NRST_STOP_NULL &amp; SEM_OB_NRST_STDBY_NULL &amp; SEM_OB_NRST_SHDW_NULL
+		&amp; SEM_OB_IWDGSW_NULL &amp; SEM_OB_IWDG_STOP_NULL &amp; SEM_OB_IWDG_STDBY_NULL &amp; SEM_OB_WWDGSW_NULL
+		&amp; SEM_OB_RAM_PARITY_CHECK_NULL &amp; SEM_OB_nBOOT_SEL_NULL &amp; SEM_OB_NBOOT1_NULL &amp; SEM_OB_NBOOT0_NULL
+		&amp; SEM_OB_NRST_MODE_NULL &amp; SEM_OB_INPUT_RESET_HOLDER_NULL)))" Diagnostic="" />
 	</RefParameter>
 	<RefParameter Visible="false" Comment="USERConfig" Name="USERConfig" DefaultValue="+OB_NRST_STOP+|OB_NRST_STDBY+|OB_NRST_SHDW+|OB_IWDGSW+|OB_IWDG_STOP+|OB_IWDG_STDBY+|OB_WWDGSW+|OB_RAM_PARITY_CHECK+|OB_nBOOT_SEL+|OB_NBOOT1+|OB_NBOOT0+|OB_NRST_MODE+|OB_INPUT_RESET_HOLDER" Type="list">
-		<Condition Expression="OB_BOR_Level_active=false &amp; OB_User_Configuration_active = true" Diagnostic="" />
+		<Condition Expression="OB_BOR_Level_active=false
+		&amp; (OB_User_Configuration_active = true &amp;(!SEM_OB_NRST_STOP_NULL | !SEM_OB_NRST_STDBY_NULL | !SEM_OB_NRST_SHDW_NULL
+		| !SEM_OB_IWDGSW_NULL | !SEM_OB_IWDG_STOP_NULL | !SEM_OB_IWDG_STDBY_NULL | !SEM_OB_WWDGSW_NULL
+		| !SEM_OB_RAM_PARITY_CHECK_NULL | !SEM_OB_nBOOT_SEL_NULL | !SEM_OB_NBOOT1_NULL | !SEM_OB_NBOOT0_NULL
+		| !SEM_OB_NRST_MODE_NULL | !SEM_OB_INPUT_RESET_HOLDER_NULL))" Diagnostic="" />
 	</RefParameter>
-	<RefParameter Visible="false" Comment="USERConfig" Name="USERConfig" DefaultValue="+OB_BOR_EN+|OB_BORR_level+|OB_BORF_level+|OB_NRST_STOP+|OB_NRST_STDBY+|OB_NRST_SHDW+|OB_IWDGSW+|OB_IWDG_STOP+|OB_IWDG_STDBY+|OB_WWDGSW+|OB_RAM_PARITY_CHECK+|OB_nBOOT_SEL+|OB_NBOOT1+|OB_NBOOT0+|OB_NRST_MODE+|OB_INPUT_RESET_HOLDER" Type="list">
-		<Condition Expression="OB_BOR_Level_active=true &amp; OB_User_Configuration_active = true" Diagnostic="" />
+	<RefParameter Visible="false" Comment="USERConfig" Name="USERConfig" DefaultValue="+OB_BOR_EN+|OB_BOR_level+|OB_NRST_STOP+|OB_NRST_STDBY+|OB_NRST_SHDW+|OB_IWDGSW+|OB_IWDG_STOP+|OB_IWDG_STDBY+|OB_WWDGSW+|OB_RAM_PARITY_CHECK+|OB_nBOOT_SEL+|OB_NBOOT1+|OB_NBOOT0+|OB_NRST_MODE+|OB_INPUT_RESET_HOLDER" Type="list">
+		<Condition Expression="OB_BOR_Level_active=true
+		&amp; (OB_User_Configuration_active = true &amp;(!SEM_OB_NRST_STOP_NULL | !SEM_OB_NRST_STDBY_NULL | !SEM_OB_NRST_SHDW_NULL
+		| !SEM_OB_IWDGSW_NULL | !SEM_OB_IWDG_STOP_NULL | !SEM_OB_IWDG_STDBY_NULL | !SEM_OB_WWDGSW_NULL
+		| !SEM_OB_RAM_PARITY_CHECK_NULL | !SEM_OB_nBOOT_SEL_NULL | !SEM_OB_NBOOT1_NULL | !SEM_OB_NBOOT0_NULL
+		| !SEM_OB_NRST_MODE_NULL | !SEM_OB_INPUT_RESET_HOLDER_NULL))" Diagnostic="" />
 	</RefParameter>
 
 
@@ -448,9 +446,9 @@ Together with the BOOT0 pin or option bit NBOOT0 (depending on NBOOT_SEL option 
 		<Condition Diagnostic="" Expression="SEM_FLASH_OB_RDP &amp; (SEM_FLASH_OB_USER | SEM_FLASH_BOR) &amp; SEM_FLASH_OB_FLASH_SECURITY &amp; SEM_FLASH_OB_PCROP &amp; SEM_FLASH_OB_WRP1A &amp; SEM_FLASH_OB_WRP1B &amp; SEM_FLASH_OB_RDPKEY" />
 	</RefParameter>
 	<RefParameter Visible="false" Comment="Option Type" Name="OptionType" DefaultValue="+OptionType_WRP+|OptionType_RDP+|OptionType_USER+|OptionType_HDP" Type="list">
-		<Condition Diagnostic="" Expression="SEM_FLASH_OB_RDP|!SEM_OB_NRST_STOP_NULL | !SEM_OB_NRST_STDBY_NULL | !SEM_OB_NRST_SHDW_NULL 
+		<Condition Diagnostic="" Expression="SEM_FLASH_OB_RDP| (OB_User_Configuration_active = true &amp; (!SEM_OB_NRST_STOP_NULL | !SEM_OB_NRST_STDBY_NULL | !SEM_OB_NRST_SHDW_NULL
 		| !SEM_OB_IWDGSW_NULL | !SEM_OB_IWDG_STOP_NULL | !SEM_OB_IWDG_STDBY_NULL | !SEM_OB_WWDGSW_NULL | !SEM_OB_RAM_PARITY_CHECK_NULL 
-		| !SEM_OB_nBOOT_SEL_NULL | !SEM_OB_NBOOT1_NULL | !SEM_OB_NBOOT0_NULL | !SEM_OB_NRST_MODE_NULL | !SEM_OB_INPUT_RESET_HOLDER_NULL 
+		| !SEM_OB_nBOOT_SEL_NULL | !SEM_OB_NBOOT1_NULL | !SEM_OB_NBOOT0_NULL | !SEM_OB_NRST_MODE_NULL | !SEM_OB_INPUT_RESET_HOLDER_NULL))
 		|SEM_FLASH_OB_FLASH_SECURITY|SEM_FLASH_OB_PCROP|SEM_FLASH_OB_WRP1A|SEM_FLASH_OB_WRP1B | OB_BOR_Level_active=true" />
 	</RefParameter>
 	<RefParameter Comment="" DefaultValue="OPTIONBYTE_WRP" Group="Option Bytes" Name="OptionType_WRP" Type="string" Visible="false">
@@ -465,10 +463,10 @@ Together with the BOOT0 pin or option bit NBOOT0 (depending on NBOOT_SEL option 
 	<RefParameter Comment="" DefaultValue="" Group="Option Bytes" Name="OptionType_RDP" Type="String" Visible="false" />
 
 	<RefParameter Comment="" DefaultValue="OPTIONBYTE_USER" Group="Option Bytes" Name="OptionType_USER" Type="String" Visible="false">
-		<Condition Expression="!SEM_OB_NRST_STOP_NULL | !SEM_OB_NRST_STDBY_NULL | !SEM_OB_NRST_SHDW_NULL | !SEM_OB_IWDGSW_NULL 
+		<Condition Expression="(OB_User_Configuration_active = true &amp; (!SEM_OB_NRST_STOP_NULL | !SEM_OB_NRST_STDBY_NULL | !SEM_OB_NRST_SHDW_NULL | !SEM_OB_IWDGSW_NULL
 		| !SEM_OB_IWDG_STOP_NULL | !SEM_OB_IWDG_STDBY_NULL | !SEM_OB_WWDGSW_NULL | !SEM_OB_RAM_PARITY_CHECK_NULL 
 		| !SEM_OB_nBOOT_SEL_NULL | !SEM_OB_NBOOT1_NULL | !SEM_OB_NBOOT0_NULL | !SEM_OB_NRST_MODE_NULL 
-		| !SEM_OB_INPUT_RESET_HOLDER_NULL | OB_BOR_Level_active=true" Diagnostic="" />
+		| !SEM_OB_INPUT_RESET_HOLDER_NULL)) | OB_BOR_Level_active=true" Diagnostic="" />
 	</RefParameter>	
 	<RefParameter Comment="" DefaultValue="" Group="Option Bytes" Name="OptionType_USER" Type="String" Visible="false" />
 	
@@ -481,16 +479,19 @@ Together with the BOOT0 pin or option bit NBOOT0 (depending on NBOOT_SEL option 
 	<!-- BEGIN USERType RefParameter -->
 
 	<RefParameter Visible="false" Comment="Option Type" Name="USERType" DefaultValue="OB_USER_BOR_EN|OB_USER_BOR_LEV" Type="list">
-		<Condition Expression="OB_BOR_Level_active=true &amp; SEM_OB_NRST_STOP_NULL &amp; SEM_OB_NRST_STDBY_NULL &amp; SEM_OB_NRST_SHDW_NULL 
+		<Condition Expression="(OB_BOR_Level_active=true &amp;
+		 (OB_User_Configuration_active = false
+		 | (OB_User_Configuration_active = true &amp;SEM_OB_NRST_STOP_NULL &amp; SEM_OB_NRST_STDBY_NULL &amp; SEM_OB_NRST_SHDW_NULL
 		&amp; SEM_OB_IWDGSW_NULL &amp; SEM_OB_IWDG_STOP_NULL &amp; SEM_OB_IWDG_STDBY_NULL &amp; SEM_OB_WWDGSW_NULL 
 		&amp; SEM_OB_RAM_PARITY_CHECK_NULL &amp; SEM_OB_nBOOT_SEL_NULL &amp; SEM_OB_NBOOT1_NULL &amp; SEM_OB_NBOOT0_NULL 
-		&amp; SEM_OB_NRST_MODE_NULL &amp; SEM_OB_INPUT_RESET_HOLDER_NULL" Diagnostic="" />
+		&amp; SEM_OB_NRST_MODE_NULL &amp; SEM_OB_INPUT_RESET_HOLDER_NULL)))" Diagnostic="" />
 	</RefParameter>
 	<RefParameter Visible="false" Comment="Option Type" Name="USERType" DefaultValue="+OB_USER_nRST_STOP+|OB_USER_nRST_STDBY+|OB_USER_nRST_SHDW+|OB_USER_IWDG_SW+|OB_USER_IWDG_STOP+|OB_USER_IWDG_STDBY+|OB_USER_WWDG_SW+|OB_USER_RAM_PARITY_CHECK+|OB_USER_nBOOT_SEL+|OB_USER_nBOOT1+|OB_USER_nBOOT0+|OB_USER_NRST_MODE+|OB_USER_INPUT_RESET_HOLDER" Type="list">
-		<Condition Expression="(!SEM_OB_NRST_STOP_NULL | !SEM_OB_NRST_STDBY_NULL | !SEM_OB_NRST_SHDW_NULL 
+		<Condition Expression="OB_BOR_Level_active=false
+		&amp; (OB_User_Configuration_active = true &amp;(!SEM_OB_NRST_STOP_NULL | !SEM_OB_NRST_STDBY_NULL | !SEM_OB_NRST_SHDW_NULL
 		| !SEM_OB_IWDGSW_NULL | !SEM_OB_IWDG_STOP_NULL | !SEM_OB_IWDG_STDBY_NULL | !SEM_OB_WWDGSW_NULL 
 		| !SEM_OB_RAM_PARITY_CHECK_NULL | !SEM_OB_nBOOT_SEL_NULL | !SEM_OB_NBOOT1_NULL | !SEM_OB_NBOOT0_NULL 
-		| !SEM_OB_NRST_MODE_NULL | !SEM_OB_INPUT_RESET_HOLDER_NULL)" Diagnostic="" />
+		| !SEM_OB_NRST_MODE_NULL | !SEM_OB_INPUT_RESET_HOLDER_NULL))" Diagnostic="" />
 	</RefParameter>
 	<RefParameter Visible="false" Comment="Option Type" Name="USERType" DefaultValue="OB_USER_ALL" Type="list">
 		<Condition Expression="OB_BOR_Level_active=true &amp; !SEM_OB_NRST_STOP_NULL &amp; !SEM_OB_NRST_STDBY_NULL 
@@ -569,7 +570,7 @@ Together with the BOOT0 pin or option bit NBOOT0 (depending on NBOOT_SEL option 
 
 	<!-- BEGIN User Config Condition-->
 	<RefParameter Visible="false" Comment="UserConfig_condition" Name="UserConfigCondition" DefaultValue="+nRST_STOP+|nRST_STDBY+|nRST_SHDW+|IWDG_SW+|IWDG_STOP+|IWDG_STDBY+|WWDG_SW+|RAM_PARITY_CHECK+|nBOOT_SEL+|nBOOT1+|nBOOT0+|NRST_MODE+|INPUT_RESET_HOLDER" Type="list">
-		<Condition Expression="(!SEM_OB_NRST_STOP_NULL | !SEM_OB_NRST_STDBY_NULL | !SEM_OB_NRST_SHDW_NULL 
+		<Condition Expression="OB_User_Configuration_active = true &amp;(!SEM_OB_NRST_STOP_NULL | !SEM_OB_NRST_STDBY_NULL | !SEM_OB_NRST_SHDW_NULL
 		| !SEM_OB_IWDGSW_NULL | !SEM_OB_IWDG_STOP_NULL | !SEM_OB_IWDG_STDBY_NULL | !SEM_OB_WWDGSW_NULL 
 		| !SEM_OB_RAM_PARITY_CHECK_NULL | !SEM_OB_nBOOT_SEL_NULL | !SEM_OB_NBOOT1_NULL | !SEM_OB_NBOOT0_NULL 
 		| !SEM_OB_NRST_MODE_NULL | !SEM_OB_INPUT_RESET_HOLDER_NULL)" Diagnostic="" />

@@ -11,36 +11,36 @@
 	
 	<!-- RefParameters for MBEDTLS -->
 	<!-- RefParameters for MBEDTLS - Version-->
-	<!-- <RefParameter Name="MBEDTLS_version" Comment="MBEDTLS version" DefaultValue="2.14.1" Type="string" Group="Version" TabName="Version and modes" Mode="Basic">
+	<!-- <RefParameter Name="MBEDTLS_version" Comment="MBEDTLS version" DefaultValue="2.14.1" Type="string" Group="Version" TabName="Modes" Mode="Basic">
 	    <PossibleValue Comment="Current version of MBEDTLS" Value="2.14.1"/>
 	</RefParameter> -->
 
     <!-- RefParameters for MBEDTLS - RNG IP-->
-	<RefParameter Name="MBEDTLS_RNG_IP" Comment="RNG IP" DefaultValue="HW_RNG" Type="List" Group="RNG dependency" TabName="Version and modes" Mode="Basic">
+	<RefParameter Name="MBEDTLS_RNG_IP" Comment="RNG IP" DefaultValue="HW_RNG" Type="List" Group="RNG dependency" TabName="Modes" Mode="Basic">
 	    <Condition Diagnostic="" Expression="RNGUsed_ForRCC"/>
         <PossibleValue Comment="HW RNG(ST entropy)" Value="HW_RNG" Semaphore="MBEDTLS_RNG_IP_HW_RNG"/>
         <PossibleValue Comment="SW RNG(no entropy)" Value="SW_RNG" Semaphore="MBEDTLS_RNG_IP_SW_RNG"/>
         <PossibleValue Comment="Custom RNG(Custom entropy)" Value="CUSTOM_RNG" Semaphore="MBEDTLS_RNG_IP_CUSTOM_RNG"/>
         <Description>Using available RNG SW or your own implementation will impact perfomances &lt;br&gt;&lt;b&gt;Default value:&lt;/b&gt; HW RNG when RNG IP is available activated</Description>
 	</RefParameter>
-	<RefParameter Name="MBEDTLS_RNG_IP" Comment="RNG IP" DefaultValue="SW_RNG" Type="List" Group="RNG dependency" TabName="Version and modes" Mode="Basic">
+	<RefParameter Name="MBEDTLS_RNG_IP" Comment="RNG IP" DefaultValue="SW_RNG" Type="List" Group="RNG dependency" TabName="Modes" Mode="Basic">
 	    <Condition Diagnostic="" Expression="!RNGUsed_ForRCC"/>
         <PossibleValue Comment="SW RNG(no entropy)" Value="SW_RNG" Semaphore="MBEDTLS_RNG_IP_SW_RNG"/>
         <PossibleValue Comment="Custom RNG(Custom entropy)" Value="CUSTOM_RNG" Semaphore="MBEDTLS_RNG_IP_CUSTOM_RNG"/>
         <Description>You can choose between available SW RNG or your own implementation. If available RNG IP should be activated to improve performances &lt;br&gt;&lt;b&gt;Default value:&lt;/b&gt; SW RNG</Description>
 	</RefParameter>
-	<RefParameter Name="MBEDTLS_RNG_IP" Comment="RNG IP" DefaultValue="SW_RNG" Type="List" Group="RNG dependency" TabName="Version and modes" Mode="Basic">
+	<RefParameter Name="MBEDTLS_RNG_IP" Comment="RNG IP" DefaultValue="SW_RNG" Type="List" Group="RNG dependency" TabName="Modes" Mode="Basic">
         <PossibleValue Comment="SW RNG(no entropy)" Value="SW_RNG" Semaphore="MBEDTLS_RNG_IP_SW_RNG"/>
         <PossibleValue Comment="Custom RNG(Custom entropy)" Value="CUSTOM_RNG" Semaphore="MBEDTLS_RNG_IP_CUSTOM_RNG"/>
         <Description>You can choose between available SW RNG or your own implementation</Description>
 	</RefParameter>
 
-	<RefParameter Name="MBEDTLS_TCP_IP" Comment="TCP/IP stack" DefaultValue="1" Type="list" Group="TCP/IP stack" TabName="Version and modes" Mode="Basic">
+	<RefParameter Name="MBEDTLS_TCP_IP" Comment="TCP/IP stack" DefaultValue="1" Type="list" Group="TCP/IP stack" TabName="Modes" Mode="Basic">
 	    <Condition Diagnostic="" Expression="S_LWIP &amp; S_FREERTOS"/>
 	    <PossibleValue Comment="LWIP" Value="1" Semaphore="MBEDTLS_LWIP_TCP_IP_stack"/>
         <Description>TCP/IP stack activation&lt;br&gt;&lt;b&gt;Default value:&lt;/b&gt; LWIP stack when LWIP and FreeRTOS activated&lt;br&gt;When set to “LWIP”, the LwIP init function is generated in net_socket.c within mbedtls_net_init() function. Up to user to call it.</Description>
 	</RefParameter>
-	<RefParameter Name="MBEDTLS_TCP_IP" Comment="TCP/IP stack" DefaultValue="0" Type="list" Group="TCP/IP stack" TabName="Version and modes" Mode="Basic">
+	<RefParameter Name="MBEDTLS_TCP_IP" Comment="TCP/IP stack" DefaultValue="0" Type="list" Group="TCP/IP stack" TabName="Modes" Mode="Basic">
 	    <PossibleValue Comment="None" Value="0"/>
 	    <PossibleValue Comment="User defined" Value="1" Semaphore="MBEDTLS_Other_TCP_IP_stack"/>
         <Description>TCP/IP stack activation &lt;br&gt;&lt;b&gt;Default value:&lt;/b&gt; None</Description>
@@ -48,7 +48,7 @@
 
 	<!-- RefParameters for MBEDTLS - General settings-->
 	<!-- MBEDTLS is hard-linked with LWIP then the information is displayed in grey without no possibility to change value-->
-    <!-- <RefParameter Name="MBEDTLS_with_LWIP" Comment="LWIP" DefaultValue="1" Type="string" Group="MW configuration" TabName="Version and modes" Mode="Basic">
+    <!-- <RefParameter Name="MBEDTLS_with_LWIP" Comment="LWIP" DefaultValue="1" Type="string" Group="MW configuration" TabName="Modes" Mode="Basic">
 	    <PossibleValue Comment="LWIP" Value="1"/>
 	</RefParameter> -->
 
@@ -2703,7 +2703,7 @@
         <Description>Enable an implementation of TLS server-side callbacks for session tickets.&lt;br&gt;Module:  library/ssl_ticket.c&lt;br&gt;&lt;b&gt;Default value: &lt;/b&gt;Not Defined(//#define)&lt;br&gt;&lt;b&gt;Require:&lt;/b&gt; MBEDTLS_CIPHER_C</Description>
     </RefParameter>
 
-    <RefParameter Name="MBEDTLS_SSL_CLI_C" Comment="MBEDTLS_SSL_CLI_C" DefaultValue="0" Type="list" Group="Modes" TabName="Version and modes" Mode="Basic">
+    <RefParameter Name="MBEDTLS_SSL_CLI_C" Comment="MBEDTLS_SSL_CLI_C" DefaultValue="0" Type="list" Group="Modes" TabName="Modes" Mode="Basic">
 <!--
         <Condition Diagnostic="" Expression="MBEDTLS_SSL_TLS_C &amp; !S_LWIP"/>
 -->
@@ -2712,7 +2712,7 @@
         <PossibleValue Comment="Not Defined" Value="0"/>
         <Description>Enable the SSL/TLS client code&lt;br&gt;Module:  library/ssl_cli.c&lt;br&gt;&lt;b&gt;Default value: &lt;/b&gt;Not Defined(//#define)&lt;br&gt;&lt;b&gt;Require:&lt;/b&gt; MBEDTLS_SSL_TLS_C</Description>
     </RefParameter>
-    <RefParameter Name="MBEDTLS_SSL_CLI_C" Comment="MBEDTLS_SSL_CLI_C" DefaultValue="1" Type="list" Group="Modes" TabName="Version and modes" Mode="Basic">
+    <RefParameter Name="MBEDTLS_SSL_CLI_C" Comment="MBEDTLS_SSL_CLI_C" DefaultValue="1" Type="list" Group="Modes" TabName="Modes" Mode="Basic">
 <!--
         <Condition Diagnostic="" Expression="MBEDTLS_SSL_TLS_C &amp; S_LWIP"/>
 -->
@@ -2721,12 +2721,12 @@
         <PossibleValue Comment="Not Defined" Value="0"/>
         <Description>Enable the SSL/TLS client code&lt;br&gt;Module:  library/ssl_cli.c&lt;br&gt;&lt;b&gt;Default value:&lt;/b&gt; Defined(#define)&lt;br&gt;&lt;b&gt;Require:&lt;/b&gt; MBEDTLS_SSL_TLS_C</Description>
     </RefParameter>
-    <RefParameter Name="MBEDTLS_SSL_CLI_C" Comment="MBEDTLS_SSL_CLI_C" DefaultValue="0" Type="list" Group="Modes" TabName="Version and modes" Mode="Basic">
+    <RefParameter Name="MBEDTLS_SSL_CLI_C" Comment="MBEDTLS_SSL_CLI_C" DefaultValue="0" Type="list" Group="Modes" TabName="Modes" Mode="Basic">
         <PossibleValue Comment="Not Defined" Value="0"/>
         <Description>Enable the SSL/TLS client code&lt;br&gt;Module:  library/ssl_cli.c&lt;br&gt;&lt;b&gt;Default value:&lt;/b&gt; Defined(#define)&lt;br&gt;&lt;b&gt;Require:&lt;/b&gt; MBEDTLS_SSL_TLS_C</Description>
     </RefParameter>
 
-    <RefParameter Name="MBEDTLS_SSL_SRV_C" Comment="MBEDTLS_SSL_SRV_C" DefaultValue="0" Type="list" Group="Modes" TabName="Version and modes" Mode="Basic">
+    <RefParameter Name="MBEDTLS_SSL_SRV_C" Comment="MBEDTLS_SSL_SRV_C" DefaultValue="0" Type="list" Group="Modes" TabName="Modes" Mode="Basic">
 <!--
         <Condition Diagnostic="" Expression="MBEDTLS_SSL_TLS_C &amp; !S_LWIP"/>
 -->
@@ -2735,7 +2735,7 @@
         <PossibleValue Comment="Not Defined" Value="0"/>
         <Description>Enable the SSL/TLS server code&lt;br&gt;Module:  library/ssl_srv.c&lt;br&gt;&lt;b&gt;Default value: &lt;/b&gt;Not Defined(//#define)&lt;br&gt;&lt;b&gt;Require:&lt;/b&gt; MBEDTLS_SSL_TLS_C</Description>
     </RefParameter>
-    <RefParameter Name="MBEDTLS_SSL_SRV_C" Comment="MBEDTLS_SSL_SRV_C" DefaultValue="1" Type="list" Group="Modes" TabName="Version and modes" Mode="Basic">
+    <RefParameter Name="MBEDTLS_SSL_SRV_C" Comment="MBEDTLS_SSL_SRV_C" DefaultValue="1" Type="list" Group="Modes" TabName="Modes" Mode="Basic">
 <!--
         <Condition Diagnostic="" Expression="MBEDTLS_SSL_TLS_C &amp; S_LWIP"/>
 -->
@@ -2744,7 +2744,7 @@
         <PossibleValue Comment="Not Defined" Value="0"/>
         <Description>Enable the SSL/TLS server code&lt;br&gt;Module:  library/ssl_srv.c&lt;br&gt;&lt;b&gt;Default value:&lt;/b&gt; Defined(#define)&lt;br&gt;&lt;b&gt;Require:&lt;/b&gt; MBEDTLS_SSL_TLS_C</Description>
     </RefParameter>
-    <RefParameter Name="MBEDTLS_SSL_SRV_C" Comment="MBEDTLS_SSL_SRV_C" DefaultValue="0" Type="list" Group="Modes" TabName="Version and modes" Mode="Basic">
+    <RefParameter Name="MBEDTLS_SSL_SRV_C" Comment="MBEDTLS_SSL_SRV_C" DefaultValue="0" Type="list" Group="Modes" TabName="Modes" Mode="Basic">
         <PossibleValue Comment="Not Defined" Value="0"/>
         <Description>Enable the SSL/TLS server code&lt;br&gt;Module:  library/ssl_srv.c&lt;br&gt;&lt;b&gt;Default value:&lt;/b&gt; Defined(#define)&lt;br&gt;&lt;b&gt;Require:&lt;/b&gt; MBEDTLS_SSL_TLS_C</Description>
     </RefParameter>

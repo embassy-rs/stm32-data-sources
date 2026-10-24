@@ -52,13 +52,13 @@
     <!-- Semaphore of CMSIS_version TO BE UPDATED when FW packages come and support new FreeRTOS and CMSI versions -->
     <!-- Note: also used in NvicVector.java (be careful when renaming!!!) -->
     <!--  TO BE REWORKED with CMSIS V2 coming -->
-    <RefParameter Name="CMSIS_version" Comment="CMSIS-RTOS version" DefaultValue="2.00" Type="String" Group="Versions" TabName="Config parameters">
+    <RefParameter Name="CMSIS_version" Comment="CMSIS-RTOS version" DefaultValue="2.1.3" Type="String" Group="Versions" TabName="Config parameters">
         <Condition Diagnostic="When CMSIS V2 API is selected" Expression="FreeRTOS_API=1"/>
-        <PossibleValue Comment="Version version of CMSIS" Value="2.00"/>
+        <PossibleValue Comment="Version version of CMSIS" Value="2.1.3"/>
     </RefParameter>
 
-    <RefParameter Name="FREERTOS_version" Comment="FreeRTOS version" DefaultValue="10.5.1" Type="String" Group="Versions" TabName="Config parameters">
-        <PossibleValue Comment="Version of FreeRTOS" Value="10.5.1" Semaphore="S_VERSION_10_5_1"/>
+    <RefParameter Name="FREERTOS_version" Comment="FreeRTOS version" DefaultValue="10.6.2" Type="String" Group="Versions" TabName="Config parameters">
+        <PossibleValue Comment="Version of FreeRTOS" Value="10.6.2" Semaphore="S_VERSION_10_5_1"/>
         <Condition Diagnostic="New version available for MP2" Expression="STM32MP2"/>
     </RefParameter>
 
@@ -141,6 +141,15 @@
                      For information: &lt;br&gt;
                      max value = configTOTAL_HEAP_SIZE/4 (when allocation is dynamic) &lt;br&gt;
                      max value = MCU ram size/4 (when allocation is static) </Description>
+    </RefParameter>
+    <RefParameter Name="configMINIMAL_STACK_SIZE" Comment="MINIMAL_STACK_SIZE" DefaultValue="256" Unit="Words" Max="=MAX_SIZE_IN_USE" Min="64"  Type="integer" Group="Kernel settings" TabName="Config parameters" NoCheckOpt="false">
+        <Condition Diagnostic="Default value set to 256 when using M33TD_NSAppCore" Expression="S_CORTEX_A35_START"/>
+        <Description>Sets the size of the stack allocated to the idle task. The value is specified in words (here, of 32 bits), not bytes. &lt;br&gt;
+            &lt;b&gt;Warning: &lt;/b&gt; &lt;br&gt;
+            The value chosen by the user should take into account the number of threads, the total heap size and the system stack size. If the totality of used stack size is higher than the total heap size, FreeRTOS will not be able to create and manage the tasks.&lt;br&gt;
+            For information: &lt;br&gt;
+            max value = configTOTAL_HEAP_SIZE/4 (when allocation is dynamic) &lt;br&gt;
+            max value = MCU ram size/4 (when allocation is static) </Description>
     </RefParameter>
 	<RefParameter Name="configMINIMAL_STACK_SIZE" Comment="MINIMAL_STACK_SIZE" DefaultValue="128" Unit="Words" Max="=MAX_SIZE_IN_USE" Min="64"  Type="integer" Group="Kernel settings" TabName="Config parameters" NoCheckOpt="false">
         <Description>Sets the size of the stack allocated to the idle task. The value is specified in words (here, of 32 bits), not bytes. &lt;br&gt;
@@ -247,10 +256,17 @@
 
 
     <!-- <RefParameter Name="configTOTAL_HEAP_SIZE" Comment="TOTAL_HEAP_SIZE" DefaultValue="2000" Unit="Byte(s)" Type="integer" Max="=1024*($RamSize-1)" Min="1" Group="Kernel settings" TabName="Config parameters">  -->
+    <RefParameter Name="configTOTAL_HEAP_SIZE" Comment="TOTAL_HEAP_SIZE" DefaultValue="32768" Unit="Bytes" Type="integer" Max="=1024*$RamSize" Min="=configMINIMAL_STACK_SIZE*4" Group="Memory management settings" TabName="Config parameters" NoCheckOpt="false">
+        <Condition Diagnostic="Value when using M33TD_NSAppCore" Expression="S_CORTEX_A35_START"/>
+        <Description>The total amount of RAM available to the RTOS kernel. &lt;br&gt;TOTAL_HEAP_SIZE setting has no effect unless heap_1.c, heap_2.c, heap_4.c or heap_5.c are being used by the application (see &lt;b&gt;Memory Management scheme&lt;/b&gt; parameter for more information). &lt;br&gt; &lt;b&gt;Warning: &lt;/b&gt; &lt;br&gt;The value chosen by the user should take into account the application consumption of RAM otherwise it will lead to link issues!&lt;br&gt;For information: min value = configMINIMAL_STACK_SIZE*4</Description>
+    </RefParameter>
     <RefParameter Name="configTOTAL_HEAP_SIZE" Comment="TOTAL_HEAP_SIZE" DefaultValue="3072" Unit="Bytes" Type="integer" Max="=1024*$RamSize" Min="=configMINIMAL_STACK_SIZE*4" Group="Memory management settings" TabName="Config parameters" NoCheckOpt="false">
         <Description>The total amount of RAM available to the RTOS kernel. &lt;br&gt;TOTAL_HEAP_SIZE setting has no effect unless heap_1.c, heap_2.c, heap_4.c or heap_5.c are being used by the application (see &lt;b&gt;Memory Management scheme&lt;/b&gt; parameter for more information). &lt;br&gt; &lt;b&gt;Warning: &lt;/b&gt; &lt;br&gt;The value chosen by the user should take into account the application consumption of RAM otherwise it will lead to link issues!&lt;br&gt;For information: min value = configMINIMAL_STACK_SIZE*4</Description>
-    </RefParameter>	
-
+    </RefParameter>
+    <RefParameter Name="configHEAP_CLEAR_MEMORY_ON_FREE" Comment="HEAP_CLEAR_MEMORY_ON_FREE" DefaultValue="0"  Type="integer" Max="1" Min="0" Group="Memory management settings" TabName="Config parameters" Visible="true">
+        <Condition Diagnostic="configHEAP_CLEAR_MEMORY_ON_FREE" Expression="STM32MP2"/>
+        <Description>When set in FreeRTOSConfig.h, the memory freed using vPortFree() is automatically cleared to zero.</Description>
+    </RefParameter>
     <!-- To choose the HEAP version for the project -->
     <RefParameter Name="HEAP_NUMBER" Comment="Memory Management scheme" DefaultValue="0" Type="list" Group="Memory management settings" TabName="Config parameters" Visible="false">
         <Condition Diagnostic="Hidden as useless when memory allocation is set to static" Expression="MEMORY_ALLOCATION=1"/>
@@ -775,10 +791,11 @@
 
     <!-- cf tracker #320153, parameter forced to one in 8.2.1 because of cmsis_os; to be ok for 8.2.2 -->
     <RefParameter Name="configUSE_TASK_NOTIFICATIONS" Comment="USE_TASK_NOTIFICATIONS" DefaultValue="1" Type="list" Group="Kernel settings" TabName="Config parameters" Visible="true">
-        <PossibleValue Comment="Disabled" Value="0"/>
+        <PossibleValue Comment="Disabled" Value="0" Semaphore="configUSE_TASK_NOTIFICATIONS_DISABLED"/>
         <PossibleValue Comment="Enabled" Value="1"/>
         <Description>Each RTOS task has a 32-bit notification value. An RTOS task notification is an event sent directly to a task that can unblock the receiving task, and optionally update the receiving task's notification value.&lt;br&gt;
-                     RTOS task notification functionality is enabled by default, and can be excluded from a build (saving 8 bytes per task) by setting configUSE_TASK_NOTIFICATIONS to 0 in FreeRTOSConfig.h (achieved when setting USE_TASK_NOTIFICATIONS to Disabled). </Description>
+            RTOS task notification functionality is enabled by default, and can be excluded from a build (saving 8 bytes per task) by setting configUSE_TASK_NOTIFICATIONS to 0 in FreeRTOSConfig.h (achieved when setting USE_TASK_NOTIFICATIONS to Disabled).&lt;br&gt;
+            When disabling USE_TASK_NOTIFICATIONS, USE_OS2_THREAD_FLAGS also needs to be disabled to avoid error compilations.</Description>
     </RefParameter>
      <RefParameter Name="configOVERRIDE_DEFAULT_TICK_CONFIGURATION" Comment="OVERRIDE_DEFAULT_TICK_CONFIGURATION" DefaultValue="0" Type="list" Group="Kernel settings" TabName="Config parameters" Visible="false">
         <PossibleValue Comment="Disabled" Value="0"/>
@@ -1084,6 +1101,7 @@
         <Parameter Name="configQUEUE_REGISTRY_SIZE"/>
         <Parameter Name="configUSE_APPLICATION_TASK_TAG"/>
         <Parameter Name="configTOTAL_HEAP_SIZE"/>
+        <Parameter Name="configHEAP_CLEAR_MEMORY_ON_FREE"/>
         <Parameter Name="HEAP_NUMBER"/>
 
         <Parameter Name="configUSE_IDLE_HOOK"/>

@@ -52,7 +52,30 @@
     </RefParameter>
 <!-- trigger management -->
     <RefParameter Comment="Trigger Source" DefaultValue="LPTIM_TRIGSOURCE_0" Name="TriggerSource" Type="list" Group="Trigger">
-        <Condition Diagnostic="External trigger is selected" Expression="Semaphore_ETR$IpInstance &amp;($IpNumber=1)"/>
+        <Condition Diagnostic="External trigger is selected" Expression="Semaphore_ETR$IpInstance &amp;($IpNumber=1) &amp; !DIE47A"/>
+        <PossibleValue Comment="Software Trigger" Value="LPTIM_TRIGSOURCE_SOFTWARE" Semaphore="Semaphore_SWTrigger_$IpInstance"/>
+        <PossibleValue Comment="LPTIM1_ETR IO" Value="LPTIM_TRIGSOURCE_0"/>
+        <PossibleValue Comment="RTC Alarm A" Value="LPTIM_TRIGSOURCE_1"/>
+        <PossibleValue Comment="RTC Alarm B" Value="LPTIM_TRIGSOURCE_2"/>
+        <PossibleValue Comment="RTC TAMP1 Input Detection" Value="LPTIM_TRIGSOURCE_3"/>
+        <PossibleValue Comment="RTC TAMP2 Input Detection" Value="LPTIM_TRIGSOURCE_4"/>
+        <PossibleValue Comment="GPDMA CH1 transfer complete" Value="LPTIM_TRIGSOURCE_5"/>
+        <PossibleValue Comment="COMP1 OUT" Value="LPTIM_TRIGSOURCE_6" Condition="!COMP1_Exist|DIE47C" Action="remove"/>
+        <PossibleValue Comment="EVENT OUT" Value="LPTIM_TRIGSOURCE_7" Condition="!DIE474" Action="remove"/>
+    </RefParameter>
+    <RefParameter Comment="Trigger Source" DefaultValue="LPTIM_TRIGSOURCE_0" Name="TriggerSource" Type="list" Group="Trigger">
+        <Condition Diagnostic="External trigger is selected" Expression="!Semaphore_ETR$IpInstance &amp;($IpNumber=1) &amp; !DIE47A"/>
+        <PossibleValue Comment="Software Trigger" Value="LPTIM_TRIGSOURCE_SOFTWARE" Semaphore="Semaphore_SWTrigger_$IpInstance"/>
+        <PossibleValue Comment="RTC Alarm A" Value="LPTIM_TRIGSOURCE_1"/>
+        <PossibleValue Comment="RTC Alarm B" Value="LPTIM_TRIGSOURCE_2"/>
+        <PossibleValue Comment="RTC TAMP1 Input Detection" Value="LPTIM_TRIGSOURCE_3"/>
+        <PossibleValue Comment="RTC TAMP2 Input Detection" Value="LPTIM_TRIGSOURCE_4"/>
+        <PossibleValue Comment="GPDMA CH1 transfer complete" Value="LPTIM_TRIGSOURCE_5"/>
+        <PossibleValue Comment="COMP1 OUT" Value="LPTIM_TRIGSOURCE_6" Condition="!COMP1_Exist|DIE47C" Action="remove"/>
+        <PossibleValue Comment="EVENT OUT" Value="LPTIM_TRIGSOURCE_7" Condition="!DIE474" Action="remove"/>
+    </RefParameter>
+ <RefParameter Comment="Trigger Source" DefaultValue="LPTIM_TRIGSOURCE_0" Name="TriggerSource" Type="list" Group="Trigger">
+        <Condition Diagnostic="External trigger is selected" Expression="Semaphore_ETR$IpInstance &amp;($IpNumber=1) &amp; DIE47A"/>
         <PossibleValue Comment="Software Trigger" Value="LPTIM_TRIGSOURCE_SOFTWARE" Semaphore="Semaphore_SWTrigger_$IpInstance"/>
         <PossibleValue Comment="LPTIM1_ETR IO" Value="LPTIM_TRIGSOURCE_0"/>
         <PossibleValue Comment="RTC Alarm A" Value="LPTIM_TRIGSOURCE_1"/>
@@ -61,10 +84,10 @@
         <PossibleValue Comment="RTC TAMP2 Input Detection" Value="LPTIM_TRIGSOURCE_4"/>
         <PossibleValue Comment="GPDMA CH1 transfer complete" Value="LPTIM_TRIGSOURCE_5"/>
         <PossibleValue Comment="COMP1 OUT" Value="LPTIM_TRIGSOURCE_6" Condition="!COMP1_Exist" Action="remove"/>
-        <PossibleValue Comment="EVENT OUT" Value="LPTIM_TRIGSOURCE_7" Condition="!DIE474" Action="remove"/>
+  <PossibleValue Comment="PLAY1 OUT" Value="LPTIM_TRIGSOURCE_7" Condition="!PLAY1_Exist" Action="remove"/>
     </RefParameter>
     <RefParameter Comment="Trigger Source" DefaultValue="LPTIM_TRIGSOURCE_0" Name="TriggerSource" Type="list" Group="Trigger">
-        <Condition Diagnostic="External trigger is selected" Expression="!Semaphore_ETR$IpInstance &amp;($IpNumber=1)"/>
+        <Condition Diagnostic="External trigger is selected" Expression="!Semaphore_ETR$IpInstance &amp;($IpNumber=1) &amp; DIE47A"/>
         <PossibleValue Comment="Software Trigger" Value="LPTIM_TRIGSOURCE_SOFTWARE" Semaphore="Semaphore_SWTrigger_$IpInstance"/>
         <PossibleValue Comment="RTC Alarm A" Value="LPTIM_TRIGSOURCE_1"/>
         <PossibleValue Comment="RTC Alarm B" Value="LPTIM_TRIGSOURCE_2"/>
@@ -72,10 +95,33 @@
         <PossibleValue Comment="RTC TAMP2 Input Detection" Value="LPTIM_TRIGSOURCE_4"/>
         <PossibleValue Comment="GPDMA CH1 transfer complete" Value="LPTIM_TRIGSOURCE_5"/>
         <PossibleValue Comment="COMP1 OUT" Value="LPTIM_TRIGSOURCE_6" Condition="!COMP1_Exist" Action="remove"/>
+  <PossibleValue Comment="PLAY1 OUT" Value="LPTIM_TRIGSOURCE_7" Condition="!PLAY1_Exist" Action="remove"/>
+    </RefParameter>
+    <RefParameter Comment="Trigger Source" DefaultValue="LPTIM_TRIGSOURCE_0" Name="TriggerSource" Type="list" Group="Trigger">
+        <Condition Diagnostic="External trigger is selected" Expression="Semaphore_ETR$IpInstance &amp;($IpNumber=2) &amp; !DIE47A"/>
+        <PossibleValue Comment="Software Trigger" Value="LPTIM_TRIGSOURCE_SOFTWARE" Semaphore="Semaphore_SWTrigger_$IpInstance"/>
+        <PossibleValue Comment="LPTIM2_ETR IO" Value="LPTIM_TRIGSOURCE_0"/>
+        <PossibleValue Comment="RTC Alarm A" Value="LPTIM_TRIGSOURCE_1"/>
+        <PossibleValue Comment="RTC Alarm B" Value="LPTIM_TRIGSOURCE_2"/>
+        <PossibleValue Comment="RTC TAMP1 Input Detection" Value="LPTIM_TRIGSOURCE_3"/>
+        <PossibleValue Comment="GPDMA CH0 transfer complete" Value="LPTIM_TRIGSOURCE_4"/>
+        <PossibleValue Comment="GPDMA CH4 transfer complete" Value="LPTIM_TRIGSOURCE_5"/>
+        <PossibleValue Comment="COMP1 OUT" Value="LPTIM_TRIGSOURCE_6" Condition="!COMP1_Exist|DIE47C" Action="remove"/>
         <PossibleValue Comment="EVENT OUT" Value="LPTIM_TRIGSOURCE_7" Condition="!DIE474" Action="remove"/>
     </RefParameter>
     <RefParameter Comment="Trigger Source" DefaultValue="LPTIM_TRIGSOURCE_0" Name="TriggerSource" Type="list" Group="Trigger">
-        <Condition Diagnostic="External trigger is selected" Expression="Semaphore_ETR$IpInstance &amp;($IpNumber=2)"/>
+        <Condition Diagnostic="External trigger is selected" Expression="!Semaphore_ETR$IpInstance &amp;($IpNumber=2) &amp; !DIE47A"/>
+        <PossibleValue Comment="Software Trigger" Value="LPTIM_TRIGSOURCE_SOFTWARE" Semaphore="Semaphore_SWTrigger_$IpInstance"/>
+        <PossibleValue Comment="RTC Alarm A" Value="LPTIM_TRIGSOURCE_1"/>
+        <PossibleValue Comment="RTC Alarm B" Value="LPTIM_TRIGSOURCE_2"/>
+        <PossibleValue Comment="RTC TAMP1 Input Detection" Value="LPTIM_TRIGSOURCE_3"/>
+        <PossibleValue Comment="GPDMA CH0 transfer complete" Value="LPTIM_TRIGSOURCE_4"/>
+        <PossibleValue Comment="GPDMA CH4 transfer complete" Value="LPTIM_TRIGSOURCE_5"/>
+        <PossibleValue Comment="COMP1 OUT" Value="LPTIM_TRIGSOURCE_6" Condition="!COMP1_Exist|DIE47C" Action="remove"/>
+        <PossibleValue Comment="EVENT OUT" Value="LPTIM_TRIGSOURCE_7" Condition="!DIE474" Action="remove"/>
+    </RefParameter>
+     <RefParameter Comment="Trigger Source" DefaultValue="LPTIM_TRIGSOURCE_0" Name="TriggerSource" Type="list" Group="Trigger">
+        <Condition Diagnostic="External trigger is selected" Expression="Semaphore_ETR$IpInstance &amp;($IpNumber=2) &amp; DIE47A"/>
         <PossibleValue Comment="Software Trigger" Value="LPTIM_TRIGSOURCE_SOFTWARE" Semaphore="Semaphore_SWTrigger_$IpInstance"/>
         <PossibleValue Comment="LPTIM2_ETR IO" Value="LPTIM_TRIGSOURCE_0"/>
         <PossibleValue Comment="RTC Alarm A" Value="LPTIM_TRIGSOURCE_1"/>
@@ -84,10 +130,10 @@
         <PossibleValue Comment="GPDMA CH0 transfer complete" Value="LPTIM_TRIGSOURCE_4"/>
         <PossibleValue Comment="GPDMA CH4 transfer complete" Value="LPTIM_TRIGSOURCE_5"/>
         <PossibleValue Comment="COMP1 OUT" Value="LPTIM_TRIGSOURCE_6" Condition="!COMP1_Exist" Action="remove"/>
-        <PossibleValue Comment="EVENT OUT" Value="LPTIM_TRIGSOURCE_7" Condition="!DIE474" Action="remove"/>
+  <PossibleValue Comment="PLAY1 OUT" Value="LPTIM_TRIGSOURCE_7" Condition="!PLAY1_Exist" Action="remove"/>
     </RefParameter>
     <RefParameter Comment="Trigger Source" DefaultValue="LPTIM_TRIGSOURCE_0" Name="TriggerSource" Type="list" Group="Trigger">
-        <Condition Diagnostic="External trigger is selected" Expression="!Semaphore_ETR$IpInstance &amp;($IpNumber=2)"/>
+        <Condition Diagnostic="External trigger is selected" Expression="!Semaphore_ETR$IpInstance &amp;($IpNumber=2) &amp; DIE47A"/>
         <PossibleValue Comment="Software Trigger" Value="LPTIM_TRIGSOURCE_SOFTWARE" Semaphore="Semaphore_SWTrigger_$IpInstance"/>
         <PossibleValue Comment="RTC Alarm A" Value="LPTIM_TRIGSOURCE_1"/>
         <PossibleValue Comment="RTC Alarm B" Value="LPTIM_TRIGSOURCE_2"/>
@@ -95,7 +141,7 @@
         <PossibleValue Comment="GPDMA CH0 transfer complete" Value="LPTIM_TRIGSOURCE_4"/>
         <PossibleValue Comment="GPDMA CH4 transfer complete" Value="LPTIM_TRIGSOURCE_5"/>
         <PossibleValue Comment="COMP1 OUT" Value="LPTIM_TRIGSOURCE_6" Condition="!COMP1_Exist" Action="remove"/>
-        <PossibleValue Comment="EVENT OUT" Value="LPTIM_TRIGSOURCE_7" Condition="!DIE474" Action="remove"/>
+  <PossibleValue Comment="PLAY1 OUT" Value="LPTIM_TRIGSOURCE_7" Condition="!PLAY1_Exist" Action="remove"/>
     </RefParameter>
     <RefParameter Comment="Trigger Source" DefaultValue="LPTIM_TRIGSOURCE_0" Name="TriggerSource" Type="list" Group="Trigger">
         <Condition Diagnostic="External trigger is selected" Expression="Semaphore_ETR$IpInstance &amp;($IpNumber=3)"/>
@@ -104,6 +150,10 @@
         <PossibleValue Comment="RTC Alarm A" Value="LPTIM_TRIGSOURCE_1"/>
         <PossibleValue Comment="RTC Alarm B" Value="LPTIM_TRIGSOURCE_2"/>
         <PossibleValue Comment="RTC TAMP1 Input Detection" Value="LPTIM_TRIGSOURCE_3"/>
+  <PossibleValue Comment="RTC TAMP2 Input Detection" Value="LPTIM_TRIGSOURCE_4" Condition="!DIE47A" Action="remove"/>
+  <PossibleValue Comment="RTC TAMP3 Input Detection" Value="LPTIM_TRIGSOURCE_5" Condition="!DIE47A" Action="remove"/>
+  <PossibleValue Comment="COMP1 OUT" Value="LPTIM_TRIGSOURCE_6" Condition="!(COMP1_Exist &amp; DIE47A)" Action="remove"/>
+  <PossibleValue Comment="COMP2 OUT" Value="LPTIM_TRIGSOURCE_7" Condition="!(COMP1_Exist &amp; DIE47A)" Action="remove"/>
     </RefParameter>
     <RefParameter Comment="Trigger Source" DefaultValue="LPTIM_TRIGSOURCE_0" Name="TriggerSource" Type="list" Group="Trigger">
         <Condition Diagnostic="External trigger is selected" Expression="!Semaphore_ETR$IpInstance &amp;($IpNumber=3)"/>
@@ -111,6 +161,10 @@
         <PossibleValue Comment="RTC Alarm A" Value="LPTIM_TRIGSOURCE_1"/>
         <PossibleValue Comment="RTC Alarm B" Value="LPTIM_TRIGSOURCE_2"/>
         <PossibleValue Comment="RTC TAMP1 Input Detection" Value="LPTIM_TRIGSOURCE_3"/>
+  <PossibleValue Comment="RTC TAMP2 Input Detection" Value="LPTIM_TRIGSOURCE_4" Condition="!DIE47A" Action="remove"/>
+  <PossibleValue Comment="RTC TAMP3 Input Detection" Value="LPTIM_TRIGSOURCE_5" Condition="!DIE47A" Action="remove"/>
+  <PossibleValue Comment="COMP1 OUT" Value="LPTIM_TRIGSOURCE_6" Condition="!(COMP1_Exist &amp; DIE47A)" Action="remove"/>
+  <PossibleValue Comment="COMP2 OUT" Value="LPTIM_TRIGSOURCE_7" Condition="!(COMP1_Exist &amp; DIE47A)" Action="remove"/>
     </RefParameter>
     <RefParameter Comment="Trigger Source" DefaultValue="LPTIM_TRIGSOURCE_0" Name="TriggerSource" Type="list" Group="Trigger">
         <Condition Diagnostic="External trigger is selected" Expression="Semaphore_ETR$IpInstance &amp;($IpNumber=4)"/>
@@ -119,6 +173,10 @@
         <PossibleValue Comment="RTC Alarm A" Value="LPTIM_TRIGSOURCE_1"/>
         <PossibleValue Comment="RTC Alarm B" Value="LPTIM_TRIGSOURCE_2"/>
         <PossibleValue Comment="RTC TAMP1 Input Detection" Value="LPTIM_TRIGSOURCE_3"/>
+  <PossibleValue Comment="RTC TAMP2 Input Detection" Value="LPTIM_TRIGSOURCE_4" Condition="!DIE47A" Action="remove"/>
+  <PossibleValue Comment="RTC TAMP3 Input Detection" Value="LPTIM_TRIGSOURCE_5" Condition="!DIE47A" Action="remove"/>
+  <PossibleValue Comment="COMP1 OUT" Value="LPTIM_TRIGSOURCE_6" Condition="!(COMP1_Exist &amp; DIE47A)" Action="remove"/>
+  <PossibleValue Comment="COMP2 OUT" Value="LPTIM_TRIGSOURCE_7" Condition="!(COMP1_Exist &amp; DIE47A)" Action="remove"/>
     </RefParameter>
     <RefParameter Comment="Trigger Source" DefaultValue="LPTIM_TRIGSOURCE_0" Name="TriggerSource" Type="list" Group="Trigger">
         <Condition Diagnostic="External trigger is selected" Expression="!Semaphore_ETR$IpInstance &amp;($IpNumber=4)"/>
@@ -126,6 +184,10 @@
         <PossibleValue Comment="RTC Alarm A" Value="LPTIM_TRIGSOURCE_1"/>
         <PossibleValue Comment="RTC Alarm B" Value="LPTIM_TRIGSOURCE_2"/>
         <PossibleValue Comment="RTC TAMP1 Input Detection" Value="LPTIM_TRIGSOURCE_3"/>
+  <PossibleValue Comment="RTC TAMP2 Input Detection" Value="LPTIM_TRIGSOURCE_4" Condition="!DIE47A" Action="remove"/>
+  <PossibleValue Comment="RTC TAMP3 Input Detection" Value="LPTIM_TRIGSOURCE_5" Condition="!DIE47A" Action="remove"/>
+  <PossibleValue Comment="COMP1 OUT" Value="LPTIM_TRIGSOURCE_6" Condition="!(COMP1_Exist &amp; DIE47A)" Action="remove"/>
+  <PossibleValue Comment="COMP2 OUT" Value="LPTIM_TRIGSOURCE_7" Condition="!(COMP1_Exist &amp; DIE47A)" Action="remove"/>
     </RefParameter>
     <RefParameter Comment="Trigger Source" DefaultValue="LPTIM_TRIGSOURCE_0" Name="TriggerSource" Type="list" Group="Trigger">
         <Condition Diagnostic="External trigger is selected" Expression="Semaphore_ETR$IpInstance &amp;($IpNumber=5)"/>
@@ -134,6 +196,8 @@
         <PossibleValue Comment="RTC Alarm A" Value="LPTIM_TRIGSOURCE_1"/>
         <PossibleValue Comment="RTC Alarm B" Value="LPTIM_TRIGSOURCE_2"/>
         <PossibleValue Comment="RTC TAMP1 Input Detection" Value="LPTIM_TRIGSOURCE_3"/>
+  <PossibleValue Comment="COMP1 OUT" Value="LPTIM_TRIGSOURCE_4" Condition="!(COMP1_Exist &amp; DIE47A)" Action="remove"/>
+  <PossibleValue Comment="COMP2 OUT" Value="LPTIM_TRIGSOURCE_5" Condition="!(COMP1_Exist &amp; DIE47A)" Action="remove"/>
     </RefParameter>
     <RefParameter Comment="Trigger Source" DefaultValue="LPTIM_TRIGSOURCE_0" Name="TriggerSource" Type="list" Group="Trigger">
         <Condition Diagnostic="External trigger is selected" Expression="!Semaphore_ETR$IpInstance &amp;($IpNumber=5)"/>
@@ -141,6 +205,8 @@
         <PossibleValue Comment="RTC Alarm A" Value="LPTIM_TRIGSOURCE_1"/>
         <PossibleValue Comment="RTC Alarm B" Value="LPTIM_TRIGSOURCE_2"/>
         <PossibleValue Comment="RTC TAMP1 Input Detection" Value="LPTIM_TRIGSOURCE_3"/>
+  <PossibleValue Comment="COMP1 OUT" Value="LPTIM_TRIGSOURCE_4" Condition="!(COMP1_Exist &amp; DIE47A)" Action="remove"/>
+  <PossibleValue Comment="COMP2 OUT" Value="LPTIM_TRIGSOURCE_5" Condition="!(COMP1_Exist &amp; DIE47A)" Action="remove"/>
     </RefParameter>
     <RefParameter Comment="Trigger Source" DefaultValue="LPTIM_TRIGSOURCE_0" Name="TriggerSource" Type="list" Group="Trigger">
         <Condition Diagnostic="External trigger is selected" Expression="Semaphore_ETR$IpInstance &amp;($IpNumber=6)"/>
@@ -149,6 +215,8 @@
         <PossibleValue Comment="RTC Alarm A" Value="LPTIM_TRIGSOURCE_1"/>
         <PossibleValue Comment="RTC Alarm B" Value="LPTIM_TRIGSOURCE_2"/>
         <PossibleValue Comment="RTC TAMP1 Input Detection" Value="LPTIM_TRIGSOURCE_3"/>
+  <PossibleValue Comment="COMP1 OUT" Value="LPTIM_TRIGSOURCE_4" Condition="!(COMP1_Exist &amp; DIE47A)" Action="remove"/>
+  <PossibleValue Comment="COMP2 OUT" Value="LPTIM_TRIGSOURCE_5" Condition="!(COMP1_Exist &amp; DIE47A)" Action="remove"/>
     </RefParameter>
     <RefParameter Comment="Trigger Source" DefaultValue="LPTIM_TRIGSOURCE_0" Name="TriggerSource" Type="list" Group="Trigger">
         <Condition Diagnostic="External trigger is selected" Expression="!Semaphore_ETR$IpInstance &amp;($IpNumber=6)"/>
@@ -156,6 +224,8 @@
         <PossibleValue Comment="RTC Alarm A" Value="LPTIM_TRIGSOURCE_1"/>
         <PossibleValue Comment="RTC Alarm B" Value="LPTIM_TRIGSOURCE_2"/>
         <PossibleValue Comment="RTC TAMP1 Input Detection" Value="LPTIM_TRIGSOURCE_3"/>
+  <PossibleValue Comment="COMP1 OUT" Value="LPTIM_TRIGSOURCE_4" Condition="!(COMP1_Exist &amp; DIE47A)" Action="remove"/>
+  <PossibleValue Comment="COMP2 OUT" Value="LPTIM_TRIGSOURCE_5" Condition="!(COMP1_Exist &amp; DIE47A)" Action="remove"/>
     </RefParameter>
     <RefParameter Comment="Active Edge" DefaultValue="LPTIM_ACTIVEEDGE_RISING" Name="TriggerActiveEdge" Type="list" Group="Trigger">
         <Condition Diagnostic="External trigger is selected" Expression="!Semaphore_SWTrigger_$IpInstance"/><!--pour tous les extriggers-->
@@ -215,6 +285,17 @@
         <Condition Diagnostic="external or standalone" Expression="Semaphore_Input1_gpio$IpInstance"/>
         <PossibleValue Comment="GPIO" Value="LPTIM_INPUT1SOURCE_GPIO"/>
     </RefParameter>
+ <RefParameter Comment="Input1 Source" DefaultValue="LPTIM_INPUT1SOURCE_COMP1" Name="Input1Source" Type="list" Visible="true">
+        <Condition Diagnostic="external or standalone" Expression="(Semaphore_Input1_comp1$IpInstance|Semaphore_Input1_comp1comp2$IpInstance) &amp; DIE47A &amp;(($IpNumber=1)|($IpNumber=2))"/>
+  <PossibleValue Comment="GPIO" Value="LPTIM_INPUT1SOURCE_GPIO"/>
+  <PossibleValue Comment="COMP1" Value="LPTIM_INPUT1SOURCE_COMP1" Condition="!COMP1" Diagnostic="please activate COMP1" Action="disable"/>
+        <PossibleValue Comment="PLAY1_OUT3" Value="LPTIM_INPUT1SOURCE_PLAY1_OUT3" />
+ </RefParameter>
+  <RefParameter Comment="Input1 Source" DefaultValue="LPTIM_INPUT1SOURCE_COMP1" Name="Input1Source" Type="list" Visible="true">
+        <Condition Diagnostic="external or standalone" Expression="(Semaphore_Input1_comp1$IpInstance|Semaphore_Input1_comp1comp2$IpInstance) &amp; DIE47A &amp;(($IpNumber=3)|($IpNumber=4)|($IpNumber=5)|($IpNumber=6))"/>
+  <PossibleValue Comment="GPIO" Value="LPTIM_INPUT1SOURCE_GPIO"/>
+  <PossibleValue Comment="COMP1" Value="LPTIM_INPUT1SOURCE_COMP1" Condition="!COMP1" Diagnostic="please activate COMP1" Action="disable"/>
+ </RefParameter>
     <RefParameter Comment="Input1 Source" DefaultValue="LPTIM_INPUT1SOURCE_COMP1" Name="Input1Source" Type="list" Visible="true">
         <Condition Diagnostic="external or standalone" Expression="(Semaphore_Input1_comp1$IpInstance|Semaphore_Input1_comp1comp2$IpInstance) &amp; DIE474  &amp;($IpNumber=1)"/>
         <PossibleValue Comment="COMP1" Value="LPTIM_INPUT1SOURCE_COMP1" Condition="!COMP1" Diagnostic="please activate COMP1" Action="disable"/>
@@ -225,10 +306,22 @@
         <PossibleValue Comment="COMP1" Value="LPTIM_INPUT1SOURCE_COMP1" Condition="!COMP1" Diagnostic="please activate COMP1" Action="disable"/>
         <PossibleValue Comment="LPTIM1 CH2" Value="LPTIM_INPUT1SOURCE_LPTIM1_CH2" Condition="!(Semaphore_output_int_ch2_LPTIM1|Semaphore_CH2_OutputLPTIM1)" Diagnostic="please activate LPTIM1_CH2 output" Action="disable"/>
     </RefParameter>
+<!--
     <RefParameter Comment="Input2 Source" DefaultValue="LPTIM_INPUT2SOURCE_GPIO" Name="Input2Source" Type="list" Visible="false">
          <Condition Diagnostic="external or standalone" Expression="Semaphore_Input2_gpio$IpInstance"/>
         <PossibleValue Comment="GPIO" Value="LPTIM_INPUT2SOURCE_GPIO"/>
+    </RefParameter> -->
+ <RefParameter Comment="Input2 Source" DefaultValue="LPTIM_INPUT2SOURCE_COMP2" Name="Input2Source" Type="list" Visible="true">
+  <Condition Diagnostic="external or standalone" Expression="(Semaphore_Input2_comp2$IpInstance|Semaphore_Input1_comp1comp2$IpInstance) &amp; (DIE47A &amp; (($IpNumber=1)|($IpNumber=2)))"/>
+   <PossibleValue Comment="GPIO" Value="LPTIM_INPUT2SOURCE_GPIO"/>
+   <PossibleValue Comment="COMP2" Value="LPTIM_INPUT2SOURCE_COMP2" Condition="!COMP2" Diagnostic="please activate COMP2" Action="disable"/>
+   <PossibleValue Comment="PLAY1_OUT4" Value="LPTIM_INPUT2SOURCE_PLAY1_OUT4"/> 
     </RefParameter>
+ <RefParameter Comment="Input2 Source" DefaultValue="LPTIM_INPUT2SOURCE_COMP2" Name="Input2Source" Type="list" Visible="true">
+  <Condition Diagnostic="external or standalone" Expression="(Semaphore_Input2_comp2$IpInstance|Semaphore_Input1_comp1comp2$IpInstance) &amp; (DIE47A &amp; (($IpNumber=3)|($IpNumber=5)|($IpNumber=6)))"/>
+   <PossibleValue Comment="GPIO" Value="LPTIM_INPUT2SOURCE_GPIO"/>
+   <PossibleValue Comment="COMP2" Value="LPTIM_INPUT2SOURCE_COMP2" Condition="!COMP2" Diagnostic="please activate COMP2" Action="disable"/>
+ </RefParameter>
     <RefParameter Comment="Input2 Source" DefaultValue="LPTIM_INPUT2SOURCE_COMP2" Name="Input2Source" Type="list" Visible="true">
          <Condition Diagnostic="external or standalone" Expression="(Semaphore_Input2_comp2$IpInstance|Semaphore_Input1_comp1comp2$IpInstance) &amp; (DIE469 &amp; STM32G4x4)"/>
         <PossibleValue Comment="COMP2" Value="LPTIM_INPUT2SOURCE_COMP2" Condition="!COMP2" Action="disable"/>
@@ -236,15 +329,17 @@
         <PossibleValue Comment="COMP6" Value="LPTIM_INPUT2SOURCE_COMP6" Condition="!COMP6" Action="disable"/>
     </RefParameter>
     <RefParameter Comment="Input2 Source" DefaultValue="LPTIM_INPUT2SOURCE_COMP2" Name="Input2Source" Type="list" Visible="true">
-         <Condition Diagnostic="external or standalone" Expression="(Semaphore_Input2_comp2$IpInstance|Semaphore_Input1_comp1comp2$IpInstance) &amp; !(DIE469 &amp; STM32G4x4)"/>
+         <Condition Diagnostic="external or standalone" Expression="(Semaphore_Input2_comp2$IpInstance|Semaphore_Input1_comp1comp2$IpInstance) &amp; !(DIE469 &amp; STM32G4x4) &amp; !DIE47A"/>
         <PossibleValue Comment="COMP2" Value="LPTIM_INPUT2SOURCE_COMP2" Condition="!COMP2" Action="disable"/>
         <PossibleValue Comment="COMP4" Value="LPTIM_INPUT2SOURCE_COMP4" Condition="!COMP4" Action="disable"/>
     </RefParameter>
     <RefParameter Name="ICInputSource_1" Comment="InputCapture1 Source" DefaultValue="LPTIM_IC1SOURCE_COMP1" Type="list" Group="Channel 1">
-        <Condition Diagnostic="IO input is not selected" Expression="($IpNumber=1) &amp; Semaphore_input_int_ch1_$IpInstance"/>
+        <Condition Diagnostic="IO input is not selected" Expression="($IpNumber=1) &amp; Semaphore_input_int_ch1_$IpInstance" />
         <PossibleValue Value="LPTIM_IC1SOURCE_COMP1" Comment="COMP1"/>
         <PossibleValue Value="LPTIM_IC1SOURCE_EVENTOUT" Comment="EVENT OUT" Condition="!DIE474" Diagnostic="" Action="Remove"/>
   <PossibleValue Value="LPTIM_IC1SOURCE_MCO1" Comment="MCO1" Condition="!DIE474" Diagnostic="" Action="Remove"/>
+  <PossibleValue Value="LPTIM_IC1SOURCE_COMP2" Comment="COMP2" Condition="!DIE47A" Diagnostic="" Action="Remove"/>
+  <PossibleValue Value="LPTIM_IC1SOURCE_PLAY1_OUT5" Comment="PLAY1_OUT5" Condition="!DIE47A" Diagnostic="" Action="Remove"/>
     </RefParameter>
     <RefParameter Name="ICInputSource_1" Comment="InputCapture1 Source" DefaultValue="LPTIM_IC1SOURCE_GPIO" Type="list" Visible="false">
         <Condition Diagnostic="IO input is selected" Expression="($IpNumber=1) &amp; !Semaphore_input_int_ch1_$IpInstance"/>
@@ -254,17 +349,19 @@
         <Condition Diagnostic="IO input is not selected" Expression="($IpNumber=1) &amp;  Semaphore_input_int_ch2_$IpInstance"/>
         <PossibleValue Value="LPTIM_IC2SOURCE_LSI" Comment="LSI"/>
         <PossibleValue Value="LPTIM_IC2SOURCE_LSE" Comment="LSE"/>
-  <PossibleValue Value="LPTIM_IC2SOURCE_HSE_1M" Comment="HSE 1MHZ" Condition="!DIE474" Diagnostic="" Action="Remove"/>
+  <PossibleValue Value="LPTIM_IC2SOURCE_HSE_1M" Comment="HSE 1MHZ" Condition="!(DIE474|DIE47A)" Diagnostic="" Action="Remove"/>
     </RefParameter>
     <RefParameter Name="ICInputSource_2" Comment="InputCapture2 Source" DefaultValue="LPTIM_IC2SOURCE_GPIO" Type="list" Visible="false">
         <Condition Diagnostic="IO input is selected" Expression="($IpNumber=1) &amp;  !Semaphore_input_int_ch2_$IpInstance"/>
         <PossibleValue Comment="GPIO" Value="LPTIM_IC2SOURCE_GPIO"/>
     </RefParameter>
     <RefParameter Name="ICInputSource_1" Comment="InputCapture1 Source" DefaultValue="LPTIM_IC1SOURCE_COMP1" Type="list" Group="Channel 1">
-        <Condition Diagnostic="IO input is not selected" Expression="($IpNumber=2) &amp; Semaphore_input_int_ch1_$IpInstance"/>
+        <Condition Diagnostic="IO input is not selected" Expression="($IpNumber=2) &amp; Semaphore_input_int_ch1_$IpInstance" />
         <PossibleValue Value="LPTIM_IC1SOURCE_COMP1" Comment="COMP1"/>
         <PossibleValue Value="LPTIM_IC1SOURCE_EVENTOUT" Comment="EVENT OUT" Condition="!DIE474" Diagnostic="" Action="Remove"/>
   <PossibleValue Value="LPTIM_IC1SOURCE_MCO2" Comment="MCO2" Condition="!DIE474" Diagnostic="" Action="Remove"/>
+  <PossibleValue Value="LPTIM_IC1SOURCE_COMP2" Comment="COMP2" Condition="!DIE47A" Diagnostic="" Action="Remove"/>
+  <PossibleValue Value="LPTIM_IC1SOURCE_PLAY1_OUT5" Comment="PLAY1_OUT5" Condition="!DIE47A" Diagnostic="" Action="Remove"/>
     </RefParameter>
     <RefParameter Name="ICInputSource_1" Comment="InputCapture1 Source" DefaultValue="LPTIM_IC1SOURCE_GPIO" Type="list" Visible="false">
         <Condition Diagnostic="IO input is selected" Expression="($IpNumber=2) &amp; !Semaphore_input_int_ch1_$IpInstance"/>
@@ -290,11 +387,30 @@
         <PossibleValue Value="LPTIM_IC1SOURCE_GPIO" Comment="GPIO"/>
     </RefParameter>
     <RefParameter Name="ICInputSource_2" Comment="InputCapture2 Source" DefaultValue="null" Type="list" Group="Channel 2">
-        <Condition Diagnostic="IO input is not selected" Expression="($IpNumber=3) &amp;  Semaphore_input_int_ch2_$IpInstance"/>
+        <Condition Diagnostic="IO input is not selected" Expression="($IpNumber=3) &amp;  Semaphore_input_int_ch2_$IpInstance &amp; DIE47A"/>
+  <PossibleValue Value="LPTIM_IC2SOURCE_COMP1" Comment="COMP1"/>
+  <PossibleValue Value="LPTIM_IC2SOURCE_COMP2" Comment="COMP2"/>
     </RefParameter>
     <RefParameter Name="ICInputSource_2" Comment="InputCapture2 Source" DefaultValue="LPTIM_IC2SOURCE_GPIO" Type="list" Visible="false">
         <Condition Diagnostic="IO input is selected" Expression="($IpNumber=3) &amp;  !Semaphore_input_int_ch2_$IpInstance"/>
         <PossibleValue Comment="GPIO" Value="LPTIM_IC2SOURCE_GPIO"/>
+    </RefParameter>
+ <RefParameter Name="ICInputSource_1" Comment="InputCapture1 Source" DefaultValue="LPTIM_IC1SOURCE_COMP1" Type="list" Group="Channel 1">
+        <Condition Diagnostic="IO input is not selected" Expression="($IpNumber=5) &amp; Semaphore_input_int_ch1_$IpInstance &amp; DIE47A"/>
+        <PossibleValue Value="LPTIM_IC1SOURCE_COMP1" Comment="COMP1"/>
+  <PossibleValue Value="LPTIM_IC1SOURCE_COMP2" Comment="COMP2"/>
+  <PossibleValue Value="LPTIM_IC1SOURCE_I3C1_IBIACK" Comment="I3C1"/>
+    </RefParameter>
+  <RefParameter Name="ICInputSource_1" Comment="InputCapture1 Source" DefaultValue="LPTIM_IC1SOURCE_COMP1" Type="list" Group="Channel 1">
+        <Condition Diagnostic="IO input is not selected" Expression="($IpNumber=6) &amp; Semaphore_input_int_ch1_$IpInstance &amp; DIE47A"/>
+        <PossibleValue Value="LPTIM_IC1SOURCE_COMP1" Comment="COMP1"/>
+  <PossibleValue Value="LPTIM_IC1SOURCE_COMP2" Comment="COMP2"/>
+  <PossibleValue Value="LPTIM_IC1SOURCE_I3C2_IBIACK" Comment="I3C2"/>
+    </RefParameter>
+ <RefParameter Name="ICInputSource_2" Comment="InputCapture2 Source" DefaultValue="LPTIM_IC2SOURCE_COMP1" Type="list" Group="Channel 2">
+        <Condition Diagnostic="IO input is not selected" Expression="(($IpNumber=4)|($IpNumber=5)|($IpNumber=6)) &amp; Semaphore_input_int_ch2_$IpInstance &amp; DIE47A"/>
+        <PossibleValue Value="LPTIM_IC2SOURCE_COMP1" Comment="COMP1"/>
+        <PossibleValue Value="LPTIM_IC2SOURCE_EVENTOUT" Comment="EVENT OUT"/>
     </RefParameter>
     <RefParameter Name="ICPrescaler_1" Comment="Prescaler ch1" DefaultValue="LPTIM_ICPSC_DIV1" Type="list" Group="Channel 1">
         <PossibleValue Value="LPTIM_ICPSC_DIV1" Comment="DIV1"/>
@@ -335,6 +451,11 @@
         <PossibleValue Value="UI_input" Comment="Capture" Semaphore="Semaphore_input_int_ch1_$IpInstance"/>
         <PossibleValue Value="UI_output" Comment="Compare" Semaphore="Semaphore_output_int_ch1_$IpInstance"/>
     </RefParameter>
+ <RefParameter Name="Capture_Compare_Selection_1" Comment="Capture-Compare Selection" DefaultValue="UI_input" Type="list" Group="Channel 1" Visible="true">
+        <Condition Diagnostic="Internal signals" Expression="DIE47A &amp;(($IpNumber=1)|($IpNumber=2)|($IpNumber=3)|($IpNumber=5)|($IpNumber=6)) &amp;!(Semaphore_CH1_Input$IpInstance|Semaphore_CH1_Output$IpInstance)"/>
+        <PossibleValue Value="UI_input" Comment="Capture" Semaphore="Semaphore_input_int_ch1_$IpInstance"/>
+        <PossibleValue Value="UI_output" Comment="Compare" Semaphore="Semaphore_output_int_ch1_$IpInstance"/>
+ </RefParameter>
     <RefParameter Name="Capture_Compare_Selection_1" Comment="Capture-Compare Selection" DefaultValue="UI_output" Type="list" Group="Channel 1" Visible="true">
         <Condition Diagnostic="Internal signals" Expression="DIE474 &amp;(($IpNumber=3)|($IpNumber=4)|($IpNumber=5)|($IpNumber=6)) &amp;!(Semaphore_CH1_Input$IpInstance|Semaphore_CH1_Output$IpInstance)"/>
         <PossibleValue Value="UI_output" Comment="Compare" Semaphore="Semaphore_output_int_ch1_$IpInstance"/>
@@ -353,6 +474,11 @@
     </RefParameter>
     <RefParameter Name="Capture_Compare_Selection_2" Comment="Capture-Compare Selection" DefaultValue="UI_input" Type="list" Group="Channel 2" Visible="true">
         <Condition Diagnostic="Internal signals" Expression="(($IpNumber=1)|($IpNumber=2)) &amp; !(Semaphore_CH2_Input$IpInstance|Semaphore_CH2_Output$IpInstance)"/>
+        <PossibleValue Value="UI_input" Comment="Capture" Semaphore="Semaphore_input_int_ch2_$IpInstance"/>
+        <PossibleValue Value="UI_output" Comment="Compare" Semaphore="Semaphore_output_int_ch2_$IpInstance"/>
+    </RefParameter>
+ <RefParameter Name="Capture_Compare_Selection_2" Comment="Capture-Compare Selection" DefaultValue="UI_input" Type="list" Group="Channel 2" Visible="true">
+        <Condition Diagnostic="Internal signals" Expression="(($IpNumber=1)|($IpNumber=2)|($IpNumber=3)|($IpNumber=4)|($IpNumber=5)|($IpNumber=6)) &amp; !(Semaphore_CH2_Input$IpInstance|Semaphore_CH2_Output$IpInstance)"/>
         <PossibleValue Value="UI_input" Comment="Capture" Semaphore="Semaphore_input_int_ch2_$IpInstance"/>
         <PossibleValue Value="UI_output" Comment="Compare" Semaphore="Semaphore_output_int_ch2_$IpInstance"/>
     </RefParameter>
@@ -546,9 +672,10 @@
       <Signal Name="IN1"/>
      </SignalLogicalOp>
     </Mode>
-                                <Mode Name="Counts_external_clock_with_synchro_01_occur2" UserName="Counts external Clock events from remap_in1 with internal synchronization" RemoveCondition="!DIE474">
+                                <Mode Name="Counts_external_clock_with_synchro_01_occur2" UserName="Counts external Clock events from remap_in1 with internal synchronization" RemoveCondition="!(DIE474|DIE47A)">
                                         <Semaphore>Semaphore_CounterExternalClk_synchro$IpInstance</Semaphore>
                                         <Semaphore>Semaphore_Input1_comp1$IpInstance</Semaphore>
+          <Semaphore>Semaphore_Input1_comp1comp2$IpInstance</Semaphore>
                                         <Semaphore>Semaphore_Input2_gpio$IpInstance</Semaphore>
                                         <SignalLogicalOp Name="AND">
                                                 <Signal Name="VS_COMP1_LPTIM"/>
@@ -663,7 +790,7 @@
             </Mode>
         </ModeLogicOperator>
     </Mode>
-    <Mode Name="Channel_2_Active" UserName="Channel_2_Active" RemoveCondition="$IpNumber=4">
+    <Mode Name="Channel_2_Active" UserName="Channel_2_Active" RemoveCondition="($IpNumber=4) &amp; !DIE47A">
         <Condition Diagnostic="A mode must be selected before" Expression="Semaphore_ModeSelected$IpInstance"/>
         <Semaphore>Semaphore_Channel2_Active$IpInstance</Semaphore>
         <ModeLogicOperator Name="XOR">
@@ -674,7 +801,7 @@
             </Mode>
         </ModeLogicOperator>
     </Mode>
-    <Mode Name="Channel_2_IO" UserName="    CH2 IO usage" RemoveDisable="true" RemoveCondition="$IpNumber=4" >
+    <Mode Name="Channel_2_IO" UserName="    CH2 IO usage" RemoveDisable="true" RemoveCondition="($IpNumber=4) &amp; !DIE47A" >
         <Condition Diagnostic="A mode must be selected before" Expression="Semaphore_Channel2_Active$IpInstance"/>
         <ModeLogicOperator Name="XOR">
             <Mode Name="NoIO_Channel_2_Active" UserName="no IO used : only internal input/output connections">

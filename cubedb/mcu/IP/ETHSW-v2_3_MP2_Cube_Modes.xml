@@ -11,7 +11,15 @@
     <!-- IO context assignment is based on defined semaphores (e.g RIFSerivice)  -->
     <RefParameter Comment="IO Semaphore Assignement" DefaultValue="true" Name="IOSemaphoreAssignement" Type="bool" Visible="false"/>
 
-    <RefMode Name="ETHSW_Activate" HalMode ="ETHSW">
+    <RefMode Name="ETHSW_MII_Activate" HalMode ="ETHSW">
+        <ConfigForMode>ETHSW_Init</ConfigForMode>
+    </RefMode>
+
+    <RefMode Name="ETHSW_RMII_Activate" HalMode ="ETHSW">
+        <ConfigForMode>ETHSW_Init</ConfigForMode>
+    </RefMode>
+
+    <RefMode Name="ETHSW_RGMII_Activate" HalMode ="ETHSW">
         <ConfigForMode>ETHSW_Init</ConfigForMode>
     </RefMode>
 
@@ -19,7 +27,7 @@
     <ModeLogicOperator Name="OR">
         <Mode Name="Mode">
             <ModeLogicOperator Name="XOR">
-                <Mode Name="ETHSW_Activate" UserName="MII">
+                <Mode Name="ETHSW_MII_Activate" UserName="MII">
                     <SignalLogicalOp Name="AND">
                         <Signal IOMode="AlternateFunctionPushPullMediumSpeedDefault" Name="ETH1_MII_COL"/>
                         <Signal IOMode="AlternateFunctionPushPullMediumSpeedDefault" Name="ETH1_MII_CRS"/>
@@ -40,7 +48,7 @@
                     </SignalLogicalOp>
                     <Semaphore>S_ETHSW</Semaphore>
                 </Mode>
-                <Mode Name="ETHSW_Activate" UserName="RMII">
+                <Mode Name="ETHSW_RMII_Activate" UserName="RMII">
                     <SignalLogicalOp Name="AND">
                         <Signal IOMode="AlternateFunctionPushPullMediumSpeedDefault" Name="ETH1_CLK"/>
                         <Signal IOMode="AlternateFunctionPushPullMediumSpeedDefault" Name="ETH1_RMII_CRS_DV"/>
@@ -64,7 +72,7 @@
                     </SignalLogicalOp>
                     <Semaphore>S_ETHSW</Semaphore>
                 </Mode>
-                <Mode Name="ETHSW_Activate" UserName="RGMII">
+                <Mode Name="ETHSW_RGMII_Activate" UserName="RGMII">
                     <SignalLogicalOp Name="AND">
                         <Signal IOMode="AlternateFunctionPushPullMediumSpeedDefault" Name="ETH1_CLK"/>
                         <Signal IOMode="AlternateFunctionPushPullMediumSpeedDefault" Name="ETH1_RGMII_CLK125"/>

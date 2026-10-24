@@ -37,26 +37,26 @@
     </RefParameter>
     
     <!-- Fadc_OrcaZero128k-G07xG08x-D460 and Fadc_OrcaZero512k-G07xG0BxG0Cx-D467 -->
-    <RefParameter Comment="Fadc Constraint" DefaultValue="16000000" Max="26000000" Min="1400000" Name="FadcConstraint" Type="double" Visible="false">
+    <RefParameter Comment="Fadc Constraint" DefaultValue="16000000" Max="16000000" Min="140000" Name="FadcConstraint" Type="double" Visible="false">
         <Condition Diagnostic="" Expression="(DIE460 &amp; (RCC:PWR_Regulator_Voltage_Scale = PWR_REGULATOR_VOLTAGE_SCALE2)) | (DIE467 &amp; (RCC:PWR_Regulator_Voltage_Scale = PWR_REGULATOR_VOLTAGE_SCALE2))"/>
     </RefParameter>
-    <RefParameter Comment="Fadc Constraint" DefaultValue="16000000" Max="80000000" Min="1400000" Name="FadcConstraint" Type="double" Visible="false">
+    <RefParameter Comment="Fadc Constraint" DefaultValue="16000000" Max="35000000" Min="140000" Name="FadcConstraint" Type="double" Visible="false">
         <Condition Diagnostic="" Expression="(DIE460|DIE467)"/>
     </RefParameter>
     
     <!-- Fadc_OrcaZero64k-G03xG04x-D466 -->
-    <RefParameter Comment="Fadc Constraint" Min="140000"   Max="26000000"  DefaultValue="16000000"  Name="FadcConstraint" Type="double" Visible="false">
+    <RefParameter Comment="Fadc Constraint" Min="140000"   Max="16000000"  DefaultValue="16000000"  Name="FadcConstraint" Type="double" Visible="false">
         <Condition Diagnostic="" Expression="DIE466 &amp; (RCC:PWR_Regulator_Voltage_Scale = PWR_REGULATOR_VOLTAGE_SCALE2)"/>
     </RefParameter>
-    <RefParameter Comment="Fadc Constraint" Min="140000"   Max="80000000" DefaultValue="16000000"  Name="FadcConstraint" Type="double" Visible="false">
+    <RefParameter Comment="Fadc Constraint" Min="140000"   Max="35000000" DefaultValue="16000000"  Name="FadcConstraint" Type="double" Visible="false">
         <Condition Diagnostic="" Expression="DIE466"/>
     </RefParameter>
       
     <!-- Fadc_OrcaZeroMax64k-G05xG06x-D456 -->
-    <RefParameter Comment="Fadc Constraint" Min="1400000"   Max="40000000"  DefaultValue="16000000" Name="FadcConstraint" Type="double" Visible="false">
+    <RefParameter Comment="Fadc Constraint" Min="140000"   Max="16000000"  DefaultValue="16000000" Name="FadcConstraint" Type="double" Visible="false">
         <Condition Diagnostic="" Expression="DIE456 &amp; (RCC:PWR_Regulator_Voltage_Scale = PWR_REGULATOR_VOLTAGE_SCALE2)"/>
     </RefParameter>
-    <RefParameter Comment="Fadc Constraint" Min="1400000"   Max="122000000" DefaultValue="16000000" Name="FadcConstraint" Type="double" Visible="false"/>
+    <RefParameter Comment="Fadc Constraint" Min="140000"   Max="35000000" DefaultValue="16000000" Name="FadcConstraint" Type="double" Visible="false"/>
     
 	
     <!-- Possible value of Prescaler parameter -->
@@ -424,14 +424,8 @@
         <PossibleValue Comment="Channel 16" Value="ADC_CHANNEL_16"/>
         <PossibleValue Comment="Channel 17" Value="ADC_CHANNEL_17"/>
         <PossibleValue Comment="Channel 18" Value="ADC_CHANNEL_18"/>
-        <PossibleValue Comment="Channel 19" Value="ADC_CHANNEL_19"/>
-        <PossibleValue Comment="Channel 20" Value="ADC_CHANNEL_20"/>
-        <PossibleValue Comment="Channel 21" Value="ADC_CHANNEL_21"/>
-        <PossibleValue Comment="Channel 22" Value="ADC_CHANNEL_22"/>
         <PossibleValue Comment="Channel Vrefint" Value="ADC_CHANNEL_VREFINT"/>
         <PossibleValue Comment="Channel Vbat" Value="ADC_CHANNEL_VBAT"/>
-        <PossibleValue Comment="Channel Vdda" Value="ADC_CHANNEL_VDDA"/>
-        <PossibleValue Comment="Channel Vssa" Value="ADC_CHANNEL_VSSA"/>
         <PossibleValue Comment="Channel Temperature Sensor" Value="ADC_CHANNEL_TEMPSENSOR"/>
        
     </RefParameter>
@@ -2182,15 +2176,9 @@ Sem_WDG3_22channel|Sem_WDG3_23channel|Sem_WDG3_24channel|Sem_WDG3_25channel|Sem_
         <PossibleValue Comment="Channel 16" Value="ADC_CHANNEL_16" Condition="!SHANNEL16ISSELECTED" Diagnostic="" Action="Disable" />
         <PossibleValue Comment="Channel 17" Value="ADC_CHANNEL_17" Condition="!SHANNEL17ISSELECTED" Diagnostic="" Action="Disable" />
         <PossibleValue Comment="Channel 18" Value="ADC_CHANNEL_18" Condition="!SHANNEL18ISSELECTED" Diagnostic="" Action="Disable" />
-        <PossibleValue Comment="Channel 19" Value="ADC_CHANNEL_19"/>
-        <PossibleValue Comment="Channel 20" Value="ADC_CHANNEL_20"/>
-        <PossibleValue Comment="Channel 21" Value="ADC_CHANNEL_21"/>
-        <PossibleValue Comment="Channel 22" Value="ADC_CHANNEL_22"/>
-        <PossibleValue Comment="Channel Temperature sensor" Value="ADC_CHANNEL_TEMPSENSOR"/>
-        <PossibleValue Comment="Channel Vrefint" Value="ADC_CHANNEL_VREFINT"/>
-        <PossibleValue Comment="Channel Vbat" Value="ADC_CHANNEL_VBAT"/>
-        <PossibleValue Comment="Channel Vdda" Value="ADC_CHANNEL_VDDA"/>
-        <PossibleValue Comment="Channel Vssa" Value="ADC_CHANNEL_VSSA"/>
+        <PossibleValue Comment="Channel Vrefint" Value="ADC_CHANNEL_VREFINT" Condition="!SHANNELVREFISSELECTED" Diagnostic="Available when Vrefint mode is activated" Action="Disable"/>
+        <PossibleValue Comment="Channel Vbat" Value="ADC_CHANNEL_VBAT" Condition="!SHANNELVBATISSELECTED" Diagnostic="Available when Vbat mode is activated" Action="Disable"/>
+        <PossibleValue Comment="Channel Temperature Sensor" Value="ADC_CHANNEL_TEMPSENSOR" Condition="!SHANNELTSISSELECTED" Diagnostic="Available when Temperature Sensor mode is activated" Action="Disable"/>
      
         <Description>ADC channel for the analog watchdog</Description> 
     </RefParameter>
@@ -2479,15 +2467,9 @@ Sem_WDG3_22channel|Sem_WDG3_23channel|Sem_WDG3_24channel|Sem_WDG3_25channel|Sem_
         <PossibleValue Comment="Channel 18" Value="ADC_CHANNEL_18"/>
         <PossibleValue Comment="Channel DAC1_OUT1" Value="ADC_CHANNEL_17"/>
         <PossibleValue Comment="Channel DAC1_OUT2" Value="ADC_CHANNEL_18"/>
-        <PossibleValue Comment="Channel 19" Value="ADC_CHANNEL_19"/>
-        <PossibleValue Comment="Channel 20" Value="ADC_CHANNEL_20"/>
-        <PossibleValue Comment="Channel 21" Value="ADC_CHANNEL_21"/>
-        <PossibleValue Comment="Channel 22" Value="ADC_CHANNEL_22"/>
         <PossibleValue Comment="Channel Temperature Sensor" Value="ADC_CHANNEL_TEMPSENSOR"/>
         <PossibleValue Comment="Channel Vrefint" Value="ADC_CHANNEL_VREFINT"/>
         <PossibleValue Comment="Channel Vbat" Value="ADC_CHANNEL_VBAT"/>
-        <PossibleValue Comment="Channel Vdda" Value="ADC_CHANNEL_VDDA"/>
-        <PossibleValue Comment="Channel Vssa" Value="ADC_CHANNEL_VSSA"/>
         <Description>ADC channel for the analog watchdog</Description> 
     </RefParameter>
     
@@ -2522,15 +2504,9 @@ Sem_WDG3_22channel|Sem_WDG3_23channel|Sem_WDG3_24channel|Sem_WDG3_25channel|Sem_
         <PossibleValue Comment="Channel 16" Value="ADC_CHANNEL_16"/>
         <PossibleValue Comment="Channel 17" Value="ADC_CHANNEL_17"/>
         <PossibleValue Comment="Channel 18" Value="ADC_CHANNEL_18"/>
-        <PossibleValue Comment="Channel 19" Value="ADC_CHANNEL_19"/>
-        <PossibleValue Comment="Channel 20" Value="ADC_CHANNEL_20"/>
-        <PossibleValue Comment="Channel 21" Value="ADC_CHANNEL_21"/>
-        <PossibleValue Comment="Channel 22" Value="ADC_CHANNEL_22"/>
         <PossibleValue Comment="Channel Temperature sensor" Value="ADC_CHANNEL_TEMPSENSOR"/>
         <PossibleValue Comment="Channel Vrefint" Value="ADC_CHANNEL_VREFINT"/>
         <PossibleValue Comment="Channel Vbat" Value="ADC_CHANNEL_VBAT"/>
-        <PossibleValue Comment="Channel Vdda" Value="ADC_CHANNEL_VDDA"/>
-        <PossibleValue Comment="Channel Vssa" Value="ADC_CHANNEL_VSSA"/>
         <!--PossibleValue Comment="Channel Vlcd" Value="ADC_CHANNEL_VLCD"/-->
     </RefParameter>
     
@@ -2647,18 +2623,9 @@ Sem_WDG3_22channel|Sem_WDG3_23channel|Sem_WDG3_24channel|Sem_WDG3_25channel|Sem_
         <PossibleValue Comment="Channel 16" Value="ADC_CHANNEL_16" Condition="!SHANNEL16ISSELECTED" Diagnostic="" Action="Disable" />
         <PossibleValue Comment="Channel 17" Value="ADC_CHANNEL_17" Condition="!SHANNEL17ISSELECTED" Diagnostic="" Action="Disable" />
         <PossibleValue Comment="Channel 18" Value="ADC_CHANNEL_18" Condition="!SHANNEL18ISSELECTED" Diagnostic="" Action="Disable" />
-        <PossibleValue Comment="Channel Temperature sensor" Value="ADC_CHANNEL_TEMPSENSOR" Condition="!SHANNEL19ISSELECTED" Diagnostic="" Action="Disable" />
-        <PossibleValue Comment="Channel Vrefint" Value="ADC_CHANNEL_VREFINT" Condition="!SHANNEL20ISSELECTED" Diagnostic="" Action="Disable" />
-        <PossibleValue Comment="Channel Vbat" Value="ADC_CHANNEL_VBAT" Condition="!SHANNEL21ISSELECTED" Diagnostic="" Action="Disable" />
-        <PossibleValue Comment="Channel 19" Value="ADC_CHANNEL_19"/>
-        <PossibleValue Comment="Channel 20" Value="ADC_CHANNEL_20"/>
-        <PossibleValue Comment="Channel 21" Value="ADC_CHANNEL_21"/>
-        <PossibleValue Comment="Channel 22" Value="ADC_CHANNEL_22"/>
-        <PossibleValue Comment="Channel Vrefint" Value="ADC_CHANNEL_VREFINT"/>
-        <PossibleValue Comment="Channel Vbat" Value="ADC_CHANNEL_VBAT"/>
-        <PossibleValue Comment="Channel Vdda" Value="ADC_CHANNEL_VDDA"/>
-        <PossibleValue Comment="Channel Vssa" Value="ADC_CHANNEL_VSSA"/>
-        <PossibleValue Comment="Channel Temperature Sensor" Value="ADC_CHANNEL_TEMPSENSOR"/>
+        <PossibleValue Comment="Channel Vrefint" Value="ADC_CHANNEL_VREFINT" Condition="!SHANNELVREFISSELECTED" Diagnostic="Available when Vrefint mode is activated" Action="Disable"/>
+        <PossibleValue Comment="Channel Vbat" Value="ADC_CHANNEL_VBAT" Condition="!SHANNELVBATISSELECTED" Diagnostic="Available when Vbat mode is activated" Action="Disable"/>
+        <PossibleValue Comment="Channel Temperature Sensor" Value="ADC_CHANNEL_TEMPSENSOR" Condition="!SHANNELTSISSELECTED" Diagnostic="Available when Temperature Sensor mode is activated" Action="Disable"/>
         <Description>ADC channel for the analog watchdog</Description> 
     </RefParameter>
     
@@ -2805,31 +2772,7 @@ Sem_WDG3_22channel|Sem_WDG3_23channel|Sem_WDG3_24channel|Sem_WDG3_25channel|Sem_
         </Parameter>
         <!--Parameter Name="Rank"/--> 
     </RefMode>
-    <RefMode Comment="" Name="IN19">
-        <ConfigForMode>ADC_RegularChannelConfig</ConfigForMode>
-        <Parameter Name="Channel">
-            <PossibleValue>ADC_CHANNEL_19</PossibleValue>
-        </Parameter>
-        <!--Parameter Name="Rank"/--> 
-    </RefMode>
-    <RefMode Comment="" Name="IN20">
-        <ConfigForMode>ADC_RegularChannelConfig</ConfigForMode>
-        <Parameter Name="Channel">
-            <PossibleValue>ADC_CHANNEL_20</PossibleValue>
-        </Parameter>
-    </RefMode>    
-    <RefMode Comment="" Name="IN21">
-        <ConfigForMode>ADC_RegularChannelConfig</ConfigForMode>
-        <Parameter Name="Channel">
-            <PossibleValue>ADC_CHANNEL_21</PossibleValue>
-        </Parameter>
-    </RefMode>    
-    <RefMode Comment="" Name="IN22">
-        <ConfigForMode>ADC_RegularChannelConfig</ConfigForMode>
-        <Parameter Name="Channel">
-            <PossibleValue>ADC_CHANNEL_22</PossibleValue>
-        </Parameter>
-    </RefMode>
+
     <RefMode Comment="" Name="IN-TempSens">
         <ConfigForMode>ADC_RegularChannelConfig</ConfigForMode>
         <Parameter Name="Channel">
@@ -2850,19 +2793,6 @@ Sem_WDG3_22channel|Sem_WDG3_23channel|Sem_WDG3_24channel|Sem_WDG3_25channel|Sem_
             <PossibleValue>ADC_CHANNEL_VBAT</PossibleValue>
         </Parameter>
         <!--Parameter Name="Rank"/--> 
-    </RefMode>
-    
-    <RefMode Comment="" Name="IN-VDDA">
-        <ConfigForMode>ADC_RegularChannelConfig</ConfigForMode>
-        <Parameter Name="Channel">
-            <PossibleValue>ADC_CHANNEL_VDDA</PossibleValue>
-        </Parameter>
-    </RefMode>
-    <RefMode Comment="" Name="IN-VSSA">
-        <ConfigForMode>ADC_RegularChannelConfig</ConfigForMode>
-        <Parameter Name="Channel">
-            <PossibleValue>ADC_CHANNEL_VSSA</PossibleValue>
-        </Parameter>
     </RefMode>
 
     <ModeLogicOperator Name="OR">
@@ -3159,62 +3089,8 @@ Sem_WDG3_22channel|Sem_WDG3_23channel|Sem_WDG3_24channel|Sem_WDG3_25channel|Sem_
             <Semaphore>SHANNEL18ISSELECTED</Semaphore>
 
         </Mode>
-        <Mode Name="IN19">
-            <ModeLogicOperator Name="OR">
-                <Mode Name="IN19">
-                    <SignalLogicalOp Name="AND">
-                        <Signal Name="IN19"/>
-                    </SignalLogicalOp>
-                </Mode>
-            </ModeLogicOperator>
-            <Condition Diagnostic="Available if sequencer set to not fully configurable in parameter settings tabs" Expression="$IpInstance_NOTCONFIGURABLE"/>
 
-            <Semaphore>channelSelected</Semaphore>
-            <Semaphore>SHANNEL19ISSELECTED</Semaphore>
-
-        </Mode>
-        <Mode Name="IN20">
-            <ModeLogicOperator Name="OR">
-                <Mode Name="IN20">
-                    <SignalLogicalOp Name="AND">
-                        <Signal Name="IN20"/>
-                    </SignalLogicalOp>
-                </Mode>
-            </ModeLogicOperator>
-            <Condition Diagnostic="Available if sequencer set to not fully configurable in parameter settings tabs" Expression="$IpInstance_NOTCONFIGURABLE"/>
-
-            <Semaphore>channelSelected</Semaphore>
-        </Mode>
-        <Mode Name="IN21">
-            <ModeLogicOperator Name="OR">
-                <Mode Name="IN21">
-                    <SignalLogicalOp Name="AND">
-                        <Signal Name="IN21"/>
-                    </SignalLogicalOp>
-                </Mode>
-            </ModeLogicOperator>
-            <Condition Diagnostic="Available if sequencer set to not fully configurable in parameter settings tabs" Expression="$IpInstance_NOTCONFIGURABLE"/>
-
-            <Semaphore>channelSelected</Semaphore>
-             <Semaphore>SHANNEL20ISSELECTED</Semaphore>
-
-        </Mode>
-        <Mode Name="IN22">
-            <ModeLogicOperator Name="OR">
-                <Mode Name="IN22">
-                    <SignalLogicalOp Name="AND">
-                        <Signal Name="IN22"/>
-                    </SignalLogicalOp>
-                </Mode>
-            </ModeLogicOperator>
-            <Condition Diagnostic="Available if sequencer set to not fully configurable in parameter settings tabs" Expression="$IpInstance_NOTCONFIGURABLE"/>
-
-            <Semaphore>channelSelected</Semaphore>
-        </Mode>
-        
         <!-- Internal channels -->
-        
-        
         
         <Mode Name="IN-Vbat"  RemoveCondition="(DIE453)|(DIE443)|STM32G050K8Tx|STM32G050F6Px|STM32G050K6Tx" UserName="Vbat Channel">
             <ModeLogicOperator Name="XOR">
@@ -3266,10 +3142,6 @@ Sem_WDG3_22channel|Sem_WDG3_23channel|Sem_WDG3_24channel|Sem_WDG3_25channel|Sem_
     <RefSignal IOMode="Analog" Name="IN16"/>
     <RefSignal IOMode="Analog" Name="IN17"/>
     <RefSignal IOMode="Analog" Name="IN18"/>
-    <RefSignal IOMode="Analog" Name="IN19"/>
-    <RefSignal IOMode="Analog" Name="IN20"/>
-    <RefSignal IOMode="Analog" Name="IN21"/>
-    <RefSignal IOMode="Analog" Name="IN22"/>
     <RefSignal IOMode="Analog" Name="TempSens_Input" Virtual="true"/>
     <RefSignal IOMode="Analog" Name="Vref_Input" Virtual="true"/>
     <RefSignal IOMode="Analog" Name="Vbat_Input" Virtual="true"/>

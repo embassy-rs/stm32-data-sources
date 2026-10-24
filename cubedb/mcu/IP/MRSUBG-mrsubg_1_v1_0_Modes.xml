@@ -70,8 +70,12 @@
     </RefParameter>
 
     <RefParameter Name="PreambleLength" Comment="   PreambleLength" DefaultValue="0" Type="integer" Min="0" Max="2046" Group="Packet" TabName="Configuration">
-        <Condition   Diagnostic="" Expression="Sem_WmBusPacket|Sem_BasicPacket|Sem_802Packet"/>
+        <Condition   Diagnostic="" Expression="Sem_WmBusPacket|Sem_BasicPacket"/>
         <Description>the preamble length of packet. From 1 to 2046 bit.</Description>
+    </RefParameter>
+    <RefParameter Name="PreambleLength" Comment="   PreambleLength" DefaultValue="4" Type="integer" Min="4" Max="64" Group="Packet" TabName="Configuration">
+        <Condition   Diagnostic="" Expression="Sem_802Packet"/>
+        <Description>the preamble length of packet. From 4 to 64 bit.</Description>
     </RefParameter>
 
     <RefParameter Name="PreambleLength" Comment="   PreambleLength" DefaultValue="0" Type="integer" Min="0" Max="2046"  Group="Packet" TabName="Configuration" Visible="false">
@@ -332,6 +336,18 @@
                 </Mode>
             </ModeLogicOperator>
         </Mode>
+		
+		<Mode Name="RF_ACTIVITY" UserName="Radio Frequence Activity">
+            <ModeLogicOperator Name="XOR">
+                <Mode Name="RF_ACTIVITY" UserName="RF_ACTIVITY">
+                    <SignalLogicalOp Name="AND">
+                        <Signal IOMode="System" Name="$SingleInstanceRF_ACTIVITY"/>
+                    </SignalLogicalOp>
+                    <Condition Diagnostic="Activate MRSUBG first" Expression="S_MRSUBG"/>
+                </Mode>
+            </ModeLogicOperator>
+        </Mode>
+		
         <Mode Name="TX_SEQUENCE" UserName="External amplifier control">
             <ModeLogicOperator Name="XOR">
                 <Mode Name="TX_SEQUENCE" UserName="TX_SEQUENCE">
@@ -396,6 +412,7 @@
     <RefSignal Name="VS_RF" Virtual="true"/>
     <RefSignal IOMode="System" Name="RX_SEQUENCE"/>
     <RefSignal IOMode="System" Name="TX_SEQUENCE"/>
+	<RefSignal IOMode="System" Name="$SingleInstanceRF_ACTIVITY"/>
     <RefSignal IOMode="System" Name="RX_DATA"/>
     <RefSignal IOMode="System" Name="TX_DATA"/>
     <RefSignal IOMode="System" Name="RX_CLOCK"/>

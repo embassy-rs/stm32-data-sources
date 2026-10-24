@@ -461,6 +461,44 @@
 	<RefParameter Comment="Tamper 1 Mask Flag" DefaultValue="null" Group="Tamper" Name="MaskFlag_1" Type="list" Visible="false"/>
 	
 	<RefParameter Comment="Tamper Interruption" DefaultValue="RTC_TAMPER1_INTERRUPT" Group="Tamper" Name="Interrupt" Type="list">
+		<Condition Diagnostic="" Expression="TAMP_STAMP_IRQn &amp; Tamper1_ON &amp; !Tamper2_ON &amp; !Tamper3_ON &amp; DIE483"/>
+		<PossibleValue Comment="Tamper 1 Interruption Only" Value="RTC_ALL_TAMPER_INTERRUPT"/>
+	</RefParameter>
+	<RefParameter Comment="Tamper Interruption" DefaultValue="RTC_TAMPER2_INTERRUPT" Group="Tamper" Name="Interrupt" Type="list">
+		<Condition Diagnostic="" Expression="TAMP_STAMP_IRQn &amp; Tamper2_ON &amp; !Tamper1_ON &amp; !Tamper3_ON &amp; DIE483"/>
+		<PossibleValue Comment="Tamper 2 Interruption Only" Value="RTC_ALL_TAMPER_INTERRUPT"/>
+	</RefParameter>
+	<RefParameter Comment="Tamper Interruption" DefaultValue="RTC_TAMPER3_INTERRUPT" Group="Tamper" Name="Interrupt" Type="list">
+		<Condition Diagnostic="" Expression="TAMP_STAMP_IRQn &amp; !Tamper2_ON &amp; !Tamper1_ON &amp; Tamper3_ON &amp; DIE483"/>
+		<PossibleValue Comment="Tamper 3 Interruption Only" Value="RTC_ALL_TAMPER_INTERRUPT"/>
+	</RefParameter>
+	<RefParameter Comment="Tamper Interruption" DefaultValue="RTC_ALL_TAMPER_INTERRUPT" Group="Tamper" Name="Interrupt" Type="list">
+		<Condition Diagnostic="" Expression="TAMP_STAMP_IRQn &amp; Tamper1_ON &amp; Tamper2_ON &amp; Tamper3_ON &amp; DIE483"/>
+		<PossibleValue Comment="Tamper 1 Interruption Only" Value="RTC_ALL_TAMPER_INTERRUPT"/>
+		<PossibleValue Comment="Tamper 2 Interruption Only" Value="RTC_ALL_TAMPER_INTERRUPT"/>
+		<PossibleValue Comment="Tamper 3 Interruption Only" Value="RTC_ALL_TAMPER_INTERRUPT"/>
+		<PossibleValue Comment="All Tampers Interruption" Value="RTC_ALL_TAMPER_INTERRUPT"/>
+	</RefParameter>
+	<RefParameter Comment="Tamper Interruption" DefaultValue="RTC_ALL_TAMPER_INTERRUPT" Group="Tamper" Name="Interrupt" Type="list">
+		<Condition Diagnostic="" Expression="TAMP_STAMP_IRQn &amp; Tamper1_ON &amp; Tamper2_ON &amp; !Tamper3_ON &amp; DIE483"/>
+		<PossibleValue Comment="Tamper 1 Interruption Only" Value="RTC_ALL_TAMPER_INTERRUPT"/>
+		<PossibleValue Comment="Tamper 2 Interruption Only" Value="RTC_ALL_TAMPER_INTERRUPT"/>
+		<PossibleValue Comment="All Tampers Interruption" Value="RTC_ALL_TAMPER_INTERRUPT"/>
+	</RefParameter>
+	<RefParameter Comment="Tamper Interruption" DefaultValue="RTC_ALL_TAMPER_INTERRUPT" Group="Tamper" Name="Interrupt" Type="list">
+		<Condition Diagnostic="" Expression="TAMP_STAMP_IRQn &amp; !Tamper1_ON &amp; Tamper2_ON &amp; Tamper3_ON &amp; DIE483"/>
+		<PossibleValue Comment="Tamper 2 Interruption Only" Value="RTC_ALL_TAMPER_INTERRUPT"/>
+		<PossibleValue Comment="Tamper 3 Interruption Only" Value="RTC_ALL_TAMPER_INTERRUPT"/>
+		<PossibleValue Comment="All Tampers Interruption" Value="RTC_ALL_TAMPER_INTERRUPT"/>
+	</RefParameter>
+	<RefParameter Comment="Tamper Interruption" DefaultValue="RTC_ALL_TAMPER_INTERRUPT" Group="Tamper" Name="Interrupt" Type="list">
+		<Condition Diagnostic="" Expression="TAMP_STAMP_IRQn &amp; Tamper1_ON &amp; !Tamper2_ON &amp; Tamper3_ON &amp; DIE483"/>
+		<PossibleValue Comment="Tamper 1 Interruption Only" Value="RTC_ALL_TAMPER_INTERRUPT"/>
+		<PossibleValue Comment="Tamper 3 Interruption Only" Value="RTC_ALL_TAMPER_INTERRUPT"/>
+		<PossibleValue Comment="All Tampers Interruption" Value="RTC_ALL_TAMPER_INTERRUPT"/>
+	</RefParameter>
+	
+	<RefParameter Comment="Tamper Interruption" DefaultValue="RTC_TAMPER1_INTERRUPT" Group="Tamper" Name="Interrupt" Type="list">
 		<Condition Diagnostic="" Expression="TAMP_STAMP_IRQn &amp; Tamper1_ON &amp; !Tamper2_ON &amp; !Tamper3_ON"/>
 		<PossibleValue Comment="Tamper 1 Interruption Only" Value="RTC_TAMPER1_INTERRUPT"/>
 	</RefParameter>
@@ -497,6 +535,7 @@
 		<PossibleValue Comment="Tamper 3 Interruption Only" Value="RTC_TAMPER3_INTERRUPT"/>
 		<PossibleValue Comment="All Tampers Interruption" Value="RTC_ALL_TAMPER_INTERRUPT"/>
 	</RefParameter>
+	
 	<RefParameter Comment="No Interruption" DefaultValue="null" Group="Tamper" Name="Interrupt" Type="list" Visible="false"/>
 	
 	<RefParameter Comment="Tamper" DefaultValue="RTC_TAMPER_2" Group="Tamper" Name="Tamper_2" Type="list" Visible="false">

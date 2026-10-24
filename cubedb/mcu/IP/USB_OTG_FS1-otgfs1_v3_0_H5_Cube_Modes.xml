@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<IP DBVersion="V4.0" 
+    IPType="peripheral" 
+    Name="USB_OTG_FS1" 
+	Version="otghs1_v3_0_H5_Cube" 
+    xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance" 
+    ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../../../doc/V4/Development/Specifications/db/IP_Modes.xsd" 
+    xmlns="http://mcd.rou.st.com/modules.php?name=mcu">
+    <About>USB_OTG_DRD: Universal Serial Dual Role Devices</About>
+	
+    <RefParameter Name="Instance" DefaultValue="USB_OTG_FS" Comment="Instance" Type=""/>	
+		
+	<RefParameter Comment="Host Channels" DefaultValue="12" Name="Host_channels"  Min="1" Max="12" Type="integer" Group="Internal_Phy_Host"></RefParameter>
+
+	<RefParameter Comment="Signal start of frame " DefaultValue="ENABLE" Name="Sof_enable" Type="List" Group="Internal_Phy_Host">
+		<PossibleValue Value="ENABLE" Comment="Enabled" Semaphore=""/>
+		<Condition Expression="SEM_SIGNAL_START_FRAME_ENABLE" Diagnostic=""/>
+	</RefParameter>
+	<RefParameter Comment="Signal start of frame" DefaultValue="DISABLE" Name="Sof_enable" Type="List" Group="Internal_Phy_Host">
+		<PossibleValue Value="DISABLE" Comment="Disabled" Semaphore=""/>
+		<Condition Expression="SEM_SIGNAL_START_FRAME_DISABLE" Diagnostic=""/>
+	</RefParameter>
+	
+	<RefParameter Comment="Speed_Host" DefaultValue="USB_OTG_SPEED_HIGH" Name="DeviceSpeed" Type="List" Group="Internal_Phy_Host">
+		<PossibleValue Comment="High Speed 480MBit/s" Value="USB_OTG_SPEED_HIGH"/>
+		<Condition Expression="HOST_USB_OTG_SPEED_HIGH" Diagnostic=""/>
+	</RefParameter>
+	<RefParameter Comment="Speed_Host" DefaultValue="USB_OTG_SPEED_HIGH_IN_FULL" Name="DeviceSpeed" Type="List" Group="Internal_Phy_Host">
+		<PossibleValue Comment="Full high Speed 12MBit/s" Value="USB_OTG_SPEED_HIGH_IN_FULL"/>
+		<Condition Expression="HOST_USB_OTG_SPEED_HIGH_IN_FULL" Diagnostic=""/>
+	</RefParameter>
+	<RefParameter Comment="Speed_Host" DefaultValue="USB_OTG_SPEED_FULL" Name="DeviceSpeed" Type="List" Group="Internal_Phy_Host">
+		<PossibleValue Comment="Full Speed 1.5MBit/s" Value="USB_OTG_SPEED_FULL"/>
+		<Condition Expression="HOST_USB_OTG_SPEED_FULL" Diagnostic=""/>
+	</RefParameter>
+
+	<RefParameter Comment="VBUS sensing Host" DefaultValue="DISABLE" Name="vbus_sensing_enable" Type="List" Group="Internal_Phy_Host">
+		<PossibleValue Comment="Disable" Value="DISABLE"/>
+		<Condition Expression="vbus_sensing_enable_disable" Diagnostic=""/>
+	</RefParameter>
+	
+	<RefParameter Comment="VBUS sensing Host" DefaultValue="ENABLE" Name="vbus_sensing_enable" Type="List" Group="Internal_Phy_Host">
+		<PossibleValue Comment="Enable" Value="ENABLE"/>
+		<Condition Expression="vbus_sensing_enable_enable" Diagnostic=""/>
+	</RefParameter>
+	
+	<RefParameter Comment="Physical interface" DefaultValue="HCD_PHY_EMBEDDED" Name="phy_itface" Type="List" Group="Internal_Phy_Host">		
+		<PossibleValue Value="HCD_PHY_EMBEDDED" Comment="Internal Phy"/>		
+	</RefParameter>
+
+	<RefMode Name="activate" HalMode="HCD">
+        <ConfigForMode>HCD_Init_FS</ConfigForMode>
+		<Parameter Name="Sof_enable"/>		
+		<Parameter Name="Host_channels"/>					
+		<Parameter Name="DeviceSpeed"/>
+		<Parameter Name="vbus_sensing_enable"/>		
+		<Parameter Name="phy_itface">
+			<PossibleValue>HCD_PHY_EMBEDDED</PossibleValue>
+		</Parameter>		
+    </RefMode>
+	
+    <ModeLogicOperator Name="OR">
+        <Mode Name="activate" UserName="activate" RemoveDisable="true">
+            <ModeLogicOperator Name="XOR">
+                <Mode Name="activate" UserName="activate">
+                    <SignalLogicalOp Name="AND">
+                        <Signal Name="USB_OTG_FS_DR" />
+                    </SignalLogicalOp>
+                    <Condition Expression="OTG_DUAL_ROLE_DEVICE_FS" Diagnostic=""/>
+					<Semaphore>MW_USB_OTG_FS_MW_HOST</Semaphore>
+                </Mode>
+            </ModeLogicOperator>
+        </Mode>
+    </ModeLogicOperator>		
+    <RefSignal Name="USB_OTG_FS_DR" Virtual="true"/>	
+</IP>

@@ -116,13 +116,8 @@
 		<PossibleValue Comment="S_UCPD_ModeUCPD1" Value="Disable" />
 	</RefParameter>
 	<RefParameter Comment="UCPD Disable Dead Battery Signals" DefaultValue="null" Name="DisableDeadBatterySignalsConfig" Type="list" Visible="false" />
-	<RefParameter Name="PowerMode" Comment="Power Regulator" DefaultValue="PWR_SMPS_SUPPLY" Type="List" Group="System power supply" TabName="Power Saving">
-		<Condition Expression="S_LPBAM_CONF &amp; (DIE457|DIE417|DIE4425|DIE447)" Diagnostic="" />
-		<PossibleValue Value="PWR_LDO_SUPPLY" Comment="LDO" />
-		<PossibleValue Value="PWR_SMPS_SUPPLY" Comment="SMPS" />
-	</RefParameter>
 	<RefParameter Name="PowerMode" Comment="Power Regulator" DefaultValue="PWR_LDO_SUPPLY" Type="List" Group="System power supply" TabName="Power Saving">
-		<Condition Expression="(DIE457|DIE417|DIE4425|DIE447)" Diagnostic="" />
+		<Condition Expression="!STM32L0" Diagnostic="" />
 		<PossibleValue Value="PWR_LDO_SUPPLY" Comment="LDO" />
 		<PossibleValue Value="PWR_SMPS_SUPPLY" Comment="SMPS" />
 	</RefParameter>
@@ -331,7 +326,7 @@
 						</Mode>
 					</ModeLogicOperator>
 				</Mode>
-				<Mode Name="PowerOptimisation" UserName="Power saving mode">
+				<Mode Name="PowerOptimisation" UserName="Power saving mode" RemoveCondition="STM32L0">
 					<ModeLogicOperator Name="OR">
 						<Mode Name="PowerOptimisation" UserName="Power saving mode">
 							<SignalLogicalOp Name="AND">

@@ -106,6 +106,37 @@
 
 	<!-- ClockPrescaler -->
 	<RefParameter Comment="Clock Prescaler" DefaultValue="0" Max="255" Min="0" Name="ClockPrescaler" Type="integer" Group="Generic" />
+	
+	<!-- DeviceType -->
+	<RefParameter Comment="Device Type" DefaultValue="SPI_DEVICE_FLASH" Name="DeviceType" Type="list" Group="Generic" TabName="MMT" Visible="false">
+		<Condition Diagnostic="" Expression="SEMA_Activate_EXTMEM &amp; (($IpInstance=XSPI1) &amp; ((Memory1_XSPI1 &amp; Flash_Memory1)|(Memory2_XSPI1 &amp; Flash_Memory2)))" />
+		<PossibleValue Comment="Flash" Value="SPI_DEVICE_FLASH"/>
+	</RefParameter>
+	<RefParameter Comment="Device Type" DefaultValue="SPI_DEVICE_FLASH" Name="DeviceType" Type="list" Group="Generic" TabName="MMT" Visible="false">
+		<Condition Diagnostic="" Expression="SEMA_Activate_EXTMEM &amp; (($IpInstance=XSPI2) &amp; ((Memory1_XSPI2 &amp; Flash_Memory1)|(Memory2_XSPI2 &amp; Flash_Memory2)))" />
+		<PossibleValue Comment="Flash" Value="SPI_DEVICE_FLASH"/>
+	</RefParameter>
+	<RefParameter Comment="Device Type" DefaultValue="SPI_DEVICE_FLASH" Name="DeviceType" Type="list" Group="Generic" TabName="MMT" Visible="false">
+		<Condition Diagnostic="" Expression="SEMA_Activate_EXTMEM &amp; (($IpInstance=XSPI3) &amp; ((Memory1_XSPI3 &amp; Flash_Memory1)|(Memory2_XSPI3 &amp; Flash_Memory2)))" />
+		<PossibleValue Comment="Flash" Value="SPI_DEVICE_FLASH"/>
+	</RefParameter>
+	<RefParameter Comment="Device Type" DefaultValue="SPI_DEVICE_RAM" Name="DeviceType" Type="list" Group="Generic" TabName="MMT" Visible="false">
+		<Condition Diagnostic="" Expression="SEMA_Activate_EXTMEM &amp; (($IpInstance=XSPI1) &amp; ((Memory1_XSPI1 &amp; Ram_Memory1)|(Memory2_XSPI1 &amp; Ram_Memory2)))" />
+		<PossibleValue Comment="RAM" Value="SPI_DEVICE_RAM"/>
+	</RefParameter>
+	<RefParameter Comment="Device Type" DefaultValue="SPI_DEVICE_RAM" Name="DeviceType" Type="list" Group="Generic" TabName="MMT" Visible="false">
+		<Condition Diagnostic="" Expression="SEMA_Activate_EXTMEM &amp; (($IpInstance=XSPI2) &amp; ((Memory1_XSPI2 &amp; Ram_Memory1)|(Memory2_XSPI2 &amp; Ram_Memory2)))" />
+		<PossibleValue Comment="RAM" Value="SPI_DEVICE_RAM"/>
+	</RefParameter>
+	<RefParameter Comment="Device Type" DefaultValue="SPI_DEVICE_RAM" Name="DeviceType" Type="list" Group="Generic" TabName="MMT" Visible="false">
+		<Condition Diagnostic="" Expression="SEMA_Activate_EXTMEM &amp; (($IpInstance=XSPI3) &amp; ((Memory1_XSPI3 &amp; Ram_Memory1)|(Memory2_XSPI3 &amp; Ram_Memory2)))" />
+		<PossibleValue Comment="RAM" Value="SPI_DEVICE_RAM"/>
+	</RefParameter>
+	<RefParameter Comment="Device Type" DefaultValue="SPI_DEVICE_RAM" Name="DeviceType" Type="list" Group="Generic" TabName="MMT" Visible="false">
+		<PossibleValue Comment="Not defined" Value="SPI_DEVICE_0"/>
+		<PossibleValue Comment="Flash" Value="SPI_DEVICE_FLASH"/>
+		<PossibleValue Comment="RAM" Value="SPI_DEVICE_RAM"/>
+	</RefParameter>
 
 	<!-- SampleShifting -->
 	<RefParameter Comment="Sample Shifting" DefaultValue="HAL_XSPI_SAMPLE_SHIFT_NONE" Name="SampleShifting" Type="list" Group="Generic">
@@ -2510,6 +2541,7 @@
 					</SignalLogicalOp>
 					<Semaphore>Sem_$IpInstance_NCS1</Semaphore>
 				</Mode>
+				
 				<Mode Name="XSPI3_NCS2_Port2" UserName="NCS2 -- Port2 --">
 					<Condition Expression="
 					            Sem_Port2CLK_$IpInstance_Port &amp;
@@ -2540,9 +2572,12 @@
 					<Semaphore>Sem_$IpInstance_NCS2</Semaphore>
 				</Mode>
 			</ModeLogicOperator>
-			<Semaphore>Sem_$IpInstance_NCS</Semaphore>
+						<Semaphore>Sem_$IpInstance_NCS</Semaphore>
 		</Mode>	
 	</ModeLogicOperator>
+			
+
+
 
 	<!--*********************************************************************************************-->
 	<RefSignal IOMode="AlternateFunctionPushPullHighSpeedDefault" Name="$SingleInstanceXSPIM_P1_IO0" />

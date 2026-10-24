@@ -1838,9 +1838,9 @@
         <PossibleValue Value="PWR_SMPS_SUPPLY" Comment="PWR_SMPS_SUPPLY"/>
     </RefParameter>
 
-    <RefParameter Name="PWR_Regulator_Voltage_Scale" Comment="Power Regulator Voltage Scale" Type="list" DefaultValue="PWR_REGULATOR_VOLTAGE_SCALE1" Group="Power Parameters">
+    <RefParameter Name="PWR_Regulator_Voltage_Scale" Comment="Power Regulator Voltage Scale" Type="uniqueElementList" DefaultValue="PWR_REGULATOR_VOLTAGE_SCALE1" Group="Power Parameters">
         <Condition Diagnostic="" Expression="((HCLKFreq_Value &lt; 16000000) | (HCLKFreq_Value=16000000)) &amp; RF_Used &amp; RST_HSE"/>
-        <PossibleValue Action="Disable" Condition="RF_Used &amp; RST_HSE" Diagnostic="VOS2 is prohibited when RF is using HSE/1000" Value="PWR_REGULATOR_VOLTAGE_SCALE2" Comment="Power Regulator Voltage Scale 2" Semaphore="scale2"/>
+        <!--PossibleValue Action="Disable" Condition="RF_Used &amp; RST_HSE" Diagnostic="VOS2 is prohibited when RF is using HSE/1000" Value="PWR_REGULATOR_VOLTAGE_SCALE2" Comment="Power Regulator Voltage Scale 2" Semaphore="scale2"/-->
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE1" Comment="Power Regulator Voltage Scale 1" Semaphore="scale1"/>
     </RefParameter>
     <RefParameter Name="PWR_Regulator_Voltage_Scale" Comment="Power Regulator Voltage Scale" Type="list" DefaultValue="PWR_REGULATOR_VOLTAGE_SCALE2" Group="Power Parameters">
@@ -1848,10 +1848,10 @@
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE2" Comment="Power Regulator Voltage Scale 2" Semaphore="scale2"/>
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE1" Comment="Power Regulator Voltage Scale 1" Semaphore="scale1"/>
     </RefParameter>
-    <RefParameter Name="PWR_Regulator_Voltage_Scale" Comment="Power Regulator Voltage Scale" Type="list" DefaultValue="PWR_REGULATOR_VOLTAGE_SCALE1" Group="Power Parameters">        
+    <RefParameter Name="PWR_Regulator_Voltage_Scale" Comment="Power Regulator Voltage Scale" Type="uniqueElementList" DefaultValue="PWR_REGULATOR_VOLTAGE_SCALE1" Group="Power Parameters">        
         <Condition Diagnostic="" Expression="(HCLKFreq_Value &gt; 16000000)"/>
 		<Description>VOS range 2 is not allowed with PLL</Description>
-        <PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE2" Diagnostic="Max value allowed for this scale is 16MHz" Comment="Power Regulator Voltage Scale 2" Condition="!scale2"/>
+        <!--PossibleValue Action="Disable" Value="PWR_REGULATOR_VOLTAGE_SCALE2" Diagnostic="Max value allowed for this scale is 16MHz" Comment="Power Regulator Voltage Scale 2" Condition="!scale2"/-->
         <PossibleValue Value="PWR_REGULATOR_VOLTAGE_SCALE1" Comment="Power Regulator Voltage Scale 1" Semaphore="scale1"/>
     </RefParameter>
 
@@ -2311,7 +2311,7 @@
             </ModeLogicOperator>
         </Mode-->
         <!-- Modes for Oscillators & Clocks -->
-        <Mode Name="OSC" UserName="High Speed Clock (HSE)" RemoveCondition="STM32WBA5MJGHx">
+        <Mode Name="OSC" UserName="High Speed Clock (HSE)" RemoveCondition="STM32WBA5MMGHx">
             <ModeLogicOperator Name="XOR">
                 <Mode Name="HSE-External-Clock-Source" UserName="BYPASS Clock Source">
                     <SignalLogicalOp Name="AND">
@@ -2329,7 +2329,7 @@
                 </Mode>
             </ModeLogicOperator>            
         </Mode>
-        <Mode Name="OSC32" UserName="Low Speed Clock (LSE) " RemoveCondition="STM32WBA5MJGHx">
+        <Mode Name="OSC32" UserName="Low Speed Clock (LSE) " RemoveCondition="STM32WBA5MMGHx">
             <ModeLogicOperator Name="XOR">
                 <Mode Name="LSE-External-Clock-Source" UserName="BYPASS Clock Source">
                     <SignalLogicalOp Name="AND">
@@ -2362,7 +2362,7 @@
             </ModeLogicOperator>
         </Mode>
 
-        <Mode Name="OSC" UserName="High Speed Clock (HSE)" RemoveCondition="!STM32WBA5MJGHx">
+        <Mode Name="OSC" UserName="High Speed Clock (HSE)" RemoveCondition="!STM32WBA5MMGHx">
             <ModeLogicOperator Name="XOR">
                 <Mode Name="HSE-External-Oscillator" UserName="Crystal/Ceramic Resonator">
                     <SignalLogicalOp Name="AND">
@@ -2372,7 +2372,7 @@
                 </Mode>
             </ModeLogicOperator>            
         </Mode>
-        <Mode Name="OSC32" UserName="Low Speed Clock (LSE) " RemoveCondition="!STM32WBA5MJGHx">
+        <Mode Name="OSC32" UserName="Low Speed Clock (LSE) " RemoveCondition="!STM32WBA5MMGHx">
             <ModeLogicOperator Name="XOR">
                 <Mode Name="LSE-External-Oscillator" UserName="Crystal/Ceramic Resonator">
                       <SignalLogicalOp Name="AND">

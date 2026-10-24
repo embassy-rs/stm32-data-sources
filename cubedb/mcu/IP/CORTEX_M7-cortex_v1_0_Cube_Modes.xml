@@ -8,12 +8,25 @@
         <Parameter Name="default_mode_Activation"/>
         
     </RefMode>
-    <RefParameter Name="default_mode_Activation" Comment="Speculation default mode"  Type="list" DefaultValue="1" Group="Speculation default mode Settings" >
-        <Condition Expression="S_M7_SPECULATION" Diagnostic="" /> 
+    <RefParameter Name="default_mode_Activation" Comment="Speculation default mode"  Type="list" DefaultValue="0" Group="Speculation default mode Settings" >
+        <Condition Expression="DIE485 &amp; S_M7_SPECULATION &amp; $IpInstance_APPLI" Diagnostic="" /> 
         <PossibleValue Value="1" Comment="Enabled" Semaphore="$IpInstance_S_M7_SPECULATION1"/>
         <PossibleValue Value="0" Comment="Disabled"/>
         <Description>Enable/Disable MPU Speculation default mode.</Description>
     </RefParameter>
+         <RefParameter Name="default_mode_Activation" Comment="Speculation default mode"  Type="list" DefaultValue="1" Group="Speculation default mode Settings" >
+        <Condition Expression="DIE485 &amp; S_M7_SPECULATION &amp; $IpInstance_BOOT" Diagnostic="" /> 
+        <PossibleValue Value="1" Comment="Enabled" Semaphore="$IpInstance_S_M7_SPECULATION1"/>
+        <PossibleValue Value="0" Comment="Disabled"/>
+        <Description>Enable/Disable MPU Speculation default mode.</Description>
+    </RefParameter>
+        <RefParameter Name="default_mode_Activation" Comment="Speculation default mode"  Type="list" DefaultValue="1" Group="Speculation default mode Settings" >
+        <Condition Expression="S_M7_SPECULATION&amp;!DIE485" Diagnostic="" /> 
+        <PossibleValue Value="1" Comment="Enabled" Semaphore="$IpInstance_S_M7_SPECULATION1"/>
+        <PossibleValue Value="0" Comment="Disabled"/>
+        <Description>Enable/Disable MPU Speculation default mode.</Description>
+    </RefParameter>
+    
     <RefParameter Name="default_mode_Activation" Comment="Speculation default mode"  Type="list" DefaultValue="0" Group="Speculation default mode Settings" >
         <PossibleValue Value="1" Comment="Enabled" Semaphore="$IpInstance_S_M7_SPECULATION1"/>
         <PossibleValue Value="0" Comment="Disabled"/>

@@ -39,6 +39,10 @@
             </CallLibMethod>
         </IFCondition>
         -->
+        <CallLibMethod Name="HAL_RAMCFG_EnableAXISRAM" ReturnHAL="false">
+            <MethodArg Name="hramcfg" ParameterName="hramcfg_SRAM2"/>
+        </CallLibMethod>
+        <ImplementCallBack Name="HAL_RAMCFG_EnableAXISRAM"/>
         <ImplementCallBack Name="HAL_RAMCFG_MspInit"/>
         <ImplementCallBack Name="HAL_RAMCFG_MspDeInit"/>
     </RefConfig>
@@ -59,6 +63,10 @@
                 <MethodArg Name="hramcfg" ParameterName="hramcfg_SRAM3"/>
             </CallLibMethod>
         </IFCondition>
+        <CallLibMethod Name="HAL_RAMCFG_EnableAXISRAM" ReturnHAL="false">
+            <MethodArg Name="hramcfg" ParameterName="hramcfg_SRAM3"/>
+        </CallLibMethod>
+        <ImplementCallBack Name="HAL_RAMCFG_EnableAXISRAM"/>
         <ImplementCallBack Name="HAL_RAMCFG_MspInit"/>
         <ImplementCallBack Name="HAL_RAMCFG_MspDeInit"/>
     </RefConfig>
@@ -79,6 +87,10 @@
                 <MethodArg Name="hramcfg" ParameterName="hramcfg_SRAM4"/>
             </CallLibMethod>
         </IFCondition>
+        <CallLibMethod Name="HAL_RAMCFG_EnableAXISRAM" ReturnHAL="false">
+            <MethodArg Name="hramcfg" ParameterName="hramcfg_SRAM4"/>
+        </CallLibMethod>
+        <ImplementCallBack Name="HAL_RAMCFG_EnableAXISRAM"/>
         <ImplementCallBack Name="HAL_RAMCFG_MspInit"/>
         <ImplementCallBack Name="HAL_RAMCFG_MspDeInit"/>
     </RefConfig>
@@ -99,6 +111,10 @@
                 <MethodArg Name="hramcfg" ParameterName="hramcfg_SRAM5"/>
             </CallLibMethod>
         </IFCondition>
+        <CallLibMethod Name="HAL_RAMCFG_EnableAXISRAM" ReturnHAL="false">
+            <MethodArg Name="hramcfg" ParameterName="hramcfg_SRAM5"/>
+        </CallLibMethod>
+        <ImplementCallBack Name="HAL_RAMCFG_EnableAXISRAM"/>
         <ImplementCallBack Name="HAL_RAMCFG_MspInit"/>
         <ImplementCallBack Name="HAL_RAMCFG_MspDeInit"/>
     </RefConfig>
@@ -118,6 +134,9 @@
                 <MethodArg Name="hramcfg" ParameterName="hramcfg_SRAM6"/>
             </CallLibMethod>
         </IFCondition>
+        <CallLibMethod Name="HAL_RAMCFG_EnableAXISRAM" ReturnHAL="false">
+            <MethodArg Name="hramcfg" ParameterName="hramcfg_SRAM6"/>
+        </CallLibMethod>
         <ImplementCallBack Name="HAL_RAMCFG_MspInit"/>
         <ImplementCallBack Name="HAL_RAMCFG_MspDeInit"/>
     </RefConfig>
@@ -178,6 +197,7 @@
         </IFCondition>
         <ImplementCallBack Name="HAL_RAMCFG_MspInit"/>
         <ImplementCallBack Name="HAL_RAMCFG_MspDeInit"/>
+        <ConfigFile Name="RAMCFG_TMP"/>
     </RefConfig>
 
     <RefConfig Name="Flexram_DeInit">
@@ -295,7 +315,12 @@
             </Argument>
         </Argument>
     </LibMethod>
-    
+    <LibMethod Comment="" Name="HAL_RAMCFG_EnableAXISRAM">
+        <Argument AddressOf="true" Context="global" GenericType="struct" Name="hramcfg" TypeName="RAMCFG_HandleTypeDef">
+        <Argument AddressOf="false" GenericType="baseaddress" Name="Instance" TypeName="RAMCFG_TypeDef"/>
+        <Argument AddressOf="false" GenericType="struct" Name="Init" TypeName="RAMCFG_InitTypeDef"/>
+        </Argument>
+    </LibMethod>
     <!--
     <LibMethod Comment="" Name="HAL_RAMCFG_EnableNotification">
         <Argument AddressOf="true" Context="global" GenericType="struct" Name="hramcfg" TypeName="RAMCFG_HandleTypeDef">
@@ -368,19 +393,7 @@
         </Argument>
         <Argument AddressOf="false" GenericType="simple" Name="WaitState" OptimizationCondition="equal"/>
     </LibMethod>
-    
-    <!--
-    <LibMethod Comment="" Name="HAL_RAMCFG_GetWaitState">
-        <Argument AddressOf="true" Context="global" GenericType="struct" Name="hramcfg" TypeName="RAMCFG_HandleTypeDef">
-            <Argument AddressOf="false" GenericType="baseaddress" Name="Instance" TypeName="RAMCFG_TypeDef"/>
-            <Argument AddressOf="false" GenericType="struct" Name="Init" TypeName="RAMCFG_InitTypeDef">
-            </Argument>
-            <Argument AddressOf="false" GenericType="simple" Name="State" OptimizationCondition="equal"/>
-            <Argument AddressOf="false" GenericType="simple" Name="ErrorCode" OptimizationCondition="equal"/>
-        </Argument>
-    </LibMethod>
-    -->
-    
+
     <LibMethod Comment="" Name="HAL_RAMCFG_EnableWriteProtection">
         <Argument AddressOf="true" Context="global" GenericType="struct" Name="hramcfg" TypeName="RAMCFG_HandleTypeDef">
             <Argument AddressOf="false" GenericType="baseaddress" Name="Instance" TypeName="RAMCFG_TypeDef"/>
@@ -424,26 +437,7 @@
             </Argument>
         </Argument>
     </LibMethod>  
-    
-   <!-- 
-    <LibMethod Comment="" Name="HAL_RAMCFG_RegisterCallback">
-        <Argument AddressOf="true" Context="global" GenericType="struct" Name="hramcfg" TypeName="RAMCFG_HandleTypeDef">
-            <Argument AddressOf="false" GenericType="baseaddress" Name="Instance" TypeName="RAMCFG_TypeDef"/>
-            <Argument AddressOf="false" GenericType="struct" Name="Init" TypeName="RAMCFG_InitTypeDef">
-            </Argument>
-            <Argument AddressOf="false" GenericType="simple" Name="State" OptimizationCondition="equal"/>
-            <Argument AddressOf="false" GenericType="simple" Name="ErrorCode" OptimizationCondition="equal"/>
-        </Argument>
-    </LibMethod> 
-    
-    <LibMethod Comment="" Name="HAL_RAMCFG_UnRegisterCallback">
-        <Argument AddressOf="true" Context="global" GenericType="struct" Name="hramcfg" TypeName="RAMCFG_HandleTypeDef">
-            <Argument AddressOf="false" GenericType="baseaddress" Name="Instance" TypeName="RAMCFG_TypeDef"/>
-            <Argument AddressOf="false" GenericType="struct" Name="Init" TypeName="RAMCFG_InitTypeDef">
-            </Argument>
-        </Argument>
-    </LibMethod>
-    -->
+
     <LibMethod Comment="" Name="HAL_RAMCFG_GetError">
         <Argument AddressOf="true" Context="global" GenericType="struct" Name="hramcfg" TypeName="RAMCFG_HandleTypeDef">
             <Argument AddressOf="false" GenericType="baseaddress" Name="Instance" TypeName="RAMCFG_TypeDef"/>
@@ -464,6 +458,11 @@
         </Argument>
     </LibMethod>
 
+    <RefConfigFile Description="" Name="RAMCFG_TMP" Template="ramcfg_tmp.ftl">
+        <File Category="temporary"  Condition="all"  Name="RAMCFG.tmp"/>
+        <Argument Name="SYSCFG_ITCM_size" GenericType="simple"/>
+        <Argument Name="SYSCFG_DTCM_size" GenericType="simple"/>
+    </RefConfigFile>
     <RefComponent Cclass="HAL" Cgroup="RAMCFG" Cversion="0.4.0">
         <File Category="header" Name="Drivers/STM32N6xx_HAL_Driver/Inc/stm32n6xx_hal_ramcfg.h"/>
         <File Category="source" Name="Drivers/STM32N6xx_HAL_Driver/Src/stm32n6xx_hal_ramcfg.c"/>

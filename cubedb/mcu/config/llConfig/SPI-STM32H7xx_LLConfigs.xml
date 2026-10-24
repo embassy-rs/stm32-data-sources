@@ -44,6 +44,12 @@
         	<MethodArg Name="SPIx" ParameterName="Instance"/>
           	<MethodArg Name="Threshold" ParameterName="FifoThreshold"/>
         </CallLibMethod>
+
+         <IFCondition Expression="(MasterKeepIOState = SPI_MASTER_KEEP_IO_STATE_ENABLE)">
+			<CallLibMethod Name="LL_SPI_EnableGPIOControl">
+				<MethodArg Name="SPIx" ParameterName="Instance"/>
+			</CallLibMethod>
+        </IFCondition>
     </RefConfig>
 
     <RefConfig Name="Spi_DeInit">

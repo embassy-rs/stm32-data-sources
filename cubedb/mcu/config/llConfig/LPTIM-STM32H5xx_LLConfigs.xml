@@ -108,7 +108,7 @@
 			</CallLibMethod>
 		</IFCondition>
 		
-		<IFCondition Expression="($IpNumber=1)">
+		<IFCondition Expression="($IpNumber=1)|(DIE47A &amp; (($IpNumber=2)|($IpNumber=3)|($IpNumber=4)|($IpNumber=5)|($IpNumber=6)))">
 			<CallLibMethod Name="LL_LPTIM_SetInput1Src">
 				<MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
 				<MethodArg Name="Src" 			ParameterName="Input1Source"/>
@@ -119,7 +119,7 @@
 			</CallLibMethod>
 		</IFCondition>
 		
-		<IFCondition  Expression="!($IpNumber=1)">
+		<IFCondition  Expression="!($IpNumber=1)&amp; !DIE47A">
 			<CallLibMethod Name="LL_LPTIM_SetInput1Src">
 				<MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
 				<MethodArg Name="Src" 			ParameterName="Input1Source"/>
@@ -246,6 +246,12 @@
 				<MethodArg Name="Src" 			FValue="LL_LPTIM_LPTIM1_IC1_RMP_COMP1"/>
 			</CallLibMethod>
 		</IFCondition>
+        <IFCondition Expression="($IpNumber=1) &amp; (ICInputSource_1=LPTIM_IC1SOURCE_COMP2)">
+            <CallLibMethod Name="LL_LPTIM_SetRemap">
+                <MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
+                <MethodArg Name="Src" 			FValue="LL_LPTIM_LPTIM1_IC1_RMP_COMP2"/>
+            </CallLibMethod>
+        </IFCondition>
         <IFCondition Expression="($IpNumber=1) &amp; (ICInputSource_1=LPTIM_IC1SOURCE_EVENTOUT)">
 			<CallLibMethod Name="LL_LPTIM_SetRemap">
 				<MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
@@ -258,6 +264,13 @@
 				<MethodArg Name="Src" 			FValue="LL_LPTIM_LPTIM1_IC1_RMP_MCO1"/>
 			</CallLibMethod>
 		</IFCondition>
+        <IFCondition Expression="($IpNumber=1) &amp; (ICInputSource_1=LPTIM_IC1SOURCE_PLAY1_OUT5)">
+            <CallLibMethod Name="LL_LPTIM_SetRemap">
+                <MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
+                <MethodArg Name="Src" 			FValue="LL_LPTIM_LPTIM1_IC1_RMP_PLAY1_OUT5"/>
+            </CallLibMethod>
+        </IFCondition>
+
 		
     <!--LPTIM2 Channel1-->
         <IFCondition Expression="($IpNumber=2) &amp; (ICInputSource_1=LPTIM_IC1SOURCE_GPIO)">
@@ -272,6 +285,12 @@
 				<MethodArg Name="Src" 			FValue="LL_LPTIM_LPTIM2_IC1_RMP_COMP1"/>
 			</CallLibMethod>
 		</IFCondition>
+        <IFCondition Expression="($IpNumber=2) &amp; (ICInputSource_1=LPTIM_IC1SOURCE_COMP2)">
+            <CallLibMethod Name="LL_LPTIM_SetRemap">
+                <MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
+                <MethodArg Name="Src" 			FValue="LL_LPTIM_LPTIM2_IC1_RMP_COMP2"/>
+            </CallLibMethod>
+        </IFCondition>
         <IFCondition Expression="($IpNumber=2) &amp; (ICInputSource_1=LPTIM_IC1SOURCE_EVENTOUT)">
 			<CallLibMethod Name="LL_LPTIM_SetRemap">
 				<MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
@@ -284,7 +303,84 @@
 				<MethodArg Name="Src" 			FValue="LL_LPTIM_LPTIM2_IC1_RMP_MCO2"/>
 			</CallLibMethod>
 		</IFCondition>
+        <IFCondition Expression="($IpNumber=2) &amp; (ICInputSource_1=LPTIM_IC1SOURCE_PLAY1_OUT5)">
+            <CallLibMethod Name="LL_LPTIM_SetRemap">
+                <MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
+                <MethodArg Name="Src" 			FValue="LL_LPTIM_LPTIM2_IC1_RMP_PLAY1_OUT5"/>
+            </CallLibMethod>
+        </IFCondition>
 
+        <!--LPTIM3 Channel1-->
+        <IFCondition Expression="($IpNumber=3) &amp; (ICInputSource_1=LPTIM_IC1SOURCE_GPIO)">
+            <CallLibMethod Name="LL_LPTIM_SetRemap">
+                <MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
+                <MethodArg Name="Src" 			FValue="LL_LPTIM_LPTIM3_IC1_RMP_GPIO"/>
+            </CallLibMethod>
+        </IFCondition>
+        <IFCondition Expression="($IpNumber=3) &amp; (ICInputSource_1=LPTIM_IC1SOURCE_COMP1)">
+            <CallLibMethod Name="LL_LPTIM_SetRemap">
+                <MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
+                <MethodArg Name="Src" 			FValue="LL_LPTIM_LPTIM3_IC1_RMP_COMP1"/>
+            </CallLibMethod>
+        </IFCondition>
+        <IFCondition Expression="($IpNumber=3) &amp; (ICInputSource_1=LPTIM_IC1SOURCE_COMP2)">
+            <CallLibMethod Name="LL_LPTIM_SetRemap">
+                <MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
+                <MethodArg Name="Src" 			FValue="LL_LPTIM_LPTIM3_IC1_RMP_COMP2"/>
+            </CallLibMethod>
+        </IFCondition>
+
+        <!--LPTIM5 Channel1-->
+        <IFCondition Expression="($IpNumber=5) &amp; (ICInputSource_1=LPTIM_IC1SOURCE_GPIO)">
+            <CallLibMethod Name="LL_LPTIM_SetRemap">
+                <MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
+                <MethodArg Name="Src" 			FValue="LL_LPTIM_LPTIM5_IC1_RMP_GPIO"/>
+            </CallLibMethod>
+        </IFCondition>
+        <IFCondition Expression="($IpNumber=5) &amp; (ICInputSource_1=LPTIM_IC1SOURCE_COMP1)">
+            <CallLibMethod Name="LL_LPTIM_SetRemap">
+                <MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
+                <MethodArg Name="Src" 			FValue="LL_LPTIM_LPTIM5_IC1_RMP_COMP1"/>
+            </CallLibMethod>
+        </IFCondition>
+        <IFCondition Expression="($IpNumber=5) &amp; (ICInputSource_1=LPTIM_IC1SOURCE_COMP2)">
+            <CallLibMethod Name="LL_LPTIM_SetRemap">
+                <MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
+                <MethodArg Name="Src" 			FValue="LL_LPTIM_LPTIM5_IC1_RMP_COMP2"/>
+            </CallLibMethod>
+        </IFCondition>
+        <IFCondition Expression="($IpNumber=5) &amp; (ICInputSource_1=LPTIM_IC1SOURCE_I3C1_IBIACK)">
+            <CallLibMethod Name="LL_LPTIM_SetRemap">
+                <MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
+                <MethodArg Name="Src" 			FValue="LL_LPTIM_LPTIM5_IC1_RMP_I3C1_IBIACK"/>
+            </CallLibMethod>
+        </IFCondition>
+
+        <!--LPTIM6 Channel1-->
+        <IFCondition Expression="($IpNumber=6) &amp; (ICInputSource_1=LPTIM_IC1SOURCE_GPIO)">
+            <CallLibMethod Name="LL_LPTIM_SetRemap">
+                <MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
+                <MethodArg Name="Src" 			FValue="LL_LPTIM_LPTIM6_IC1_RMP_GPIO"/>
+            </CallLibMethod>
+        </IFCondition>
+        <IFCondition Expression="($IpNumber=6) &amp; (ICInputSource_1=LPTIM_IC1SOURCE_COMP1)">
+            <CallLibMethod Name="LL_LPTIM_SetRemap">
+                <MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
+                <MethodArg Name="Src" 			FValue="LL_LPTIM_LPTIM6_IC1_RMP_COMP1"/>
+            </CallLibMethod>
+        </IFCondition>
+        <IFCondition Expression="($IpNumber=6) &amp; (ICInputSource_1=LPTIM_IC1SOURCE_COMP2)">
+            <CallLibMethod Name="LL_LPTIM_SetRemap">
+                <MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
+                <MethodArg Name="Src" 			FValue="LL_LPTIM_LPTIM6_IC1_RMP_COMP2"/>
+            </CallLibMethod>
+        </IFCondition>
+        <IFCondition Expression="($IpNumber=6) &amp; (ICInputSource_1=LPTIM_IC1SOURCE_I3C2_IBIACK)">
+            <CallLibMethod Name="LL_LPTIM_SetRemap">
+                <MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
+                <MethodArg Name="Src" 			FValue="LL_LPTIM_LPTIM6_IC1_RMP_I3C2_IBIACK"/>
+            </CallLibMethod>
+        </IFCondition>
 
 
 		<CallLibMethod Name="LL_LPTIM_IC_SetPolarity">
@@ -356,30 +452,117 @@
         <IFCondition Expression="($IpNumber=2) &amp; (ICInputSource_2=LPTIM_IC2SOURCE_HSI_8)">
 			<CallLibMethod Name="LL_LPTIM_SetRemap">
 				<MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
-				<MethodArg Name="Src" 			FValue="LL_LPTIM_LPTIM2_IC2_RMP_CSI_HSI_8"/>
+				<MethodArg Name="Src" 			FValue="LL_LPTIM_LPTIM2_IC2_RMP_HSI_8"/>
 			</CallLibMethod>
 		</IFCondition>
 
+        <!--LPTIM3 Channel2-->
+        <IFCondition Expression="($IpNumber=3) &amp; (ICInputSource_2=LPTIM_IC2SOURCE_GPIO)">
+            <CallLibMethod Name="LL_LPTIM_SetRemap">
+                <MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
+                <MethodArg Name="Src" 			FValue="LL_LPTIM_LPTIM3_IC2_RMP_GPIO"/>
+            </CallLibMethod>
+        </IFCondition>
+        <IFCondition Expression="($IpNumber=3) &amp; (ICInputSource_2=LPTIM_IC2SOURCE_COMP1)">
+            <CallLibMethod Name="LL_LPTIM_SetRemap">
+                <MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
+                <MethodArg Name="Src" 			FValue="LL_LPTIM_LPTIM3_IC2_RMP_COMP1"/>
+            </CallLibMethod>
+        </IFCondition>
+        <IFCondition Expression="($IpNumber=3) &amp; (ICInputSource_2=LPTIM_IC2SOURCE_COMP2)">
+            <CallLibMethod Name="LL_LPTIM_SetRemap">
+                <MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
+                <MethodArg Name="Src" 			FValue="LL_LPTIM_LPTIM3_IC2_RMP_COMP2"/>
+            </CallLibMethod>
+        </IFCondition>
 
+        <!--LPTIM4 Channel2-->
+        <IFCondition Expression="($IpNumber=4) &amp; (ICInputSource_2=LPTIM_IC2SOURCE_GPIO)">
+            <CallLibMethod Name="LL_LPTIM_SetRemap">
+                <MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
+                <MethodArg Name="Src" 			FValue="LL_LPTIM_LPTIM4_IC2_RMP_GPIO"/>
+            </CallLibMethod>
+        </IFCondition>
+        <IFCondition Expression="($IpNumber=4) &amp; (ICInputSource_2=LPTIM_IC2SOURCE_COMP1)">
+            <CallLibMethod Name="LL_LPTIM_SetRemap">
+                <MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
+                <MethodArg Name="Src" 			FValue="LL_LPTIM_LPTIM4_IC2_RMP_COMP1"/>
+            </CallLibMethod>
+        </IFCondition>
+        <IFCondition Expression="($IpNumber=4) &amp; (ICInputSource_2=LPTIM_IC2SOURCE_EVENTOUT)">
+            <CallLibMethod Name="LL_LPTIM_SetRemap">
+                <MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
+                <MethodArg Name="Src" 			FValue="LL_LPTIM_LPTIM4_IC2_RMP_EVENTOUT"/>
+            </CallLibMethod>
+        </IFCondition>
+        <!--LPTIM5 Channel2-->
+        <IFCondition Expression="($IpNumber=5) &amp; (ICInputSource_2=LPTIM_IC2SOURCE_GPIO)">
+            <CallLibMethod Name="LL_LPTIM_SetRemap">
+                <MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
+                <MethodArg Name="Src" 			FValue="LL_LPTIM_LPTIM5_IC2_RMP_GPIO"/>
+            </CallLibMethod>
+        </IFCondition>
+        <IFCondition Expression="($IpNumber=5) &amp; (ICInputSource_2=LPTIM_IC2SOURCE_COMP1)">
+            <CallLibMethod Name="LL_LPTIM_SetRemap">
+                <MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
+                <MethodArg Name="Src" 			FValue="LL_LPTIM_LPTIM5_IC2_RMP_COMP1"/>
+            </CallLibMethod>
+        </IFCondition>
+        <IFCondition Expression="($IpNumber=5) &amp; (ICInputSource_2=LPTIM_IC2SOURCE_EVENTOUT)">
+            <CallLibMethod Name="LL_LPTIM_SetRemap">
+                <MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
+                <MethodArg Name="Src" 			FValue="LL_LPTIM_LPTIM5_IC2_RMP_EVENTOUT"/>
+            </CallLibMethod>
+        </IFCondition>
 
-		<CallLibMethod Name="LL_LPTIM_IC_SetPolarity">
-			<MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
-			<MethodArg Name="Polarity" 		ParameterName="ICPolarity_2"/>
-			<MethodArg Name="Channel" 		FValue="LL_LPTIM_CHANNEL_CH2"/>
-		</CallLibMethod>
+        <!--LPTIM6 Channel2-->
+        <IFCondition Expression="($IpNumber=6) &amp; (ICInputSource_2=LPTIM_IC2SOURCE_GPIO)">
+            <CallLibMethod Name="LL_LPTIM_SetRemap">
+                <MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
+                <MethodArg Name="Src" 			FValue="LL_LPTIM_LPTIM6_IC2_RMP_GPIO"/>
+            </CallLibMethod>
+        </IFCondition>
+        <IFCondition Expression="($IpNumber=6) &amp; (ICInputSource_2=LPTIM_IC2SOURCE_COMP1)">
+            <CallLibMethod Name="LL_LPTIM_SetRemap">
+                <MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
+                <MethodArg Name="Src" 			FValue="LL_LPTIM_LPTIM6_IC2_RMP_COMP1"/>
+            </CallLibMethod>
+        </IFCondition>
+        <IFCondition Expression="($IpNumber=6) &amp; (ICInputSource_2=LPTIM_IC2SOURCE_EVENTOUT)">
+            <CallLibMethod Name="LL_LPTIM_SetRemap">
+                <MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
+                <MethodArg Name="Src" 			FValue="LL_LPTIM_LPTIM6_IC2_RMP_EVENTOUT"/>
+            </CallLibMethod>
+        </IFCondition>
 
-		<CallLibMethod Name="LL_LPTIM_IC_SetFilter">
-			<MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
-			<MethodArg Name="Filter" 		ParameterName="ICFilter_2"/>
-			<MethodArg Name="Channel" 		FValue="LL_LPTIM_CHANNEL_CH2"/>
-		</CallLibMethod>
+        <CallLibMethod Name="LL_LPTIM_IC_SetPolarity">
+            <MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
+            <MethodArg Name="Polarity" 		ParameterName="ICPolarity_1"/>
+            <MethodArg Name="Channel" 		FValue="LL_LPTIM_CHANNEL_CH1"/>
+        </CallLibMethod>
 
-		<CallLibMethod Name="LL_LPTIM_IC_SetPrescaler">
-			<MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
-			<MethodArg Name="Prescaler" 	ParameterName="ICPrescaler_2"/>
-			<MethodArg Name="Channel" 		FValue="LL_LPTIM_CHANNEL_CH2"/>
-		</CallLibMethod>
+        <CallLibMethod Name="LL_LPTIM_IC_SetFilter">
+            <MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
+            <MethodArg Name="Filter" 		ParameterName="ICFilter_1"/>
+            <MethodArg Name="Channel" 		FValue="LL_LPTIM_CHANNEL_CH1"/>
+        </CallLibMethod>
+
+        <CallLibMethod Name="LL_LPTIM_IC_SetPrescaler">
+            <MethodArg Name="LPTIMx" 		ParameterName="Instance"/>
+            <MethodArg Name="Prescaler" 	ParameterName="ICPrescaler_1"/>
+            <MethodArg Name="Channel" 		FValue="LL_LPTIM_CHANNEL_CH1"/>
+        </CallLibMethod>
     </RefConfig>
+
+
+
+
+
+
+
+
+
+
 
 
     <LibMethod Comment="" Name="LL_LPTIM_SetClockSource">

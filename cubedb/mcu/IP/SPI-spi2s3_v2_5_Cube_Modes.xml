@@ -30,7 +30,7 @@
 	<RefParameter Comment="Direction" DefaultValue="SPI_DIRECTION_2LINES" Group="Basic Parameters" Name="Direction" Type="list" Visible="false">
 		<PossibleValue Comment="2 Lines Unidirectionnal" Value="SPI_DIRECTION_2LINES"/>
 		<PossibleValue Comment="2 Lines with Receive only" Value="SPI_DIRECTION_2LINES_RXONLY"/>
-                <PossibleValue Comment="2 Lines with Transmit only" Value="SPI_DIRECTION_2LINES_TXONLY"/>
+        <PossibleValue Comment="2 Lines with Transmit only" Value="SPI_DIRECTION_2LINES_TXONLY"/>
 		<PossibleValue Comment="1 Line Bidirectionnal" Value="SPI_DIRECTION_1LINE"/>
 	</RefParameter>
 	
@@ -38,10 +38,26 @@
 		<PossibleValue Comment="Motorola" Value="SPI_TIMODE_DISABLE"/>
 		<PossibleValue Comment="TI" Condition="!(VirtualNSS = VM_NSSHARD)" Diagnostic="Hardware NSS signal must be enabled first" Value="SPI_TIMODE_ENABLE"/>
 	</RefParameter>
-	
+
+	<RefParameter Comment="Data Size" DefaultValue="SPI_DATASIZE_4BIT" Group="Basic Parameters" Name="DataSize" Type="list">
+		<Condition Expression="$IpNumber = 1 &amp; DIE49A" Diagnostic=""/>
+		<PossibleValue Comment="4 Bits"  Semaphore="$IpInstance_DATASIZE_BYTE"     Value="SPI_DATASIZE_4BIT"/>
+		<PossibleValue Comment="5 Bits"  Semaphore="$IpInstance_DATASIZE_BYTE"     Value="SPI_DATASIZE_5BIT"/>
+		<PossibleValue Comment="6 Bits"  Semaphore="$IpInstance_DATASIZE_BYTE"     Value="SPI_DATASIZE_6BIT"/>
+		<PossibleValue Comment="7 Bits"  Semaphore="$IpInstance_DATASIZE_BYTE"     Value="SPI_DATASIZE_7BIT"/>
+		<PossibleValue Comment="8 Bits"  Semaphore="$IpInstance_DATASIZE_BYTE"     Value="SPI_DATASIZE_8BIT"/>
+		<PossibleValue Comment="9 Bits"  Semaphore="$IpInstance_DATASIZE_HALFWORD" Value="SPI_DATASIZE_9BIT"/>
+		<PossibleValue Comment="10 Bits" Semaphore="$IpInstance_DATASIZE_HALFWORD" Value="SPI_DATASIZE_10BIT"/>
+		<PossibleValue Comment="11 Bits" Semaphore="$IpInstance_DATASIZE_HALFWORD" Value="SPI_DATASIZE_11BIT"/>
+		<PossibleValue Comment="12 Bits" Semaphore="$IpInstance_DATASIZE_HALFWORD" Value="SPI_DATASIZE_12BIT"/>
+		<PossibleValue Comment="13 Bits" Semaphore="$IpInstance_DATASIZE_HALFWORD" Value="SPI_DATASIZE_13BIT"/>
+		<PossibleValue Comment="14 Bits" Semaphore="$IpInstance_DATASIZE_HALFWORD" Value="SPI_DATASIZE_14BIT"/>
+		<PossibleValue Comment="15 Bits" Semaphore="$IpInstance_DATASIZE_HALFWORD" Value="SPI_DATASIZE_15BIT"/>
+		<PossibleValue Comment="16 Bits" Semaphore="$IpInstance_DATASIZE_HALFWORD" Value="SPI_DATASIZE_16BIT"/>
+	</RefParameter>
 	
 	<RefParameter Comment="Data Size" DefaultValue="SPI_DATASIZE_4BIT" Group="Basic Parameters" Name="DataSize" Type="list">
-		<Condition Expression="$IpNumber = 1 | $IpNumber = 2" Diagnostic=""/>
+		<Condition Expression="$IpNumber = 1 | $IpNumber = 2 | $IpNumber = 3" Diagnostic=""/>
 		<PossibleValue Comment="4 Bits"  Semaphore="$IpInstance_DATASIZE_BYTE"     Value="SPI_DATASIZE_4BIT"/>
 		<PossibleValue Comment="5 Bits"  Semaphore="$IpInstance_DATASIZE_BYTE"     Value="SPI_DATASIZE_5BIT"/>
 		<PossibleValue Comment="6 Bits"  Semaphore="$IpInstance_DATASIZE_BYTE"     Value="SPI_DATASIZE_6BIT"/>
@@ -72,8 +88,26 @@
 		<PossibleValue Comment="31 Bits" Semaphore="$IpInstance_DATASIZE_WORD"     Value="SPI_DATASIZE_31BIT"/>
 		<PossibleValue Comment="32 Bits" Semaphore="$IpInstance_DATASIZE_WORD"     Value="SPI_DATASIZE_32BIT"/>	
 	</RefParameter>
+
+	<RefParameter Comment="Data Size" DefaultValue="SPI_DATASIZE_4BIT" Group="Basic Parameters" Name="DataSize" Type="list">
+		<Condition Expression="$IpNumber = 4 | $IpNumber = 5 | $IpNumber = 6 | $IpNumber = 7" Diagnostic=""/>
+		<PossibleValue Comment="4 Bits"  Semaphore="$IpInstance_DATASIZE_BYTE"     Value="SPI_DATASIZE_4BIT"/>
+		<PossibleValue Comment="5 Bits"  Semaphore="$IpInstance_DATASIZE_BYTE"     Value="SPI_DATASIZE_5BIT"/>
+		<PossibleValue Comment="6 Bits"  Semaphore="$IpInstance_DATASIZE_BYTE"     Value="SPI_DATASIZE_6BIT"/>
+		<PossibleValue Comment="7 Bits"  Semaphore="$IpInstance_DATASIZE_BYTE"     Value="SPI_DATASIZE_7BIT"/>
+		<PossibleValue Comment="8 Bits"  Semaphore="$IpInstance_DATASIZE_BYTE"     Value="SPI_DATASIZE_8BIT"/>
+		<PossibleValue Comment="9 Bits"  Semaphore="$IpInstance_DATASIZE_HALFWORD" Value="SPI_DATASIZE_9BIT"/>
+		<PossibleValue Comment="10 Bits" Semaphore="$IpInstance_DATASIZE_HALFWORD" Value="SPI_DATASIZE_10BIT"/>
+		<PossibleValue Comment="11 Bits" Semaphore="$IpInstance_DATASIZE_HALFWORD" Value="SPI_DATASIZE_11BIT"/>
+		<PossibleValue Comment="12 Bits" Semaphore="$IpInstance_DATASIZE_HALFWORD" Value="SPI_DATASIZE_12BIT"/>
+		<PossibleValue Comment="13 Bits" Semaphore="$IpInstance_DATASIZE_HALFWORD" Value="SPI_DATASIZE_13BIT"/>
+		<PossibleValue Comment="14 Bits" Semaphore="$IpInstance_DATASIZE_HALFWORD" Value="SPI_DATASIZE_14BIT"/>
+		<PossibleValue Comment="15 Bits" Semaphore="$IpInstance_DATASIZE_HALFWORD" Value="SPI_DATASIZE_15BIT"/>
+		<PossibleValue Comment="16 Bits" Semaphore="$IpInstance_DATASIZE_HALFWORD" Value="SPI_DATASIZE_16BIT"/>
+	</RefParameter>
 	
 	<RefParameter Comment="Data Size" DefaultValue="SPI_DATASIZE_8BIT" Group="Basic Parameters" Name="DataSize" Type="list">
+		<Condition Expression="$IpNumber = 8" Diagnostic=""/>
 		<PossibleValue Comment="8 Bits"  Semaphore="$IpInstance_DATASIZE_BYTE"     Value="SPI_DATASIZE_8BIT"/>
 		<PossibleValue Comment="16 Bits" Semaphore="$IpInstance_DATASIZE_HALFWORD" Value="SPI_DATASIZE_16BIT"/>
 	</RefParameter>
@@ -88,6 +122,7 @@
 	<!-- Clock RefParameters for SPI --> 
 	<RefParameter Comment="Prescaler (for Baud Rate)" DefaultValue="SPI_BAUDRATEPRESCALER_2" Group="Clock Parameters" Name="BaudRatePrescaler" Type="list">
 		<Condition Diagnostic="" Expression="($IpInstance_Slave &amp; (TIMode = SPI_TIMODE_ENABLE)) | $IpInstance_Master"/>
+		<PossibleValue Comment="1"   Value="SPI_BAUDRATEPRESCALER_BYPASS"/>
 		<PossibleValue Comment="2"   Value="SPI_BAUDRATEPRESCALER_2"/>
 		<PossibleValue Comment="4"   Value="SPI_BAUDRATEPRESCALER_4"/>
 		<PossibleValue Comment="8"   Value="SPI_BAUDRATEPRESCALER_8"/>
@@ -103,7 +138,6 @@
 		<Description>Calculated Baudrate value based on SPI Clock source and Prescaler</Description>
 		<Condition Diagnostic="" Expression="(($IpInstance_Slave &amp; (TIMode = SPI_TIMODE_ENABLE)) | $IpInstance_Master)"/>
 	</RefParameter>
-	
 	<RefParameter Comment="Baud Rate" DefaultValue="null" Group="Clock Parameters" Max="150000000" Min="0" Name="CalculateBaudRate" Type="string" Visible="false"/>
 		
 	<RefParameter Comment="Clock Polarity (CPOL)" DefaultValue="SPI_POLARITY_LOW" Group="Clock Parameters" Name="CLKPolarity" Type="list">
@@ -129,121 +163,201 @@
 	</RefParameter>
 
 	<RefParameter Comment="Tx Crc Initialization Pattern" DefaultValue="SPI_CRC_INITIALIZATION_ALL_ZERO_PATTERN" Group="CRC Parameters" Name="TxCRCInitializationPattern" Type="list">
-		<Condition Diagnostic="" Expression="(CRCCalculation = SPI_CRCCALCULATION_ENABLE) 
-			&amp; ((Direction = SPI_DIRECTION_2LINES) | (Direction = SPI_DIRECTION_1LINE) | (Direction = SPI_DIRECTION_2LINES_TXONLY))"/>
+		<Condition Diagnostic="" Expression="(CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; ((Direction = SPI_DIRECTION_2LINES) | (Direction = SPI_DIRECTION_1LINE) | (Direction = SPI_DIRECTION_2LINES_TXONLY))"/>
 	    <PossibleValue Comment="All Zero Pattern" Value="SPI_CRC_INITIALIZATION_ALL_ZERO_PATTERN"/>
 	    <PossibleValue Comment="All One Pattern"  Value="SPI_CRC_INITIALIZATION_ALL_ONE_PATTERN"/>
 	</RefParameter>
-	<RefParameter Comment="Tx Crc Initialization Pattern" DefaultValue="null" Group="CRC Parameters" Name="TxCRCInitializationPattern" Type="list" Visible="false">
-	</RefParameter>
+	<RefParameter Comment="Tx Crc Initialization Pattern" DefaultValue="null" Group="CRC Parameters" Name="TxCRCInitializationPattern" Type="list" Visible="false"/>
 
         <RefParameter Comment="Rx Crc Initialization Pattern" DefaultValue="SPI_CRC_INITIALIZATION_ALL_ZERO_PATTERN" Group="CRC Parameters" Name="RxCRCInitializationPattern" Type="list">
-            <Condition Diagnostic="" Expression="(CRCCalculation = SPI_CRCCALCULATION_ENABLE)
-			&amp; ((Direction = SPI_DIRECTION_2LINES) | (Direction = SPI_DIRECTION_1LINE) | (Direction = SPI_DIRECTION_2LINES_RXONLY))"/>
+            <Condition Diagnostic="" Expression="(CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; ((Direction = SPI_DIRECTION_2LINES) | (Direction = SPI_DIRECTION_1LINE) | (Direction = SPI_DIRECTION_2LINES_RXONLY))"/>
             <PossibleValue Comment="All Zero Pattern" Value="SPI_CRC_INITIALIZATION_ALL_ZERO_PATTERN"/>
             <PossibleValue Comment="All One Pattern"  Value="SPI_CRC_INITIALIZATION_ALL_ONE_PATTERN"/>
         </RefParameter>
-        <RefParameter Comment="Rx Crc Initialization Pattern" DefaultValue="null" Group="CRC Parameters" Name="RxCRCInitializationPattern" Type="list" Visible="false">
-        </RefParameter>
+        <RefParameter Comment="Rx Crc Initialization Pattern" DefaultValue="null" Group="CRC Parameters" Name="RxCRCInitializationPattern" Type="list" Visible="false"/>
 
 	<RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
-               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_32BIT)"/>
+            <Condition Diagnostic="" Expression="$IpNumber = 1  &amp; DIE49A &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_16BIT)"/>
+            <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
+            <PossibleValue Comment="CRC 16 Bits"  Value="SPI_CRC_LENGTH_16BIT"/>
+        </RefParameter>
+
+    <RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
+           <Condition Diagnostic="" Expression="$IpNumber = 1  &amp; DIE49A &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_15BIT)"/>
+           <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
+           <PossibleValue Comment="CRC 15 Bits"  Value="SPI_CRC_LENGTH_15BIT"/>
+    </RefParameter>
+	
+    <RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
+           <Condition Diagnostic="" Expression="$IpNumber = 1  &amp; DIE49A &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_14BIT)"/>
+           <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
+           <PossibleValue Comment="CRC 14 Bits"  Value="SPI_CRC_LENGTH_14BIT"/>
+    </RefParameter>
+	
+    <RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
+           <Condition Diagnostic="" Expression="$IpNumber = 1  &amp; DIE49A &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_13BIT)"/>
+           <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
+           <PossibleValue Comment="CRC 13 Bits"  Value="SPI_CRC_LENGTH_13BIT"/>
+    </RefParameter>
+
+    <RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
+           <Condition Diagnostic="" Expression="$IpNumber = 1  &amp; DIE49A &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_12BIT)"/>
+           <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
+           <PossibleValue Comment="CRC 12 Bits"  Value="SPI_CRC_LENGTH_12BIT"/>
+    </RefParameter>
+
+    <RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
+           <Condition Diagnostic="" Expression="$IpNumber = 1  &amp; DIE49A &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_11BIT)"/>
+           <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
+           <PossibleValue Comment="CRC 11 Bits"  Value="SPI_CRC_LENGTH_11BIT"/>
+    </RefParameter>
+
+    <RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
+           <Condition Diagnostic="" Expression="$IpNumber = 1  &amp; DIE49A &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_10BIT)"/>
+           <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
+           <PossibleValue Comment="CRC 10 Bits"  Value="SPI_CRC_LENGTH_10BIT"/>
+    </RefParameter>
+
+    <RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
+           <Condition Diagnostic="" Expression="$IpNumber = 1  &amp; DIE49A &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_9BIT)"/>
+           <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
+           <PossibleValue Comment="CRC 9 Bits"  Value="SPI_CRC_LENGTH_9BIT"/>
+    </RefParameter>
+
+    <RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
+           <Condition Diagnostic="" Expression="$IpNumber = 1  &amp; DIE49A &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_8BIT)"/>
+           <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
+           <PossibleValue Comment="CRC 8 Bits"  Value="SPI_CRC_LENGTH_8BIT"/>
+           <PossibleValue Comment="CRC 16 Bits" Value="SPI_CRC_LENGTH_16BIT"/>
+    </RefParameter>
+
+    <RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
+           <Condition Diagnostic="" Expression="$IpNumber = 1  &amp; DIE49A &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_7BIT)"/>
+           <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
+           <PossibleValue Comment="CRC 7 Bits" Value="SPI_CRC_LENGTH_7BIT"/>
+           <PossibleValue Comment="CRC 14 Bits" Value="SPI_CRC_LENGTH_14BIT"/>
+    </RefParameter>
+
+    <RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
+           <Condition Diagnostic="" Expression="$IpNumber = 1  &amp; DIE49A &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_6BIT)"/>
+           <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
+           <PossibleValue Comment="CRC 6 Bits" Value="SPI_CRC_LENGTH_6BIT"/>
+           <PossibleValue Comment="CRC 12 Bits" Value="SPI_CRC_LENGTH_12BIT"/>
+    </RefParameter>
+
+    <RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
+           <Condition Diagnostic="" Expression="$IpNumber = 1  &amp; DIE49A &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_5BIT)"/>
+           <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
+           <PossibleValue Comment="CRC 5 Bits"  Value="SPI_CRC_LENGTH_5BIT"/>
+           <PossibleValue Comment="CRC 10 Bits" Value="SPI_CRC_LENGTH_10BIT"/>
+           <PossibleValue Comment="CRC 15 Bits" Value="SPI_CRC_LENGTH_15BIT"/>
+    </RefParameter>
+
+    <RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
+           <Condition Diagnostic="" Expression="$IpNumber = 1  &amp; DIE49A &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_4BIT)"/>
+           <PossibleValue Comment="CRC 8 Bits"  Value="SPI_CRC_LENGTH_8BIT"/>
+           <PossibleValue Comment="CRC 12 Bits" Value="SPI_CRC_LENGTH_12BIT"/>
+           <PossibleValue Comment="CRC 16 Bits" Value="SPI_CRC_LENGTH_16BIT"/>
+    </RefParameter>
+
+	<RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
+               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2 | ($IpNumber = 3 &amp; DIE49A)) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_32BIT)"/>
                <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
                <PossibleValue Comment="CRC 32 Bits"  Value="SPI_CRC_LENGTH_32BIT"/>
         </RefParameter>
 
 	<RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
-               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_31BIT)"/>
+               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2 | ($IpNumber = 3 &amp; DIE49A)) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_31BIT)"/>
                <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
                <PossibleValue Comment="CRC 31 Bits"  Value="SPI_CRC_LENGTH_31BIT"/>
         </RefParameter>
 
 	<RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
-               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_30BIT)"/>
+               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2 | ($IpNumber = 3 &amp; DIE49A)) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_30BIT)"/>
                <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
                <PossibleValue Comment="CRC 30 Bits"  Value="SPI_CRC_LENGTH_30BIT"/>
         </RefParameter>
 
 	<RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
-               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_29BIT)"/>
+               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2 | ($IpNumber = 3 &amp; DIE49A)) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_29BIT)"/>
                <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
                <PossibleValue Comment="CRC 29 Bits"  Value="SPI_CRC_LENGTH_29BIT"/>
         </RefParameter>
 
 	<RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
-               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_28BIT)"/>
+               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2 | ($IpNumber = 3 &amp; DIE49A)) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_28BIT)"/>
                <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
                <PossibleValue Comment="CRC 28 Bits"  Value="SPI_CRC_LENGTH_28BIT"/>
         </RefParameter>
 
 	<RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
-               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_27BIT)"/>
+               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2 | ($IpNumber = 3 &amp; DIE49A)) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_27BIT)"/>
                <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
                <PossibleValue Comment="CRC 27 Bits"  Value="SPI_CRC_LENGTH_27BIT"/>
         </RefParameter>
 
 	<RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
-               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_26BIT)"/>
+               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2 | ($IpNumber = 3 &amp; DIE49A)) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_26BIT)"/>
                <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
                <PossibleValue Comment="CRC 26 Bits"  Value="SPI_CRC_LENGTH_26BIT"/>
         </RefParameter>
 
 	<RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
-               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_25BIT)"/>
+               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2 | ($IpNumber = 3 &amp; DIE49A)) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_25BIT)"/>
                <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
                <PossibleValue Comment="CRC 25 Bits"  Value="SPI_CRC_LENGTH_25BIT"/>
         </RefParameter>
 
 	<RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
-               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_24BIT)"/>
+               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2 | ($IpNumber = 3 &amp; DIE49A)) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_24BIT)"/>
                <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
                <PossibleValue Comment="CRC 24 Bits"  Value="SPI_CRC_LENGTH_24BIT"/>
         </RefParameter>
 
 	<RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
-               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_23BIT)"/>
+               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2 | ($IpNumber = 3 &amp; DIE49A)) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_23BIT)"/>
                <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
                <PossibleValue Comment="CRC 23 Bits"  Value="SPI_CRC_LENGTH_23BIT"/>
         </RefParameter>
 
 	<RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
-               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_22BIT)"/>
+               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2 | ($IpNumber = 3 &amp; DIE49A)) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_22BIT)"/>
                <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
                <PossibleValue Comment="CRC 22 Bits"  Value="SPI_CRC_LENGTH_22BIT"/>
         </RefParameter>
 
 	<RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
-               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_21BIT)"/>
+               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2 | ($IpNumber = 3 &amp; DIE49A)) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_21BIT)"/>
                <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
                <PossibleValue Comment="CRC 21 Bits"  Value="SPI_CRC_LENGTH_21BIT"/>
         </RefParameter>
 
 	<RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
-               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_20BIT)"/>
+               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2 | ($IpNumber = 3 &amp; DIE49A)) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_20BIT)"/>
                <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
                <PossibleValue Comment="CRC 20 Bits"  Value="SPI_CRC_LENGTH_20BIT"/>
         </RefParameter>
 
 	<RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
-               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_19BIT)"/>
+               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2 | ($IpNumber = 3 &amp; DIE49A)) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_19BIT)"/>
                <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
                <PossibleValue Comment="CRC 19 Bits"  Value="SPI_CRC_LENGTH_19BIT"/>
         </RefParameter>
 
 	<RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
-               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_18BIT)"/>
+               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2 | ($IpNumber = 3 &amp; DIE49A)) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_18BIT)"/>
                <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
                <PossibleValue Comment="CRC 18 Bits"  Value="SPI_CRC_LENGTH_18BIT"/>
         </RefParameter>
 
 	<RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
-               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_17BIT)"/>
+               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2 | ($IpNumber = 3 &amp; DIE49A)) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_17BIT)"/>
                <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
                <PossibleValue Comment="CRC 17 Bits"  Value="SPI_CRC_LENGTH_17BIT"/>
         </RefParameter>
 	
         <RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
-               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_16BIT)"/>
+               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2 | ($IpNumber = 3 &amp; DIE49A)) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_16BIT)"/>
                <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
                <PossibleValue Comment="CRC 16 Bits"  Value="SPI_CRC_LENGTH_16BIT"/>
                <PossibleValue Comment="CRC 32 Bits"  Value="SPI_CRC_LENGTH_32BIT"/>
@@ -256,7 +370,7 @@
 	</RefParameter> -->
 
         <RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
-               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_15BIT)"/>
+               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2 | ($IpNumber = 3 &amp; DIE49A)) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_15BIT)"/>
                <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
                <PossibleValue Comment="CRC 15 Bits"  Value="SPI_CRC_LENGTH_15BIT"/>
                <PossibleValue Comment="CRC 30 Bits"  Value="SPI_CRC_LENGTH_30BIT"/>
@@ -275,7 +389,7 @@
 	</RefParameter> -->
 
         <RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
-               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_14BIT)"/>
+               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2 | ($IpNumber = 3 &amp; DIE49A)) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_14BIT)"/>
                <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
                <PossibleValue Comment="CRC 14 Bits"  Value="SPI_CRC_LENGTH_14BIT"/>
                <PossibleValue Comment="CRC 28 Bits"  Value="SPI_CRC_LENGTH_28BIT"/>
@@ -288,7 +402,7 @@
 	</RefParameter> -->
 
         <RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
-               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_13BIT)"/>
+               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2 | ($IpNumber = 3 &amp; DIE49A)) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_13BIT)"/>
                <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
                <PossibleValue Comment="CRC 13 Bits"  Value="SPI_CRC_LENGTH_13BIT"/>
                <PossibleValue Comment="CRC 26 Bits"  Value="SPI_CRC_LENGTH_26BIT"/>
@@ -301,7 +415,7 @@
 	</RefParameter> -->
 
         <RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
-               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_12BIT)"/>
+               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2 | ($IpNumber = 3 &amp; DIE49A)) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_12BIT)"/>
                <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
                <PossibleValue Comment="CRC 12 Bits"  Value="SPI_CRC_LENGTH_12BIT"/>
                <PossibleValue Comment="CRC 24 Bits"  Value="SPI_CRC_LENGTH_24BIT"/>
@@ -314,7 +428,7 @@
 	</RefParameter> -->
 
         <RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
-               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_11BIT)"/>
+               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2 | ($IpNumber = 3 &amp; DIE49A)) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_11BIT)"/>
                <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
                <PossibleValue Comment="CRC 11 Bits"  Value="SPI_CRC_LENGTH_11BIT"/>
                <PossibleValue Comment="CRC 22 Bits"  Value="SPI_CRC_LENGTH_22BIT"/>
@@ -327,7 +441,7 @@
 	</RefParameter> -->
 
         <RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
-               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_10BIT)"/>
+               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2 | ($IpNumber = 3 &amp; DIE49A)) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_10BIT)"/>
                <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
                <PossibleValue Comment="CRC 10 Bits"  Value="SPI_CRC_LENGTH_10BIT"/>
                <PossibleValue Comment="CRC 20 Bits"  Value="SPI_CRC_LENGTH_20BIT"/>
@@ -341,7 +455,7 @@
 	</RefParameter> -->
 
         <RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
-               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_9BIT)"/>
+               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2 | ($IpNumber = 3 &amp; DIE49A)) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_9BIT)"/>
                <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
                <PossibleValue Comment="CRC 9 Bits"  Value="SPI_CRC_LENGTH_9BIT"/>
                <PossibleValue Comment="CRC 18 Bits" Value="SPI_CRC_LENGTH_18BIT"/>
@@ -355,7 +469,7 @@
 	</RefParameter> -->
 
         <RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
-               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_8BIT)"/>
+               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2 | ($IpNumber = 3 &amp; DIE49A)) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_8BIT)"/>
                <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
                <PossibleValue Comment="CRC 8 Bits"  Value="SPI_CRC_LENGTH_8BIT"/>
                <PossibleValue Comment="CRC 16 Bits" Value="SPI_CRC_LENGTH_16BIT"/>
@@ -371,7 +485,7 @@
 	</RefParameter> -->
 
         <RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
-               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_7BIT)"/>
+               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2 | ($IpNumber = 3 &amp; DIE49A)) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_7BIT)"/>
                <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
                <PossibleValue Comment="CRC 7 Bits" Value="SPI_CRC_LENGTH_7BIT"/>
                <PossibleValue Comment="CRC 14 Bits" Value="SPI_CRC_LENGTH_14BIT"/>
@@ -387,7 +501,7 @@
 	</RefParameter> -->
 
         <RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
-               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_6BIT)"/>
+               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2 | ($IpNumber = 3 &amp; DIE49A)) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_6BIT)"/>
                <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
                <PossibleValue Comment="CRC 6 Bits" Value="SPI_CRC_LENGTH_6BIT"/>
                <PossibleValue Comment="CRC 12 Bits" Value="SPI_CRC_LENGTH_12BIT"/>
@@ -404,7 +518,7 @@
 	</RefParameter> -->
 
         <RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
-               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_5BIT)"/>
+               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2 | ($IpNumber = 3 &amp; DIE49A)) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_5BIT)"/>
                <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
                <PossibleValue Comment="CRC 5 Bits"  Value="SPI_CRC_LENGTH_5BIT"/>
                <PossibleValue Comment="CRC 10 Bits" Value="SPI_CRC_LENGTH_10BIT"/>
@@ -423,8 +537,9 @@
         </RefParameter> -->
 
         <RefParameter Comment="CRC Length" DefaultValue="SPI_CRC_LENGTH_DATASIZE" Group="CRC Parameters" Name="CRCLength" Type="list">
-               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_4BIT)"/>
-               <PossibleValue Comment="CRC 8 Bits"  Value="SPI_CRC_LENGTH_8BIT"/>
+               <Condition Diagnostic="" Expression="($IpNumber = 1 | $IpNumber = 2 | ($IpNumber = 3 &amp; DIE49A)) &amp; (CRCCalculation = SPI_CRCCALCULATION_ENABLE) &amp; (DataSize = SPI_DATASIZE_4BIT)"/>
+               <PossibleValue Comment="Aligned with the data size" Value="SPI_CRC_LENGTH_DATASIZE"/>
+			   <PossibleValue Comment="CRC 8 Bits"  Value="SPI_CRC_LENGTH_8BIT"/>
                <PossibleValue Comment="CRC 12 Bits" Value="SPI_CRC_LENGTH_12BIT"/>
                <PossibleValue Comment="CRC 16 Bits" Value="SPI_CRC_LENGTH_16BIT"/>
                <PossibleValue Comment="CRC 20 Bits" Value="SPI_CRC_LENGTH_20BIT"/>
@@ -703,7 +818,7 @@
     </RefParameter>
     
 	<RefParameter Comment="Fifo Threshold" DefaultValue="SPI_FIFO_THRESHOLD_01DATA" Group="Advanced Parameters" Name="FifoThreshold" Type="list">
-		<Condition Expression="$IpNumber = 1 | $IpNumber = 2" Diagnostic=""/>
+		<Condition Expression="$IpNumber = 1 | $IpNumber = 2 | $IpNumber = 3   " Diagnostic=""/>
 		<PossibleValue Comment="Fifo Threshold 01 Data" Value="SPI_FIFO_THRESHOLD_01DATA"/>
 		<PossibleValue Comment="Fifo Threshold 02 Data" Value="SPI_FIFO_THRESHOLD_02DATA"/>
 		<PossibleValue Comment="Fifo Threshold 03 Data" Value="SPI_FIFO_THRESHOLD_03DATA"/>
@@ -721,6 +836,14 @@
 		<PossibleValue Comment="Fifo Threshold 15 Data" Value="SPI_FIFO_THRESHOLD_15DATA"/>
 		<PossibleValue Comment="Fifo Threshold 16 Data" Value="SPI_FIFO_THRESHOLD_16DATA"/>
 	</RefParameter>
+	<RefParameter Comment="Fifo Threshold" DefaultValue="SPI_FIFO_THRESHOLD_01DATA" Group="Advanced Parameters" Name="FifoThreshold" Type="list">
+		<Condition Expression="(($IpNumber = 4 | $IpNumber = 5 | $IpNumber = 6 )&amp; DIE503)   " Diagnostic=""/>
+		<PossibleValue Comment="Fifo Threshold 01 Data" Value="SPI_FIFO_THRESHOLD_01DATA"/>
+		<PossibleValue Comment="Fifo Threshold 02 Data" Value="SPI_FIFO_THRESHOLD_02DATA"/>
+		<PossibleValue Comment="Fifo Threshold 03 Data" Value="SPI_FIFO_THRESHOLD_03DATA"/>
+		<PossibleValue Comment="Fifo Threshold 04 Data" Value="SPI_FIFO_THRESHOLD_04DATA"/>
+	</RefParameter>
+
         
 	<RefParameter Comment="Fifo Threshold" DefaultValue="SPI_FIFO_THRESHOLD_01DATA" Group="Advanced Parameters" Name="FifoThreshold" Type="list">
 	    <PossibleValue Comment="Fifo Threshold 01 Data" Value="SPI_FIFO_THRESHOLD_01DATA"/>
@@ -798,11 +921,11 @@
             <PossibleValue Comment="Enabled" Value="SPI_IO_SWAP_ENABLE"/>
         </RefParameter>
 
-        <RefParameter Comment="Ready Master Management" DefaultValue="SPI_RDY_MASTER_MANAGEMENT_INTERNALLY" Group="Advanced Parameters" Name="ReadyMasterManagement" Type="list">
-            <Description>RDY Master Signal management.</Description>
-            <Condition Diagnostic="$IpInstance must be in Master mode" Expression="$IpInstance_Master &amp; $IpInstance_RDYHARD_Input"/>
-            <PossibleValue Comment="External" Value="SPI_RDY_MASTER_MANAGEMENT_EXTERNALLY"/>
-        </RefParameter>
+    <RefParameter Comment="Ready Master Management" DefaultValue="SPI_RDY_MASTER_MANAGEMENT_INTERNALLY" Group="Advanced Parameters" Name="ReadyMasterManagement" Type="list">
+        <Description>RDY Master Signal management.</Description>
+        <Condition Diagnostic="$IpInstance must be in Master mode" Expression="$IpInstance_Master &amp; $IpInstance_RDYHARD_Input"/>
+        <PossibleValue Comment="External" Value="SPI_RDY_MASTER_MANAGEMENT_EXTERNALLY"/>
+    </RefParameter>
 	<RefParameter Comment="Ready Master Management" DefaultValue="SPI_RDY_MASTER_MANAGEMENT_INTERNALLY" Group="Advanced Parameters" Name="ReadyMasterManagement" Type="list">
             <Description>RDY Master Signal management.</Description>
             <Condition Diagnostic="$IpInstance must be in Master mode" Expression="$IpInstance_Master &amp; !$IpInstance_RDYHARD_Input"/>
@@ -832,6 +955,89 @@
             <PossibleValue Comment="Enable" Value="SPI_AUTO_MODE_ENABLE"/>
         </RefParameter>
 
+    <RefParameter Comment="Trigger Source" DefaultValue="SPI_GRP1_LPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
+        <Description>Autonomous Mode Trigger Source.</Description>
+        <Condition Diagnostic="" Expression="($IpNumber = 1 &amp; STM32WL4) &amp; (TriggerState = SPI_AUTO_MODE_ENABLE)"/>
+        <PossibleValue Comment="LowPower DMA Channel 0" Value="SPI_GRP1_LPDMA_CH0_TCF_TRG"/>
+        <PossibleValue Comment="LowPower DMA Channel 1" Value="SPI_GRP1_LPDMA_CH1_TCF_TRG"/>
+        <PossibleValue Comment="LowPower DMA Channel 2" Value="SPI_GRP1_LPDMA_CH2_TCF_TRG"/>
+        <PossibleValue Comment="LowPower DMA Channel 3" Value="SPI_GRP1_LPDMA_CH3_TCF_TRG"/>
+        <PossibleValue Comment="EXTI4" Value="SPI_GRP1_EXTI4_TRG"/>
+        <PossibleValue Comment="EXTI9" Value="SPI_GRP1_EXTI9_TRG"/>
+        <PossibleValue Comment="LPTIM1 Channel 1" Value="SPI_GRP1_LPTIM1_CH1_TRG"/>
+        <PossibleValue Comment="LPTIM2 Channel 1" Value="SPI_GRP1_LPTIM2_CH1_TRG"/>
+        <PossibleValue Comment="COMP1" Value="SPI_GRP1_COMP1_TRG"/>
+        <PossibleValue Comment="COMP2" Value="SPI_GRP1_COMP2_TRG"/>
+        <PossibleValue Comment="RTC Alarm" Value="SPI_GRP1_RTC_ALRA_TRG"/>
+        <PossibleValue Comment="RTC Wakeup Timer" Value="SPI_GRP1_RTC_WUT_TRG"/>
+    </RefParameter>
+
+    <RefParameter Comment="Trigger Source" DefaultValue="SPI_GRP2_LPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
+        <Description>Autonomous Mode Trigger Source.</Description>
+        <Condition Diagnostic="" Expression="($IpNumber = 3 &amp; STM32WL4) &amp; (TriggerState = SPI_AUTO_MODE_ENABLE)"/>
+        <PossibleValue Comment="LowPower DMA Channel 0" Value="SPI_GRP2_LPDMA_CH0_TCF_TRG"/>
+        <PossibleValue Comment="LowPower DMA Channel 1" Value="SPI_GRP2_LPDMA_CH1_TCF_TRG"/>
+        <PossibleValue Comment="LowPower DMA Channel 2" Value="SPI_GRP2_LPDMA_CH2_TCF_TRG"/>
+        <PossibleValue Comment="LowPower DMA Channel 3" Value="SPI_GRP2_LPDMA_CH3_TCF_TRG"/>
+        <PossibleValue Comment="EXTI4" Value="SPI_GRP2_EXTI4_TRG"/>
+        <PossibleValue Comment="EXTI8" Value="SPI_GRP2_EXTI8_TRG"/>
+        <PossibleValue Comment="LPTIM1 Channel 1" Value="SPI_GRP2_LPTIM1_CH1_TRG"/>
+        <PossibleValue Comment="LPTIM1 Channel 2" Value="SPI_GRP2_LPTIM1_CH2_TRG"/>
+        <PossibleValue Comment="COMP1" Value="SPI_GRP2_COMP1_TRG"/>
+        <PossibleValue Comment="COMP2" Value="SPI_GRP2_COMP2_TRG"/>
+        <PossibleValue Comment="RTC Alarm" Value="SPI_GRP2_RTC_ALRA_TRG"/>
+        <PossibleValue Comment="RTC Wakeup Timer" Value="SPI_GRP2_RTC_WUT_TRG"/>
+    </RefParameter>
+
+	<RefParameter Comment="Trigger Source" DefaultValue="HAL_SPI1_6_EXTI4_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
+		<Description>Autonomous Mode Trigger Source.</Description>
+		<Condition Diagnostic="" Expression=" DIE503 &amp; TriggerState = SPI_AUTO_MODE_ENABLE"/>
+		<PossibleValue Comment="EXTI4" Value="HAL_SPI1_6_EXTI4_TRG"/>
+		<PossibleValue Comment="EXTI5" Value="HAL_SPI1_6_EXTI5_TRG"/>
+		<PossibleValue Comment="EXTI6" Value="HAL_SPI1_6_EXTI6_TRG"/>
+		<PossibleValue Comment="EXTI7" Value="HAL_SPI1_6_EXTI7_TRG"/>
+		<PossibleValue Comment="LPTIM1 Channel 1" Value="HAL_SPI1_6_LPTIM1_CH1_TRG"/>
+		<PossibleValue Comment="LPTIM2 Channel 1" Value="HAL_SPI1_6_LPTIM2_CH1_TRG"/>
+		<PossibleValue Comment="LPTIM3 Channel 1" Value="HAL_SPI1_6_LPTIM3_CH1_TRG"/>
+		<PossibleValue Comment="LPTIM4 Channel 1" Value="HAL_SPI1_6_LPTIM4_CH1_TRG"/>
+		<PossibleValue Comment="LPTIM5 Channel 1" Value="HAL_SPI1_6_LPTIM5_CH1_TRG"/>
+		<PossibleValue Comment="RTC Alarm" Value="HAL_SPI1_6_RTC_ALRA_TRG"/>
+		<PossibleValue Comment="RTC Wakeup Timer" Value="HAL_SPI1_6_RTC_WUT_TRG"/>
+	</RefParameter>
+	
+	<RefParameter Comment="Trigger Source" DefaultValue="SPI_GRP1_LPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
+            <Description>Autonomous Mode Trigger Source.</Description>
+            <Condition Diagnostic="" Expression="($IpNumber = 1 &amp; DIE49A) &amp; (TriggerState = SPI_AUTO_MODE_ENABLE)"/>
+            <PossibleValue Comment="LowPower DMA Channel 0" Value="SPI_GRP1_LPDMA_CH0_TCF_TRG"/>
+            <PossibleValue Comment="LowPower DMA Channel 1" Value="SPI_GRP1_LPDMA_CH1_TCF_TRG"/>
+            <PossibleValue Comment="LowPower DMA Channel 2" Value="SPI_GRP1_LPDMA_CH2_TCF_TRG"/>
+            <PossibleValue Comment="LowPower DMA Channel 3" Value="SPI_GRP1_LPDMA_CH3_TCF_TRG"/>
+            <PossibleValue Comment="EXTI4" Value="SPI_GRP1_EXTI4_TRG"/>
+            <PossibleValue Comment="EXTI9" Value="SPI_GRP1_EXTI9_TRG"/>
+            <PossibleValue Comment="LPTIM1 Channel 1" Value="SPI_GRP1_LPTIM1_CH1_TRG"/>
+            <PossibleValue Comment="LPTIM3 Channel 1" Value="SPI_GRP1_LPTIM3_CH1_TRG"/>
+            <PossibleValue Comment="COMP1" Value="SPI_GRP1_COMP1_TRG"/>
+            <PossibleValue Comment="COMP2" Value="SPI_GRP1_COMP2_TRG"/>
+            <PossibleValue Comment="RTC Alarm" Value="SPI_GRP1_RTC_ALRA_TRG"/>
+            <PossibleValue Comment="RTC Wakeup Timer" Value="SPI_GRP1_RTC_WUT_TRG"/>
+	</RefParameter>
+	
+	<RefParameter Comment="Trigger Source" DefaultValue="SPI_GRP2_LPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
+            <Description>Autonomous Mode Trigger Source.</Description>
+            <Condition Diagnostic="" Expression="($IpNumber = 3 &amp; DIE49A) &amp; (TriggerState = SPI_AUTO_MODE_ENABLE)"/>
+            <PossibleValue Comment="LowPower DMA Channel 0" Value="SPI_GRP2_LPDMA_CH0_TCF_TRG"/>
+            <PossibleValue Comment="LowPower DMA Channel 1" Value="SPI_GRP2_LPDMA_CH1_TCF_TRG"/>
+            <PossibleValue Comment="LowPower DMA Channel 2" Value="SPI_GRP2_LPDMA_CH2_TCF_TRG"/>
+            <PossibleValue Comment="LowPower DMA Channel 3" Value="SPI_GRP2_LPDMA_CH3_TCF_TRG"/>
+            <PossibleValue Comment="EXTI4" Value="SPI_GRP2_EXTI4_TRG"/>
+            <PossibleValue Comment="EXTI8" Value="SPI_GRP2_EXTI8_TRG"/>
+            <PossibleValue Comment="LPTIM1 Channel 1" Value="SPI_GRP2_LPTIM1_CH1_TRG"/>
+            <PossibleValue Comment="LPTIM3 Channel 1" Value="SPI_GRP2_LPTIM3_CH1_TRG"/>
+            <PossibleValue Comment="COMP1" Value="SPI_GRP2_COMP1_TRG"/>
+            <PossibleValue Comment="COMP2" Value="SPI_GRP2_COMP2_TRG"/>
+            <PossibleValue Comment="RTC Alarm" Value="SPI_GRP2_RTC_ALRA_TRG"/>
+            <PossibleValue Comment="RTC Wakeup Timer" Value="SPI_GRP2_RTC_WUT_TRG"/>
+	</RefParameter>
 
 	<RefParameter Comment="Trigger Source" DefaultValue="SPI_GRP1_GPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
             <Description>Autonomous Mode Trigger Source.</Description>
@@ -850,7 +1056,7 @@
             <PossibleValue Comment="RTC Wakeup Timer" Value="SPI_GRP1_RTC_WUT_TRG"/>
         </RefParameter>
 
-	<!-- <RefParameter Comment="Trigger Source" DefaultValue="SPI_GRP2_LPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
+	<RefParameter Comment="Trigger Source" DefaultValue="SPI_GRP2_LPDMA_CH0_TCF_TRG" Group="Autonomous Mode" Name="TriggerSelection" Type="list">
             <Description>Autonomous Mode Trigger Source.</Description>
             <Condition Diagnostic="" Expression="($IpNumber = 3) &amp; (TriggerState = SPI_AUTO_MODE_ENABLE)"/>
             <PossibleValue Comment="LowPower DMA Channel 0" Value="SPI_GRP2_LPDMA_CH0_TCF_TRG"/>
@@ -865,7 +1071,7 @@
             <PossibleValue Comment="COMP2" Value="SPI_GRP2_COMP2_TRG"/>
             <PossibleValue Comment="RTC Alarm" Value="SPI_GRP2_RTC_ALRA_TRG"/>
             <PossibleValue Comment="RTC Wakeup Timer" Value="SPI_GRP2_RTC_WUT_TRG"/>
-	</RefParameter> -->
+	</RefParameter>
 	<RefParameter Comment="Trigger Source" DefaultValue="null" Group="Autonomous Mode" Name="TriggerSelection" Type="list" Visible="false"/>
 
 	<RefParameter Comment="Trigger Transition" DefaultValue="SPI_TRIG_POLARITY_RISING" Group="Autonomous Mode" Name="TriggerPolarity" Type="list">
@@ -1236,7 +1442,7 @@
 		<Parameter Name="CLKPhase"/>
 		<!-- Autonomous mode -->
 		<Parameter Name="TriggerState"/>
-                <Parameter Name="TriggerSelection"/>
+        <Parameter Name="TriggerSelection"/>
 		<Parameter Name="TriggerPolarity"/>
 		<!-- Selected Mode User Advanced Parameters -->
 		<Parameter Name="CRCCalculation"/>
@@ -1327,7 +1533,7 @@
 					<Semaphore>$IpInstance_Slave</Semaphore>
 				</Mode>
             	<Mode Name="Simplex_Bidirectional_Master" UserName="Half-Duplex Master">
-			<Condition Diagnostic="not available when configurring IP from LPBAM context" Expression="!S_LPBAM_CONF"/>
+					<Condition Diagnostic="not available when configurring IP from LPBAM context" Expression="!S_LPBAM_CONF"/>
 					<SignalLogicalOp Name="AND">
 						<Signal Name="MOSI"/>
 						<Signal Name="SCK"/>
@@ -1369,7 +1575,6 @@
 					<SignalLogicalOp Name="AND">
 						<Signal Name="MOSI"/>
 						<Signal Name="SCK"/>
-						<Signal Name="MOSIboot"/>
 					</SignalLogicalOp>
 					<Semaphore>$IpInstance_DmaTransmit</Semaphore>
 					<Semaphore>$IpInstance_Master</Semaphore>
@@ -1379,9 +1584,6 @@
 					<SignalLogicalOp Name="AND">
 						<Signal Name="MISO"/>
 						<Signal Name="SCK"/>
-						<Signal Name="MISOboot"/>
-						<Signal Name="SCKboot"/>
-						<Signal Name="NSSboot"/>
 					</SignalLogicalOp>
 					<Semaphore>$IpInstance_DmaTransmit</Semaphore>
 					<Semaphore>$IpInstance_Slave</Semaphore>
@@ -1436,15 +1638,14 @@
 		</Mode>
 
 		<!-- LPBAM specific config -->
-         <Mode Name="LPBAMSPECIFICTOP" UserName="LPBAM Advanced Settings" RemoveDisable="true" RemoveCondition="!($Index=3)"> <!-- only SPI3 is managed by LPBAM-->
-
-             <Condition Diagnostic="only available when configurring IP from LPBAM context" Expression="S_LPBAM_CONF &amp; $IpInstance"/>
-              <ModeLogicOperator Name="XOR">
-                 <Mode Name="LPBAMSPECIFIC" UserName="">
-            <SignalLogicalOp Name="AND">
+         <Mode Name="LPBAMSPECIFICTOP" UserName="LPBAM Advanced Settings" RemoveDisable="true" RemoveCondition="!($Index=3) | (DIE49A)"> <!-- only SPI3 is managed by LPBAM-->
+            <Condition Diagnostic="only available when configurring IP from LPBAM context" Expression="S_LPBAM_CONF &amp; $IpInstance"/>
+            <ModeLogicOperator Name="XOR">
+                <Mode Name="LPBAMSPECIFIC" UserName="">
+					<SignalLogicalOp Name="AND">
                         <Signal Name="VS_SPI_LPBAM"/>
-            </SignalLogicalOp>
-            </Mode>
+					</SignalLogicalOp>
+				</Mode>
             </ModeLogicOperator>
         </Mode>
         <!-- LPBAM specific config -->
@@ -1453,13 +1654,9 @@
     <Semaphore>$IpInstanceUsed_ForRCC</Semaphore>
 	<!-- RefSignal for SPI -->
 	<RefSignal IOMode="AlternateFunctionPushPull" Name="MISO"/>
-	<RefSignal IOMode="AlternateFunctionPushPull" Name="MISOboot"/>
 	<RefSignal IOMode="AlternateFunctionPushPull" Name="MOSI"/>
-	<RefSignal IOMode="AlternateFunctionPushPull" Name="MOSIboot"/>
 	<RefSignal IOMode="AlternateFunctionPushPull" Name="SCK"/>
-	<RefSignal IOMode="AlternateFunctionPushPull" Name="SCKboot"/>
 	<RefSignal IOMode="AlternateFunctionPushPull" Name="NSS"/>
-	<RefSignal IOMode="AlternateFunctionPushPull" Name="NSSboot"/>
 	<RefSignal IOMode="AlternateFunctionPushPull" Name="RDY"/>
 	<RefSignal Name="VS_SPI_LPBAM" Virtual="true"/><!-- LPBAM specific config -->
 </IP>

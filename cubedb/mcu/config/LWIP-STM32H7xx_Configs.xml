@@ -4,7 +4,7 @@
     xmlns="http://mcd.rou.st.com/modules.php?name=mcu"
     DBVersion="V4.0"
     Name="LWIP"
-    Version="STM32Cube_FW_H7_V1.1.0"
+    Version="STM32Cube_FW_H7_V2.2.1"
     RootFolder="Middlewares/Third_Party/LwIP/"
     IncludeFile="lwip/opt.h,lwip/mem.h,lwip/memp.h,netif/etharp.h,lwip/dhcp.h,lwip/netif.h,lwip/timeouts.h,ethernetif.h"
     CodeTemplate="lwip_c.ftl;lwip_h.ftl">
@@ -48,7 +48,7 @@
         <Argument AddressOf="true" GenericType="Array" Name="GATEWAY_ADDRESS" TypeName="uint8_t" Context="global" ArraySize="4"/>
     </LibMethod>
 
-    <RefComponent Cclass="Middleware" Cgroup="LWIP" Cversion="v2.1.2">
+    <RefComponent Cclass="Middleware" Cgroup="LWIP" Cversion="v2.2.1">
         <File Name="src/api/*.c" Category="source"/>
         <File Name="src/core/*.c" Category="source"/>
         <File Name="src/core/ipv4/*.c" Category="source"/>
@@ -176,7 +176,7 @@
         </RefComponent>
 
     <RefConfigFile Name="LwIP_Config" Description="Modification of LwIP stack default configuration done in opt.h file" Template="lwip_conf.ftl">
-        <File Name="Target/lwipopts.h" Category="header" Version="v2.1.2" Condition="all"/>
+        <File Name="Target/lwipopts.h" Category="header" Version="v2.2.1" Condition="all"/>
         <Argument Name="LwIP Version" GenericType="simple"/>
         <Argument Name="LWIP_DHCP" GenericType="simple"/>
         <Argument Name="ETH_RX_BUFFER_SIZE" GenericType="simple"/>
@@ -678,7 +678,7 @@
         </RefConfigFile>
 
     <RefConfigFile Name="NETIF_Config" Description="Ethernet Interface configuration (Source)" Template="ethernetif_h7.ftl">
-        <File Name="Target/ethernetif.c" Category="source" Version="v2.1.2" Condition="all"/>
+        <File Name="Target/ethernetif.c" Category="source" Version="v2.2.1" Condition="all"/>
         <Argument Name="heth" GenericType="struct" AddressOf="true"  TypeName="ETH_HandleTypeDef" Context="global"/>
         <Argument Name="WITH_RTOS" GenericType="simple"/>
         <Argument Name="CMSIS_VERSION" GenericType="simple"/>
@@ -697,10 +697,10 @@
         <Argument Name="LWIP_IGMP" GenericType="simple"/>
     </RefConfigFile>
     <RefConfigFile Name="Pools_Config" Description="Custom Memory Pools configuration" Template="lwippools.ftl">
-        <File Name="Target/lwippools.h" Category="header" Version="v2.1.2" Condition="S_MEMP_USE_CUSTOM_POOLS"/>
+        <File Name="Target/lwippools.h" Category="header" Version="v2.2.1" Condition="S_MEMP_USE_CUSTOM_POOLS"/>
         </RefConfigFile>
     <RefConfigFile Name="NETIF_Config_Header" Description="Ethernet Interface configuration (Header)" Template="ethernetif_header.ftl">
-        <File Name="Target/ethernetif.h" Category="header" Version="v2.1.2" Condition="all"/>
+        <File Name="Target/ethernetif.h" Category="header" Version="v2.2.1" Condition="all"/>
         <Argument Name="NO_SYS" GenericType="simple"/>
         <Argument Name="CMSIS_VERSION" GenericType="simple"/>
         </RefConfigFile>
@@ -708,8 +708,7 @@
         <File Category="template" Name="ethernetif_h7.ftl;Target/ethernetif.c" ComponentName="LAN8742"/>
         <File Category="header" Name="Drivers/BSP/Components/lan8742/lan8742.h" ComponentName="LAN8742"/>
         <File Category="source" Name="Drivers/BSP/Components/lan8742/lan8742.c" ComponentName="LAN8742"/>
-        <File Category="template" Name="ethernetif_h7.ftl;Target/ethernetif.c" ComponentName="USER_PHY"/>
-        <File Category="template" Name="eth_custom_phy_interface_h.ftl;Target/eth_custom_phy_interface.h" ComponentName="USER_PHY"/>
+    <File Category="template" Name="eth_custom_phy_interface_h.ftl;Target/eth_custom_phy_interface.h" ComponentName="USER_PHY"/>
         <File Category="template" Name="eth_custom_phy_interface_c.ftl;Target/eth_custom_phy_interface.c" ComponentName="USER_PHY"/>
     </RefBspComponent>
 </IP>
