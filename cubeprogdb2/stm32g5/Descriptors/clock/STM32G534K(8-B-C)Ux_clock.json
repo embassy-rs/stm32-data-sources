@@ -1,0 +1,8039 @@
+{
+  "master_clock_version": "1.0.0",
+  "copyright": "Copyright (c) 2026 STMicroelectronics",
+  "tree": {
+    "id": "clock tree",
+    "schema_version": "1.0.0",
+    "elements": [
+      {
+        "id": "804e71fe-2dcf-49d9-8919-d3b2553754f1",
+        "type": "RectangularShape",
+        "label": {
+          "align": "top",
+          "text": ""
+        },
+        "default": "",
+        "value": 0,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 641.7596582286812,
+          "y": 617.5882229402436
+        },
+        "size": {
+          "width": 268.0563397922545,
+          "height": 258.8144133136855
+        }
+      },
+      {
+        "id": "LSI",
+        "type": "fixedSource",
+        "label": {
+          "align": "top",
+          "text": "LSI RC"
+        },
+        "default": 32000,
+        "value": 32000,
+        "description": "variable source LSI",
+        "outputTargets": [
+          "RTC_Clock_Source",
+          "SYSTICKSEL",
+          "DAC1SH_Clock_Source",
+          "DAC2SH_Clock_Source",
+          "MCO2_Clock_Source",
+          "LPTIM1_Clock_Source"
+        ],
+        "position": {
+          "x": 301.6537390948628,
+          "y": -33.92772613240987
+        },
+        "unit": {
+          "text": "kHz",
+          "factor": "1/1000"
+        },
+        "role": "LSI",
+        "block": "OSCILLATOR",
+        "isTrustZone": true,
+        "size": {
+          "width": 79.3234634399414,
+          "height": 42.049896240234375
+        },
+        "outputClockId": "LSI_ck",
+        "details": [
+          {
+            "type": "table",
+            "titre": "LSI oscillator characteristics",
+            "data": [
+              {
+                "Conditions": "VDD = 3.3 V, TJ = 25 \u00b0C",
+                "Min": "31.4",
+                "Value": "32",
+                "Max": "32.6",
+                "Unit": "kHz"
+              },
+              {
+                "Conditions": "TJ = -40 to 110 \u00b0C, VDD = 2.7 to 3.6 V",
+                "Min": "29.76",
+                "Value": "-",
+                "Max": "33.6",
+                "Unit": "kHz"
+              },
+              {
+                "Conditions": "TJ = -40 to 140 \u00b0C, VDD = 2.7 to 3.6 V",
+                "Min": "29.4",
+                "Value": "-",
+                "Max": "33.6",
+                "Unit": "kHz"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "LSE",
+        "type": "fixedSource",
+        "label": {
+          "align": "top",
+          "text": "LSE OSCI"
+        },
+        "default": 32768,
+        "value": 32768,
+        "description": "variable source ",
+        "outputTargets": [
+          "USART1_Clock_Source",
+          "USART2_Clock_Source",
+          "UART4_Clock_Source",
+          "UART5_Clock_Source",
+          "MCO1_Clock_Source",
+          "RTC_Clock_Source",
+          "LPTIM1_Clock_Source",
+          "LPUART1_Clock_Source",
+          "DAC1SH_Clock_Source",
+          "DAC2SH_Clock_Source",
+          "SYSTICKSEL"
+        ],
+        "position": {
+          "x": 299.8212165922977,
+          "y": 44.67667149220616
+        },
+        "unit": {
+          "text": "kHz",
+          "factor": "1/1000"
+        },
+        "actions": [
+          {
+            "type": "enable",
+            "message": "LSE (Low Speed External Clock) is not yet configured, Activate the RCC ip and enable the related parameter to enable this clock",
+            "condition": "$get('pinout.isSignalAllocated','RCC_OSC32_IN')"
+          }
+        ],
+        "role": "LSE",
+        "block": "OSCILLATOR",
+        "isTrustZone": true,
+        "size": {
+          "width": 102.31069564819336,
+          "height": 42.049896240234375
+        },
+        "outputClockId": "LSE_ck"
+      },
+      {
+        "id": "HSE",
+        "type": "variableSource",
+        "label": {
+          "align": "top",
+          "text": "HSE OSCI"
+        },
+        "default": 24000000,
+        "value": 24000000,
+        "description": "variable source ",
+        "outputTargets": [
+          "System_Clock_Source",
+          "PLL1_Clock_Source",
+          "MCO1_Clock_Source",
+          "MCO2_Clock_Source",
+          "HSEDIV",
+          "LPTIM1_Clock_Source",
+          "FDCAN_Clock_Source",
+          "SPI1_Clock_Source",
+          "SPI2_Clock_Source",
+          "I2C1_Clock_Source",
+          "I2C2_Clock_Source",
+          "I3C1_Clock_Source",
+          "LPUART1_Clock_Source",
+          "USART1_Clock_Source",
+          "USART2_Clock_Source",
+          "UART4_Clock_Source",
+          "UART5_Clock_Source",
+          "ADC_Clock_Source",
+          "DAC5_Clock_Source",
+          "DAC6_Clock_Source",
+          "DAC7_Clock_Source",
+          "DAC8_Clock_Source",
+          "DAC9_Clock_Source",
+          "DAC10_Clock_Source",
+          "DAC1_Clock_Source",
+          "DAC2_Clock_Source"
+        ],
+        "position": {
+          "x": 298.6147746307196,
+          "y": 203.34380026697082
+        },
+        "unit": {
+          "text": "MHz",
+          "factor": "1/1000000"
+        },
+        "actions": [
+          {
+            "type": "enable",
+            "message": "HSE (High Speed External Clock) is not yet configured, Activate the RCC ip and enable the related parameter to enable this clock",
+            "condition": "$get('pinout.isSignalAllocated','RCC_OSC_IN')"
+          }
+        ],
+        "min": 4000000,
+        "max": 50000000,
+        "role": "HSE",
+        "block": "OSCILLATOR",
+        "isTrustZone": true,
+        "size": {
+          "width": 112.31968688964844,
+          "height": 55.09979248046875
+        },
+        "outputClockId": "HSE_ck"
+      },
+      {
+        "id": "HSI",
+        "type": "fixedSource",
+        "label": {
+          "align": "top",
+          "text": "HSI"
+        },
+        "default": 64000000,
+        "value": 64000000,
+        "description": "fixed source",
+        "outputTargets": [
+          "HSIDIV",
+          "HSI_comp_Div",
+          "HSI_DIV2"
+        ],
+        "position": {
+          "x": 298.6147746307196,
+          "y": 293.64726623963793
+        },
+        "unit": {
+          "text": "MHz",
+          "factor": "1/1000000"
+        },
+        "role": "HSI",
+        "block": "OSCILLATOR",
+        "isTrustZone": true,
+        "size": {
+          "width": 81.08644485473633,
+          "height": 55.09979248046875
+        },
+        "outputClockId": "HSI_ck",
+        "details": [
+          {
+            "type": "table",
+            "titre": "HSI oscillator characteristics",
+            "data": [
+              {
+                "Conditions": "VDD = 3.3 V, TJ = 30 \u00b0C",
+                "Min": "63.7",
+                "Value": "64",
+                "Max": "64.3",
+                "Unit": "MHz"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "RTC_Clock_Source",
+        "type": "multiplexor",
+        "label": {
+          "align": "top",
+          "text": "RTC Mux"
+        },
+        "default": "LSI_inputid",
+        "value": 0,
+        "description": "",
+        "outputTargets": [
+          "RTC_Input_Clock"
+        ],
+        "position": {
+          "x": 788.9488622725432,
+          "y": 24.64561525519092
+        },
+        "clocked_instance": [
+          "RTC"
+        ],
+        "possible_Input": [
+          {
+            "label": "LSE",
+            "description": "",
+            "input_Id": "LSE_Input",
+            "from": "LSE"
+          },
+          {
+            "label": "LSI",
+            "description": "",
+            "input_Id": "LSI_inputid",
+            "from": "LSI"
+          },
+          {
+            "label": "HSE",
+            "description": "",
+            "input_Id": "HSEDIV_inputid",
+            "from": "HSEDIV"
+          }
+        ],
+        "size": {
+          "width": 83.9310417175293,
+          "height": 152
+        },
+        "outputClockId": "RTC_mux_ck"
+      },
+      {
+        "id": "RTC_Input_Clock",
+        "type": "editableValue",
+        "label": {
+          "align": "top",
+          "text": "To RTC"
+        },
+        "default": 32000,
+        "value": 32000,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 910.1327605736816,
+          "y": 66.83497364984949
+        },
+        "clocked_instance": [
+          "RTC"
+        ],
+        "unit": {
+          "text": "kHz",
+          "factor": "1/1000"
+        },
+        "actions": [
+          {
+            "type": "enable",
+            "message": "RTC is not yet configured, activate/select a mode from RTC configuration tab to enable this clock.",
+            "condition": "$get('peripheral.isBound','RTC')"
+          }
+        ],
+        "max": 1000000,
+        "size": {
+          "width": 131,
+          "height": 95
+        },
+        "outputClockId": "RTC_in_ck"
+      },
+      {
+        "id": "HSIDIV",
+        "type": "divider",
+        "label": {
+          "align": "top",
+          "text": "HSI Div"
+        },
+        "default": 1,
+        "value": 1,
+        "description": "",
+        "outputTargets": [
+          "HSI_CAL",
+          "System_Clock_Source",
+          "PLL1_Clock_Source",
+          "MCO1_Clock_Source",
+          "LPTIM1_Clock_Source",
+          "SPI1_Clock_Source",
+          "SPI2_Clock_Source",
+          "I2C1_Clock_Source",
+          "I2C2_Clock_Source",
+          "I3C1_Clock_Source",
+          "LPUART1_Clock_Source",
+          "USART1_Clock_Source",
+          "USART2_Clock_Source",
+          "UART4_Clock_Source",
+          "UART5_Clock_Source",
+          "ADC_Clock_Source",
+          "DAC5_Clock_Source",
+          "DAC6_Clock_Source",
+          "DAC7_Clock_Source",
+          "DAC8_Clock_Source",
+          "DAC9_Clock_Source",
+          "DAC10_Clock_Source",
+          "DAC1_Clock_Source",
+          "DAC2_Clock_Source"
+        ],
+        "position": {
+          "x": 551.1840968291912,
+          "y": 293.64726623963793
+        },
+        "oneOf": [
+          {
+            "const": 1
+          },
+          {
+            "const": 2
+          },
+          {
+            "const": 4
+          },
+          {
+            "const": 8
+          }
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 112,
+          "height": 78
+        },
+        "outputClockId": "hsidiv_ck"
+      },
+      {
+        "id": "HSEDIV",
+        "type": "divider",
+        "label": {
+          "align": "top",
+          "text": "HSE Div"
+        },
+        "default": 2,
+        "value": 2,
+        "description": "",
+        "outputTargets": [
+          "RTC_Clock_Source"
+        ],
+        "position": {
+          "x": 592.4894231946942,
+          "y": 98.69387252586067
+        },
+        "oneOf": [
+          {
+            "const": 2
+          },
+          {
+            "const": 3
+          },
+          {
+            "const": 4
+          },
+          {
+            "const": 5
+          },
+          {
+            "const": 6
+          },
+          {
+            "const": 7
+          },
+          {
+            "const": 8
+          },
+          {
+            "const": 9
+          },
+          {
+            "const": 10
+          },
+          {
+            "const": 11
+          },
+          {
+            "const": 12
+          },
+          {
+            "const": 13
+          },
+          {
+            "const": 14
+          },
+          {
+            "const": 15
+          },
+          {
+            "const": 16
+          },
+          {
+            "const": 17
+          },
+          {
+            "const": 18
+          },
+          {
+            "const": 19
+          },
+          {
+            "const": 20
+          },
+          {
+            "const": 21
+          },
+          {
+            "const": 22
+          },
+          {
+            "const": 23
+          },
+          {
+            "const": 24
+          },
+          {
+            "const": 25
+          },
+          {
+            "const": 26
+          },
+          {
+            "const": 27
+          },
+          {
+            "const": 28
+          },
+          {
+            "const": 29
+          },
+          {
+            "const": 30
+          },
+          {
+            "const": 31
+          },
+          {
+            "const": 32
+          },
+          {
+            "const": 33
+          },
+          {
+            "const": 34
+          },
+          {
+            "const": 35
+          },
+          {
+            "const": 36
+          },
+          {
+            "const": 37
+          },
+          {
+            "const": 38
+          },
+          {
+            "const": 39
+          },
+          {
+            "const": 40
+          },
+          {
+            "const": 41
+          },
+          {
+            "const": 42
+          },
+          {
+            "const": 43
+          },
+          {
+            "const": 44
+          },
+          {
+            "const": 45
+          },
+          {
+            "const": 46
+          },
+          {
+            "const": 47
+          },
+          {
+            "const": 48
+          },
+          {
+            "const": 49
+          },
+          {
+            "const": 50
+          },
+          {
+            "const": 51
+          },
+          {
+            "const": 52
+          },
+          {
+            "const": 53
+          },
+          {
+            "const": 54
+          },
+          {
+            "const": 55
+          },
+          {
+            "const": 56
+          },
+          {
+            "const": 57
+          },
+          {
+            "const": 58
+          },
+          {
+            "const": 59
+          },
+          {
+            "const": 60
+          },
+          {
+            "const": 61
+          },
+          {
+            "const": 62
+          },
+          {
+            "const": 63
+          }
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "role": "RTC_HSE_Divider",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 131,
+          "height": 84
+        },
+        "outputClockId": "hsediv_ck"
+      },
+      {
+        "id": "System_Clock_Source",
+        "type": "multiplexor",
+        "label": {
+          "align": "top",
+          "text": "System Mux"
+        },
+        "default": "HSIDIV_Input",
+        "value": 0,
+        "description": "",
+        "outputTargets": [
+          "System_Clock_Frequency",
+          "HRTPRE"
+        ],
+        "position": {
+          "x": 918.7861935568155,
+          "y": 281.1963222092289
+        },
+        "possible_Input": [
+          {
+            "label": "HSI DIV",
+            "description": "",
+            "input_Id": "HSIDIV_Input",
+            "from": "HSIDIV"
+          },
+          {
+            "label": "HSE",
+            "description": "",
+            "input_Id": "HSE_Input",
+            "from": "HSE"
+          },
+          {
+            "label": "PLL1P",
+            "description": "",
+            "input_Id": "PLL1P_inputid",
+            "from": "PLL1P"
+          }
+        ],
+        "role": "Sysclk",
+        "block": "System",
+        "isTrustZone": true,
+        "size": {
+          "width": 100,
+          "height": 152
+        },
+        "outputClockId": "System_ck"
+      },
+      {
+        "id": "USART1_Clock_Source",
+        "type": "multiplexor",
+        "label": {
+          "align": "top",
+          "text": "USART1 Mux"
+        },
+        "default": "APB2_Peripheral_Clock_inputid",
+        "value": 0,
+        "description": "",
+        "outputTargets": [
+          "USART1_Input_Clock"
+        ],
+        "position": {
+          "x": 1942.067302843159,
+          "y": -184.3642803590294
+        },
+        "clocked_instance": [
+          "USART1"
+        ],
+        "possible_Input": [
+          {
+            "label": "PCLK2",
+            "description": "",
+            "input_Id": "APB2_Peripheral_Clock_inputid",
+            "from": "APB2_Peripheral_Clock"
+          },
+          {
+            "label": "IC1",
+            "description": "",
+            "input_Id": "ICLK1DIV_inputid",
+            "from": "ICLK1DIV"
+          },
+          {
+            "label": "HSE",
+            "description": "",
+            "input_Id": "HSE_inputid",
+            "from": "HSE"
+          },
+          {
+            "label": "HSI DIV",
+            "description": "",
+            "input_Id": "HSIDIV_inputid",
+            "from": "HSIDIV"
+          },
+          {
+            "label": "LSE",
+            "description": "",
+            "input_Id": "LSE_inputid",
+            "from": "LSE"
+          }
+        ],
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 142.84326171875,
+          "height": 212
+        },
+        "outputClockId": "usart1_mux_ck"
+      },
+      {
+        "id": "USART2_Clock_Source",
+        "type": "multiplexor",
+        "label": {
+          "align": "top",
+          "text": "USART2 Mux"
+        },
+        "default": "APB1_Peripheral_Clock_inputid",
+        "value": 0,
+        "description": "",
+        "outputTargets": [
+          "USART2_Input_Clock"
+        ],
+        "position": {
+          "x": 2063.799724336118,
+          "y": -49.72610529708659
+        },
+        "clocked_instance": [
+          "USART2"
+        ],
+        "possible_Input": [
+          {
+            "label": "PCLK1",
+            "description": "",
+            "input_Id": "APB1_Peripheral_Clock_inputid",
+            "from": "APB1_Peripheral_Clock"
+          },
+          {
+            "label": "IC1",
+            "description": "",
+            "input_Id": "ICLK1DIV_inputid",
+            "from": "ICLK1DIV"
+          },
+          {
+            "label": "HSE",
+            "description": "",
+            "input_Id": "HSE_inputid",
+            "from": "HSE"
+          },
+          {
+            "label": "HSI DIV",
+            "description": "",
+            "input_Id": "HSIDIV_inputid",
+            "from": "HSIDIV"
+          },
+          {
+            "label": "LSE",
+            "description": "",
+            "input_Id": "LSE_inputid",
+            "from": "LSE"
+          }
+        ],
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 142.84326171875,
+          "height": 212
+        },
+        "outputClockId": "usart2_mux_ck"
+      },
+      {
+        "id": "UART4_Clock_Source",
+        "type": "multiplexor",
+        "label": {
+          "align": "top",
+          "text": "UART4 Mux"
+        },
+        "default": "APB1_Peripheral_Clock_inputid",
+        "value": 0,
+        "description": "",
+        "outputTargets": [
+          "UART4_Input_Clock"
+        ],
+        "position": {
+          "x": 1946.402752061909,
+          "y": 86.68391254934812
+        },
+        "clocked_instance": [
+          "UART4"
+        ],
+        "possible_Input": [
+          {
+            "label": "PCLK1",
+            "description": "",
+            "input_Id": "APB1_Peripheral_Clock_inputid",
+            "from": "APB1_Peripheral_Clock"
+          },
+          {
+            "label": "IC1",
+            "description": "",
+            "input_Id": "ICLK1DIV_inputid",
+            "from": "ICLK1DIV"
+          },
+          {
+            "label": "HSE",
+            "description": "",
+            "input_Id": "HSE_inputid",
+            "from": "HSE"
+          },
+          {
+            "label": "HSI DIV",
+            "description": "",
+            "input_Id": "HSIDIV_inputid",
+            "from": "HSIDIV"
+          },
+          {
+            "label": "LSE",
+            "description": "",
+            "input_Id": "LSE_inputid",
+            "from": "LSE"
+          }
+        ],
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 134.17236328125,
+          "height": 212
+        },
+        "outputClockId": "uart4_mux_ck"
+      },
+      {
+        "id": "UART5_Clock_Source",
+        "type": "multiplexor",
+        "label": {
+          "align": "top",
+          "text": "UART5 Mux"
+        },
+        "default": "APB1_Peripheral_Clock_inputid",
+        "value": 0,
+        "description": "",
+        "outputTargets": [
+          "UART5_Input_Clock"
+        ],
+        "position": {
+          "x": 2068.135173554868,
+          "y": 222.46852436577865
+        },
+        "clocked_instance": [
+          "UART5"
+        ],
+        "possible_Input": [
+          {
+            "label": "PCLK1",
+            "description": "",
+            "input_Id": "APB1_Peripheral_Clock_inputid",
+            "from": "APB1_Peripheral_Clock"
+          },
+          {
+            "label": "IC1",
+            "description": "",
+            "input_Id": "ICLK1DIV_inputid",
+            "from": "ICLK1DIV"
+          },
+          {
+            "label": "HSE",
+            "description": "",
+            "input_Id": "HSE_inputid",
+            "from": "HSE"
+          },
+          {
+            "label": "HSI DIV",
+            "description": "",
+            "input_Id": "HSIDIV_inputid",
+            "from": "HSIDIV"
+          },
+          {
+            "label": "LSE",
+            "description": "",
+            "input_Id": "LSE_inputid",
+            "from": "LSE"
+          }
+        ],
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 134.17236328125,
+          "height": 212
+        },
+        "outputClockId": "uart5_mux_ck"
+      },
+      {
+        "id": "SPI1_Clock_Source",
+        "type": "multiplexor",
+        "label": {
+          "align": "top",
+          "text": "SPI1 Mux"
+        },
+        "default": "APB2_Peripheral_Clock_inputid",
+        "value": 0,
+        "description": "",
+        "outputTargets": [
+          "SPI1_Input_Clock"
+        ],
+        "position": {
+          "x": 1953.502605577534,
+          "y": 629.0451619834593
+        },
+        "clocked_instance": [
+          "SPI1"
+        ],
+        "possible_Input": [
+          {
+            "label": "PCLK2",
+            "description": "",
+            "input_Id": "APB2_Peripheral_Clock_inputid",
+            "from": "APB2_Peripheral_Clock"
+          },
+          {
+            "label": "IC1",
+            "description": "",
+            "input_Id": "ICLK1DIV_inputid",
+            "from": "ICLK1DIV"
+          },
+          {
+            "label": "AUDIOCLK",
+            "description": "",
+            "input_Id": "AUDIO_Source_inputid",
+            "from": "AUDIO_Source"
+          },
+          {
+            "label": "HSE",
+            "description": "",
+            "input_Id": "HSE_inputid",
+            "from": "HSE"
+          },
+          {
+            "label": "HSI DIV",
+            "description": "",
+            "input_Id": "HSIDIV_inputid",
+            "from": "HSIDIV"
+          }
+        ],
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 119.97265625,
+          "height": 212
+        },
+        "outputClockId": "spi1_mux_ck"
+      },
+      {
+        "id": "SPI2_Clock_Source",
+        "type": "multiplexor",
+        "label": {
+          "align": "top",
+          "text": "SPI2 Mux"
+        },
+        "default": "APB1_Peripheral_Clock_inputid",
+        "value": 0,
+        "description": "",
+        "outputTargets": [
+          "SPI2_Input_Clock"
+        ],
+        "position": {
+          "x": 2075.235027070493,
+          "y": 762.2229533066816
+        },
+        "clocked_instance": [
+          "SPI2"
+        ],
+        "possible_Input": [
+          {
+            "label": "PCLK1",
+            "description": "",
+            "input_Id": "APB1_Peripheral_Clock_inputid",
+            "from": "APB1_Peripheral_Clock"
+          },
+          {
+            "label": "IC1",
+            "description": "",
+            "input_Id": "ICLK1DIV_inputid",
+            "from": "ICLK1DIV"
+          },
+          {
+            "label": "HSE",
+            "description": "",
+            "input_Id": "HSE_inputid",
+            "from": "HSE"
+          },
+          {
+            "label": "HSI DIV",
+            "description": "",
+            "input_Id": "HSIDIV_inputid",
+            "from": "HSIDIV"
+          },
+          {
+            "label": "AUDIOCLK",
+            "description": "",
+            "input_Id": "AUDIO_Source_inputid",
+            "from": "AUDIO_Source"
+          }
+        ],
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 119.97265625,
+          "height": 212
+        },
+        "outputClockId": "spi2_mux_ck"
+      },
+      {
+        "id": "HSI_comp_Div",
+        "type": "divider",
+        "label": {
+          "align": "top",
+          "text": "HSI Comp div"
+        },
+        "default": 8,
+        "value": 8,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 551.1840968291912,
+          "y": 388.5954262158875
+        },
+        "oneOf": [
+          {
+            "const": 8
+          }
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "role": "",
+        "block": "",
+        "orphanLink": {
+          "label": "HSI_DIV_8",
+          "isOrphan": true
+        },
+        "isTrustZone": false,
+        "size": {
+          "width": 123.8107681274414,
+          "height": 78.44444465637207
+        },
+        "outputClockId": "hsi_comp_div_ck"
+      },
+      {
+        "id": "HSI_DIV2",
+        "type": "divider",
+        "label": {
+          "align": "top",
+          "text": "HSI Div2"
+        },
+        "default": 2,
+        "value": 2,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 551.1840968291912,
+          "y": 483.2662581378477
+        },
+        "oneOf": [
+          {
+            "const": 2
+          }
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "role": "",
+        "block": "",
+        "orphanLink": {
+          "label": "HSI_DIV_2",
+          "isOrphan": true
+        },
+        "isTrustZone": false,
+        "size": {
+          "width": 112,
+          "height": 78.44444465637207
+        },
+        "outputClockId": "hsi_div2_ck"
+      },
+      {
+        "id": "HSI_CAL",
+        "type": "divider",
+        "label": {
+          "align": "top",
+          "text": "HSI Cal div"
+        },
+        "default": 1024,
+        "value": 1024,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 700.0069403266764,
+          "y": 293.64726623963793
+        },
+        "oneOf": [
+          {
+            "const": 1024
+          }
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "role": "",
+        "block": "",
+        "orphanLink": {
+          "label": "HSI_CAL_DIV",
+          "isOrphan": true
+        },
+        "isTrustZone": false,
+        "size": {
+          "width": 112.10150146484375,
+          "height": 78
+        },
+        "outputClockId": "hsi_cal_ck"
+      },
+      {
+        "id": "HPRE",
+        "type": "divider",
+        "label": {
+          "align": "top",
+          "text": "HPRE"
+        },
+        "default": 1,
+        "value": 1,
+        "description": "",
+        "outputTargets": [
+          "HPRE_DIV8",
+          "RCC_CPU_Input_Clock",
+          "HCLKM_Input_Clock",
+          "AHB1_Peripheral_Clock",
+          "APB1_Clock_Divider",
+          "TIMx_Input_Clock",
+          "APB2_Clock_Divider",
+          "TIMy_Input_Clocks",
+          "AHB3_Peripheral_Clock",
+          "APB3_Clock_Divider",
+          "AHB5_Peripheral_Clock",
+          "AHB4_Peripheral_Clock",
+          "ADC_Clock_Source",
+          "DAC5_Clock_Source",
+          "DAC6_Clock_Source",
+          "DAC7_Clock_Source",
+          "DAC8_Clock_Source",
+          "DAC9_Clock_Source",
+          "DAC10_Clock_Source",
+          "DAC1_Clock_Source",
+          "DAC2_Clock_Source",
+          "TIMz_Input_Clock"
+        ],
+        "position": {
+          "x": 1191.9427681149373,
+          "y": 328.4357607627751
+        },
+        "oneOf": [
+          {
+            "const": 1
+          },
+          {
+            "const": 2
+          },
+          {
+            "const": 4
+          },
+          {
+            "const": 8
+          },
+          {
+            "const": 16
+          },
+          {
+            "const": 64
+          },
+          {
+            "const": 128
+          },
+          {
+            "const": 256
+          },
+          {
+            "const": 512
+          }
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "role": "HCLK",
+        "block": "BUSSES",
+        "isTrustZone": false,
+        "size": {
+          "width": 131,
+          "height": 83.16666603088379
+        },
+        "outputClockId": "hpre_ck"
+      },
+      {
+        "id": "HPRE_DIV8",
+        "type": "divider",
+        "label": {
+          "align": "top",
+          "text": "HPRE  Div8"
+        },
+        "default": 8,
+        "value": 8,
+        "description": "",
+        "outputTargets": [
+          "SYSTICKSEL"
+        ],
+        "position": {
+          "x": 1346.1856923007724,
+          "y": -43.73015237877538
+        },
+        "oneOf": [
+          {
+            "const": 8
+          }
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "role": "CORTEXCLK",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 131,
+          "height": 83.16666603088379
+        },
+        "outputClockId": "hpre_div8_ck"
+      },
+      {
+        "id": "SYSTICKSEL",
+        "type": "multiplexor",
+        "label": {
+          "align": "top",
+          "text": "Systick Mux"
+        },
+        "default": "HPRE_DIV8_inputid",
+        "value": 0,
+        "description": "",
+        "outputTargets": [
+          "CPU_Input_Clock"
+        ],
+        "position": {
+          "x": 1466.0866612054185,
+          "y": -119.44020286957198
+        },
+        "possible_Input": [
+          {
+            "label": "LSI",
+            "description": "",
+            "input_Id": "LSI_inputid",
+            "from": "LSI"
+          },
+          {
+            "label": "LSE",
+            "description": "",
+            "input_Id": "LSE_inputid",
+            "from": "LSE"
+          },
+          {
+            "label": "HPRE",
+            "description": "",
+            "input_Id": "HPRE_DIV8_inputid",
+            "from": "HPRE_DIV8"
+          }
+        ],
+        "role": "CORTEXCLK",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 100,
+          "height": 152
+        },
+        "outputClockId": "systicksel_ck"
+      },
+      {
+        "id": "CPU_Input_Clock",
+        "type": "editableValue",
+        "label": {
+          "align": "right",
+          "text": "To CPU SysTick"
+        },
+        "default": 8000000,
+        "value": 8000000,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 1598.8159465130002,
+          "y": -63.44701970742939
+        },
+        "clocked_instance": [
+          "SYSTICK_EXT"
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "role": "CORTEXCLK",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 228.41837310791016,
+          "height": 67
+        },
+        "outputClockId": "cpu_ck"
+      },
+      {
+        "id": "RCC_CPU_Input_Clock",
+        "type": "editableValue",
+        "label": {
+          "align": "right",
+          "text": "To Debug and Trace "
+        },
+        "default": 64000000,
+        "value": 64000000,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 1598.8159465130002,
+          "y": 11.061490545535747
+        },
+        "clocked_instance": [
+          "SYSTICK_INT"
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 251.3460464477539,
+          "height": 67
+        },
+        "outputClockId": "rcc_cpu_ck"
+      },
+      {
+        "id": "HCLKM_Input_Clock",
+        "type": "editableValue",
+        "label": {
+          "align": "right",
+          "text": "To AHB Matrix"
+        },
+        "default": 64000000,
+        "value": 64000000,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 1598.8159465130002,
+          "y": 86.36297670729746
+        },
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 217.3544158935547,
+          "height": 67
+        },
+        "outputClockId": "hclkm_ck"
+      },
+      {
+        "id": "AHB1_Peripheral_Clock",
+        "type": "editableValue",
+        "label": {
+          "align": "right",
+          "text": "To AHB1 Peripherals"
+        },
+        "default": 64000000,
+        "value": 64000000,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 1598.8159465130002,
+          "y": 160.73467132251582
+        },
+        "clocked_instance": [
+          "RAMCFG",
+          "CORDIC",
+          "CRC",
+          "GPDMA2",
+          "GPDMA1",
+          "Flash",
+          "FMAC1"
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "role": "Cpu",
+        "block": "Busses",
+        "isTrustZone": false,
+        "size": {
+          "width": 254.11820220947266,
+          "height": 67
+        },
+        "outputClockId": "hclk1_ck"
+      },
+      {
+        "id": "APB1_Clock_Divider",
+        "type": "divider",
+        "label": {
+          "align": "top",
+          "text": "PPRE1"
+        },
+        "default": 1,
+        "value": 1,
+        "description": "",
+        "outputTargets": [
+          "APB1_Peripheral_Clock"
+        ],
+        "position": {
+          "x": 1368.7820659289446,
+          "y": 228.82270241369955
+        },
+        "oneOf": [
+          {
+            "const": 1
+          },
+          {
+            "const": 2
+          },
+          {
+            "const": 4
+          },
+          {
+            "const": 8
+          },
+          {
+            "const": 16
+          }
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "role": "PCLK1",
+        "block": "BUSSES",
+        "isTrustZone": false,
+        "size": {
+          "width": 131,
+          "height": 83.16666603088379
+        },
+        "outputClockId": "ppre1_ck"
+      },
+      {
+        "id": "APB1_Peripheral_Clock",
+        "type": "editableValue",
+        "label": {
+          "align": "right",
+          "text": "To APB1 Peripherals"
+        },
+        "default": 64000000,
+        "value": 64000000,
+        "description": "",
+        "outputTargets": [
+          "USART2_Clock_Source",
+          "UART4_Clock_Source",
+          "UART5_Clock_Source",
+          "SPI2_Clock_Source",
+          "I2C1_Clock_Source",
+          "I2C2_Clock_Source",
+          "I3C1_Clock_Source"
+        ],
+        "position": {
+          "x": 1599.3212339485099,
+          "y": 231.43459290476355
+        },
+        "clocked_instance": [
+          "DTS"
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "max": 280000000,
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 253.4009246826172,
+          "height": 78.66666603088379
+        },
+        "outputClockId": "APB1_Peripheral_Clock_ck"
+      },
+      {
+        "id": "TIMx_Input_Clock",
+        "type": "editableValue",
+        "label": {
+          "align": "right",
+          "text": "To TIMx Kernel clocks"
+        },
+        "default": 64000000,
+        "value": 64000000,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 1601.356848845178,
+          "y": 378.0054814244564
+        },
+        "clocked_instance": [
+          "TIM14",
+          "TIM13",
+          "TIM12",
+          "TIM11",
+          "TIM10",
+          "TIM9",
+          "TIM7",
+          "TIM6",
+          "TIM2"
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "role": "PCLK1TIM",
+        "block": "BUSSES",
+        "isTrustZone": false,
+        "size": {
+          "width": 261.0752182006836,
+          "height": 67
+        },
+        "outputClockId": "timx_ck"
+      },
+      {
+        "id": "APB2_Clock_Divider",
+        "type": "divider",
+        "label": {
+          "align": "top",
+          "text": "PPRE2"
+        },
+        "default": 1,
+        "value": 1,
+        "description": "",
+        "outputTargets": [
+          "APB2_Peripheral_Clock"
+        ],
+        "position": {
+          "x": 1371.3229682611225,
+          "y": 513.5754444956693
+        },
+        "oneOf": [
+          {
+            "const": 1
+          },
+          {
+            "const": 2
+          },
+          {
+            "const": 4
+          },
+          {
+            "const": 8
+          },
+          {
+            "const": 16
+          }
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "role": "PCLK2",
+        "block": "BUSSES",
+        "isTrustZone": false,
+        "size": {
+          "width": 112.00000381469727,
+          "height": 78.22222518920898
+        },
+        "outputClockId": "ppre2_ck"
+      },
+      {
+        "id": "APB2_Peripheral_Clock",
+        "type": "editableValue",
+        "label": {
+          "align": "right",
+          "text": "To APB2 Peripherals"
+        },
+        "default": 64000000,
+        "value": 64000000,
+        "description": "",
+        "outputTargets": [
+          "USART1_Clock_Source",
+          "SPI1_Clock_Source"
+        ],
+        "position": {
+          "x": 1601.356848845178,
+          "y": 516.8225272620551
+        },
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "max": 280000000,
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 282.9676887989044,
+          "height": 78.11111164093018
+        },
+        "outputClockId": "APB2_Peripheral_Clock_ck"
+      },
+      {
+        "id": "TIMz_Input_Clock",
+        "type": "editableValue",
+        "label": {
+          "align": "right",
+          "text": "To TIMz Kernel clocks"
+        },
+        "default": 64000000,
+        "value": 64000000,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 1600.3262038650016,
+          "y": 310.58266454296097
+        },
+        "clocked_instance": [
+          "TIM26",
+          "TIM27"
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "role": "PCLK1TIM",
+        "block": "BUSSES",
+        "isTrustZone": false,
+        "size": {
+          "width": 261.0752182006836,
+          "height": 67
+        },
+        "outputClockId": "timz_ck"
+      },
+      {
+        "id": "TIMy_Input_Clocks",
+        "type": "editableValue",
+        "label": {
+          "align": "right",
+          "text": "To TIMy Kernel clocks"
+        },
+        "default": 64000000,
+        "value": 64000000,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 1601.356848845178,
+          "y": 595.9126295687917
+        },
+        "clocked_instance": [
+          "TIM17",
+          "TIM16",
+          "TIM15",
+          "TIM8",
+          "TIM1"
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "role": "PCLK2TIM",
+        "block": "BUSSES",
+        "isTrustZone": false,
+        "size": {
+          "width": 185.94764709472656,
+          "height": 53
+        },
+        "outputClockId": "timy_ck"
+      },
+      {
+        "id": "HRTIM1_Input_Clock",
+        "type": "editableValue",
+        "label": {
+          "align": "right",
+          "text": "To HRTIM1 Kernel clocks"
+        },
+        "default": 64000000,
+        "value": 64000000,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 1601.356848845178,
+          "y": 670.0884750609347
+        },
+        "clocked_instance": [
+          "HRTIM1"
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "actions": [
+          {
+            "type": "enable",
+            "message": "HRTIM1 is not yet configured, activate/select a mode from HRTIM1 configuration tab to enable this clock.",
+            "condition": "$get('peripheral.isBound','HRTIM1')"
+          }
+        ],
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 203.06283569335938,
+          "height": 53
+        },
+        "outputClockId": "hrtim1_ck"
+      },
+      {
+        "id": "HRTPRE",
+        "type": "divider",
+        "label": {
+          "align": "top",
+          "text": "HRTPRE"
+        },
+        "default": 1,
+        "value": 1,
+        "description": "",
+        "outputTargets": [
+          "HRTIM1_Input_Clock",
+          "ADC_Clock_Source",
+          "DAC5_Clock_Source",
+          "DAC6_Clock_Source",
+          "DAC7_Clock_Source",
+          "DAC8_Clock_Source",
+          "DAC9_Clock_Source",
+          "DAC10_Clock_Source",
+          "DAC1_Clock_Source",
+          "DAC2_Clock_Source"
+        ],
+        "position": {
+          "x": 1371.3229682611225,
+          "y": 661.7551415686556
+        },
+        "clocked_instance": [
+          "HRTIM1"
+        ],
+        "oneOf": [
+          {
+            "const": 1
+          },
+          {
+            "const": 2
+          },
+          {
+            "const": 4
+          },
+          {
+            "const": 8
+          },
+          {
+            "const": 16
+          },
+          {
+            "const": 64
+          },
+          {
+            "const": 128
+          },
+          {
+            "const": 256
+          }
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 125.99999976158142,
+          "height": 83.44444465637207
+        },
+        "outputClockId": "hrtpre_ck"
+      },
+      {
+        "id": "AHB3_Peripheral_Clock",
+        "type": "editableValue",
+        "label": {
+          "align": "right",
+          "text": "To AHB3 Peripherals"
+        },
+        "default": 64000000,
+        "value": 64000000,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 1601.356848845178,
+          "y": 745.4043952248121
+        },
+        "clocked_instance": [
+          "DBG"
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "role": "HCLK3",
+        "block": "BUSSES",
+        "isTrustZone": false,
+        "size": {
+          "width": 284.24072265625,
+          "height": 67
+        },
+        "outputClockId": "hclk3_ck"
+      },
+      {
+        "id": "APB3_Clock_Divider",
+        "type": "divider",
+        "label": {
+          "align": "top",
+          "text": "PPRE3"
+        },
+        "default": 1,
+        "value": 1,
+        "description": "",
+        "outputTargets": [
+          "APB3_Peripheral_Clock"
+        ],
+        "position": {
+          "x": 1371.3229682611225,
+          "y": 812.4071875532381
+        },
+        "oneOf": [
+          {
+            "const": 1
+          },
+          {
+            "const": 2
+          },
+          {
+            "const": 4
+          },
+          {
+            "const": 8
+          },
+          {
+            "const": 16
+          }
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "role": "PCLK3",
+        "block": "BUSSES",
+        "isTrustZone": false,
+        "size": {
+          "width": 112.00000381469727,
+          "height": 78.22222518920898
+        },
+        "outputClockId": "ppre3_ck"
+      },
+      {
+        "id": "APB3_Peripheral_Clock",
+        "type": "editableValue",
+        "label": {
+          "align": "right",
+          "text": "To APB3 Peripherals"
+        },
+        "default": 64000000,
+        "value": 64000000,
+        "description": "",
+        "outputTargets": [
+          "LPUART1_Clock_Source",
+          "LPTIM1_Clock_Source"
+        ],
+        "position": {
+          "x": 1601.356848845178,
+          "y": 815.6542703196237
+        },
+        "clocked_instance": [
+          "COMP1",
+          "COMP2",
+          "COMP3",
+          "COMP4",
+          "COMP5",
+          "COMP6",
+          "COMP7",
+          "COMP8",
+          "VREFBUF",
+          "SBS"
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "max": 280000000,
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 283.5234375,
+          "height": 78
+        },
+        "outputClockId": "APB3_Peripheral_Clock_ck"
+      },
+      {
+        "id": "AHB4_Peripheral_Clock",
+        "type": "editableValue",
+        "label": {
+          "align": "right",
+          "text": "To AHB4 Peripherals"
+        },
+        "default": 64000000,
+        "value": 64000000,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 1601.356848845178,
+          "y": 894.2189811644898
+        },
+        "clocked_instance": [
+          "PKA",
+          "HASH"
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "role": "HCLK4",
+        "block": "BUSSES",
+        "isTrustZone": false,
+        "size": {
+          "width": 246.24549865722656,
+          "height": 53
+        },
+        "outputClockId": "hclk4_ck"
+      },
+      {
+        "id": "AHB5_Peripheral_Clock",
+        "type": "editableValue",
+        "label": {
+          "align": "right",
+          "text": "To AHB5 Peripherals"
+        },
+        "default": 64000000,
+        "value": 64000000,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 1604.2443366946848,
+          "y": 969.4391800279348
+        },
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "role": "HCLK5",
+        "block": "BUSSES",
+        "isTrustZone": false,
+        "size": {
+          "width": 283.68495869636536,
+          "height": 67
+        },
+        "outputClockId": "hclk5_ck"
+      },
+      {
+        "id": "I2C1_Clock_Source",
+        "type": "multiplexor",
+        "label": {
+          "align": "top",
+          "text": "I2C1 Mux"
+        },
+        "default": "APB1_Peripheral_Clock_inputid",
+        "value": 0,
+        "description": "",
+        "outputTargets": [
+          "I2C1_Input_Clock"
+        ],
+        "position": {
+          "x": 2414.935069948638,
+          "y": -198.48128933036188
+        },
+        "clocked_instance": [
+          "I2C1"
+        ],
+        "possible_Input": [
+          {
+            "label": "PCLK1",
+            "description": "",
+            "input_Id": "APB1_Peripheral_Clock_inputid",
+            "from": "APB1_Peripheral_Clock"
+          },
+          {
+            "label": "IC1",
+            "description": "",
+            "input_Id": "ICLK1DIV_inputid",
+            "from": "ICLK1DIV"
+          },
+          {
+            "label": "HSI DIV",
+            "description": "",
+            "input_Id": "HSIDIV_inputid",
+            "from": "HSIDIV"
+          },
+          {
+            "label": "HSE",
+            "description": "",
+            "input_Id": "HSE_inputid",
+            "from": "HSE"
+          }
+        ],
+        "isTrustZone": true,
+        "size": {
+          "width": 119.2490234375,
+          "height": 182
+        },
+        "outputClockId": "i2c1_mux_ck"
+      },
+      {
+        "id": "USART1_Input_Clock",
+        "type": "editableValue",
+        "label": {
+          "align": "top",
+          "text": "To USART1"
+        },
+        "default": 64000000,
+        "value": 64000000,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 2212.2830003423333,
+          "y": -112.34935313623396
+        },
+        "clocked_instance": [
+          "USART1"
+        ],
+        "unit": {
+          "text": "MHz",
+          "factor": "1/1000000"
+        },
+        "actions": [
+          {
+            "type": "enable",
+            "message": "USART1 is not yet configured, activate/select a mode from USART1 configuration tab to enable this clock.",
+            "condition": "$get('peripheral.isBound','USART1')"
+          }
+        ],
+        "max": 280000000,
+        "size": {
+          "width": 129,
+          "height": 84
+        },
+        "outputClockId": "usart1_ck"
+      },
+      {
+        "id": "USART2_Input_Clock",
+        "type": "editableValue",
+        "label": {
+          "align": "top",
+          "text": "To USART2"
+        },
+        "default": 64000000,
+        "value": 64000000,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 2212.2830003423333,
+          "y": 22.997833503239747
+        },
+        "clocked_instance": [
+          "USART2"
+        ],
+        "unit": {
+          "text": "MHz",
+          "factor": "1/1000000"
+        },
+        "actions": [
+          {
+            "type": "enable",
+            "message": "USART2 is not yet configured, activate/select a mode from USART2 configuration tab to enable this clock.",
+            "condition": "$get('peripheral.isBound','USART2')"
+          }
+        ],
+        "max": 280000000,
+        "size": {
+          "width": 129,
+          "height": 84
+        },
+        "outputClockId": "usart2_ck"
+      },
+      {
+        "id": "UART4_Input_Clock",
+        "type": "editableValue",
+        "label": {
+          "align": "top",
+          "text": "To UART4"
+        },
+        "default": 64000000,
+        "value": 64000000,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 2212.2830003423333,
+          "y": 158.38420277908173
+        },
+        "clocked_instance": [
+          "UART4"
+        ],
+        "unit": {
+          "text": "MHz",
+          "factor": "1/1000000"
+        },
+        "actions": [
+          {
+            "type": "enable",
+            "message": "UART4 is not yet configured, activate/select a mode from UART4 configuration tab to enable this clock.",
+            "condition": "$get('peripheral.isBound','UART4')"
+          }
+        ],
+        "max": 280000000,
+        "size": {
+          "width": 129,
+          "height": 84
+        },
+        "outputClockId": "uart4_ck"
+      },
+      {
+        "id": "UART5_Input_Clock",
+        "type": "editableValue",
+        "label": {
+          "align": "top",
+          "text": "To UART5"
+        },
+        "default": 64000000,
+        "value": 64000000,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 2212.2830003423333,
+          "y": 294.4681647103406
+        },
+        "clocked_instance": [
+          "UART5"
+        ],
+        "unit": {
+          "text": "MHz",
+          "factor": "1/1000000"
+        },
+        "actions": [
+          {
+            "type": "enable",
+            "message": "UART5 is not yet configured, activate/select a mode from UART5 configuration tab to enable this clock.",
+            "condition": "$get('peripheral.isBound','UART5')"
+          }
+        ],
+        "max": 280000000,
+        "size": {
+          "width": 129,
+          "height": 84
+        },
+        "outputClockId": "uart5_ck"
+      },
+      {
+        "id": "LPUART1_Input_Clock",
+        "type": "editableValue",
+        "label": {
+          "align": "top",
+          "text": "To LPUART1"
+        },
+        "default": 64000000,
+        "value": 64000000,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 2212.2830003423333,
+          "y": 565.8160901897771
+        },
+        "clocked_instance": [
+          "LPUART1"
+        ],
+        "unit": {
+          "text": "MHz",
+          "factor": "1/1000000"
+        },
+        "actions": [
+          {
+            "type": "enable",
+            "message": "LPUART1 is not yet configured, activate/select a mode from LPUART1 configuration tab to enable this clock.",
+            "condition": "$get('peripheral.isBound','LPUART1')"
+          }
+        ],
+        "max": 280000000,
+        "size": {
+          "width": 129,
+          "height": 84
+        },
+        "outputClockId": "lpuart1_ck"
+      },
+      {
+        "id": "I2C1_Input_Clock",
+        "type": "editableValue",
+        "label": {
+          "align": "top",
+          "text": "To I2C1"
+        },
+        "default": 64000000,
+        "value": 64000000,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 2688.5564577606315,
+          "y": -141.19067937891936
+        },
+        "clocked_instance": [
+          "I2C1"
+        ],
+        "unit": {
+          "text": "MHz",
+          "factor": "1/1000000"
+        },
+        "actions": [
+          {
+            "type": "enable",
+            "message": "I2C1 is not yet configured, activate/select a mode from I2C1 configuration tab to enable this clock.",
+            "condition": "$get('peripheral.isBound','I2C1')"
+          }
+        ],
+        "max": 280000000,
+        "size": {
+          "width": 129,
+          "height": 95
+        },
+        "outputClockId": "i2c1_ck"
+      },
+      {
+        "id": "I2C2_Clock_Source",
+        "type": "multiplexor",
+        "label": {
+          "align": "top",
+          "text": "I2C2 Mux"
+        },
+        "default": "APB1_Peripheral_Clock_inputid",
+        "value": 0,
+        "description": "",
+        "outputTargets": [
+          "I2C2_Input_Clock"
+        ],
+        "position": {
+          "x": 2528.6680371178604,
+          "y": -81.55425172842747
+        },
+        "clocked_instance": [
+          "I2C2"
+        ],
+        "possible_Input": [
+          {
+            "label": "PCLK1",
+            "description": "",
+            "input_Id": "APB1_Peripheral_Clock_inputid",
+            "from": "APB1_Peripheral_Clock"
+          },
+          {
+            "label": "IC1",
+            "description": "",
+            "input_Id": "ICLK1DIV_inputid",
+            "from": "ICLK1DIV"
+          },
+          {
+            "label": "HSI DIV",
+            "description": "",
+            "input_Id": "HSIDIV_inputid",
+            "from": "HSIDIV"
+          },
+          {
+            "label": "HSE",
+            "description": "",
+            "input_Id": "HSE_inputid",
+            "from": "HSE"
+          }
+        ],
+        "isTrustZone": true,
+        "size": {
+          "width": 119.2490234375,
+          "height": 182
+        },
+        "outputClockId": "i2c2_mux_ck"
+      },
+      {
+        "id": "I2C2_Input_Clock",
+        "type": "editableValue",
+        "label": {
+          "align": "top",
+          "text": "To I2C2"
+        },
+        "default": 64000000,
+        "value": 64000000,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 2688.5564577606315,
+          "y": -24.371357919784927
+        },
+        "clocked_instance": [
+          "I2C2"
+        ],
+        "unit": {
+          "text": "MHz",
+          "factor": "1/1000000"
+        },
+        "actions": [
+          {
+            "type": "enable",
+            "message": "I2C2 is not yet configured, activate/select a mode from I2C2 configuration tab to enable this clock.",
+            "condition": "$get('peripheral.isBound','I2C2')"
+          }
+        ],
+        "max": 280000000,
+        "size": {
+          "width": 129,
+          "height": 84
+        },
+        "outputClockId": "i2c2_ck"
+      },
+      {
+        "id": "I3C1_Clock_Source",
+        "type": "multiplexor",
+        "label": {
+          "align": "top",
+          "text": "I3C1 Mux"
+        },
+        "default": "APB1_Peripheral_Clock_inputid",
+        "value": 0,
+        "description": "",
+        "outputTargets": [
+          "I3C1_Input_Clock"
+        ],
+        "position": {
+          "x": 2414.3865555702905,
+          "y": 21.777539184534504
+        },
+        "clocked_instance": [
+          "I3C1"
+        ],
+        "possible_Input": [
+          {
+            "label": "PCLK1",
+            "description": "",
+            "input_Id": "APB1_Peripheral_Clock_inputid",
+            "from": "APB1_Peripheral_Clock"
+          },
+          {
+            "label": "IC1",
+            "description": "",
+            "input_Id": "ICLK1DIV_inputid",
+            "from": "ICLK1DIV"
+          },
+          {
+            "label": "HSI DIV",
+            "description": "",
+            "input_Id": "HSIDIV_inputid",
+            "from": "HSIDIV"
+          },
+          {
+            "label": "HSE",
+            "description": "",
+            "input_Id": "HSE_inputid",
+            "from": "HSE"
+          }
+        ],
+        "isTrustZone": false,
+        "size": {
+          "width": 119.2490234375,
+          "height": 182
+        },
+        "outputClockId": "i3c1_mux_ck"
+      },
+      {
+        "id": "I3C1_Input_Clock",
+        "type": "editableValue",
+        "label": {
+          "align": "top",
+          "text": "I3C1"
+        },
+        "default": 64000000,
+        "value": 64000000,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 2688.5564577606315,
+          "y": 78.71301792149048
+        },
+        "clocked_instance": [
+          "I3C1"
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "actions": [
+          {
+            "type": "enable",
+            "message": "I3C1 is not yet configured, activate/select a mode from I3C1 configuration tab to enable this clock.",
+            "condition": "$get('peripheral.isBound','I3C1')"
+          }
+        ],
+        "max": 280000000,
+        "isTrustZone": false,
+        "size": {
+          "width": 128.234375,
+          "height": 95
+        },
+        "outputClockId": "i3c1_ck"
+      },
+      {
+        "id": "ADC_Clock_Source",
+        "type": "multiplexor",
+        "label": {
+          "align": "top",
+          "text": "ADC Mux"
+        },
+        "default": "HPRE_inputid",
+        "value": 0,
+        "description": "",
+        "outputTargets": [
+          "ADCDIV"
+        ],
+        "position": {
+          "x": 2415.503662961648,
+          "y": 272.9060566884413
+        },
+        "clocked_instance": [
+          "ADC1",
+          "ADC2"
+        ],
+        "possible_Input": [
+          {
+            "label": "RCC_TIM",
+            "description": "",
+            "input_Id": "HPRE_inputid",
+            "from": "HPRE"
+          },
+          {
+            "label": "RCC_HRTIM",
+            "description": "",
+            "input_Id": "HRTPRE_inputid",
+            "from": "HRTPRE"
+          },
+          {
+            "label": "HSI DIV",
+            "description": "",
+            "input_Id": "HSIDIV_inputid",
+            "from": "HSIDIV"
+          },
+          {
+            "label": "HSE",
+            "description": "",
+            "input_Id": "HSE_inputid",
+            "from": "HSE"
+          },
+          {
+            "label": "PLL1Q",
+            "description": "",
+            "input_Id": "PLL1Q_inputid",
+            "from": "PLL1Q"
+          },
+          {
+            "label": "IC1",
+            "description": "",
+            "input_Id": "ICLK1DIV_inputid",
+            "from": "ICLK1DIV"
+          }
+        ],
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 117.34814453125,
+          "height": 242
+        },
+        "outputClockId": "adc_mux_ck"
+      },
+      {
+        "id": "ADCDIV",
+        "type": "divider",
+        "label": {
+          "align": "top",
+          "text": "ADC Div"
+        },
+        "default": 1,
+        "value": 1,
+        "description": "",
+        "outputTargets": [
+          "ADC12_Input_Clock",
+          "DAC5_Clock_Source",
+          "DAC6_Clock_Source",
+          "DAC7_Clock_Source",
+          "DAC8_Clock_Source",
+          "DAC9_Clock_Source",
+          "DAC10_Clock_Source",
+          "DAC1_Clock_Source",
+          "DAC2_Clock_Source"
+        ],
+        "position": {
+          "x": 2524.786963414292,
+          "y": 365.34547615945627
+        },
+        "clocked_instance": [
+          "ADC1",
+          "ADC2"
+        ],
+        "oneOf": [
+          {
+            "const": 1
+          },
+          {
+            "const": 2
+          },
+          {
+            "const": 4
+          },
+          {
+            "const": 6
+          },
+          {
+            "const": 8
+          },
+          {
+            "const": 10
+          },
+          {
+            "const": 12
+          },
+          {
+            "const": 16
+          },
+          {
+            "const": 32
+          },
+          {
+            "const": 64
+          },
+          {
+            "const": 128
+          },
+          {
+            "const": 256
+          }
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 126,
+          "height": 84
+        },
+        "outputClockId": "adcdiv_ck"
+      },
+      {
+        "id": "ADC12_Input_Clock",
+        "type": "editableValue",
+        "label": {
+          "align": "top",
+          "text": "To ADC12"
+        },
+        "default": 64000000,
+        "value": 64000000,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 2688.5564577606315,
+          "y": 359.9042954450171
+        },
+        "clocked_instance": [
+          "ADC1",
+          "ADC2"
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "actions": [
+          {
+            "type": "enable",
+            "message": "ADC12 is not yet configured, activate/select a mode from ADC configuration tab to enable this clock.",
+            "condition": "$get('peripheral.isBound','ADC12.ADC1') || $get('peripheral.isBound','ADC12.ADC2')"
+          }
+        ],
+        "max": 80000000,
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 129,
+          "height": 95
+        },
+        "outputClockId": "adc12_ck"
+      },
+      {
+        "id": "DAC5_Clock_Source",
+        "type": "multiplexor",
+        "label": {
+          "align": "top",
+          "text": "DAC5 Mux"
+        },
+        "default": "HPRE_inputid",
+        "value": 0,
+        "description": "",
+        "outputTargets": [
+          "DAC5_Input_Clock"
+        ],
+        "position": {
+          "x": 2526.5034863366104,
+          "y": 500.9585437984481
+        },
+        "clocked_instance": [
+          "DAC5"
+        ],
+        "possible_Input": [
+          {
+            "label": "RCC_TIM",
+            "description": "",
+            "input_Id": "HPRE_inputid",
+            "from": "HPRE"
+          },
+          {
+            "label": "RCC_HRTIM",
+            "description": "",
+            "input_Id": "HRTPRE_inputid",
+            "from": "HRTPRE"
+          },
+          {
+            "label": "ADCDIV",
+            "description": "",
+            "input_Id": "ADCDIV_inputid",
+            "from": "ADCDIV"
+          },
+          {
+            "label": "HSE",
+            "description": "",
+            "input_Id": "HSE_inputid",
+            "from": "HSE"
+          },
+          {
+            "label": "HSI DIV",
+            "description": "",
+            "input_Id": "HSIDIV_inputid",
+            "from": "HSIDIV"
+          },
+          {
+            "label": "PLL1Q",
+            "description": "",
+            "input_Id": "PLL1Q_inputid",
+            "from": "PLL1Q"
+          }
+        ],
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 123.578125,
+          "height": 242
+        },
+        "outputClockId": "dac5_mux_ck"
+      },
+      {
+        "id": "DAC5_Input_Clock",
+        "type": "editableValue",
+        "label": {
+          "align": "top",
+          "text": "To DAC5"
+        },
+        "default": 64000000,
+        "value": 64000000,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 2688.5564577606315,
+          "y": 588.0264934587132
+        },
+        "clocked_instance": [
+          "DAC5"
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "actions": [
+          {
+            "type": "enable",
+            "message": "DAC5 is not yet configured, activate/select a mode from DAC5 configuration tab to enable this clock.",
+            "condition": "$get('peripheral.isBound','DAC5')"
+          }
+        ],
+        "max": 280000000,
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 129,
+          "height": 84
+        },
+        "outputClockId": "dac5_ck"
+      },
+      {
+        "id": "DAC6_Clock_Source",
+        "type": "multiplexor",
+        "label": {
+          "align": "top",
+          "text": "DAC6 Mux"
+        },
+        "default": "HPRE_inputid",
+        "value": 0,
+        "description": "",
+        "outputTargets": [
+          "DAC6_Input_Clock"
+        ],
+        "position": {
+          "x": 2412.2220047890405,
+          "y": 651.9332267588629
+        },
+        "clocked_instance": [
+          "DAC6"
+        ],
+        "possible_Input": [
+          {
+            "label": "RCC_TIM",
+            "description": "",
+            "input_Id": "HPRE_inputid",
+            "from": "HPRE"
+          },
+          {
+            "label": "RCC_HRTIM",
+            "description": "",
+            "input_Id": "HRTPRE_inputid",
+            "from": "HRTPRE"
+          },
+          {
+            "label": "ADCDIV",
+            "description": "",
+            "input_Id": "ADCDIV_inputid",
+            "from": "ADCDIV"
+          },
+          {
+            "label": "HSE",
+            "description": "",
+            "input_Id": "HSE_inputid",
+            "from": "HSE"
+          },
+          {
+            "label": "HSI DIV",
+            "description": "",
+            "input_Id": "HSIDIV_inputid",
+            "from": "HSIDIV"
+          },
+          {
+            "label": "PLL1Q",
+            "description": "",
+            "input_Id": "PLL1Q_inputid",
+            "from": "PLL1Q"
+          }
+        ],
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 123.578125,
+          "height": 242
+        },
+        "outputClockId": "dac6_mux_ck"
+      },
+      {
+        "id": "DAC6_Input_Clock",
+        "type": "editableValue",
+        "label": {
+          "align": "top",
+          "text": "To DAC6"
+        },
+        "default": 64000000,
+        "value": 64000000,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 2688.5564577606315,
+          "y": 738.7848951381444
+        },
+        "clocked_instance": [
+          "DAC6"
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "actions": [
+          {
+            "type": "enable",
+            "message": "DAC6 is not yet configured, activate/select a mode from DAC6 configuration tab to enable this clock.",
+            "condition": "$get('peripheral.isBound','DAC6')"
+          }
+        ],
+        "max": 280000000,
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 129,
+          "height": 84
+        },
+        "outputClockId": "dac6_ck"
+      },
+      {
+        "id": "DAC7_Clock_Source",
+        "type": "multiplexor",
+        "label": {
+          "align": "top",
+          "text": "DAC7 Mux"
+        },
+        "default": "HPRE_inputid",
+        "value": 0,
+        "description": "",
+        "outputTargets": [
+          "DAC7_Input_Clock"
+        ],
+        "position": {
+          "x": 2412.2220047890405,
+          "y": 953.1770001127052
+        },
+        "clocked_instance": [
+          "DAC7"
+        ],
+        "possible_Input": [
+          {
+            "label": "RCC_TIM",
+            "description": "",
+            "input_Id": "HPRE_inputid",
+            "from": "HPRE"
+          },
+          {
+            "label": "RCC_HRTIM",
+            "description": "",
+            "input_Id": "HRTPRE_inputid",
+            "from": "HRTPRE"
+          },
+          {
+            "label": "ADCDIV",
+            "description": "",
+            "input_Id": "ADCDIV_inputid",
+            "from": "ADCDIV"
+          },
+          {
+            "label": "HSE",
+            "description": "",
+            "input_Id": "HSE_inputid",
+            "from": "HSE"
+          },
+          {
+            "label": "HSI DIV",
+            "description": "",
+            "input_Id": "HSIDIV_inputid",
+            "from": "HSIDIV"
+          },
+          {
+            "label": "PLL1Q",
+            "description": "",
+            "input_Id": "PLL1Q_inputid",
+            "from": "PLL1Q"
+          }
+        ],
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 123.578125,
+          "height": 242
+        },
+        "outputClockId": "dac7_mux_ck"
+      },
+      {
+        "id": "DAC7_Input_Clock",
+        "type": "editableValue",
+        "label": {
+          "align": "top",
+          "text": "To DAC7"
+        },
+        "default": 64000000,
+        "value": 64000000,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 2688.5564577606315,
+          "y": 1040.1288633567212
+        },
+        "clocked_instance": [
+          "DAC7"
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "actions": [
+          {
+            "type": "enable",
+            "message": "DAC7 is not yet configured, activate/select a mode from DAC7 configuration tab to enable this clock.",
+            "condition": "$get('peripheral.isBound','DAC7')"
+          }
+        ],
+        "max": 280000000,
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 129,
+          "height": 84
+        },
+        "outputClockId": "dac7_ck"
+      },
+      {
+        "id": "DAC8_Clock_Source",
+        "type": "multiplexor",
+        "label": {
+          "align": "top",
+          "text": "DAC8 Mux"
+        },
+        "default": "HPRE_inputid",
+        "value": 0,
+        "description": "",
+        "outputTargets": [
+          "DAC8_Input_Clock"
+        ],
+        "position": {
+          "x": 2526.5034863366104,
+          "y": 802.6076869138833
+        },
+        "clocked_instance": [
+          "DAC8"
+        ],
+        "possible_Input": [
+          {
+            "label": "RCC_TIM",
+            "description": "",
+            "input_Id": "HPRE_inputid",
+            "from": "HPRE"
+          },
+          {
+            "label": "RCC_HRTIM",
+            "description": "",
+            "input_Id": "HRTPRE_inputid",
+            "from": "HRTPRE"
+          },
+          {
+            "label": "ADCDIV",
+            "description": "",
+            "input_Id": "ADCDIV_inputid",
+            "from": "ADCDIV"
+          },
+          {
+            "label": "HSE",
+            "description": "",
+            "input_Id": "HSE_inputid",
+            "from": "HSE"
+          },
+          {
+            "label": "HSI DIV",
+            "description": "",
+            "input_Id": "HSIDIV_inputid",
+            "from": "HSIDIV"
+          },
+          {
+            "label": "PLL1Q",
+            "description": "",
+            "input_Id": "PLL1Q_inputid",
+            "from": "PLL1Q"
+          }
+        ],
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 123.578125,
+          "height": 242
+        },
+        "outputClockId": "dac8_mux_ck"
+      },
+      {
+        "id": "DAC8_Input_Clock",
+        "type": "editableValue",
+        "label": {
+          "align": "top",
+          "text": "To DAC8"
+        },
+        "default": 64000000,
+        "value": 64000000,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 2688.5564577606315,
+          "y": 889.4190925936443
+        },
+        "clocked_instance": [
+          "DAC8"
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "actions": [
+          {
+            "type": "enable",
+            "message": "DAC8 is not yet configured, activate/select a mode from DAC8 configuration tab to enable this clock.",
+            "condition": "$get('peripheral.isBound','DAC8')"
+          }
+        ],
+        "max": 280000000,
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 129,
+          "height": 84
+        },
+        "outputClockId": "dac8_ck"
+      },
+      {
+        "id": "DAC9_Clock_Source",
+        "type": "multiplexor",
+        "label": {
+          "align": "top",
+          "text": "DAC9 Mux"
+        },
+        "default": "HPRE_inputid",
+        "value": 0,
+        "description": "",
+        "outputTargets": [
+          "DAC9_Input_Clock"
+        ],
+        "position": {
+          "x": 2412.2220047890405,
+          "y": 1253.1082539934118
+        },
+        "clocked_instance": [
+          "DAC9"
+        ],
+        "possible_Input": [
+          {
+            "label": "RCC_TIM",
+            "description": "",
+            "input_Id": "HPRE_inputid",
+            "from": "HPRE"
+          },
+          {
+            "label": "RCC_HRTIM",
+            "description": "",
+            "input_Id": "HRTPRE_inputid",
+            "from": "HRTPRE"
+          },
+          {
+            "label": "ADCDIV",
+            "description": "",
+            "input_Id": "ADCDIV_inputid",
+            "from": "ADCDIV"
+          },
+          {
+            "label": "HSE",
+            "description": "",
+            "input_Id": "HSE_inputid",
+            "from": "HSE"
+          },
+          {
+            "label": "HSI DIV",
+            "description": "",
+            "input_Id": "HSIDIV_inputid",
+            "from": "HSIDIV"
+          },
+          {
+            "label": "PLL1Q",
+            "description": "",
+            "input_Id": "PLL1Q_inputid",
+            "from": "PLL1Q"
+          }
+        ],
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 123.578125,
+          "height": 242
+        },
+        "outputClockId": "dac9_mux_ck"
+      },
+      {
+        "id": "DAC9_Input_Clock",
+        "type": "editableValue",
+        "label": {
+          "align": "top",
+          "text": "To DAC9"
+        },
+        "default": 64000000,
+        "value": 64000000,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 2688.5564577606315,
+          "y": 1340.2215183359854
+        },
+        "clocked_instance": [
+          "DAC9"
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "actions": [
+          {
+            "type": "enable",
+            "message": "DAC9 is not yet configured, activate/select a mode from DAC9 configuration tab to enable this clock.",
+            "condition": "$get('peripheral.isBound','DAC9')"
+          }
+        ],
+        "max": 280000000,
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 129,
+          "height": 84
+        },
+        "outputClockId": "dac9_ck"
+      },
+      {
+        "id": "DAC10_Clock_Source",
+        "type": "multiplexor",
+        "label": {
+          "align": "top",
+          "text": "DAC10 Mux"
+        },
+        "default": "HPRE_inputid",
+        "value": 0,
+        "description": "",
+        "outputTargets": [
+          "DAC10_Input_Clock"
+        ],
+        "position": {
+          "x": 2522.8884961022354,
+          "y": 1102.8105301725436
+        },
+        "clocked_instance": [
+          "DAC10"
+        ],
+        "possible_Input": [
+          {
+            "label": "RCC_TIM",
+            "description": "",
+            "input_Id": "HPRE_inputid",
+            "from": "HPRE"
+          },
+          {
+            "label": "RCC_HRTIM",
+            "description": "",
+            "input_Id": "HRTPRE_inputid",
+            "from": "HRTPRE"
+          },
+          {
+            "label": "ADCDIV",
+            "description": "",
+            "input_Id": "ADCDIV_inputid",
+            "from": "ADCDIV"
+          },
+          {
+            "label": "HSE",
+            "description": "",
+            "input_Id": "HSE_inputid",
+            "from": "HSE"
+          },
+          {
+            "label": "HSI DIV",
+            "description": "",
+            "input_Id": "HSIDIV_inputid",
+            "from": "HSIDIV"
+          },
+          {
+            "label": "PLL1Q",
+            "description": "",
+            "input_Id": "PLL1Q_inputid",
+            "from": "PLL1Q"
+          }
+        ],
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 130.80810546875,
+          "height": 242
+        },
+        "outputClockId": "dac10_mux_ck"
+      },
+      {
+        "id": "DAC10_Input_Clock",
+        "type": "editableValue",
+        "label": {
+          "align": "top",
+          "text": "To DAC10"
+        },
+        "default": 64000000,
+        "value": 64000000,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 2688.5564577606315,
+          "y": 1189.5183286700467
+        },
+        "clocked_instance": [
+          "DAC10"
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "actions": [
+          {
+            "type": "enable",
+            "message": "DAC10 is not yet configured, activate/select a mode from DAC10 configuration tab to enable this clock.",
+            "condition": "$get('peripheral.isBound','DAC10')"
+          }
+        ],
+        "max": 280000000,
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 129,
+          "height": 84
+        },
+        "outputClockId": "dac10_ck"
+      },
+      {
+        "id": "DAC1_Clock_Source",
+        "type": "multiplexor",
+        "label": {
+          "align": "top",
+          "text": "DAC1 Mux"
+        },
+        "default": "HPRE_inputid",
+        "value": 0,
+        "description": "",
+        "outputTargets": [
+          "DAC1_Input_Clock"
+        ],
+        "position": {
+          "x": 1950.4000213608956,
+          "y": 866.4667076504328
+        },
+        "clocked_instance": [
+          "DAC1"
+        ],
+        "possible_Input": [
+          {
+            "label": "RCC_TIM",
+            "description": "",
+            "input_Id": "HPRE_inputid",
+            "from": "HPRE"
+          },
+          {
+            "label": "RCC_HRTIM",
+            "description": "",
+            "input_Id": "HRTPRE_inputid",
+            "from": "HRTPRE"
+          },
+          {
+            "label": "ADCDIV",
+            "description": "",
+            "input_Id": "ADCDIV_inputid",
+            "from": "ADCDIV"
+          },
+          {
+            "label": "HSE",
+            "description": "",
+            "input_Id": "HSE_inputid",
+            "from": "HSE"
+          },
+          {
+            "label": "HSI DIV",
+            "description": "",
+            "input_Id": "HSIDIV_inputid",
+            "from": "HSIDIV"
+          },
+          {
+            "label": "PLL1Q",
+            "description": "",
+            "input_Id": "PLL1Q_inputid",
+            "from": "PLL1Q"
+          }
+        ],
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 123.578125,
+          "height": 242
+        },
+        "outputClockId": "dac1_mux_ck"
+      },
+      {
+        "id": "DAC1_Input_Clock",
+        "type": "editableValue",
+        "label": {
+          "align": "top",
+          "text": "To DAC1"
+        },
+        "default": 64000000,
+        "value": 64000000,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 2212.2830003423333,
+          "y": 953.24324111189
+        },
+        "clocked_instance": [
+          "DAC1"
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "actions": [
+          {
+            "type": "enable",
+            "message": "DAC1 is not yet configured, activate/select a mode from DAC1 configuration tab to enable this clock.",
+            "condition": "$get('peripheral.isBound','DAC1')"
+          }
+        ],
+        "max": 280000000,
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 129,
+          "height": 84
+        },
+        "outputClockId": "dac1_ck"
+      },
+      {
+        "id": "DAC2_Clock_Source",
+        "type": "multiplexor",
+        "label": {
+          "align": "top",
+          "text": "DAC2 Mux"
+        },
+        "default": "HPRE_inputid",
+        "value": 0,
+        "description": "",
+        "outputTargets": [
+          "DAC2_Input_Clock"
+        ],
+        "position": {
+          "x": 2073.432292695493,
+          "y": 1017.144294135863
+        },
+        "clocked_instance": [
+          "DAC2"
+        ],
+        "possible_Input": [
+          {
+            "label": "RCC_TIM",
+            "description": "",
+            "input_Id": "HPRE_inputid",
+            "from": "HPRE"
+          },
+          {
+            "label": "RCC_HRTIM",
+            "description": "",
+            "input_Id": "HRTPRE_inputid",
+            "from": "HRTPRE"
+          },
+          {
+            "label": "ADCDIV",
+            "description": "",
+            "input_Id": "ADCDIV_inputid",
+            "from": "ADCDIV"
+          },
+          {
+            "label": "HSE",
+            "description": "",
+            "input_Id": "HSE_inputid",
+            "from": "HSE"
+          },
+          {
+            "label": "HSI DIV",
+            "description": "",
+            "input_Id": "HSIDIV_inputid",
+            "from": "HSIDIV"
+          },
+          {
+            "label": "PLL1Q",
+            "description": "",
+            "input_Id": "PLL1Q_inputid",
+            "from": "PLL1Q"
+          }
+        ],
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 123.578125,
+          "height": 242
+        },
+        "outputClockId": "dac2_mux_ck"
+      },
+      {
+        "id": "DAC2_Input_Clock",
+        "type": "editableValue",
+        "label": {
+          "align": "top",
+          "text": "To DAC2"
+        },
+        "default": 64000000,
+        "value": 64000000,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 2212.2830003423333,
+          "y": 1104.2357475790104
+        },
+        "clocked_instance": [
+          "DAC2"
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "actions": [
+          {
+            "type": "enable",
+            "message": "DAC2 is not yet configured, activate/select a mode from DAC2 configuration tab to enable this clock.",
+            "condition": "$get('peripheral.isBound','DAC2')"
+          }
+        ],
+        "max": 280000000,
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 129,
+          "height": 84
+        },
+        "outputClockId": "dac2_ck"
+      },
+      {
+        "id": "DAC1SH_Clock_Source",
+        "type": "multiplexor",
+        "label": {
+          "align": "top",
+          "text": "DAC1SH Mux"
+        },
+        "default": "LSI_inputid",
+        "value": 1,
+        "description": "",
+        "outputTargets": [
+          "DAC1SH_Input_Clock"
+        ],
+        "position": {
+          "x": 1946.8200743963073,
+          "y": 1201.0591516863456
+        },
+        "clocked_instance": [
+          "DAC1SH"
+        ],
+        "possible_Input": [
+          {
+            "label": "LSE",
+            "description": "",
+            "input_Id": "LSE_inputid",
+            "from": "LSE"
+          },
+          {
+            "label": "LSI",
+            "description": "",
+            "input_Id": "LSI_inputid",
+            "from": "LSI"
+          }
+        ],
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 141.63720703125,
+          "height": 122
+        },
+        "outputClockId": "dac1sh_mux_ck"
+      },
+      {
+        "id": "DAC1SH_Input_Clock",
+        "type": "editableValue",
+        "label": {
+          "align": "top",
+          "text": "To DAC1SH"
+        },
+        "default": 32768,
+        "value": 32768,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 2212.2830003423333,
+          "y": 1227.437235334051
+        },
+        "clocked_instance": [
+          "DAC1SH"
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "actions": [
+          {
+            "type": "enable",
+            "message": "DAC1 is not yet configured, activate/select a mode from DAC1 configuration tab to enable this clock.",
+            "condition": "$get('peripheral.isBound','DAC1')"
+          }
+        ],
+        "max": 1000000,
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 129,
+          "height": 84
+        },
+        "outputClockId": "dac1sh_ck"
+      },
+      {
+        "id": "DAC2SH_Clock_Source",
+        "type": "multiplexor",
+        "label": {
+          "align": "top",
+          "text": "DAC2SH Mux"
+        },
+        "default": "LSI_inputid",
+        "value": 1,
+        "description": "",
+        "outputTargets": [
+          "DAC2SH_Input_Clock"
+        ],
+        "position": {
+          "x": 2069.522851925952,
+          "y": 1303.6397718357914
+        },
+        "clocked_instance": [
+          "DAC2SH"
+        ],
+        "possible_Input": [
+          {
+            "label": "LSE",
+            "description": "",
+            "input_Id": "LSE_inputid",
+            "from": "LSE"
+          },
+          {
+            "label": "LSI",
+            "description": "",
+            "input_Id": "LSI_inputid",
+            "from": "LSI"
+          }
+        ],
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 141.63720703125,
+          "height": 122
+        },
+        "outputClockId": "dac2sh_mux_ck"
+      },
+      {
+        "id": "DAC2SH_Input_Clock",
+        "type": "editableValue",
+        "label": {
+          "align": "top",
+          "text": "To DAC2SH"
+        },
+        "default": 32768,
+        "value": 32768,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 2212.2830003423333,
+          "y": 1331.0892874446704
+        },
+        "clocked_instance": [
+          "DAC2SH"
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "actions": [
+          {
+            "type": "enable",
+            "message": "DAC2 is not yet configured, activate/select a mode from DAC2 configuration tab to enable this clock.",
+            "condition": "$get('peripheral.isBound','DAC2')"
+          }
+        ],
+        "max": 1000000,
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 129,
+          "height": 84
+        },
+        "outputClockId": "dac2sh_ck"
+      },
+      {
+        "id": "FDCAN_Clock_Source",
+        "type": "multiplexor",
+        "label": {
+          "align": "top",
+          "text": "FDCAN Mux"
+        },
+        "default": "PLL1Q_inputid",
+        "value": 1,
+        "description": "",
+        "outputTargets": [
+          "FDCAN_Input_Clock"
+        ],
+        "position": {
+          "x": 1950.513835483199,
+          "y": 1407.8325409960053
+        },
+        "clocked_instance": [
+          "FDCAN1"
+        ],
+        "possible_Input": [
+          {
+            "label": "HSE",
+            "description": "",
+            "input_Id": "HSE_inputid",
+            "from": "HSE"
+          },
+          {
+            "label": "PLL1Q",
+            "description": "",
+            "input_Id": "PLL1Q_inputid",
+            "from": "PLL1Q"
+          }
+        ],
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 133.67724609375,
+          "height": 122
+        },
+        "outputClockId": "fdcan_mux_ck"
+      },
+      {
+        "id": "FDCAN_Input_Clock",
+        "type": "editableValue",
+        "label": {
+          "align": "top",
+          "text": "To FDCAN"
+        },
+        "default": 24000000,
+        "value": 24000000,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 2212.2830003423333,
+          "y": 1434.605377122188
+        },
+        "clocked_instance": [
+          "FDCAN1"
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "actions": [
+          {
+            "type": "enable",
+            "message": "FDCAN1 is not yet configured, activate/select a mode from FDCAN1 configuration tab to enable this clock.",
+            "condition": "$get('peripheral.isBound','FDCAN1')"
+          }
+        ],
+        "max": 280000000,
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 129,
+          "height": 84
+        },
+        "outputClockId": "fdcan_ck"
+      },
+      {
+        "id": "SPI1_Input_Clock",
+        "type": "editableValue",
+        "label": {
+          "align": "top",
+          "text": "To SPI1"
+        },
+        "default": 64000000,
+        "value": 64000000,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 2212.2830003423333,
+          "y": 701.168503773156
+        },
+        "clocked_instance": [
+          "SPI1"
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "actions": [
+          {
+            "type": "enable",
+            "message": "SPI1 is not yet configured, activate/select a mode from SPI1 configuration tab to enable this clock.",
+            "condition": "$get('peripheral.isBound','SPI1')"
+          }
+        ],
+        "max": 280000000,
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 129,
+          "height": 84
+        },
+        "outputClockId": "spi1_ck"
+      },
+      {
+        "id": "SPI2_Input_Clock",
+        "type": "editableValue",
+        "label": {
+          "align": "top",
+          "text": "To SPI2"
+        },
+        "default": 64000000,
+        "value": 64000000,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 2212.2830003423333,
+          "y": 834.4964253981929
+        },
+        "clocked_instance": [
+          "SPI2"
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "actions": [
+          {
+            "type": "enable",
+            "message": "SPI2 is not yet configured, activate/select a mode from SPI2 configuration tab to enable this clock.",
+            "condition": "$get('peripheral.isBound','SPI2')"
+          }
+        ],
+        "max": 280000000,
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 129,
+          "height": 84
+        },
+        "outputClockId": "spi2_ck"
+      },
+      {
+        "id": "LPTIM1_Input_Clock",
+        "type": "editableValue",
+        "label": {
+          "align": "top",
+          "text": "To LPTIM1"
+        },
+        "default": 64000000,
+        "value": 64000000,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 2688.5564577606315,
+          "y": 214.41841018657416
+        },
+        "clocked_instance": [
+          "LPTIM1"
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "actions": [
+          {
+            "type": "enable",
+            "message": "LPTIM1 is not yet configured, activate/select a mode from LPTIM1 configuration tab to enable this clock.",
+            "condition": "$get('peripheral.isBound','LPTIM1')"
+          }
+        ],
+        "max": 280000000,
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 129,
+          "height": 84
+        },
+        "outputClockId": "lptim1_ck"
+      },
+      {
+        "id": "PLL1_Clock_Source",
+        "type": "multiplexor",
+        "label": {
+          "align": "top",
+          "text": "PLL1 Mux"
+        },
+        "default": "HSIDIV_inputid",
+        "value": 0,
+        "description": "",
+        "outputTargets": [
+          "PLL1M"
+        ],
+        "position": {
+          "x": 382.1623972277029,
+          "y": 587.696451740289
+        },
+        "possible_Input": [
+          {
+            "label": "HSI DIV",
+            "description": "",
+            "input_Id": "HSIDIV_inputid",
+            "from": "HSIDIV"
+          },
+          {
+            "label": "HSE",
+            "description": "",
+            "input_Id": "HSE_inputid",
+            "from": "HSE"
+          }
+        ],
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 75.4785385131836,
+          "height": 143.04989624023438
+        },
+        "outputClockId": "pll1_mux_ck"
+      },
+      {
+        "id": "PLL1M",
+        "type": "divider",
+        "label": {
+          "align": "top",
+          "text": "PLL1M"
+        },
+        "default": 9,
+        "value": 9,
+        "description": "",
+        "outputTargets": [
+          "PLL1FRACN"
+        ],
+        "position": {
+          "x": 493.7046733572381,
+          "y": 620.5353173507614
+        },
+        "oneOf": [
+          {
+            "const": 1
+          },
+          {
+            "const": 2
+          },
+          {
+            "const": 3
+          },
+          {
+            "const": 4
+          },
+          {
+            "const": 5
+          },
+          {
+            "const": 6
+          },
+          {
+            "const": 7
+          },
+          {
+            "const": 8
+          },
+          {
+            "const": 9
+          },
+          {
+            "const": 10
+          },
+          {
+            "const": 11
+          },
+          {
+            "const": 12
+          },
+          {
+            "const": 13
+          },
+          {
+            "const": 14
+          },
+          {
+            "const": 15
+          },
+          {
+            "const": 16
+          },
+          {
+            "const": 17
+          },
+          {
+            "const": 18
+          },
+          {
+            "const": 19
+          },
+          {
+            "const": 20
+          },
+          {
+            "const": 21
+          },
+          {
+            "const": 22
+          },
+          {
+            "const": 23
+          },
+          {
+            "const": 24
+          },
+          {
+            "const": 25
+          },
+          {
+            "const": 26
+          },
+          {
+            "const": 27
+          },
+          {
+            "const": 28
+          },
+          {
+            "const": 29
+          },
+          {
+            "const": 30
+          },
+          {
+            "const": 31
+          },
+          {
+            "const": 32
+          },
+          {
+            "const": 33
+          },
+          {
+            "const": 34
+          },
+          {
+            "const": 35
+          },
+          {
+            "const": 36
+          },
+          {
+            "const": 37
+          },
+          {
+            "const": 38
+          },
+          {
+            "const": 39
+          },
+          {
+            "const": 40
+          },
+          {
+            "const": 41
+          },
+          {
+            "const": 42
+          },
+          {
+            "const": 43
+          },
+          {
+            "const": 44
+          },
+          {
+            "const": 45
+          },
+          {
+            "const": 46
+          },
+          {
+            "const": 47
+          },
+          {
+            "const": 48
+          },
+          {
+            "const": 49
+          },
+          {
+            "const": 50
+          },
+          {
+            "const": 51
+          },
+          {
+            "const": 52
+          },
+          {
+            "const": 53
+          },
+          {
+            "const": 54
+          },
+          {
+            "const": 55
+          },
+          {
+            "const": 56
+          },
+          {
+            "const": 57
+          },
+          {
+            "const": 58
+          },
+          {
+            "const": 59
+          },
+          {
+            "const": 60
+          },
+          {
+            "const": 61
+          },
+          {
+            "const": 62
+          },
+          {
+            "const": 63
+          }
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "min": 1000000,
+        "max": 16000000,
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 112,
+          "height": 78
+        },
+        "outputClockId": "pll1m_ck"
+      },
+      {
+        "id": "MCO1_Clock_Source",
+        "type": "multiplexor",
+        "label": {
+          "align": "top",
+          "text": "MCO1 Mux"
+        },
+        "default": "HSIDIV_inputid",
+        "value": 0,
+        "description": "",
+        "outputTargets": [
+          "MCO1_div_Clock"
+        ],
+        "position": {
+          "x": 973.93888064454,
+          "y": 1033.3122667576756
+        },
+        "clocked_instance": [
+          "MCO1"
+        ],
+        "possible_Input": [
+          {
+            "label": "HSI DIV",
+            "description": "",
+            "input_Id": "HSIDIV_inputid",
+            "from": "HSIDIV"
+          },
+          {
+            "label": "LSE",
+            "description": "",
+            "input_Id": "LSE_inputid",
+            "from": "LSE"
+          },
+          {
+            "label": "HSE",
+            "description": "",
+            "input_Id": "HSE_inputid",
+            "from": "HSE"
+          },
+          {
+            "label": "PLL1Q",
+            "description": "",
+            "input_Id": "PLL1Q_inputid",
+            "from": "PLL1Q"
+          }
+        ],
+        "orientation": "",
+        "role": "MCO1",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 100,
+          "height": 182
+        },
+        "outputClockId": "mco1_mux_ck"
+      },
+      {
+        "id": "MCO1_div_Clock",
+        "type": "divider",
+        "label": {
+          "align": "top",
+          "text": "MCO1 Div"
+        },
+        "default": 1,
+        "value": 1,
+        "description": "",
+        "outputTargets": [
+          "MCO1_Input_Source"
+        ],
+        "position": {
+          "x": 1090.0063128558947,
+          "y": 1096.8337788345166
+        },
+        "clocked_instance": [
+          "MCO1"
+        ],
+        "oneOf": [
+          {
+            "const": 1
+          },
+          {
+            "const": 2
+          },
+          {
+            "const": 3
+          },
+          {
+            "const": 4
+          },
+          {
+            "const": 5
+          },
+          {
+            "const": 6
+          },
+          {
+            "const": 7
+          },
+          {
+            "const": 8
+          },
+          {
+            "const": 9
+          },
+          {
+            "const": 10
+          },
+          {
+            "const": 11
+          },
+          {
+            "const": 12
+          },
+          {
+            "const": 13
+          },
+          {
+            "const": 14
+          },
+          {
+            "const": 15
+          }
+        ],
+        "role": "MCO1",
+        "size": {
+          "width": 126,
+          "height": 82
+        },
+        "outputClockId": "mco1_div_ck"
+      },
+      {
+        "id": "MCO1_Input_Source",
+        "type": "editableValue",
+        "label": {
+          "align": "top",
+          "text": "To MCO1"
+        },
+        "default": 64000000,
+        "value": 64000000,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 1239.5375322137436,
+          "y": 1095.5619506516707
+        },
+        "clocked_instance": [
+          "MCO1"
+        ],
+        "unit": {
+          "text": "MHz",
+          "factor": "1/1000000"
+        },
+        "actions": [
+          {
+            "type": "enable",
+            "message": "MCO1 (Master Clock Output) is not yet configured, Activate the RCC ip and enable the related parameter to enable this clock",
+            "condition": "$get('pinout.isSignalAllocated','RCC_MCO1') "
+          }
+        ],
+        "role": "MCO1",
+        "size": {
+          "width": 166.2890625,
+          "height": 84
+        },
+        "outputClockId": "mco1_ck"
+      },
+      {
+        "id": "MCO2_Clock_Source",
+        "type": "multiplexor",
+        "label": {
+          "align": "top",
+          "text": "MCO2 Mux"
+        },
+        "default": "System_Clock_Frequency_inputid",
+        "value": 0,
+        "description": "",
+        "outputTargets": [
+          "MCO2_div_Clock"
+        ],
+        "position": {
+          "x": 1413.8652536766497,
+          "y": 1033.724033377359
+        },
+        "clocked_instance": [
+          "MCO2"
+        ],
+        "possible_Input": [
+          {
+            "label": "SYSCLK",
+            "description": "",
+            "input_Id": "System_Clock_Frequency_inputid",
+            "from": "System_Clock_Frequency"
+          },
+          {
+            "label": "HSE",
+            "description": "",
+            "input_Id": "HSE_inputid",
+            "from": "HSE"
+          },
+          {
+            "label": "PLL1P",
+            "description": "",
+            "input_Id": "PLL1P_inputid",
+            "from": "PLL1P"
+          },
+          {
+            "label": "LSI",
+            "description": "",
+            "input_Id": "LSI_inputid",
+            "from": "LSI"
+          }
+        ],
+        "orientation": "",
+        "role": "MCO2",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 126.4599609375,
+          "height": 182
+        },
+        "outputClockId": "mco2_mux_ck"
+      },
+      {
+        "id": "MCO2_div_Clock",
+        "type": "divider",
+        "label": {
+          "align": "top",
+          "text": "MCO2 Div"
+        },
+        "default": 1,
+        "value": 1,
+        "description": "",
+        "outputTargets": [
+          "MCO2_Input_Source"
+        ],
+        "position": {
+          "x": 1529.569783794595,
+          "y": 1096.8239608037356
+        },
+        "clocked_instance": [
+          "MCO2"
+        ],
+        "oneOf": [
+          {
+            "const": 1
+          },
+          {
+            "const": 2
+          },
+          {
+            "const": 3
+          },
+          {
+            "const": 4
+          },
+          {
+            "const": 5
+          },
+          {
+            "const": 6
+          },
+          {
+            "const": 7
+          },
+          {
+            "const": 8
+          },
+          {
+            "const": 9
+          },
+          {
+            "const": 10
+          },
+          {
+            "const": 11
+          },
+          {
+            "const": 12
+          },
+          {
+            "const": 13
+          },
+          {
+            "const": 14
+          },
+          {
+            "const": 15
+          }
+        ],
+        "role": "MCO2",
+        "size": {
+          "width": 126,
+          "height": 82
+        },
+        "outputClockId": "mco2_div_ck"
+      },
+      {
+        "id": "MCO2_Input_Source",
+        "type": "editableValue",
+        "label": {
+          "align": "top",
+          "text": "To MCO2"
+        },
+        "default": 64000000,
+        "value": 64000000,
+        "description": "",
+        "outputTargets": [],
+        "position": {
+          "x": 1678.4918784544086,
+          "y": 1095.8239608037356
+        },
+        "clocked_instance": [
+          "MCO2"
+        ],
+        "unit": {
+          "text": "MHz",
+          "factor": "1/1000000"
+        },
+        "actions": [
+          {
+            "type": "enable",
+            "message": "MCO2 (Master Clock Output) is not yet configured, Activate the RCC ip and enable the related parameter to enable this clock",
+            "condition": "$get('pinout.isSignalAllocated','RCC_MCO2') "
+          }
+        ],
+        "role": "MCO2",
+        "size": {
+          "width": 128.234375,
+          "height": 84
+        },
+        "outputClockId": "mco2_ck"
+      },
+      {
+        "id": "PLL1N",
+        "type": "multiplier",
+        "label": {
+          "align": "top",
+          "text": "PLL1N"
+        },
+        "default": 8,
+        "value": 8,
+        "description": "",
+        "outputTargets": [
+          "PLL1P",
+          "PLL1Q",
+          "PLL1R"
+        ],
+        "position": {
+          "x": 635.4109777916062,
+          "y": 620.5353173507614
+        },
+        "oneOf": [
+          {
+            "const": 4
+          },
+          {
+            "const": 5
+          },
+          {
+            "const": 6
+          },
+          {
+            "const": 7
+          },
+          {
+            "const": 8
+          },
+          {
+            "const": 9
+          },
+          {
+            "const": 10
+          },
+          {
+            "const": 11
+          },
+          {
+            "const": 12
+          },
+          {
+            "const": 13
+          },
+          {
+            "const": 14
+          },
+          {
+            "const": 15
+          },
+          {
+            "const": 16
+          },
+          {
+            "const": 17
+          },
+          {
+            "const": 18
+          },
+          {
+            "const": 19
+          },
+          {
+            "const": 20
+          },
+          {
+            "const": 21
+          },
+          {
+            "const": 22
+          },
+          {
+            "const": 23
+          },
+          {
+            "const": 24
+          },
+          {
+            "const": 25
+          },
+          {
+            "const": 26
+          },
+          {
+            "const": 27
+          },
+          {
+            "const": 28
+          },
+          {
+            "const": 29
+          },
+          {
+            "const": 30
+          },
+          {
+            "const": 31
+          },
+          {
+            "const": 32
+          },
+          {
+            "const": 33
+          },
+          {
+            "const": 34
+          },
+          {
+            "const": 35
+          },
+          {
+            "const": 36
+          },
+          {
+            "const": 37
+          },
+          {
+            "const": 38
+          },
+          {
+            "const": 39
+          },
+          {
+            "const": 40
+          },
+          {
+            "const": 41
+          },
+          {
+            "const": 42
+          },
+          {
+            "const": 43
+          },
+          {
+            "const": 44
+          },
+          {
+            "const": 45
+          },
+          {
+            "const": 46
+          },
+          {
+            "const": 47
+          },
+          {
+            "const": 48
+          },
+          {
+            "const": 49
+          },
+          {
+            "const": 50
+          },
+          {
+            "const": 51
+          },
+          {
+            "const": 52
+          },
+          {
+            "const": 53
+          },
+          {
+            "const": 54
+          },
+          {
+            "const": 55
+          },
+          {
+            "const": 56
+          },
+          {
+            "const": 57
+          },
+          {
+            "const": 58
+          },
+          {
+            "const": 59
+          },
+          {
+            "const": 60
+          },
+          {
+            "const": 61
+          },
+          {
+            "const": 62
+          },
+          {
+            "const": 63
+          },
+          {
+            "const": 64
+          },
+          {
+            "const": 65
+          },
+          {
+            "const": 66
+          },
+          {
+            "const": 67
+          },
+          {
+            "const": 68
+          },
+          {
+            "const": 69
+          },
+          {
+            "const": 70
+          },
+          {
+            "const": 71
+          },
+          {
+            "const": 72
+          },
+          {
+            "const": 73
+          },
+          {
+            "const": 74
+          },
+          {
+            "const": 75
+          },
+          {
+            "const": 76
+          },
+          {
+            "const": 77
+          },
+          {
+            "const": 78
+          },
+          {
+            "const": 79
+          },
+          {
+            "const": 80
+          },
+          {
+            "const": 81
+          },
+          {
+            "const": 82
+          },
+          {
+            "const": 83
+          },
+          {
+            "const": 84
+          },
+          {
+            "const": 85
+          },
+          {
+            "const": 86
+          },
+          {
+            "const": 87
+          },
+          {
+            "const": 88
+          },
+          {
+            "const": 89
+          },
+          {
+            "const": 90
+          },
+          {
+            "const": 91
+          },
+          {
+            "const": 92
+          },
+          {
+            "const": 93
+          },
+          {
+            "const": 94
+          },
+          {
+            "const": 95
+          },
+          {
+            "const": 96
+          },
+          {
+            "const": 97
+          },
+          {
+            "const": 98
+          },
+          {
+            "const": 99
+          },
+          {
+            "const": 100
+          },
+          {
+            "const": 101
+          },
+          {
+            "const": 102
+          },
+          {
+            "const": 103
+          },
+          {
+            "const": 104
+          },
+          {
+            "const": 105
+          },
+          {
+            "const": 106
+          },
+          {
+            "const": 107
+          },
+          {
+            "const": 108
+          },
+          {
+            "const": 109
+          },
+          {
+            "const": 110
+          },
+          {
+            "const": 111
+          },
+          {
+            "const": 112
+          },
+          {
+            "const": 113
+          },
+          {
+            "const": 114
+          },
+          {
+            "const": 115
+          },
+          {
+            "const": 116
+          },
+          {
+            "const": 117
+          },
+          {
+            "const": 118
+          },
+          {
+            "const": 119
+          },
+          {
+            "const": 120
+          },
+          {
+            "const": 121
+          },
+          {
+            "const": 122
+          },
+          {
+            "const": 123
+          },
+          {
+            "const": 124
+          },
+          {
+            "const": 125
+          },
+          {
+            "const": 126
+          },
+          {
+            "const": 127
+          },
+          {
+            "const": 128
+          },
+          {
+            "const": 129
+          },
+          {
+            "const": 130
+          },
+          {
+            "const": 131
+          },
+          {
+            "const": 132
+          },
+          {
+            "const": 133
+          },
+          {
+            "const": 134
+          },
+          {
+            "const": 135
+          },
+          {
+            "const": 136
+          },
+          {
+            "const": 137
+          },
+          {
+            "const": 138
+          },
+          {
+            "const": 139
+          },
+          {
+            "const": 140
+          },
+          {
+            "const": 141
+          },
+          {
+            "const": 142
+          },
+          {
+            "const": 143
+          },
+          {
+            "const": 144
+          },
+          {
+            "const": 145
+          },
+          {
+            "const": 146
+          },
+          {
+            "const": 147
+          },
+          {
+            "const": 148
+          },
+          {
+            "const": 149
+          },
+          {
+            "const": 150
+          },
+          {
+            "const": 151
+          },
+          {
+            "const": 152
+          },
+          {
+            "const": 153
+          },
+          {
+            "const": 154
+          },
+          {
+            "const": 155
+          },
+          {
+            "const": 156
+          },
+          {
+            "const": 157
+          },
+          {
+            "const": 158
+          },
+          {
+            "const": 159
+          },
+          {
+            "const": 160
+          },
+          {
+            "const": 161
+          },
+          {
+            "const": 162
+          },
+          {
+            "const": 163
+          },
+          {
+            "const": 164
+          },
+          {
+            "const": 165
+          },
+          {
+            "const": 166
+          },
+          {
+            "const": 167
+          },
+          {
+            "const": 168
+          },
+          {
+            "const": 169
+          },
+          {
+            "const": 170
+          },
+          {
+            "const": 171
+          },
+          {
+            "const": 172
+          },
+          {
+            "const": 173
+          },
+          {
+            "const": 174
+          },
+          {
+            "const": 175
+          },
+          {
+            "const": 176
+          },
+          {
+            "const": 177
+          },
+          {
+            "const": 178
+          },
+          {
+            "const": 179
+          },
+          {
+            "const": 180
+          },
+          {
+            "const": 181
+          },
+          {
+            "const": 182
+          },
+          {
+            "const": 183
+          },
+          {
+            "const": 184
+          },
+          {
+            "const": 185
+          },
+          {
+            "const": 186
+          },
+          {
+            "const": 187
+          },
+          {
+            "const": 188
+          },
+          {
+            "const": 189
+          },
+          {
+            "const": 190
+          },
+          {
+            "const": 191
+          },
+          {
+            "const": 192
+          },
+          {
+            "const": 193
+          },
+          {
+            "const": 194
+          },
+          {
+            "const": 195
+          },
+          {
+            "const": 196
+          },
+          {
+            "const": 197
+          },
+          {
+            "const": 198
+          },
+          {
+            "const": 199
+          },
+          {
+            "const": 200
+          },
+          {
+            "const": 201
+          },
+          {
+            "const": 202
+          },
+          {
+            "const": 203
+          },
+          {
+            "const": 204
+          },
+          {
+            "const": 205
+          },
+          {
+            "const": 206
+          },
+          {
+            "const": 207
+          },
+          {
+            "const": 208
+          },
+          {
+            "const": 209
+          },
+          {
+            "const": 210
+          },
+          {
+            "const": 211
+          },
+          {
+            "const": 212
+          },
+          {
+            "const": 213
+          },
+          {
+            "const": 214
+          },
+          {
+            "const": 215
+          },
+          {
+            "const": 216
+          },
+          {
+            "const": 217
+          },
+          {
+            "const": 218
+          },
+          {
+            "const": 219
+          },
+          {
+            "const": 220
+          },
+          {
+            "const": 221
+          },
+          {
+            "const": 222
+          },
+          {
+            "const": 223
+          },
+          {
+            "const": 224
+          },
+          {
+            "const": 225
+          },
+          {
+            "const": 226
+          },
+          {
+            "const": 227
+          },
+          {
+            "const": 228
+          },
+          {
+            "const": 229
+          },
+          {
+            "const": 230
+          },
+          {
+            "const": 231
+          },
+          {
+            "const": 232
+          },
+          {
+            "const": 233
+          },
+          {
+            "const": 234
+          },
+          {
+            "const": 235
+          },
+          {
+            "const": 236
+          },
+          {
+            "const": 237
+          },
+          {
+            "const": 238
+          },
+          {
+            "const": 239
+          },
+          {
+            "const": 240
+          },
+          {
+            "const": 241
+          },
+          {
+            "const": 242
+          },
+          {
+            "const": 243
+          },
+          {
+            "const": 244
+          },
+          {
+            "const": 245
+          },
+          {
+            "const": 246
+          },
+          {
+            "const": 247
+          },
+          {
+            "const": 248
+          },
+          {
+            "const": 249
+          },
+          {
+            "const": 250
+          },
+          {
+            "const": 251
+          },
+          {
+            "const": 252
+          },
+          {
+            "const": 253
+          },
+          {
+            "const": 254
+          },
+          {
+            "const": 255
+          },
+          {
+            "const": 256
+          },
+          {
+            "const": 257
+          },
+          {
+            "const": 258
+          },
+          {
+            "const": 259
+          },
+          {
+            "const": 260
+          },
+          {
+            "const": 261
+          },
+          {
+            "const": 262
+          },
+          {
+            "const": 263
+          },
+          {
+            "const": 264
+          },
+          {
+            "const": 265
+          },
+          {
+            "const": 266
+          },
+          {
+            "const": 267
+          },
+          {
+            "const": 268
+          },
+          {
+            "const": 269
+          },
+          {
+            "const": 270
+          },
+          {
+            "const": 271
+          },
+          {
+            "const": 272
+          },
+          {
+            "const": 273
+          },
+          {
+            "const": 274
+          },
+          {
+            "const": 275
+          },
+          {
+            "const": 276
+          },
+          {
+            "const": 277
+          },
+          {
+            "const": 278
+          },
+          {
+            "const": 279
+          },
+          {
+            "const": 280
+          },
+          {
+            "const": 281
+          },
+          {
+            "const": 282
+          },
+          {
+            "const": 283
+          },
+          {
+            "const": 284
+          },
+          {
+            "const": 285
+          },
+          {
+            "const": 286
+          },
+          {
+            "const": 287
+          },
+          {
+            "const": 288
+          },
+          {
+            "const": 289
+          },
+          {
+            "const": 290
+          },
+          {
+            "const": 291
+          },
+          {
+            "const": 292
+          },
+          {
+            "const": 293
+          },
+          {
+            "const": 294
+          },
+          {
+            "const": 295
+          },
+          {
+            "const": 296
+          },
+          {
+            "const": 297
+          },
+          {
+            "const": 298
+          },
+          {
+            "const": 299
+          },
+          {
+            "const": 300
+          },
+          {
+            "const": 301
+          },
+          {
+            "const": 302
+          },
+          {
+            "const": 303
+          },
+          {
+            "const": 304
+          },
+          {
+            "const": 305
+          },
+          {
+            "const": 306
+          },
+          {
+            "const": 307
+          },
+          {
+            "const": 308
+          },
+          {
+            "const": 309
+          },
+          {
+            "const": 310
+          },
+          {
+            "const": 311
+          },
+          {
+            "const": 312
+          },
+          {
+            "const": 313
+          },
+          {
+            "const": 314
+          },
+          {
+            "const": 315
+          },
+          {
+            "const": 316
+          },
+          {
+            "const": 317
+          },
+          {
+            "const": 318
+          },
+          {
+            "const": 319
+          },
+          {
+            "const": 320
+          },
+          {
+            "const": 321
+          },
+          {
+            "const": 322
+          },
+          {
+            "const": 323
+          },
+          {
+            "const": 324
+          },
+          {
+            "const": 325
+          },
+          {
+            "const": 326
+          },
+          {
+            "const": 327
+          },
+          {
+            "const": 328
+          },
+          {
+            "const": 329
+          },
+          {
+            "const": 330
+          },
+          {
+            "const": 331
+          },
+          {
+            "const": 332
+          },
+          {
+            "const": 333
+          },
+          {
+            "const": 334
+          },
+          {
+            "const": 335
+          },
+          {
+            "const": 336
+          },
+          {
+            "const": 337
+          },
+          {
+            "const": 338
+          },
+          {
+            "const": 339
+          },
+          {
+            "const": 340
+          },
+          {
+            "const": 341
+          },
+          {
+            "const": 342
+          },
+          {
+            "const": 343
+          },
+          {
+            "const": 344
+          },
+          {
+            "const": 345
+          },
+          {
+            "const": 346
+          },
+          {
+            "const": 347
+          },
+          {
+            "const": 348
+          },
+          {
+            "const": 349
+          },
+          {
+            "const": 350
+          },
+          {
+            "const": 351
+          },
+          {
+            "const": 352
+          },
+          {
+            "const": 353
+          },
+          {
+            "const": 354
+          },
+          {
+            "const": 355
+          },
+          {
+            "const": 356
+          },
+          {
+            "const": 357
+          },
+          {
+            "const": 358
+          },
+          {
+            "const": 359
+          },
+          {
+            "const": 360
+          },
+          {
+            "const": 361
+          },
+          {
+            "const": 362
+          },
+          {
+            "const": 363
+          },
+          {
+            "const": 364
+          },
+          {
+            "const": 365
+          },
+          {
+            "const": 366
+          },
+          {
+            "const": 367
+          },
+          {
+            "const": 368
+          },
+          {
+            "const": 369
+          },
+          {
+            "const": 370
+          },
+          {
+            "const": 371
+          },
+          {
+            "const": 372
+          },
+          {
+            "const": 373
+          },
+          {
+            "const": 374
+          },
+          {
+            "const": 375
+          },
+          {
+            "const": 376
+          },
+          {
+            "const": 377
+          },
+          {
+            "const": 378
+          },
+          {
+            "const": 379
+          },
+          {
+            "const": 380
+          },
+          {
+            "const": 381
+          },
+          {
+            "const": 382
+          },
+          {
+            "const": 383
+          },
+          {
+            "const": 384
+          },
+          {
+            "const": 385
+          },
+          {
+            "const": 386
+          },
+          {
+            "const": 387
+          },
+          {
+            "const": 388
+          },
+          {
+            "const": 389
+          },
+          {
+            "const": 390
+          },
+          {
+            "const": 391
+          },
+          {
+            "const": 392
+          },
+          {
+            "const": 393
+          },
+          {
+            "const": 394
+          },
+          {
+            "const": 395
+          },
+          {
+            "const": 396
+          },
+          {
+            "const": 397
+          },
+          {
+            "const": 398
+          },
+          {
+            "const": 399
+          },
+          {
+            "const": 400
+          },
+          {
+            "const": 401
+          },
+          {
+            "const": 402
+          },
+          {
+            "const": 403
+          },
+          {
+            "const": 404
+          },
+          {
+            "const": 405
+          },
+          {
+            "const": 406
+          },
+          {
+            "const": 407
+          },
+          {
+            "const": 408
+          },
+          {
+            "const": 409
+          },
+          {
+            "const": 410
+          },
+          {
+            "const": 411
+          },
+          {
+            "const": 412
+          },
+          {
+            "const": 413
+          },
+          {
+            "const": 414
+          },
+          {
+            "const": 415
+          },
+          {
+            "const": 416
+          },
+          {
+            "const": 417
+          },
+          {
+            "const": 418
+          },
+          {
+            "const": 419
+          },
+          {
+            "const": 420
+          },
+          {
+            "const": 421
+          },
+          {
+            "const": 422
+          },
+          {
+            "const": 423
+          },
+          {
+            "const": 424
+          },
+          {
+            "const": 425
+          },
+          {
+            "const": 426
+          },
+          {
+            "const": 427
+          },
+          {
+            "const": 428
+          },
+          {
+            "const": 429
+          },
+          {
+            "const": 430
+          },
+          {
+            "const": 431
+          },
+          {
+            "const": 432
+          },
+          {
+            "const": 433
+          },
+          {
+            "const": 434
+          },
+          {
+            "const": 435
+          },
+          {
+            "const": 436
+          },
+          {
+            "const": 437
+          },
+          {
+            "const": 438
+          },
+          {
+            "const": 439
+          },
+          {
+            "const": 440
+          },
+          {
+            "const": 441
+          },
+          {
+            "const": 442
+          },
+          {
+            "const": 443
+          },
+          {
+            "const": 444
+          },
+          {
+            "const": 445
+          },
+          {
+            "const": 446
+          },
+          {
+            "const": 447
+          },
+          {
+            "const": 448
+          },
+          {
+            "const": 449
+          },
+          {
+            "const": 450
+          },
+          {
+            "const": 451
+          },
+          {
+            "const": 452
+          },
+          {
+            "const": 453
+          },
+          {
+            "const": 454
+          },
+          {
+            "const": 455
+          },
+          {
+            "const": 456
+          },
+          {
+            "const": 457
+          },
+          {
+            "const": 458
+          },
+          {
+            "const": 459
+          },
+          {
+            "const": 460
+          },
+          {
+            "const": 461
+          },
+          {
+            "const": 462
+          },
+          {
+            "const": 463
+          },
+          {
+            "const": 464
+          },
+          {
+            "const": 465
+          },
+          {
+            "const": 466
+          },
+          {
+            "const": 467
+          },
+          {
+            "const": 468
+          },
+          {
+            "const": 469
+          },
+          {
+            "const": 470
+          },
+          {
+            "const": 471
+          },
+          {
+            "const": 472
+          },
+          {
+            "const": 473
+          },
+          {
+            "const": 474
+          },
+          {
+            "const": 475
+          },
+          {
+            "const": 476
+          },
+          {
+            "const": 477
+          },
+          {
+            "const": 478
+          },
+          {
+            "const": 479
+          },
+          {
+            "const": 480
+          },
+          {
+            "const": 481
+          },
+          {
+            "const": 482
+          },
+          {
+            "const": 483
+          },
+          {
+            "const": 484
+          },
+          {
+            "const": 485
+          },
+          {
+            "const": 486
+          },
+          {
+            "const": 487
+          },
+          {
+            "const": 488
+          },
+          {
+            "const": 489
+          },
+          {
+            "const": 490
+          },
+          {
+            "const": 491
+          },
+          {
+            "const": 492
+          },
+          {
+            "const": 493
+          },
+          {
+            "const": 494
+          },
+          {
+            "const": 495
+          },
+          {
+            "const": 496
+          },
+          {
+            "const": 497
+          },
+          {
+            "const": 498
+          },
+          {
+            "const": 499
+          },
+          {
+            "const": 500
+          },
+          {
+            "const": 501
+          },
+          {
+            "const": 502
+          },
+          {
+            "const": 503
+          },
+          {
+            "const": 504
+          },
+          {
+            "const": 505
+          },
+          {
+            "const": 506
+          },
+          {
+            "const": 507
+          },
+          {
+            "const": 508
+          },
+          {
+            "const": 509
+          },
+          {
+            "const": 510
+          },
+          {
+            "const": 511
+          },
+          {
+            "const": 512
+          }
+        ],
+        "unit": {
+          "text": "MHz",
+          "factor": "1/1000000"
+        },
+        "min": 128000000,
+        "max": 560000000,
+        "block": "",
+        "size": {
+          "width": 112,
+          "height": 78.44444465637207
+        },
+        "outputClockId": "pll1n_ck"
+      },
+      {
+        "id": "PLL1P",
+        "type": "divider",
+        "label": {
+          "align": "top",
+          "text": "PLL1P"
+        },
+        "default": 1,
+        "value": 1,
+        "description": "",
+        "outputTargets": [
+          "System_Clock_Source",
+          "MCO2_Clock_Source"
+        ],
+        "position": {
+          "x": 789.1599773893644,
+          "y": 620.5353173507614
+        },
+        "oneOf": [
+          {
+            "const": 1
+          },
+          {
+            "const": 2
+          },
+          {
+            "const": 3
+          },
+          {
+            "const": 4
+          },
+          {
+            "const": 5
+          },
+          {
+            "const": 6
+          },
+          {
+            "const": 7
+          },
+          {
+            "const": 8
+          },
+          {
+            "const": 9
+          },
+          {
+            "const": 10
+          },
+          {
+            "const": 11
+          },
+          {
+            "const": 12
+          },
+          {
+            "const": 13
+          },
+          {
+            "const": 14
+          },
+          {
+            "const": 15
+          },
+          {
+            "const": 16
+          },
+          {
+            "const": 17
+          },
+          {
+            "const": 18
+          },
+          {
+            "const": 19
+          },
+          {
+            "const": 20
+          },
+          {
+            "const": 21
+          },
+          {
+            "const": 22
+          },
+          {
+            "const": 23
+          },
+          {
+            "const": 24
+          },
+          {
+            "const": 25
+          },
+          {
+            "const": 26
+          },
+          {
+            "const": 27
+          },
+          {
+            "const": 28
+          },
+          {
+            "const": 29
+          },
+          {
+            "const": 30
+          },
+          {
+            "const": 31
+          },
+          {
+            "const": 32
+          },
+          {
+            "const": 33
+          },
+          {
+            "const": 34
+          },
+          {
+            "const": 35
+          },
+          {
+            "const": 36
+          },
+          {
+            "const": 37
+          },
+          {
+            "const": 38
+          },
+          {
+            "const": 39
+          },
+          {
+            "const": 40
+          },
+          {
+            "const": 41
+          },
+          {
+            "const": 42
+          },
+          {
+            "const": 43
+          },
+          {
+            "const": 44
+          },
+          {
+            "const": 45
+          },
+          {
+            "const": 46
+          },
+          {
+            "const": 47
+          },
+          {
+            "const": 48
+          },
+          {
+            "const": 49
+          },
+          {
+            "const": 50
+          },
+          {
+            "const": 51
+          },
+          {
+            "const": 52
+          },
+          {
+            "const": 53
+          },
+          {
+            "const": 54
+          },
+          {
+            "const": 55
+          },
+          {
+            "const": 56
+          },
+          {
+            "const": 57
+          },
+          {
+            "const": 58
+          },
+          {
+            "const": 59
+          },
+          {
+            "const": 60
+          },
+          {
+            "const": 61
+          },
+          {
+            "const": 62
+          },
+          {
+            "const": 63
+          },
+          {
+            "const": 64
+          },
+          {
+            "const": 65
+          },
+          {
+            "const": 66
+          },
+          {
+            "const": 67
+          },
+          {
+            "const": 68
+          },
+          {
+            "const": 69
+          },
+          {
+            "const": 70
+          },
+          {
+            "const": 71
+          },
+          {
+            "const": 72
+          },
+          {
+            "const": 73
+          },
+          {
+            "const": 74
+          },
+          {
+            "const": 75
+          },
+          {
+            "const": 76
+          },
+          {
+            "const": 77
+          },
+          {
+            "const": 78
+          },
+          {
+            "const": 79
+          },
+          {
+            "const": 80
+          },
+          {
+            "const": 81
+          },
+          {
+            "const": 82
+          },
+          {
+            "const": 83
+          },
+          {
+            "const": 84
+          },
+          {
+            "const": 85
+          },
+          {
+            "const": 86
+          },
+          {
+            "const": 87
+          },
+          {
+            "const": 88
+          },
+          {
+            "const": 89
+          },
+          {
+            "const": 90
+          },
+          {
+            "const": 91
+          },
+          {
+            "const": 92
+          },
+          {
+            "const": 93
+          },
+          {
+            "const": 94
+          },
+          {
+            "const": 95
+          },
+          {
+            "const": 96
+          },
+          {
+            "const": 97
+          },
+          {
+            "const": 98
+          },
+          {
+            "const": 99
+          },
+          {
+            "const": 100
+          },
+          {
+            "const": 101
+          },
+          {
+            "const": 102
+          },
+          {
+            "const": 103
+          },
+          {
+            "const": 104
+          },
+          {
+            "const": 105
+          },
+          {
+            "const": 106
+          },
+          {
+            "const": 107
+          },
+          {
+            "const": 108
+          },
+          {
+            "const": 109
+          },
+          {
+            "const": 110
+          },
+          {
+            "const": 111
+          },
+          {
+            "const": 112
+          },
+          {
+            "const": 113
+          },
+          {
+            "const": 114
+          },
+          {
+            "const": 115
+          },
+          {
+            "const": 116
+          },
+          {
+            "const": 117
+          },
+          {
+            "const": 118
+          },
+          {
+            "const": 119
+          },
+          {
+            "const": 120
+          },
+          {
+            "const": 121
+          },
+          {
+            "const": 122
+          },
+          {
+            "const": 123
+          },
+          {
+            "const": 124
+          },
+          {
+            "const": 125
+          },
+          {
+            "const": 126
+          },
+          {
+            "const": 127
+          },
+          {
+            "const": 128
+          }
+        ],
+        "unit": {
+          "text": "MHz",
+          "factor": "1/1000000"
+        },
+        "block": "Pll1",
+        "size": {
+          "width": 112,
+          "height": 78
+        },
+        "outputClockId": "PLL1P_ck"
+      },
+      {
+        "id": "PLL1Q",
+        "type": "divider",
+        "label": {
+          "align": "top",
+          "text": "PLL1Q"
+        },
+        "default": 2,
+        "value": 2,
+        "description": "",
+        "outputTargets": [
+          "ADC_Clock_Source",
+          "DAC5_Clock_Source",
+          "DAC6_Clock_Source",
+          "DAC7_Clock_Source",
+          "DAC8_Clock_Source",
+          "DAC9_Clock_Source",
+          "DAC10_Clock_Source",
+          "DAC1_Clock_Source",
+          "DAC2_Clock_Source",
+          "FDCAN_Clock_Source",
+          "MCO1_Clock_Source",
+          "LPTIM1_Clock_Source"
+        ],
+        "position": {
+          "x": 789.1599773893644,
+          "y": 705.1403039724822
+        },
+        "oneOf": [
+          {
+            "const": 1
+          },
+          {
+            "const": 2
+          },
+          {
+            "const": 3
+          },
+          {
+            "const": 4
+          },
+          {
+            "const": 5
+          },
+          {
+            "const": 6
+          },
+          {
+            "const": 7
+          },
+          {
+            "const": 8
+          },
+          {
+            "const": 9
+          },
+          {
+            "const": 10
+          },
+          {
+            "const": 11
+          },
+          {
+            "const": 12
+          },
+          {
+            "const": 13
+          },
+          {
+            "const": 14
+          },
+          {
+            "const": 15
+          },
+          {
+            "const": 16
+          },
+          {
+            "const": 17
+          },
+          {
+            "const": 18
+          },
+          {
+            "const": 19
+          },
+          {
+            "const": 20
+          },
+          {
+            "const": 21
+          },
+          {
+            "const": 22
+          },
+          {
+            "const": 23
+          },
+          {
+            "const": 24
+          },
+          {
+            "const": 25
+          },
+          {
+            "const": 26
+          },
+          {
+            "const": 27
+          },
+          {
+            "const": 28
+          },
+          {
+            "const": 29
+          },
+          {
+            "const": 30
+          },
+          {
+            "const": 31
+          },
+          {
+            "const": 32
+          },
+          {
+            "const": 33
+          },
+          {
+            "const": 34
+          },
+          {
+            "const": 35
+          },
+          {
+            "const": 36
+          },
+          {
+            "const": 37
+          },
+          {
+            "const": 38
+          },
+          {
+            "const": 39
+          },
+          {
+            "const": 40
+          },
+          {
+            "const": 41
+          },
+          {
+            "const": 42
+          },
+          {
+            "const": 43
+          },
+          {
+            "const": 44
+          },
+          {
+            "const": 45
+          },
+          {
+            "const": 46
+          },
+          {
+            "const": 47
+          },
+          {
+            "const": 48
+          },
+          {
+            "const": 49
+          },
+          {
+            "const": 50
+          },
+          {
+            "const": 51
+          },
+          {
+            "const": 52
+          },
+          {
+            "const": 53
+          },
+          {
+            "const": 54
+          },
+          {
+            "const": 55
+          },
+          {
+            "const": 56
+          },
+          {
+            "const": 57
+          },
+          {
+            "const": 58
+          },
+          {
+            "const": 59
+          },
+          {
+            "const": 60
+          },
+          {
+            "const": 61
+          },
+          {
+            "const": 62
+          },
+          {
+            "const": 63
+          },
+          {
+            "const": 64
+          },
+          {
+            "const": 65
+          },
+          {
+            "const": 66
+          },
+          {
+            "const": 67
+          },
+          {
+            "const": 68
+          },
+          {
+            "const": 69
+          },
+          {
+            "const": 70
+          },
+          {
+            "const": 71
+          },
+          {
+            "const": 72
+          },
+          {
+            "const": 73
+          },
+          {
+            "const": 74
+          },
+          {
+            "const": 75
+          },
+          {
+            "const": 76
+          },
+          {
+            "const": 77
+          },
+          {
+            "const": 78
+          },
+          {
+            "const": 79
+          },
+          {
+            "const": 80
+          },
+          {
+            "const": 81
+          },
+          {
+            "const": 82
+          },
+          {
+            "const": 83
+          },
+          {
+            "const": 84
+          },
+          {
+            "const": 85
+          },
+          {
+            "const": 86
+          },
+          {
+            "const": 87
+          },
+          {
+            "const": 88
+          },
+          {
+            "const": 89
+          },
+          {
+            "const": 90
+          },
+          {
+            "const": 91
+          },
+          {
+            "const": 92
+          },
+          {
+            "const": 93
+          },
+          {
+            "const": 94
+          },
+          {
+            "const": 95
+          },
+          {
+            "const": 96
+          },
+          {
+            "const": 97
+          },
+          {
+            "const": 98
+          },
+          {
+            "const": 99
+          },
+          {
+            "const": 100
+          },
+          {
+            "const": 101
+          },
+          {
+            "const": 102
+          },
+          {
+            "const": 103
+          },
+          {
+            "const": 104
+          },
+          {
+            "const": 105
+          },
+          {
+            "const": 106
+          },
+          {
+            "const": 107
+          },
+          {
+            "const": 108
+          },
+          {
+            "const": 109
+          },
+          {
+            "const": 110
+          },
+          {
+            "const": 111
+          },
+          {
+            "const": 112
+          },
+          {
+            "const": 113
+          },
+          {
+            "const": 114
+          },
+          {
+            "const": 115
+          },
+          {
+            "const": 116
+          },
+          {
+            "const": 117
+          },
+          {
+            "const": 118
+          },
+          {
+            "const": 119
+          },
+          {
+            "const": 120
+          },
+          {
+            "const": 121
+          },
+          {
+            "const": 122
+          },
+          {
+            "const": 123
+          },
+          {
+            "const": 124
+          },
+          {
+            "const": 125
+          },
+          {
+            "const": 126
+          },
+          {
+            "const": 127
+          },
+          {
+            "const": 128
+          }
+        ],
+        "unit": {
+          "text": "MHz",
+          "factor": "1/1000000"
+        },
+        "block": "Pll1",
+        "orphanLink": {
+          "label": "PLL1Q",
+          "isOrphan": true
+        },
+        "size": {
+          "width": 112,
+          "height": 78.44444465637207
+        },
+        "outputClockId": "pll1q_ck"
+      },
+      {
+        "id": "PLL1R",
+        "type": "divider",
+        "label": {
+          "align": "top",
+          "text": "PLL1R"
+        },
+        "default": 1,
+        "value": 1,
+        "description": "",
+        "outputTargets": [
+          "ICLK1DIV"
+        ],
+        "position": {
+          "x": 789.1599773893644,
+          "y": 790.3067981331166
+        },
+        "oneOf": [
+          {
+            "const": 1
+          },
+          {
+            "const": 2
+          },
+          {
+            "const": 4
+          },
+          {
+            "const": 6
+          },
+          {
+            "const": 8
+          },
+          {
+            "const": 10
+          },
+          {
+            "const": 12
+          },
+          {
+            "const": 14
+          },
+          {
+            "const": 16
+          },
+          {
+            "const": 18
+          },
+          {
+            "const": 20
+          },
+          {
+            "const": 22
+          },
+          {
+            "const": 24
+          },
+          {
+            "const": 26
+          },
+          {
+            "const": 28
+          },
+          {
+            "const": 30
+          },
+          {
+            "const": 32
+          },
+          {
+            "const": 34
+          },
+          {
+            "const": 36
+          },
+          {
+            "const": 38
+          },
+          {
+            "const": 40
+          },
+          {
+            "const": 42
+          },
+          {
+            "const": 44
+          },
+          {
+            "const": 46
+          },
+          {
+            "const": 48
+          },
+          {
+            "const": 50
+          },
+          {
+            "const": 52
+          },
+          {
+            "const": 54
+          },
+          {
+            "const": 56
+          },
+          {
+            "const": 58
+          },
+          {
+            "const": 60
+          },
+          {
+            "const": 62
+          },
+          {
+            "const": 64
+          },
+          {
+            "const": 66
+          },
+          {
+            "const": 68
+          },
+          {
+            "const": 70
+          },
+          {
+            "const": 72
+          },
+          {
+            "const": 74
+          },
+          {
+            "const": 76
+          },
+          {
+            "const": 78
+          },
+          {
+            "const": 80
+          },
+          {
+            "const": 82
+          },
+          {
+            "const": 84
+          },
+          {
+            "const": 86
+          },
+          {
+            "const": 88
+          },
+          {
+            "const": 90
+          },
+          {
+            "const": 92
+          },
+          {
+            "const": 94
+          },
+          {
+            "const": 96
+          },
+          {
+            "const": 98
+          },
+          {
+            "const": 100
+          },
+          {
+            "const": 102
+          },
+          {
+            "const": 104
+          },
+          {
+            "const": 106
+          },
+          {
+            "const": 108
+          },
+          {
+            "const": 110
+          },
+          {
+            "const": 112
+          },
+          {
+            "const": 114
+          },
+          {
+            "const": 116
+          },
+          {
+            "const": 118
+          },
+          {
+            "const": 120
+          },
+          {
+            "const": 122
+          },
+          {
+            "const": 124
+          },
+          {
+            "const": 126
+          },
+          {
+            "const": 128
+          }
+        ],
+        "unit": {
+          "text": "MHz",
+          "factor": "1/1000000"
+        },
+        "block": "Pll1",
+        "size": {
+          "width": 112,
+          "height": 78.44444465637207
+        },
+        "outputClockId": "pll1r_ck"
+      },
+      {
+        "id": "ICLK1DIV",
+        "type": "divider",
+        "label": {
+          "align": "top",
+          "text": "ICLK1 Div"
+        },
+        "default": 3,
+        "value": 3,
+        "description": "",
+        "outputTargets": [
+          "USART1_Clock_Source",
+          "USART2_Clock_Source",
+          "UART4_Clock_Source",
+          "UART5_Clock_Source",
+          "SPI1_Clock_Source",
+          "SPI2_Clock_Source",
+          "I2C1_Clock_Source",
+          "I2C2_Clock_Source",
+          "I3C1_Clock_Source",
+          "ADC_Clock_Source",
+          "LPUART1_Clock_Source"
+        ],
+        "position": {
+          "x": 946.12254423019,
+          "y": 790.3067981331166
+        },
+        "oneOf": [
+          {
+            "const": 3
+          },
+          {
+            "const": 5
+          }
+        ],
+        "unit": {
+          "factor": "1/1000000",
+          "text": "MHz"
+        },
+        "role": "",
+        "block": "",
+        "orphanLink": {
+          "label": "IC1",
+          "isOrphan": true
+        },
+        "isTrustZone": false,
+        "size": {
+          "width": 124,
+          "height": 84
+        },
+        "outputClockId": "iclk1_div_ck"
+      },
+      {
+        "id": "System_Clock_Frequency",
+        "type": "editableValue",
+        "label": {
+          "align": "top",
+          "text": "System Clock"
+        },
+        "default": 64000000,
+        "value": 64000000,
+        "description": "",
+        "outputTargets": [
+          "HPRE",
+          "MCO2_Clock_Source"
+        ],
+        "position": {
+          "x": 1030.7499062751851,
+          "y": 322.78316231415823
+        },
+        "unit": {
+          "text": "MHz",
+          "factor": "1/1000000"
+        },
+        "max": 280000000,
+        "role": "Sysclk",
+        "block": "System",
+        "size": {
+          "width": 166.2890625,
+          "height": 95
+        },
+        "outputClockId": "sys_ck"
+      },
+      {
+        "id": "LPUART1_Clock_Source",
+        "type": "multiplexor",
+        "label": {
+          "align": "top",
+          "text": "LPUART1 Mux"
+        },
+        "default": "APB3_Peripheral_Clock_inputid",
+        "value": 0,
+        "description": "",
+        "outputTargets": [
+          "LPUART1_Input_Clock"
+        ],
+        "position": {
+          "x": 2059.099284882993,
+          "y": 493.57372052523374
+        },
+        "clocked_instance": [
+          "LPUART1"
+        ],
+        "possible_Input": [
+          {
+            "label": "PCLK3",
+            "description": "",
+            "input_Id": "APB3_Peripheral_Clock_inputid",
+            "from": "APB3_Peripheral_Clock"
+          },
+          {
+            "label": "IC1",
+            "description": "",
+            "input_Id": "ICLK1DIV_inputid",
+            "from": "ICLK1DIV"
+          },
+          {
+            "label": "HSE",
+            "description": "",
+            "input_Id": "HSE_inputid",
+            "from": "HSE"
+          },
+          {
+            "label": "HSI DIV",
+            "description": "",
+            "input_Id": "HSIDIV_inputid",
+            "from": "HSIDIV"
+          },
+          {
+            "label": "LSE",
+            "description": "",
+            "input_Id": "LSE_inputid",
+            "from": "LSE"
+          }
+        ],
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 152.244140625,
+          "height": 212
+        },
+        "outputClockId": "lpuart1_mux_ck"
+      },
+      {
+        "id": "AUDIO_Source",
+        "type": "variableSource",
+        "label": {
+          "align": "top",
+          "text": "Audio Clock input"
+        },
+        "default": 4800,
+        "value": 4800,
+        "description": "",
+        "outputTargets": [
+          "SPI1_Clock_Source",
+          "SPI2_Clock_Source"
+        ],
+        "position": {
+          "x": 303.83663880713493,
+          "y": 1216.5150521482842
+        },
+        "unit": {
+          "text": "kHz",
+          "factor": "1/1000"
+        },
+        "actions": [
+          {
+            "type": "enable",
+            "message": "Audio clock is not yet configured, Activate the RCC ip and enable the related parameter to enable this clock",
+            "condition": "$get('pinout.isSignalAllocated','RCC_AUDIOCLK') "
+          }
+        ],
+        "role": "AUDIO",
+        "block": "OSCILLATOR",
+        "size": {
+          "width": 104.07367706298828,
+          "height": 42.049896240234375
+        },
+        "outputClockId": "audio_ck"
+      },
+      {
+        "id": "LPTIM1_Clock_Source",
+        "type": "multiplexor",
+        "label": {
+          "align": "top",
+          "text": "LPTIM1 Mux"
+        },
+        "default": "APB3_Peripheral_Clock_inputid",
+        "value": 0,
+        "description": "",
+        "outputTargets": [
+          "LPTIM1_Input_Clock"
+        ],
+        "position": {
+          "x": 2521.0857617272354,
+          "y": 127.87992713711446
+        },
+        "clocked_instance": [
+          "LPTIM1"
+        ],
+        "possible_Input": [
+          {
+            "label": "PCLK3",
+            "description": "",
+            "input_Id": "APB3_Peripheral_Clock_inputid",
+            "from": "APB3_Peripheral_Clock"
+          },
+          {
+            "label": "PLL1Q",
+            "description": "",
+            "input_Id": "PLL1Q_inputid",
+            "from": "PLL1Q"
+          },
+          {
+            "label": "HSE",
+            "description": "",
+            "input_Id": "HSE_inputid",
+            "from": "HSE"
+          },
+          {
+            "label": "HSI DIV",
+            "description": "",
+            "input_Id": "HSIDIV_inputid",
+            "from": "HSIDIV"
+          },
+          {
+            "label": "LSI",
+            "description": "",
+            "input_Id": "LSI_inputid",
+            "from": "LSI"
+          },
+          {
+            "label": "LSE",
+            "description": "",
+            "input_Id": "LSE_inputid",
+            "from": "LSE"
+          }
+        ],
+        "role": "",
+        "block": "",
+        "isTrustZone": false,
+        "size": {
+          "width": 134.41357421875,
+          "height": 242
+        },
+        "outputClockId": "lptim1_mux_ck"
+      },
+      {
+        "id": "PLL1FRACN",
+        "type": "fractionalValue",
+        "label": {
+          "align": "top",
+          "text": "PLL1 Fractional part"
+        },
+        "default": 0,
+        "value": 0,
+        "description": "PLL1 Fractional Part",
+        "outputTargets": [
+          "PLL1N"
+        ],
+        "position": {
+          "x": 635.4109777916062,
+          "y": 791.8331248651964
+        },
+        "min": 0,
+        "max": 8191,
+        "block": "Pll1",
+        "size": {
+          "width": 26.222222328186035,
+          "height": 32.44444465637207
+        },
+        "outputClockId": "PLL1FRACN_ck",
+        "multiplicatorFactor": [
+          "PLL1N"
+        ],
+        "fracDivisor": {
+          "base": 2,
+          "power": 13
+        }
+      }
+    ],
+    "transitions": [
+      {
+        "id": "d934ec6e-9966-4490-90e1-d4b3686b3cf5",
+        "sourceTaskId": "RTC_Clock_Source_output",
+        "targetTaskId": "RTC_Input_Clock_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "d16a234e-8457-46a4-ad20-3d3614122227",
+        "sourceTaskId": "LSI_output",
+        "targetTaskId": "RTC_Clock_Source__LSI_input",
+        "transitionRoutingPoint": [
+          {
+            "kind": "linear",
+            "x": 747.9253256560953,
+            "y": 8.072273867590127,
+            "pointIndex": 0
+          },
+          {
+            "kind": "linear",
+            "x": 747.9253256560953,
+            "y": 113.22267401180581,
+            "pointIndex": 1
+          }
+        ]
+      },
+      {
+        "id": "e3fab162-c2de-4786-940e-4e69132dce7b",
+        "sourceTaskId": "LSE_output",
+        "targetTaskId": "RTC_Clock_Source__LSE_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "f1870784-fbca-4860-aaab-54f59d7ef188",
+        "sourceTaskId": "HSE_output",
+        "targetTaskId": "HSEDIV_input",
+        "transitionRoutingPoint": [
+          {
+            "kind": "linear",
+            "x": 559.1826924306159,
+            "y": 250.84380026697082,
+            "pointIndex": 0
+          },
+          {
+            "kind": "linear",
+            "x": 559.5316494198076,
+            "y": 140.87616300733137,
+            "pointIndex": 1
+          }
+        ]
+      },
+      {
+        "id": "0b124ccb-6399-4d22-9444-75bfe1cc8e76",
+        "sourceTaskId": "HPRE_output",
+        "targetTaskId": "HPRE_DIV8_input",
+        "transitionRoutingPoint": [
+          {
+            "kind": "linear",
+            "x": 1325.1743564930885,
+            "y": 370.6164958064373,
+            "pointIndex": 0
+          },
+          {
+            "kind": "linear",
+            "x": 1325.1743564930885,
+            "y": -2.146819363333485,
+            "pointIndex": 1
+          }
+        ]
+      },
+      {
+        "id": "df2ae638-f3ee-473a-8585-233a301a1aaa",
+        "sourceTaskId": "HPRE_output",
+        "targetTaskId": "RCC_CPU_Input_Clock_input",
+        "transitionRoutingPoint": [
+          {
+            "kind": "linear",
+            "x": 1325.1743564930885,
+            "y": 370.6164958064373,
+            "pointIndex": 0
+          },
+          {
+            "kind": "linear",
+            "x": 1325.1743564930885,
+            "y": 44.56149054553575,
+            "pointIndex": 1
+          }
+        ]
+      },
+      {
+        "id": "0056f51e-aed8-4f97-beca-da8cd0a1bc16",
+        "sourceTaskId": "HPRE_output",
+        "targetTaskId": "HCLKM_Input_Clock_input",
+        "transitionRoutingPoint": [
+          {
+            "kind": "linear",
+            "x": 1325.1743564930885,
+            "y": 370.6164958064373,
+            "pointIndex": 0
+          },
+          {
+            "kind": "linear",
+            "x": 1325.1743564930885,
+            "y": 119.86297670729746,
+            "pointIndex": 1
+          }
+        ]
+      },
+      {
+        "id": "09bcad00-76eb-4c85-8a2f-3807c8ce8fe5",
+        "sourceTaskId": "HPRE_output",
+        "targetTaskId": "AHB1_Peripheral_Clock_input",
+        "transitionRoutingPoint": [
+          {
+            "kind": "linear",
+            "x": 1325.1743564930885,
+            "y": 370.6164958064373,
+            "pointIndex": 0
+          },
+          {
+            "kind": "linear",
+            "x": 1325.1743564930885,
+            "y": 194.23467132251582,
+            "pointIndex": 1
+          }
+        ]
+      },
+      {
+        "id": "c1f5ce39-7191-4e2b-9261-2865123e725d",
+        "sourceTaskId": "HPRE_output",
+        "targetTaskId": "APB1_Clock_Divider_input",
+        "transitionRoutingPoint": [
+          {
+            "kind": "linear",
+            "x": 1325.1743564930885,
+            "y": 370.6164958064373,
+            "pointIndex": 0
+          },
+          {
+            "kind": "linear",
+            "x": 1325.1743564930885,
+            "y": 270.4060354291414,
+            "pointIndex": 1
+          }
+        ]
+      },
+      {
+        "id": "6d79cb5f-ca07-4bb8-8764-ba15c4de2bbb",
+        "sourceTaskId": "HPRE_output",
+        "targetTaskId": "TIMx_Input_Clock_input",
+        "transitionRoutingPoint": [
+          {
+            "kind": "linear",
+            "x": 1325.1743564930885,
+            "y": 370.6164958064373,
+            "pointIndex": 0
+          },
+          {
+            "kind": "linear",
+            "x": 1325.1243564930885,
+            "y": 411.5054814244564,
+            "pointIndex": 1
+          }
+        ]
+      },
+      {
+        "id": "436ede30-b647-4a4a-892f-8daf10dbc89c",
+        "sourceTaskId": "HPRE_output",
+        "targetTaskId": "APB2_Clock_Divider_input",
+        "transitionRoutingPoint": [
+          {
+            "kind": "linear",
+            "x": 1325.1743564930885,
+            "y": 370.6164958064373,
+            "pointIndex": 0
+          },
+          {
+            "kind": "linear",
+            "x": 1325.1243564930883,
+            "y": 555.4087779879484,
+            "pointIndex": 1
+          }
+        ]
+      },
+      {
+        "id": "782e2591-92a4-4dab-b2a3-e6116ffb8cd6",
+        "sourceTaskId": "HPRE_output",
+        "targetTaskId": "TIMy_Input_Clocks_input",
+        "transitionRoutingPoint": [
+          {
+            "kind": "linear",
+            "x": 1325.1743564930885,
+            "y": 370.6164958064373,
+            "pointIndex": 0
+          },
+          {
+            "kind": "linear",
+            "x": 1325.1243564930885,
+            "y": 629.4126295687917,
+            "pointIndex": 1
+          }
+        ]
+      },
+      {
+        "id": "79ce40f8-cc13-485d-96b5-56e5a626bdf6",
+        "sourceTaskId": "HPRE_output",
+        "targetTaskId": "AHB3_Peripheral_Clock_input",
+        "transitionRoutingPoint": [
+          {
+            "kind": "linear",
+            "x": 1325.1743564930885,
+            "y": 370.6164958064373,
+            "pointIndex": 0
+          },
+          {
+            "kind": "linear",
+            "x": 1325.1052129084626,
+            "y": 778.9043952248121,
+            "pointIndex": 1
+          }
+        ]
+      },
+      {
+        "id": "ad360332-707a-41e2-b066-4a6780b381c2",
+        "sourceTaskId": "HPRE_output",
+        "targetTaskId": "APB3_Clock_Divider_input",
+        "transitionRoutingPoint": [
+          {
+            "kind": "linear",
+            "x": 1325.1743564930885,
+            "y": 370.6164958064373,
+            "pointIndex": 0
+          },
+          {
+            "kind": "linear",
+            "x": 1325.036069323837,
+            "y": 854.2405210455172,
+            "pointIndex": 1
+          }
+        ]
+      },
+      {
+        "id": "08705be3-5aba-44fd-b77f-be16df97bb26",
+        "sourceTaskId": "HPRE_output",
+        "targetTaskId": "AHB5_Peripheral_Clock_input",
+        "transitionRoutingPoint": [
+          {
+            "kind": "linear",
+            "x": 1325.1743564930885,
+            "y": 370.6164958064373,
+            "pointIndex": 0
+          },
+          {
+            "kind": "linear",
+            "x": 1325.1743564930885,
+            "y": 1002.9391800279348,
+            "pointIndex": 1
+          }
+        ]
+      },
+      {
+        "id": "36cf0305-4add-40ed-9d53-b9a965449efa",
+        "sourceTaskId": "HPRE_output",
+        "targetTaskId": "AHB4_Peripheral_Clock_input",
+        "transitionRoutingPoint": [
+          {
+            "kind": "linear",
+            "x": 1325.1743564930882,
+            "y": 370.2664958064373,
+            "pointIndex": 0
+          },
+          {
+            "kind": "linear",
+            "x": 1325.1243564930885,
+            "y": 927.6689811644898,
+            "pointIndex": 1
+          }
+        ]
+      },
+      {
+        "id": "92966838-848b-458c-a86d-0666103d8b79",
+        "sourceTaskId": "HPRE_DIV8_output",
+        "targetTaskId": "SYSTICKSEL__HPRE_DIV8_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "ec528d80-fa9b-4840-858f-20cea02fa664",
+        "sourceTaskId": "SYSTICKSEL_output",
+        "targetTaskId": "CPU_Input_Clock_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "811d60d2-45c2-4a5d-9b0b-a28c998edf59",
+        "sourceTaskId": "APB1_Clock_Divider_output",
+        "targetTaskId": "APB1_Peripheral_Clock_input",
+        "endLabel": "PCLK1",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "1b271aa3-2512-4007-b9f8-d89a4aa844d7",
+        "sourceTaskId": "APB2_Clock_Divider_output",
+        "targetTaskId": "APB2_Peripheral_Clock_input",
+        "endLabel": "PCLK2",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "f26f0471-0ae2-46f2-9b33-8082eb26cea8",
+        "sourceTaskId": "HRTPRE_output",
+        "targetTaskId": "HRTIM1_Input_Clock_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "25e40342-e517-4eeb-96d2-17c1aa988758",
+        "sourceTaskId": "APB3_Clock_Divider_output",
+        "targetTaskId": "APB3_Peripheral_Clock_input",
+        "endLabel": "PCLK3",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "7ecdcbd2-8dae-432c-8ab2-77ce3da067d6",
+        "sourceTaskId": "System_Clock_Source_output",
+        "targetTaskId": "System_Clock_Frequency_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "09a8bb59-0aba-4500-9b40-3e404c41dae1",
+        "sourceTaskId": "System_Clock_Source_output",
+        "targetTaskId": "HRTPRE_input",
+        "transitionRoutingPoint": [
+          {
+            "kind": "linear",
+            "x": 1023.2112208259175,
+            "y": 370.2887478367652,
+            "pointIndex": 0
+          },
+          {
+            "kind": "linear",
+            "x": 1023.2112208259176,
+            "y": 703.5884750609347,
+            "pointIndex": 1
+          }
+        ]
+      },
+      {
+        "id": "1f660064-189f-41d8-add5-6bc363397746",
+        "sourceTaskId": "System_Clock_Frequency_output",
+        "targetTaskId": "HPRE_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "4847f089-4953-4530-adee-dee4b5b69185",
+        "sourceTaskId": "HSI_output",
+        "targetTaskId": "HSIDIV_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "b47a4572-0be3-44f2-8768-2363e96d43b0",
+        "sourceTaskId": "HSI_output",
+        "targetTaskId": "HSI_comp_Div_input",
+        "transitionRoutingPoint": [
+          {
+            "kind": "linear",
+            "x": 540.9339376462481,
+            "y": 335.701231351763,
+            "pointIndex": 0
+          },
+          {
+            "kind": "linear",
+            "x": 540.833937646248,
+            "y": 430.4962745790855,
+            "pointIndex": 1
+          }
+        ]
+      },
+      {
+        "id": "d6ed5d0e-9697-4e07-8c9a-fc493b8e1b9a",
+        "sourceTaskId": "HSI_output",
+        "targetTaskId": "HSI_DIV2_input",
+        "transitionRoutingPoint": [
+          {
+            "kind": "linear",
+            "x": 540.9339376462481,
+            "y": 335.651231351763,
+            "pointIndex": 0
+          },
+          {
+            "kind": "linear",
+            "x": 540.9339376462481,
+            "y": 525.3171065010456,
+            "pointIndex": 1
+          }
+        ]
+      },
+      {
+        "id": "ab9e00c8-03d9-4a33-ba44-428cae97e473",
+        "sourceTaskId": "HSIDIV_output",
+        "targetTaskId": "HSI_CAL_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "8cf9f076-51e6-4543-aced-82b56d6a0edf",
+        "sourceTaskId": "PLL1_Clock_Source_output",
+        "targetTaskId": "PLL1M_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "8c6a6b30-2a45-4a6b-89fd-26e5e7bd8403",
+        "sourceTaskId": "PLL1M_output",
+        "targetTaskId": "PLL1N_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "6f7c4755-c673-449a-9699-8748f89c502d",
+        "sourceTaskId": "PLL1N_output",
+        "targetTaskId": "PLL1P_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "dc3ded51-0213-43d1-a94c-c1aa8e27e2c1",
+        "sourceTaskId": "PLL1N_output",
+        "targetTaskId": "PLL1Q_input",
+        "transitionRoutingPoint": [
+          {
+            "kind": "linear",
+            "x": 783.7800914478853,
+            "y": 662.3686508430404,
+            "pointIndex": 0
+          },
+          {
+            "kind": "linear",
+            "x": 783.6800914478853,
+            "y": 747.1403039724822,
+            "pointIndex": 1
+          }
+        ]
+      },
+      {
+        "id": "e664c98f-7905-4abf-a0bd-2428dd4ea4c7",
+        "sourceTaskId": "PLL1N_output",
+        "targetTaskId": "PLL1R_input",
+        "transitionRoutingPoint": [
+          {
+            "kind": "linear",
+            "x": 783.7800914478853,
+            "y": 662.3686508430404,
+            "pointIndex": 0
+          },
+          {
+            "kind": "linear",
+            "x": 783.7800914478853,
+            "y": 832.1401316253956,
+            "pointIndex": 1
+          }
+        ]
+      },
+      {
+        "id": "243e9b66-2144-4c77-96d9-0091cf594f0e",
+        "sourceTaskId": "PLL1R_output",
+        "targetTaskId": "ICLK1DIV_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "2c2363d4-e0d7-474c-b399-df76ce9b7d3c",
+        "sourceTaskId": "PLL1P_output",
+        "targetTaskId": "System_Clock_Source__PLL1P_input",
+        "transitionRoutingPoint": [
+          {
+            "kind": "linear",
+            "x": 948.0588687070285,
+            "y": 662.3686508430404,
+            "pointIndex": 0
+          },
+          {
+            "kind": "linear",
+            "x": 948.0588687070285,
+            "y": 399.91085978850094,
+            "pointIndex": 1
+          }
+        ]
+      },
+      {
+        "id": "7c2f8421-d6f9-40fd-b06b-dbb365fd3808",
+        "sourceTaskId": "LPTIM1_Clock_Source_output",
+        "targetTaskId": "LPTIM1_Input_Clock_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "de518b0f-5e49-49c8-977a-d6e3113dd848",
+        "sourceTaskId": "FDCAN_Clock_Source_output",
+        "targetTaskId": "FDCAN_Input_Clock_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "806864c8-2bb8-42d3-8e3a-491c15c960d7",
+        "sourceTaskId": "SPI1_Clock_Source_output",
+        "targetTaskId": "SPI1_Input_Clock_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "3453c438-94c6-4d42-9fa4-982a2a2ba265",
+        "sourceTaskId": "SPI2_Clock_Source_output",
+        "targetTaskId": "SPI2_Input_Clock_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "c087f970-9f90-4142-8ba1-416af59794a5",
+        "sourceTaskId": "I3C1_Clock_Source_output",
+        "targetTaskId": "I3C1_Input_Clock_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "6943a72a-c7ba-4cc0-b114-595c66c5a032",
+        "sourceTaskId": "I2C2_Clock_Source_output",
+        "targetTaskId": "I2C2_Input_Clock_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "6f5c31ba-f00f-4fa2-9f54-6129a9003b21",
+        "sourceTaskId": "I2C1_Clock_Source_output",
+        "targetTaskId": "I2C1_Input_Clock_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "a4d5fc8c-b638-450a-b320-e1505021d873",
+        "sourceTaskId": "LPUART1_Clock_Source_output",
+        "targetTaskId": "LPUART1_Input_Clock_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "9b300389-bc9b-42e4-b7b6-1631d5e88c26",
+        "sourceTaskId": "UART5_Clock_Source_output",
+        "targetTaskId": "UART5_Input_Clock_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "e3b0c7fc-b2ae-44f5-92ba-95ed67e584ea",
+        "sourceTaskId": "UART4_Clock_Source_output",
+        "targetTaskId": "UART4_Input_Clock_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "1fadbde0-39d7-436f-89a4-28678c02eb39",
+        "sourceTaskId": "USART2_Clock_Source_output",
+        "targetTaskId": "USART2_Input_Clock_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "f3fdecbf-8a44-4c27-a8de-8e5035fda202",
+        "sourceTaskId": "USART1_Clock_Source_output",
+        "targetTaskId": "USART1_Input_Clock_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "04ecdac7-5c53-483c-a907-8f27ab33eae6",
+        "sourceTaskId": "ADC_Clock_Source_output",
+        "targetTaskId": "ADCDIV_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "7c83785b-460e-49be-a8ab-14a7bd58fc03",
+        "sourceTaskId": "ADCDIV_output",
+        "targetTaskId": "ADC12_Input_Clock_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "f6adc362-7e1d-4465-bd21-0acdbeea1053",
+        "sourceTaskId": "DAC5_Clock_Source_output",
+        "targetTaskId": "DAC5_Input_Clock_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "a95c57cb-463e-4638-85ba-742b521c96e2",
+        "sourceTaskId": "DAC6_Clock_Source_output",
+        "targetTaskId": "DAC6_Input_Clock_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "ebd8d357-68c6-4d9b-98d4-6b561e52393d",
+        "sourceTaskId": "DAC7_Clock_Source_output",
+        "targetTaskId": "DAC7_Input_Clock_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "b2ff1d91-085e-4c03-8135-5f6376e19eeb",
+        "sourceTaskId": "DAC8_Clock_Source_output",
+        "targetTaskId": "DAC8_Input_Clock_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "d6cd3c8e-5734-4970-88a7-84a942523df5",
+        "sourceTaskId": "DAC9_Clock_Source_output",
+        "targetTaskId": "DAC9_Input_Clock_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "3188eca8-6d4a-4c01-bbca-ecb1ac521188",
+        "sourceTaskId": "DAC10_Clock_Source_output",
+        "targetTaskId": "DAC10_Input_Clock_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "d92698d7-f3b9-4b98-9927-808fb96f7578",
+        "sourceTaskId": "DAC1_Clock_Source_output",
+        "targetTaskId": "DAC1_Input_Clock_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "fad24c5a-2871-4749-a453-eebc4404e295",
+        "sourceTaskId": "DAC2_Clock_Source_output",
+        "targetTaskId": "DAC2_Input_Clock_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "fe6fa5c9-1ab7-4e87-bb14-7a96dd700c51",
+        "sourceTaskId": "DAC1SH_Clock_Source_output",
+        "targetTaskId": "DAC1SH_Input_Clock_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "ad1e31b3-5078-4de2-8c7f-6d740bf93c3e",
+        "sourceTaskId": "DAC2SH_Clock_Source_output",
+        "targetTaskId": "DAC2SH_Input_Clock_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "976de1ab-cfba-4603-b05c-8b38b33469fc",
+        "sourceTaskId": "AUDIO_Source_output",
+        "targetTaskId": "SPI1_Clock_Source__AUDIO_Source_input",
+        "transitionRoutingPoint": [
+          {
+            "kind": "linear",
+            "x": 1935.738726830448,
+            "y": 1258.3483856405633,
+            "pointIndex": 0
+          },
+          {
+            "kind": "linear",
+            "x": 1936.100810405746,
+            "y": 748.278700554778,
+            "pointIndex": 1
+          }
+        ]
+      },
+      {
+        "id": "58d38db0-9b85-4b6c-b50b-b84c750bfc02",
+        "sourceTaskId": "HSEDIV_output",
+        "targetTaskId": "RTC_Clock_Source__HSEDIV_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "73d42359-459b-42d9-86de-256af3785d94",
+        "sourceTaskId": "MCO1_Clock_Source_output",
+        "targetTaskId": "MCO1_div_Clock_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "0b35c5bf-99e7-4a8c-b5a8-0bdc5404fc34",
+        "sourceTaskId": "MCO1_div_Clock_output",
+        "targetTaskId": "MCO1_Input_Source_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "ef36e434-7d21-4681-8752-292906e50ebd",
+        "sourceTaskId": "MCO2_Clock_Source_output",
+        "targetTaskId": "MCO2_div_Clock_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "3026772a-ec4e-4d9d-b67e-265be218e25d",
+        "sourceTaskId": "MCO2_div_Clock_output",
+        "targetTaskId": "MCO2_Input_Source_input",
+        "transitionRoutingPoint": []
+      },
+      {
+        "id": "8c8d6d03-e343-44d4-9827-4ece7abd13d0",
+        "sourceTaskId": "HPRE_output",
+        "targetTaskId": "TIMz_Input_Clock_input",
+        "isVirtual": false,
+        "transitionRoutingPoint": [
+          {
+            "kind": "linear",
+            "x": 1325.1743564930885,
+            "y": 370.6164958064373,
+            "pointIndex": 0
+          },
+          {
+            "kind": "linear",
+            "x": 1325.1243564930885,
+            "y": 344.08266454296097,
+            "pointIndex": 1
+          }
+        ]
+      }
+    ]
+  },
+  "version": "4.0.0"
+}

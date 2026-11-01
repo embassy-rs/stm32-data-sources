@@ -25,3 +25,10 @@ Copyrights statements for [stm32c5xx_DFP]
 	Copyright (c) 2026 STMicroelectronics.
 	
 <!-- End of Copyrights statements for [stm32c5xx_DFP]-->
+
+<!-- Copyrights statements for [stm32g5xx_DFP]-->
+Copyrights statements for [stm32g5xx_DFP]
+
+	Copyright (c) 2026 STMicroelectronics.
+
+<!-- End of Copyrights statements for [stm32g5xx_DFP]-->
