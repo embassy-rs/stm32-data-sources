@@ -3133,9 +3133,6 @@ typedef struct
 #define FLASH_SR_CFGBSY_Pos                    (18U)
 #define FLASH_SR_CFGBSY_Msk                    (0x1UL << FLASH_SR_CFGBSY_Pos)   /*!< 0x00040000 */
 #define FLASH_SR_CFGBSY                        FLASH_SR_CFGBSY_Msk
-#define FLASH_SR_PESD_Pos                      (19U)
-#define FLASH_SR_PESD_Msk                      (0x1UL << FLASH_SR_PESD_Pos)   /*!< 0x00080000 */
-#define FLASH_SR_PESD                          FLASH_SR_PESD_Msk
 
 /*******************  Bits definition for FLASH_CR register  ******************/
 #define FLASH_CR_PG_Pos                        (0U)
@@ -5157,6 +5154,12 @@ typedef struct
 #define RCC_CFGR_SW_1                  (0x2UL << RCC_CFGR_SW_Pos)              /*!< 0x00000002 */
 #define RCC_CFGR_SW_2                  (0x4UL << RCC_CFGR_SW_Pos)              /*!< 0x00000004 */
 
+#define RCC_CFGR_SW_HSISYS             (0x00000000UL)                          /*!< HSISYS oscillator selection as system clock */
+#define RCC_CFGR_SW_HSE                (0x00000001UL)                          /*!< HSE oscillator selection as system clock */
+#define RCC_CFGR_SW_PLLRCLK            (0x00000002UL)                          /*!< PLLRCLK selection as system clock */
+#define RCC_CFGR_SW_LSI                (0x00000003UL)                          /*!< LSI oscillator selection as system clock */
+#define RCC_CFGR_SW_LSE                (0x00000004UL)                          /*!< LSE oscillator selection as system clock */
+
 /*!< SWS configuration */
 #define RCC_CFGR_SWS_Pos               (3U)
 #define RCC_CFGR_SWS_Msk               (0x7UL << RCC_CFGR_SWS_Pos)             /*!< 0x00000038 */
@@ -5164,6 +5167,12 @@ typedef struct
 #define RCC_CFGR_SWS_0                 (0x1UL << RCC_CFGR_SWS_Pos)             /*!< 0x00000008 */
 #define RCC_CFGR_SWS_1                 (0x2UL << RCC_CFGR_SWS_Pos)             /*!< 0x00000010 */
 #define RCC_CFGR_SWS_2                 (0x4UL << RCC_CFGR_SWS_Pos)             /*!< 0x00000020 */
+
+#define RCC_CFGR_SWS_HSISYS            (0x00000000UL)                          /*!< HSISYS used as system clock */
+#define RCC_CFGR_SWS_HSE               (0x00000008UL)                          /*!< HSE used as system clock */
+#define RCC_CFGR_SWS_PLLRCLK           (0x00000010UL)                          /*!< PLLRCLK used as system clock */
+#define RCC_CFGR_SWS_LSI               (0x00000018UL)                          /*!< LSI used as system clock */
+#define RCC_CFGR_SWS_LSE               (0x00000100UL)                          /*!< LSE used as system clock */
 
 /*!< HPRE configuration */
 #define RCC_CFGR_HPRE_Pos              (8U)
@@ -5857,6 +5866,9 @@ typedef struct
 #define RTC_WAKEUP_SUPPORT
 #define RTC_BACKUP_SUPPORT
 #define RTC_TAMPER3_SUPPORT          /*!< TAMPER3 only available on some devices */
+#define RTC_TAMP_INT_NB        4u
+#define RTC_TAMP_NB            3u
+#define RTC_BACKUP_NB          5u
 
 /********************  Bits definition for RTC_TR register  *******************/
 #define RTC_TR_PM_Pos                (22U)
@@ -7683,7 +7695,7 @@ typedef struct
 
 /*******************  Bit definition for TIM_CCR5 register  *******************/
 #define TIM_CCR5_CCR5_Pos         (0U)
-#define TIM_CCR5_CCR5_Msk         (0xFFFFFFFFUL << TIM_CCR5_CCR5_Pos)          /*!< 0xFFFFFFFF */
+#define TIM_CCR5_CCR5_Msk         (0xFFFFUL << TIM_CCR5_CCR5_Pos)              /*!< 0xFFFF */
 #define TIM_CCR5_CCR5             TIM_CCR5_CCR5_Msk                            /*!<Capture/Compare 5 Value */
 #define TIM_CCR5_GC5C1_Pos        (29U)
 #define TIM_CCR5_GC5C1_Msk        (0x1UL << TIM_CCR5_GC5C1_Pos)                /*!< 0x20000000 */
