@@ -1120,22 +1120,18 @@ typedef struct
 
 typedef struct
 {
-  __IO uint32_t CR1;         /*!< USART Control register 1,                 Address offset: 0x00 */
-  __IO uint32_t CR2;         /*!< USART Control register 2,                 Address offset: 0x04 */
-  __IO uint32_t CR3;         /*!< USART Control register 3,                 Address offset: 0x08 */
-  __IO uint32_t BRR;         /*!< USART Baud rate register,                 Address offset: 0x0C */
-  __IO uint16_t GTPR;        /*!< USART Guard time and prescaler register,  Address offset: 0x10 */
-  uint16_t  RESERVED2;       /*!< Reserved, 0x12                                                 */
-  __IO uint32_t RTOR;        /*!< USART Receiver Time Out register,         Address offset: 0x14 */
-  __IO uint16_t RQR;         /*!< USART Request register,                   Address offset: 0x18 */
-  uint16_t  RESERVED3;       /*!< Reserved, 0x1A                                                 */
-  __IO uint32_t ISR;         /*!< USART Interrupt and status register,      Address offset: 0x1C */
-  __IO uint32_t ICR;         /*!< USART Interrupt flag Clear register,      Address offset: 0x20 */
-  __IO uint16_t RDR;         /*!< USART Receive Data register,              Address offset: 0x24 */
-  uint16_t  RESERVED4;       /*!< Reserved, 0x26                                                 */
-  __IO uint16_t TDR;         /*!< USART Transmit Data register,             Address offset: 0x28 */
-  uint16_t  RESERVED5;       /*!< Reserved, 0x2A                                                 */
-  __IO uint32_t PRESC;       /*!< USART Prescaler register,                 Address offset: 0x2C */
+  __IO uint32_t CR1;         /*!< USART Control register 1,                    Address offset: 0x00 */
+  __IO uint32_t CR2;         /*!< USART Control register 2,                    Address offset: 0x04 */
+  __IO uint32_t CR3;         /*!< USART Control register 3,                    Address offset: 0x08 */
+  __IO uint32_t BRR;         /*!< USART Baud rate register,                    Address offset: 0x0C */
+  __IO uint32_t GTPR;        /*!< USART Guard time and prescaler register,     Address offset: 0x10 */
+  __IO uint32_t RTOR;        /*!< USART Receiver Time Out register,            Address offset: 0x14 */
+  __IO uint32_t RQR;         /*!< USART Request register,                      Address offset: 0x18 */
+  __IO uint32_t ISR;         /*!< USART Interrupt and status register,         Address offset: 0x1C */
+  __IO uint32_t ICR;         /*!< USART Interrupt flag Clear register,         Address offset: 0x20 */
+  __IO uint32_t RDR;         /*!< USART Receive Data register,                 Address offset: 0x24 */
+  __IO uint32_t TDR;         /*!< USART Transmit Data register,                Address offset: 0x28 */
+  __IO uint32_t PRESC;       /*!< USART Prescaler register,                    Address offset: 0x2C */
 } USART_TypeDef;
 
 /**
@@ -1326,7 +1322,7 @@ typedef struct
 #define SRAM2_SIZE            (0x00010000UL) /*!< SRAM2 size (64 KBytes) */
 #define SRAM3_SIZE            (0x00060000UL) /*!< SRAM3 size (384 KBytes) */
 
-#define FLASH_SIZE_DATA_REGISTER ((uint32_t)0x1FFF75E0)
+#define FLASH_SIZE_DATA_REGISTER (0x1FFF75E0UL)
 
 #define FLASH_SIZE               (((((*((uint32_t *)FLASH_SIZE_DATA_REGISTER)) & (0x0000FFFFU)) == 0x0000FFFFU)) ? (0x800U << 10U) : \
                                   (((*((uint32_t *)FLASH_SIZE_DATA_REGISTER)) & (0x0000FFFFU)) << 10U))
@@ -8727,7 +8723,7 @@ typedef struct
 
 /*******************  Bits definition for FLASH_ECCR register  ***************/
 #define FLASH_ECCR_ADDR_ECC_Pos           (0U)
-#define FLASH_ECCR_ADDR_ECC_Msk           (0xFFFFFUL << FLASH_ECCR_ADDR_ECC_Pos) /*!< 0x000FFFFF */
+#define FLASH_ECCR_ADDR_ECC_Msk           (0x1FFFFFUL << FLASH_ECCR_ADDR_ECC_Pos) /*!< 0x001FFFFF */
 #define FLASH_ECCR_ADDR_ECC               FLASH_ECCR_ADDR_ECC_Msk
 #define FLASH_ECCR_BK_ECC_Pos             (21U)
 #define FLASH_ECCR_BK_ECC_Msk             (0x1UL << FLASH_ECCR_BK_ECC_Pos)     /*!< 0x00200000 */
@@ -16728,7 +16724,7 @@ typedef struct
 
 /*******************  Bit definition for TIM_CCR5 register  *******************/
 #define TIM_CCR5_CCR5_Pos         (0U)
-#define TIM_CCR5_CCR5_Msk         (0xFFFFFFFFUL << TIM_CCR5_CCR5_Pos)          /*!< 0xFFFFFFFF */
+#define TIM_CCR5_CCR5_Msk         (0xFFFFUL << TIM_CCR5_CCR5_Pos)              /*!< 0x0000FFFF */
 #define TIM_CCR5_CCR5             TIM_CCR5_CCR5_Msk                            /*!<Capture/Compare 5 Value */
 #define TIM_CCR5_GC5C1_Pos        (29U)
 #define TIM_CCR5_GC5C1_Msk        (0x1UL << TIM_CCR5_GC5C1_Pos)                /*!< 0x20000000 */
@@ -19012,6 +19008,9 @@ typedef struct
 #define USB_OTG_FRMNUM_1                         (0x2UL << USB_OTG_FRMNUM_Pos) /*!< 0x00400000 */
 #define USB_OTG_FRMNUM_2                         (0x4UL << USB_OTG_FRMNUM_Pos) /*!< 0x00800000 */
 #define USB_OTG_FRMNUM_3                         (0x8UL << USB_OTG_FRMNUM_Pos) /*!< 0x01000000 */
+#define USB_OTG_STSPHST_Pos                      (27U)
+#define USB_OTG_STSPHST_Msk                      (0x1UL << USB_OTG_STSPHST_Pos) /*!< 0x08000000 */
+#define USB_OTG_STSPHST                          USB_OTG_STSPHST_Msk            /*!< Status phase start */
 /* Host/Device mode */
 #define USB_OTG_BCNT_Pos                         (4U)
 #define USB_OTG_BCNT_Msk                         (0x7FFUL << USB_OTG_BCNT_Pos) /*!< 0x00007FF0 */
